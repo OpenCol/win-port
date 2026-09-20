@@ -13,6 +13,7 @@ import json, os, sys
 
 CASE = json.load(open(sys.argv[1]))
 SRC = sys.argv[2]
+DUMP = sys.argv[3] if len(sys.argv) > 3 else None
 sys.path.insert(0, os.path.join(SRC, 'tools', 're_agent'))
 sys.path.insert(0, os.path.join(SRC, 'tools'))
 import probe  # noqa: E402
@@ -70,6 +71,19 @@ def main():
                 out.add((seg, int(off, 16) + k))
         return out
 
+    if DUMP:
+        # The host's idea of "the shipped state" is the raw segment image; the emulator's
+        # is that image AFTER its startup has run, and the startup writes into DGROUP --
+        # a selector at 0x2ad8, and more. Any function that reads those bytes sees
+        # different memory on the two sides for a reason that is nothing to do with the
+        # port: append_period_spaces is a strcat, and one byte's difference in where the
+        # first NUL falls moves the whole copy. So the emulator's state is handed to the
+        # host rather than approximated.
+        import struct as _s
+        with open(DUMP, 'wb') as f:
+            for idx, (data, n) in sorted(pristine.items()):
+                f.write(_s.pack('<HI', idx, len(data)) + bytes(data))
+
     out = []
     for args in argsets:
         # TWO calls per argument set, and the second one is the one that counts.
@@ -96,6 +110,18 @@ def main():
             m.write(seg, off, bytes([v]))
             poison['%d:%04x' % (seg, off)] = v
         o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
+        second = written()
+        if second != first:
+            # The poison changed what the function DID, not just what it wrote over. That
+            # happens when the bytes it scans are the bytes it writes -- append_period_spaces
+            # is a strcat, and poisoning the terminator moves where the copy lands. For
+            # such a set the poison is not a sharper comparison, it is a different
+            # experiment, so it is dropped and the plain run is reported instead. The cost
+            # is the one this poison exists to remove: a write of a value already there is
+            # invisible again, for these arguments only.
+            restore()
+            o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
+            poison, first = {}, written()
         touched = {}
         for seg, off in sorted(first | written()):
             touched['%d:%04x' % (seg, off)] = m.read(seg, off, 1)[0]

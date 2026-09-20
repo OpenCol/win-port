@@ -6,6 +6,7 @@
  "prototype": "void unit_owner_set(col_i16 u, col_i16 n);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -13,5 +14,6 @@
  "call": "unit_owner_set((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_units"
- ]
+ ],
+ "near_callees": []
 }

@@ -6,6 +6,7 @@
  "prototype": "void clear_cell(col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=0..6",
   "1=0..7"
@@ -13,5 +14,6 @@
  "call": "clear_cell((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_cells"
- ]
+ ],
+ "near_callees": []
 }

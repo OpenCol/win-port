@@ -543,7 +543,7 @@ def port(path, force=False):
     for _t, _f in PLATFORM_FIELDS.items():
         if re.search(r'\b%s\b' % _t, blank):
             PLATFORM_MEMBERS |= _f
-    renames, casts, drop_typedefs, protos = {}, {}, [], []
+    renames, casts, drop_typedefs, protos, near_callees = {}, {}, [], [], []
     for t, tbody in typedefs.items():
         if t not in canon_of:
             continue          # types nothing shared: it stays, see above
@@ -614,6 +614,7 @@ def port(path, force=False):
         # Each dropped stub was also this file's only DECLARATION of that callee, so a
         # prototype has to replace it or the call compiles as implicit-int and the two
         # sides disagree about the return width.
+        near_callees.extend(d[0] for d in extras)
         for _n, _b, st, en in extras:
             m2 = DEF.search(blank_rest[st:en])
             if m2:
@@ -730,11 +731,20 @@ def port(path, force=False):
     ret = strip_quals(d.group('head')).strip()
     for c in CONV:
         ret = re.sub(r'\b%s\b' % c, '', ret).strip()
+    ret_is_ptr = ret.rstrip().endswith('*')
+    if ret_is_ptr:
+        # A returned far pointer is four bytes in DX:AX, which the 16-bit harness compares
+        # exactly. On a host it is a host pointer and comparing it means nothing, so the
+        # host case compares memory only and says so.
+        ret = 'void'
     if ret not in INTEGRAL:
         return None, 'returns %r, which the comparison cannot mask' % ret
-    if INTEGRAL[ret] == 0 and not dropped:
-        # Nothing to compare: no return value to mask and no global it could have written.
-        return None, 'returns void and touches no global this repo knows'
+    if INTEGRAL[ret] == 0 and not dropped and not any(t.endswith('*') for t, _ in params):
+        # Nothing to compare: no return value to mask, no global it could have written,
+        # and no pointer argument it could have written THROUGH. A pointer argument makes
+        # it comparable again, because the case stages the region behind it.
+        return None, 'returns void, touches no global this repo knows and takes no ' \
+                     'pointer it could write through'
 
     # col/globals.h gives an array-shaped global a POINTER form, because a global one file
     # indexes and another reads whole is indexable in the header and scalar at the site.
@@ -819,8 +829,13 @@ def port(path, force=False):
     for r in runtime:
         body_text = re.sub(r'\b%s\b' % r, RUNTIME[r][0], body_text)
     ported = retype(strip_quals(body_text)).strip()
-    sig = retype('%s %s%s(%s)' % (ret, (conv[0] + ' ') if conv else '', name,
-                                  ', '.join('%s %s' % p for p in params) or 'void'))
+    sig = retype('%s %s%s(%s)'
+                 % (strip_quals(d.group('head')).strip()
+                    if ret_is_ptr else ret,
+                    (conv[0] + ' ') if conv else '', name,
+                    ', '.join('%s %s' % p for p in params) or 'void'))
+    for c in CONV:
+        sig = re.sub(r'\b%s\b' % c, '', sig).strip() if ret_is_ptr and not conv else sig
     note = ['/* %s -- shipped at %s.' % (name, shipped.group(1)), ' *',
             ' * Ported by tools/port.py from %s.'
             % os.path.relpath(path, SRC_REPO), ' *']
@@ -854,6 +869,9 @@ def port(path, force=False):
                 'their own\n * translation units, joined by the linker. */\n'
                 + '\n'.join(sorted(set(protos))) + '\n\n')
     src += ported + '\n'
+    bad = compiles(src)
+    if bad:
+        return None, 'the port does not compile: %s' % bad
 
     args = ', '.join(callargs)
     case = {'what': 'ported by tools/port.py; compared against the shipped bytes',
@@ -861,15 +879,64 @@ def port(path, force=False):
             'source': 'src/%s/%s.c' % (os.path.basename(os.path.dirname(path)), name),
             'prototype': sig + ';',
             'state': 'shipped', 'ret_bits': INTEGRAL[ret],
+            # What the 16-bit harness compares, when it differs: a returned far pointer is
+            # a real 32-bit value there and meaningless on a host.
+            'ret_bits_emu': 32 if ret_is_ptr else INTEGRAL[ret],
             'sweep': sweeps, 'stage': stage,
-            'call': ('(long)%s(%s)' if INTEGRAL[ret] else '%s(%s)') % (name, args),
-            'globals_read': sorted({n for _, names in dropped for n in names})}
+            'call': ('(long)%s(%s)' if INTEGRAL[ret] else '(void)%s(%s)'
+                     if ret_is_ptr else '%s(%s)') % (name, args),
+            'globals_read': sorted({n for _, names in dropped for n in names}),
+            # Callees the SHIPPED code reaches with a four-byte PUSH CS / CALL NEAR from
+            # inside its own segment (rule 47). tests/emu_differential.py cannot run such
+            # a function: it loads the candidate in a selector of its own, so a far call
+            # to a near callee returns through the wrong kind of RET.
+            'near_callees': sorted(set(near_callees))}
+    # A forwarder: its whole body is one call to a callee the shipped code reaches with a
+    # near call. The host sees no effect of its own, and the 16-bit harness cannot place
+    # the candidate in the callee's segment, so NEITHER oracle can check it. Said here, so
+    # the suite can report it as unverified rather than as green or as a failure.
+    if near_callees and re.fullmatch(
+            r'\s*(?:return\s+)?\w+\s*\([^;{}]*\)\s*;\s*',
+            definitions(blank_comments(ported))[0][1] if definitions(
+                blank_comments(ported)) else 'x'):
+        case['unverifiable'] = ('a forwarder to %s, which the shipped code reaches with a '
+                                'near call: the host sees no effect of its own and the '
+                                '16-bit harness cannot place the candidate in that '
+                                'segment' % sorted(set(near_callees))[0])
     if not sweeps:
         case['call_args'] = ['0']
         del case['sweep']
     if not stage:
         del case['stage']
     return src, case
+
+
+def compiles(text):
+    """Does this port compile? Returns None, or the first error.
+
+    A port that does not compile is not a port, and it should never reach src/. The tier-B
+    rewrites are where this bites: a cast at the site has to guess an element type, and
+    when the guess is wrong the compiler says so -- which is worth catching here rather
+    than in the suite, where it looks like a harness failure.
+    """
+    import subprocess, tempfile
+    with tempfile.NamedTemporaryFile('w', suffix='.c', delete=False) as f:
+        f.write(text)
+        tmp = f.name
+    try:
+        r = subprocess.run(
+            [os.environ.get('CC', 'cc'), '-std=c89', '-DCOL_HOST=1', '-fsigned-char',
+             '-fwrapv', '-fno-strict-aliasing', '-Wno-unused-value', '-Werror',
+             '-fsyntax-only', '-I' + os.path.join(REPO, 'include'), tmp],
+            capture_output=True, text=True)
+    finally:
+        os.remove(tmp)
+    if r.returncode:
+        for ln in r.stderr.splitlines():
+            if ' error: ' in ln:
+                return ln.split(' error: ', 1)[1].strip()[:80]
+        return (r.stderr.strip().splitlines() or ['it does not compile'])[0][:80]
+    return None
 
 
 def write(path, force=False):

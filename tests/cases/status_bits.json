@@ -6,6 +6,7 @@
  "prototype": "col_i16 status_bits(col_i16 p1, col_i16 p2);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -15,5 +16,6 @@
   "g_ba",
   "g_navy_table",
   "g_region_size"
- ]
+ ],
+ "near_callees": []
 }

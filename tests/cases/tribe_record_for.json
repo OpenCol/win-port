@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tribe_record_for",
+ "shipped": "1030:8135",
+ "source": "src/game/tribe_record_for.c",
+ "prototype": "NationRec * tribe_record_for(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(void)tribe_record_for((col_i16)a0)",
+ "globals_read": [
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_player_nation",
+  "g_rec52"
+ ],
+ "near_callees": []
+}

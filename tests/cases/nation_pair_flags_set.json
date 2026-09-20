@@ -6,6 +6,7 @@
  "prototype": "col_i16 nation_pair_flags_set(col_i16 a, col_i16 b, col_i16 v);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..3",
   "1=0..3",
@@ -15,5 +16,6 @@
  "globals_read": [
   "g_nation_pair",
   "g_tribes"
- ]
+ ],
+ "near_callees": []
 }

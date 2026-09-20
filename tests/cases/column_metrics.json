@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "column_metrics",
+ "shipped": "1010:beae",
+ "source": "src/game/column_metrics.c",
+ "prototype": "void column_metrics(col_i16 n, col_i16 * px, col_i16 * py, col_i16 * pw, col_i16 * ph);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24",
+  "1=6468",
+  "2=4360",
+  "3=6532",
+  "4=4360",
+  "5=6596",
+  "6=4360",
+  "7=6660",
+  "8=4360"
+ ],
+ "stage": {
+  "SEG34:0x1944": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1984": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x19c4": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1a04": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "column_metrics((col_i16)a0, (col_i16 far *)(col_seg34 + 0x1944L), (col_i16 far *)(col_seg34 + 0x1984L), (col_i16 far *)(col_seg34 + 0x19c4L), (col_i16 far *)(col_seg34 + 0x1a04L))",
+ "globals_read": [],
+ "near_callees": []
+}

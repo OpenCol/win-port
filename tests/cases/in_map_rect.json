@@ -6,6 +6,7 @@
  "prototype": "col_i16 in_map_rect(col_i16 x, col_i16 y);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -16,5 +17,6 @@
   "g_view_x1",
   "g_view_y0",
   "g_view_y1"
- ]
+ ],
+ "near_callees": []
 }

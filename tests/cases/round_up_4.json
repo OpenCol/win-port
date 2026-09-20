@@ -6,9 +6,11 @@
  "prototype": "col_i16 round_up_4(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)round_up_4((col_i16)a0)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

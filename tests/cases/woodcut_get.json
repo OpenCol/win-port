@@ -6,11 +6,13 @@
  "prototype": "col_i16 woodcut_get(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
  "call": "(long)woodcut_get((col_i16)a0)",
  "globals_read": [
   "g_bits_780c"
- ]
+ ],
+ "near_callees": []
 }

@@ -6,11 +6,13 @@
  "prototype": "void mark_2520_no_super_1050_6c16(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "mark_2520_no_super_1050_6c16()",
  "globals_read": [
   "g_flag_2520",
   "g_super_win_open"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

@@ -1,0 +1,20 @@
+{
+ "what": "ported functions NO oracle can check, and why each one",
+ "why": "the coverage cross-check fails on an uncovered function that is not listed here, so a new one cannot appear unnoticed. Every entry is correct by inspection and needed for the link.",
+ "uncovered": {
+  "call_2ea8": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_2ec7": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_830c": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_832b": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_8865": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_8967": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_8b0b": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_96a9": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_96c8": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_b01f": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_b03e": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_d69b": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "call_d6ba": "a rule-47 forwarder: its whole body is one call to a callee the shipped code reaches with a near call. The host sees no effect of its own; the 16-bit harness cannot place the candidate in the callee's segment.",
+  "fill_unless": "walks a far pointer until the POINTER is zero while incrementing only the offset, so it does not terminate for any argument but a null one. The disassembly (cmp dword [bp+6],0) confirms the reconstruction is faithful; there is simply no terminating input to compare."
+ }
+}

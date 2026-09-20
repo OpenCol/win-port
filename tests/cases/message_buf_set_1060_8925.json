@@ -6,6 +6,7 @@
  "prototype": "void message_buf_set_1060_8925(char * s);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=3532",
   "1=4360"
@@ -16,5 +17,6 @@
  "call": "message_buf_set_1060_8925((char far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
   "g_message_buf"
- ]
+ ],
+ "near_callees": []
 }

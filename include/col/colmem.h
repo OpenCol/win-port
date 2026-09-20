@@ -14,6 +14,11 @@
 /* Restore every data segment to the image as it was extracted, so one test cannot see
  * what an earlier one wrote. The first call captures that image, so it must happen before
  * anything has written to a segment -- col_relocate() included. */
+/* Take the segments as they are NOW as the state col_reset() restores. The tests load the
+ * emulator's own post-startup memory first, and that -- not the linked image -- is what a
+ * case must start from. */
+void col_capture(void);
+
 void col_reset(void);
 
 void col_snapshot(void);                  /* mark the baseline for col_diff */

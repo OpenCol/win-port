@@ -6,6 +6,7 @@
  "prototype": "col_i16 indexed_difference(col_i16 i, col_i16 * out);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24",
   "1=3532",
@@ -20,5 +21,6 @@
   "g_prod",
   "g_sel_00a6",
   "g_value"
- ]
+ ],
+ "near_callees": []
 }

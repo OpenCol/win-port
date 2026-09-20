@@ -6,10 +6,12 @@
  "prototype": "col_i16 threshold_rank(void);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "call": "(long)threshold_rank()",
  "globals_read": [
   "g_year"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

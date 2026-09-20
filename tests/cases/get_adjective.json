@@ -6,6 +6,7 @@
  "prototype": "col_i16 get_adjective(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
@@ -18,5 +19,6 @@
   "g_rebel_adjective",
   "g_royal_adjective",
   "g_tribe_names"
- ]
+ ],
+ "near_callees": []
 }

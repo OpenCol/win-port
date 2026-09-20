@@ -6,10 +6,12 @@
  "prototype": "void closing_flag_set_1010_0403(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "closing_flag_set_1010_0403()",
  "globals_read": [
   "g_closing_flag"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

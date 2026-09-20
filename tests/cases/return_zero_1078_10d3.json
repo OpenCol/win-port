@@ -6,8 +6,10 @@
  "prototype": "col_i16 return_zero_1078_10d3(void);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "call": "(long)return_zero_1078_10d3()",
  "globals_read": [],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

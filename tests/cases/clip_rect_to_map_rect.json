@@ -6,6 +6,7 @@
  "prototype": "void clip_rect_to_map_rect(col_i16 * l, col_i16 * t, col_i16 * r, col_i16 * b);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=6468",
   "1=4360",
@@ -28,5 +29,9 @@
   "g_view_x1",
   "g_view_y0",
   "g_view_y1"
+ ],
+ "near_callees": [
+  "max_int_1040_445d",
+  "min_int_1040_4483"
  ]
 }

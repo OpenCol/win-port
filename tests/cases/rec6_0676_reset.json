@@ -6,10 +6,12 @@
  "prototype": "void rec6_0676_reset(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "rec6_0676_reset()",
  "globals_read": [
   "g_table6"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

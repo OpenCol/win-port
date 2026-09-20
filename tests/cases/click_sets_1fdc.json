@@ -6,10 +6,12 @@
  "prototype": "col_i16 click_sets_1fdc(void);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "call": "(long)click_sets_1fdc()",
  "globals_read": [
   "g_flag_1fdc"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

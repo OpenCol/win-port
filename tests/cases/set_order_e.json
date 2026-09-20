@@ -6,11 +6,13 @@
  "prototype": "void set_order_e(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "set_order_e()",
  "globals_read": [
   "g_mother_country_idx",
   "g_nation_colour"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

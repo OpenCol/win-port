@@ -6,11 +6,13 @@
  "prototype": "void arrived_unit_orders_1(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "arrived_unit_orders_1()",
  "globals_read": [
   "g_selected_unit",
   "g_units"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

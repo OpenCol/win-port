@@ -6,6 +6,7 @@
  "prototype": "void set_name_slot_1018_b3f6(col_i16 i, char * s);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=0..6",
   "1=3532",
@@ -17,5 +18,6 @@
  "call": "set_name_slot_1018_b3f6((col_i16)a0, (char far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
   "g_name_slots"
- ]
+ ],
+ "near_callees": []
 }

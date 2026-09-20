@@ -6,6 +6,7 @@
  "prototype": "col_i16 lookup_with_two_overrides(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
@@ -18,5 +19,6 @@
   "g_override_b_val",
   "g_player_nation",
   "g_tribe"
- ]
+ ],
+ "near_callees": []
 }

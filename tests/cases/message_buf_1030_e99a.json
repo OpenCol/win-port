@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "message_buf_1030_e99a",
+ "shipped": "1030:e99a",
+ "source": "src/game/message_buf_1030_e99a.c",
+ "prototype": "char * message_buf_1030_e99a(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)message_buf_1030_e99a()",
+ "globals_read": [
+  "g_message_buf"
+ ],
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

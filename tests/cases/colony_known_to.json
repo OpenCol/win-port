@@ -6,6 +6,7 @@
  "prototype": "col_i16 colony_known_to(col_i16 c, col_i16 nation);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -14,5 +15,6 @@
  "globals_read": [
   "g_colonies",
   "g_reveal_all"
- ]
+ ],
+ "near_callees": []
 }

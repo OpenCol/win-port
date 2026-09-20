@@ -6,6 +6,7 @@
  "prototype": "col_i16 unit_set_cargo_type(col_i16 unit, col_i16 slot, col_i16 type);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..3",
   "1=0..3",
@@ -14,5 +15,6 @@
  "call": "(long)unit_set_cargo_type((col_i16)a0, (col_i16)a1, (col_i16)a2)",
  "globals_read": [
   "g_units"
- ]
+ ],
+ "near_callees": []
 }

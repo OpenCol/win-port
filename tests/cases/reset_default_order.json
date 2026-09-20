@@ -6,6 +6,7 @@
  "prototype": "void reset_default_order(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "reset_default_order()",
  "globals_read": [
   "g_nation_colour",
@@ -13,6 +14,7 @@
   "g_order_9c",
   "g_order_9d"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

@@ -6,6 +6,7 @@
  "prototype": "col_i16 select_state_code(col_i16 x, col_i16 y);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -14,5 +15,6 @@
  "globals_read": [
   "g_game_flags",
   "g_recs"
- ]
+ ],
+ "near_callees": []
 }

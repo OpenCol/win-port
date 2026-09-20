@@ -6,10 +6,12 @@
  "prototype": "void message_buf_clear(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "message_buf_clear()",
  "globals_read": [
   "g_message_buf"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

@@ -6,11 +6,13 @@
  "prototype": "void set_line_color_b_1010_e43e(char v);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=-4..24"
  ],
  "call": "set_line_color_b_1010_e43e((char)a0)",
  "globals_read": [
   "g_line_color_b"
- ]
+ ],
+ "near_callees": []
 }

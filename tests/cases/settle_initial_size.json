@@ -6,6 +6,7 @@
  "prototype": "col_i16 settle_initial_size(col_i16 i);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
@@ -13,5 +14,6 @@
  "globals_read": [
   "g_tribe_rec",
   "g_villages"
- ]
+ ],
+ "near_callees": []
 }

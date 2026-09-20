@@ -6,9 +6,11 @@
  "prototype": "col_i16 to_upper(col_i16 c);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)to_upper((col_i16)a0)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

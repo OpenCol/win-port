@@ -34,6 +34,16 @@ static void index_segments(void)
     memcpy(baseline, pristine, (size_t)total);
 }
 
+void col_capture(void)
+{
+    int i;
+    nseg = 0;
+    index_segments();
+    for (i = 0; i < nseg; i++)
+        memcpy(pristine + at[ids[i]], col_seg(ids[i]), (size_t)col_seg_size(ids[i]));
+}
+
+
 void col_reset(void)
 {
     int i;

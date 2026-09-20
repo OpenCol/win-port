@@ -6,10 +6,12 @@
  "prototype": "col_i16 max_int_1028_e350(col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
  "call": "(long)max_int_1028_e350((col_i16)a0, (col_i16)a1)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

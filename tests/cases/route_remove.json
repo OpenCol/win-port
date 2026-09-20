@@ -6,6 +6,7 @@
  "prototype": "void route_remove(col_i16 idx);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=0..24"
  ],
@@ -17,5 +18,6 @@
   "g_unit_count",
   "g_unit_types",
   "g_units"
- ]
+ ],
+ "near_callees": []
 }

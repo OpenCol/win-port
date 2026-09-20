@@ -6,6 +6,7 @@
  "prototype": "col_i16 arrived_unit_mission(Rec * r, unsigned char b, unsigned char c);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=3532",
   "1=4360",
@@ -19,5 +20,6 @@
  "globals_read": [
   "g_selected_unit",
   "g_units"
- ]
+ ],
+ "near_callees": []
 }

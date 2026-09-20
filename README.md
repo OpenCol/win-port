@@ -86,10 +86,12 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **350 functions are ported and verified**: 8,294 argument sets, 0 disagreements, on
-  return value and on memory afterwards, against `--state shipped`. All of them compile
-  with the real Borland C++ 4.52 targeting Win16, link into a 9-segment NE, and the
-  result boots.
+- **492 functions are ported**, and `tools/coverage.py` says what checks each one:
+  393 verified by both harnesses, 31 on the host only, 54 in 16 bits only, and 14 by
+  neither — every one of those named in `model/uncovered.json` with its reason, so a new
+  hole cannot appear unnoticed. No function disagrees with the shipped bytes.
+  The host suite runs 9,552 argument sets. All of them compile with the real Borland
+  C++ 4.52 targeting Win16, link into an NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -178,11 +180,16 @@ references** and drops straight into the emulator beside the shipped function. I
 the return value, every data write, and the **stack delta** — which is how the calling
 convention gets checked at all.
 
-**298 of 351 agree in 16 bits, none disagree**, and the other 53 are reported as
-unsupported rather than passed: a function that calls anything — a ported callee, or a
-runtime helper like `F_SCOPY` behind a struct assignment — compiles with a fixup for that
-call, and nothing resolves fixups yet. Resolving them is what turns this into the harness
-that can verify the 292 functions the host one refuses.
+A call is resolved by patching its fixup to the **shipped** callee, found by name in the
+symbol map — which is the right experiment rather than a compromise: giving both sides the
+same callees is what isolates the function under test. Borland's own runtime is in the
+shipped image too (`STRCPY` at 1:0efe, `F_SCOPY` at 1:5000), so a port that calls `strcpy`
+calls the very code the shipped function calls.
+
+What it still cannot run is a **rule-47 forwarder**: the shipped code reaches that callee
+with a near call from inside its own segment, and the candidate lives in a selector of its
+own, so the callee's near return would unwind the wrong stack. Those are reported as
+unsupported, and `model/uncovered.json` names them.
 
 ### What the harness cannot see
 

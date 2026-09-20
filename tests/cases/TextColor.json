@@ -6,11 +6,13 @@
  "prototype": "unsigned char TextColor(unsigned char v);",
  "state": "shipped",
  "ret_bits": 8,
+ "ret_bits_emu": 8,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)TextColor((unsigned char)a0)",
  "globals_read": [
   "g_line_color_index"
- ]
+ ],
+ "near_callees": []
 }

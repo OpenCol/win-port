@@ -6,11 +6,16 @@
  "prototype": "col_i16 nation_pair_flags_or_both(col_i16 a, col_i16 b, col_i16 mask);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..3",
   "1=0..3",
   "2=0..3"
  ],
  "call": "(long)nation_pair_flags_or_both((col_i16)a0, (col_i16)a1, (col_i16)a2)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": [
+  "nation_pair_flags_get",
+  "nation_pair_flags_set"
+ ]
 }

@@ -6,6 +6,7 @@
  "prototype": "col_i16 score_from_difficulty_and_era(col_i16 nation);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
@@ -16,5 +17,6 @@
   "g_nation52",
   "g_rec316",
   "g_year"
- ]
+ ],
+ "near_callees": []
 }

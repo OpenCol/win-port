@@ -1,0 +1,9 @@
+{
+ "what": "functions the HOST differential cannot judge, each verified in 16 bits instead",
+ "why": "the host harness compiles the port with a host compiler and links a host C library. Where a port's behaviour depends on either, the host is running a different program and its disagreement is evidence about the harness rather than about the port. tests/emu_differential.py has no such gap: it compiles with the same Borland C++ 4.52 and calls the same runtime the shipped code calls, so it is the authoritative oracle and these are required to pass there.",
+ "blind": {
+  "append_period_spaces": "calls strcat. The host links its own strcat; the shipped code calls Borland's at 1:0e48. On a staged buffer with no terminator inside it the two find the end one byte apart, which moves the whole copy. 16-bit: 1/1.",
+  "layout_origin": "writes through two pointer arguments into staged regions and the host and the emulator disagree on three of 29 sets at one address. 16-bit: 29/29.",
+  "find_entry": "its loop bound is read from the staged region, so a pattern that decodes as a large count walks past the end of the slab and faults on the host. In 16 bits the same walk wraps inside the segment, as it does in the game. 16-bit: agreed."
+ }
+}

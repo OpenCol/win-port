@@ -6,6 +6,7 @@
  "prototype": "void set_flag_bit(col_i16 bit, col_i16 on);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "sweep": [
   "0=0..7",
   "1=0..7"
@@ -13,5 +14,6 @@
  "call": "set_flag_bit((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_flags_2514"
- ]
+ ],
+ "near_callees": []
 }

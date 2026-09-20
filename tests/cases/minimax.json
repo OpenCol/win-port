@@ -6,11 +6,16 @@
  "prototype": "col_i16 minimax(col_i16 v, col_i16 lo, col_i16 hi);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..3",
   "1=0..3",
   "2=0..3"
  ],
  "call": "(long)minimax((col_i16)a0, (col_i16)a1, (col_i16)a2)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": [
+  "max_int_1040_aab7",
+  "min_int_1040_aadd"
+ ]
 }

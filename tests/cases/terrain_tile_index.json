@@ -6,9 +6,11 @@
  "prototype": "char terrain_tile_index(col_i16 t);",
  "state": "shipped",
  "ret_bits": 8,
+ "ret_bits_emu": 8,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)terrain_tile_index((col_i16)a0)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

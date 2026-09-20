@@ -6,11 +6,13 @@
  "prototype": "col_i16 unit_has_muskets(col_i16 u);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=0..24"
  ],
  "call": "(long)unit_has_muskets((col_i16)a0)",
  "globals_read": [
   "g_units"
- ]
+ ],
+ "near_callees": []
 }

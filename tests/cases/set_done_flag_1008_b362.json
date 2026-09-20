@@ -6,10 +6,12 @@
  "prototype": "void set_done_flag_1008_b362(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "set_done_flag_1008_b362()",
  "globals_read": [
   "g_done_flag"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

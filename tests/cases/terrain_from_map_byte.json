@@ -6,9 +6,11 @@
  "prototype": "col_i16 terrain_from_map_byte(col_i16 b);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)terrain_from_map_byte((col_i16)a0)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

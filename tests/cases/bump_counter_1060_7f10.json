@@ -6,11 +6,13 @@
  "prototype": "void bump_counter_1060_7f10(void);",
  "state": "shipped",
  "ret_bits": 0,
+ "ret_bits_emu": 0,
  "call": "bump_counter_1060_7f10()",
  "globals_read": [
   "g_about_step",
   "g_flag_4e64"
  ],
+ "near_callees": [],
  "call_args": [
   "0"
  ]

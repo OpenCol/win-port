@@ -23,6 +23,8 @@ if [ "${1:-}" != "fast" ]; then
   # emulator beside the shipped function, where far pointers, segment wrap and stack
   # discipline are native rather than approximated.
   [ -x "$UC" ] && run "$UC" tests/emu_differential.py --all
+  # Is every ported function checked by SOMETHING? Each harness is blind in its own way.
+  [ -x "$UC" ] && run python3 tools/coverage.py
   run python3 tools/link.py
   [ -x "$UC" ] && run "$UC" tests/boot.py
 fi

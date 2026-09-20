@@ -6,6 +6,7 @@
  "prototype": "col_i16 return_arg2_1040_a4f4(void * a, col_i16 b, col_i16 c, col_i16 d);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=3532",
   "1=4360",
@@ -17,5 +18,6 @@
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
  "call": "(long)return_arg2_1040_a4f4((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4)",
- "globals_read": []
+ "globals_read": [],
+ "near_callees": []
 }

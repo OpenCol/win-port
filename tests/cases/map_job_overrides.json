@@ -6,11 +6,13 @@
  "prototype": "col_i16 map_job_overrides(col_i16 job);",
  "state": "shipped",
  "ret_bits": 16,
+ "ret_bits_emu": 16,
  "sweep": [
   "0=-4..24"
  ],
  "call": "(long)map_job_overrides((col_i16)a0)",
  "globals_read": [
   "g_game_flags"
- ]
+ ],
+ "near_callees": []
 }
