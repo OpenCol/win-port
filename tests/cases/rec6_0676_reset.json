@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "rec6_0676_reset",
+ "shipped": "1028:05a3",
+ "source": "src/game/rec6_0676_reset.c",
+ "prototype": "void rec6_0676_reset(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "rec6_0676_reset()",
+ "globals_read": [
+  "g_table6"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

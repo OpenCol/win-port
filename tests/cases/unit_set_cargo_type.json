@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_set_cargo_type",
+ "shipped": "1018:7ca5",
+ "source": "src/game/unit_set_cargo_type.c",
+ "prototype": "col_i16 unit_set_cargo_type(col_i16 unit, col_i16 slot, col_i16 type);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)unit_set_cargo_type((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_units"
+ ]
+}

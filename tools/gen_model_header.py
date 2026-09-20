@@ -145,12 +145,18 @@ def pick(spellings, records):
         if others:
             notes.append(('other_pointee_spelling', sorted(others)))
         return (pointee[0], stars, pointee[2]), notes
-    # Dimensionality first. A spelling with a row stride (`@[][0x13c]`) states a fact
-    # about how the code indexes the object that a flat `@[]` does not, and losing it
-    # turns t[i][j] into a subscript of the wrong width that still compiles. The width and
-    # signedness rules below then choose among the spellings that agree on the shape.
-    deep = max(len(p[2]) for p in parsed)
-    cands = [p for p in parsed if len(p[2]) == deep]
+    # A NAMED RECORD first, when one of the spellings is one. `g_fathers` is spelt three
+    # ways -- `Father @[]`, `FatherCategory @[]` and `int @[][3]` -- and the last has the
+    # most dimensions but the least meaning: Father is six bytes and so is `int [3]`, and
+    # taking the array of ints loses every member name and makes `g_fathers[i].cat` a
+    # member reference on a short.
+    named_all = [p for p in parsed if p[0] in records]
+    pool0 = named_all or parsed
+    # Then dimensionality. A spelling with a row stride (`@[][0x13c]`) states a fact about
+    # how the code indexes the object that a flat `@[]` does not, and losing it turns
+    # t[i][j] into a subscript of the wrong width that still compiles.
+    deep = max(len(p[2]) for p in pool0)
+    cands = [p for p in pool0 if len(p[2]) == deep]
     # widest base
     def w(p):
         return BASE_SIZE.get(p[0], records[p[0]]['size'] if p[0] in records else 0)

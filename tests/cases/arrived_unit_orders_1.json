@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "arrived_unit_orders_1",
+ "shipped": "1008:0252",
+ "source": "src/game/arrived_unit_orders_1.c",
+ "prototype": "void arrived_unit_orders_1(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "arrived_unit_orders_1()",
+ "globals_read": [
+  "g_selected_unit",
+  "g_units"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

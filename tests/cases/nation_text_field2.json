@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_text_field2",
+ "shipped": "1030:80f2",
+ "source": "src/game/nation_text_field2.c",
+ "prototype": "col_i16 nation_text_field2(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)nation_text_field2((col_i16)a0)",
+ "globals_read": [
+  "g_nation_adjective",
+  "g_tribe"
+ ]
+}

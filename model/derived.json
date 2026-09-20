@@ -50,14 +50,20 @@
   "g_game_record": {
    "seg": 20,
    "off": 1482,
-   "size": 140,
-   "how": "inferred: the gap to the next global",
-   "base": "char",
+   "size": 13,
+   "how": "declared",
+   "base": "WinRec",
    "stars": 0,
-   "dims": [
-    ""
+   "dims": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char",
+      "int"
+     ]
+    ]
    ],
-   "notes": [],
    "addr": "SEG20:0x05ca",
    "spellings": [
     "char far @",
@@ -70,13 +76,18 @@
    "seg": 20,
    "off": 1622,
    "size": 2,
-   "how": "inferred: the gap to the next global",
-   "base": "char",
+   "how": "declared",
+   "base": "MenuRec",
    "stars": 0,
-   "dims": [
-    ""
+   "dims": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
    ],
-   "notes": [],
    "addr": "SEG20:0x0656",
    "spellings": [
     "char far @",
@@ -87,14 +98,19 @@
   "g_map_window": {
    "seg": 20,
    "off": 1624,
-   "size": 38,
-   "how": "inferred: the gap to the next global",
-   "base": "char",
+   "size": 1928,
+   "how": "declared",
+   "base": "MapWin",
    "stars": 0,
-   "dims": [
-    ""
+   "dims": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
    ],
-   "notes": [],
    "addr": "SEG20:0x0658",
    "spellings": [
     "char far @",
@@ -468,13 +484,19 @@
    "off": 16806,
    "size": 544,
    "how": "inferred: the gap to the next global",
-   "base": "char",
+   "base": "SpriteRec",
    "stars": 0,
    "dims": [
-    "",
-    "0x20"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
+   ],
    "addr": "SEG20:0x41a6",
    "spellings": [
     "char far @[][0x20]",
@@ -729,13 +751,19 @@
    "off": 25158,
    "size": 32,
    "how": "inferred: the gap to the next global",
-   "base": "char",
+   "base": "Sprite",
    "stars": 0,
    "dims": [
-    "",
-    "0x20"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
+   ],
    "addr": "SEG20:0x6246",
    "spellings": [
     "char far @[][0x20]",
@@ -812,13 +840,19 @@
    "off": 25894,
    "size": 1056,
    "how": "inferred: the gap to the next global",
-   "base": "char",
+   "base": "Sprite",
    "stars": 0,
    "dims": [
-    "",
-    "0x20"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
+   ],
    "addr": "SEG20:0x6526",
    "spellings": [
     "char far @[][0x20]",
@@ -1997,13 +2031,19 @@
    "off": 30736,
    "size": 24,
    "how": "inferred: the gap to the next global",
-   "base": "char",
+   "base": "Nation34",
    "stars": 0,
    "dims": [
-    "",
-    "0x34"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "char"
+     ]
+    ]
+   ],
    "addr": "SEG20:0x7810",
    "spellings": [
     "Nation34 far @[]",
@@ -2193,13 +2233,19 @@
    "off": 31432,
    "size": 7,
    "how": "inferred: the gap to the next global",
-   "base": "unsigned char",
+   "base": "UnitType",
    "stars": 0,
    "dims": [
-    "",
-    "14"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "unsigned char"
+     ]
+    ]
+   ],
    "addr": "SEG20:0x7ac8",
    "spellings": [
     "UnitType far @[]",
@@ -3092,13 +3138,19 @@
    "off": 54812,
    "size": 222,
    "how": "inferred: the gap to the next global",
-   "base": "int",
+   "base": "SpecInfo",
    "stars": 0,
    "dims": [
-    "",
-    "4"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "int"
+     ]
+    ]
+   ],
    "addr": "SEG20:0xd61c",
    "spellings": [
     "SpecInfo far @[]",
@@ -3110,13 +3162,19 @@
    "off": 55034,
    "size": 150,
    "how": "inferred: the gap to the next global",
-   "base": "int",
+   "base": "Father",
    "stars": 0,
    "dims": [
-    "",
-    "3"
+    ""
    ],
-   "notes": [],
+   "notes": [
+    [
+     "narrow_view",
+     [
+      "int"
+     ]
+    ]
+   ],
    "addr": "SEG20:0xd6fa",
    "spellings": [
     "Father far @[]",
@@ -18151,7 +18209,7 @@
   {
    "seg": 20,
    "start": 1482,
-   "end": 1622,
+   "end": 1495,
    "members": [
     "g_game_record"
    ],
@@ -18171,32 +18229,17 @@
   {
    "seg": 20,
    "start": 1624,
-   "end": 1662,
+   "end": 3552,
    "members": [
-    "g_map_window"
-   ],
-   "primary": "g_map_window",
-   "aliases": []
-  },
-  {
-   "seg": 20,
-   "start": 1662,
-   "end": 1663,
-   "members": [
-    "g_win_67e"
-   ],
-   "primary": "g_win_67e",
-   "aliases": []
-  },
-  {
-   "seg": 20,
-   "start": 3534,
-   "end": 3536,
-   "members": [
+    "g_map_window",
+    "g_win_67e",
     "g_map_timer"
    ],
-   "primary": "g_map_timer",
-   "aliases": []
+   "primary": "g_map_window",
+   "aliases": [
+    "g_win_67e",
+    "g_map_timer"
+   ]
   },
   {
    "seg": 20,
@@ -28821,6 +28864,22 @@
  ],
  "aliases": [
   {
+   "name": "g_win_67e",
+   "address": "SEG20:0x067e",
+   "aliases": "g_map_window",
+   "delta": 38,
+   "type": "char",
+   "reason": "inside its extent"
+  },
+  {
+   "name": "g_map_timer",
+   "address": "SEG20:0x0dce",
+   "aliases": "g_map_window",
+   "delta": 1910,
+   "type": "int",
+   "reason": "inside its extent"
+  },
+  {
    "name": "g_ctx_25e4",
    "address": "SEG20:0x25e4",
    "aliases": "g_colony_win_rec",
@@ -30599,7 +30658,6 @@
   "g_founding_word",
   "g_game_flags",
   "g_game_palette",
-  "g_game_record",
   "g_game_record2",
   "g_goods",
   "g_goods_info",
@@ -30640,8 +30698,6 @@
   "g_map_file_name",
   "g_map_overlay",
   "g_map_width",
-  "g_map_window",
-  "g_menu_owner",
   "g_message_buf",
   "g_misc_words",
   "g_mission_word",

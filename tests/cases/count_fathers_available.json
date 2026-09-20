@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "count_fathers_available",
+ "shipped": "1020:98b8",
+ "source": "src/game/count_fathers_available.c",
+ "prototype": "col_i16 count_fathers_available(col_i16 nation, col_i16 cat);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)count_fathers_available((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_fathers"
+ ]
+}

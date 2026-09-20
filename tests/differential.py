@@ -246,6 +246,17 @@ def run_case(path, verbose=False, mutate=None):
     probe_addrs = [(int(a.split(':')[0]), int(a.split(':')[1], 16))
                    for a in sorted({a for o in ship['observations'] for a in o['final']})]
 
+    # Argument sets the SHIPPED function never returned from are dropped before the host
+    # is built, not after: a chain walk over data that happens to be cyclic does not
+    # terminate on a host either, and there is nothing to compare it against anyway.
+    keep = [i for i, o in enumerate(ship['observations']) if o.get('returned', True)]
+    skipped = len(ship['observations']) - len(keep)
+    ship['observations'] = [ship['observations'][i] for i in keep]
+    argsets = [argsets[i] for i in keep]
+    if not argsets:
+        print('%-32s VERIFIES NOTHING: the shipped function returned from no argument '
+              'set in this sweep' % name)
+        return False
     drv = os.path.join(BUILD, name + '_drv.c')
     text = driver(case, argsets, probe_addrs,
                   [o.get('poison', {}) for o in ship['observations']])
@@ -324,6 +335,9 @@ def run_case(path, verbose=False, mutate=None):
             print('  ok   args=%s ret=0x%x, %d bytes agree'
                   % (h['args'], h['ret'] & mask, len(s_['final'])))
     if not mutate:
+        if skipped:
+            print('%-32s %d argument set%s dropped: the shipped function did not return'
+                  % (name, skipped, '' if skipped == 1 else 's'))
         print('%-32s %d/%d argument sets agree (state: %s)'
               % (name, len(host['observations']) - bad, len(host['observations']),
                  ship['state']))

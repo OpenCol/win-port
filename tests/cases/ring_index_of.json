@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "ring_index_of",
+ "shipped": "1018:411c",
+ "source": "src/game/ring_index_of.c",
+ "prototype": "col_i16 ring_index_of(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)ring_index_of((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_ring_dx",
+  "g_ring_dy"
+ ]
+}

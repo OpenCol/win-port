@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "init_rec_7c0a",
+ "shipped": "1020:8c3d",
+ "source": "src/game/init_rec_7c0a.c",
+ "prototype": "void init_rec_7c0a(col_i16 a, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "init_rec_7c0a((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_rec_7c0a"
+ ]
+}

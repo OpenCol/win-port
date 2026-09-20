@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "table_78_word",
+ "shipped": "1038:0139",
+ "source": "src/game/table_78_word.c",
+ "prototype": "col_i16 table_78_word(col_i16 t, col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)table_78_word((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_tribes"
+ ]
+}

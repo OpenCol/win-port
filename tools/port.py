@@ -44,6 +44,9 @@ ALIASES = {a['name'] for a in DERIVED['aliases']}
 SEGSIZE = {int(k): v for k, v in
            json.load(open(os.path.join(REPO, 'model', 'segments.json')))['sizes'].items()}
 WITHDRAWN = json.load(open(os.path.join(REPO, 'model', 'withdrawn.json')))['withdrawn']
+# A port that disagrees with the shipped bytes is not a port. Held out by name, with what
+# was measured, until someone reads the instructions and says which side is wrong.
+DISPUTED = json.load(open(os.path.join(REPO, 'model', 'disputed.json')))['disputed']
 MODEL = json.load(open(os.path.join(REPO, 'model', 'model.json')))
 RECORDS = MODEL['records']
 # What the generated header actually calls each member: the generator renames a member
@@ -202,6 +205,22 @@ def retype(text):
     return ''.join(out) + text[at:]
 
 
+# The disassembly labels the C runtime's own routines in upper case, and a reconstruction
+# declares them as ordinary far functions because it cannot include <string.h>. They are
+# not reconstructions to port: they come out of CWL.LIB at the link, and the host has them
+# too. Only the ANSI ones are here -- Borland's own extensions (strupr, itoa) would not
+# link on a host, so a file using those still waits.
+RUNTIME = {'STRCAT': ('strcat', 'string.h'), 'STRCPY': ('strcpy', 'string.h'),
+           'STRNCPY': ('strncpy', 'string.h'), 'STRLEN': ('strlen', 'string.h'),
+           'STRCMP': ('strcmp', 'string.h'), 'STRNCMP': ('strncmp', 'string.h'),
+           'STRCHR': ('strchr', 'string.h'), 'STRRCHR': ('strrchr', 'string.h'),
+           'MEMCPY': ('memcpy', 'string.h'), 'MEMSET': ('memset', 'string.h'),
+           'MEMMOVE': ('memmove', 'string.h'), 'MEMCMP': ('memcmp', 'string.h'),
+           'TOUPPER': ('toupper', 'ctype.h'), 'TOLOWER': ('tolower', 'ctype.h'),
+           'ATOI': ('atoi', 'stdlib.h'), 'ABS': ('abs', 'stdlib.h'),
+           'LABS': ('labs', 'stdlib.h')}
+
+
 def _indexed(text, i):
     """Is the access at `i` immediately subscripted? `c->name[k]` wants a pointer;
     `c->pop` wants the value."""
@@ -331,13 +350,20 @@ def index_bounds(rest, params, names):
     """
     out = {}
     for pname in [p[1] for p in params if not p[0].endswith('*')]:
-        best = _bound_for(rest, pname, names)
-        if best is not None:
-            out[pname] = best
+        b = _bound_for(rest, pname, names)
+        if b is not None:
+            out[pname] = b
     return out
 
 
 def _bound_for(rest, p0, names):
+    """(lowest, highest) index that stays inside the segment, or None.
+
+    A segment has two ends. Indexing before the start wraps to the top of the segment in
+    16 bits and runs off the front of the array on a host, which is the one difference a
+    host cannot reproduce -- set_name_slot with i=-4 lands at SEG31:0xff64 in the game and
+    before the array here.
+    """
     best = None
     for n in names:
         g = GLOBALS.get(n)
@@ -345,9 +371,12 @@ def _bound_for(rest, p0, names):
                                                    % (re.escape(n), re.escape(p0)), rest):
             continue
         rec = DERIVED.get('records', {})
-        width = {'char': 1, 'signed char': 1, 'unsigned char': 1, 'col_i8': 1,
-                 'short': 2, 'int': 2, 'unsigned': 2, 'unsigned int': 2,
-                 'unsigned short': 2, 'long': 4, 'unsigned long': 4}.get(g['base'])
+        # A RECORD-typed table needs its record's size here, not nothing: without it
+        # g_nations was left unbounded and the sweep indexed past the end of segment 20,
+        # where the host reads the next object and the game wraps.
+        width = WIDTH.get(g['base'])
+        if width is None and g['base'] in RECORDS:
+            width = RECORDS[g['base']]['size']
         if g['stars']:
             width = 4
         if not width:
@@ -359,8 +388,9 @@ def _bound_for(rest, p0, names):
         # argument array is exactly that -- would be cut to one element. Running into the
         # next global is harmless: it is the same segment image on both sides, and the
         # emulator logs the write like any other. Running off the SEGMENT is what breaks.
-        count = (SEGSIZE[g['seg']] - g['off']) // width
-        best = count - 1 if best is None else min(best, count - 1)
+        hi = (SEGSIZE[g['seg']] - g['off']) // width - 1
+        lo = -(g['off'] // width)
+        best = (lo, hi) if best is None else (max(best[0], lo), min(best[1], hi))
     return best
 
 
@@ -425,8 +455,82 @@ def port(path, force=False):
     local_types = [m.group(2) for m in
                    re.finditer(r'typedef\s+struct\s*\{(.*?)\}\s*(\w+)\s*;',
                                blank, re.S)]
+    # Cut each extern out by OFFSET, taking the trailing comment with it -- it may run
+    # onto later lines, and leaving its tail behind is not a compile error in the source
+    # repo's spelling but is one here.
+    spans, dropped = [], []
+    for m in EXTERN.finditer(blank):
+        start, end = m.start(), m.end()
+        while end < len(body) and body[end] in ' \t':
+            end += 1
+        if body.startswith('/*', end):
+            j = body.find('*/', end + 2)
+            end = len(body) if j < 0 else j + 2
+        spans.append((start, end))
+    cut, unknown, file_shape, file_dims = [], set(), {}, {}
+    for start, end in spans:
+        line = body[start:end]
+        names = re.findall(r'\b(g_\w+)\b', blank[start:end])
+        if not names:
+            # An extern FUNCTION. A C runtime routine's prototype comes out -- the real
+            # header declares it, and the file's own spelling (far pointers, upper case)
+            # would clash. Anything else stays: this repo has no header of ported
+            # prototypes yet, and the call check refuses the file unless the callee is
+            # ported.
+            if any(re.search(r'\b%s\b' % r, blank[start:end]) for r in RUNTIME):
+                cut.append((start, end))
+            continue
+        for n in names:
+            if n not in GLOBALS and n not in ALIASES:
+                # Not necessarily a problem: `g_stub_a` is a global the byte-exact repo
+                # invented so that an in-file stub would have a body, and those stubs come
+                # out below. Held until the file is what it will be, then re-checked.
+                unknown.add(n)
+                continue
+            want = ADDR.search(line)
+            if want and n in GLOBALS:
+                a, b = normalise_addr(want.group(1)), GLOBALS[n]['addr']
+                if a != b:
+                    return None, '%s: the file says %s, the model says %s' % (n, a, b)
+        # Keep only the declaration: the trailing /* address */ would close the comment
+        # this line is about to be quoted inside, and the model's address is authoritative
+        # anyway.
+        decl_txt = re.split(r'/\*', line.strip())[0].strip()
+        for n in names:
+            file_shape[n] = ('array' if re.search(r'%s\s*\[' % re.escape(n), decl_txt)
+                             else 'pointer' if re.search(r'\*\s*%s\b' % re.escape(n),
+                                                         decl_txt)
+                             else 'scalar')
+            file_dims[n] = len(re.findall(r'\[', decl_txt.split(n, 1)[-1]))
+        dropped.append((decl_txt, names))
+        cut.append((start, end))
+
+    rest, blank_rest, at = '', '', 0
+    for start, end in cut:
+        rest += body[at:start]
+        blank_rest += blank[at:start]
+        at = end
+    rest, blank_rest = rest + body[at:], blank_rest + blank[at:]
+    # Two spellings of the same thing: `typedef struct {...} Unit;` and
+    # `struct unit {...};`. The second is not a typedef and its tag is lower case, so the
+    # record it stands for is found through the GLOBAL declared with it -- which is
+    # evidence rather than a name match, and works for both.
     typedefs = {m.group(2): m.group(1) for m in
                 re.finditer(r'typedef\s+struct\s*\{(.*?)\}\s*(\w+)\s*;', body, re.S)}
+    tags = {m.group(1): m.group(2) for m in
+            re.finditer(r'struct\s+(\w+)\s*\{(.*?)\}\s*;', body, re.S)}
+    canon_of = {}
+    for t in typedefs:
+        if t in RECORDS:
+            canon_of[t] = t
+    for tag in tags:
+        for decl_txt, names in dropped:
+            if re.search(r'\bstruct\s+%s\b' % re.escape(tag), decl_txt):
+                for n in names:
+                    base = GLOBALS.get(n, {}).get('base')
+                    if base in RECORDS:
+                        canon_of['struct ' + tag] = base
+                        typedefs['struct ' + tag] = tags[tag]
     # Windows' own structs bring member names of their own into the file; a rewrite of
     # `.right` meant for the game's record would hit `RECT.right` too.
     # Only the members of a Windows struct the file ACTUALLY uses. `x`, `y` and `hwnd`
@@ -441,19 +545,19 @@ def port(path, force=False):
             PLATFORM_MEMBERS |= _f
     renames, casts, drop_typedefs, protos = {}, {}, [], []
     for t, tbody in typedefs.items():
-        if t not in RECORDS:
+        if t not in canon_of:
             continue          # types nothing shared: it stays, see above
         lay = local_layout(blank_comments(tbody))
         if lay is None:
             return None, 'its own %s has a member this cannot lay out' % t
-        canon = CANON[t]
+        canon = CANON[canon_of[t]]
         used = set(re.findall(r'(?:->|\.)\s*(\w+)', blank))
-        for off, name, ty, width, is_array, is_pointer in lay:
-            if name not in used or PAD.match(name):
+        for off, mname, ty, width, is_array, is_pointer in lay:
+            if mname not in used or PAD.match(mname):
                 continue
-            if name in PLATFORM_MEMBERS:
+            if mname in PLATFORM_MEMBERS:
                 return None, '%s.%s collides with a Windows struct member of the same ' \
-                             'name' % (t, name)
+                             'name' % (t, mname)
             # Three outcomes, in order of how much they keep:
             #   the merged record names this byte at this width -> rename, and the port
             #     reads like the record;
@@ -463,70 +567,31 @@ def port(path, force=False):
             #   the type is one this cannot spell -> refuse.
             cname, ctype = canon.get(off, (None, None))
             if not is_array and cname and WIDTH.get(ctype) == width:
-                if cname != name:
-                    renames[name] = cname
+                if cname != mname:
+                    renames[mname] = cname
                 continue
             if is_pointer:
                 # Same wall as a pointer-valued global: four bytes in the game, eight on
                 # the host, so the host cannot hold one at the shipped offset and the
                 # differential cannot compare it.
                 return None, 'uses the pointer member %s.%s, which is 4 bytes in the ' \
-                             'game and 8 on the host' % (t, name)
+                             'game and 8 on the host' % (t, mname)
             elem = ty if (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT')) \
                 else None
             if elem is None:
                 return None, '%s.%s is a %s at +0x%02x, which needs a cast this cannot ' \
-                             'spell' % (t, name, ty, off)
-            casts[name] = (off, elem)
+                             'spell' % (t, mname, ty, off)
+            casts[mname] = (off, elem)
         drop_typedefs.append(t)
 
     if name in WITHDRAWN:
         return None, 'withdrawn: %s' % WITHDRAWN[name]
+    if name in DISPUTED:
+        return None, 'disputed: %s' % DISPUTED[name]
     shipped = re.search(r'candidate for (\w{4}:\w{4})', head)
     if not shipped:
         return None, 'no shipped address in the header comment'
 
-    # Cut each extern out by OFFSET, taking the trailing comment with it -- it may run
-    # onto later lines, and leaving its tail behind is not a compile error in the source
-    # repo's spelling but is one here.
-    spans, dropped = [], []
-    for m in EXTERN.finditer(blank):
-        start, end = m.start(), m.end()
-        while end < len(body) and body[end] in ' \t':
-            end += 1
-        if body.startswith('/*', end):
-            j = body.find('*/', end + 2)
-            end = len(body) if j < 0 else j + 2
-        spans.append((start, end))
-    cut = []
-    for start, end in spans:
-        line = body[start:end]
-        names = re.findall(r'\b(g_\w+)\b', blank[start:end])
-        if not names:
-            # An extern FUNCTION: the prototype for a callee. It stays -- this repo has no
-            # header of ported prototypes yet, and the call check above has already
-            # refused the file unless that callee is ported.
-            continue
-        for n in names:
-            if n not in GLOBALS and n not in ALIASES:
-                return None, 'the model does not know the global %s' % n
-            want = ADDR.search(line)
-            if want and n in GLOBALS:
-                a, b = normalise_addr(want.group(1)), GLOBALS[n]['addr']
-                if a != b:
-                    return None, '%s: the file says %s, the model says %s' % (n, a, b)
-        # Keep only the declaration: the trailing /* address */ would close the comment
-        # this line is about to be quoted inside, and the model's address is authoritative
-        # anyway.
-        dropped.append((re.split(r'/\*', line.strip())[0].strip(), names))
-        cut.append((start, end))
-
-    rest, blank_rest, at = '', '', 0
-    for start, end in cut:
-        rest += body[at:start]
-        blank_rest += blank[at:start]
-        at = end
-    rest, blank_rest = rest + body[at:], blank_rest + blank[at:]
     # Rule 47: the shipped code reaches a callee in the SAME translation unit with a
     # four-byte PUSH CS / CALL NEAR, and a byte-exact file reproduces that by DEFINING
     # the callee locally -- empty, or `return 0;`. Those definitions are an artefact of
@@ -565,6 +630,9 @@ def port(path, force=False):
     d = DEF.search(blank_rest)
     if not d or d.group('name') != name:
         return None, 'the subject definition went missing when the stubs came out'
+    still = sorted(n for n in unknown if re.search(r'\b%s\b' % n, blank_rest))
+    if still:
+        return None, 'the model does not know the global %s' % still[0]
 
     # A callee this repo has not ported yet would not link, and porting it blind is how a
     # port acquires a function nobody checked. Decline, and the file becomes portable the
@@ -574,8 +642,10 @@ def port(path, force=False):
                 'double', 'struct', 'union', 'const', 'volatile', 'far', 'near', 'huge'}
     called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', blank_rest)
               if c not in KEYWORDS and c != name}
+    runtime = sorted(c for c in called if c in RUNTIME)
     missing = sorted(c for c in called
-                     if not glob.glob(os.path.join(REPO, 'src', '*', c + '.c')))
+                     if c not in RUNTIME
+                     and not glob.glob(os.path.join(REPO, 'src', '*', c + '.c')))
     if missing:
         return None, 'calls %s, which is not ported' % ', '.join(missing[:3])
 
@@ -616,7 +686,13 @@ def port(path, force=False):
     nscalar = len(params) - npoint
     if nscalar > 3 or len(params) > 5:
         return None, '%d arguments is more than a sweep should enumerate' % len(params)
-    per = {0: [], 1: ['0=-4..24'], 2: ['0=0..7', '1=0..7'],
+    # A negative argument is worth sweeping -- it is where signedness shows -- but not
+    # into a table. shift_table_down(-4) walks a loop from 14 down to -4 and indexes the
+    # global at every step: in 16 bits that wraps inside the segment, and on a host it
+    # runs off the front of the array. The index need not be the parameter itself, so the
+    # only safe rule is: a function that indexes any global at all is swept from 0.
+    lowest = 0 if re.search(r'\bg_\w+\s*\[', blank_rest) else -4
+    per = {0: [], 1: ['0=%d..24' % lowest], 2: ['0=0..7', '1=0..7'],
            3: ['0=0..3', '1=0..3', '2=0..3']}[nscalar]
     base = scratch(64 * max(1, npoint) + 512) if npoint else None
     if npoint and base is None:
@@ -644,7 +720,8 @@ def port(path, force=False):
             # selector simply ends. The model knows where each segment stops.
             if pname in bounds and '..' in rng:
                 lo, _, hi = rng.partition('..')
-                rng = '%s..%d' % (lo, min(int(hi), bounds[pname]))
+                b = bounds[pname]
+                rng = '%d..%d' % (max(int(lo), b[0]), min(int(hi), b[1]))
             sweeps.append('%d=%s' % (k, rng))
             callargs.append('(%s)a%d' % (retype(ty), k))
             k += 1
@@ -663,20 +740,44 @@ def port(path, force=False):
     # indexes and another reads whole is indexable in the header and scalar at the site.
     # Rewrite the scalar uses; a use that takes its ADDRESS has no such rewrite, so refuse.
     body_text = rest
+    # The header may give a global MORE dimensions than the file used: g_nation_bits is
+    # `char (*)[0x13c]` here and `char g_nation_bits[]` there, so the file's
+    # `g_nation_bits[row * 0x13c + byte]` would index whole ROWS. Flatten it at the site.
+    for _, gnames in dropped:
+        for n in gnames:
+            g = GLOBALS.get(n)
+            if not g or len(g['dims']) <= file_dims.get(n, 0):
+                continue
+            # Only a ROW STRIDE the file did not use, over a scalar element. A record-typed
+            # array is a different thing: flattening `Father g_fathers[]` to `col_i16 *`
+            # makes `g_fathers[i].cat` a member reference on a short.
+            if g['base'] not in WIDTH or not file_dims.get(n):
+                continue
+            elem = retype(g['base'])
+            body_text = re.sub(r'(?<![\w.>])%s\b' % re.escape(n),
+                               '((%s far *)%s)' % (elem, n), body_text)
     for t in drop_typedefs:
-        body_text = re.sub(r'typedef\s+struct\s*\{.*?\}\s*%s\s*;\s*' % re.escape(t),
-                           '', body_text, flags=re.S)
+        if t.startswith('struct '):
+            tag = t.split()[1]
+            body_text = re.sub(r'struct\s+%s\s*\{.*?\}\s*;\s*' % re.escape(tag),
+                               '', body_text, flags=re.S)
+            body_text = re.sub(r'\bstruct\s+%s\b' % re.escape(tag), canon_of[t],
+                               body_text)
+        else:
+            body_text = re.sub(
+                r'typedef\s+struct\s*\{.*?\}\s*%s\s*;\s*' % re.escape(t),
+                '', body_text, flags=re.S)
     for old, new in renames.items():
         body_text = re.sub(r'(->|\.)(\s*)%s\b' % re.escape(old),
                            lambda m: m.group(1) + m.group(2) + new, body_text)
-    for name, (off, elem) in sorted(casts.items()):
+    for cname_, (off, elem) in sorted(casts.items()):
         while True:
-            m = re.search(r'(->|\.)\s*%s\b' % re.escape(name), body_text)
+            m = re.search(r'(->|\.)\s*%s\b' % re.escape(cname_), body_text)
             if not m:
                 break
             recv = receiver_before(body_text, m.start())
             if recv is None:
-                return None, 'cannot see what %s is a member of' % name
+                return None, 'cannot see what %s is a member of' % cname_
             base = '(%s)' % recv if m.group(1) == '->' else '&(%s)' % recv
             rep = '((%s far *)((unsigned char far *)%s + 0x%x))' % (elem, base, off)
             if m.group(1) == '.' or True:
@@ -687,6 +788,11 @@ def port(path, force=False):
     for _, names in dropped:
         for n in names:
             if not GLOBALS.get(n, {}).get('dims'):
+                continue
+            if file_shape.get(n) != 'scalar':
+                # The file declares it as an array too, so a bare use already means
+                # "pointer to the first element" and wrapping it in `(*...)` would pass a
+                # char where a char * belongs.
                 continue
             if re.search(r'&\s*%s\b' % re.escape(n), blank_rest):
                 return None, 'takes the address of %s, which the header spells as a ' \
@@ -710,12 +816,19 @@ def port(path, force=False):
     # host, where w16types.h's bare `int` would put the members at the wrong offsets.
     body_text = re.sub(r'^[ \t]*#\s*include\s+"w16types\.h".*\n?', '', body_text,
                        flags=re.M)
+    for r in runtime:
+        body_text = re.sub(r'\b%s\b' % r, RUNTIME[r][0], body_text)
     ported = retype(strip_quals(body_text)).strip()
     sig = retype('%s %s%s(%s)' % (ret, (conv[0] + ' ') if conv else '', name,
                                   ', '.join('%s %s' % p for p in params) or 'void'))
     note = ['/* %s -- shipped at %s.' % (name, shipped.group(1)), ' *',
             ' * Ported by tools/port.py from %s.'
             % os.path.relpath(path, SRC_REPO), ' *']
+    if runtime:
+        note.append(' * %s: the C runtime\'s own, taken from the real header rather than'
+                    % ', '.join('%s -> %s' % (r, RUNTIME[r][0]) for r in runtime))
+        note.append(' * from this file\'s far-pointer prototype.')
+        note.append(' *')
     if dropped:
         note.append(' * Dropped, because col/globals.h declares them and the addresses'
                     ' agree:')
@@ -732,7 +845,10 @@ def port(path, force=False):
         note.append(' *')
     note += [' * far/near dropped throughout: an addressing mode with no semantic here.',
              ' */']
-    src = '\n'.join(note) + '\n#include "col/globals.h"\n\n'
+    src = '\n'.join(note) + '\n'
+    for h in sorted({RUNTIME[r][1] for r in runtime}):
+        src += '#include <%s>\n' % h
+    src += '#include "col/globals.h"\n\n'
     if protos:
         src += ('/* The callees whose in-file stub came out: declared here, defined in '
                 'their own\n * translation units, joined by the linker. */\n'

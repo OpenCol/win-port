@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "lookup_with_two_overrides",
+ "shipped": "1030:8033",
+ "source": "src/game/lookup_with_two_overrides.c",
+ "prototype": "col_i16 lookup_with_two_overrides(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)lookup_with_two_overrides((col_i16)a0)",
+ "globals_read": [
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_nation_adjective",
+  "g_override_a_val",
+  "g_override_b_val",
+  "g_player_nation",
+  "g_tribe"
+ ]
+}

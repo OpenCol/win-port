@@ -84,10 +84,15 @@ def main():
         restore()
         probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
         first = written()
+        # Poison with the complement of what the function WROTE, not of what was there
+        # before. rec6_0676_reset writes 0xff over bytes that ship as 0x00, so poisoning
+        # with the complement of the pristine byte put 0xff there -- exactly the value the
+        # function goes on to write -- and a port that did nothing still matched.
+        wrote = {(seg, off): m.read(seg, off, 1)[0] for seg, off in first}
         restore()
         poison = {}
         for seg, off in sorted(first):
-            v = m.read(seg, off, 1)[0] ^ 0xFF
+            v = wrote[(seg, off)] ^ 0xFF
             m.write(seg, off, bytes([v]))
             poison['%d:%04x' % (seg, off)] = v
         o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))

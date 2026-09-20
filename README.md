@@ -86,11 +86,12 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **191 functions are ported and verified**: 6,147 argument sets, 0 disagreements, on
+- **350 functions are ported and verified**: 8,294 argument sets, 0 disagreements, on
   return value and on memory afterwards, against `--state shipped`. All of them compile
-  with the real Borland C++ 4.52 targeting Win16, link, and the result boots.
+  with the real Borland C++ 4.52 targeting Win16, link into a 9-segment NE, and the
+  result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
-  256 mutations are caught. A mutation that changes no source text is reported rather than
+  700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
   verifying nothing rather than passing.
 
@@ -117,7 +118,7 @@ nothing names, in a segment with room. The host is handed the address in its own
 coordinates and the emulator the same one as `offset, selector` — two argument words
 rather than a swept axis.
 
-Of 3,173 functions, 191 are ported. The rest wait on their callees (751 at the last
+Of 3,173 functions, 350 are ported. The rest wait on their callees (751 at the last
 count), on a limitation below, or on the translation-unit partition: 431 files define a
 second function with a real body, which means two functions shared a translation unit.
 

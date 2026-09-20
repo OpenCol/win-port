@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "get_adjective",
+ "shipped": "1030:7fb7",
+ "source": "src/game/get_adjective.c",
+ "prototype": "col_i16 get_adjective(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)get_adjective((col_i16)a0)",
+ "globals_read": [
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_nation_adjective",
+  "g_player_nation",
+  "g_rebel_adjective",
+  "g_royal_adjective",
+  "g_tribe_names"
+ ]
+}

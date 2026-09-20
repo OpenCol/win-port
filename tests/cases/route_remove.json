@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_remove",
+ "shipped": "1028:c70e",
+ "source": "src/game/route_remove.c",
+ "prototype": "void route_remove(col_i16 idx);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "route_remove((col_i16)a0)",
+ "globals_read": [
+  "g_routes",
+  "g_trade_route_count",
+  "g_turn_nation",
+  "g_unit_count",
+  "g_unit_types",
+  "g_units"
+ ]
+}

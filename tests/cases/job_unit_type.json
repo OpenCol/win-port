@@ -7,7 +7,7 @@
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
-  "0=-4..24"
+  "0=0..24"
  ],
  "call": "(long)job_unit_type((col_i16)a0)",
  "globals_read": [

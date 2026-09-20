@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "get_true_adjective",
+ "shipped": "1030:80b5",
+ "source": "src/game/get_true_adjective.c",
+ "prototype": "col_i16 get_true_adjective(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)get_true_adjective((col_i16)a0)",
+ "globals_read": [
+  "g_nation_adjective",
+  "g_tribe_names"
+ ]
+}

@@ -40,15 +40,17 @@ def link(dst, src):
     os.symlink(src, dst)
 
 
-def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240):
-    """(object bytes or None, the compiler's own log)."""
+def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240, tdump=False):
+    """(object bytes or None, the compiler's own log), or with `tdump` a third value:
+    TDUMP's listing of the object, which is how the emulator-side differential finds a
+    function's bytes and its fixups inside a multi-symbol object."""
     if not os.path.isdir(BC452):
         return None, 'no Borland C++ 4.52 at %s (set COL_BC452)' % BC452
     os.makedirs(WORK, exist_ok=True)
     link(os.path.join(DOS, 'BC452'), BC452)
     link(os.path.join(DOS, 'INC'), os.path.join(REPO, 'include'))
     stem = os.path.splitext(os.path.basename(path))[0][:8].upper()
-    for f in ('T.C', stem + '.OBJ', 'CC.TXT'):
+    for f in ('T.C', stem + '.OBJ', 'CC.TXT', 'TD.TXT'):
         try:
             os.remove(os.path.join(WORK, f))
         except FileNotFoundError:
@@ -59,8 +61,9 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240):
         '[dosbox]\nmemsize=32\n[cpu]\ncore=auto\ncputype=pentium\ncycles=max\n'
         '[autoexec]\n'
         'MOUNT C %s\nC:\nSET PATH=C:\\BC452\\BIN\nCD \\WORK\n'
-        'BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ T.C > CC.TXT\nEXIT\n'
-        % (DOS, flags, stem))
+        'BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ T.C > CC.TXT\n%sEXIT\n'
+        % (DOS, flags, stem,
+           'TDUMP %s.OBJ > TD.TXT\n' % stem if tdump else ''))
     try:
         subprocess.run(['dosbox-x', '-silent', '-nolog', '-conf', conf],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
@@ -72,9 +75,15 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240):
     if os.path.exists(p):
         log = open(p, errors='replace').read()
     obj = os.path.join(WORK, stem + '.OBJ')
+    td = ''
+    tdp = os.path.join(WORK, 'TD.TXT')
+    if tdump and os.path.exists(tdp):
+        td = open(tdp, errors='replace').read()
     if not os.path.exists(obj) or os.path.getsize(obj) == 0:
-        return None, log or 'BCC produced no object and said nothing'
-    return open(obj, 'rb').read(), log
+        return (None, log or 'BCC produced no object and said nothing') + \
+            ((td,) if tdump else ())
+    data = open(obj, 'rb').read()
+    return (data, log) + ((td,) if tdump else ())
 
 
 CHUNK = 32          # DOSBox's [autoexec] stops running somewhere past this many lines:

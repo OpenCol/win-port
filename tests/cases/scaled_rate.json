@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "scaled_rate",
+ "shipped": "1048:4f66",
+ "source": "src/game/scaled_rate.c",
+ "prototype": "col_i16 scaled_rate(col_i16 v);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)scaled_rate((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation",
+  "g_difficulty",
+  "g_nation52"
+ ]
+}

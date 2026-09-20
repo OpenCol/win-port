@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_name_slot",
+ "shipped": "1030:eb8e",
+ "source": "src/game/set_name_slot.c",
+ "prototype": "void set_name_slot(col_i16 i, char * s);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..6",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "set_name_slot((col_i16)a0, (char far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_name_slots"
+ ]
+}

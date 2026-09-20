@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_route_get",
+ "shipped": "1038:301b",
+ "source": "src/game/unit_route_get.c",
+ "prototype": "col_i16 unit_route_get(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)unit_route_get((col_i16)a0)",
+ "globals_read": [
+  "g_units"
+ ]
+}

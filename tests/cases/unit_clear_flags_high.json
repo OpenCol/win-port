@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_clear_flags_high",
+ "shipped": "1038:270a",
+ "source": "src/game/unit_clear_flags_high.c",
+ "prototype": "void unit_clear_flags_high(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "unit_clear_flags_high((col_i16)a0)",
+ "globals_read": [
+  "g_units"
+ ]
+}

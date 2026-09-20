@@ -108,7 +108,7 @@ def main():
             entry['symbol'] = syms.get('L%x_%04x' % (t['segment'], t['offset']))
             pending.append(entry)
 
-    decls, defs = [], []
+    decls, defs, emu = [], [], []
     for idx, foff, length, flags, minalloc in data_segs:
         blob = image[foff:foff + length]
         if len(blob) != length:
@@ -116,6 +116,11 @@ def main():
         far = idx != DGROUP
         decls.append('extern unsigned char %scol_seg%d[%dL];'
                      % ('far ' if far else '', idx, length))
+        # Written as a long constant rather than MK_FP: MK_FP lives in <dos.h>, and
+        # without it Borland takes it for an external FUNCTION and emits a fixup per use,
+        # which is the one thing this mode exists to avoid.
+        emu.append('#define col_seg%d ((unsigned char far *)0x%04x0000L)'
+                   % (idx, 0x1000 + (idx - 1) * 8))
         defs.append(carray('col_seg%d' % idx, blob, far))
 
     table = '\n'.join('    case %d: return col_seg%d;' % (i, i) for i in ids)
@@ -206,14 +211,29 @@ void col_relocate(void)
 
 #include "col/win16.h"      /* `far` is a keyword there and erased on the host */
 
+/* THREE ways to reach the same bytes, and only the third is unusual.
+ *
+ *   the Win16 build   these arrays, wherever the linker puts them;
+ *   the host tests    the same arrays, addressed identically;
+ *   COL_EMU           the SHIPPED selectors, as compile-time far constants. A unit built
+ *                     this way addresses segment 20 at 0x10a0:0000 with no relocation at
+ *                     all, which is what lets tests/emu_differential.py drop the compiled
+ *                     function straight into the emulator beside the shipped one and
+ *                     compare them in 16-bit terms -- far pointers, calling convention and
+ *                     all, none of which a host can represent.
+ */
+#ifdef COL_EMU
 %s
+#else
+%s
+#endif
 
 unsigned char far *col_seg(int seg);      /* 0 for a segment that is not DATA */
 long col_seg_size(int seg);
 void col_relocate(void);
 
 #endif
-''' % '\n'.join(decls)
+''' % ('\n'.join(emu), '\n'.join(decls))
 
     out = [(os.path.join(REPO, 'src', 'segdata.c'), src),
            (os.path.join(REPO, 'include', 'col', 'segments.h'), hdr),

@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_pair_flags_clear_both",
+ "shipped": "1030:7f43",
+ "source": "src/game/nation_pair_flags_clear_both.c",
+ "prototype": "col_i16 nation_pair_flags_clear_both(col_i16 a, col_i16 b, col_i16 mask);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)nation_pair_flags_clear_both((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": []
+}

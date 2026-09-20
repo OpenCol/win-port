@@ -4,6 +4,12 @@
  "withdrawn": {
   "set_cursor_pos": "the sweep never reaches the branch that writes; needs a hand-written case",
   "show_strategy": "the sweep never reaches the branch that writes; needs a hand-written case",
-  "spin_over_count": "the sweep never reaches the branch that writes; needs a hand-written case"
+  "spin_over_count": "the sweep never reaches the branch that writes; needs a hand-written case",
+  "building_family_base": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain",
+  "building_line_tail": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain",
+  "colony_building_count": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain",
+  "unit_chain26_tail": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain",
+  "unit_chain_length": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain",
+  "unit_chain_tail": "walks a chain that is cyclic in the shipped image for every argument this sweep can generate, so the shipped function never returns and there is nothing to compare; needs a case that stages a chain"
  }
 }

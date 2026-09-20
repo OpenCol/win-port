@@ -9,6 +9,34 @@
 
 #include "col/win16.h"      /* `far` is a keyword there and erased on the host */
 
+/* THREE ways to reach the same bytes, and only the third is unusual.
+ *
+ *   the Win16 build   these arrays, wherever the linker puts them;
+ *   the host tests    the same arrays, addressed identically;
+ *   COL_EMU           the SHIPPED selectors, as compile-time far constants. A unit built
+ *                     this way addresses segment 20 at 0x10a0:0000 with no relocation at
+ *                     all, which is what lets tests/emu_differential.py drop the compiled
+ *                     function straight into the emulator beside the shipped one and
+ *                     compare them in 16-bit terms -- far pointers, calling convention and
+ *                     all, none of which a host can represent.
+ */
+#ifdef COL_EMU
+#define col_seg20 ((unsigned char far *)0x10980000L)
+#define col_seg21 ((unsigned char far *)0x10a00000L)
+#define col_seg22 ((unsigned char far *)0x10a80000L)
+#define col_seg23 ((unsigned char far *)0x10b00000L)
+#define col_seg24 ((unsigned char far *)0x10b80000L)
+#define col_seg25 ((unsigned char far *)0x10c00000L)
+#define col_seg26 ((unsigned char far *)0x10c80000L)
+#define col_seg27 ((unsigned char far *)0x10d00000L)
+#define col_seg28 ((unsigned char far *)0x10d80000L)
+#define col_seg29 ((unsigned char far *)0x10e00000L)
+#define col_seg30 ((unsigned char far *)0x10e80000L)
+#define col_seg31 ((unsigned char far *)0x10f00000L)
+#define col_seg32 ((unsigned char far *)0x10f80000L)
+#define col_seg33 ((unsigned char far *)0x11000000L)
+#define col_seg34 ((unsigned char far *)0x11080000L)
+#else
 extern unsigned char far col_seg20[57053L];
 extern unsigned char far col_seg21[556L];
 extern unsigned char far col_seg22[332L];
@@ -24,6 +52,7 @@ extern unsigned char far col_seg31[748L];
 extern unsigned char far col_seg32[196L];
 extern unsigned char far col_seg33[32896L];
 extern unsigned char col_seg34[22620L];
+#endif
 
 unsigned char far *col_seg(int seg);      /* 0 for a segment that is not DATA */
 long col_seg_size(int seg);

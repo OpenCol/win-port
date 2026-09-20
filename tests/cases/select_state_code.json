@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "select_state_code",
+ "shipped": "1038:47ab",
+ "source": "src/game/select_state_code.c",
+ "prototype": "col_i16 select_state_code(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)select_state_code((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_game_flags",
+  "g_recs"
+ ]
+}

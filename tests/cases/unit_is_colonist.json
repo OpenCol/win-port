@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_is_colonist",
+ "shipped": "1018:44e5",
+ "source": "src/game/unit_is_colonist.c",
+ "prototype": "col_i16 unit_is_colonist(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)unit_is_colonist((col_i16)a0)",
+ "globals_read": [
+  "g_unit_type_class",
+  "g_unit_types",
+  "g_units"
+ ]
+}

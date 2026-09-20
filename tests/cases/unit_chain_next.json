@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_chain_next",
+ "shipped": "1038:18ee",
+ "source": "src/game/unit_chain_next.c",
+ "prototype": "col_i16 unit_chain_next(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)unit_chain_next((col_i16)a0)",
+ "globals_read": [
+  "g_units"
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_known_to",
+ "shipped": "1018:af4a",
+ "source": "src/game/colony_known_to.c",
+ "prototype": "col_i16 colony_known_to(col_i16 c, col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)colony_known_to((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_colonies",
+  "g_reveal_all"
+ ]
+}
