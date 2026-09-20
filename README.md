@@ -61,6 +61,9 @@ data totals about 88 KiB — segment 20 alone runs to offset 0xded4 (57,044). So
 | `tools/bcc.py` | compiles units with the real Borland C++ 4.52 under DOSBox-X |
 | `tests/differential.py` | the harness: a ported function against the shipped bytes |
 | `tests/verify_segments.py` | is `segdata.c` really the shipped image? an independent loader answers |
+| `tools/link.py` | links what is ported into a real Windows 3.1 executable |
+| `src/winmain.c` | the entry point; a placeholder until the game's own is ported |
+| `tests/boot.py` | does the linked executable load and run? |
 | `tools/check.sh` | all of the above |
 
 `include/README.md`'s prohibition on a shared header is a property of the byte-exact
@@ -108,6 +111,35 @@ merged record by offset), on their callees, or on a limitation below.
 Three functions were ported, verified to compare nothing, and withdrawn: the generated
 sweep never reached the branch that writes, so the case was green without testing
 anything. Nothing sits in `src/` that the harness has not checked.
+
+## The link
+
+`tools/link.py` produces a real NE executable: Borland's Windows startup (`C0WL.OBJ`),
+every ported translation unit, the shipped data segments, the 42 shipped resources bound
+with BRC, and a generated stub for anything the linker cannot find. The stub list is not
+maintained by hand — TLINK is run, its `Undefined symbol` errors are read, stubs are
+generated and the link retried, so the remaining work is whatever the linker says it is.
+Right now that list is empty, because `port.py` refuses a function whose callee is not
+ported.
+
+It runs now, at 128 of 3,173 functions, because the link is the only check that covers
+whether the pieces **fit**: one definition each, the segments inside 64 KiB, DGROUP not
+overflowing, the imports resolved, the resources bound. Discovering that at the end, on a
+program too big to bisect, is the failure this avoids.
+
+`tests/boot.py` then boots the result in the Win16 emulator. It loads, the startup runs
+(18 API calls: `GlobalAlloc`, `InitTask`, `InitApp`, `GetWinFlags`, `GetModuleFileName`),
+WinMain is reached, returns, and the runtime exits through `INT 21h AH=4Ch`. No
+unimplemented API, no fault. WinMain is still a placeholder, so that *is* the whole of the
+program's behaviour — what this establishes is that the link is sound, and it fails the
+day it stops being.
+
+**The room left is worth watching.** The linked image is 7 segments: 4 code, and 3 data
+holding the 123,164 bytes lifted from the shipped binary. DGROUP is 25,066 bytes and must
+also hold the heap (1,024) and the stack (32,768), which is 58,858 of 65,536 — about
+6.7 KiB for everything the remaining 3,045 functions declare. One far data segment is at
+61,825. Units are compiled with `-dc` so string literals go to the code segment rather
+than spending that headroom.
 
 ### What the harness cannot see
 

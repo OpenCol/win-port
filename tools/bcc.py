@@ -25,7 +25,11 @@ WORK = os.path.join(DOS, 'WORK')
 # -WS  a Windows smart-callback application: the target is Windows 3.1.
 # -Ot  optimise for speed, as the shipped build did (docs/findings/toolchain.md there).
 # -3   80386 instructions, likewise.
-DEFAULT_FLAGS = '-ml -WS -Ot -3'
+# -dc  string literals into the code segment. Not for compatibility -- for room. DGROUP
+#      is 64 KiB and already holds the shipped automatic data segment (22,620 bytes), the
+#      heap and the stack, leaving about 6.7 KiB for everything the remaining 3,045
+#      functions declare. Literals are the part of that which does not have to be there.
+DEFAULT_FLAGS = '-ml -WS -Ot -3 -dc'
 
 
 def link(dst, src):

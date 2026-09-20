@@ -17,7 +17,10 @@ run python3 tools/gen_model_header.py --check
 run python3 tests/differential.py --all --selftest
 run python3 tests/differential.py --all
 if [ "${1:-}" != "fast" ]; then
-  run python3 tools/bcc.py src/segdata.c src/*/*.c
+  # The link is the only check that covers whether the pieces FIT: one definition each,
+  # the segments inside 64 KiB, DGROUP not overflowing, imports resolved, resources bound.
+  run python3 tools/link.py
+  [ -x "$UC" ] && run "$UC" tests/boot.py
 fi
 [ $rc -eq 0 ] && echo "ALL GREEN" || echo "FAILURES ABOVE"
 exit $rc
