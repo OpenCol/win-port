@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_56b4",
+ "shipped": "1068:cbb8",
+ "source": "src/gfx/set_56b4.c",
+ "prototype": "void set_56b4(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "set_56b4((int)a0, (int)a1)",
+ "globals_read": [
+  "g_dialog_result"
+ ]
+}

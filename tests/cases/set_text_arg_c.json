@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_text_arg_c",
+ "shipped": "1020:a973",
+ "source": "src/game/set_text_arg_c.c",
+ "prototype": "void set_text_arg_c(int i, char v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..5",
+  "1=0..7"
+ ],
+ "call": "set_text_arg_c((int)a0, (char)a1)",
+ "globals_read": [
+  "g_text_args"
+ ]
+}

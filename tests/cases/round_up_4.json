@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "round_up_4",
+ "shipped": "1070:dc61",
+ "source": "src/platform/round_up_4.c",
+ "prototype": "int round_up_4(int n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)round_up_4((int)a0)",
+ "globals_read": []
+}

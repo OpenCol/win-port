@@ -17,8 +17,7 @@ run python3 tools/gen_model_header.py --check
 run python3 tests/differential.py --all --selftest
 run python3 tests/differential.py --all
 if [ "${1:-}" != "fast" ]; then
-  run python3 tools/bcc.py src/segdata.c
-  for f in src/game/*.c; do run python3 tools/bcc.py "$f"; done
+  run python3 tools/bcc.py src/segdata.c src/*/*.c
 fi
 [ $rc -eq 0 ] && echo "ALL GREEN" || echo "FAILURES ABOVE"
 exit $rc

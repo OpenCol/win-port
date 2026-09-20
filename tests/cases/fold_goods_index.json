@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "fold_goods_index",
+ "shipped": "1040:442f",
+ "source": "src/game/fold_goods_index.c",
+ "prototype": "int fold_goods_index(int v);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)fold_goods_index((int)a0)",
+ "globals_read": []
+}

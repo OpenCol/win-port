@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_order_e",
+ "shipped": "1038:4f4a",
+ "source": "src/game/set_order_e.c",
+ "prototype": "void set_order_e(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "set_order_e()",
+ "globals_read": [
+  "g_mother_country_idx",
+  "g_nation_colour"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

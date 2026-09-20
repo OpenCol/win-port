@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_text_arg_b_1030_eb6a",
+ "shipped": "1030:eb6a",
+ "source": "src/game/set_text_arg_b_1030_eb6a.c",
+ "prototype": "void set_text_arg_b_1030_eb6a(int i, unsigned char v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..5",
+  "1=0..7"
+ ],
+ "call": "set_text_arg_b_1030_eb6a((int)a0, (unsigned char)a1)",
+ "globals_read": [
+  "g_text_args"
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_flag_get",
+ "shipped": "1018:3da3",
+ "source": "src/game/colony_flag_get.c",
+ "prototype": "int colony_flag_get(int colony, int bit);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)colony_flag_get((int)a0, (int)a1)",
+ "globals_read": [
+  "g_colony_flags"
+ ]
+}

@@ -40,21 +40,63 @@ def main():
         m.write(seg, off, bytes([toff & 0xFF, toff >> 8,
                                  selector(tseg) & 0xFF, selector(tseg) >> 8]))
     argsets = probe.parse_sweep(CASE.get('sweep', []), CASE.get('call_args', []))
-    out = []
-    for args in argsets:
-        o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
-        touched = {}
+
+    # One machine serves every argument set, so a function that WRITES would otherwise see
+    # what the previous call left -- and the host resets between calls, so the two would
+    # disagree for a reason that is the harness's fault, not the port's. TextColor returns
+    # the previous colour; without this it returned a different one every time and every
+    # comparison after the first was meaningless. Capture the data segments once, after
+    # staging, and put them back before each call.
+    pristine = {}
+    for idx, seg in m.image.segs.items():
+        if m.image.is_code(idx):
+            continue
+        n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
+        pristine[idx] = (m.read(idx, 0, n), n)
+
+    def restore():
+        for idx, (data, n) in pristine.items():
+            m.write(idx, 0, data)
+
+    def written():
+        """Every byte address the last call wrote, outside the stack."""
+        out = set()
         for w in m.log['writes']:
             if w.get('space') in ('stack', 'scratch') or not w.get('addr'):
                 continue
             sel, _, off = w['addr'].partition(':')
             seg = (int(sel, 16) - 0x1000) // 8 + 1
             for k in range(w.get('size', 1)):
-                touched['%d:%04x' % (seg, int(off, 16) + k)] = \
-                    m.read(seg, int(off, 16) + k, 1)[0]
+                out.add((seg, int(off, 16) + k))
+        return out
+
+    out = []
+    for args in argsets:
+        # TWO calls per argument set, and the second one is the one that counts.
+        #
+        # The host cannot produce a write LOG -- it diffs memory -- so a write that stores
+        # a value already present is invisible there. Seven functions here do nothing but
+        # that (clearing a buffer that ships zeroed), and for them a port that did nothing
+        # at all passed. So: call once to learn which bytes the shipped code writes, put
+        # the memory back, POISON exactly those bytes to the complement of what they held,
+        # and call again. Now every write changes something, on both sides -- the host is
+        # given the same poison.
+        restore()
+        probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
+        first = written()
+        restore()
+        poison = {}
+        for seg, off in sorted(first):
+            v = m.read(seg, off, 1)[0] ^ 0xFF
+            m.write(seg, off, bytes([v]))
+            poison['%d:%04x' % (seg, off)] = v
+        o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
+        touched = {}
+        for seg, off in sorted(first | written()):
+            touched['%d:%04x' % (seg, off)] = m.read(seg, off, 1)[0]
         out.append({'args': list(args), 'ax': o['return_dxax'] & 0xFFFF,
                     'dxax': o['return_dxax'], 'returned': o['reached_return'],
-                    'final': touched})
+                    'poison': poison, 'final': touched})
     json.dump({'state': meta.get('state'), 'observations': out}, sys.stdout)
 
 

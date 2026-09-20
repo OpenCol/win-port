@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "is_adjacent_dir",
+ "shipped": "1040:7ca4",
+ "source": "src/game/is_adjacent_dir.c",
+ "prototype": "int is_adjacent_dir(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)is_adjacent_dir((int)a0, (int)a1)",
+ "globals_read": []
+}

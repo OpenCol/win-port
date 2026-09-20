@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "in_map_rect",
+ "shipped": "1038:b5c7",
+ "source": "src/game/in_map_rect.c",
+ "prototype": "int in_map_rect(int x, int y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)in_map_rect((int)a0, (int)a1)",
+ "globals_read": [
+  "g_view_x0",
+  "g_view_x1",
+  "g_view_y0",
+  "g_view_y1"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_quit_flag",
+ "shipped": "1050:658f",
+ "source": "src/game/set_quit_flag.c",
+ "prototype": "int set_quit_flag(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "call": "(long)set_quit_flag()",
+ "globals_read": [
+  "g_quit_flag"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

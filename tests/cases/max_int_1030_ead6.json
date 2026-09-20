@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "max_int_1030_ead6",
+ "shipped": "1030:ead6",
+ "source": "src/game/max_int_1030_ead6.c",
+ "prototype": "int max_int_1030_ead6(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)max_int_1030_ead6((int)a0, (int)a1)",
+ "globals_read": []
+}

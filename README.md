@@ -57,7 +57,8 @@ data totals about 88 KiB — segment 20 alone runs to offset 0xded4 (57,044). So
 | `src/segdata.c`, `include/col/segments.h` | **generated** — the 15 data segments, 123,164 bytes, byte for byte |
 | `model/relocations.json` | the 193 far pointers the Windows loader used to fill in |
 | `src/game/*.c` | ported functions |
-| `tools/bcc.py` | compiles one unit with the real Borland C++ 4.52 under DOSBox-X |
+| `tools/port.py` | moves one reconstruction into this repo and writes its case, or refuses and says why |
+| `tools/bcc.py` | compiles units with the real Borland C++ 4.52 under DOSBox-X |
 | `tests/differential.py` | the harness: a ported function against the shipped bytes |
 | `tests/verify_segments.py` | is `segdata.c` really the shipped image? an independent loader answers |
 | `tools/check.sh` | all of the above |
@@ -82,24 +83,52 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **The differential harness is green on three functions**, 84 argument sets, on return
-  value and on memory afterwards, against `--state shipped`. Two of them
-  (`job_goods` 1018:5d35, `building_slot_of` 1018:47af) are table lookups that return
-  values straight out of the extracted segment data, so they fail if the extraction is
-  wrong; `clear_colony_flag_1c` (1018:0438) writes. `--selftest` breaks every port two
-  ways on purpose and requires both to be caught.
+- **128 functions are ported and verified**: 5,405 argument sets, 0 disagreements, on
+  return value and on memory afterwards, against `--state shipped`. All 128 also compile
+  with the real Borland C++ 4.52 targeting Win16.
+- **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
+  256 mutations are caught. A mutation that changes no source text is reported rather than
+  counted, and a case that compares no return value and observes no write is reported as
+  verifying nothing rather than passing.
 
 ```
 tools/check.sh          # regenerate-and-compare, selftest, differential, Borland compile
 ```
 
+## Porting
+
+`tools/port.py` moves a reconstruction here and writes its case. A reconstruction is a
+standalone translation unit — it re-declares every type and global because a byte-exact
+file cannot include a shared header — so the port is mostly deletion, and deletion is
+where a port quietly changes meaning. It therefore refuses rather than guesses, and a
+refusal names its reason. Of 3,173 functions, 130 are portable as they stand; the rest
+wait on tier B (1,617 declare their own struct, whose members must be mapped onto the
+merged record by offset), on their callees, or on a limitation below.
+
+Three functions were ported, verified to compare nothing, and withdrawn: the generated
+sweep never reached the branch that writes, so the case was green without testing
+anything. Nothing sits in `src/` that the harness has not checked.
+
 ### What the harness cannot see
 
-Stated so a pass is not read as more than it is. The host side has no MMU; it diffs slabs.
-So it does not see **reads**, write **order**, or a write of a value that was already
-there. It says nothing about calling convention, stack discipline or segment arithmetic —
-those belong to the whole-binary differential, which needs a linked `.EXE` and is not
-stood up yet. A function whose *result* depends on a wrong read still fails here.
+Stated so a pass is not read as more than it is. The host side has no MMU; it diffs
+memory. So it does not see **reads** or write **order**. It says nothing about calling
+convention, stack discipline or segment arithmetic — those belong to the whole-binary
+differential, which needs a linked `.EXE` and is not stood up yet. A function whose
+*result* depends on a wrong read still fails here.
+
+A write of a value that was already there used to be invisible too, which let a port that
+did nothing at all pass on seven buffer-clearing functions. The shipped side now runs each
+argument set twice — once to learn which bytes it writes, then again with exactly those
+bytes poisoned to the complement of what they held — and the host is given the same
+poison, so every write changes something on both sides.
+
+Three things cannot be compared on a host at all, and `port.py` refuses them: a **pointer-
+valued global** (four bytes in the game, eight on the host, so its stored value there is an
+encoding and following it faults), a **`long` argument** (the sweep hands the emulator one
+16-bit word per argument), and a function that **returns an uninitialised local** — which
+one stubbed-out routine left in the shipped build does, making its answer whatever the
+registers held.
 
 ## What is not done
 

@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "status_bits",
+ "shipped": "1028:080e",
+ "source": "src/game/status_bits.c",
+ "prototype": "int status_bits(int p1, int p2);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)status_bits((int)a0, (int)a1)",
+ "globals_read": [
+  "g_ba",
+  "g_navy_table",
+  "g_region_size"
+ ]
+}

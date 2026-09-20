@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "woodcut_set",
+ "shipped": "1060:046f",
+ "source": "src/game/woodcut_set.c",
+ "prototype": "void woodcut_set(int n, int on);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "woodcut_set((int)a0, (int)a1)",
+ "globals_read": [
+  "g_bits_780c"
+ ]
+}

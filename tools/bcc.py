@@ -73,19 +73,91 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240):
     return open(obj, 'rb').read(), log
 
 
+CHUNK = 32          # DOSBox's [autoexec] stops running somewhere past this many lines:
+                    # 20 files compile, 132 silently produce nothing at all.
+
+
+def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200):
+    """Compile many units in ONE DOSBox session.
+
+    Booting DOSBox-X costs a few seconds and compiling one of these files costs a
+    fraction of one, so a file-at-a-time loop spends all its time on the emulator. This
+    writes one autoexec that compiles the lot and reads the logs afterwards.
+
+    Returns {path: (object bytes or None, that file's log)}.
+    """
+    if not os.path.isdir(BC452):
+        return {p: (None, 'no Borland C++ 4.52 at %s' % BC452) for p in paths}
+    if len(paths) > CHUNK:
+        out = {}
+        for i in range(0, len(paths), CHUNK):
+            out.update(compile_all(paths[i:i + CHUNK], flags, timeout))
+        return out
+    os.makedirs(WORK, exist_ok=True)
+    link(os.path.join(DOS, 'BC452'), BC452)
+    link(os.path.join(DOS, 'INC'), os.path.join(REPO, 'include'))
+    stems, lines = {}, []
+    for i, p in enumerate(paths):
+        stem = 'U%04d' % i
+        stems[p] = stem
+        shutil.copyfile(p, os.path.join(WORK, stem + '.C'))
+        for f in (stem + '.OBJ', stem + '.TXT'):
+            try:
+                os.remove(os.path.join(WORK, f))
+            except FileNotFoundError:
+                pass
+        lines.append('BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ %s.C > %s.TXT'
+                     % (flags, stem, stem, stem))
+    conf = os.path.join(DOS, 'bccall.conf')
+    open(conf, 'w').write(
+        '[dosbox]\nmemsize=32\n[cpu]\ncore=auto\ncputype=pentium\ncycles=max\n'
+        '[autoexec]\nMOUNT C %s\nC:\nSET PATH=C:\\BC452\\BIN\nCD \\WORK\n%s\nEXIT\n'
+        % (DOS, '\n'.join(lines)))
+    try:
+        subprocess.run(['dosbox-x', '-silent', '-nolog', '-conf', conf],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                       timeout=timeout)
+    except subprocess.TimeoutExpired:
+        pass
+    out = {}
+    for p, stem in stems.items():
+        log = ''
+        lp = os.path.join(WORK, stem + '.TXT')
+        if os.path.exists(lp):
+            log = open(lp, errors='replace').read()
+        op = os.path.join(WORK, stem + '.OBJ')
+        obj = open(op, 'rb').read() if os.path.exists(op) and os.path.getsize(op) else None
+        out[p] = (obj, log)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('source')
+    ap.add_argument('source', nargs='*')
     ap.add_argument('--flags', default=DEFAULT_FLAGS)
     ap.add_argument('--out')
     a = ap.parse_args()
-    obj, log = compile_unit(a.source, a.flags)
+    if len(a.source) != 1:
+        results = compile_all(a.source, a.flags)
+        bad = 0
+        for p in a.source:
+            obj, log = results[p]
+            errs = [ln for ln in (log or '').splitlines() if ln.startswith('Error')]
+            if obj is None or errs:
+                bad += 1
+                print('%-40s FAILED' % os.path.relpath(p, REPO))
+                for e in errs[:4]:
+                    print('    ' + e)
+        print('%d of %d compiled with Borland C++ 4.52'
+              % (len(a.source) - bad, len(a.source)))
+        return 1 if bad else 0
+    obj, log = compile_unit(a.source[0], a.flags)
     sys.stdout.write(log or '')
     if obj is None:
         print('COMPILE FAILED (%s)' % a.flags, file=sys.stderr)
         return 1
     out = a.out or os.path.join(REPO, 'build', 'obj',
-                                os.path.splitext(os.path.basename(a.source))[0] + '.obj')
+                                os.path.splitext(os.path.basename(a.source[0]))[0] + '.obj')
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'wb').write(obj)
     print('%d bytes -> %s' % (len(obj), os.path.relpath(out, REPO)))

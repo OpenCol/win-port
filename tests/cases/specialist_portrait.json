@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "specialist_portrait",
+ "shipped": "1040:1d76",
+ "source": "src/game/specialist_portrait.c",
+ "prototype": "int specialist_portrait(int spec);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)specialist_portrait((int)a0)",
+ "globals_read": []
+}

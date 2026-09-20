@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "in_range_mode",
+ "shipped": "1038:b52a",
+ "source": "src/game/in_range_mode.c",
+ "prototype": "int in_range_mode(int dx, int dy, int mode);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)in_range_mode((int)a0, (int)a1, (int)a2)",
+ "globals_read": []
+}

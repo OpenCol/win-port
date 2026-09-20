@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "hittest_panel",
+ "shipped": "1010:4538",
+ "source": "src/game/hittest_panel.c",
+ "prototype": "int hittest_panel(int x, int y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)hittest_panel((int)a0, (int)a1)",
+ "globals_read": []
+}

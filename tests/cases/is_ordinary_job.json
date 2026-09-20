@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "is_ordinary_job",
+ "shipped": "1018:3915",
+ "source": "src/game/is_ordinary_job.c",
+ "prototype": "int is_ordinary_job(int job);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)is_ordinary_job((int)a0)",
+ "globals_read": []
+}

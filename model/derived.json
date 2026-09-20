@@ -50,20 +50,14 @@
   "g_game_record": {
    "seg": 20,
    "off": 1482,
-   "size": 13,
-   "how": "declared",
-   "base": "WinRec",
+   "size": 140,
+   "how": "inferred: the gap to the next global",
+   "base": "char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char",
-      "int"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "SEG20:0x05ca",
    "spellings": [
     "char far @",
@@ -76,18 +70,13 @@
    "seg": 20,
    "off": 1622,
    "size": 2,
-   "how": "declared",
-   "base": "MenuRec",
+   "how": "inferred: the gap to the next global",
+   "base": "char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "SEG20:0x0656",
    "spellings": [
     "char far @",
@@ -98,19 +87,14 @@
   "g_map_window": {
    "seg": 20,
    "off": 1624,
-   "size": 1928,
-   "how": "declared",
-   "base": "MapWin",
+   "size": 38,
+   "how": "inferred: the gap to the next global",
+   "base": "char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "SEG20:0x0658",
    "spellings": [
     "char far @",
@@ -484,19 +468,13 @@
    "off": 16806,
    "size": 544,
    "how": "inferred: the gap to the next global",
-   "base": "SpriteRec",
+   "base": "char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "0x20"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0x41a6",
    "spellings": [
     "char far @[][0x20]",
@@ -751,19 +729,13 @@
    "off": 25158,
    "size": 32,
    "how": "inferred: the gap to the next global",
-   "base": "Sprite",
+   "base": "char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "0x20"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0x6246",
    "spellings": [
     "char far @[][0x20]",
@@ -840,19 +812,13 @@
    "off": 25894,
    "size": 1056,
    "how": "inferred: the gap to the next global",
-   "base": "Sprite",
+   "base": "char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "0x20"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0x6526",
    "spellings": [
     "char far @[][0x20]",
@@ -1191,24 +1157,19 @@
   "g_game_flags": {
    "seg": 20,
    "off": 30596,
-   "size": 2,
-   "how": "declared",
-   "base": "int",
+   "size": 1,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
-    [
-     "narrow_view",
-     [
-      "char",
-      "unsigned char"
-     ]
-    ],
     [
      "signedness_unresolved",
      [
-      "int",
-      "unsigned"
+      "char",
+      "unsigned char"
      ]
     ]
    ],
@@ -2036,19 +1997,13 @@
    "off": 30736,
    "size": 24,
    "how": "inferred: the gap to the next global",
-   "base": "Nation34",
+   "base": "char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "0x34"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0x7810",
    "spellings": [
     "Nation34 far @[]",
@@ -2238,19 +2193,13 @@
    "off": 31432,
    "size": 7,
    "how": "inferred: the gap to the next global",
-   "base": "UnitType",
+   "base": "unsigned char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "14"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0x7ac8",
    "spellings": [
     "UnitType far @[]",
@@ -2649,10 +2598,11 @@
    "off": 49915,
    "size": 35,
    "how": "inferred: the gap to the next global",
-   "base": "char",
+   "base": "unsigned char",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "0x13c"
    ],
    "notes": [
     [
@@ -3142,19 +3092,13 @@
    "off": 54812,
    "size": 222,
    "how": "inferred: the gap to the next global",
-   "base": "SpecInfo",
+   "base": "int",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "4"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "int"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0xd61c",
    "spellings": [
     "SpecInfo far @[]",
@@ -3166,19 +3110,13 @@
    "off": 55034,
    "size": 150,
    "how": "inferred: the gap to the next global",
-   "base": "Father",
+   "base": "int",
    "stars": 0,
    "dims": [
-    ""
+    "",
+    "3"
    ],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "int"
-     ]
-    ]
-   ],
+   "notes": [],
    "addr": "SEG20:0xd6fa",
    "spellings": [
     "Father far @[]",
@@ -3926,11 +3864,14 @@
   "g_unit_tally": {
    "seg": 20,
    "off": 55774,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 2,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    "",
+    "0x13"
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4105,11 +4046,13 @@
   "g_region_settlements": {
    "seg": 20,
    "off": 55904,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 16,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4221,11 +4164,14 @@
   "g_nation_region": {
    "seg": 20,
    "off": 56112,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 64,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    "",
+    "16"
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4278,11 +4224,14 @@
   "g_nation_region_strength": {
    "seg": 20,
    "off": 56240,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 64,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    "",
+    "16"
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4303,11 +4252,13 @@
   "g_region_flags": {
    "seg": 20,
    "off": 56304,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 16,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4326,11 +4277,13 @@
   "g_tribe_strength": {
    "seg": 20,
    "off": 56320,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 8,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4349,11 +4302,13 @@
   "g_tribe_pop": {
    "seg": 20,
    "off": 56328,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 8,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4372,11 +4327,13 @@
   "g_tribe_settlement_count": {
    "seg": 20,
    "off": 56336,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 8,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -4395,11 +4352,14 @@
   "g_tribe_region": {
    "seg": 20,
    "off": 56344,
-   "size": 1,
-   "how": "declared",
-   "base": "char",
+   "size": 144,
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    "",
+    "0x10"
+   ],
    "notes": [
     [
      "signedness_unresolved",
@@ -12640,18 +12600,13 @@
    "seg": 34,
    "off": 19268,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4b44",
    "spellings": [
     "unsigned char far @[]",
@@ -12663,13 +12618,15 @@
    "seg": 34,
    "off": 19272,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "signed char",
    "stars": 0,
-   "dims": [],
+   "dims": [
+    ""
+   ],
    "notes": [
     [
-     "narrow_view",
+     "signedness_unresolved",
      [
       "signed char",
       "unsigned char"
@@ -12704,18 +12661,13 @@
    "seg": 34,
    "off": 19276,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4b4c",
    "spellings": [
     "unsigned char far @[]",
@@ -12726,18 +12678,13 @@
    "seg": 34,
    "off": 19280,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4b50",
    "spellings": [
     "unsigned char far @[]",
@@ -12748,18 +12695,13 @@
    "seg": 34,
    "off": 19284,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4b54",
    "spellings": [
     "unsigned char far @[]",
@@ -12952,18 +12894,13 @@
    "seg": 34,
    "off": 19308,
    "size": 4,
-   "how": "declared",
-   "base": "long",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "unsigned char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4b6c",
    "spellings": [
     "unsigned char far @[]",
@@ -15692,19 +15629,14 @@
   "g_log_font": {
    "seg": 34,
    "off": 20072,
-   "size": 2,
-   "how": "declared",
-   "base": "unsigned",
+   "size": 4,
+   "how": "inferred: the gap to the next global",
+   "base": "char",
    "stars": 0,
-   "dims": [],
-   "notes": [
-    [
-     "narrow_view",
-     [
-      "char"
-     ]
-    ]
+   "dims": [
+    ""
    ],
+   "notes": [],
    "addr": "DGROUP:0x4e68",
    "spellings": [
     "char @[]",
@@ -16200,15 +16132,16 @@
    "seg": 30,
    "off": 8,
    "size": 8,
-   "how": "declared",
-   "base": "short",
+   "how": "inferred: the gap to the next global",
+   "base": "unsigned char",
    "stars": 0,
    "dims": [
-    "4"
+    "",
+    "16"
    ],
    "notes": [
     [
-     "narrow_view",
+     "signedness_unresolved",
      [
       "char",
       "unsigned char"
@@ -16617,11 +16550,12 @@
    "seg": 27,
    "off": 174,
    "size": 270,
-   "how": "inferred: the gap to the next global",
-   "base": "char",
+   "how": "declared",
+   "base": "unsigned char",
    "stars": 0,
    "dims": [
-    ""
+    "15",
+    "18"
    ],
    "notes": [
     [
@@ -18217,7 +18151,7 @@
   {
    "seg": 20,
    "start": 1482,
-   "end": 1495,
+   "end": 1622,
    "members": [
     "g_game_record"
    ],
@@ -18237,17 +18171,32 @@
   {
    "seg": 20,
    "start": 1624,
-   "end": 3552,
+   "end": 1662,
    "members": [
-    "g_map_window",
-    "g_win_67e",
-    "g_map_timer"
+    "g_map_window"
    ],
    "primary": "g_map_window",
-   "aliases": [
-    "g_win_67e",
+   "aliases": []
+  },
+  {
+   "seg": 20,
+   "start": 1662,
+   "end": 1663,
+   "members": [
+    "g_win_67e"
+   ],
+   "primary": "g_win_67e",
+   "aliases": []
+  },
+  {
+   "seg": 20,
+   "start": 3534,
+   "end": 3536,
+   "members": [
     "g_map_timer"
-   ]
+   ],
+   "primary": "g_map_timer",
+   "aliases": []
   },
   {
    "seg": 20,
@@ -20393,7 +20342,7 @@
   {
    "seg": 20,
    "start": 56112,
-   "end": 56113,
+   "end": 56176,
    "members": [
     "g_nation_region"
    ],
@@ -20416,7 +20365,7 @@
   {
    "seg": 20,
    "start": 56240,
-   "end": 56241,
+   "end": 56304,
    "members": [
     "g_nation_region_strength"
    ],
@@ -20426,7 +20375,7 @@
   {
    "seg": 20,
    "start": 56304,
-   "end": 56305,
+   "end": 56320,
    "members": [
     "g_region_flags"
    ],
@@ -20436,7 +20385,7 @@
   {
    "seg": 20,
    "start": 56320,
-   "end": 56321,
+   "end": 56328,
    "members": [
     "g_tribe_strength"
    ],
@@ -20446,7 +20395,7 @@
   {
    "seg": 20,
    "start": 56328,
-   "end": 56329,
+   "end": 56336,
    "members": [
     "g_tribe_pop"
    ],
@@ -20456,7 +20405,7 @@
   {
    "seg": 20,
    "start": 56336,
-   "end": 56337,
+   "end": 56344,
    "members": [
     "g_tribe_settlement_count"
    ],
@@ -20466,7 +20415,7 @@
   {
    "seg": 20,
    "start": 56344,
-   "end": 56345,
+   "end": 56488,
    "members": [
     "g_tribe_region"
    ],
@@ -28566,7 +28515,7 @@
   {
    "seg": 34,
    "start": 20072,
-   "end": 20074,
+   "end": 20076,
    "members": [
     "g_log_font"
    ],
@@ -28872,22 +28821,6 @@
  ],
  "aliases": [
   {
-   "name": "g_win_67e",
-   "address": "SEG20:0x067e",
-   "aliases": "g_map_window",
-   "delta": 38,
-   "type": "char",
-   "reason": "inside its extent"
-  },
-  {
-   "name": "g_map_timer",
-   "address": "SEG20:0x0dce",
-   "aliases": "g_map_window",
-   "delta": 1910,
-   "type": "int",
-   "reason": "inside its extent"
-  },
-  {
    "name": "g_ctx_25e4",
    "address": "SEG20:0x25e4",
    "aliases": "g_colony_win_rec",
@@ -28940,7 +28873,7 @@
    "address": "SEG20:0x7784",
    "aliases": "g_flags_7784",
    "delta": 0,
-   "type": "int",
+   "type": "unsigned char",
    "reason": "same address"
   },
   {
@@ -29204,7 +29137,7 @@
    "address": "SEG20:0xd9de",
    "aliases": "g_d9de",
    "delta": 0,
-   "type": "char",
+   "type": "unsigned char",
    "reason": "same address"
   },
   {
@@ -29220,7 +29153,7 @@
    "address": "SEG20:0xda60",
    "aliases": "g_ba",
    "delta": 0,
-   "type": "char",
+   "type": "unsigned char",
    "reason": "same address"
   },
   {
@@ -29902,10 +29835,10 @@
    "name": "g_game_flags",
    "address": "SEG20:0x7784",
    "types": [
-    "int",
-    "unsigned"
+    "char",
+    "unsigned char"
    ],
-   "emitted": "int"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_flags_7789",
@@ -29923,7 +29856,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_order_letter",
@@ -29951,7 +29884,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_region_2_5",
@@ -29969,7 +29902,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_navy_table",
@@ -29987,7 +29920,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_nation_region_strength",
@@ -29996,7 +29929,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_region_flags",
@@ -30005,7 +29938,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_tribe_strength",
@@ -30014,7 +29947,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_tribe_pop",
@@ -30023,7 +29956,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_tribe_settlement_count",
@@ -30032,7 +29965,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_tribe_region",
@@ -30041,7 +29974,7 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
   },
   {
    "name": "g_prod",
@@ -30114,7 +30047,16 @@
     "char",
     "unsigned char"
    ],
-   "emitted": "char"
+   "emitted": "unsigned char"
+  },
+  {
+   "name": "g_drag_rect_dst",
+   "address": "SEG30:0x0008",
+   "types": [
+    "char",
+    "unsigned char"
+   ],
+   "emitted": "unsigned char"
   },
   {
    "name": "g_colony_mode",
@@ -30259,6 +30201,15 @@
     "short"
    ],
    "emitted": "int"
+  },
+  {
+   "name": "g_nation_colony_count",
+   "address": "DGROUP:0x4b48",
+   "types": [
+    "signed char",
+    "unsigned char"
+   ],
+   "emitted": "signed char"
   },
   {
    "name": "g_4c06",
@@ -30619,6 +30570,7 @@
   "g_dir_dy",
   "g_display_name_buf",
   "g_dot",
+  "g_drag_rect_dst",
   "g_edge_sprites",
   "g_edit_bufs",
   "g_editbox_proc",
@@ -30645,7 +30597,9 @@
   "g_font_small",
   "g_force",
   "g_founding_word",
+  "g_game_flags",
   "g_game_palette",
+  "g_game_record",
   "g_game_record2",
   "g_goods",
   "g_goods_info",
@@ -30654,7 +30608,6 @@
   "g_goods_value",
   "g_goods_wanted",
   "g_goods_wanted_prev",
-  "g_grid_ae",
   "g_group_members",
   "g_icon_sprites",
   "g_info_label",
@@ -30682,10 +30635,13 @@
   "g_leader_face",
   "g_level",
   "g_listbox_proc",
+  "g_log_font",
   "g_log_name",
   "g_map_file_name",
   "g_map_overlay",
   "g_map_width",
+  "g_map_window",
+  "g_menu_owner",
   "g_message_buf",
   "g_misc_words",
   "g_mission_word",
@@ -30704,12 +30660,19 @@
   "g_nation_abbrev",
   "g_nation_adjective",
   "g_nation_bits",
+  "g_nation_colony_count",
   "g_nation_colour",
+  "g_nation_modifier",
   "g_nation_money",
   "g_nation_name",
   "g_nation_name_word",
   "g_nation_pair",
+  "g_nation_population",
+  "g_nation_region",
+  "g_nation_region_strength",
+  "g_nation_strength",
   "g_nation_text",
+  "g_nation_unit_count",
   "g_nations",
   "g_nations2",
   "g_nations_b",
@@ -30730,6 +30693,7 @@
   "g_pedia_ctx",
   "g_pedia_word",
   "g_percent",
+  "g_pop_by_nation",
   "g_popup_label",
   "g_popup_label_id",
   "g_port_22_30",
@@ -30752,7 +30716,9 @@
   "g_recruit",
   "g_recs",
   "g_region_2_5",
+  "g_region_flags",
   "g_region_pop",
+  "g_region_settlements",
   "g_region_size",
   "g_region_state",
   "g_resource_libs",
@@ -30882,10 +30848,15 @@
   "g_tribe",
   "g_tribe_colour",
   "g_tribe_names",
+  "g_tribe_pop",
   "g_tribe_rec",
+  "g_tribe_region",
+  "g_tribe_settlement_count",
+  "g_tribe_strength",
   "g_tribes",
   "g_tribes4e",
   "g_tribes_by_nation",
+  "g_unit_tally",
   "g_unit_type_class",
   "g_unit_type_info",
   "g_unit_types",

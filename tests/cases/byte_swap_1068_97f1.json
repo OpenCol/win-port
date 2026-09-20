@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "byte_swap_1068_97f1",
+ "shipped": "1068:97f1",
+ "source": "src/gfx/byte_swap_1068_97f1.c",
+ "prototype": "unsigned byte_swap_1068_97f1(unsigned v);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)byte_swap_1068_97f1((unsigned)a0)",
+ "globals_read": []
+}

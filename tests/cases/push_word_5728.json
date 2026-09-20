@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "push_word_5728",
+ "shipped": "1078:1e4c",
+ "source": "src/platform/push_word_5728.c",
+ "prototype": "void push_word_5728(int v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "push_word_5728((int)a0)",
+ "globals_read": [
+  "g_count_3c80",
+  "g_tab_5728"
+ ]
+}

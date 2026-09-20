@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "return_one_1028_33e9",
+ "shipped": "1028:33e9",
+ "source": "src/game/return_one_1028_33e9.c",
+ "prototype": "int return_one_1028_33e9(int kind);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)return_one_1028_33e9((int)a0)",
+ "globals_read": []
+}

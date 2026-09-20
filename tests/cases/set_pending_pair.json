@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_pending_pair",
+ "shipped": "1010:c146",
+ "source": "src/game/set_pending_pair.c",
+ "prototype": "void set_pending_pair(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "set_pending_pair((int)a0, (int)a1)",
+ "globals_read": [
+  "g_pending_a",
+  "g_pending_b",
+  "g_pending_flag"
+ ]
+}

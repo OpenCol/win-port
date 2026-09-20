@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "terrain_tile_index",
+ "shipped": "1040:1408",
+ "source": "src/game/terrain_tile_index.c",
+ "prototype": "char terrain_tile_index(int t);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)terrain_tile_index((int)a0)",
+ "globals_read": []
+}

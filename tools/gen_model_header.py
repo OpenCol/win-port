@@ -145,7 +145,12 @@ def pick(spellings, records):
         if others:
             notes.append(('other_pointee_spelling', sorted(others)))
         return (pointee[0], stars, pointee[2]), notes
-    cands = parsed
+    # Dimensionality first. A spelling with a row stride (`@[][0x13c]`) states a fact
+    # about how the code indexes the object that a flat `@[]` does not, and losing it
+    # turns t[i][j] into a subscript of the wrong width that still compiles. The width and
+    # signedness rules below then choose among the spellings that agree on the shape.
+    deep = max(len(p[2]) for p in parsed)
+    cands = [p for p in parsed if len(p[2]) == deep]
     # widest base
     def w(p):
         return BASE_SIZE.get(p[0], records[p[0]]['size'] if p[0] in records else 0)
@@ -167,8 +172,8 @@ def pick(spellings, records):
             notes.append(('narrow_view', sorted(narrower)))
         if equal:
             notes.append(('signedness_unresolved', sorted(equal | {chosen[0]})))
-    # the widest dims among the spellings that agree on the base
-    dims = max((p[2] for p in parsed if p[0] == chosen[0]), key=len)
+    # the widest dims among the spellings that agree on the base AND on the shape
+    dims = max((p[2] for p in cands if p[0] == chosen[0]), key=len)
     return (chosen[0], chosen[1], dims), notes
 
 
@@ -322,6 +327,13 @@ def main():
                 else:
                     size, how = unit, how + '; inferred as one element (last in segment)'
                 inferred.append(name)
+            # NOT demoted to a scalar when the extent looks like one element. Two
+            # globals settle this in opposite directions with identical evidence:
+            # g_map_width is a scalar three files spelt with brackets, and g_text_args is
+            # a real array whose later slots were named separately so the gap-inferred
+            # extent came out as one element. Nothing in the model tells them apart -- the
+            # use site does. So the header keeps the indexable form, which loses nothing,
+            # and tools/port.py rewrites a SCALAR use of one as `(*g_x)`.
             info[name] = dict(seg=seg, off=off, size=size, how=how, base=base,
                               stars=stars, dims=dims, notes=notes, addr=g['address'],
                               spellings=g['types'])
@@ -389,7 +401,16 @@ def main():
                         if a['stars'] else spell(a['base'])
                     isarr = bool(a['dims'])
                 at = 'col_seg%d + 0x%04xL' % (seg, a['off'])
-                body = ('((%s far *)(%s))' if isarr else '(*(%s far *)(%s))') % (cast, at)
+                dims = a['dims'] if n != p or known else ['%d' % a['size']]
+                if isarr and len(dims) > 1:
+                    # A two-dimensional table has to stay two-dimensional: cast to a
+                    # POINTER TO ROW, or `t[i][j]` indexes the wrong number of bytes and
+                    # the compiler cannot tell you, because a flat cast still subscripts.
+                    inner = ''.join('[%s]' % d for d in dims[1:])
+                    body = '((%s (far *)%s)(%s))' % (cast, inner, at)
+                else:
+                    body = ('((%s far *)(%s))' if isarr
+                            else '(*(%s far *)(%s))') % (cast, at)
                 cmt = a['addr']
                 if n == p:
                     if not known:

@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_flag_is_clear",
+ "shipped": "1020:9857",
+ "source": "src/game/nation_flag_is_clear.c",
+ "prototype": "int nation_flag_is_clear(int nation, int bit);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)nation_flag_is_clear((int)a0, (int)a1)",
+ "globals_read": []
+}

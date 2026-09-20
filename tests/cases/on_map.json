@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "on_map",
+ "shipped": "1038:b4b6",
+ "source": "src/game/on_map.c",
+ "prototype": "int on_map(int x, int y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)on_map((int)a0, (int)a1)",
+ "globals_read": [
+  "g_map_h",
+  "g_map_width"
+ ]
+}

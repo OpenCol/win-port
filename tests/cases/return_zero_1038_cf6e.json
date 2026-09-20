@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "return_zero_1038_cf6e",
+ "shipped": "1038:cf6e",
+ "source": "src/game/return_zero_1038_cf6e.c",
+ "prototype": "int return_zero_1038_cf6e(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "call": "(long)return_zero_1038_cf6e()",
+ "globals_read": [],
+ "call_args": [
+  "0"
+ ]
+}

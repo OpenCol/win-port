@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "message_buf_clear",
+ "shipped": "1058:bead",
+ "source": "src/game/message_buf_clear.c",
+ "prototype": "void message_buf_clear(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "message_buf_clear()",
+ "globals_read": [
+  "g_message_buf"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

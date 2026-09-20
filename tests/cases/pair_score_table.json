@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "pair_score_table",
+ "shipped": "1018:64ba",
+ "source": "src/game/pair_score_table.c",
+ "prototype": "int pair_score_table(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)pair_score_table((int)a0, (int)a1)",
+ "globals_read": []
+}

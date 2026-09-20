@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "to_upper_char",
+ "shipped": "1040:5c70",
+ "source": "src/game/to_upper_char.c",
+ "prototype": "unsigned char to_upper_char(unsigned char c);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)to_upper_char((unsigned char)a0)",
+ "globals_read": []
+}

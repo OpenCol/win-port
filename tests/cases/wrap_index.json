@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "wrap_index",
+ "shipped": "1040:7d49",
+ "source": "src/game/wrap_index.c",
+ "prototype": "int wrap_index(int i, int n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)wrap_index((int)a0, (int)a1)",
+ "globals_read": []
+}

@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "max_int_1058_c226",
+ "shipped": "1058:c226",
+ "source": "src/game/max_int_1058_c226.c",
+ "prototype": "int max_int_1058_c226(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)max_int_1058_c226((int)a0, (int)a1)",
+ "globals_read": []
+}

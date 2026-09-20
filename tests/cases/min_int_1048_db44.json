@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "min_int_1048_db44",
+ "shipped": "1048:db44",
+ "source": "src/game/min_int_1048_db44.c",
+ "prototype": "int min_int_1048_db44(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)min_int_1048_db44((int)a0, (int)a1)",
+ "globals_read": []
+}

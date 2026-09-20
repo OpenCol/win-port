@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "return_one_1038_cf4b",
+ "shipped": "1038:cf4b",
+ "source": "src/game/return_one_1038_cf4b.c",
+ "prototype": "int return_one_1038_cf4b(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "call": "(long)return_one_1038_cf4b()",
+ "globals_read": [],
+ "call_args": [
+  "0"
+ ]
+}

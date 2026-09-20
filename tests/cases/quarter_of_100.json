@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "quarter_of_100",
+ "shipped": "1038:0102",
+ "source": "src/game/quarter_of_100.c",
+ "prototype": "int quarter_of_100(int v);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)quarter_of_100((int)a0)",
+ "globals_read": []
+}

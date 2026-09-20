@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "bump_counter_1060_7eed",
+ "shipped": "1060:7eed",
+ "source": "src/game/bump_counter_1060_7eed.c",
+ "prototype": "void bump_counter_1060_7eed(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "bump_counter_1060_7eed()",
+ "globals_read": [
+  "g_about_step",
+  "g_flag_4e64"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

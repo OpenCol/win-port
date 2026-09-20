@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "to_upper",
+ "shipped": "1040:5c97",
+ "source": "src/game/to_upper.c",
+ "prototype": "int to_upper(int c);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)to_upper((int)a0)",
+ "globals_read": []
+}

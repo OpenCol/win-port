@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mark_2520_no_super_1050_6bfb",
+ "shipped": "1050:6bfb",
+ "source": "src/game/mark_2520_no_super_1050_6bfb.c",
+ "prototype": "void mark_2520_no_super_1050_6bfb(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "mark_2520_no_super_1050_6bfb()",
+ "globals_read": [
+  "g_flag_2520",
+  "g_super_win_open"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

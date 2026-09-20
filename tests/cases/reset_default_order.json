@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "reset_default_order",
+ "shipped": "1038:4f6d",
+ "source": "src/game/reset_default_order.c",
+ "prototype": "void reset_default_order(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "reset_default_order()",
+ "globals_read": [
+  "g_nation_colour",
+  "g_order_9b",
+  "g_order_9c",
+  "g_order_9d"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

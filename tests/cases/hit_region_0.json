@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "hit_region_0",
+ "shipped": "1048:40ee",
+ "source": "src/game/hit_region_0.c",
+ "prototype": "int hit_region_0(int x, int y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)hit_region_0((int)a0, (int)a1)",
+ "globals_read": []
+}

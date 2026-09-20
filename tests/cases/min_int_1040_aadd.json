@@ -1,0 +1,15 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "min_int_1040_aadd",
+ "shipped": "1040:aadd",
+ "source": "src/game/min_int_1040_aadd.c",
+ "prototype": "int min_int_1040_aadd(int a, int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)min_int_1040_aadd((int)a0, (int)a1)",
+ "globals_read": []
+}

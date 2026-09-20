@@ -1,0 +1,14 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "fold_spec_1c",
+ "shipped": "1018:3bd6",
+ "source": "src/game/fold_spec_1c.c",
+ "prototype": "int fold_spec_1c(int spec);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)fold_spec_1c((int)a0)",
+ "globals_read": []
+}

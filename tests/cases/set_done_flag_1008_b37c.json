@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_done_flag_1008_b37c",
+ "shipped": "1008:b37c",
+ "source": "src/game/set_done_flag_1008_b37c.c",
+ "prototype": "void set_done_flag_1008_b37c(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "set_done_flag_1008_b37c()",
+ "globals_read": [
+  "g_done_flag"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

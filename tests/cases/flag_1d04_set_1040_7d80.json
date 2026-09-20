@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "flag_1d04_set_1040_7d80",
+ "shipped": "1040:7d80",
+ "source": "src/game/flag_1d04_set_1040_7d80.c",
+ "prototype": "void flag_1d04_set_1040_7d80(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "call": "flag_1d04_set_1040_7d80()",
+ "globals_read": [
+  "g_flag_1d04"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

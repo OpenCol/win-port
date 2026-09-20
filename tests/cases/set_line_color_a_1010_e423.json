@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_line_color_a_1010_e423",
+ "shipped": "1010:e423",
+ "source": "src/game/set_line_color_a_1010_e423.c",
+ "prototype": "void set_line_color_a_1010_e423(char v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "set_line_color_a_1010_e423((char)a0)",
+ "globals_read": [
+  "g_line_color_a"
+ ]
+}
