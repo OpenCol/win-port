@@ -82,9 +82,12 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **The differential harness is green on one function** (`clear_colony_flag_1c`,
-  1018:0438) over 13 argument sets, on return value and on memory afterwards — and its
-  `--selftest` breaks the port two ways on purpose and requires both to be caught.
+- **The differential harness is green on three functions**, 84 argument sets, on return
+  value and on memory afterwards, against `--state shipped`. Two of them
+  (`job_goods` 1018:5d35, `building_slot_of` 1018:47af) are table lookups that return
+  values straight out of the extracted segment data, so they fail if the extraction is
+  wrong; `clear_colony_flag_1c` (1018:0438) writes. `--selftest` breaks every port two
+  ways on purpose and requires both to be caught.
 
 ```
 tools/check.sh          # regenerate-and-compare, selftest, differential, Borland compile

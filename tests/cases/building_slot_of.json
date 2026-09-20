@@ -1,0 +1,14 @@
+{
+ "what": "a table lookup with a bound, swept across the bound",
+ "symbol": "building_slot_of",
+ "shipped": "1018:47af",
+ "source": "src/game/building_slot_of.c",
+ "prototype": "int building_slot_of(int b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-3..25"
+ ],
+ "note": "b >= 0x13 must return -1 without reading the table; b < 0 reads before it, and both sides read the same segment image, so even that agrees",
+ "call": "(long)building_slot_of((int)a0)"
+}

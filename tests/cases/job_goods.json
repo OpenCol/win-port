@@ -1,0 +1,14 @@
+{
+ "what": "a table lookup: does the port read the data the game ships with?",
+ "symbol": "job_goods",
+ "shipped": "1018:5d35",
+ "source": "src/game/job_goods.c",
+ "prototype": "int job_goods(int job);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..41"
+ ],
+ "note": "no staging: every value compared here comes out of SEG21 as COLONIZE.EXE ships it",
+ "call": "(long)job_goods((int)a0)"
+}
