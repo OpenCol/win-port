@@ -1,46 +1,73 @@
-/* colmem.c -- the host build's slabs. See col/colmem.h for why they exist.
+/* colmem.c -- see col/colmem.h. Host build only.
  *
- * One 64 KiB array per shipped segment, which is what a 16-bit segment is. 35 of them is
- * 2.2 MB of BSS, which costs nothing on a host and keeps every address in the model
- * directly indexable with no bookkeeping.
+ * The segments are not contiguous and not all the same size, so both copies are kept as
+ * one flat buffer with an index, rather than as a 35 x 64 KiB block: the data is 123 KB
+ * and most of the 2.2 MB that would cost is segments that do not exist.
  */
+#include <stdlib.h>
 #include <string.h>
 #include "col/colmem.h"
 
-#define SEG_SIZE 0x10000L
+#define MAXSEG 64
 
-static unsigned char slab[COL_SEG_MAX][SEG_SIZE];
-static unsigned char shot[COL_SEG_MAX][SEG_SIZE];
+static unsigned char *pristine;           /* the image as extracted, captured once */
+static unsigned char *baseline;           /* whatever col_snapshot() last saw */
+static long at[MAXSEG];                   /* segment -> offset into those buffers */
+static long total;
+static int ids[MAXSEG], nseg;
 
-unsigned char *col_seg(int seg)
+static void index_segments(void)
 {
-    return slab[seg];
+    int s;
+    if (nseg)
+        return;
+    for (s = 0; s < MAXSEG; s++)
+        if (col_seg(s)) {
+            at[s] = total;
+            total += col_seg_size(s);
+            ids[nseg++] = s;
+        }
+    pristine = (unsigned char *)malloc((size_t)total);
+    baseline = (unsigned char *)malloc((size_t)total);
+    for (s = 0; s < nseg; s++)
+        memcpy(pristine + at[ids[s]], col_seg(ids[s]), (size_t)col_seg_size(ids[s]));
+    memcpy(baseline, pristine, (size_t)total);
 }
 
 void col_reset(void)
 {
-    memset(slab, 0, sizeof slab);
-    memset(shot, 0, sizeof shot);
+    int i;
+    index_segments();
+    for (i = 0; i < nseg; i++)
+        memcpy(col_seg(ids[i]), pristine + at[ids[i]], (size_t)col_seg_size(ids[i]));
 }
 
 void col_snapshot(void)
 {
-    memcpy(shot, slab, sizeof slab);
+    int i;
+    index_segments();
+    for (i = 0; i < nseg; i++)
+        memcpy(baseline + at[ids[i]], col_seg(ids[i]), (size_t)col_seg_size(ids[i]));
 }
 
 int col_diff(int *segs, unsigned *offs, unsigned char *values, int max)
 {
-    int seg, n = 0;
-    long off;
-    for (seg = 0; seg < COL_SEG_MAX; seg++)
-        for (off = 0; off < SEG_SIZE; off++)
-            if (slab[seg][off] != shot[seg][off]) {
+    int i, n = 0;
+    long off, size;
+    index_segments();
+    for (i = 0; i < nseg; i++) {
+        unsigned char *now = col_seg(ids[i]);
+        unsigned char *was = baseline + at[ids[i]];
+        size = col_seg_size(ids[i]);
+        for (off = 0; off < size; off++)
+            if (now[off] != was[off]) {
                 if (n < max) {
-                    segs[n] = seg;
+                    segs[n] = ids[i];
                     offs[n] = (unsigned)off;
-                    values[n] = slab[seg][off];
+                    values[n] = now[off];
                 }
                 n++;
             }
+    }
     return n;
 }

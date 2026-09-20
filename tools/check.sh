@@ -5,14 +5,19 @@
 #   tools/check.sh fast     skip the Borland compile (needs DOSBox-X and the toolchain)
 set -uo pipefail
 cd "$(dirname "$0")/.."
+SRC=${COL_SRC_REPO:-$HOME/Repositories/dderevjanik/col-win-re}
+UC="$SRC/vendor/re-agent-venv/bin/python"
 rc=0
 run() { echo "== $*"; "$@" || rc=1; }
 
+run python3 tools/extract_segments.py --check
 run python3 tools/gen_model_header.py --check
+# Is the extracted data really the shipped image? An independent loader says so.
+[ -x "$UC" ] && run "$UC" tests/verify_segments.py "$SRC"
 run python3 tests/differential.py --all --selftest
 run python3 tests/differential.py --all
 if [ "${1:-}" != "fast" ]; then
-  run python3 tools/bcc.py src/world.c
+  run python3 tools/bcc.py src/segdata.c
   for f in src/game/*.c; do run python3 tools/bcc.py "$f"; done
 fi
 [ $rc -eq 0 ] && echo "ALL GREEN" || echo "FAILURES ABOVE"

@@ -16,2392 +16,1197 @@
 #define COL_GLOBALS_H
 
 #include "col/win16.h"
+#include "col/types.h"
 #include "col/records.h"
-
-#ifdef COL_HOST
-
-/* Placed at the shipped addresses, in the slab tests/host/colmem.c owns. */
-#include "col/colmem.h"
+#include "col/segments.h"
 
 /* ---- SEG20 -- far, outside the automatic data segment */
-#define g_seg20_0                            (*(char *)(col_seg(20) + 0x0000))
-#define g_prefs_root                         (*(char *)(col_seg(20) + 0x0010))
-#define g_game_palette                       ((char *)(col_seg(20) + 0x01ac))
-#define g_game_record                        (*(WinRec *)(col_seg(20) + 0x05ca))
-#define g_menu_owner                         (*(MenuRec *)(col_seg(20) + 0x0656))
-#define g_map_window                         (*(MapWin *)(col_seg(20) + 0x0658))
-#define g_win_67e                            (*(char *)(col_seg(20) + 0x067e))
-#define g_map_timer                          (*(col_i16 *)(col_seg(20) + 0x0dce))
-#define g_map_overlay                        ((char *)(col_seg(20) + 0x0de0))
-#define g_win_e06                            (*(char *)(col_seg(20) + 0x0e06))
-#define g_info_win                           ((char *)(col_seg(20) + 0x1566))
-#define g_win_158c                           (*(char *)(col_seg(20) + 0x158c))
-#define g_report_window                      (*(int *)(col_seg(20) + 0x1d06))
-#define g_report_dialog                      (*(char *)(col_seg(20) + 0x1d2c))
-#define g_colony_window                      ((char *)(col_seg(20) + 0x25be))
-#define g_colony_win_rec                     (*(WinRec *)(col_seg(20) + 0x25e4))
-#define g_ctx_25e4                           (*(char *)(col_seg(20) + 0x25e4))
-#define g_desk_x                             (*(int *)(col_seg(20) + 0x2d28))
-#define g_desk_y                             (*(int *)(col_seg(20) + 0x2d2a))
-#define g_colony_timer                       (*(int *)(col_seg(20) + 0x2d34))
-#define g_custom_house_colony                (*(int *)(col_seg(20) + 0x2fd0))
-#define g_europe_win                         (*(EuropeWin *)(col_seg(20) + 0x2fd2))
-#define g_europe_win_rec                     (*(char *)(col_seg(20) + 0x2ff8))
-#define g_pedia_2ff8                         (*(char *)(col_seg(20) + 0x2ff8))
-#define g_win_2ff8                           (*(char *)(col_seg(20) + 0x2ff8))
-#define g_europe_x0                          (*(col_i16 *)(col_seg(20) + 0x373c))
-#define g_europe_timer                       (*(col_i16 *)(col_seg(20) + 0x3748))
-#define g_pedia_ctx                          ((char *)(col_seg(20) + 0x387c))
-#define g_game_record2                       ((char *)(col_seg(20) + 0x40d6))
-#define g_art_base                           ((SpriteRec *)(col_seg(20) + 0x41a6))
-#define g_art_43c6                           (*(char *)(col_seg(20) + 0x43c6))
-#define g_sprites_4506                       ((SpriteRec *)(col_seg(20) + 0x4506))
-#define g_sprites_4526                       ((char *)(col_seg(20) + 0x4526))
-#define g_art_47e6                           (*(char *)(col_seg(20) + 0x47e6))
-#define g_art_4866                           (*(char *)(col_seg(20) + 0x4866))
-#define g_art_river                          ((char *)(col_seg(20) + 0x4926))
-#define g_art_coast                          ((char *)(col_seg(20) + 0x4b26))
-#define g_art_forest                         ((char *)(col_seg(20) + 0x4d26))
-#define g_art_4f46                           (*(char *)(col_seg(20) + 0x4f46))
-#define g_art_4f66                           (*(char *)(col_seg(20) + 0x4f66))
-#define g_art_4fa6                           (*(char *)(col_seg(20) + 0x4fa6))
-#define g_art_4fc6                           (*(char *)(col_seg(20) + 0x4fc6))
-#define g_art_bonus                          ((char *)(col_seg(20) + 0x5046))
-#define g_fog_sprite                         (*(char *)(col_seg(20) + 0x57a6))
-#define g_art_57c6                           (*(char *)(col_seg(20) + 0x57c6))
-#define g_overlay_sprites                    ((SpriteRec *)(col_seg(20) + 0x5cc6))
-#define g_icon_sprites                       ((Sprite *)(col_seg(20) + 0x6246))
-#define g_art_6266                           ((char *)(col_seg(20) + 0x6266))
-#define g_art_63a6                           ((char *)(col_seg(20) + 0x63a6))
-#define g_sprite_6486                        (*(char *)(col_seg(20) + 0x6486))
-#define g_cursor_sprite                      ((char *)(col_seg(20) + 0x64a6))
-#define g_goods_sprites                      ((Sprite *)(col_seg(20) + 0x6526))
-#define g_boycott_sprite                     (*(char *)(col_seg(20) + 0x6946))
-#define g_sprite_6986                        (*(char *)(col_seg(20) + 0x6986))
-#define g_sprite_6a06                        (*(char *)(col_seg(20) + 0x6a06))
-#define g_bell_art                           (*(Sprite *)(col_seg(20) + 0x6a26))
-#define g_cell_frame_sprite                  (*(char *)(col_seg(20) + 0x6a66))
-#define g_expert_sprites                     ((char *)(col_seg(20) + 0x6c86))
-#define g_label                              ((char *)(col_seg(20) + 0x6ee6))
-#define g_claim_sprite                       (*(char *)(col_seg(20) + 0x6fe6))
-#define g_mood_art                           ((Sprite *)(col_seg(20) + 0x7086))
-#define g_empty_hold_sprite                  (*(char *)(col_seg(20) + 0x71a6))
-#define g_sol_flag_sprite                    (*(Sprite *)(col_seg(20) + 0x71c6))
-#define g_tory_flag_sprite                   (*(Sprite *)(col_seg(20) + 0x71e6))
-#define g_flag_art                           ((char *)(col_seg(20) + 0x72c6))
-#define g_background_tile                    (*(Sprite *)(col_seg(20) + 0x7506))
-#define g_route_panel_sprite                 (*(char *)(col_seg(20) + 0x7526))
-#define g_edge_sprites                       ((SpriteRec *)(col_seg(20) + 0x7546))
-#define g_cursors                            ((int *)(col_seg(20) + 0x7746))
-#define g_cursor_776e                        (*(int *)(col_seg(20) + 0x776e))
-#define g_tutorial_flags                     (*(int *)(col_seg(20) + 0x7782))
-#define g_flags_7784                         (*(int *)(col_seg(20) + 0x7784))
-#define g_game_flags                         (*(col_i16 *)(col_seg(20) + 0x7784))
-#define g_flag_7785                          (*(unsigned char *)(col_seg(20) + 0x7785))
-#define g_flags_7785                         (*(unsigned char *)(col_seg(20) + 0x7785))
-#define g_7786                               (*(int *)(col_seg(20) + 0x7786))
-#define g_flags_7786                         (*(col_i16 *)(col_seg(20) + 0x7786))
-#define g_flags_7788                         (*(int *)(col_seg(20) + 0x7788))
-#define g_scenario_flags                     (*(col_i16 *)(col_seg(20) + 0x7788))
-#define g_flags_7789                         (*(char *)(col_seg(20) + 0x7789))
-#define g_778a                               (*(int *)(col_seg(20) + 0x778a))
-#define g_word_778c                          (*(int *)(col_seg(20) + 0x778c))
-#define g_year                               (*(col_i16 *)(col_seg(20) + 0x778c))
-#define g_season                             (*(int *)(col_seg(20) + 0x778e))
-#define g_turn_counter                       (*(int *)(col_seg(20) + 0x7790))
-#define g_view_mode                          (*(int *)(col_seg(20) + 0x7792))
-#define g_selected_unit                      (*(int *)(col_seg(20) + 0x7794))
-#define g_turn_nation                        (*(int *)(col_seg(20) + 0x7796))
-#define g_view_nation                        (*(int *)(col_seg(20) + 0x7798))
-#define g_view_nation_b                      (*(unsigned char *)(col_seg(20) + 0x7798))
-#define g_player_nation                      (*(int *)(col_seg(20) + 0x779a))
-#define g_settlement_count                   (*(int *)(col_seg(20) + 0x779c))
-#define g_unit_count                         (*(int *)(col_seg(20) + 0x779e))
-#define g_colony_count                       (*(int *)(col_seg(20) + 0x77a0))
-#define g_trade_route_count                  (*(int *)(col_seg(20) + 0x77a2))
-#define g_reveal_all                         (*(int *)(col_seg(20) + 0x77a4))
-#define g_view_override                      (*(int *)(col_seg(20) + 0x77a6))
-#define g_difficulty                         (*(unsigned char *)(col_seg(20) + 0x77a8))
-#define g_year_hi                            (*(signed char *)(col_seg(20) + 0x77a9))
-#define g_year_lo                            (*(signed char *)(col_seg(20) + 0x77aa))
-#define g_father_owner                       ((signed char *)(col_seg(20) + 0x77ab))
-#define g_game_in_progress                   (*(int *)(col_seg(20) + 0x77c4))
-#define g_message_flag                       (*(int *)(col_seg(20) + 0x77c6))
-#define g_message_pending                    (*(int *)(col_seg(20) + 0x77c8))
-#define g_77ca                               ((int *)(col_seg(20) + 0x77ca))
-#define g_war_started                        ((col_i16 *)(col_seg(20) + 0x77ca))
-#define g_rebel_sentiment                    (*(int *)(col_seg(20) + 0x77d2))
-#define g_mother_country_idx                 (*(int *)(col_seg(20) + 0x77d4))
-#define g_mother_country_idx_b               (*(unsigned char *)(col_seg(20) + 0x77d4))
-#define g_77d6                               (*(int *)(col_seg(20) + 0x77d6))
-#define g_nation_77d6                        (*(col_i16 *)(col_seg(20) + 0x77d6))
-#define g_word_77d6                          (*(col_i16 *)(col_seg(20) + 0x77d6))
-#define g_merc_nation                        (*(int *)(col_seg(20) + 0x77d8))
-#define g_rebel_step                         (*(int *)(col_seg(20) + 0x77da))
-#define g_77dc                               ((int *)(col_seg(20) + 0x77dc))
-#define g_royal_forces                       ((col_i16 *)(col_seg(20) + 0x77dc))
-#define g_77e0                               (*(col_i16 *)(col_seg(20) + 0x77e0))
-#define g_77e2                               (*(col_i16 *)(col_seg(20) + 0x77e2))
-#define g_77e4                               ((int *)(col_seg(20) + 0x77e4))
-#define g_force                              ((col_i16 *)(col_seg(20) + 0x77e4))
-#define g_77e6                               (*(col_i16 *)(col_seg(20) + 0x77e6))
-#define g_77e8                               (*(col_i16 *)(col_seg(20) + 0x77e8))
-#define g_77ea                               (*(col_i16 *)(col_seg(20) + 0x77ea))
-#define g_base_sales                         ((int *)(col_seg(20) + 0x77ec))
-#define g_bits_780c                          ((unsigned char *)(col_seg(20) + 0x780c))
-#define g_nation_text                        ((Nation34 *)(col_seg(20) + 0x7810))
-#define g_nation_recs                        ((NationRec *)(col_seg(20) + 0x7828))
-#define g_rec52                              ((NationRec *)(col_seg(20) + 0x7828))
-#define g_nation52                           ((NationRec52 *)(col_seg(20) + 0x7840))
-#define g_rec52_7841                         ((Rec52 *)(col_seg(20) + 0x7841))
-#define g_recs                               ((struct rec *)(col_seg(20) + 0x7841))
-#define g_rec6_78e0                          (*(char *)(col_seg(20) + 0x78e0))
-#define g_terrain_row_bytes                  ((unsigned char *)(col_seg(20) + 0x78f0))
-#define g_terrain_rows                       ((KindRec *)(col_seg(20) + 0x78f8))
-#define g_terrain                            ((Terrain *)(col_seg(20) + 0x78fc))
-#define g_work_needed                        ((unsigned char *)(col_seg(20) + 0x78fc))
-#define g_yield                              ((unsigned char *)(col_seg(20) + 0x78ff))
-#define g_unit_types                         ((UnitType *)(col_seg(20) + 0x7ac8))
-#define g_unit_type_info                     ((UnitTypeInfo *)(col_seg(20) + 0x7acf))
-#define g_byte_7ae6                          (*(unsigned char *)(col_seg(20) + 0x7ae6))
-#define g_type_7ae6                          (*(unsigned char *)(col_seg(20) + 0x7ae6))
-#define g_word_dragoons                      (*(int *)(col_seg(20) + 0x7b00))
-#define g_word_regulars                      (*(int *)(col_seg(20) + 0x7b1c))
-#define g_word_cavalry                       (*(int *)(col_seg(20) + 0x7b38))
-#define g_word_artillery                     (*(int *)(col_seg(20) + 0x7b62))
-#define g_type_7b64                          (*(unsigned char *)(col_seg(20) + 0x7b64))
-#define g_7bbd                               (*(unsigned char *)(col_seg(20) + 0x7bbd))
-#define g_type_7bc6                          (*(unsigned char *)(col_seg(20) + 0x7bc6))
-#define g_rec_7c0a                           (*(Rec7c0a *)(col_seg(20) + 0x7c0a))
-#define g_leader_face                        ((LeaderFace *)(col_seg(20) + 0x7c18))
-#define g_7c18                               ((col_i8 *)(col_seg(20) + 0x7c18))
-#define g_byte_7c18                          ((col_i8 *)(col_seg(20) + 0x7c18))
-#define g_tbl_7c18                           ((unsigned char *)(col_seg(20) + 0x7c18))
-#define g_7c19                               ((signed char *)(col_seg(20) + 0x7c19))
-#define g_colonies                           ((Colony *)(col_seg(20) + 0x7c28))
-#define g_colony_flags                       ((signed char *)(col_seg(20) + 0x7cac))
-#define g_units                              ((Unit *)(col_seg(20) + 0xa208))
-#define g_nations2                           ((Nation2 *)(col_seg(20) + 0xc2c4))
-#define g_nations                            ((Nation *)(col_seg(20) + 0xc2f4))
-#define g_nations_b                          ((NationB *)(col_seg(20) + 0xc2f4))
-#define g_rec316                             ((Rec316 *)(col_seg(20) + 0xc2f4))
-#define g_nation_bits                        ((char *)(col_seg(20) + 0xc2fb))
-#define g_nation_money                       ((Nation *)(col_seg(20) + 0xc31e))
-#define g_scenario                           ((ScenarioRec *)(col_seg(20) + 0xc326))
-#define g_nation_pair                        ((unsigned char *)(col_seg(20) + 0xc328))
-#define g_class                              ((ClassRec *)(col_seg(20) + 0xc7e4))
-#define g_routes                             ((RouteRec *)(col_seg(20) + 0xc804))
-#define g_level                              ((LevelRec *)(col_seg(20) + 0xcb7c))
-#define g_rec6_cb7e                          ((Rec6 *)(col_seg(20) + 0xcb7e))
-#define g_word_cb96                          (*(int *)(col_seg(20) + 0xcb96))
-#define g_settlements                        ((Settlement *)(col_seg(20) + 0xcb9a))
-#define g_villages                           ((ARec *)(col_seg(20) + 0xcb9c))
-#define g_tribes_by_nation                   ((TribeByNation *)(col_seg(20) + 0xd04a))
-#define g_natives                            ((Native *)(col_seg(20) + 0xd051))
-#define g_rec4e_d052                         ((unsigned char *)(col_seg(20) + 0xd052))
-#define g_tribes                             ((Tribe *)(col_seg(20) + 0xd182))
-#define g_tribe_rec                          ((BRec *)(col_seg(20) + 0xd184))
-#define g_tribes4e                           ((TribeRec *)(col_seg(20) + 0xd185))
-#define g_tension                            ((int *)(col_seg(20) + 0xd1c8))
-#define g_tribe_names                        ((TribeName *)(col_seg(20) + 0xd3da))
-#define g_rec6_d3dc                          ((Rec6 *)(col_seg(20) + 0xd3dc))
-#define g_tribe                              ((TribeName *)(col_seg(20) + 0xd3f2))
-#define g_rec6_d3f4                          ((Rec6 *)(col_seg(20) + 0xd3f4))
-#define g_buildings                          ((BuildingRec *)(col_seg(20) + 0xd422))
-#define g_building_links                     ((BuildingLink *)(col_seg(20) + 0xd426))
-#define g_rec12_d42b                         ((Rec12 *)(col_seg(20) + 0xd42b))
-#define g_fort_word_1                        (*(int *)(col_seg(20) + 0xd42e))
-#define g_fort_word_2                        (*(int *)(col_seg(20) + 0xd43a))
-#define g_word_d512                          (*(int *)(col_seg(20) + 0xd512))
-#define g_spec_recs                          ((SpecRec *)(col_seg(20) + 0xd61a))
-#define g_spec_rec                           ((SpecInfo *)(col_seg(20) + 0xd61c))
-#define g_fathers                            ((Father *)(col_seg(20) + 0xd6fa))
-#define g_founding_word                      ((int *)(col_seg(20) + 0xd790))
-#define g_word_d79a                          (*(int *)(col_seg(20) + 0xd79a))
-#define g_goods                              ((GoodsRec *)(col_seg(20) + 0xd79c))
-#define g_goods_info                         ((GoodsInfo *)(col_seg(20) + 0xd7a0))
-#define g_rec6_d83c                          ((Rec6 *)(col_seg(20) + 0xd83c))
-#define g_recruit                            ((Recruit *)(col_seg(20) + 0xd83d))
-#define g_word_d846                          (*(int *)(col_seg(20) + 0xd846))
-#define g_word_d858                          (*(int *)(col_seg(20) + 0xd858))
-#define g_word_d85e                          (*(int *)(col_seg(20) + 0xd85e))
-#define g_resource_value                     ((unsigned char *)(col_seg(20) + 0xd860))
-#define g_goods_name_word                    ((int *)(col_seg(20) + 0xd86e))
-#define g_word_d88a                          (*(int *)(col_seg(20) + 0xd88a))
-#define g_word_d88c                          (*(int *)(col_seg(20) + 0xd88c))
-#define g_word_d88e                          (*(int *)(col_seg(20) + 0xd88e))
-#define g_word_d892                          (*(int *)(col_seg(20) + 0xd892))
-#define g_nation_name                        ((int *)(col_seg(20) + 0xd896))
-#define g_nation_adjective                   ((int *)(col_seg(20) + 0xd89e))
-#define g_nation_abbrev                      ((int *)(col_seg(20) + 0xd8a6))
-#define g_nation_name_word                   ((int *)(col_seg(20) + 0xd8ae))
-#define g_mission_word                       ((int *)(col_seg(20) + 0xd8b6))
-#define g_order_word                         ((int *)(col_seg(20) + 0xd8be))
-#define g_feature_words                      ((int *)(col_seg(20) + 0xd8d8))
-#define g_resource_name                      ((int *)(col_seg(20) + 0xd8e2))
-#define g_difficulty_words                   ((int *)(col_seg(20) + 0xd8fe))
-#define g_action_word                        ((int *)(col_seg(20) + 0xd908))
-#define g_value_word                         ((int *)(col_seg(20) + 0xd91c))
-#define g_attitude_word                      ((int *)(col_seg(20) + 0xd924))
-#define g_attitudinal_word                   ((int *)(col_seg(20) + 0xd92e))
-#define g_pedia_word                         ((int *)(col_seg(20) + 0xd938))
-#define g_order_letter                       ((char *)(col_seg(20) + 0xd974))
-#define g_ctitle_word                        ((int *)(col_seg(20) + 0xd982))
-#define g_word_d984                          (*(int *)(col_seg(20) + 0xd984))
-#define g_word_d98a                          (*(int *)(col_seg(20) + 0xd98a))
-#define g_word_d98c                          (*(int *)(col_seg(20) + 0xd98c))
-#define g_page_word                          (*(int *)(col_seg(20) + 0xd98e))
-#define g_word_d98e                          (*(col_i16 *)(col_seg(20) + 0xd98e))
-#define g_menu_title_word                    (*(int *)(col_seg(20) + 0xd992))
-#define g_word_d994                          (*(int *)(col_seg(20) + 0xd994))
-#define g_colony_message_words               ((int *)(col_seg(20) + 0xd996))
-#define g_word_d9b8                          (*(int *)(col_seg(20) + 0xd9b8))
-#define g_word_d9ba                          (*(int *)(col_seg(20) + 0xd9ba))
-#define g_route_label                        ((int *)(col_seg(20) + 0xd9bc))
-#define g_colour_d9ca                        ((unsigned char *)(col_seg(20) + 0xd9ca))
-#define g_word_d9cc                          (*(int *)(col_seg(20) + 0xd9cc))
-#define g_tribe_colour                       ((unsigned char *)(col_seg(20) + 0xd9ce))
-#define g_fleet_strength                     ((int *)(col_seg(20) + 0xd9d6))
-#define g_d9de                               ((unsigned char *)(col_seg(20) + 0xd9de))
-#define g_unit_tally                         (*(char *)(col_seg(20) + 0xd9de))
-#define g_rec19_d9e0                         ((Rec19At0 *)(col_seg(20) + 0xd9e0))
-#define g_rec19_d9eb                         ((Rec19 *)(col_seg(20) + 0xd9eb))
-#define g_d9ee                               ((unsigned char *)(col_seg(20) + 0xd9ee))
-#define g_d9f0                               ((unsigned char *)(col_seg(20) + 0xd9f0))
-#define g_specialty_tally                    ((unsigned char *)(col_seg(20) + 0xda2a))
-#define g_da48                               ((int *)(col_seg(20) + 0xda48))
-#define g_word_da48                          ((col_i16 *)(col_seg(20) + 0xda48))
-#define g_region_2_5                         ((char *)(col_seg(20) + 0xda50))
-#define g_ba                                 ((unsigned char *)(col_seg(20) + 0xda60))
-#define g_region_settlements                 (*(char *)(col_seg(20) + 0xda60))
-#define g_da70                               ((unsigned char *)(col_seg(20) + 0xda70))
-#define g_block_da70                         (*(char *)(col_seg(20) + 0xda70))
-#define g_navy_table                         ((char *)(col_seg(20) + 0xdab0))
-#define g_daf0                               ((unsigned char *)(col_seg(20) + 0xdaf0))
-#define g_block_daf0                         (*(char *)(col_seg(20) + 0xdaf0))
-#define g_nation_region                      (*(char *)(col_seg(20) + 0xdb30))
-#define g_db70                               ((unsigned char *)(col_seg(20) + 0xdb70))
-#define g_block_db70                         (*(char *)(col_seg(20) + 0xdb70))
-#define g_nation_region_strength             (*(char *)(col_seg(20) + 0xdbb0))
-#define g_region_flags                       (*(char *)(col_seg(20) + 0xdbf0))
-#define g_tribe_strength                     (*(char *)(col_seg(20) + 0xdc00))
-#define g_tribe_pop                          (*(char *)(col_seg(20) + 0xdc08))
-#define g_tribe_settlement_count             (*(char *)(col_seg(20) + 0xdc10))
-#define g_tribe_region                       (*(char *)(col_seg(20) + 0xdc18))
-#define g_build_needs                        ((BuildNeed *)(col_seg(20) + 0xdca8))
-#define g_info_label                         ((int *)(col_seg(20) + 0xdcc0))
-#define g_misc_words                         ((int *)(col_seg(20) + 0xdcc8))
-#define g_word_dccc                          (*(int *)(col_seg(20) + 0xdccc))
-#define g_word_dcce                          (*(int *)(col_seg(20) + 0xdcce))
-#define g_job_name_dcd0                      (*(int *)(col_seg(20) + 0xdcd0))
-#define g_word_dcd0                          (*(col_i16 *)(col_seg(20) + 0xdcd0))
-#define g_word_dcd6                          (*(int *)(col_seg(20) + 0xdcd6))
-#define g_word_dcd8                          (*(int *)(col_seg(20) + 0xdcd8))
-#define g_word_dcda                          (*(int *)(col_seg(20) + 0xdcda))
-#define g_word_dcdc                          (*(int *)(col_seg(20) + 0xdcdc))
-#define g_word_dce2                          (*(int *)(col_seg(20) + 0xdce2))
-#define g_word_dce4                          (*(int *)(col_seg(20) + 0xdce4))
-#define g_word_dce6                          (*(int *)(col_seg(20) + 0xdce6))
-#define g_word_dcea                          (*(int *)(col_seg(20) + 0xdcea))
-#define g_word_dcec                          (*(int *)(col_seg(20) + 0xdcec))
-#define g_word_dcee                          (*(int *)(col_seg(20) + 0xdcee))
-#define g_word_dcfc                          (*(int *)(col_seg(20) + 0xdcfc))
-#define g_word_dcfe                          (*(int *)(col_seg(20) + 0xdcfe))
-#define g_word_dd00                          (*(int *)(col_seg(20) + 0xdd00))
-#define g_word_dd02                          (*(int *)(col_seg(20) + 0xdd02))
-#define g_report_title_word                  (*(int *)(col_seg(20) + 0xdd04))
-#define g_word_dd06                          (*(int *)(col_seg(20) + 0xdd06))
-#define g_cancel_id                          (*(int *)(col_seg(20) + 0xdd08))
-#define g_yes_id                             (*(int *)(col_seg(20) + 0xdd0c))
-#define g_no_id                              (*(int *)(col_seg(20) + 0xdd0e))
-#define g_nation3_prefix_word                (*(int *)(col_seg(20) + 0xdd10))
-#define g_congress_title                     (*(int *)(col_seg(20) + 0xdd12))
-#define g_word_dd16                          (*(int *)(col_seg(20) + 0xdd16))
-#define g_default_word                       (*(int *)(col_seg(20) + 0xdd18))
-#define g_word_dd1a                          (*(int *)(col_seg(20) + 0xdd1a))
-#define g_word_dd1c                          (*(int *)(col_seg(20) + 0xdd1c))
-#define g_word_dd1e                          (*(int *)(col_seg(20) + 0xdd1e))
-#define g_cancel_word                        (*(int *)(col_seg(20) + 0xdd20))
-#define g_word_dd22                          (*(int *)(col_seg(20) + 0xdd22))
-#define g_word_dd26                          (*(int *)(col_seg(20) + 0xdd26))
-#define g_word_dd28                          (*(int *)(col_seg(20) + 0xdd28))
-#define g_labor_title_word                   (*(int *)(col_seg(20) + 0xdd2a))
-#define g_econ_title_word                    (*(int *)(col_seg(20) + 0xdd2c))
-#define g_colony_report_title                (*(int *)(col_seg(20) + 0xdd2e))
-#define g_ship_report_title                  (*(int *)(col_seg(20) + 0xdd30))
-#define g_tally_word                         ((int *)(col_seg(20) + 0xdd32))
-#define g_thousands_word                     (*(int *)(col_seg(20) + 0xdd3a))
-#define g_word_dd3c                          (*(int *)(col_seg(20) + 0xdd3c))
-#define g_word_dd3e                          (*(int *)(col_seg(20) + 0xdd3e))
-#define g_europe_word                        (*(int *)(col_seg(20) + 0xdd40))
-#define g_ship_col1                          (*(int *)(col_seg(20) + 0xdd42))
-#define g_ship_col2                          (*(int *)(col_seg(20) + 0xdd44))
-#define g_word_dd44                          (*(col_i16 *)(col_seg(20) + 0xdd44))
-#define g_ship_col3                          (*(int *)(col_seg(20) + 0xdd46))
-#define g_ship_col4                          (*(int *)(col_seg(20) + 0xdd48))
-#define g_job_name_dd4a                      (*(int *)(col_seg(20) + 0xdd4a))
-#define g_word_dd4a                          (*(col_i16 *)(col_seg(20) + 0xdd4a))
-#define g_word_dd50                          (*(int *)(col_seg(20) + 0xdd50))
-#define g_override_a_val                     (*(int *)(col_seg(20) + 0xdd52))
-#define g_word_dd52                          (*(col_i16 *)(col_seg(20) + 0xdd52))
-#define g_override_b_val                     (*(int *)(col_seg(20) + 0xdd54))
-#define g_word_dd54                          (*(col_i16 *)(col_seg(20) + 0xdd54))
-#define g_word_dd56                          (*(int *)(col_seg(20) + 0xdd56))
-#define g_word_dd5a                          (*(int *)(col_seg(20) + 0xdd5a))
-#define g_word_dd5c                          (*(int *)(col_seg(20) + 0xdd5c))
-#define g_word_dd5e                          (*(int *)(col_seg(20) + 0xdd5e))
-#define g_word_dd60                          (*(int *)(col_seg(20) + 0xdd60))
-#define g_word_dd62                          (*(int *)(col_seg(20) + 0xdd62))
-#define g_word_dd64                          (*(int *)(col_seg(20) + 0xdd64))
-#define g_word_dd66                          (*(int *)(col_seg(20) + 0xdd66))
-#define g_word_dd68                          (*(int *)(col_seg(20) + 0xdd68))
-#define g_word_dd6a                          (*(int *)(col_seg(20) + 0xdd6a))
-#define g_word_dd6c                          (*(int *)(col_seg(20) + 0xdd6c))
-#define g_word_dd6e                          (*(int *)(col_seg(20) + 0xdd6e))
-#define g_word_dd70                          (*(int *)(col_seg(20) + 0xdd70))
-#define g_word_dd72                          (*(int *)(col_seg(20) + 0xdd72))
-#define g_rebel_adjective                    (*(int *)(col_seg(20) + 0xdd74))
-#define g_royal_adjective                    (*(int *)(col_seg(20) + 0xdd76))
-#define g_word_dd7a                          (*(int *)(col_seg(20) + 0xdd7a))
-#define g_word_dd7c                          (*(int *)(col_seg(20) + 0xdd7c))
-#define g_word_dd82                          (*(int *)(col_seg(20) + 0xdd82))
-#define g_word_dd84                          (*(int *)(col_seg(20) + 0xdd84))
-#define g_word_dd86                          (*(int *)(col_seg(20) + 0xdd86))
-#define g_word_dd88                          (*(int *)(col_seg(20) + 0xdd88))
-#define g_word_dd8a                          (*(int *)(col_seg(20) + 0xdd8a))
-#define g_word_dd8c                          (*(int *)(col_seg(20) + 0xdd8c))
-#define g_word_dd8e                          (*(int *)(col_seg(20) + 0xdd8e))
-#define g_word_dd90                          (*(int *)(col_seg(20) + 0xdd90))
-#define g_word_dd96                          (*(int *)(col_seg(20) + 0xdd96))
-#define g_word_dd98                          (*(int *)(col_seg(20) + 0xdd98))
-#define g_word_dd9c                          (*(int *)(col_seg(20) + 0xdd9c))
-#define g_word_dda6                          (*(int *)(col_seg(20) + 0xdda6))
-#define g_word_dda8                          (*(int *)(col_seg(20) + 0xdda8))
-#define g_word_ddaa                          (*(int *)(col_seg(20) + 0xddaa))
-#define g_word_ddac                          (*(int *)(col_seg(20) + 0xddac))
-#define g_word_ddae                          (*(int *)(col_seg(20) + 0xddae))
-#define g_word_ddb0                          (*(int *)(col_seg(20) + 0xddb0))
-#define g_word_ddb2                          (*(int *)(col_seg(20) + 0xddb2))
-#define g_word_ddb6                          (*(int *)(col_seg(20) + 0xddb6))
-#define g_word_ddba                          (*(int *)(col_seg(20) + 0xddba))
-#define g_word_ddc4                          (*(int *)(col_seg(20) + 0xddc4))
-#define g_word_ddc6                          (*(int *)(col_seg(20) + 0xddc6))
-#define g_word_ddc8                          (*(int *)(col_seg(20) + 0xddc8))
-#define g_word_ddca                          (*(int *)(col_seg(20) + 0xddca))
-#define g_word_ddcc                          (*(int *)(col_seg(20) + 0xddcc))
-#define g_word_ddd0                          (*(int *)(col_seg(20) + 0xddd0))
-#define g_word_ddd2                          (*(int *)(col_seg(20) + 0xddd2))
-#define g_word_ddd4                          (*(int *)(col_seg(20) + 0xddd4))
-#define g_word_ddd6                          (*(int *)(col_seg(20) + 0xddd6))
-#define g_word_ddd8                          (*(int *)(col_seg(20) + 0xddd8))
-#define g_word_ddda                          (*(int *)(col_seg(20) + 0xddda))
-#define g_word_dddc                          (*(int *)(col_seg(20) + 0xdddc))
-#define g_word_ddde                          (*(int *)(col_seg(20) + 0xddde))
-#define g_word_dde0                          (*(int *)(col_seg(20) + 0xdde0))
-#define g_word_dde2                          (*(int *)(col_seg(20) + 0xdde2))
-#define g_word_dde4                          (*(int *)(col_seg(20) + 0xdde4))
-#define g_word_dde6                          (*(int *)(col_seg(20) + 0xdde6))
-#define g_word_de10                          ((int *)(col_seg(20) + 0xde10))
-#define g_word_de20                          ((int *)(col_seg(20) + 0xde20))
-#define g_de2a                               (*(int *)(col_seg(20) + 0xde2a))
-#define g_de2c                               (*(int *)(col_seg(20) + 0xde2c))
-#define g_word_de2e                          (*(int *)(col_seg(20) + 0xde2e))
-#define g_word_de30                          (*(int *)(col_seg(20) + 0xde30))
-#define g_word_de32                          (*(int *)(col_seg(20) + 0xde32))
-#define g_word_de34                          (*(int *)(col_seg(20) + 0xde34))
-#define g_word_de36                          (*(int *)(col_seg(20) + 0xde36))
-#define g_word_de38                          (*(int *)(col_seg(20) + 0xde38))
-#define g_word_de3a                          (*(int *)(col_seg(20) + 0xde3a))
-#define g_word_de3c                          (*(int *)(col_seg(20) + 0xde3c))
-#define g_word_de3e                          (*(int *)(col_seg(20) + 0xde3e))
-#define g_word_de40                          (*(int *)(col_seg(20) + 0xde40))
-#define g_word_de44                          (*(int *)(col_seg(20) + 0xde44))
-#define g_word_de46                          (*(int *)(col_seg(20) + 0xde46))
-#define g_word_de48                          (*(int *)(col_seg(20) + 0xde48))
-#define g_word_de4a                          (*(int *)(col_seg(20) + 0xde4a))
-#define g_word_de4c                          (*(int *)(col_seg(20) + 0xde4c))
-#define g_word_de4e                          (*(int *)(col_seg(20) + 0xde4e))
-#define g_word_de50                          (*(int *)(col_seg(20) + 0xde50))
-#define g_word_de52                          (*(int *)(col_seg(20) + 0xde52))
-#define g_word_de54                          (*(int *)(col_seg(20) + 0xde54))
-#define g_word_de56                          (*(int *)(col_seg(20) + 0xde56))
-#define g_word_de58                          (*(int *)(col_seg(20) + 0xde58))
-#define g_word_de5a                          (*(int *)(col_seg(20) + 0xde5a))
-#define g_word_de5c                          (*(int *)(col_seg(20) + 0xde5c))
-#define g_word_de5e                          (*(int *)(col_seg(20) + 0xde5e))
-#define g_word_de60                          (*(int *)(col_seg(20) + 0xde60))
-#define g_terrain_colour                     ((unsigned char *)(col_seg(20) + 0xde82))
-#define g_screen_surface                     (*(char *)(col_seg(20) + 0xdea0))
-#define g_dec6                               ((char *)(col_seg(20) + 0xdec6))
-#define g_save_magic                         (*(char *)(col_seg(20) + 0xded4))
+#define g_seg20_0                            (*(char far *)(col_seg20 + 0x0000L))         /* SEG20:0x0000 */
+#define g_prefs_root                         (*(char far *)(col_seg20 + 0x0010L))         /* SEG20:0x0010 */
+#define g_game_palette                       ((char far *)(col_seg20 + 0x01acL))          /* SEG20:0x01ac; inferred: the gap to the next global */
+#define g_game_record                        (*(WinRec far *)(col_seg20 + 0x05caL))       /* SEG20:0x05ca; narrow_view: char, int */
+#define g_menu_owner                         (*(MenuRec far *)(col_seg20 + 0x0656L))      /* SEG20:0x0656; narrow_view: char */
+#define g_map_window                         (*(MapWin far *)(col_seg20 + 0x0658L))       /* SEG20:0x0658; narrow_view: char */
+#define g_win_67e                            (*(char far *)(col_seg20 + 0x067eL))         /* SEG20:0x067e; a view into g_map_window */
+#define g_map_timer                          (*(col_i16 far *)(col_seg20 + 0x0dceL))      /* SEG20:0x0dce; a view into g_map_window */
+#define g_map_overlay                        ((char far *)(col_seg20 + 0x0de0L))          /* SEG20:0x0de0; inferred: the gap to the next global */
+#define g_win_e06                            (*(char far *)(col_seg20 + 0x0e06L))         /* SEG20:0x0e06 */
+#define g_info_win                           ((char far *)(col_seg20 + 0x1566L))          /* SEG20:0x1566; inferred: the gap to the next global */
+#define g_win_158c                           (*(char far *)(col_seg20 + 0x158cL))         /* SEG20:0x158c */
+#define g_report_window                      (*(col_i16 far *)(col_seg20 + 0x1d06L))      /* SEG20:0x1d06; narrow_view: char */
+#define g_report_dialog                      (*(char far *)(col_seg20 + 0x1d2cL))         /* SEG20:0x1d2c */
+#define g_colony_window                      ((char far *)(col_seg20 + 0x25beL))          /* SEG20:0x25be; inferred: the gap to the next global */
+#define g_colony_win_rec                     (*(WinRec far *)(col_seg20 + 0x25e4L))       /* SEG20:0x25e4; narrow_view: char */
+#define g_ctx_25e4                           (*(char far *)(col_seg20 + 0x25e4L))         /* SEG20:0x25e4; a view into g_colony_win_rec */
+#define g_desk_x                             (*(col_i16 far *)(col_seg20 + 0x2d28L))      /* SEG20:0x2d28 */
+#define g_desk_y                             (*(col_i16 far *)(col_seg20 + 0x2d2aL))      /* SEG20:0x2d2a */
+#define g_colony_timer                       (*(col_i16 far *)(col_seg20 + 0x2d34L))      /* SEG20:0x2d34 */
+#define g_custom_house_colony                (*(col_i16 far *)(col_seg20 + 0x2fd0L))      /* SEG20:0x2fd0 */
+#define g_europe_win                         (*(EuropeWin far *)(col_seg20 + 0x2fd2L))    /* SEG20:0x2fd2; narrow_view: char */
+#define g_europe_win_rec                     (*(char far *)(col_seg20 + 0x2ff8L))         /* SEG20:0x2ff8; a view into g_europe_win */
+#define g_pedia_2ff8                         (*(char far *)(col_seg20 + 0x2ff8L))         /* SEG20:0x2ff8; a view into g_europe_win */
+#define g_win_2ff8                           (*(char far *)(col_seg20 + 0x2ff8L))         /* SEG20:0x2ff8; a view into g_europe_win */
+#define g_europe_x0                          (*(col_i16 far *)(col_seg20 + 0x373cL))      /* SEG20:0x373c; a view into g_europe_win */
+#define g_europe_timer                       (*(col_i16 far *)(col_seg20 + 0x3748L))      /* SEG20:0x3748; a view into g_europe_win */
+#define g_pedia_ctx                          ((char far *)(col_seg20 + 0x387cL))          /* SEG20:0x387c; inferred: the gap to the next global */
+#define g_game_record2                       ((char far *)(col_seg20 + 0x40d6L))          /* SEG20:0x40d6; inferred: the gap to the next global */
+#define g_art_base                           ((SpriteRec far *)(col_seg20 + 0x41a6L))     /* SEG20:0x41a6; inferred: the gap to the next global; narrow_view: char */
+#define g_art_43c6                           (*(char far *)(col_seg20 + 0x43c6L))         /* SEG20:0x43c6 */
+#define g_sprites_4506                       ((SpriteRec far *)(col_seg20 + 0x4506L))     /* SEG20:0x4506; inferred: the gap to the next global */
+#define g_sprites_4526                       ((char far *)(col_seg20 + 0x4526L))          /* SEG20:0x4526; inferred: the gap to the next global */
+#define g_art_47e6                           (*(char far *)(col_seg20 + 0x47e6L))         /* SEG20:0x47e6 */
+#define g_art_4866                           (*(char far *)(col_seg20 + 0x4866L))         /* SEG20:0x4866 */
+#define g_art_river                          ((char far *)(col_seg20 + 0x4926L))          /* SEG20:0x4926; inferred: the gap to the next global */
+#define g_art_coast                          ((char far *)(col_seg20 + 0x4b26L))          /* SEG20:0x4b26; inferred: the gap to the next global */
+#define g_art_forest                         ((char far *)(col_seg20 + 0x4d26L))          /* SEG20:0x4d26; inferred: the gap to the next global */
+#define g_art_4f46                           (*(char far *)(col_seg20 + 0x4f46L))         /* SEG20:0x4f46 */
+#define g_art_4f66                           (*(char far *)(col_seg20 + 0x4f66L))         /* SEG20:0x4f66 */
+#define g_art_4fa6                           (*(char far *)(col_seg20 + 0x4fa6L))         /* SEG20:0x4fa6 */
+#define g_art_4fc6                           (*(char far *)(col_seg20 + 0x4fc6L))         /* SEG20:0x4fc6 */
+#define g_art_bonus                          ((char far *)(col_seg20 + 0x5046L))          /* SEG20:0x5046; inferred: the gap to the next global */
+#define g_fog_sprite                         (*(char far *)(col_seg20 + 0x57a6L))         /* SEG20:0x57a6 */
+#define g_art_57c6                           (*(char far *)(col_seg20 + 0x57c6L))         /* SEG20:0x57c6 */
+#define g_overlay_sprites                    ((SpriteRec far *)(col_seg20 + 0x5cc6L))     /* SEG20:0x5cc6; inferred: the gap to the next global */
+#define g_icon_sprites                       ((Sprite far *)(col_seg20 + 0x6246L))        /* SEG20:0x6246; inferred: the gap to the next global; narrow_view: char */
+#define g_art_6266                           ((char far *)(col_seg20 + 0x6266L))          /* SEG20:0x6266; inferred: the gap to the next global */
+#define g_art_63a6                           ((char far *)(col_seg20 + 0x63a6L))          /* SEG20:0x63a6; inferred: the gap to the next global */
+#define g_sprite_6486                        (*(char far *)(col_seg20 + 0x6486L))         /* SEG20:0x6486 */
+#define g_cursor_sprite                      ((char far *)(col_seg20 + 0x64a6L))          /* SEG20:0x64a6; inferred: the gap to the next global */
+#define g_goods_sprites                      ((Sprite far *)(col_seg20 + 0x6526L))        /* SEG20:0x6526; inferred: the gap to the next global; narrow_view: char */
+#define g_boycott_sprite                     (*(char far *)(col_seg20 + 0x6946L))         /* SEG20:0x6946 */
+#define g_sprite_6986                        (*(char far *)(col_seg20 + 0x6986L))         /* SEG20:0x6986 */
+#define g_sprite_6a06                        (*(char far *)(col_seg20 + 0x6a06L))         /* SEG20:0x6a06 */
+#define g_bell_art                           (*(Sprite far *)(col_seg20 + 0x6a26L))       /* SEG20:0x6a26 */
+#define g_cell_frame_sprite                  (*(char far *)(col_seg20 + 0x6a66L))         /* SEG20:0x6a66 */
+#define g_expert_sprites                     ((char far *)(col_seg20 + 0x6c86L))          /* SEG20:0x6c86; inferred: the gap to the next global */
+#define g_label                              ((char far *)(col_seg20 + 0x6ee6L))          /* SEG20:0x6ee6; inferred: the gap to the next global */
+#define g_claim_sprite                       (*(char far *)(col_seg20 + 0x6fe6L))         /* SEG20:0x6fe6 */
+#define g_mood_art                           ((Sprite far *)(col_seg20 + 0x7086L))        /* SEG20:0x7086; inferred: the gap to the next global */
+#define g_empty_hold_sprite                  (*(char far *)(col_seg20 + 0x71a6L))         /* SEG20:0x71a6 */
+#define g_sol_flag_sprite                    (*(Sprite far *)(col_seg20 + 0x71c6L))       /* SEG20:0x71c6 */
+#define g_tory_flag_sprite                   (*(Sprite far *)(col_seg20 + 0x71e6L))       /* SEG20:0x71e6 */
+#define g_flag_art                           ((char far *)(col_seg20 + 0x72c6L))          /* SEG20:0x72c6; inferred: the gap to the next global */
+#define g_background_tile                    (*(Sprite far *)(col_seg20 + 0x7506L))       /* SEG20:0x7506; narrow_view: char */
+#define g_route_panel_sprite                 (*(char far *)(col_seg20 + 0x7526L))         /* SEG20:0x7526 */
+#define g_edge_sprites                       ((SpriteRec far *)(col_seg20 + 0x7546L))     /* SEG20:0x7546; inferred: the gap to the next global */
+#define g_cursors                            ((col_i16 far *)(col_seg20 + 0x7746L))       /* SEG20:0x7746; inferred: the gap to the next global; narrow_view: char */
+#define g_cursor_776e                        (*(col_i16 far *)(col_seg20 + 0x776eL))      /* SEG20:0x776e */
+#define g_tutorial_flags                     (*(col_i16 far *)(col_seg20 + 0x7782L))      /* SEG20:0x7782; narrow_view: char; signedness_unresolved: int, unsigned */
+#define g_flags_7784                         (*(col_i16 far *)(col_seg20 + 0x7784L))      /* SEG20:0x7784 */
+#define g_game_flags                         (*(col_i16 far *)(col_seg20 + 0x7784L))      /* SEG20:0x7784; a view into g_flags_7784; narrow_view: char, unsigned char; signedness_unresolved: int, unsigned */
+#define g_flag_7785                          (*(unsigned char far *)(col_seg20 + 0x7785L)) /* SEG20:0x7785; a view into g_flags_7784 */
+#define g_flags_7785                         (*(unsigned char far *)(col_seg20 + 0x7785L)) /* SEG20:0x7785; a view into g_flags_7784 */
+#define g_7786                               (*(col_i16 far *)(col_seg20 + 0x7786L))      /* SEG20:0x7786 */
+#define g_flags_7786                         (*(col_i16 far *)(col_seg20 + 0x7786L))      /* SEG20:0x7786; a view into g_7786; narrow_view: unsigned char */
+#define g_flags_7788                         (*(col_i16 far *)(col_seg20 + 0x7788L))      /* SEG20:0x7788 */
+#define g_scenario_flags                     (*(col_i16 far *)(col_seg20 + 0x7788L))      /* SEG20:0x7788; a view into g_flags_7788 */
+#define g_flags_7789                         (*(char far *)(col_seg20 + 0x7789L))         /* SEG20:0x7789; a view into g_flags_7788; signedness_unresolved: char, unsigned char */
+#define g_778a                               (*(col_i16 far *)(col_seg20 + 0x778aL))      /* SEG20:0x778a */
+#define g_word_778c                          (*(col_i16 far *)(col_seg20 + 0x778cL))      /* SEG20:0x778c */
+#define g_year                               (*(col_i16 far *)(col_seg20 + 0x778cL))      /* SEG20:0x778c; a view into g_word_778c */
+#define g_season                             (*(col_i16 far *)(col_seg20 + 0x778eL))      /* SEG20:0x778e */
+#define g_turn_counter                       (*(col_i16 far *)(col_seg20 + 0x7790L))      /* SEG20:0x7790; narrow_view: unsigned char */
+#define g_view_mode                          (*(col_i16 far *)(col_seg20 + 0x7792L))      /* SEG20:0x7792 */
+#define g_selected_unit                      (*(col_i16 far *)(col_seg20 + 0x7794L))      /* SEG20:0x7794 */
+#define g_turn_nation                        (*(col_i16 far *)(col_seg20 + 0x7796L))      /* SEG20:0x7796; narrow_view: unsigned char */
+#define g_view_nation                        (*(col_i16 far *)(col_seg20 + 0x7798L))      /* SEG20:0x7798; narrow_view: char, unsigned char */
+#define g_view_nation_b                      (*(unsigned char far *)(col_seg20 + 0x7798L)) /* SEG20:0x7798; a view into g_view_nation */
+#define g_player_nation                      (*(col_i16 far *)(col_seg20 + 0x779aL))      /* SEG20:0x779a; narrow_view: unsigned char */
+#define g_settlement_count                   (*(col_i16 far *)(col_seg20 + 0x779cL))      /* SEG20:0x779c */
+#define g_unit_count                         (*(col_i16 far *)(col_seg20 + 0x779eL))      /* SEG20:0x779e */
+#define g_colony_count                       (*(col_i16 far *)(col_seg20 + 0x77a0L))      /* SEG20:0x77a0 */
+#define g_trade_route_count                  (*(col_i16 far *)(col_seg20 + 0x77a2L))      /* SEG20:0x77a2 */
+#define g_reveal_all                         (*(col_i16 far *)(col_seg20 + 0x77a4L))      /* SEG20:0x77a4 */
+#define g_view_override                      (*(col_i16 far *)(col_seg20 + 0x77a6L))      /* SEG20:0x77a6 */
+#define g_difficulty                         (*(unsigned char far *)(col_seg20 + 0x77a8L)) /* SEG20:0x77a8 */
+#define g_year_hi                            (*(col_i8 far *)(col_seg20 + 0x77a9L))       /* SEG20:0x77a9 */
+#define g_year_lo                            (*(col_i8 far *)(col_seg20 + 0x77aaL))       /* SEG20:0x77aa */
+#define g_father_owner                       ((col_i8 far *)(col_seg20 + 0x77abL))        /* SEG20:0x77ab; inferred: the gap to the next global */
+#define g_game_in_progress                   (*(col_i16 far *)(col_seg20 + 0x77c4L))      /* SEG20:0x77c4 */
+#define g_message_flag                       (*(col_i16 far *)(col_seg20 + 0x77c6L))      /* SEG20:0x77c6 */
+#define g_message_pending                    (*(col_i16 far *)(col_seg20 + 0x77c8L))      /* SEG20:0x77c8 */
+#define g_77ca                               ((col_i16 far *)(col_seg20 + 0x77caL))       /* SEG20:0x77ca */
+#define g_war_started                        ((col_i16 far *)(col_seg20 + 0x77caL))       /* SEG20:0x77ca; a view into g_77ca */
+#define g_rebel_sentiment                    (*(col_i16 far *)(col_seg20 + 0x77d2L))      /* SEG20:0x77d2 */
+#define g_mother_country_idx                 (*(col_i16 far *)(col_seg20 + 0x77d4L))      /* SEG20:0x77d4; narrow_view: char, unsigned char */
+#define g_mother_country_idx_b               (*(unsigned char far *)(col_seg20 + 0x77d4L)) /* SEG20:0x77d4; a view into g_mother_country_idx */
+#define g_77d6                               (*(col_i16 far *)(col_seg20 + 0x77d6L))      /* SEG20:0x77d6 */
+#define g_nation_77d6                        (*(col_i16 far *)(col_seg20 + 0x77d6L))      /* SEG20:0x77d6; a view into g_77d6 */
+#define g_word_77d6                          (*(col_i16 far *)(col_seg20 + 0x77d6L))      /* SEG20:0x77d6; a view into g_77d6 */
+#define g_merc_nation                        (*(col_i16 far *)(col_seg20 + 0x77d8L))      /* SEG20:0x77d8 */
+#define g_rebel_step                         (*(col_i16 far *)(col_seg20 + 0x77daL))      /* SEG20:0x77da */
+#define g_77dc                               ((col_i16 far *)(col_seg20 + 0x77dcL))       /* SEG20:0x77dc */
+#define g_royal_forces                       ((col_i16 far *)(col_seg20 + 0x77dcL))       /* SEG20:0x77dc; a view into g_77dc */
+#define g_77e0                               (*(col_i16 far *)(col_seg20 + 0x77e0L))      /* SEG20:0x77e0; a view into g_77dc */
+#define g_77e2                               (*(col_i16 far *)(col_seg20 + 0x77e2L))      /* SEG20:0x77e2; a view into g_77dc */
+#define g_77e4                               ((col_i16 far *)(col_seg20 + 0x77e4L))       /* SEG20:0x77e4 */
+#define g_force                              ((col_i16 far *)(col_seg20 + 0x77e4L))       /* SEG20:0x77e4; a view into g_77e4 */
+#define g_77e6                               (*(col_i16 far *)(col_seg20 + 0x77e6L))      /* SEG20:0x77e6; a view into g_77e4 */
+#define g_77e8                               (*(col_i16 far *)(col_seg20 + 0x77e8L))      /* SEG20:0x77e8; a view into g_77e4 */
+#define g_77ea                               (*(col_i16 far *)(col_seg20 + 0x77eaL))      /* SEG20:0x77ea; a view into g_77e4 */
+#define g_base_sales                         ((col_i16 far *)(col_seg20 + 0x77ecL))       /* SEG20:0x77ec; inferred: the gap to the next global */
+#define g_bits_780c                          ((unsigned char far *)(col_seg20 + 0x780cL)) /* SEG20:0x780c; inferred: the gap to the next global */
+#define g_nation_text                        ((Nation34 far *)(col_seg20 + 0x7810L))      /* SEG20:0x7810; inferred: the gap to the next global; narrow_view: char */
+#define g_nation_recs                        ((NationRec far *)(col_seg20 + 0x7828L))     /* SEG20:0x7828 */
+#define g_rec52                              ((NationRec far *)(col_seg20 + 0x7828L))     /* SEG20:0x7828; a view into g_nation_recs */
+#define g_nation52                           ((NationRec52 far *)(col_seg20 + 0x7840L))   /* SEG20:0x7840; a view into g_nation_recs */
+#define g_rec52_7841                         ((Rec52 far *)(col_seg20 + 0x7841L))         /* SEG20:0x7841; a view into g_nation_recs */
+#define g_recs                               ((struct rec far *)(col_seg20 + 0x7841L))    /* SEG20:0x7841; a view into g_nation_recs */
+#define g_rec6_78e0                          (*(char far *)(col_seg20 + 0x78e0L))         /* SEG20:0x78e0; a view into g_nation_recs */
+#define g_terrain_row_bytes                  ((unsigned char far *)(col_seg20 + 0x78f0L)) /* SEG20:0x78f0; a view into g_nation_recs */
+#define g_terrain_rows                       ((KindRec far *)(col_seg20 + 0x78f8L))       /* SEG20:0x78f8; inferred: the gap to the next global */
+#define g_terrain                            ((Terrain far *)(col_seg20 + 0x78fcL))       /* SEG20:0x78fc; inferred: the gap to the next global */
+#define g_work_needed                        ((unsigned char far *)(col_seg20 + 0x78fcL)) /* SEG20:0x78fc; a view into g_terrain */
+#define g_yield                              ((unsigned char far *)(col_seg20 + 0x78ffL)) /* SEG20:0x78ff; inferred: the gap to the next global */
+#define g_unit_types                         ((UnitType far *)(col_seg20 + 0x7ac8L))      /* SEG20:0x7ac8; inferred: the gap to the next global; narrow_view: unsigned char */
+#define g_unit_type_info                     ((UnitTypeInfo far *)(col_seg20 + 0x7acfL))  /* SEG20:0x7acf; inferred: the gap to the next global */
+#define g_byte_7ae6                          (*(unsigned char far *)(col_seg20 + 0x7ae6L)) /* SEG20:0x7ae6 */
+#define g_type_7ae6                          (*(unsigned char far *)(col_seg20 + 0x7ae6L)) /* SEG20:0x7ae6; a view into g_byte_7ae6 */
+#define g_word_dragoons                      (*(col_i16 far *)(col_seg20 + 0x7b00L))      /* SEG20:0x7b00 */
+#define g_word_regulars                      (*(col_i16 far *)(col_seg20 + 0x7b1cL))      /* SEG20:0x7b1c */
+#define g_word_cavalry                       (*(col_i16 far *)(col_seg20 + 0x7b38L))      /* SEG20:0x7b38 */
+#define g_word_artillery                     (*(col_i16 far *)(col_seg20 + 0x7b62L))      /* SEG20:0x7b62 */
+#define g_type_7b64                          (*(unsigned char far *)(col_seg20 + 0x7b64L)) /* SEG20:0x7b64 */
+#define g_7bbd                               (*(unsigned char far *)(col_seg20 + 0x7bbdL)) /* SEG20:0x7bbd */
+#define g_type_7bc6                          (*(unsigned char far *)(col_seg20 + 0x7bc6L)) /* SEG20:0x7bc6 */
+#define g_rec_7c0a                           (*(Rec7c0a far *)(col_seg20 + 0x7c0aL))      /* SEG20:0x7c0a */
+#define g_leader_face                        ((LeaderFace far *)(col_seg20 + 0x7c18L))    /* SEG20:0x7c18; inferred: the gap to the next global; narrow_view: char */
+#define g_7c18                               ((col_i8 far *)(col_seg20 + 0x7c18L))        /* SEG20:0x7c18; a view into g_leader_face */
+#define g_byte_7c18                          ((col_i8 far *)(col_seg20 + 0x7c18L))        /* SEG20:0x7c18; a view into g_leader_face */
+#define g_tbl_7c18                           ((unsigned char far *)(col_seg20 + 0x7c18L)) /* SEG20:0x7c18; a view into g_leader_face */
+#define g_7c19                               ((col_i8 far *)(col_seg20 + 0x7c19L))        /* SEG20:0x7c19; inferred: the gap to the next global */
+#define g_colonies                           ((Colony far *)(col_seg20 + 0x7c28L))        /* SEG20:0x7c28; inferred: the gap to the next global; narrow_view: char, struct colony */
+#define g_colony_flags                       ((col_i8 far *)(col_seg20 + 0x7cacL))        /* SEG20:0x7cac; inferred: the gap to the next global */
+#define g_units                              ((Unit far *)(col_seg20 + 0xa208L))          /* SEG20:0xa208; inferred: the gap to the next global; narrow_view: char */
+#define g_nations2                           ((Nation2 far *)(col_seg20 + 0xc2c4L))       /* SEG20:0xc2c4; inferred: the gap to the next global */
+#define g_nations                            ((Nation far *)(col_seg20 + 0xc2f4L))        /* SEG20:0xc2f4; inferred: the gap to the next global; narrow_view: char */
+#define g_nations_b                          ((NationB far *)(col_seg20 + 0xc2f4L))       /* SEG20:0xc2f4; a view into g_nations */
+#define g_rec316                             ((Rec316 far *)(col_seg20 + 0xc2f4L))        /* SEG20:0xc2f4; a view into g_nations */
+#define g_nation_bits                        ((char far *)(col_seg20 + 0xc2fbL))          /* SEG20:0xc2fb; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
+#define g_nation_money                       ((Nation far *)(col_seg20 + 0xc31eL))        /* SEG20:0xc31e; inferred: the gap to the next global */
+#define g_scenario                           ((ScenarioRec far *)(col_seg20 + 0xc326L))   /* SEG20:0xc326; inferred: the gap to the next global */
+#define g_nation_pair                        ((unsigned char far *)(col_seg20 + 0xc328L)) /* SEG20:0xc328; inferred: the gap to the next global */
+#define g_class                              ((ClassRec far *)(col_seg20 + 0xc7e4L))      /* SEG20:0xc7e4; inferred: the gap to the next global */
+#define g_routes                             ((RouteRec far *)(col_seg20 + 0xc804L))      /* SEG20:0xc804; inferred: the gap to the next global; narrow_view: char */
+#define g_level                              ((LevelRec far *)(col_seg20 + 0xcb7cL))      /* SEG20:0xcb7c; inferred: the gap to the next global */
+#define g_rec6_cb7e                          ((Rec6 far *)(col_seg20 + 0xcb7eL))          /* SEG20:0xcb7e; inferred: the gap to the next global */
+#define g_word_cb96                          (*(col_i16 far *)(col_seg20 + 0xcb96L))      /* SEG20:0xcb96 */
+#define g_settlements                        ((Settlement far *)(col_seg20 + 0xcb9aL))    /* SEG20:0xcb9a; inferred: the gap to the next global; narrow_view: char */
+#define g_villages                           ((ARec far *)(col_seg20 + 0xcb9cL))          /* SEG20:0xcb9c; inferred: the gap to the next global */
+#define g_tribes_by_nation                   ((TribeByNation far *)(col_seg20 + 0xd04aL)) /* SEG20:0xd04a; inferred: the gap to the next global */
+#define g_natives                            ((Native far *)(col_seg20 + 0xd051L))        /* SEG20:0xd051; inferred: the gap to the next global */
+#define g_rec4e_d052                         ((unsigned char far *)(col_seg20 + 0xd052L)) /* SEG20:0xd052; the model could not parse Rec4e; inferred: the gap to the next global */
+#define g_tribes                             ((Tribe far *)(col_seg20 + 0xd182L))         /* SEG20:0xd182; inferred: the gap to the next global; narrow_view: char */
+#define g_tribe_rec                          ((BRec far *)(col_seg20 + 0xd184L))          /* SEG20:0xd184; inferred: the gap to the next global */
+#define g_tribes4e                           ((TribeRec far *)(col_seg20 + 0xd185L))      /* SEG20:0xd185; inferred: the gap to the next global */
+#define g_tension                            ((col_i16 far *)(col_seg20 + 0xd1c8L))       /* SEG20:0xd1c8; inferred: the gap to the next global */
+#define g_tribe_names                        ((TribeName far *)(col_seg20 + 0xd3daL))     /* SEG20:0xd3da; inferred: the gap to the next global */
+#define g_rec6_d3dc                          ((Rec6 far *)(col_seg20 + 0xd3dcL))          /* SEG20:0xd3dc; inferred: the gap to the next global */
+#define g_tribe                              ((TribeName far *)(col_seg20 + 0xd3f2L))     /* SEG20:0xd3f2; inferred: the gap to the next global */
+#define g_rec6_d3f4                          ((Rec6 far *)(col_seg20 + 0xd3f4L))          /* SEG20:0xd3f4; inferred: the gap to the next global */
+#define g_buildings                          ((BuildingRec far *)(col_seg20 + 0xd422L))   /* SEG20:0xd422; inferred: the gap to the next global */
+#define g_building_links                     ((BuildingLink far *)(col_seg20 + 0xd426L))  /* SEG20:0xd426; inferred: the gap to the next global */
+#define g_rec12_d42b                         ((Rec12 far *)(col_seg20 + 0xd42bL))         /* SEG20:0xd42b; inferred: the gap to the next global */
+#define g_fort_word_1                        (*(col_i16 far *)(col_seg20 + 0xd42eL))      /* SEG20:0xd42e */
+#define g_fort_word_2                        (*(col_i16 far *)(col_seg20 + 0xd43aL))      /* SEG20:0xd43a */
+#define g_word_d512                          (*(col_i16 far *)(col_seg20 + 0xd512L))      /* SEG20:0xd512 */
+#define g_spec_recs                          ((SpecRec far *)(col_seg20 + 0xd61aL))       /* SEG20:0xd61a; inferred: the gap to the next global */
+#define g_spec_rec                           ((SpecInfo far *)(col_seg20 + 0xd61cL))      /* SEG20:0xd61c; inferred: the gap to the next global; narrow_view: int */
+#define g_fathers                            ((Father far *)(col_seg20 + 0xd6faL))        /* SEG20:0xd6fa; inferred: the gap to the next global; narrow_view: int */
+#define g_founding_word                      ((col_i16 far *)(col_seg20 + 0xd790L))       /* SEG20:0xd790; inferred: the gap to the next global */
+#define g_word_d79a                          (*(col_i16 far *)(col_seg20 + 0xd79aL))      /* SEG20:0xd79a */
+#define g_goods                              ((GoodsRec far *)(col_seg20 + 0xd79cL))      /* SEG20:0xd79c; inferred: the gap to the next global */
+#define g_goods_info                         ((GoodsInfo far *)(col_seg20 + 0xd7a0L))     /* SEG20:0xd7a0; inferred: the gap to the next global */
+#define g_rec6_d83c                          ((Rec6 far *)(col_seg20 + 0xd83cL))          /* SEG20:0xd83c; inferred: the gap to the next global */
+#define g_recruit                            ((Recruit far *)(col_seg20 + 0xd83dL))       /* SEG20:0xd83d; inferred: the gap to the next global */
+#define g_word_d846                          (*(col_i16 far *)(col_seg20 + 0xd846L))      /* SEG20:0xd846 */
+#define g_word_d858                          (*(col_i16 far *)(col_seg20 + 0xd858L))      /* SEG20:0xd858 */
+#define g_word_d85e                          (*(col_i16 far *)(col_seg20 + 0xd85eL))      /* SEG20:0xd85e */
+#define g_resource_value                     ((unsigned char far *)(col_seg20 + 0xd860L)) /* SEG20:0xd860; inferred: the gap to the next global */
+#define g_goods_name_word                    ((col_i16 far *)(col_seg20 + 0xd86eL))       /* SEG20:0xd86e; inferred: the gap to the next global */
+#define g_word_d88a                          (*(col_i16 far *)(col_seg20 + 0xd88aL))      /* SEG20:0xd88a */
+#define g_word_d88c                          (*(col_i16 far *)(col_seg20 + 0xd88cL))      /* SEG20:0xd88c */
+#define g_word_d88e                          (*(col_i16 far *)(col_seg20 + 0xd88eL))      /* SEG20:0xd88e */
+#define g_word_d892                          (*(col_i16 far *)(col_seg20 + 0xd892L))      /* SEG20:0xd892 */
+#define g_nation_name                        ((col_i16 far *)(col_seg20 + 0xd896L))       /* SEG20:0xd896; inferred: the gap to the next global */
+#define g_nation_adjective                   ((col_i16 far *)(col_seg20 + 0xd89eL))       /* SEG20:0xd89e; inferred: the gap to the next global */
+#define g_nation_abbrev                      ((col_i16 far *)(col_seg20 + 0xd8a6L))       /* SEG20:0xd8a6; inferred: the gap to the next global */
+#define g_nation_name_word                   ((col_i16 far *)(col_seg20 + 0xd8aeL))       /* SEG20:0xd8ae; inferred: the gap to the next global */
+#define g_mission_word                       ((col_i16 far *)(col_seg20 + 0xd8b6L))       /* SEG20:0xd8b6; inferred: the gap to the next global */
+#define g_order_word                         ((col_i16 far *)(col_seg20 + 0xd8beL))       /* SEG20:0xd8be; inferred: the gap to the next global */
+#define g_feature_words                      ((col_i16 far *)(col_seg20 + 0xd8d8L))       /* SEG20:0xd8d8; inferred: the gap to the next global */
+#define g_resource_name                      ((col_i16 far *)(col_seg20 + 0xd8e2L))       /* SEG20:0xd8e2; inferred: the gap to the next global */
+#define g_difficulty_words                   ((col_i16 far *)(col_seg20 + 0xd8feL))       /* SEG20:0xd8fe; inferred: the gap to the next global */
+#define g_action_word                        ((col_i16 far *)(col_seg20 + 0xd908L))       /* SEG20:0xd908; inferred: the gap to the next global */
+#define g_value_word                         ((col_i16 far *)(col_seg20 + 0xd91cL))       /* SEG20:0xd91c; inferred: the gap to the next global */
+#define g_attitude_word                      ((col_i16 far *)(col_seg20 + 0xd924L))       /* SEG20:0xd924; inferred: the gap to the next global */
+#define g_attitudinal_word                   ((col_i16 far *)(col_seg20 + 0xd92eL))       /* SEG20:0xd92e; inferred: the gap to the next global */
+#define g_pedia_word                         ((col_i16 far *)(col_seg20 + 0xd938L))       /* SEG20:0xd938; inferred: the gap to the next global */
+#define g_order_letter                       ((char far *)(col_seg20 + 0xd974L))          /* SEG20:0xd974; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
+#define g_ctitle_word                        ((col_i16 far *)(col_seg20 + 0xd982L))       /* SEG20:0xd982; inferred: the gap to the next global */
+#define g_word_d984                          (*(col_i16 far *)(col_seg20 + 0xd984L))      /* SEG20:0xd984 */
+#define g_word_d98a                          (*(col_i16 far *)(col_seg20 + 0xd98aL))      /* SEG20:0xd98a */
+#define g_word_d98c                          (*(col_i16 far *)(col_seg20 + 0xd98cL))      /* SEG20:0xd98c */
+#define g_page_word                          (*(col_i16 far *)(col_seg20 + 0xd98eL))      /* SEG20:0xd98e */
+#define g_word_d98e                          (*(col_i16 far *)(col_seg20 + 0xd98eL))      /* SEG20:0xd98e; a view into g_page_word */
+#define g_menu_title_word                    (*(col_i16 far *)(col_seg20 + 0xd992L))      /* SEG20:0xd992 */
+#define g_word_d994                          (*(col_i16 far *)(col_seg20 + 0xd994L))      /* SEG20:0xd994 */
+#define g_colony_message_words               ((col_i16 far *)(col_seg20 + 0xd996L))       /* SEG20:0xd996; inferred: the gap to the next global */
+#define g_word_d9b8                          (*(col_i16 far *)(col_seg20 + 0xd9b8L))      /* SEG20:0xd9b8 */
+#define g_word_d9ba                          (*(col_i16 far *)(col_seg20 + 0xd9baL))      /* SEG20:0xd9ba */
+#define g_route_label                        ((col_i16 far *)(col_seg20 + 0xd9bcL))       /* SEG20:0xd9bc; inferred: the gap to the next global */
+#define g_colour_d9ca                        ((unsigned char far *)(col_seg20 + 0xd9caL)) /* SEG20:0xd9ca; inferred: the gap to the next global */
+#define g_word_d9cc                          (*(col_i16 far *)(col_seg20 + 0xd9ccL))      /* SEG20:0xd9cc */
+#define g_tribe_colour                       ((unsigned char far *)(col_seg20 + 0xd9ceL)) /* SEG20:0xd9ce; inferred: the gap to the next global */
+#define g_fleet_strength                     ((col_i16 far *)(col_seg20 + 0xd9d6L))       /* SEG20:0xd9d6; inferred: the gap to the next global; signedness_unresolved: int, unsigned, unsigned int */
+#define g_d9de                               ((unsigned char far *)(col_seg20 + 0xd9deL)) /* SEG20:0xd9de; inferred: the gap to the next global */
+#define g_unit_tally                         (*(char far *)(col_seg20 + 0xd9deL))         /* SEG20:0xd9de; a view into g_d9de; signedness_unresolved: char, unsigned char */
+#define g_rec19_d9e0                         ((Rec19At0 far *)(col_seg20 + 0xd9e0L))      /* SEG20:0xd9e0; inferred: the gap to the next global */
+#define g_rec19_d9eb                         ((Rec19 far *)(col_seg20 + 0xd9ebL))         /* SEG20:0xd9eb; inferred: the gap to the next global */
+#define g_d9ee                               ((unsigned char far *)(col_seg20 + 0xd9eeL)) /* SEG20:0xd9ee; inferred: the gap to the next global */
+#define g_d9f0                               ((unsigned char far *)(col_seg20 + 0xd9f0L)) /* SEG20:0xd9f0; inferred: the gap to the next global */
+#define g_specialty_tally                    ((unsigned char far *)(col_seg20 + 0xda2aL)) /* SEG20:0xda2a; inferred: the gap to the next global */
+#define g_da48                               ((col_i16 far *)(col_seg20 + 0xda48L))       /* SEG20:0xda48; inferred: the gap to the next global */
+#define g_word_da48                          ((col_i16 far *)(col_seg20 + 0xda48L))       /* SEG20:0xda48; a view into g_da48 */
+#define g_region_2_5                         ((char far *)(col_seg20 + 0xda50L))          /* SEG20:0xda50; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
+#define g_ba                                 ((unsigned char far *)(col_seg20 + 0xda60L)) /* SEG20:0xda60; inferred: the gap to the next global */
+#define g_region_settlements                 (*(char far *)(col_seg20 + 0xda60L))         /* SEG20:0xda60; a view into g_ba; signedness_unresolved: char, unsigned char */
+#define g_da70                               ((unsigned char far *)(col_seg20 + 0xda70L)) /* SEG20:0xda70; inferred: the gap to the next global */
+#define g_block_da70                         (*(char far *)(col_seg20 + 0xda70L))         /* SEG20:0xda70; a view into g_da70 */
+#define g_navy_table                         ((char far *)(col_seg20 + 0xdab0L))          /* SEG20:0xdab0; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
+#define g_daf0                               ((unsigned char far *)(col_seg20 + 0xdaf0L)) /* SEG20:0xdaf0; inferred: the gap to the next global */
+#define g_block_daf0                         (*(char far *)(col_seg20 + 0xdaf0L))         /* SEG20:0xdaf0; a view into g_daf0 */
+#define g_nation_region                      (*(char far *)(col_seg20 + 0xdb30L))         /* SEG20:0xdb30; signedness_unresolved: char, unsigned char */
+#define g_db70                               ((unsigned char far *)(col_seg20 + 0xdb70L)) /* SEG20:0xdb70; inferred: the gap to the next global */
+#define g_block_db70                         (*(char far *)(col_seg20 + 0xdb70L))         /* SEG20:0xdb70; a view into g_db70 */
+#define g_nation_region_strength             (*(char far *)(col_seg20 + 0xdbb0L))         /* SEG20:0xdbb0; signedness_unresolved: char, unsigned char */
+#define g_region_flags                       (*(char far *)(col_seg20 + 0xdbf0L))         /* SEG20:0xdbf0; signedness_unresolved: char, unsigned char */
+#define g_tribe_strength                     (*(char far *)(col_seg20 + 0xdc00L))         /* SEG20:0xdc00; signedness_unresolved: char, unsigned char */
+#define g_tribe_pop                          (*(char far *)(col_seg20 + 0xdc08L))         /* SEG20:0xdc08; signedness_unresolved: char, unsigned char */
+#define g_tribe_settlement_count             (*(char far *)(col_seg20 + 0xdc10L))         /* SEG20:0xdc10; signedness_unresolved: char, unsigned char */
+#define g_tribe_region                       (*(char far *)(col_seg20 + 0xdc18L))         /* SEG20:0xdc18; signedness_unresolved: char, unsigned char */
+#define g_build_needs                        ((BuildNeed far *)(col_seg20 + 0xdca8L))     /* SEG20:0xdca8; inferred: the gap to the next global */
+#define g_info_label                         ((col_i16 far *)(col_seg20 + 0xdcc0L))       /* SEG20:0xdcc0; inferred: the gap to the next global */
+#define g_misc_words                         ((col_i16 far *)(col_seg20 + 0xdcc8L))       /* SEG20:0xdcc8; inferred: the gap to the next global */
+#define g_word_dccc                          (*(col_i16 far *)(col_seg20 + 0xdcccL))      /* SEG20:0xdccc */
+#define g_word_dcce                          (*(col_i16 far *)(col_seg20 + 0xdcceL))      /* SEG20:0xdcce */
+#define g_job_name_dcd0                      (*(col_i16 far *)(col_seg20 + 0xdcd0L))      /* SEG20:0xdcd0 */
+#define g_word_dcd0                          (*(col_i16 far *)(col_seg20 + 0xdcd0L))      /* SEG20:0xdcd0; a view into g_job_name_dcd0 */
+#define g_word_dcd6                          (*(col_i16 far *)(col_seg20 + 0xdcd6L))      /* SEG20:0xdcd6 */
+#define g_word_dcd8                          (*(col_i16 far *)(col_seg20 + 0xdcd8L))      /* SEG20:0xdcd8 */
+#define g_word_dcda                          (*(col_i16 far *)(col_seg20 + 0xdcdaL))      /* SEG20:0xdcda */
+#define g_word_dcdc                          (*(col_i16 far *)(col_seg20 + 0xdcdcL))      /* SEG20:0xdcdc */
+#define g_word_dce2                          (*(col_i16 far *)(col_seg20 + 0xdce2L))      /* SEG20:0xdce2 */
+#define g_word_dce4                          (*(col_i16 far *)(col_seg20 + 0xdce4L))      /* SEG20:0xdce4 */
+#define g_word_dce6                          (*(col_i16 far *)(col_seg20 + 0xdce6L))      /* SEG20:0xdce6 */
+#define g_word_dcea                          (*(col_i16 far *)(col_seg20 + 0xdceaL))      /* SEG20:0xdcea */
+#define g_word_dcec                          (*(col_i16 far *)(col_seg20 + 0xdcecL))      /* SEG20:0xdcec */
+#define g_word_dcee                          (*(col_i16 far *)(col_seg20 + 0xdceeL))      /* SEG20:0xdcee */
+#define g_word_dcfc                          (*(col_i16 far *)(col_seg20 + 0xdcfcL))      /* SEG20:0xdcfc */
+#define g_word_dcfe                          (*(col_i16 far *)(col_seg20 + 0xdcfeL))      /* SEG20:0xdcfe */
+#define g_word_dd00                          (*(col_i16 far *)(col_seg20 + 0xdd00L))      /* SEG20:0xdd00 */
+#define g_word_dd02                          (*(col_i16 far *)(col_seg20 + 0xdd02L))      /* SEG20:0xdd02 */
+#define g_report_title_word                  (*(col_i16 far *)(col_seg20 + 0xdd04L))      /* SEG20:0xdd04 */
+#define g_word_dd06                          (*(col_i16 far *)(col_seg20 + 0xdd06L))      /* SEG20:0xdd06 */
+#define g_cancel_id                          (*(col_i16 far *)(col_seg20 + 0xdd08L))      /* SEG20:0xdd08 */
+#define g_yes_id                             (*(col_i16 far *)(col_seg20 + 0xdd0cL))      /* SEG20:0xdd0c */
+#define g_no_id                              (*(col_i16 far *)(col_seg20 + 0xdd0eL))      /* SEG20:0xdd0e */
+#define g_nation3_prefix_word                (*(col_i16 far *)(col_seg20 + 0xdd10L))      /* SEG20:0xdd10 */
+#define g_congress_title                     (*(col_i16 far *)(col_seg20 + 0xdd12L))      /* SEG20:0xdd12 */
+#define g_word_dd16                          (*(col_i16 far *)(col_seg20 + 0xdd16L))      /* SEG20:0xdd16 */
+#define g_default_word                       (*(col_i16 far *)(col_seg20 + 0xdd18L))      /* SEG20:0xdd18 */
+#define g_word_dd1a                          (*(col_i16 far *)(col_seg20 + 0xdd1aL))      /* SEG20:0xdd1a */
+#define g_word_dd1c                          (*(col_i16 far *)(col_seg20 + 0xdd1cL))      /* SEG20:0xdd1c */
+#define g_word_dd1e                          (*(col_i16 far *)(col_seg20 + 0xdd1eL))      /* SEG20:0xdd1e */
+#define g_cancel_word                        (*(col_i16 far *)(col_seg20 + 0xdd20L))      /* SEG20:0xdd20 */
+#define g_word_dd22                          (*(col_i16 far *)(col_seg20 + 0xdd22L))      /* SEG20:0xdd22 */
+#define g_word_dd26                          (*(col_i16 far *)(col_seg20 + 0xdd26L))      /* SEG20:0xdd26 */
+#define g_word_dd28                          (*(col_i16 far *)(col_seg20 + 0xdd28L))      /* SEG20:0xdd28 */
+#define g_labor_title_word                   (*(col_i16 far *)(col_seg20 + 0xdd2aL))      /* SEG20:0xdd2a */
+#define g_econ_title_word                    (*(col_i16 far *)(col_seg20 + 0xdd2cL))      /* SEG20:0xdd2c */
+#define g_colony_report_title                (*(col_i16 far *)(col_seg20 + 0xdd2eL))      /* SEG20:0xdd2e */
+#define g_ship_report_title                  (*(col_i16 far *)(col_seg20 + 0xdd30L))      /* SEG20:0xdd30 */
+#define g_tally_word                         ((col_i16 far *)(col_seg20 + 0xdd32L))       /* SEG20:0xdd32; inferred: the gap to the next global */
+#define g_thousands_word                     (*(col_i16 far *)(col_seg20 + 0xdd3aL))      /* SEG20:0xdd3a */
+#define g_word_dd3c                          (*(col_i16 far *)(col_seg20 + 0xdd3cL))      /* SEG20:0xdd3c */
+#define g_word_dd3e                          (*(col_i16 far *)(col_seg20 + 0xdd3eL))      /* SEG20:0xdd3e */
+#define g_europe_word                        (*(col_i16 far *)(col_seg20 + 0xdd40L))      /* SEG20:0xdd40 */
+#define g_ship_col1                          (*(col_i16 far *)(col_seg20 + 0xdd42L))      /* SEG20:0xdd42 */
+#define g_ship_col2                          (*(col_i16 far *)(col_seg20 + 0xdd44L))      /* SEG20:0xdd44 */
+#define g_word_dd44                          (*(col_i16 far *)(col_seg20 + 0xdd44L))      /* SEG20:0xdd44; a view into g_ship_col2 */
+#define g_ship_col3                          (*(col_i16 far *)(col_seg20 + 0xdd46L))      /* SEG20:0xdd46 */
+#define g_ship_col4                          (*(col_i16 far *)(col_seg20 + 0xdd48L))      /* SEG20:0xdd48 */
+#define g_job_name_dd4a                      (*(col_i16 far *)(col_seg20 + 0xdd4aL))      /* SEG20:0xdd4a */
+#define g_word_dd4a                          (*(col_i16 far *)(col_seg20 + 0xdd4aL))      /* SEG20:0xdd4a; a view into g_job_name_dd4a */
+#define g_word_dd50                          (*(col_i16 far *)(col_seg20 + 0xdd50L))      /* SEG20:0xdd50 */
+#define g_override_a_val                     (*(col_i16 far *)(col_seg20 + 0xdd52L))      /* SEG20:0xdd52 */
+#define g_word_dd52                          (*(col_i16 far *)(col_seg20 + 0xdd52L))      /* SEG20:0xdd52; a view into g_override_a_val */
+#define g_override_b_val                     (*(col_i16 far *)(col_seg20 + 0xdd54L))      /* SEG20:0xdd54 */
+#define g_word_dd54                          (*(col_i16 far *)(col_seg20 + 0xdd54L))      /* SEG20:0xdd54; a view into g_override_b_val */
+#define g_word_dd56                          (*(col_i16 far *)(col_seg20 + 0xdd56L))      /* SEG20:0xdd56 */
+#define g_word_dd5a                          (*(col_i16 far *)(col_seg20 + 0xdd5aL))      /* SEG20:0xdd5a */
+#define g_word_dd5c                          (*(col_i16 far *)(col_seg20 + 0xdd5cL))      /* SEG20:0xdd5c */
+#define g_word_dd5e                          (*(col_i16 far *)(col_seg20 + 0xdd5eL))      /* SEG20:0xdd5e */
+#define g_word_dd60                          (*(col_i16 far *)(col_seg20 + 0xdd60L))      /* SEG20:0xdd60 */
+#define g_word_dd62                          (*(col_i16 far *)(col_seg20 + 0xdd62L))      /* SEG20:0xdd62 */
+#define g_word_dd64                          (*(col_i16 far *)(col_seg20 + 0xdd64L))      /* SEG20:0xdd64 */
+#define g_word_dd66                          (*(col_i16 far *)(col_seg20 + 0xdd66L))      /* SEG20:0xdd66 */
+#define g_word_dd68                          (*(col_i16 far *)(col_seg20 + 0xdd68L))      /* SEG20:0xdd68 */
+#define g_word_dd6a                          (*(col_i16 far *)(col_seg20 + 0xdd6aL))      /* SEG20:0xdd6a */
+#define g_word_dd6c                          (*(col_i16 far *)(col_seg20 + 0xdd6cL))      /* SEG20:0xdd6c */
+#define g_word_dd6e                          (*(col_i16 far *)(col_seg20 + 0xdd6eL))      /* SEG20:0xdd6e */
+#define g_word_dd70                          (*(col_i16 far *)(col_seg20 + 0xdd70L))      /* SEG20:0xdd70 */
+#define g_word_dd72                          (*(col_i16 far *)(col_seg20 + 0xdd72L))      /* SEG20:0xdd72 */
+#define g_rebel_adjective                    (*(col_i16 far *)(col_seg20 + 0xdd74L))      /* SEG20:0xdd74 */
+#define g_royal_adjective                    (*(col_i16 far *)(col_seg20 + 0xdd76L))      /* SEG20:0xdd76 */
+#define g_word_dd7a                          (*(col_i16 far *)(col_seg20 + 0xdd7aL))      /* SEG20:0xdd7a */
+#define g_word_dd7c                          (*(col_i16 far *)(col_seg20 + 0xdd7cL))      /* SEG20:0xdd7c */
+#define g_word_dd82                          (*(col_i16 far *)(col_seg20 + 0xdd82L))      /* SEG20:0xdd82 */
+#define g_word_dd84                          (*(col_i16 far *)(col_seg20 + 0xdd84L))      /* SEG20:0xdd84 */
+#define g_word_dd86                          (*(col_i16 far *)(col_seg20 + 0xdd86L))      /* SEG20:0xdd86 */
+#define g_word_dd88                          (*(col_i16 far *)(col_seg20 + 0xdd88L))      /* SEG20:0xdd88 */
+#define g_word_dd8a                          (*(col_i16 far *)(col_seg20 + 0xdd8aL))      /* SEG20:0xdd8a */
+#define g_word_dd8c                          (*(col_i16 far *)(col_seg20 + 0xdd8cL))      /* SEG20:0xdd8c */
+#define g_word_dd8e                          (*(col_i16 far *)(col_seg20 + 0xdd8eL))      /* SEG20:0xdd8e */
+#define g_word_dd90                          (*(col_i16 far *)(col_seg20 + 0xdd90L))      /* SEG20:0xdd90 */
+#define g_word_dd96                          (*(col_i16 far *)(col_seg20 + 0xdd96L))      /* SEG20:0xdd96 */
+#define g_word_dd98                          (*(col_i16 far *)(col_seg20 + 0xdd98L))      /* SEG20:0xdd98 */
+#define g_word_dd9c                          (*(col_i16 far *)(col_seg20 + 0xdd9cL))      /* SEG20:0xdd9c */
+#define g_word_dda6                          (*(col_i16 far *)(col_seg20 + 0xdda6L))      /* SEG20:0xdda6 */
+#define g_word_dda8                          (*(col_i16 far *)(col_seg20 + 0xdda8L))      /* SEG20:0xdda8 */
+#define g_word_ddaa                          (*(col_i16 far *)(col_seg20 + 0xddaaL))      /* SEG20:0xddaa */
+#define g_word_ddac                          (*(col_i16 far *)(col_seg20 + 0xddacL))      /* SEG20:0xddac */
+#define g_word_ddae                          (*(col_i16 far *)(col_seg20 + 0xddaeL))      /* SEG20:0xddae */
+#define g_word_ddb0                          (*(col_i16 far *)(col_seg20 + 0xddb0L))      /* SEG20:0xddb0 */
+#define g_word_ddb2                          (*(col_i16 far *)(col_seg20 + 0xddb2L))      /* SEG20:0xddb2 */
+#define g_word_ddb6                          (*(col_i16 far *)(col_seg20 + 0xddb6L))      /* SEG20:0xddb6 */
+#define g_word_ddba                          (*(col_i16 far *)(col_seg20 + 0xddbaL))      /* SEG20:0xddba */
+#define g_word_ddc4                          (*(col_i16 far *)(col_seg20 + 0xddc4L))      /* SEG20:0xddc4 */
+#define g_word_ddc6                          (*(col_i16 far *)(col_seg20 + 0xddc6L))      /* SEG20:0xddc6 */
+#define g_word_ddc8                          (*(col_i16 far *)(col_seg20 + 0xddc8L))      /* SEG20:0xddc8 */
+#define g_word_ddca                          (*(col_i16 far *)(col_seg20 + 0xddcaL))      /* SEG20:0xddca */
+#define g_word_ddcc                          (*(col_i16 far *)(col_seg20 + 0xddccL))      /* SEG20:0xddcc */
+#define g_word_ddd0                          (*(col_i16 far *)(col_seg20 + 0xddd0L))      /* SEG20:0xddd0 */
+#define g_word_ddd2                          (*(col_i16 far *)(col_seg20 + 0xddd2L))      /* SEG20:0xddd2 */
+#define g_word_ddd4                          (*(col_i16 far *)(col_seg20 + 0xddd4L))      /* SEG20:0xddd4 */
+#define g_word_ddd6                          (*(col_i16 far *)(col_seg20 + 0xddd6L))      /* SEG20:0xddd6 */
+#define g_word_ddd8                          (*(col_i16 far *)(col_seg20 + 0xddd8L))      /* SEG20:0xddd8 */
+#define g_word_ddda                          (*(col_i16 far *)(col_seg20 + 0xdddaL))      /* SEG20:0xddda */
+#define g_word_dddc                          (*(col_i16 far *)(col_seg20 + 0xdddcL))      /* SEG20:0xdddc */
+#define g_word_ddde                          (*(col_i16 far *)(col_seg20 + 0xdddeL))      /* SEG20:0xddde */
+#define g_word_dde0                          (*(col_i16 far *)(col_seg20 + 0xdde0L))      /* SEG20:0xdde0 */
+#define g_word_dde2                          (*(col_i16 far *)(col_seg20 + 0xdde2L))      /* SEG20:0xdde2 */
+#define g_word_dde4                          (*(col_i16 far *)(col_seg20 + 0xdde4L))      /* SEG20:0xdde4 */
+#define g_word_dde6                          (*(col_i16 far *)(col_seg20 + 0xdde6L))      /* SEG20:0xdde6 */
+#define g_word_de10                          ((col_i16 far *)(col_seg20 + 0xde10L))       /* SEG20:0xde10; inferred: the gap to the next global */
+#define g_word_de20                          ((col_i16 far *)(col_seg20 + 0xde20L))       /* SEG20:0xde20; inferred: the gap to the next global */
+#define g_de2a                               (*(col_i16 far *)(col_seg20 + 0xde2aL))      /* SEG20:0xde2a */
+#define g_de2c                               (*(col_i16 far *)(col_seg20 + 0xde2cL))      /* SEG20:0xde2c */
+#define g_word_de2e                          (*(col_i16 far *)(col_seg20 + 0xde2eL))      /* SEG20:0xde2e */
+#define g_word_de30                          (*(col_i16 far *)(col_seg20 + 0xde30L))      /* SEG20:0xde30 */
+#define g_word_de32                          (*(col_i16 far *)(col_seg20 + 0xde32L))      /* SEG20:0xde32 */
+#define g_word_de34                          (*(col_i16 far *)(col_seg20 + 0xde34L))      /* SEG20:0xde34 */
+#define g_word_de36                          (*(col_i16 far *)(col_seg20 + 0xde36L))      /* SEG20:0xde36 */
+#define g_word_de38                          (*(col_i16 far *)(col_seg20 + 0xde38L))      /* SEG20:0xde38 */
+#define g_word_de3a                          (*(col_i16 far *)(col_seg20 + 0xde3aL))      /* SEG20:0xde3a */
+#define g_word_de3c                          (*(col_i16 far *)(col_seg20 + 0xde3cL))      /* SEG20:0xde3c */
+#define g_word_de3e                          (*(col_i16 far *)(col_seg20 + 0xde3eL))      /* SEG20:0xde3e */
+#define g_word_de40                          (*(col_i16 far *)(col_seg20 + 0xde40L))      /* SEG20:0xde40 */
+#define g_word_de44                          (*(col_i16 far *)(col_seg20 + 0xde44L))      /* SEG20:0xde44 */
+#define g_word_de46                          (*(col_i16 far *)(col_seg20 + 0xde46L))      /* SEG20:0xde46 */
+#define g_word_de48                          (*(col_i16 far *)(col_seg20 + 0xde48L))      /* SEG20:0xde48 */
+#define g_word_de4a                          (*(col_i16 far *)(col_seg20 + 0xde4aL))      /* SEG20:0xde4a */
+#define g_word_de4c                          (*(col_i16 far *)(col_seg20 + 0xde4cL))      /* SEG20:0xde4c */
+#define g_word_de4e                          (*(col_i16 far *)(col_seg20 + 0xde4eL))      /* SEG20:0xde4e */
+#define g_word_de50                          (*(col_i16 far *)(col_seg20 + 0xde50L))      /* SEG20:0xde50 */
+#define g_word_de52                          (*(col_i16 far *)(col_seg20 + 0xde52L))      /* SEG20:0xde52 */
+#define g_word_de54                          (*(col_i16 far *)(col_seg20 + 0xde54L))      /* SEG20:0xde54 */
+#define g_word_de56                          (*(col_i16 far *)(col_seg20 + 0xde56L))      /* SEG20:0xde56 */
+#define g_word_de58                          (*(col_i16 far *)(col_seg20 + 0xde58L))      /* SEG20:0xde58 */
+#define g_word_de5a                          (*(col_i16 far *)(col_seg20 + 0xde5aL))      /* SEG20:0xde5a */
+#define g_word_de5c                          (*(col_i16 far *)(col_seg20 + 0xde5cL))      /* SEG20:0xde5c */
+#define g_word_de5e                          (*(col_i16 far *)(col_seg20 + 0xde5eL))      /* SEG20:0xde5e */
+#define g_word_de60                          (*(col_i16 far *)(col_seg20 + 0xde60L))      /* SEG20:0xde60 */
+#define g_terrain_colour                     ((unsigned char far *)(col_seg20 + 0xde82L)) /* SEG20:0xde82; inferred: the gap to the next global */
+#define g_screen_surface                     (*(char far *)(col_seg20 + 0xdea0L))         /* SEG20:0xdea0 */
+#define g_dec6                               ((char far *)(col_seg20 + 0xdec6L))          /* SEG20:0xdec6; inferred: the gap to the next global */
+#define g_save_magic                         (*(char far *)(col_seg20 + 0xded4L))         /* SEG20:0xded4 */
 
 /* ---- SEG21 -- far, outside the automatic data segment */
-#define g_site_kind                          ((unsigned char *)(col_seg(21) + 0x0000))
-#define g_kind_w                             ((int *)(col_seg(21) + 0x0010))
-#define g_kind_h                             ((int *)(col_seg(21) + 0x001a))
-#define g_kind_row_x                         ((int *)(col_seg(21) + 0x0024))
-#define g_kind_row_y                         ((int *)(col_seg(21) + 0x002e))
-#define g_tbl21_38                           ((int *)(col_seg(21) + 0x0038))
-#define g_kind_out_x                         ((int *)(col_seg(21) + 0x0042))
-#define g_kind_out_y                         ((int *)(col_seg(21) + 0x004c))
-#define g_kind_out_w                         ((int *)(col_seg(21) + 0x0056))
-#define g_site_ground                        ((int *)(col_seg(21) + 0x0060))
-#define g_site_pos                           ((Pos *)(col_seg(21) + 0x006a))
-#define g_sel_00a6                           ((char *)(col_seg(21) + 0x00a6))
-#define g_tbl21_a6                           ((col_i8 *)(col_seg(21) + 0x00a6))
-#define g_job_building                       ((signed char *)(col_seg(21) + 0x00ba))
-#define g_job_goods                          ((signed char *)(col_seg(21) + 0x00cd))
-#define g_tbl21_f7                           ((signed char *)(col_seg(21) + 0x00f7))
-#define g_unit_type_class                    ((signed char *)(col_seg(21) + 0x010a))
-#define g_prod                               ((int *)(col_seg(21) + 0x0122))
-#define g_word_12c                           (*(int *)(col_seg(21) + 0x012c))
-#define g_tbl21_12e                          (*(int *)(col_seg(21) + 0x012e))
-#define g_tbl21_132                          (*(int *)(col_seg(21) + 0x0132))
-#define g_tbl21_13e                          (*(int *)(col_seg(21) + 0x013e))
-#define g_tbl21_140                          (*(int *)(col_seg(21) + 0x0140))
-#define g_word_140                           (*(col_i16 *)(col_seg(21) + 0x0140))
-#define g_word_142                           (*(int *)(col_seg(21) + 0x0142))
-#define g_crosses_this_turn                  (*(int *)(col_seg(21) + 0x0144))
-#define g_bells_this_turn                    (*(int *)(col_seg(21) + 0x0146))
-#define g_grid_marks                         ((char *)(col_seg(21) + 0x014a))
-#define g_value                              ((int *)(col_seg(21) + 0x0164))
-#define g_over_lo                            ((int *)(col_seg(21) + 0x018c))
-#define g_over_band                          ((int *)(col_seg(21) + 0x01b4))
-#define g_word_1be                           (*(int *)(col_seg(21) + 0x01be))
-#define g_slot14_adjust                      (*(int *)(col_seg(21) + 0x01c0))
-#define g_tbl21_1c4                          (*(int *)(col_seg(21) + 0x01c4))
-#define g_site_building                      ((signed char *)(col_seg(21) + 0x01dc))
-#define g_tbl21_1eb                          ((signed char *)(col_seg(21) + 0x01eb))
-#define g_cell_claim_1fa                     ((signed char *)(col_seg(21) + 0x01fa))
-#define g_cell_claim_213                     ((signed char *)(col_seg(21) + 0x0213))
-#define g_tile_tribe                         ((char *)(col_seg(21) + 0x0213))
+#define g_site_kind                          ((unsigned char far *)(col_seg21 + 0x0000L)) /* SEG21:0x0000; inferred: the gap to the next global */
+#define g_kind_w                             ((col_i16 far *)(col_seg21 + 0x0010L))       /* SEG21:0x0010; inferred: the gap to the next global */
+#define g_kind_h                             ((col_i16 far *)(col_seg21 + 0x001aL))       /* SEG21:0x001a; inferred: the gap to the next global */
+#define g_kind_row_x                         ((col_i16 far *)(col_seg21 + 0x0024L))       /* SEG21:0x0024; inferred: the gap to the next global */
+#define g_kind_row_y                         ((col_i16 far *)(col_seg21 + 0x002eL))       /* SEG21:0x002e; inferred: the gap to the next global */
+#define g_tbl21_38                           ((col_i16 far *)(col_seg21 + 0x0038L))       /* SEG21:0x0038; inferred: the gap to the next global */
+#define g_kind_out_x                         ((col_i16 far *)(col_seg21 + 0x0042L))       /* SEG21:0x0042; inferred: the gap to the next global */
+#define g_kind_out_y                         ((col_i16 far *)(col_seg21 + 0x004cL))       /* SEG21:0x004c; inferred: the gap to the next global */
+#define g_kind_out_w                         ((col_i16 far *)(col_seg21 + 0x0056L))       /* SEG21:0x0056; inferred: the gap to the next global */
+#define g_site_ground                        ((col_i16 far *)(col_seg21 + 0x0060L))       /* SEG21:0x0060; inferred: the gap to the next global */
+#define g_site_pos                           ((Pos far *)(col_seg21 + 0x006aL))           /* SEG21:0x006a; inferred: the gap to the next global */
+#define g_sel_00a6                           ((char far *)(col_seg21 + 0x00a6L))          /* SEG21:0x00a6; inferred: the gap to the next global */
+#define g_tbl21_a6                           ((col_i8 far *)(col_seg21 + 0x00a6L))        /* SEG21:0x00a6; a view into g_sel_00a6 */
+#define g_job_building                       ((col_i8 far *)(col_seg21 + 0x00baL))        /* SEG21:0x00ba; inferred: the gap to the next global */
+#define g_job_goods                          ((col_i8 far *)(col_seg21 + 0x00cdL))        /* SEG21:0x00cd; inferred: the gap to the next global */
+#define g_tbl21_f7                           ((col_i8 far *)(col_seg21 + 0x00f7L))        /* SEG21:0x00f7; inferred: the gap to the next global */
+#define g_unit_type_class                    ((col_i8 far *)(col_seg21 + 0x010aL))        /* SEG21:0x010a; inferred: the gap to the next global */
+#define g_prod                               ((col_i16 far *)(col_seg21 + 0x0122L))       /* SEG21:0x0122; inferred: the gap to the next global; signedness_unresolved: int, unsigned int */
+#define g_word_12c                           (*(col_i16 far *)(col_seg21 + 0x012cL))      /* SEG21:0x012c */
+#define g_tbl21_12e                          (*(col_i16 far *)(col_seg21 + 0x012eL))      /* SEG21:0x012e */
+#define g_tbl21_132                          (*(col_i16 far *)(col_seg21 + 0x0132L))      /* SEG21:0x0132 */
+#define g_tbl21_13e                          (*(col_i16 far *)(col_seg21 + 0x013eL))      /* SEG21:0x013e */
+#define g_tbl21_140                          (*(col_i16 far *)(col_seg21 + 0x0140L))      /* SEG21:0x0140 */
+#define g_word_140                           (*(col_i16 far *)(col_seg21 + 0x0140L))      /* SEG21:0x0140; a view into g_tbl21_140 */
+#define g_word_142                           (*(col_i16 far *)(col_seg21 + 0x0142L))      /* SEG21:0x0142 */
+#define g_crosses_this_turn                  (*(col_i16 far *)(col_seg21 + 0x0144L))      /* SEG21:0x0144 */
+#define g_bells_this_turn                    (*(col_i16 far *)(col_seg21 + 0x0146L))      /* SEG21:0x0146; signedness_unresolved: int, unsigned int */
+#define g_grid_marks                         ((char far *)(col_seg21 + 0x014aL))          /* SEG21:0x014a */
+#define g_value                              ((col_i16 far *)(col_seg21 + 0x0164L))       /* SEG21:0x0164; inferred: the gap to the next global */
+#define g_over_lo                            ((col_i16 far *)(col_seg21 + 0x018cL))       /* SEG21:0x018c; inferred: the gap to the next global */
+#define g_over_band                          ((col_i16 far *)(col_seg21 + 0x01b4L))       /* SEG21:0x01b4; inferred: the gap to the next global */
+#define g_word_1be                           (*(col_i16 far *)(col_seg21 + 0x01beL))      /* SEG21:0x01be */
+#define g_slot14_adjust                      (*(col_i16 far *)(col_seg21 + 0x01c0L))      /* SEG21:0x01c0 */
+#define g_tbl21_1c4                          (*(col_i16 far *)(col_seg21 + 0x01c4L))      /* SEG21:0x01c4 */
+#define g_site_building                      ((col_i8 far *)(col_seg21 + 0x01dcL))        /* SEG21:0x01dc; inferred: the gap to the next global; signedness_unresolved: char, signed char */
+#define g_tbl21_1eb                          ((col_i8 far *)(col_seg21 + 0x01ebL))        /* SEG21:0x01eb; inferred: the gap to the next global */
+#define g_cell_claim_1fa                     ((col_i8 far *)(col_seg21 + 0x01faL))        /* SEG21:0x01fa */
+#define g_cell_claim_213                     ((col_i8 far *)(col_seg21 + 0x0213L))        /* SEG21:0x0213 */
+#define g_tile_tribe                         ((char far *)(col_seg21 + 0x0213L))          /* SEG21:0x0213; a view into g_cell_claim_213 */
 
 /* ---- SEG22 -- far, outside the automatic data segment */
-#define g_world_opt                          ((int *)(col_seg(22) + 0x0000))
-#define g_seg22_2                            (*(int *)(col_seg(22) + 0x0002))
-#define g_win                                ((char *)(col_seg(22) + 0x000a))
-#define g_port_22_30                         ((char *)(col_seg(22) + 0x0030))
-#define g_father_order                       ((unsigned char *)(col_seg(22) + 0x00ce))
-#define g_father_x                           ((int *)(col_seg(22) + 0x00e8))
-#define g_father_y                           ((int *)(col_seg(22) + 0x011a))
+#define g_world_opt                          ((col_i16 far *)(col_seg22 + 0x0000L))       /* SEG22:0x0000; inferred: the gap to the next global */
+#define g_seg22_2                            (*(col_i16 far *)(col_seg22 + 0x0002L))      /* SEG22:0x0002 */
+#define g_win                                ((char far *)(col_seg22 + 0x000aL))          /* SEG22:0x000a; inferred: the gap to the next global */
+#define g_port_22_30                         ((char far *)(col_seg22 + 0x0030L))          /* SEG22:0x0030; inferred: the gap to the next global */
+#define g_father_order                       ((unsigned char far *)(col_seg22 + 0x00ceL)) /* SEG22:0x00ce; inferred: the gap to the next global */
+#define g_father_x                           ((col_i16 far *)(col_seg22 + 0x00e8L))       /* SEG22:0x00e8; inferred: the gap to the next global */
+#define g_father_y                           ((col_i16 far *)(col_seg22 + 0x011aL))       /* SEG22:0x011a; declared; inferred as one element (last in segment) */
 
 /* ---- SEG23 -- far, outside the automatic data segment */
-#define g_grid_depth                         ((unsigned char *)(col_seg(23) + 0x0000))
-#define g_near_depth                         ((unsigned char *)(col_seg(23) + 0x010e))
-#define g_queue_x                            ((unsigned char *)(col_seg(23) + 0x020e))
-#define g_queue_y                            ((unsigned char *)(col_seg(23) + 0x030e))
+#define g_grid_depth                         ((unsigned char far *)(col_seg23 + 0x0000L)) /* SEG23:0x0000 */
+#define g_near_depth                         ((unsigned char far *)(col_seg23 + 0x010eL)) /* SEG23:0x010e */
+#define g_queue_x                            ((unsigned char far *)(col_seg23 + 0x020eL)) /* SEG23:0x020e; inferred: the gap to the next global */
+#define g_queue_y                            ((unsigned char far *)(col_seg23 + 0x030eL)) /* SEG23:0x030e; declared; inferred as one element (last in segment) */
 
 /* ---- SEG24 -- far, outside the automatic data segment */
-#define g_cells                              ((Cell *)(col_seg(24) + 0x0000))
-#define g_cells_l                            ((col_i32 *)(col_seg(24) + 0x0000))
-#define g_cells2                             ((Cell *)(col_seg(24) + 0x0400))
-#define g_region_state                       ((unsigned char *)(col_seg(24) + 0x0500))
-#define g_sketch                             ((signed char *)(col_seg(24) + 0x0540))
-#define g_goods_wanted_prev                  ((unsigned char *)(col_seg(24) + 0x064e))
-#define g_goods_wanted                       ((signed char *)(col_seg(24) + 0x065e))
-#define g_want_tools                         (*(signed char *)(col_seg(24) + 0x066c))
-#define g_want_muskets                       (*(signed char *)(col_seg(24) + 0x066d))
-#define g_colony_tally                       ((int *)(col_seg(24) + 0x066e))
-#define g_table6                             ((Rec6 *)(col_seg(24) + 0x0676))
-#define g_seg24_6d6                          ((unsigned char *)(col_seg(24) + 0x06d6))
-#define g_region_pop                         ((unsigned char *)(col_seg(24) + 0x06e6))
-#define g_slot_ok                            ((unsigned char *)(col_seg(24) + 0x06f6))
+#define g_cells                              ((Cell far *)(col_seg24 + 0x0000L))          /* SEG24:0x0000; inferred: the gap to the next global */
+#define g_cells_l                            ((col_i32 far *)(col_seg24 + 0x0000L))       /* SEG24:0x0000; a view into g_cells */
+#define g_cells2                             ((Cell far *)(col_seg24 + 0x0400L))          /* SEG24:0x0400; inferred: the gap to the next global */
+#define g_region_state                       ((unsigned char far *)(col_seg24 + 0x0500L)) /* SEG24:0x0500; inferred: the gap to the next global */
+#define g_sketch                             ((col_i8 far *)(col_seg24 + 0x0540L))        /* SEG24:0x0540; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
+#define g_goods_wanted_prev                  ((unsigned char far *)(col_seg24 + 0x064eL)) /* SEG24:0x064e; inferred: the gap to the next global */
+#define g_goods_wanted                       ((col_i8 far *)(col_seg24 + 0x065eL))        /* SEG24:0x065e; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
+#define g_want_tools                         (*(col_i8 far *)(col_seg24 + 0x066cL))       /* SEG24:0x066c */
+#define g_want_muskets                       (*(col_i8 far *)(col_seg24 + 0x066dL))       /* SEG24:0x066d */
+#define g_colony_tally                       ((col_i16 far *)(col_seg24 + 0x066eL))       /* SEG24:0x066e; inferred: the gap to the next global */
+#define g_table6                             ((Rec6 far *)(col_seg24 + 0x0676L))          /* SEG24:0x0676; inferred: the gap to the next global */
+#define g_seg24_6d6                          ((unsigned char far *)(col_seg24 + 0x06d6L)) /* SEG24:0x06d6; inferred: the gap to the next global */
+#define g_region_pop                         ((unsigned char far *)(col_seg24 + 0x06e6L)) /* SEG24:0x06e6; inferred: the gap to the next global */
+#define g_slot_ok                            ((unsigned char far *)(col_seg24 + 0x06f6L)) /* SEG24:0x06f6; declared; inferred as one element (last in segment) */
 
 /* ---- SEG25 -- far, outside the automatic data segment */
-#define g_seg25_6                            (*(int *)(col_seg(25) + 0x0006))
-#define g_word_seg25_6                       (*(col_i16 *)(col_seg(25) + 0x0006))
-#define g_rank                               ((int *)(col_seg(25) + 0x0008))
-#define g_native_buy                         ((int *)(col_seg(25) + 0x0010))
-#define g_native_sell                        ((int *)(col_seg(25) + 0x0030))
+#define g_seg25_6                            (*(col_i16 far *)(col_seg25 + 0x0006L))      /* SEG25:0x0006 */
+#define g_word_seg25_6                       (*(col_i16 far *)(col_seg25 + 0x0006L))      /* SEG25:0x0006; a view into g_seg25_6 */
+#define g_rank                               ((col_i16 far *)(col_seg25 + 0x0008L))       /* SEG25:0x0008; signedness_unresolved: int, unsigned, unsigned int */
+#define g_native_buy                         ((col_i16 far *)(col_seg25 + 0x0010L))       /* SEG25:0x0010; inferred: the gap to the next global */
+#define g_native_sell                        ((col_i16 far *)(col_seg25 + 0x0030L))       /* SEG25:0x0030; declared; inferred as one element (last in segment) */
 
 /* ---- SEG26 -- far, outside the automatic data segment */
-#define g_row                                (*(GoodsRow *)(col_seg(26) + 0x0000))
-#define g_merc                               ((int *)(col_seg(26) + 0x0036))
+#define g_row                                (*(GoodsRow far *)(col_seg26 + 0x0000L))     /* SEG26:0x0000 */
+#define g_merc                               ((col_i16 far *)(col_seg26 + 0x0036L))       /* SEG26:0x0036 */
 
 /* ---- SEG27 -- far, outside the automatic data segment */
-#define g_dir_dx                             ((signed char *)(col_seg(27) + 0x0000))
-#define g_dir_dy                             ((signed char *)(col_seg(27) + 0x0009))
-#define g_ring_dx                            ((signed char *)(col_seg(27) + 0x0012))
-#define g_ring_dy                            ((signed char *)(col_seg(27) + 0x0027))
-#define g_map_file_name                      ((char *)(col_seg(27) + 0x003c))
-#define g_region_size                        ((int *)(col_seg(27) + 0x008c))
-#define g_block_seg27_8c                     (*(char *)(col_seg(27) + 0x008c))
-#define g_word_seg27_8c                      ((col_i16 *)(col_seg(27) + 0x008c))
-#define g_grid_ae                            ((char *)(col_seg(27) + 0x00ae))
-#define g_block_b                            ((char *)(col_seg(27) + 0x01bc))
-#define g_block_seg27_1bc                    (*(char *)(col_seg(27) + 0x01bc))
-#define g_grid_1bc                           ((unsigned char *)(col_seg(27) + 0x01bc))
-#define g_terrain_bonus                      ((int *)(col_seg(27) + 0x02ca))
+#define g_dir_dx                             ((col_i8 far *)(col_seg27 + 0x0000L))        /* SEG27:0x0000; inferred: the gap to the next global */
+#define g_dir_dy                             ((col_i8 far *)(col_seg27 + 0x0009L))        /* SEG27:0x0009; inferred: the gap to the next global; signedness_unresolved: char, signed char */
+#define g_ring_dx                            ((col_i8 far *)(col_seg27 + 0x0012L))        /* SEG27:0x0012; inferred: the gap to the next global */
+#define g_ring_dy                            ((col_i8 far *)(col_seg27 + 0x0027L))        /* SEG27:0x0027; inferred: the gap to the next global */
+#define g_map_file_name                      ((char far *)(col_seg27 + 0x003cL))          /* SEG27:0x003c; inferred: the gap to the next global */
+#define g_region_size                        ((col_i16 far *)(col_seg27 + 0x008cL))       /* SEG27:0x008c; inferred: the gap to the next global */
+#define g_block_seg27_8c                     (*(char far *)(col_seg27 + 0x008cL))         /* SEG27:0x008c; a view into g_region_size */
+#define g_word_seg27_8c                      ((col_i16 far *)(col_seg27 + 0x008cL))       /* SEG27:0x008c; a view into g_region_size */
+#define g_grid_ae                            ((char far *)(col_seg27 + 0x00aeL))          /* SEG27:0x00ae; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
+#define g_block_b                            ((char far *)(col_seg27 + 0x01bcL))          /* SEG27:0x01bc; inferred: the gap to the next global */
+#define g_block_seg27_1bc                    (*(char far *)(col_seg27 + 0x01bcL))         /* SEG27:0x01bc; a view into g_block_b */
+#define g_grid_1bc                           ((unsigned char far *)(col_seg27 + 0x01bcL)) /* SEG27:0x01bc; a view into g_block_b */
+#define g_terrain_bonus                      ((col_i16 far *)(col_seg27 + 0x02caL))       /* SEG27:0x02ca; declared; inferred as one element (last in segment) */
 
 /* ---- SEG28 -- far, outside the automatic data segment */
-#define g_backdrop_port                      ((char *)(col_seg(28) + 0x0000))
-#define g_sprite_26                          ((char *)(col_seg(28) + 0x0026))
-#define g_flag_sprite                        ((char *)(col_seg(28) + 0x0046))
-#define g_port_66                            ((char *)(col_seg(28) + 0x0066))
+#define g_backdrop_port                      ((char far *)(col_seg28 + 0x0000L))          /* SEG28:0x0000; inferred: the gap to the next global */
+#define g_sprite_26                          ((char far *)(col_seg28 + 0x0026L))          /* SEG28:0x0026; inferred: the gap to the next global */
+#define g_flag_sprite                        ((char far *)(col_seg28 + 0x0046L))          /* SEG28:0x0046; inferred: the gap to the next global */
+#define g_port_66                            ((char far *)(col_seg28 + 0x0066L))          /* SEG28:0x0066; declared; inferred as one element (last in segment) */
 
 /* ---- SEG29 -- far, outside the automatic data segment */
-#define g_text_buf                           ((char *)(col_seg(29) + 0x003c))
-#define g_field                              ((char *)(col_seg(29) + 0x008c))
-#define g_text                               ((char *)(col_seg(29) + 0x00dc))
-#define g_block_29_10dc                      ((unsigned char *)(col_seg(29) + 0x10dc))
-#define g_text_pool                          ((char *)(col_seg(29) + 0x10dc))
-#define g_text_strings                       (*(char * *)(col_seg(29) + 0x10e0))
-#define g_strbuf                             ((char *)(col_seg(29) + 0x10ea))
-#define g_win_11ea                           ((char *)(col_seg(29) + 0x11ea))
-#define g_opening_win                        (*(char *)(col_seg(29) + 0x11ea))
-#define g_dialog_1210                        ((char *)(col_seg(29) + 0x1210))
+#define g_text_buf                           ((char far *)(col_seg29 + 0x003cL))          /* SEG29:0x003c; inferred: the gap to the next global */
+#define g_field                              ((char far *)(col_seg29 + 0x008cL))          /* SEG29:0x008c; inferred: the gap to the next global */
+#define g_text                               ((char far *)(col_seg29 + 0x00dcL))          /* SEG29:0x00dc; inferred: the gap to the next global */
+#define g_block_29_10dc                      ((unsigned char far *)(col_seg29 + 0x10dcL)) /* SEG29:0x10dc; the model could not parse MemBlock; opaque record; extent is the gap to the next global */
+#define g_text_pool                          ((char far *)(col_seg29 + 0x10dcL))          /* SEG29:0x10dc; a view into g_block_29_10dc */
+#define g_text_strings                       (*(char far * far *)(col_seg29 + 0x10e0L))   /* SEG29:0x10e0 */
+#define g_strbuf                             ((char far *)(col_seg29 + 0x10eaL))          /* SEG29:0x10ea; inferred: the gap to the next global */
+#define g_win_11ea                           ((char far *)(col_seg29 + 0x11eaL))          /* SEG29:0x11ea; inferred: the gap to the next global */
+#define g_opening_win                        (*(char far *)(col_seg29 + 0x11eaL))         /* SEG29:0x11ea; a view into g_win_11ea */
+#define g_dialog_1210                        ((char far *)(col_seg29 + 0x1210L))          /* SEG29:0x1210; declared; inferred as one element (last in segment) */
 
 /* ---- SEG30 -- far, outside the automatic data segment */
-#define g_seg30_rect                         ((char *)(col_seg(30) + 0x0000))
-#define g_drag_rect_dst                      ((short *)(col_seg(30) + 0x0008))
-#define g_goods_value                        ((unsigned char *)(col_seg(30) + 0x0010))
-#define g_order_flags                        ((unsigned char *)(col_seg(30) + 0x0050))
+#define g_seg30_rect                         ((char far *)(col_seg30 + 0x0000L))          /* SEG30:0x0000; inferred: the gap to the next global */
+#define g_drag_rect_dst                      ((col_i16 far *)(col_seg30 + 0x0008L))       /* SEG30:0x0008; narrow_view: char, unsigned char */
+#define g_goods_value                        ((unsigned char far *)(col_seg30 + 0x0010L)) /* SEG30:0x0010; inferred: the gap to the next global */
+#define g_order_flags                        ((unsigned char far *)(col_seg30 + 0x0050L)) /* SEG30:0x0050; declared; inferred as one element (last in segment) */
 
 /* ---- SEG31 -- far, outside the automatic data segment */
-#define g_seg31_0c                           ((int *)(col_seg(31) + 0x000c))
-#define g_seg31_38                           ((int *)(col_seg(31) + 0x0038))
-#define g_popup_label                        ((char * *)(col_seg(31) + 0x0098))
-#define g_default_route_name                 ((char *)(col_seg(31) + 0x00a4))
-#define g_edit_bufs                          ((char *)(col_seg(31) + 0x00a4))
-#define g_msg_name                           ((char *)(col_seg(31) + 0x00a4))
-#define g_name_buf                           ((char *)(col_seg(31) + 0x00a4))
-#define g_name_slots                         ((char *)(col_seg(31) + 0x00a4))
-#define g_namebuf_a4                         (*(char *)(col_seg(31) + 0x00a4))
-#define g_seg31_a4                           ((char *)(col_seg(31) + 0x00a4))
-#define g_text_answer                        ((char *)(col_seg(31) + 0x00a4))
-#define g_namebuf_f4                         (*(char *)(col_seg(31) + 0x00f4))
-#define g_text_arg_f4                        (*(char *)(col_seg(31) + 0x00f4))
-#define g_text_args                          ((long *)(col_seg(31) + 0x02d4))
+#define g_seg31_0c                           ((col_i16 far *)(col_seg31 + 0x000cL))       /* SEG31:0x000c; inferred: the gap to the next global */
+#define g_seg31_38                           ((col_i16 far *)(col_seg31 + 0x0038L))       /* SEG31:0x0038; inferred: the gap to the next global */
+#define g_popup_label                        ((char far * far *)(col_seg31 + 0x0098L))    /* SEG31:0x0098; inferred: the gap to the next global; other_pointee_spelling: void */
+#define g_default_route_name                 ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; inferred: the gap to the next global */
+#define g_edit_bufs                          ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_msg_name                           ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_name_buf                           ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_name_slots                         ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_namebuf_a4                         (*(char far *)(col_seg31 + 0x00a4L))         /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_seg31_a4                           ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_text_answer                        ((char far *)(col_seg31 + 0x00a4L))          /* SEG31:0x00a4; a view into g_default_route_name */
+#define g_namebuf_f4                         (*(char far *)(col_seg31 + 0x00f4L))         /* SEG31:0x00f4 */
+#define g_text_arg_f4                        (*(char far *)(col_seg31 + 0x00f4L))         /* SEG31:0x00f4; a view into g_namebuf_f4 */
+#define g_text_args                          ((col_i32 far *)(col_seg31 + 0x02d4L))       /* SEG31:0x02d4; declared; inferred as one element (last in segment); narrow_view: int */
 
 /* ---- SEG32 -- far, outside the automatic data segment */
-#define g_group_members                      ((int *)(col_seg(32) + 0x0000))
-#define g_step_group                         ((int *)(col_seg(32) + 0x0070))
-#define g_step_banner                        ((int *)(col_seg(32) + 0x008c))
-#define g_step_footer                        ((int *)(col_seg(32) + 0x00a8))
+#define g_group_members                      ((col_i16 far *)(col_seg32 + 0x0000L))       /* SEG32:0x0000; inferred: the gap to the next global */
+#define g_step_group                         ((col_i16 far *)(col_seg32 + 0x0070L))       /* SEG32:0x0070; inferred: the gap to the next global */
+#define g_step_banner                        ((col_i16 far *)(col_seg32 + 0x008cL))       /* SEG32:0x008c; inferred: the gap to the next global */
+#define g_step_footer                        ((col_i16 far *)(col_seg32 + 0x00a8L))       /* SEG32:0x00a8; declared; inferred as one element (last in segment) */
 
 /* ---- DGROUP -- the automatic data segment */
-#define g_cycle_flag                         (*(int *)(col_seg(34) + 0x0076))
-#define g_blink                              (*(int *)(col_seg(34) + 0x0078))
-#define g_last_blink                         (*(unsigned long *)(col_seg(34) + 0x007a))
-#define g_save_version                       (*(int *)(col_seg(34) + 0x007e))
-#define g_84                                 (*(int *)(col_seg(34) + 0x0084))
-#define g_88                                 (*(int *)(col_seg(34) + 0x0088))
-#define g_8a                                 (*(char *)(col_seg(34) + 0x008a))
-#define g_loaded_flag                        (*(char *)(col_seg(34) + 0x008b))
-#define g_score_weight                       ((unsigned char *)(col_seg(34) + 0x008e))
-#define g_pedia_count                        (*(int *)(col_seg(34) + 0x0098))
-#define g_choice_colour                      ((unsigned char *)(col_seg(34) + 0x0099))
-#define g_nation_colour                      ((unsigned char *)(col_seg(34) + 0x009a))
-#define g_order_9b                           (*(unsigned char *)(col_seg(34) + 0x009b))
-#define g_order_9c                           (*(unsigned char *)(col_seg(34) + 0x009c))
-#define g_order_9d                           (*(unsigned char *)(col_seg(34) + 0x009d))
-#define g_text_ctx                           ((char *)(col_seg(34) + 0x009e))
-#define g_b2                                 (*(int *)(col_seg(34) + 0x00b2))
-#define g_b4                                 (*(int *)(col_seg(34) + 0x00b4))
-#define g_tutorial_on                        (*(col_i16 *)(col_seg(34) + 0x00b4))
-#define g_debug_flags                        (*(int *)(col_seg(34) + 0x00b6))
-#define g_sound_event_music                  (*(int *)(col_seg(34) + 0x00b8))
-#define g_sound_music                        (*(int *)(col_seg(34) + 0x00ba))
-#define g_sound_effects                      (*(int *)(col_seg(34) + 0x00bc))
-#define g_overlay                            (*(EventWin * *)(col_seg(34) + 0x00c6))
-#define g_str_havetreaty                     ((char *)(col_seg(34) + 0x015e))
-#define g_save_prefix_eng                    ((char *)(col_seg(34) + 0x07fd))
-#define g_save_prefix_fra                    ((char *)(col_seg(34) + 0x0801))
-#define g_save_prefix_spa                    ((char *)(col_seg(34) + 0x0805))
-#define g_save_prefix_dut                    ((char *)(col_seg(34) + 0x0809))
-#define g_save_ext                           ((char *)(col_seg(34) + 0x080d))
-#define g_str_8d8                            ((char *)(col_seg(34) + 0x08d8))
-#define g_str_8e2                            ((char *)(col_seg(34) + 0x08e2))
-#define g_name_default_0                     ((char *)(col_seg(34) + 0x093f))
-#define g_name_default_1                     ((char *)(col_seg(34) + 0x0949))
-#define g_opening                            (*(Opening * *)(col_seg(34) + 0x0964))
-#define g_opening_resource_names             ((void * *)(col_seg(34) + 0x0968))
-#define g_res_9a9                            (*(char *)(col_seg(34) + 0x09a9))
-#define g_res_9aa                            (*(char *)(col_seg(34) + 0x09aa))
-#define opening_class_name                   ((char *)(col_seg(34) + 0x09c3))
-#define g_9dc                                (*(int *)(col_seg(34) + 0x09dc))
-#define g_9dd                                (*(char *)(col_seg(34) + 0x09dd))
-#define g_9e0                                (*(int *)(col_seg(34) + 0x09e0))
-#define g_9e2                                (*(int *)(col_seg(34) + 0x09e2))
-#define g_9e4                                (*(int *)(col_seg(34) + 0x09e4))
-#define g_9e6                                (*(int *)(col_seg(34) + 0x09e6))
-#define g_9e8                                (*(int *)(col_seg(34) + 0x09e8))
-#define g_9ea                                (*(int *)(col_seg(34) + 0x09ea))
-#define g_colony_popup                       (*(GameWin * *)(col_seg(34) + 0x09ec))
-#define g_colony_id0                         (*(int *)(col_seg(34) + 0x09f0))
-#define g_colony_id1                         (*(int *)(col_seg(34) + 0x09f2))
-#define g_colony_id2                         (*(int *)(col_seg(34) + 0x09f4))
-#define g_colony_move_busy                   (*(char *)(col_seg(34) + 0x09f6))
-#define g_colony_rclick_busy                 (*(char *)(col_seg(34) + 0x09f7))
-#define g_colony_slot28_busy                 (*(char *)(col_seg(34) + 0x09f8))
-#define g_colony_key_busy                    (*(int *)(col_seg(34) + 0x09fa))
-#define g_panel_click_busy                   (*(char *)(col_seg(34) + 0x09fc))
-#define g_9fe                                (*(int *)(col_seg(34) + 0x09fe))
-#define g_owner_a00                          (*(ColChild * *)(col_seg(34) + 0x0a00))
-#define g_choose_busy                        (*(char *)(col_seg(34) + 0x0a04))
-#define g_buy_busy                           (*(char *)(col_seg(34) + 0x0a05))
-#define g_flag_a06                           (*(int *)(col_seg(34) + 0x0a06))
-#define g_a08                                (*(int *)(col_seg(34) + 0x0a08))
-#define g_val_a                              (*(unsigned char *)(col_seg(34) + 0x0a0a))
-#define g_st_a                               (*(unsigned char *)(col_seg(34) + 0x0a0b))
-#define g_val_b                              (*(unsigned char *)(col_seg(34) + 0x0a0c))
-#define g_a0d                                (*(char *)(col_seg(34) + 0x0a0d))
-#define g_st_b                               (*(unsigned char *)(col_seg(34) + 0x0a0d))
-#define g_val_c                              (*(unsigned char *)(col_seg(34) + 0x0a0e))
-#define g_a0f                                (*(char *)(col_seg(34) + 0x0a0f))
-#define g_st_c                               (*(unsigned char *)(col_seg(34) + 0x0a0f))
-#define g_a10                                (*(int *)(col_seg(34) + 0x0a10))
-#define g_pending_flag                       (*(col_i16 *)(col_seg(34) + 0x0a10))
-#define g_colony_screen_open                 (*(int *)(col_seg(34) + 0x0a12))
-#define g_str_bang1                          ((char *)(col_seg(34) + 0x0a95))
-#define g_str_bang2                          ((char *)(col_seg(34) + 0x0a97))
-#define g_str_howmuch1                       ((char *)(col_seg(34) + 0x0a99))
-#define str_lparen_space                     ((char *)(col_seg(34) + 0x0bab))
-#define str_space                            ((char *)(col_seg(34) + 0x0baf))
-#define str_rparen_space                     ((char *)(col_seg(34) + 0x0bb3))
-#define text_lobotomize                      ((char *)(col_seg(34) + 0x0bb5))
-#define g_job_unit_type                      ((signed char *)(col_seg(34) + 0x0be5))
-#define g_kind_count                         ((unsigned char *)(col_seg(34) + 0x0bee))
-#define g_kind_base                          ((unsigned char *)(col_seg(34) + 0x0bf3))
-#define g_ring_counts_1                      ((RingRec *)(col_seg(34) + 0x0c01))
-#define g_c06                                (*(int *)(col_seg(34) + 0x0c06))
-#define g_cell_col                           (*(int *)(col_seg(34) + 0x0c08))
-#define g_cell_row                           (*(int *)(col_seg(34) + 0x0c0a))
-#define g_c0c                                (*(int *)(col_seg(34) + 0x0c0c))
-#define g_panel_toggle                       (*(col_i16 *)(col_seg(34) + 0x0c0c))
-#define g_byte_c0e                           (*(char *)(col_seg(34) + 0x0c0e))
-#define g_c0e                                (*(unsigned char *)(col_seg(34) + 0x0c0e))
-#define g_colony_mode                        (*(char *)(col_seg(34) + 0x0c0f))
-#define g_colony_mode2                       (*(unsigned char *)(col_seg(34) + 0x0c10))
-#define g_c12                                (*(unsigned char *)(col_seg(34) + 0x0c12))
-#define g_carrier_count                      (*(int *)(col_seg(34) + 0x0c14))
-#define g_selected_carrier                   (*(int *)(col_seg(34) + 0x0c16))
-#define g_c18                                (*(int *)(col_seg(34) + 0x0c18))
-#define g_c1c                                (*(int *)(col_seg(34) + 0x0c1c))
-#define g_open_flag                          (*(col_i16 *)(col_seg(34) + 0x0c1c))
-#define g_abandon_flag                       (*(int *)(col_seg(34) + 0x0c1e))
-#define g_new_building                       (*(int *)(col_seg(34) + 0x0c20))
-#define g_grid_marks_done                    (*(char *)(col_seg(34) + 0x0c22))
-#define g_no_claims_c23                      (*(char *)(col_seg(34) + 0x0c23))
-#define g_c24                                (*(int *)(col_seg(34) + 0x0c24))
-#define g_colony_c24                         (*(col_i16 *)(col_seg(34) + 0x0c24))
-#define g_menu_active                        (*(int *)(col_seg(34) + 0x0c26))
-#define g_c28                                (*(int *)(col_seg(34) + 0x0c28))
-#define g_word_c28                           (*(col_i16 *)(col_seg(34) + 0x0c28))
-#define g_defence_village                    (*(int *)(col_seg(34) + 0x0dc0))
-#define g_defence_colony                     (*(int *)(col_seg(34) + 0x0dc2))
-#define g_game_over                          (*(int *)(col_seg(34) + 0x0dc4))
-#define g_dc6                                (*(int *)(col_seg(34) + 0x0dc6))
-#define g_dc8                                (*(int *)(col_seg(34) + 0x0dc8))
-#define g_hint6_shown                        (*(int *)(col_seg(34) + 0x0dca))
-#define g_path_mode                          (*(int *)(col_seg(34) + 0x10a0))
-#define g_10a2                               (*(int *)(col_seg(34) + 0x10a2))
-#define g_moving_nation                      (*(int *)(col_seg(34) + 0x10a4))
-#define g_path_shown                         (*(int *)(col_seg(34) + 0x10a6))
-#define g_path_debug                         (*(int *)(col_seg(34) + 0x10a8))
-#define g_land_claim                         (*(int *)(col_seg(34) + 0x117e))
-#define g_sea_claim                          (*(int *)(col_seg(34) + 0x1180))
-#define g_1182                               (*(int *)(col_seg(34) + 0x1182))
-#define g_far_1182                           (*(col_i16 *)(col_seg(34) + 0x1182))
-#define g_last_route                         (*(char *)(col_seg(34) + 0x1184))
-#define g_msg                                ((char *)(col_seg(34) + 0x11c4))
-#define g_text_prefix                        ((char *)(col_seg(34) + 0x14fa))
-#define g_text_request_demand                ((char *)(col_seg(34) + 0x1500))
-#define g_boarding_193e                      (*(int *)(col_seg(34) + 0x193e))
-#define g_1940                               (*(int *)(col_seg(34) + 0x1940))
-#define g_flag_1940                          (*(col_i16 *)(col_seg(34) + 0x1940))
-#define g_rumours_seen                       (*(unsigned char *)(col_seg(34) + 0x1942))
-#define g_treasures_found                    (*(unsigned char *)(col_seg(34) + 0x1943))
-#define g_hover_on_unit                      (*(int *)(col_seg(34) + 0x1c4e))
-#define g_map_lclick_busy                    (*(int *)(col_seg(34) + 0x1c50))
-#define g_map_click_busy                     (*(int *)(col_seg(34) + 0x1c52))
-#define g_cursor_state                       (*(int *)(col_seg(34) + 0x1c54))
-#define g_map_hover_busy                     (*(char *)(col_seg(34) + 0x1c56))
-#define g_mouse_up_busy                      (*(char *)(col_seg(34) + 0x1c57))
-#define g_ortho_dx                           ((signed char *)(col_seg(34) + 0x1c58))
-#define g_ortho_dy                           ((signed char *)(col_seg(34) + 0x1c5d))
-#define g_map_version                        (*(int *)(col_seg(34) + 0x1c62))
-#define g_log_flag                           (*(int *)(col_seg(34) + 0x1c68))
-#define g_plane0_handle                      (*(int *)(col_seg(34) + 0x1c6a))
-#define g_plane1_handle                      (*(short *)(col_seg(34) + 0x1c6c))
-#define g_plane2_handle                      (*(short *)(col_seg(34) + 0x1c6e))
-#define g_plane3_handle                      (*(int *)(col_seg(34) + 0x1c70))
-#define g_plane0                             (*(char * *)(col_seg(34) + 0x1c72))
-#define g_plane1                             (*(unsigned char * *)(col_seg(34) + 0x1c76))
-#define g_plane2                             (*(unsigned char * *)(col_seg(34) + 0x1c7a))
-#define g_plane3                             (*(char * *)(col_seg(34) + 0x1c7e))
-#define g_map_center_x                       (*(int *)(col_seg(34) + 0x1c92))
-#define g_map_center_y                       (*(int *)(col_seg(34) + 0x1c94))
-#define g_map_bytes                          (*(long *)(col_seg(34) + 0x1c96))
-#define g_zoom                               (*(int *)(col_seg(34) + 0x1c9a))
-#define g_1c9c                               (*(int *)(col_seg(34) + 0x1c9c))
-#define g_redraw_mode                        (*(int *)(col_seg(34) + 0x1ca0))
-#define g_no_map_file                        (*(int *)(col_seg(34) + 0x1ca2))
-#define g_map_mode                           (*(int *)(col_seg(34) + 0x1ca4))
-#define g_scenery_seed                       (*(int *)(col_seg(34) + 0x1ca6))
-#define g_title_area_map                     ((char *)(col_seg(34) + 0x1cb5))
-#define g_icon_dx                            (*(signed char *)(col_seg(34) + 0x1cca))
-#define g_icon_dy                            (*(signed char *)(col_seg(34) + 0x1ccb))
-#define g_1ccc                               (*(int *)(col_seg(34) + 0x1ccc))
-#define g_use_data_dir                       (*(unsigned char *)(col_seg(34) + 0x1ce2))
-#define g_font_1ce4                          (*(void * *)(col_seg(34) + 0x1ce4))
-#define g_long_1ce4                          (*(col_i32 *)(col_seg(34) + 0x1ce4))
-#define g_resource_ctx                       (*(void * *)(col_seg(34) + 0x1ce8))
-#define g_resource_ctx2                      (*(void * *)(col_seg(34) + 0x1cf0))
-#define g_text_count                         (*(int *)(col_seg(34) + 0x1cf4))
-#define g_empty_string                       ((char *)(col_seg(34) + 0x1cf6))
-#define g_resource_ctx3                      (*(void * *)(col_seg(34) + 0x1cfb))
-#define g_res_key                            (*(long *)(col_seg(34) + 0x1cff))
-#define g_1d04                               (*(int *)(col_seg(34) + 0x1d04))
-#define g_flag_1d04                          (*(col_i16 *)(col_seg(34) + 0x1d04))
-#define g_tick_done                          (*(int *)(col_seg(34) + 0x1d06))
-#define g_tick_index                         (*(int *)(col_seg(34) + 0x1d08))
-#define g_tick_last                          (*(long *)(col_seg(34) + 0x1d0c))
-#define g_pending_track                      (*(int *)(col_seg(34) + 0x1d10))
-#define g_cur_track                          (*(int *)(col_seg(34) + 0x1d12))
-#define g_next_group                         (*(int *)(col_seg(34) + 0x1d14))
-#define g_group                              (*(int *)(col_seg(34) + 0x1d16))
-#define g_prev_group                         (*(int *)(col_seg(34) + 0x1d18))
-#define g_music_change                       (*(int *)(col_seg(34) + 0x1d1a))
-#define g_cd_is_game_disc                    (*(int *)(col_seg(34) + 0x1d1c))
-#define g_cd_wrong_disc                      (*(int *)(col_seg(34) + 0x1d1e))
-#define g_zero_digit                         ((char *)(col_seg(34) + 0x1d5b))
-#define g_space                              ((char *)(col_seg(34) + 0x1d5d))
-#define g_dot                                ((char *)(col_seg(34) + 0x1d91))
-#define g_backslash                          ((char *)(col_seg(34) + 0x1d93))
-#define g_fmt_alloc_failed                   ((char *)(col_seg(34) + 0x1d95))
-#define g_fmt_lock_failed                    ((char *)(col_seg(34) + 0x1da9))
-#define g_snd_meetking                       ((char *)(col_seg(34) + 0x1e10))
-#define g_snd_1812                           ((char *)(col_seg(34) + 0x1e1d))
-#define g_snd_musparty                       ((char *)(col_seg(34) + 0x1e26))
-#define g_snd_wgnstop                        ((char *)(col_seg(34) + 0x1e33))
-#define g_snd_hammers                        ((char *)(col_seg(34) + 0x1e3f))
-#define g_snd_arrow                          ((char *)(col_seg(34) + 0x1e4b))
-#define g_snd_board                          ((char *)(col_seg(34) + 0x1e55))
-#define g_snd_shipsink                       ((char *)(col_seg(34) + 0x1e5f))
-#define g_snd_fire1                          ((char *)(col_seg(34) + 0x1e6c))
-#define g_snd_cockgun                        ((char *)(col_seg(34) + 0x1e76))
-#define g_snd_amen                           ((char *)(col_seg(34) + 0x1e82))
-#define g_snd_goldcity                       ((char *)(col_seg(34) + 0x1e8b))
-#define g_snd_england                        ((char *)(col_seg(34) + 0x1e98))
-#define g_snd_france                         ((char *)(col_seg(34) + 0x1ea4))
-#define g_snd_dutch                          ((char *)(col_seg(34) + 0x1eaf))
-#define g_snd_spain                          ((char *)(col_seg(34) + 0x1eb9))
-#define g_snd_bltdirt                        ((char *)(col_seg(34) + 0x1ec3))
-#define g_snd_blth20                         ((char *)(col_seg(34) + 0x1ecf))
-#define g_snd_whoop                          ((char *)(col_seg(34) + 0x1eda))
-#define g_snd_gunwhoop                       ((char *)(col_seg(34) + 0x1ee4))
-#define g_snd_whphorse                       ((char *)(col_seg(34) + 0x1ef1))
-#define g_snd_horgnwhp                       ((char *)(col_seg(34) + 0x1efe))
-#define g_snd_lilgun                         ((char *)(col_seg(34) + 0x1f0b))
-#define g_snd_biggun                         ((char *)(col_seg(34) + 0x1f16))
-#define g_snd_dragoons                       ((char *)(col_seg(34) + 0x1f21))
-#define g_snd_cannon0                        ((char *)(col_seg(34) + 0x1f2e))
-#define g_snd_cannon1                        ((char *)(col_seg(34) + 0x1f3a))
-#define g_snd_horses                         ((char *)(col_seg(34) + 0x1f46))
-#define g_snd_lilexplo                       ((char *)(col_seg(34) + 0x1f51))
-#define g_snd_boom2                          ((char *)(col_seg(34) + 0x1f5e))
-#define g_snd_boom3                          ((char *)(col_seg(34) + 0x1f68))
-#define g_snd_bigexplo                       ((char *)(col_seg(34) + 0x1f72))
-#define g_zero_digit2                        ((char *)(col_seg(34) + 0x1fba))
-#define g_1fbe                               (*(int *)(col_seg(34) + 0x1fbe))
-#define g_1fc0                               (*(int *)(col_seg(34) + 0x1fc0))
-#define g_drag_mode                          (*(int *)(col_seg(34) + 0x1fc4))
-#define g_1fc6                               (*(char *)(col_seg(34) + 0x1fc6))
-#define g_chain_count                        (*(int *)(col_seg(34) + 0x1fca))
-#define g_chain_1fcc                         ((char *)(col_seg(34) + 0x1fcc))
-#define g_1fcc                               (*(col_i16 *)(col_seg(34) + 0x1fcc))
-#define g_europe_popup                       (*(GameWin * *)(col_seg(34) + 0x1fd0))
-#define g_europe_popup_id                    (*(int *)(col_seg(34) + 0x1fd4))
-#define g_europe_rclick_busy                 (*(int *)(col_seg(34) + 0x1fd6))
-#define g_europe_move_busy                   (*(int *)(col_seg(34) + 0x1fd8))
-#define g_europe_click_busy                  (*(int *)(col_seg(34) + 0x1fda))
-#define g_flag_1fdc                          (*(int *)(col_seg(34) + 0x1fdc))
-#define g_in_accel                           (*(char *)(col_seg(34) + 0x2012))
-#define g_text_king_welcome                  ((char *)(col_seg(34) + 0x2146))
-#define g_text_king_again                    ((char *)(col_seg(34) + 0x2153))
-#define g_text_king_prompt                   ((char *)(col_seg(34) + 0x215e))
-#define g_text_king_reply1                   ((char *)(col_seg(34) + 0x2167))
-#define g_text_king_reply5                   ((char *)(col_seg(34) + 0x2171))
-#define g_str_kingvictory                    ((char *)(col_seg(34) + 0x21be))
-#define g_str_countries                      ((char *)(col_seg(34) + 0x21ca))
-#define g_str_kingwife                       ((char *)(col_seg(34) + 0x21d4))
-#define g_str_ordinal                        ((char *)(col_seg(34) + 0x21dd))
-#define g_str_kingwar                        ((char *)(col_seg(34) + 0x21e5))
-#define g_str_countries2                     ((char *)(col_seg(34) + 0x21ed))
-#define g_str_kingnavact                     ((char *)(col_seg(34) + 0x21f7))
-#define g_str_kingstampact                   ((char *)(col_seg(34) + 0x2202))
-#define g_text_405                           ((char *)(col_seg(34) + 0x2357))
-#define g_text_406                           ((char *)(col_seg(34) + 0x2366))
-#define g_text_411                           ((char *)(col_seg(34) + 0x2374))
-#define g_dialog_ctx                         ((char *)(col_seg(34) + 0x24dc))
-#define g_font16                             ((char *)(col_seg(34) + 0x24e8))
-#define g_font12                             ((char *)(col_seg(34) + 0x24ec))
-#define g_ptr_24f0                           (*(char * *)(col_seg(34) + 0x24f0))
-#define g_24f4                               (*(void * *)(col_seg(34) + 0x24f4))
-#define g_24f8                               (*(char *)(col_seg(34) + 0x24f8))
-#define g_popup_m0                           (*(unsigned char *)(col_seg(34) + 0x24f8))
-#define g_24f9                               (*(char *)(col_seg(34) + 0x24f9))
-#define g_popup_m1                           (*(unsigned char *)(col_seg(34) + 0x24f9))
-#define g_24fa                               (*(char *)(col_seg(34) + 0x24fa))
-#define g_popup_m2                           (*(unsigned char *)(col_seg(34) + 0x24fa))
-#define g_24fb                               (*(char *)(col_seg(34) + 0x24fb))
-#define g_popup_m3                           (*(unsigned char *)(col_seg(34) + 0x24fb))
-#define g_parent_24fc                        (*(void * *)(col_seg(34) + 0x24fc))
-#define g_long_24fc                          (*(col_i32 *)(col_seg(34) + 0x24fc))
-#define g_popup_owner                        (*(void far * *)(col_seg(34) + 0x24fc))
-#define g_cur_dialog                         (*(Dlg * *)(col_seg(34) + 0x2500))
-#define g_ptr_2504                           (*(char * *)(col_seg(34) + 0x2504))
-#define g_cursor                             (*(char * *)(col_seg(34) + 0x2508))
-#define g_line_text                          (*(char * *)(col_seg(34) + 0x250c))
-#define g_2510                               (*(void * *)(col_seg(34) + 0x2510))
-#define g_check_mask                         (*(int *)(col_seg(34) + 0x2514))
-#define g_flags_2514                         (*(col_u16 *)(col_seg(34) + 0x2514))
-#define g_chosen_item                        (*(int *)(col_seg(34) + 0x2516))
-#define g_2518                               (*(int *)(col_seg(34) + 0x2518))
-#define g_sel_c                              (*(col_i16 *)(col_seg(34) + 0x2518))
-#define g_251a                               (*(int *)(col_seg(34) + 0x251a))
-#define g_text_value                         (*(col_i16 *)(col_seg(34) + 0x251a))
-#define g_251c                               (*(int *)(col_seg(34) + 0x251c))
-#define g_sel_b                              (*(col_i16 *)(col_seg(34) + 0x251c))
-#define g_super_win_open                     (*(int *)(col_seg(34) + 0x251e))
-#define g_2520                               (*(int *)(col_seg(34) + 0x2520))
-#define g_flag_2520                          (*(col_i16 *)(col_seg(34) + 0x2520))
-#define g_modal_done                         (*(col_i16 *)(col_seg(34) + 0x2520))
-#define g_kw_string                          ((char *)(col_seg(34) + 0x25cc))
-#define g_kw_number                          ((char *)(col_seg(34) + 0x25d3))
-#define g_kw_hex                             ((char *)(col_seg(34) + 0x25da))
-#define g_zero                               ((char *)(col_seg(34) + 0x25de))
-#define g_kw_country                         ((char *)(col_seg(34) + 0x25e0))
-#define g_kw_year                            ((char *)(col_seg(34) + 0x25e8))
-#define g_percent                            ((char *)(col_seg(34) + 0x25ed))
-#define g_empty2                             ((char *)(col_seg(34) + 0x25ef))
-#define g_empty                              ((char *)(col_seg(34) + 0x25f0))
-#define g_report_rect                        (*(Pt * *)(col_seg(34) + 0x2664))
-#define g_trade_name_busy                    (*(int *)(col_seg(34) + 0x2668))
-#define g_266a                               (*(int *)(col_seg(34) + 0x266a))
-#define g_scale_denom                        (*(float *)(col_seg(34) + 0x2876))
-#define g_pedia_page                         (*(int *)(col_seg(34) + 0x28a6))
-#define g_forest_pattern                     (*(Pattern *)(col_seg(34) + 0x28a8))
-#define g_title_map                          ((char *)(col_seg(34) + 0x28da))
-#define g_res_type_29c4                      (*(long *)(col_seg(34) + 0x29c4))
-#define g_res_type_29c8                      (*(long *)(col_seg(34) + 0x29c8))
-#define g_error_ctx                          ((char *)(col_seg(34) + 0x2ac0))
-#define g_current_port                       (*(GRPort * *)(col_seg(34) + 0x2ac2))
-#define g_current_font                       (*(FontRec * *)(col_seg(34) + 0x2ac6))
-#define g_font_2aca                          (*(void * *)(col_seg(34) + 0x2aca))
-#define g_font_2ace                          (*(void * *)(col_seg(34) + 0x2ace))
-#define g_default_font_ref                   (*(void * *)(col_seg(34) + 0x2ad2))
-#define g_font_2ad2                          (*(col_i32 *)(col_seg(34) + 0x2ad2))
-#define g_font_2ad6                          (*(void * *)(col_seg(34) + 0x2ad6))
-#define g_line_color_index                   (*(char *)(col_seg(34) + 0x2ada))
-#define g_font_flag_2adb                     (*(char *)(col_seg(34) + 0x2adb))
-#define g_font_flag_2adc                     (*(char *)(col_seg(34) + 0x2adc))
-#define g_line_color_a                       (*(char *)(col_seg(34) + 0x2add))
-#define g_line_color_b                       (*(char *)(col_seg(34) + 0x2ade))
-#define g_current_window                     (*(void * *)(col_seg(34) + 0x2ae0))
-#define g_modal_win                          (*(Modal * *)(col_seg(34) + 0x2ae4))
-#define g_timer                              (*(MrTimer * *)(col_seg(34) + 0x2ae8))
-#define g_log_name                           ((char *)(col_seg(34) + 0x2aec))
-#define g_color_resource_type                (*(void * *)(col_seg(34) + 0x2af2))
-#define g_flic_resource_type                 (*(void * *)(col_seg(34) + 0x2af6))
-#define g_frr_resource_type                  (*(long *)(col_seg(34) + 0x2afa))
-#define g_lbm_resource_type                  (*(long *)(col_seg(34) + 0x2afe))
-#define g_pcx_resource_type                  (*(long *)(col_seg(34) + 0x2b02))
-#define g_gif_resource_type                  (*(long *)(col_seg(34) + 0x2b06))
-#define g_picture_resource_type              (*(void * *)(col_seg(34) + 0x2b0a))
-#define g_scale_num                          (*(int *)(col_seg(34) + 0x2b0e))
-#define g_scale_den                          (*(int *)(col_seg(34) + 0x2b10))
-#define g_sprt_type                          (*(long *)(col_seg(34) + 0x2b12))
-#define g_sprt_palette_type                  (*(long *)(col_seg(34) + 0x2b16))
-#define g_current_slot                       (*(int *)(col_seg(34) + 0x3246))
-#define g_lowmem_win                         (*(void * *)(col_seg(34) + 0x3248))
-#define g_lowmem_kb                          (*(int *)(col_seg(34) + 0x324c))
-#define g_lowmem_res                         (*(int *)(col_seg(34) + 0x324e))
-#define g_lowmem_flag                        (*(int *)(col_seg(34) + 0x3250))
-#define g_lowmem_timer                       (*(int *)(col_seg(34) + 0x3252))
-#define g_lowmem_busy                        (*(int *)(col_seg(34) + 0x3254))
-#define g_lowmem_count                       (*(int *)(col_seg(34) + 0x3256))
-#define g_lowmem_deadline                    (*(long *)(col_seg(34) + 0x3258))
-#define g_restype_text                       (*(long *)(col_seg(34) + 0x325c))
-#define g_337f                               (*(int *)(col_seg(34) + 0x337f))
-#define g_draw_color                         (*(col_i16 *)(col_seg(34) + 0x337e))
-#define g_colour_337f                        (*(col_i16 *)(col_seg(34) + 0x337f))
-#define g_palette_mode                       (*(col_i16 *)(col_seg(34) + 0x3380))
-#define g_palette_template                   ((unsigned char *)(col_seg(34) + 0x3382))
-#define g_hover_active                       (*(int *)(col_seg(34) + 0x33c0))
-#define g_hover_pressed                      (*(int *)(col_seg(34) + 0x33c2))
-#define g_checkbox_capture                   (*(int *)(col_seg(34) + 0x33c4))
-#define g_radio_capture                      (*(int *)(col_seg(34) + 0x33c6))
-#define g_radio_rcapture                     (*(int *)(col_seg(34) + 0x33c8))
-#define g_listbox_registered                 (*(int *)(col_seg(34) + 0x33ca))
-#define g_editbox_registered                 (*(int *)(col_seg(34) + 0x33cc))
-#define g_key_accepted                       (*(char *)(col_seg(34) + 0x33ce))
-#define g_key_down_seen                      (*(char *)(col_seg(34) + 0x33cf))
-#define g_static_registered                  (*(int *)(col_seg(34) + 0x33d0))
-#define g_keymap                             ((int *)(col_seg(34) + 0x33d2))
-#define g_msg_not_writable                   ((char *)(col_seg(34) + 0x3937))
-#define g_crlf                               ((char *)(col_seg(34) + 0x3962))
-#define g_msg_fstat_failed                   ((char *)(col_seg(34) + 0x3965))
-#define g_wing_orientation                   (*(int *)(col_seg(34) + 0x39b4))
-#define g_wing_warned                        (*(int *)(col_seg(34) + 0x39b6))
-#define g_next_menu_id                       (*(unsigned *)(col_seg(34) + 0x39b8))
-#define g_sep_marker                         ((char *)(col_seg(34) + 0x3c71))
-#define g_resource_lib_count                 (*(int *)(col_seg(34) + 0x3c76))
-#define g_mci_device                         (*(unsigned *)(col_seg(34) + 0x3c78))
-#define g_cd_device                          (*(unsigned *)(col_seg(34) + 0x3c7a))
-#define g_cd_tray_device                     (*(unsigned *)(col_seg(34) + 0x3c7c))
-#define g_window_count                       (*(int *)(col_seg(34) + 0x3c7e))
-#define g_count_3c80                         (*(int *)(col_seg(34) + 0x3c80))
-#define g_ms_window_count                    (*(col_i16 *)(col_seg(34) + 0x3c80))
-#define g_msg_window_stack                   ((char *)(col_seg(34) + 0x3ebf))
-#define g_char_class                         ((unsigned char *)(col_seg(34) + 0x46c1))
-#define g_4b00                               (*(int *)(col_seg(34) + 0x4b00))
-#define g_4b02                               (*(int *)(col_seg(34) + 0x4b02))
-#define g_quit_flag                          (*(int *)(col_seg(34) + 0x4b04))
-#define g_title_font                         (*(char *)(col_seg(34) + 0x4b06))
-#define g_report_font_small                  (*(char *)(col_seg(34) + 0x4b0a))
-#define g_font_4b0e                          (*(char *)(col_seg(34) + 0x4b0e))
-#define g_info_font_small                    (*(char *)(col_seg(34) + 0x4b12))
-#define g_info_font_large                    (*(char *)(col_seg(34) + 0x4b16))
-#define g_number_font                        (*(char *)(col_seg(34) + 0x4b1a))
-#define g_font_small                         ((char *)(col_seg(34) + 0x4b1e))
-#define g_heading_font                       (*(char *)(col_seg(34) + 0x4b22))
-#define g_report_font                        (*(char *)(col_seg(34) + 0x4b26))
-#define g_4b2a                               (*(int *)(col_seg(34) + 0x4b2a))
-#define g_4b2c                               (*(char *)(col_seg(34) + 0x4b2c))
-#define g_map_pixels                         (*(int *)(col_seg(34) + 0x4b2e))
-#define g_cursor_x                           (*(int *)(col_seg(34) + 0x4b30))
-#define g_cursor_y                           (*(int *)(col_seg(34) + 0x4b32))
-#define g_season_word                        ((int *)(col_seg(34) + 0x4b34))
-#define g_cmisc_word                         ((int *)(col_seg(34) + 0x4b38))
-#define g_4b3a                               (*(int *)(col_seg(34) + 0x4b3a))
-#define g_eurolabel_word                     ((int *)(col_seg(34) + 0x4b3e))
-#define g_nation_unit_count                  (*(long *)(col_seg(34) + 0x4b44))
-#define g_nation_colony_count                (*(long *)(col_seg(34) + 0x4b48))
-#define g_rec_4b48                           ((unsigned char *)(col_seg(34) + 0x4b48))
-#define g_nation_modifier                    (*(long *)(col_seg(34) + 0x4b4c))
-#define g_pop_by_nation                      (*(long *)(col_seg(34) + 0x4b50))
-#define g_nation_population                  (*(long *)(col_seg(34) + 0x4b54))
-#define g_4b58                               ((unsigned char *)(col_seg(34) + 0x4b58))
-#define g_long_4b58                          (*(col_i32 *)(col_seg(34) + 0x4b58))
-#define g_4b5c                               ((unsigned char *)(col_seg(34) + 0x4b5c))
-#define g_byte_4b5c                          ((unsigned char *)(col_seg(34) + 0x4b5c))
-#define g_long_4b5c                          (*(col_i32 *)(col_seg(34) + 0x4b5c))
-#define g_4b60                               ((unsigned char *)(col_seg(34) + 0x4b60))
-#define g_long_4b60                          (*(col_i32 *)(col_seg(34) + 0x4b60))
-#define g_4b64                               ((unsigned char *)(col_seg(34) + 0x4b64))
-#define g_byte_4b64                          ((unsigned char *)(col_seg(34) + 0x4b64))
-#define g_long_4b64                          (*(col_i32 *)(col_seg(34) + 0x4b64))
-#define g_4b68                               ((unsigned char *)(col_seg(34) + 0x4b68))
-#define g_long_4b68                          (*(col_i32 *)(col_seg(34) + 0x4b68))
-#define g_nation_strength                    (*(long *)(col_seg(34) + 0x4b6c))
-#define g_4b70                               ((unsigned char *)(col_seg(34) + 0x4b70))
-#define g_land_units                         ((unsigned char *)(col_seg(34) + 0x4b74))
-#define g_4b78                               (*(int *)(col_seg(34) + 0x4b78))
-#define g_4b86                               (*(int *)(col_seg(34) + 0x4b86))
-#define g_random_seed                        (*(col_i16 *)(col_seg(34) + 0x4b86))
-#define g_4b88                               (*(int *)(col_seg(34) + 0x4b88))
-#define g_4b8a                               (*(int *)(col_seg(34) + 0x4b8a))
-#define g_done_flag                          (*(int *)(col_seg(34) + 0x4b8c))
-#define g_cell_class                         (*(unsigned char *)(col_seg(34) + 0x4b8e))
-#define g_cell_terrain                       (*(unsigned char *)(col_seg(34) + 0x4b8f))
-#define g_coast_edges                        ((unsigned char *)(col_seg(34) + 0x4b90))
-#define g_cur_cell                           (*(unsigned char * *)(col_seg(34) + 0x4b94))
-#define g_closing_flag                       (*(int *)(col_seg(34) + 0x4b98))
-#define g_pending_a                          (*(int *)(col_seg(34) + 0x4b9a))
-#define g_tile_x                             (*(col_i16 *)(col_seg(34) + 0x4b9a))
-#define g_pending_b                          (*(int *)(col_seg(34) + 0x4b9c))
-#define g_tile_y                             (*(col_i16 *)(col_seg(34) + 0x4b9c))
-#define g_cur_colony_rec                     (*(Colony * *)(col_seg(34) + 0x4b9e))
-#define g_cur_colony_idx                     (*(int *)(col_seg(34) + 0x4ba2))
-#define g_center_food                        (*(unsigned char *)(col_seg(34) + 0x4ba4))
-#define g_4ba5                               (*(unsigned char *)(col_seg(34) + 0x4ba5))
-#define g_center_kind                        (*(signed char *)(col_seg(34) + 0x4ba6))
-#define g_center_amount                      (*(signed char *)(col_seg(34) + 0x4ba7))
-#define g_fish_food                          (*(unsigned char *)(col_seg(34) + 0x4ba8))
-#define g_turn_phase                         (*(unsigned char *)(col_seg(34) + 0x4ba9))
-#define g_cur_colony_is_players              (*(char *)(col_seg(34) + 0x4baa))
-#define g_msg_seen                           (*(char *)(col_seg(34) + 0x4bab))
-#define g_drag_active                        (*(unsigned char *)(col_seg(34) + 0x4bae))
-#define g_drag_goods                         (*(unsigned char *)(col_seg(34) + 0x4baf))
-#define g_drag_amount                        (*(unsigned char *)(col_seg(34) + 0x4bb0))
-#define g_drag_slot                          (*(unsigned char *)(col_seg(34) + 0x4bb1))
-#define g_tile_colonists                     (*(int *)(col_seg(34) + 0x4bb2))
-#define g_tile_units                         (*(int *)(col_seg(34) + 0x4bb4))
-#define g_tile_noncarriers                   (*(int *)(col_seg(34) + 0x4bb6))
-#define g_tile_first_unit                    (*(int *)(col_seg(34) + 0x4bb8))
-#define g_tile_sel                           (*(int *)(col_seg(34) + 0x4bba))
-#define g_4bbc                               (*(int *)(col_seg(34) + 0x4bbc))
-#define g_selected_colonist                  (*(col_i16 *)(col_seg(34) + 0x4bbc))
-#define g_4bbe                               (*(int *)(col_seg(34) + 0x4bbe))
-#define g_row_colonist                       (*(col_i16 *)(col_seg(34) + 0x4bbe))
-#define g_portrait_gap                       (*(signed char *)(col_seg(34) + 0x4bc0))
-#define g_seed_base                          (*(long *)(col_seg(34) + 0x4bc2))
-#define g_nearest_dist                       (*(int *)(col_seg(34) + 0x4bc6))
-#define g_ocean_x                            (*(int *)(col_seg(34) + 0x4bc8))
-#define g_ocean_y                            (*(int *)(col_seg(34) + 0x4bca))
-#define g_4bcc                               (*(int *)(col_seg(34) + 0x4bcc))
-#define g_colony_unit                        (*(col_i16 *)(col_seg(34) + 0x4bcc))
-#define g_4bce                               (*(int *)(col_seg(34) + 0x4bce))
-#define g_4bd0                               (*(int *)(col_seg(34) + 0x4bd0))
-#define g_cargo_amount                       (*(int *)(col_seg(34) + 0x4bd2))
-#define g_land_count                         (*(int *)(col_seg(34) + 0x4bd4))
-#define g_x_lo                               (*(signed char *)(col_seg(34) + 0x4bd6))
-#define g_y_lo                               (*(signed char *)(col_seg(34) + 0x4bd7))
-#define g_x_hi                               (*(signed char *)(col_seg(34) + 0x4bd8))
-#define g_y_hi                               (*(signed char *)(col_seg(34) + 0x4bd9))
-#define g_combat_flags                       ((int *)(col_seg(34) + 0x4bda))
-#define g_4bdc                               (*(col_i16 *)(col_seg(34) + 0x4bdc))
-#define g_combat_flags2                      ((int *)(col_seg(34) + 0x4bde))
-#define g_4be0                               (*(col_i16 *)(col_seg(34) + 0x4be0))
-#define g_combat_str                         ((int *)(col_seg(34) + 0x4be2))
-#define g_terrain_defence                    (*(int *)(col_seg(34) + 0x4be6))
-#define g_4bea                               (*(int *)(col_seg(34) + 0x4bea))
-#define g_4bec                               (*(int *)(col_seg(34) + 0x4bec))
-#define g_grid_x                             (*(int *)(col_seg(34) + 0x4bf0))
-#define g_grid_y                             (*(int *)(col_seg(34) + 0x4bf2))
-#define g_path_result                        (*(int *)(col_seg(34) + 0x4bf4))
-#define g_queue_tail                         (*(int *)(col_seg(34) + 0x4bf6))
-#define g_queue_head                         (*(int *)(col_seg(34) + 0x4bf8))
-#define g_near_last_x                        (*(int *)(col_seg(34) + 0x4bfa))
-#define g_near_last_y                        (*(int *)(col_seg(34) + 0x4bfc))
-#define g_far_start_x                        (*(int *)(col_seg(34) + 0x4bfe))
-#define g_far_start_y                        (*(int *)(col_seg(34) + 0x4c00))
-#define g_move_reason                        (*(int *)(col_seg(34) + 0x4c02))
-#define g_move_reason_unit                   (*(int *)(col_seg(34) + 0x4c04))
-#define g_4c06                               ((signed char *)(col_seg(34) + 0x4c06))
-#define g_4c0a                               (*(unsigned char *)(col_seg(34) + 0x4c0a))
-#define g_4c0b                               (*(unsigned char *)(col_seg(34) + 0x4c0b))
-#define g_4c0c                               (*(unsigned char *)(col_seg(34) + 0x4c0c))
-#define g_4c0e                               (*(int *)(col_seg(34) + 0x4c0e))
-#define g_4c10                               (*(int *)(col_seg(34) + 0x4c10))
-#define g_adjacent_colony_nation             (*(int *)(col_seg(34) + 0x4c12))
-#define g_4c14                               (*(int *)(col_seg(34) + 0x4c14))
-#define g_4c16                               (*(int *)(col_seg(34) + 0x4c16))
-#define g_cur_route_rec                      (*(RouteRec * *)(col_seg(34) + 0x4c18))
-#define g_cur_route_stop                     (*(Route * *)(col_seg(34) + 0x4c1c))
-#define g_cur_route                          (*(int *)(col_seg(34) + 0x4c20))
-#define g_route_stop                         (*(int *)(col_seg(34) + 0x4c22))
-#define g_4c24                               (*(char *)(col_seg(34) + 0x4c24))
-#define g_route_unit                         (*(int *)(col_seg(34) + 0x4c26))
-#define g_cur_tribe_rec                      (*(Tribe * *)(col_seg(34) + 0x4c28))
-#define g_rec_4c28                           (*(Rec4c28 far * *)(col_seg(34) + 0x4c28))
-#define g_cur_settlement_rec                 (*(Settlement * *)(col_seg(34) + 0x4c2c))
-#define g_4c30                               (*(int *)(col_seg(34) + 0x4c30))
-#define g_cur_tribe                          (*(col_i16 *)(col_seg(34) + 0x4c30))
-#define g_cur_tribe_nation                   (*(int *)(col_seg(34) + 0x4c32))
-#define g_4c34                               (*(int *)(col_seg(34) + 0x4c34))
-#define g_cur_settlement                     (*(col_i16 *)(col_seg(34) + 0x4c34))
-#define g_foreign_owner                      (*(int *)(col_seg(34) + 0x4c36))
-#define g_nearest_unit_dist                  (*(int *)(col_seg(34) + 0x4c38))
-#define g_row_count                          (*(int *)(col_seg(34) + 0x4c3a))
-#define g_map_cells                          (*(long *)(col_seg(34) + 0x4c3c))
-#define g_map_width                          ((int *)(col_seg(34) + 0x4c40))
-#define g_map_h                              (*(int *)(col_seg(34) + 0x4c42))
-#define g_view_x0                            (*(int *)(col_seg(34) + 0x4c44))
-#define g_view_y0                            (*(int *)(col_seg(34) + 0x4c46))
-#define g_view_x1                            (*(int *)(col_seg(34) + 0x4c48))
-#define g_view_y1                            (*(int *)(col_seg(34) + 0x4c4a))
-#define g_tile_w                             (*(int *)(col_seg(34) + 0x4c4c))
-#define g_tile_h                             (*(int *)(col_seg(34) + 0x4c4e))
-#define g_view_w                             (*(int *)(col_seg(34) + 0x4c50))
-#define g_view_h                             (*(int *)(col_seg(34) + 0x4c52))
-#define g_view_px_w                          (*(int *)(col_seg(34) + 0x4c5c))
-#define g_view_px_h                          (*(int *)(col_seg(34) + 0x4c5e))
-#define g_4c60                               (*(int *)(col_seg(34) + 0x4c60))
-#define g_4c62                               (*(int *)(col_seg(34) + 0x4c62))
-#define g_overlay_plane                      (*(signed char * *)(col_seg(34) + 0x4c64))
-#define g_4c68                               (*(unsigned char *)(col_seg(34) + 0x4c68))
-#define g_4c6b                               (*(unsigned char *)(col_seg(34) + 0x4c6b))
-#define g_4c6c                               (*(unsigned char *)(col_seg(34) + 0x4c6c))
-#define g_4c6d                               (*(unsigned char *)(col_seg(34) + 0x4c6d))
-#define g_4c6e                               ((unsigned char *)(col_seg(34) + 0x4c6e))
-#define g_map_tiles                          (*(unsigned char * *)(col_seg(34) + 0x4c72))
-#define g_map_plane1                         (*(unsigned char * *)(col_seg(34) + 0x4c76))
-#define g_draw_p1                            (*(unsigned char * *)(col_seg(34) + 0x4c7e))
-#define g_map_tiles2                         (*(unsigned char * *)(col_seg(34) + 0x4c82))
-#define g_draw_p3                            (*(unsigned char * *)(col_seg(34) + 0x4c86))
-#define g_draw_pix                           (*(signed char * *)(col_seg(34) + 0x4c8a))
-#define g_draw_x                             (*(int *)(col_seg(34) + 0x4c8e))
-#define g_draw_y                             (*(int *)(col_seg(34) + 0x4c90))
-#define g_draw_mask                          (*(unsigned char *)(col_seg(34) + 0x4c92))
-#define g_draw_px                            (*(int *)(col_seg(34) + 0x4c94))
-#define g_draw_py                            (*(int *)(col_seg(34) + 0x4c96))
-#define g_draw_parity                        (*(int *)(col_seg(34) + 0x4c98))
-#define g_sq_p1                              (*(unsigned char *)(col_seg(34) + 0x4c9a))
-#define g_sq_p3                              (*(unsigned char *)(col_seg(34) + 0x4c9b))
-#define g_sq_p0                              (*(unsigned char *)(col_seg(34) + 0x4c9c))
-#define g_sq_class                           (*(unsigned char *)(col_seg(34) + 0x4c9d))
-#define g_4c9e                               (*(unsigned char *)(col_seg(34) + 0x4c9e))
-#define g_4ca1                               (*(unsigned char *)(col_seg(34) + 0x4ca1))
-#define g_4ca2                               ((unsigned char *)(col_seg(34) + 0x4ca2))
-#define g_flag_4ca6                          (*(int *)(col_seg(34) + 0x4ca6))
-#define g_text_cursor                        (*(char * *)(col_seg(34) + 0x4ca8))
-#define g_text_cursor_b                      (*(char far * *)(col_seg(34) + 0x4ca8))
-#define g_text_cursor_a                      (*(char * *)(col_seg(34) + 0x4cac))
-#define g_cur_data                           (*(void * *)(col_seg(34) + 0x4cb0))
-#define g_cur_res                            (*(void * *)(col_seg(34) + 0x4cb4))
-#define g_drag_sprite                        (*(void * *)(col_seg(34) + 0x4cb8))
-#define g_drag_port                          (*(GRPort * *)(col_seg(34) + 0x4cbc))
-#define g_drag_x                             (*(int *)(col_seg(34) + 0x4cc0))
-#define g_drag_y                             (*(int *)(col_seg(34) + 0x4cc2))
-#define g_cur_nation_rec                     (*(Nation * *)(col_seg(34) + 0x4cc4))
-#define g_cur_nation                         (*(int *)(col_seg(34) + 0x4cc8))
-#define g_4cd2                               (*(int *)(col_seg(34) + 0x4cd2))
-#define g_4cd8                               (*(int *)(col_seg(34) + 0x4cd8))
-#define g_drag_unit                          (*(int *)(col_seg(34) + 0x4cda))
-#define g_drag_from                          (*(int *)(col_seg(34) + 0x4cdc))
-#define g_4cde                               (*(int *)(col_seg(34) + 0x4cde))
-#define g_4ce0                               (*(int *)(col_seg(34) + 0x4ce0))
-#define g_4ce2                               (*(int *)(col_seg(34) + 0x4ce2))
-#define g_4ce4                               (*(int *)(col_seg(34) + 0x4ce4))
-#define g_4ce6                               (*(int *)(col_seg(34) + 0x4ce6))
-#define g_4ce8                               (*(int *)(col_seg(34) + 0x4ce8))
-#define g_4cea                               (*(int *)(col_seg(34) + 0x4cea))
-#define g_land_unit_count                    (*(int *)(col_seg(34) + 0x4cec))
-#define g_land_unit_index                    (*(int *)(col_seg(34) + 0x4cee))
-#define g_4cf2                               (*(int *)(col_seg(34) + 0x4cf2))
-#define g_4cf4                               (*(int *)(col_seg(34) + 0x4cf4))
-#define g_cheat_step                         (*(int *)(col_seg(34) + 0x4cf6))
-#define g_popup_label_id                     ((int *)(col_seg(34) + 0x4cf8))
-#define g_line                               ((char *)(col_seg(34) + 0x4cfe))
-#define g_dialog_ok                          (*(int *)(col_seg(34) + 0x4dfe))
-#define g_4e00                               (*(int *)(col_seg(34) + 0x4e00))
-#define g_layout_x                           (*(int *)(col_seg(34) + 0x4e02))
-#define g_layout_y                           (*(int *)(col_seg(34) + 0x4e04))
-#define g_congress_nation                    (*(int *)(col_seg(34) + 0x4e06))
-#define g_view_tile_w                        (*(int *)(col_seg(34) + 0x4e0c))
-#define g_view_tile_h                        (*(int *)(col_seg(34) + 0x4e0e))
-#define g_view_org_x                         (*(int *)(col_seg(34) + 0x4e10))
-#define g_view_org_y                         (*(int *)(col_seg(34) + 0x4e12))
-#define g_display_name_buf                   ((char *)(col_seg(34) + 0x4e14))
-#define g_4e64                               (*(int *)(col_seg(34) + 0x4e64))
-#define g_flag_4e64                          (*(col_i16 *)(col_seg(34) + 0x4e64))
-#define g_about_step                         (*(int *)(col_seg(34) + 0x4e66))
-#define g_log_font                           (*(unsigned *)(col_seg(34) + 0x4e68))
-#define g_message_buf                        ((char *)(col_seg(34) + 0x4e6c))
-#define g_number_buf                         ((char *)(col_seg(34) + 0x566c))
-#define g_anim                               (*(void * *)(col_seg(34) + 0x568c))
-#define g_anim2                              (*(void * *)(col_seg(34) + 0x5690))
-#define g_5694                               (*(long *)(col_seg(34) + 0x5694))
-#define g_scale_map                          (*(col_i16 far * *)(col_seg(34) + 0x5694))
-#define g_midi_done_cb                       (*(void * *)(col_seg(34) + 0x5698))
-#define g_cd_done_cb                         (*(void * *)(col_seg(34) + 0x569c))
-#define g_slot_used                          ((unsigned char *)(col_seg(34) + 0x56a0))
-#define g_slot_state                         ((long *)(col_seg(34) + 0x56a4))
-#define g_dialog_result                      (*(int *)(col_seg(34) + 0x56b4))
-#define g_dialog_owner                       (*(char * *)(col_seg(34) + 0x56b6))
-#define g_lowmem_box                         (*(GameWin * *)(col_seg(34) + 0x56ba))
-#define g_lowmem_ok                          (*(SButton * *)(col_seg(34) + 0x56be))
-#define g_reserved_count                     (*(int *)(col_seg(34) + 0x56c2))
-#define g_listbox_proc                       ((unsigned char *)(col_seg(34) + 0x56c8))
-#define g_listbox_extra                      (*(int *)(col_seg(34) + 0x56cc))
-#define g_editbox_proc                       ((unsigned char *)(col_seg(34) + 0x56ce))
-#define g_editbox_extra                      (*(int *)(col_seg(34) + 0x56d2))
-#define g_last_key                           (*(unsigned *)(col_seg(34) + 0x56d4))
-#define g_scrollbar_registered               (*(int *)(col_seg(34) + 0x56d6))
-#define g_scrollbar_extra                    (*(int *)(col_seg(34) + 0x56d8))
-#define g_static_proc                        ((unsigned char *)(col_seg(34) + 0x56da))
-#define g_menu_depth                         (*(int *)(col_seg(34) + 0x56de))
-#define g_resource_library                   (*(unsigned *)(col_seg(34) + 0x56e0))
-#define g_hinstance                          (*(int *)(col_seg(34) + 0x56e2))
-#define g_hprev                              (*(int *)(col_seg(34) + 0x56e4))
-#define g_resource_libs                      ((unsigned *)(col_seg(34) + 0x56e6))
-#define g_cd_notify_hwnd                     (*(unsigned *)(col_seg(34) + 0x5726))
-#define g_ms_window_stack                    ((int *)(col_seg(34) + 0x5728))
-#define g_tab_5728                           ((col_i16 *)(col_seg(34) + 0x5728))
+#define g_cycle_flag                         (*(col_i16 far *)(col_seg34 + 0x0076L))      /* DGROUP:0x0076 */
+#define g_blink                              (*(col_i16 far *)(col_seg34 + 0x0078L))      /* DGROUP:0x0078 */
+#define g_last_blink                         (*(col_u32 far *)(col_seg34 + 0x007aL))      /* DGROUP:0x007a */
+#define g_save_version                       (*(col_i16 far *)(col_seg34 + 0x007eL))      /* DGROUP:0x007e */
+#define g_84                                 (*(col_i16 far *)(col_seg34 + 0x0084L))      /* DGROUP:0x0084 */
+#define g_88                                 (*(col_i16 far *)(col_seg34 + 0x0088L))      /* DGROUP:0x0088 */
+#define g_8a                                 (*(char far *)(col_seg34 + 0x008aL))         /* DGROUP:0x008a */
+#define g_loaded_flag                        (*(char far *)(col_seg34 + 0x008bL))         /* DGROUP:0x008b */
+#define g_score_weight                       ((unsigned char far *)(col_seg34 + 0x008eL)) /* DGROUP:0x008e; inferred: the gap to the next global */
+#define g_pedia_count                        (*(col_i16 far *)(col_seg34 + 0x0098L))      /* DGROUP:0x0098 */
+#define g_choice_colour                      ((unsigned char far *)(col_seg34 + 0x0099L)) /* DGROUP:0x0099; a view into g_pedia_count */
+#define g_nation_colour                      ((unsigned char far *)(col_seg34 + 0x009aL)) /* DGROUP:0x009a; inferred: the gap to the next global */
+#define g_order_9b                           (*(unsigned char far *)(col_seg34 + 0x009bL)) /* DGROUP:0x009b */
+#define g_order_9c                           (*(unsigned char far *)(col_seg34 + 0x009cL)) /* DGROUP:0x009c */
+#define g_order_9d                           (*(unsigned char far *)(col_seg34 + 0x009dL)) /* DGROUP:0x009d */
+#define g_text_ctx                           ((char far *)(col_seg34 + 0x009eL))          /* DGROUP:0x009e; inferred: the gap to the next global */
+#define g_b2                                 (*(col_i16 far *)(col_seg34 + 0x00b2L))      /* DGROUP:0x00b2 */
+#define g_b4                                 (*(col_i16 far *)(col_seg34 + 0x00b4L))      /* DGROUP:0x00b4 */
+#define g_tutorial_on                        (*(col_i16 far *)(col_seg34 + 0x00b4L))      /* DGROUP:0x00b4; a view into g_b4 */
+#define g_debug_flags                        (*(col_i16 far *)(col_seg34 + 0x00b6L))      /* DGROUP:0x00b6; narrow_view: unsigned char */
+#define g_sound_event_music                  (*(col_i16 far *)(col_seg34 + 0x00b8L))      /* DGROUP:0x00b8 */
+#define g_sound_music                        (*(col_i16 far *)(col_seg34 + 0x00baL))      /* DGROUP:0x00ba */
+#define g_sound_effects                      (*(col_i16 far *)(col_seg34 + 0x00bcL))      /* DGROUP:0x00bc */
+#define g_overlay                            (*(EventWin far * far *)(col_seg34 + 0x00c6L)) /* DGROUP:0x00c6; other_pointee_spelling: char, void */
+#define g_str_havetreaty                     ((char far *)(col_seg34 + 0x015eL))          /* DGROUP:0x015e; inferred: the gap to the next global */
+#define g_save_prefix_eng                    ((char far *)(col_seg34 + 0x07fdL))          /* DGROUP:0x07fd; inferred: the gap to the next global */
+#define g_save_prefix_fra                    ((char far *)(col_seg34 + 0x0801L))          /* DGROUP:0x0801; inferred: the gap to the next global */
+#define g_save_prefix_spa                    ((char far *)(col_seg34 + 0x0805L))          /* DGROUP:0x0805; inferred: the gap to the next global */
+#define g_save_prefix_dut                    ((char far *)(col_seg34 + 0x0809L))          /* DGROUP:0x0809; inferred: the gap to the next global */
+#define g_save_ext                           ((char far *)(col_seg34 + 0x080dL))          /* DGROUP:0x080d; inferred: the gap to the next global */
+#define g_str_8d8                            ((char far *)(col_seg34 + 0x08d8L))          /* DGROUP:0x08d8; inferred: the gap to the next global */
+#define g_str_8e2                            ((char far *)(col_seg34 + 0x08e2L))          /* DGROUP:0x08e2; inferred: the gap to the next global */
+#define g_name_default_0                     ((char far *)(col_seg34 + 0x093fL))          /* DGROUP:0x093f; inferred: the gap to the next global */
+#define g_name_default_1                     ((char far *)(col_seg34 + 0x0949L))          /* DGROUP:0x0949; inferred: the gap to the next global */
+#define g_opening                            (*(Opening far * far *)(col_seg34 + 0x0964L)) /* DGROUP:0x0964 */
+#define g_opening_resource_names             ((void far * far *)(col_seg34 + 0x0968L))    /* DGROUP:0x0968 */
+#define g_res_9a9                            (*(char far *)(col_seg34 + 0x09a9L))         /* DGROUP:0x09a9 */
+#define g_res_9aa                            (*(char far *)(col_seg34 + 0x09aaL))         /* DGROUP:0x09aa */
+#define opening_class_name                   ((char far *)(col_seg34 + 0x09c3L))          /* DGROUP:0x09c3; inferred: the gap to the next global */
+#define g_9dc                                (*(col_i16 far *)(col_seg34 + 0x09dcL))      /* DGROUP:0x09dc; narrow_view: char */
+#define g_9dd                                (*(char far *)(col_seg34 + 0x09ddL))         /* DGROUP:0x09dd; a view into g_9dc */
+#define g_9e0                                (*(col_i16 far *)(col_seg34 + 0x09e0L))      /* DGROUP:0x09e0 */
+#define g_9e2                                (*(col_i16 far *)(col_seg34 + 0x09e2L))      /* DGROUP:0x09e2 */
+#define g_9e4                                (*(col_i16 far *)(col_seg34 + 0x09e4L))      /* DGROUP:0x09e4 */
+#define g_9e6                                (*(col_i16 far *)(col_seg34 + 0x09e6L))      /* DGROUP:0x09e6 */
+#define g_9e8                                (*(col_i16 far *)(col_seg34 + 0x09e8L))      /* DGROUP:0x09e8 */
+#define g_9ea                                (*(col_i16 far *)(col_seg34 + 0x09eaL))      /* DGROUP:0x09ea */
+#define g_colony_popup                       (*(GameWin far * far *)(col_seg34 + 0x09ecL)) /* DGROUP:0x09ec */
+#define g_colony_id0                         (*(col_i16 far *)(col_seg34 + 0x09f0L))      /* DGROUP:0x09f0 */
+#define g_colony_id1                         (*(col_i16 far *)(col_seg34 + 0x09f2L))      /* DGROUP:0x09f2 */
+#define g_colony_id2                         (*(col_i16 far *)(col_seg34 + 0x09f4L))      /* DGROUP:0x09f4 */
+#define g_colony_move_busy                   (*(char far *)(col_seg34 + 0x09f6L))         /* DGROUP:0x09f6 */
+#define g_colony_rclick_busy                 (*(char far *)(col_seg34 + 0x09f7L))         /* DGROUP:0x09f7 */
+#define g_colony_slot28_busy                 (*(char far *)(col_seg34 + 0x09f8L))         /* DGROUP:0x09f8 */
+#define g_colony_key_busy                    (*(col_i16 far *)(col_seg34 + 0x09faL))      /* DGROUP:0x09fa */
+#define g_panel_click_busy                   (*(char far *)(col_seg34 + 0x09fcL))         /* DGROUP:0x09fc */
+#define g_9fe                                (*(col_i16 far *)(col_seg34 + 0x09feL))      /* DGROUP:0x09fe */
+#define g_owner_a00                          (*(ColChild far * far *)(col_seg34 + 0x0a00L)) /* DGROUP:0x0a00; other_pointee_spelling: char */
+#define g_choose_busy                        (*(char far *)(col_seg34 + 0x0a04L))         /* DGROUP:0x0a04 */
+#define g_buy_busy                           (*(char far *)(col_seg34 + 0x0a05L))         /* DGROUP:0x0a05 */
+#define g_flag_a06                           (*(col_i16 far *)(col_seg34 + 0x0a06L))      /* DGROUP:0x0a06 */
+#define g_a08                                (*(col_i16 far *)(col_seg34 + 0x0a08L))      /* DGROUP:0x0a08 */
+#define g_val_a                              (*(unsigned char far *)(col_seg34 + 0x0a0aL)) /* DGROUP:0x0a0a */
+#define g_st_a                               (*(unsigned char far *)(col_seg34 + 0x0a0bL)) /* DGROUP:0x0a0b */
+#define g_val_b                              (*(unsigned char far *)(col_seg34 + 0x0a0cL)) /* DGROUP:0x0a0c */
+#define g_a0d                                (*(char far *)(col_seg34 + 0x0a0dL))         /* DGROUP:0x0a0d */
+#define g_st_b                               (*(unsigned char far *)(col_seg34 + 0x0a0dL)) /* DGROUP:0x0a0d; a view into g_a0d */
+#define g_val_c                              (*(unsigned char far *)(col_seg34 + 0x0a0eL)) /* DGROUP:0x0a0e */
+#define g_a0f                                (*(char far *)(col_seg34 + 0x0a0fL))         /* DGROUP:0x0a0f */
+#define g_st_c                               (*(unsigned char far *)(col_seg34 + 0x0a0fL)) /* DGROUP:0x0a0f; a view into g_a0f */
+#define g_a10                                (*(col_i16 far *)(col_seg34 + 0x0a10L))      /* DGROUP:0x0a10 */
+#define g_pending_flag                       (*(col_i16 far *)(col_seg34 + 0x0a10L))      /* DGROUP:0x0a10; a view into g_a10 */
+#define g_colony_screen_open                 (*(col_i16 far *)(col_seg34 + 0x0a12L))      /* DGROUP:0x0a12 */
+#define g_str_bang1                          ((char far *)(col_seg34 + 0x0a95L))          /* DGROUP:0x0a95; inferred: the gap to the next global */
+#define g_str_bang2                          ((char far *)(col_seg34 + 0x0a97L))          /* DGROUP:0x0a97; inferred: the gap to the next global */
+#define g_str_howmuch1                       ((char far *)(col_seg34 + 0x0a99L))          /* DGROUP:0x0a99; inferred: the gap to the next global */
+#define str_lparen_space                     ((char far *)(col_seg34 + 0x0babL))          /* DGROUP:0x0bab; inferred: the gap to the next global */
+#define str_space                            ((char far *)(col_seg34 + 0x0bafL))          /* DGROUP:0x0baf; inferred: the gap to the next global */
+#define str_rparen_space                     ((char far *)(col_seg34 + 0x0bb3L))          /* DGROUP:0x0bb3; inferred: the gap to the next global */
+#define text_lobotomize                      ((char far *)(col_seg34 + 0x0bb5L))          /* DGROUP:0x0bb5; inferred: the gap to the next global */
+#define g_job_unit_type                      ((col_i8 far *)(col_seg34 + 0x0be5L))        /* DGROUP:0x0be5; inferred: the gap to the next global */
+#define g_kind_count                         ((unsigned char far *)(col_seg34 + 0x0beeL)) /* DGROUP:0x0bee; inferred: the gap to the next global */
+#define g_kind_base                          ((unsigned char far *)(col_seg34 + 0x0bf3L)) /* DGROUP:0x0bf3; inferred: the gap to the next global */
+#define g_ring_counts_1                      ((RingRec far *)(col_seg34 + 0x0c01L))       /* DGROUP:0x0c01; inferred: the gap to the next global */
+#define g_c06                                (*(col_i16 far *)(col_seg34 + 0x0c06L))      /* DGROUP:0x0c06 */
+#define g_cell_col                           (*(col_i16 far *)(col_seg34 + 0x0c08L))      /* DGROUP:0x0c08 */
+#define g_cell_row                           (*(col_i16 far *)(col_seg34 + 0x0c0aL))      /* DGROUP:0x0c0a */
+#define g_c0c                                (*(col_i16 far *)(col_seg34 + 0x0c0cL))      /* DGROUP:0x0c0c */
+#define g_panel_toggle                       (*(col_i16 far *)(col_seg34 + 0x0c0cL))      /* DGROUP:0x0c0c; a view into g_c0c */
+#define g_byte_c0e                           (*(char far *)(col_seg34 + 0x0c0eL))         /* DGROUP:0x0c0e */
+#define g_c0e                                (*(unsigned char far *)(col_seg34 + 0x0c0eL)) /* DGROUP:0x0c0e; a view into g_byte_c0e */
+#define g_colony_mode                        (*(char far *)(col_seg34 + 0x0c0fL))         /* DGROUP:0x0c0f; signedness_unresolved: char, unsigned char */
+#define g_colony_mode2                       (*(unsigned char far *)(col_seg34 + 0x0c10L)) /* DGROUP:0x0c10 */
+#define g_c12                                (*(unsigned char far *)(col_seg34 + 0x0c12L)) /* DGROUP:0x0c12 */
+#define g_carrier_count                      (*(col_i16 far *)(col_seg34 + 0x0c14L))      /* DGROUP:0x0c14 */
+#define g_selected_carrier                   (*(col_i16 far *)(col_seg34 + 0x0c16L))      /* DGROUP:0x0c16 */
+#define g_c18                                (*(col_i16 far *)(col_seg34 + 0x0c18L))      /* DGROUP:0x0c18 */
+#define g_c1c                                (*(col_i16 far *)(col_seg34 + 0x0c1cL))      /* DGROUP:0x0c1c */
+#define g_open_flag                          (*(col_i16 far *)(col_seg34 + 0x0c1cL))      /* DGROUP:0x0c1c; a view into g_c1c */
+#define g_abandon_flag                       (*(col_i16 far *)(col_seg34 + 0x0c1eL))      /* DGROUP:0x0c1e */
+#define g_new_building                       (*(col_i16 far *)(col_seg34 + 0x0c20L))      /* DGROUP:0x0c20 */
+#define g_grid_marks_done                    (*(char far *)(col_seg34 + 0x0c22L))         /* DGROUP:0x0c22; signedness_unresolved: char, unsigned char */
+#define g_no_claims_c23                      (*(char far *)(col_seg34 + 0x0c23L))         /* DGROUP:0x0c23 */
+#define g_c24                                (*(col_i16 far *)(col_seg34 + 0x0c24L))      /* DGROUP:0x0c24 */
+#define g_colony_c24                         (*(col_i16 far *)(col_seg34 + 0x0c24L))      /* DGROUP:0x0c24; a view into g_c24 */
+#define g_menu_active                        (*(col_i16 far *)(col_seg34 + 0x0c26L))      /* DGROUP:0x0c26 */
+#define g_c28                                (*(col_i16 far *)(col_seg34 + 0x0c28L))      /* DGROUP:0x0c28 */
+#define g_word_c28                           (*(col_i16 far *)(col_seg34 + 0x0c28L))      /* DGROUP:0x0c28; a view into g_c28 */
+#define g_defence_village                    (*(col_i16 far *)(col_seg34 + 0x0dc0L))      /* DGROUP:0x0dc0 */
+#define g_defence_colony                     (*(col_i16 far *)(col_seg34 + 0x0dc2L))      /* DGROUP:0x0dc2 */
+#define g_game_over                          (*(col_i16 far *)(col_seg34 + 0x0dc4L))      /* DGROUP:0x0dc4 */
+#define g_dc6                                (*(col_i16 far *)(col_seg34 + 0x0dc6L))      /* DGROUP:0x0dc6 */
+#define g_dc8                                (*(col_i16 far *)(col_seg34 + 0x0dc8L))      /* DGROUP:0x0dc8 */
+#define g_hint6_shown                        (*(col_i16 far *)(col_seg34 + 0x0dcaL))      /* DGROUP:0x0dca */
+#define g_path_mode                          (*(col_i16 far *)(col_seg34 + 0x10a0L))      /* DGROUP:0x10a0 */
+#define g_10a2                               (*(col_i16 far *)(col_seg34 + 0x10a2L))      /* DGROUP:0x10a2 */
+#define g_moving_nation                      (*(col_i16 far *)(col_seg34 + 0x10a4L))      /* DGROUP:0x10a4 */
+#define g_path_shown                         (*(col_i16 far *)(col_seg34 + 0x10a6L))      /* DGROUP:0x10a6 */
+#define g_path_debug                         (*(col_i16 far *)(col_seg34 + 0x10a8L))      /* DGROUP:0x10a8 */
+#define g_land_claim                         (*(col_i16 far *)(col_seg34 + 0x117eL))      /* DGROUP:0x117e */
+#define g_sea_claim                          (*(col_i16 far *)(col_seg34 + 0x1180L))      /* DGROUP:0x1180 */
+#define g_1182                               (*(col_i16 far *)(col_seg34 + 0x1182L))      /* DGROUP:0x1182 */
+#define g_far_1182                           (*(col_i16 far *)(col_seg34 + 0x1182L))      /* DGROUP:0x1182; a view into g_1182 */
+#define g_last_route                         (*(char far *)(col_seg34 + 0x1184L))         /* DGROUP:0x1184 */
+#define g_msg                                ((char far *)(col_seg34 + 0x11c4L))          /* DGROUP:0x11c4; inferred: the gap to the next global */
+#define g_text_prefix                        ((char far *)(col_seg34 + 0x14faL))          /* DGROUP:0x14fa; inferred: the gap to the next global */
+#define g_text_request_demand                ((char far *)(col_seg34 + 0x1500L))          /* DGROUP:0x1500; inferred: the gap to the next global */
+#define g_boarding_193e                      (*(col_i16 far *)(col_seg34 + 0x193eL))      /* DGROUP:0x193e */
+#define g_1940                               (*(col_i16 far *)(col_seg34 + 0x1940L))      /* DGROUP:0x1940 */
+#define g_flag_1940                          (*(col_i16 far *)(col_seg34 + 0x1940L))      /* DGROUP:0x1940; a view into g_1940 */
+#define g_rumours_seen                       (*(unsigned char far *)(col_seg34 + 0x1942L)) /* DGROUP:0x1942 */
+#define g_treasures_found                    (*(unsigned char far *)(col_seg34 + 0x1943L)) /* DGROUP:0x1943 */
+#define g_hover_on_unit                      (*(col_i16 far *)(col_seg34 + 0x1c4eL))      /* DGROUP:0x1c4e */
+#define g_map_lclick_busy                    (*(col_i16 far *)(col_seg34 + 0x1c50L))      /* DGROUP:0x1c50 */
+#define g_map_click_busy                     (*(col_i16 far *)(col_seg34 + 0x1c52L))      /* DGROUP:0x1c52 */
+#define g_cursor_state                       (*(col_i16 far *)(col_seg34 + 0x1c54L))      /* DGROUP:0x1c54 */
+#define g_map_hover_busy                     (*(char far *)(col_seg34 + 0x1c56L))         /* DGROUP:0x1c56 */
+#define g_mouse_up_busy                      (*(char far *)(col_seg34 + 0x1c57L))         /* DGROUP:0x1c57 */
+#define g_ortho_dx                           ((col_i8 far *)(col_seg34 + 0x1c58L))        /* DGROUP:0x1c58; inferred: the gap to the next global */
+#define g_ortho_dy                           ((col_i8 far *)(col_seg34 + 0x1c5dL))        /* DGROUP:0x1c5d; inferred: the gap to the next global */
+#define g_map_version                        (*(col_i16 far *)(col_seg34 + 0x1c62L))      /* DGROUP:0x1c62 */
+#define g_log_flag                           (*(col_i16 far *)(col_seg34 + 0x1c68L))      /* DGROUP:0x1c68 */
+#define g_plane0_handle                      (*(col_i16 far *)(col_seg34 + 0x1c6aL))      /* DGROUP:0x1c6a; signedness_unresolved: int, short */
+#define g_plane1_handle                      (*(col_i16 far *)(col_seg34 + 0x1c6cL))      /* DGROUP:0x1c6c */
+#define g_plane2_handle                      (*(col_i16 far *)(col_seg34 + 0x1c6eL))      /* DGROUP:0x1c6e */
+#define g_plane3_handle                      (*(col_i16 far *)(col_seg34 + 0x1c70L))      /* DGROUP:0x1c70; signedness_unresolved: int, short */
+#define g_plane0                             (*(char far * far *)(col_seg34 + 0x1c72L))   /* DGROUP:0x1c72; other_pointee_spelling: unsigned char, void */
+#define g_plane1                             (*(unsigned char far * far *)(col_seg34 + 0x1c76L)) /* DGROUP:0x1c76; other_pointee_spelling: void */
+#define g_plane2                             (*(unsigned char far * far *)(col_seg34 + 0x1c7aL)) /* DGROUP:0x1c7a; other_pointee_spelling: void */
+#define g_plane3                             (*(char far * far *)(col_seg34 + 0x1c7eL))   /* DGROUP:0x1c7e; other_pointee_spelling: unsigned char, void */
+#define g_map_center_x                       (*(col_i16 far *)(col_seg34 + 0x1c92L))      /* DGROUP:0x1c92 */
+#define g_map_center_y                       (*(col_i16 far *)(col_seg34 + 0x1c94L))      /* DGROUP:0x1c94 */
+#define g_map_bytes                          (*(col_i32 far *)(col_seg34 + 0x1c96L))      /* DGROUP:0x1c96; narrow_view: unsigned; signedness_unresolved: long, unsigned long */
+#define g_zoom                               (*(col_i16 far *)(col_seg34 + 0x1c9aL))      /* DGROUP:0x1c9a; narrow_view: unsigned char */
+#define g_1c9c                               (*(col_i16 far *)(col_seg34 + 0x1c9cL))      /* DGROUP:0x1c9c */
+#define g_redraw_mode                        (*(col_i16 far *)(col_seg34 + 0x1ca0L))      /* DGROUP:0x1ca0 */
+#define g_no_map_file                        (*(col_i16 far *)(col_seg34 + 0x1ca2L))      /* DGROUP:0x1ca2 */
+#define g_map_mode                           (*(col_i16 far *)(col_seg34 + 0x1ca4L))      /* DGROUP:0x1ca4 */
+#define g_scenery_seed                       (*(col_i16 far *)(col_seg34 + 0x1ca6L))      /* DGROUP:0x1ca6 */
+#define g_title_area_map                     ((char far *)(col_seg34 + 0x1cb5L))          /* DGROUP:0x1cb5; inferred: the gap to the next global */
+#define g_icon_dx                            (*(col_i8 far *)(col_seg34 + 0x1ccaL))       /* DGROUP:0x1cca; signedness_unresolved: signed char, unsigned char */
+#define g_icon_dy                            (*(col_i8 far *)(col_seg34 + 0x1ccbL))       /* DGROUP:0x1ccb; signedness_unresolved: signed char, unsigned char */
+#define g_1ccc                               (*(col_i16 far *)(col_seg34 + 0x1cccL))      /* DGROUP:0x1ccc */
+#define g_use_data_dir                       (*(unsigned char far *)(col_seg34 + 0x1ce2L)) /* DGROUP:0x1ce2 */
+#define g_font_1ce4                          (*(void far * far *)(col_seg34 + 0x1ce4L))   /* DGROUP:0x1ce4 */
+#define g_long_1ce4                          (*(col_i32 far *)(col_seg34 + 0x1ce4L))      /* DGROUP:0x1ce4; a view into g_font_1ce4 */
+#define g_resource_ctx                       (*(void far * far *)(col_seg34 + 0x1ce8L))   /* DGROUP:0x1ce8 */
+#define g_resource_ctx2                      (*(void far * far *)(col_seg34 + 0x1cf0L))   /* DGROUP:0x1cf0 */
+#define g_text_count                         (*(col_i16 far *)(col_seg34 + 0x1cf4L))      /* DGROUP:0x1cf4 */
+#define g_empty_string                       ((char far *)(col_seg34 + 0x1cf6L))          /* DGROUP:0x1cf6; inferred: the gap to the next global */
+#define g_resource_ctx3                      (*(void far * far *)(col_seg34 + 0x1cfbL))   /* DGROUP:0x1cfb */
+#define g_res_key                            (*(col_i32 far *)(col_seg34 + 0x1cffL))      /* DGROUP:0x1cff */
+#define g_1d04                               (*(col_i16 far *)(col_seg34 + 0x1d04L))      /* DGROUP:0x1d04 */
+#define g_flag_1d04                          (*(col_i16 far *)(col_seg34 + 0x1d04L))      /* DGROUP:0x1d04; a view into g_1d04 */
+#define g_tick_done                          (*(col_i16 far *)(col_seg34 + 0x1d06L))      /* DGROUP:0x1d06 */
+#define g_tick_index                         (*(col_i16 far *)(col_seg34 + 0x1d08L))      /* DGROUP:0x1d08 */
+#define g_tick_last                          (*(col_i32 far *)(col_seg34 + 0x1d0cL))      /* DGROUP:0x1d0c */
+#define g_pending_track                      (*(col_i16 far *)(col_seg34 + 0x1d10L))      /* DGROUP:0x1d10 */
+#define g_cur_track                          (*(col_i16 far *)(col_seg34 + 0x1d12L))      /* DGROUP:0x1d12 */
+#define g_next_group                         (*(col_i16 far *)(col_seg34 + 0x1d14L))      /* DGROUP:0x1d14 */
+#define g_group                              (*(col_i16 far *)(col_seg34 + 0x1d16L))      /* DGROUP:0x1d16 */
+#define g_prev_group                         (*(col_i16 far *)(col_seg34 + 0x1d18L))      /* DGROUP:0x1d18 */
+#define g_music_change                       (*(col_i16 far *)(col_seg34 + 0x1d1aL))      /* DGROUP:0x1d1a */
+#define g_cd_is_game_disc                    (*(col_i16 far *)(col_seg34 + 0x1d1cL))      /* DGROUP:0x1d1c */
+#define g_cd_wrong_disc                      (*(col_i16 far *)(col_seg34 + 0x1d1eL))      /* DGROUP:0x1d1e */
+#define g_zero_digit                         ((char far *)(col_seg34 + 0x1d5bL))          /* DGROUP:0x1d5b; inferred: the gap to the next global */
+#define g_space                              ((char far *)(col_seg34 + 0x1d5dL))          /* DGROUP:0x1d5d; inferred: the gap to the next global */
+#define g_dot                                ((char far *)(col_seg34 + 0x1d91L))          /* DGROUP:0x1d91; inferred: the gap to the next global */
+#define g_backslash                          ((char far *)(col_seg34 + 0x1d93L))          /* DGROUP:0x1d93; inferred: the gap to the next global */
+#define g_fmt_alloc_failed                   ((char far *)(col_seg34 + 0x1d95L))          /* DGROUP:0x1d95; inferred: the gap to the next global */
+#define g_fmt_lock_failed                    ((char far *)(col_seg34 + 0x1da9L))          /* DGROUP:0x1da9; inferred: the gap to the next global */
+#define g_snd_meetking                       ((char far *)(col_seg34 + 0x1e10L))          /* DGROUP:0x1e10; inferred: the gap to the next global */
+#define g_snd_1812                           ((char far *)(col_seg34 + 0x1e1dL))          /* DGROUP:0x1e1d; inferred: the gap to the next global */
+#define g_snd_musparty                       ((char far *)(col_seg34 + 0x1e26L))          /* DGROUP:0x1e26; inferred: the gap to the next global */
+#define g_snd_wgnstop                        ((char far *)(col_seg34 + 0x1e33L))          /* DGROUP:0x1e33; inferred: the gap to the next global */
+#define g_snd_hammers                        ((char far *)(col_seg34 + 0x1e3fL))          /* DGROUP:0x1e3f; inferred: the gap to the next global */
+#define g_snd_arrow                          ((char far *)(col_seg34 + 0x1e4bL))          /* DGROUP:0x1e4b; inferred: the gap to the next global */
+#define g_snd_board                          ((char far *)(col_seg34 + 0x1e55L))          /* DGROUP:0x1e55; inferred: the gap to the next global */
+#define g_snd_shipsink                       ((char far *)(col_seg34 + 0x1e5fL))          /* DGROUP:0x1e5f; inferred: the gap to the next global */
+#define g_snd_fire1                          ((char far *)(col_seg34 + 0x1e6cL))          /* DGROUP:0x1e6c; inferred: the gap to the next global */
+#define g_snd_cockgun                        ((char far *)(col_seg34 + 0x1e76L))          /* DGROUP:0x1e76; inferred: the gap to the next global */
+#define g_snd_amen                           ((char far *)(col_seg34 + 0x1e82L))          /* DGROUP:0x1e82; inferred: the gap to the next global */
+#define g_snd_goldcity                       ((char far *)(col_seg34 + 0x1e8bL))          /* DGROUP:0x1e8b; inferred: the gap to the next global */
+#define g_snd_england                        ((char far *)(col_seg34 + 0x1e98L))          /* DGROUP:0x1e98; inferred: the gap to the next global */
+#define g_snd_france                         ((char far *)(col_seg34 + 0x1ea4L))          /* DGROUP:0x1ea4; inferred: the gap to the next global */
+#define g_snd_dutch                          ((char far *)(col_seg34 + 0x1eafL))          /* DGROUP:0x1eaf; inferred: the gap to the next global */
+#define g_snd_spain                          ((char far *)(col_seg34 + 0x1eb9L))          /* DGROUP:0x1eb9; inferred: the gap to the next global */
+#define g_snd_bltdirt                        ((char far *)(col_seg34 + 0x1ec3L))          /* DGROUP:0x1ec3; inferred: the gap to the next global */
+#define g_snd_blth20                         ((char far *)(col_seg34 + 0x1ecfL))          /* DGROUP:0x1ecf; inferred: the gap to the next global */
+#define g_snd_whoop                          ((char far *)(col_seg34 + 0x1edaL))          /* DGROUP:0x1eda; inferred: the gap to the next global */
+#define g_snd_gunwhoop                       ((char far *)(col_seg34 + 0x1ee4L))          /* DGROUP:0x1ee4; inferred: the gap to the next global */
+#define g_snd_whphorse                       ((char far *)(col_seg34 + 0x1ef1L))          /* DGROUP:0x1ef1; inferred: the gap to the next global */
+#define g_snd_horgnwhp                       ((char far *)(col_seg34 + 0x1efeL))          /* DGROUP:0x1efe; inferred: the gap to the next global */
+#define g_snd_lilgun                         ((char far *)(col_seg34 + 0x1f0bL))          /* DGROUP:0x1f0b; inferred: the gap to the next global */
+#define g_snd_biggun                         ((char far *)(col_seg34 + 0x1f16L))          /* DGROUP:0x1f16; inferred: the gap to the next global */
+#define g_snd_dragoons                       ((char far *)(col_seg34 + 0x1f21L))          /* DGROUP:0x1f21; inferred: the gap to the next global */
+#define g_snd_cannon0                        ((char far *)(col_seg34 + 0x1f2eL))          /* DGROUP:0x1f2e; inferred: the gap to the next global */
+#define g_snd_cannon1                        ((char far *)(col_seg34 + 0x1f3aL))          /* DGROUP:0x1f3a; inferred: the gap to the next global */
+#define g_snd_horses                         ((char far *)(col_seg34 + 0x1f46L))          /* DGROUP:0x1f46; inferred: the gap to the next global */
+#define g_snd_lilexplo                       ((char far *)(col_seg34 + 0x1f51L))          /* DGROUP:0x1f51; inferred: the gap to the next global */
+#define g_snd_boom2                          ((char far *)(col_seg34 + 0x1f5eL))          /* DGROUP:0x1f5e; inferred: the gap to the next global */
+#define g_snd_boom3                          ((char far *)(col_seg34 + 0x1f68L))          /* DGROUP:0x1f68; inferred: the gap to the next global */
+#define g_snd_bigexplo                       ((char far *)(col_seg34 + 0x1f72L))          /* DGROUP:0x1f72; inferred: the gap to the next global */
+#define g_zero_digit2                        ((char far *)(col_seg34 + 0x1fbaL))          /* DGROUP:0x1fba; inferred: the gap to the next global */
+#define g_1fbe                               (*(col_i16 far *)(col_seg34 + 0x1fbeL))      /* DGROUP:0x1fbe */
+#define g_1fc0                               (*(col_i16 far *)(col_seg34 + 0x1fc0L))      /* DGROUP:0x1fc0 */
+#define g_drag_mode                          (*(col_i16 far *)(col_seg34 + 0x1fc4L))      /* DGROUP:0x1fc4 */
+#define g_1fc6                               (*(char far *)(col_seg34 + 0x1fc6L))         /* DGROUP:0x1fc6 */
+#define g_chain_count                        (*(col_i16 far *)(col_seg34 + 0x1fcaL))      /* DGROUP:0x1fca */
+#define g_chain_1fcc                         ((char far *)(col_seg34 + 0x1fccL))          /* DGROUP:0x1fcc; inferred: the gap to the next global */
+#define g_1fcc                               (*(col_i16 far *)(col_seg34 + 0x1fccL))      /* DGROUP:0x1fcc; a view into g_chain_1fcc */
+#define g_europe_popup                       (*(GameWin far * far *)(col_seg34 + 0x1fd0L)) /* DGROUP:0x1fd0 */
+#define g_europe_popup_id                    (*(col_i16 far *)(col_seg34 + 0x1fd4L))      /* DGROUP:0x1fd4 */
+#define g_europe_rclick_busy                 (*(col_i16 far *)(col_seg34 + 0x1fd6L))      /* DGROUP:0x1fd6 */
+#define g_europe_move_busy                   (*(col_i16 far *)(col_seg34 + 0x1fd8L))      /* DGROUP:0x1fd8 */
+#define g_europe_click_busy                  (*(col_i16 far *)(col_seg34 + 0x1fdaL))      /* DGROUP:0x1fda */
+#define g_flag_1fdc                          (*(col_i16 far *)(col_seg34 + 0x1fdcL))      /* DGROUP:0x1fdc */
+#define g_in_accel                           (*(char far *)(col_seg34 + 0x2012L))         /* DGROUP:0x2012 */
+#define g_text_king_welcome                  ((char far *)(col_seg34 + 0x2146L))          /* DGROUP:0x2146; inferred: the gap to the next global */
+#define g_text_king_again                    ((char far *)(col_seg34 + 0x2153L))          /* DGROUP:0x2153; inferred: the gap to the next global */
+#define g_text_king_prompt                   ((char far *)(col_seg34 + 0x215eL))          /* DGROUP:0x215e; inferred: the gap to the next global */
+#define g_text_king_reply1                   ((char far *)(col_seg34 + 0x2167L))          /* DGROUP:0x2167; inferred: the gap to the next global */
+#define g_text_king_reply5                   ((char far *)(col_seg34 + 0x2171L))          /* DGROUP:0x2171; inferred: the gap to the next global */
+#define g_str_kingvictory                    ((char far *)(col_seg34 + 0x21beL))          /* DGROUP:0x21be; inferred: the gap to the next global */
+#define g_str_countries                      ((char far *)(col_seg34 + 0x21caL))          /* DGROUP:0x21ca; inferred: the gap to the next global */
+#define g_str_kingwife                       ((char far *)(col_seg34 + 0x21d4L))          /* DGROUP:0x21d4; inferred: the gap to the next global */
+#define g_str_ordinal                        ((char far *)(col_seg34 + 0x21ddL))          /* DGROUP:0x21dd; inferred: the gap to the next global */
+#define g_str_kingwar                        ((char far *)(col_seg34 + 0x21e5L))          /* DGROUP:0x21e5; inferred: the gap to the next global */
+#define g_str_countries2                     ((char far *)(col_seg34 + 0x21edL))          /* DGROUP:0x21ed; inferred: the gap to the next global */
+#define g_str_kingnavact                     ((char far *)(col_seg34 + 0x21f7L))          /* DGROUP:0x21f7; inferred: the gap to the next global */
+#define g_str_kingstampact                   ((char far *)(col_seg34 + 0x2202L))          /* DGROUP:0x2202; inferred: the gap to the next global */
+#define g_text_405                           ((char far *)(col_seg34 + 0x2357L))          /* DGROUP:0x2357; inferred: the gap to the next global */
+#define g_text_406                           ((char far *)(col_seg34 + 0x2366L))          /* DGROUP:0x2366; inferred: the gap to the next global */
+#define g_text_411                           ((char far *)(col_seg34 + 0x2374L))          /* DGROUP:0x2374; inferred: the gap to the next global */
+#define g_dialog_ctx                         ((char far *)(col_seg34 + 0x24dcL))          /* DGROUP:0x24dc; inferred: the gap to the next global */
+#define g_font16                             ((char far *)(col_seg34 + 0x24e8L))          /* DGROUP:0x24e8; inferred: the gap to the next global */
+#define g_font12                             ((char far *)(col_seg34 + 0x24ecL))          /* DGROUP:0x24ec; inferred: the gap to the next global */
+#define g_ptr_24f0                           (*(char far * far *)(col_seg34 + 0x24f0L))   /* DGROUP:0x24f0; other_pointee_spelling: void */
+#define g_24f4                               (*(void far * far *)(col_seg34 + 0x24f4L))   /* DGROUP:0x24f4 */
+#define g_24f8                               (*(char far *)(col_seg34 + 0x24f8L))         /* DGROUP:0x24f8 */
+#define g_popup_m0                           (*(unsigned char far *)(col_seg34 + 0x24f8L)) /* DGROUP:0x24f8; a view into g_24f8 */
+#define g_24f9                               (*(char far *)(col_seg34 + 0x24f9L))         /* DGROUP:0x24f9 */
+#define g_popup_m1                           (*(unsigned char far *)(col_seg34 + 0x24f9L)) /* DGROUP:0x24f9; a view into g_24f9 */
+#define g_24fa                               (*(char far *)(col_seg34 + 0x24faL))         /* DGROUP:0x24fa */
+#define g_popup_m2                           (*(unsigned char far *)(col_seg34 + 0x24faL)) /* DGROUP:0x24fa; a view into g_24fa */
+#define g_24fb                               (*(char far *)(col_seg34 + 0x24fbL))         /* DGROUP:0x24fb */
+#define g_popup_m3                           (*(unsigned char far *)(col_seg34 + 0x24fbL)) /* DGROUP:0x24fb; a view into g_24fb */
+#define g_parent_24fc                        (*(void far * far *)(col_seg34 + 0x24fcL))   /* DGROUP:0x24fc */
+#define g_long_24fc                          (*(col_i32 far *)(col_seg34 + 0x24fcL))      /* DGROUP:0x24fc; a view into g_parent_24fc */
+#define g_popup_owner                        (*(void far * far *)(col_seg34 + 0x24fcL))   /* DGROUP:0x24fc; a view into g_parent_24fc */
+#define g_cur_dialog                         (*(Dlg far * far *)(col_seg34 + 0x2500L))    /* DGROUP:0x2500; other_pointee_spelling: void */
+#define g_ptr_2504                           (*(char far * far *)(col_seg34 + 0x2504L))   /* DGROUP:0x2504 */
+#define g_cursor                             (*(char far * far *)(col_seg34 + 0x2508L))   /* DGROUP:0x2508 */
+#define g_line_text                          (*(char far * far *)(col_seg34 + 0x250cL))   /* DGROUP:0x250c */
+#define g_2510                               (*(void far * far *)(col_seg34 + 0x2510L))   /* DGROUP:0x2510 */
+#define g_check_mask                         (*(col_i16 far *)(col_seg34 + 0x2514L))      /* DGROUP:0x2514 */
+#define g_flags_2514                         (*(col_u16 far *)(col_seg34 + 0x2514L))      /* DGROUP:0x2514; a view into g_check_mask */
+#define g_chosen_item                        (*(col_i16 far *)(col_seg34 + 0x2516L))      /* DGROUP:0x2516 */
+#define g_2518                               (*(col_i16 far *)(col_seg34 + 0x2518L))      /* DGROUP:0x2518 */
+#define g_sel_c                              (*(col_i16 far *)(col_seg34 + 0x2518L))      /* DGROUP:0x2518; a view into g_2518 */
+#define g_251a                               (*(col_i16 far *)(col_seg34 + 0x251aL))      /* DGROUP:0x251a */
+#define g_text_value                         (*(col_i16 far *)(col_seg34 + 0x251aL))      /* DGROUP:0x251a; a view into g_251a */
+#define g_251c                               (*(col_i16 far *)(col_seg34 + 0x251cL))      /* DGROUP:0x251c */
+#define g_sel_b                              (*(col_i16 far *)(col_seg34 + 0x251cL))      /* DGROUP:0x251c; a view into g_251c */
+#define g_super_win_open                     (*(col_i16 far *)(col_seg34 + 0x251eL))      /* DGROUP:0x251e */
+#define g_2520                               (*(col_i16 far *)(col_seg34 + 0x2520L))      /* DGROUP:0x2520 */
+#define g_flag_2520                          (*(col_i16 far *)(col_seg34 + 0x2520L))      /* DGROUP:0x2520; a view into g_2520 */
+#define g_modal_done                         (*(col_i16 far *)(col_seg34 + 0x2520L))      /* DGROUP:0x2520; a view into g_2520 */
+#define g_kw_string                          ((char far *)(col_seg34 + 0x25ccL))          /* DGROUP:0x25cc; inferred: the gap to the next global */
+#define g_kw_number                          ((char far *)(col_seg34 + 0x25d3L))          /* DGROUP:0x25d3; inferred: the gap to the next global */
+#define g_kw_hex                             ((char far *)(col_seg34 + 0x25daL))          /* DGROUP:0x25da; inferred: the gap to the next global */
+#define g_zero                               ((char far *)(col_seg34 + 0x25deL))          /* DGROUP:0x25de; inferred: the gap to the next global */
+#define g_kw_country                         ((char far *)(col_seg34 + 0x25e0L))          /* DGROUP:0x25e0; inferred: the gap to the next global */
+#define g_kw_year                            ((char far *)(col_seg34 + 0x25e8L))          /* DGROUP:0x25e8; inferred: the gap to the next global */
+#define g_percent                            ((char far *)(col_seg34 + 0x25edL))          /* DGROUP:0x25ed; inferred: the gap to the next global */
+#define g_empty2                             ((char far *)(col_seg34 + 0x25efL))          /* DGROUP:0x25ef; inferred: the gap to the next global */
+#define g_empty                              ((char far *)(col_seg34 + 0x25f0L))          /* DGROUP:0x25f0; inferred: the gap to the next global */
+#define g_report_rect                        (*(Pt far * far *)(col_seg34 + 0x2664L))     /* DGROUP:0x2664; other_pointee_spelling: RECT */
+#define g_trade_name_busy                    (*(col_i16 far *)(col_seg34 + 0x2668L))      /* DGROUP:0x2668 */
+#define g_266a                               (*(col_i16 far *)(col_seg34 + 0x266aL))      /* DGROUP:0x266a */
+#define g_scale_denom                        (*(float far *)(col_seg34 + 0x2876L))        /* DGROUP:0x2876 */
+#define g_pedia_page                         (*(col_i16 far *)(col_seg34 + 0x28a6L))      /* DGROUP:0x28a6 */
+#define g_forest_pattern                     (*(Pattern far *)(col_seg34 + 0x28a8L))      /* DGROUP:0x28a8 */
+#define g_title_map                          ((char far *)(col_seg34 + 0x28daL))          /* DGROUP:0x28da; inferred: the gap to the next global */
+#define g_res_type_29c4                      (*(col_i32 far *)(col_seg34 + 0x29c4L))      /* DGROUP:0x29c4 */
+#define g_res_type_29c8                      (*(col_i32 far *)(col_seg34 + 0x29c8L))      /* DGROUP:0x29c8 */
+#define g_error_ctx                          ((char far *)(col_seg34 + 0x2ac0L))          /* DGROUP:0x2ac0; inferred: the gap to the next global */
+#define g_current_port                       (*(GRPort far * far *)(col_seg34 + 0x2ac2L)) /* DGROUP:0x2ac2; other_pointee_spelling: void */
+#define g_current_font                       (*(FontRec far * far *)(col_seg34 + 0x2ac6L)) /* DGROUP:0x2ac6 */
+#define g_font_2aca                          (*(void far * far *)(col_seg34 + 0x2acaL))   /* DGROUP:0x2aca */
+#define g_font_2ace                          (*(void far * far *)(col_seg34 + 0x2aceL))   /* DGROUP:0x2ace */
+#define g_default_font_ref                   (*(void far * far *)(col_seg34 + 0x2ad2L))   /* DGROUP:0x2ad2 */
+#define g_font_2ad2                          (*(col_i32 far *)(col_seg34 + 0x2ad2L))      /* DGROUP:0x2ad2; a view into g_default_font_ref */
+#define g_font_2ad6                          (*(void far * far *)(col_seg34 + 0x2ad6L))   /* DGROUP:0x2ad6 */
+#define g_line_color_index                   (*(char far *)(col_seg34 + 0x2adaL))         /* DGROUP:0x2ada; signedness_unresolved: char, unsigned char */
+#define g_font_flag_2adb                     (*(char far *)(col_seg34 + 0x2adbL))         /* DGROUP:0x2adb; signedness_unresolved: char, unsigned char */
+#define g_font_flag_2adc                     (*(char far *)(col_seg34 + 0x2adcL))         /* DGROUP:0x2adc; signedness_unresolved: char, unsigned char */
+#define g_line_color_a                       (*(char far *)(col_seg34 + 0x2addL))         /* DGROUP:0x2add; signedness_unresolved: char, unsigned char */
+#define g_line_color_b                       (*(char far *)(col_seg34 + 0x2adeL))         /* DGROUP:0x2ade; signedness_unresolved: char, unsigned char */
+#define g_current_window                     (*(void far * far *)(col_seg34 + 0x2ae0L))   /* DGROUP:0x2ae0 */
+#define g_modal_win                          (*(Modal far * far *)(col_seg34 + 0x2ae4L))  /* DGROUP:0x2ae4 */
+#define g_timer                              (*(MrTimer far * far *)(col_seg34 + 0x2ae8L)) /* DGROUP:0x2ae8; other_pointee_spelling: void */
+#define g_log_name                           ((char far *)(col_seg34 + 0x2aecL))          /* DGROUP:0x2aec; inferred: the gap to the next global */
+#define g_color_resource_type                (*(void far * far *)(col_seg34 + 0x2af2L))   /* DGROUP:0x2af2 */
+#define g_flic_resource_type                 (*(void far * far *)(col_seg34 + 0x2af6L))   /* DGROUP:0x2af6 */
+#define g_frr_resource_type                  (*(col_i32 far *)(col_seg34 + 0x2afaL))      /* DGROUP:0x2afa */
+#define g_lbm_resource_type                  (*(col_i32 far *)(col_seg34 + 0x2afeL))      /* DGROUP:0x2afe */
+#define g_pcx_resource_type                  (*(col_i32 far *)(col_seg34 + 0x2b02L))      /* DGROUP:0x2b02 */
+#define g_gif_resource_type                  (*(col_i32 far *)(col_seg34 + 0x2b06L))      /* DGROUP:0x2b06 */
+#define g_picture_resource_type              (*(void far * far *)(col_seg34 + 0x2b0aL))   /* DGROUP:0x2b0a */
+#define g_scale_num                          (*(col_i16 far *)(col_seg34 + 0x2b0eL))      /* DGROUP:0x2b0e */
+#define g_scale_den                          (*(col_i16 far *)(col_seg34 + 0x2b10L))      /* DGROUP:0x2b10 */
+#define g_sprt_type                          (*(col_i32 far *)(col_seg34 + 0x2b12L))      /* DGROUP:0x2b12 */
+#define g_sprt_palette_type                  (*(col_i32 far *)(col_seg34 + 0x2b16L))      /* DGROUP:0x2b16 */
+#define g_current_slot                       (*(col_i16 far *)(col_seg34 + 0x3246L))      /* DGROUP:0x3246 */
+#define g_lowmem_win                         (*(void far * far *)(col_seg34 + 0x3248L))   /* DGROUP:0x3248 */
+#define g_lowmem_kb                          (*(col_i16 far *)(col_seg34 + 0x324cL))      /* DGROUP:0x324c */
+#define g_lowmem_res                         (*(col_i16 far *)(col_seg34 + 0x324eL))      /* DGROUP:0x324e */
+#define g_lowmem_flag                        (*(col_i16 far *)(col_seg34 + 0x3250L))      /* DGROUP:0x3250 */
+#define g_lowmem_timer                       (*(col_i16 far *)(col_seg34 + 0x3252L))      /* DGROUP:0x3252 */
+#define g_lowmem_busy                        (*(col_i16 far *)(col_seg34 + 0x3254L))      /* DGROUP:0x3254 */
+#define g_lowmem_count                       (*(col_i16 far *)(col_seg34 + 0x3256L))      /* DGROUP:0x3256 */
+#define g_lowmem_deadline                    (*(col_i32 far *)(col_seg34 + 0x3258L))      /* DGROUP:0x3258 */
+#define g_restype_text                       (*(col_i32 far *)(col_seg34 + 0x325cL))      /* DGROUP:0x325c */
+#define g_337f                               (*(col_i16 far *)(col_seg34 + 0x337fL))      /* DGROUP:0x337f; narrow_view: unsigned char */
+#define g_draw_color                         (*(col_i16 far *)(col_seg34 + 0x337eL))      /* DGROUP:0x337e; a view into g_337f; narrow_view: unsigned char */
+#define g_colour_337f                        (*(col_i16 far *)(col_seg34 + 0x337fL))      /* DGROUP:0x337f; a view into g_337f; narrow_view: unsigned char */
+#define g_palette_mode                       (*(col_i16 far *)(col_seg34 + 0x3380L))      /* DGROUP:0x3380; a view into g_337f */
+#define g_palette_template                   ((unsigned char far *)(col_seg34 + 0x3382L)) /* DGROUP:0x3382; inferred: the gap to the next global */
+#define g_hover_active                       (*(col_i16 far *)(col_seg34 + 0x33c0L))      /* DGROUP:0x33c0 */
+#define g_hover_pressed                      (*(col_i16 far *)(col_seg34 + 0x33c2L))      /* DGROUP:0x33c2 */
+#define g_checkbox_capture                   (*(col_i16 far *)(col_seg34 + 0x33c4L))      /* DGROUP:0x33c4 */
+#define g_radio_capture                      (*(col_i16 far *)(col_seg34 + 0x33c6L))      /* DGROUP:0x33c6 */
+#define g_radio_rcapture                     (*(col_i16 far *)(col_seg34 + 0x33c8L))      /* DGROUP:0x33c8 */
+#define g_listbox_registered                 (*(col_i16 far *)(col_seg34 + 0x33caL))      /* DGROUP:0x33ca */
+#define g_editbox_registered                 (*(col_i16 far *)(col_seg34 + 0x33ccL))      /* DGROUP:0x33cc */
+#define g_key_accepted                       (*(char far *)(col_seg34 + 0x33ceL))         /* DGROUP:0x33ce */
+#define g_key_down_seen                      (*(char far *)(col_seg34 + 0x33cfL))         /* DGROUP:0x33cf */
+#define g_static_registered                  (*(col_i16 far *)(col_seg34 + 0x33d0L))      /* DGROUP:0x33d0 */
+#define g_keymap                             ((col_i16 far *)(col_seg34 + 0x33d2L))       /* DGROUP:0x33d2; inferred: the gap to the next global */
+#define g_msg_not_writable                   ((char far *)(col_seg34 + 0x3937L))          /* DGROUP:0x3937; inferred: the gap to the next global */
+#define g_crlf                               ((char far *)(col_seg34 + 0x3962L))          /* DGROUP:0x3962; inferred: the gap to the next global */
+#define g_msg_fstat_failed                   ((char far *)(col_seg34 + 0x3965L))          /* DGROUP:0x3965; inferred: the gap to the next global */
+#define g_wing_orientation                   (*(col_i16 far *)(col_seg34 + 0x39b4L))      /* DGROUP:0x39b4 */
+#define g_wing_warned                        (*(col_i16 far *)(col_seg34 + 0x39b6L))      /* DGROUP:0x39b6 */
+#define g_next_menu_id                       (*(col_u16 far *)(col_seg34 + 0x39b8L))      /* DGROUP:0x39b8 */
+#define g_sep_marker                         ((char far *)(col_seg34 + 0x3c71L))          /* DGROUP:0x3c71; inferred: the gap to the next global */
+#define g_resource_lib_count                 (*(col_i16 far *)(col_seg34 + 0x3c76L))      /* DGROUP:0x3c76; signedness_unresolved: int, unsigned */
+#define g_mci_device                         (*(col_u16 far *)(col_seg34 + 0x3c78L))      /* DGROUP:0x3c78 */
+#define g_cd_device                          (*(col_u16 far *)(col_seg34 + 0x3c7aL))      /* DGROUP:0x3c7a */
+#define g_cd_tray_device                     (*(col_u16 far *)(col_seg34 + 0x3c7cL))      /* DGROUP:0x3c7c */
+#define g_window_count                       (*(col_i16 far *)(col_seg34 + 0x3c7eL))      /* DGROUP:0x3c7e */
+#define g_count_3c80                         (*(col_i16 far *)(col_seg34 + 0x3c80L))      /* DGROUP:0x3c80 */
+#define g_ms_window_count                    (*(col_i16 far *)(col_seg34 + 0x3c80L))      /* DGROUP:0x3c80; a view into g_count_3c80 */
+#define g_msg_window_stack                   ((char far *)(col_seg34 + 0x3ebfL))          /* DGROUP:0x3ebf; inferred: the gap to the next global */
+#define g_char_class                         ((unsigned char far *)(col_seg34 + 0x46c1L)) /* DGROUP:0x46c1; inferred: the gap to the next global */
+#define g_4b00                               (*(col_i16 far *)(col_seg34 + 0x4b00L))      /* DGROUP:0x4b00 */
+#define g_4b02                               (*(col_i16 far *)(col_seg34 + 0x4b02L))      /* DGROUP:0x4b02 */
+#define g_quit_flag                          (*(col_i16 far *)(col_seg34 + 0x4b04L))      /* DGROUP:0x4b04 */
+#define g_title_font                         (*(char far *)(col_seg34 + 0x4b06L))         /* DGROUP:0x4b06 */
+#define g_report_font_small                  (*(char far *)(col_seg34 + 0x4b0aL))         /* DGROUP:0x4b0a */
+#define g_font_4b0e                          (*(char far *)(col_seg34 + 0x4b0eL))         /* DGROUP:0x4b0e */
+#define g_info_font_small                    (*(char far *)(col_seg34 + 0x4b12L))         /* DGROUP:0x4b12; signedness_unresolved: char, unsigned char */
+#define g_info_font_large                    (*(char far *)(col_seg34 + 0x4b16L))         /* DGROUP:0x4b16; signedness_unresolved: char, unsigned char */
+#define g_number_font                        (*(char far *)(col_seg34 + 0x4b1aL))         /* DGROUP:0x4b1a */
+#define g_font_small                         ((char far *)(col_seg34 + 0x4b1eL))          /* DGROUP:0x4b1e; inferred: the gap to the next global */
+#define g_heading_font                       (*(char far *)(col_seg34 + 0x4b22L))         /* DGROUP:0x4b22 */
+#define g_report_font                        (*(char far *)(col_seg34 + 0x4b26L))         /* DGROUP:0x4b26 */
+#define g_4b2a                               (*(col_i16 far *)(col_seg34 + 0x4b2aL))      /* DGROUP:0x4b2a */
+#define g_4b2c                               (*(char far *)(col_seg34 + 0x4b2cL))         /* DGROUP:0x4b2c */
+#define g_map_pixels                         (*(col_i16 far *)(col_seg34 + 0x4b2eL))      /* DGROUP:0x4b2e; signedness_unresolved: int, short */
+#define g_cursor_x                           (*(col_i16 far *)(col_seg34 + 0x4b30L))      /* DGROUP:0x4b30 */
+#define g_cursor_y                           (*(col_i16 far *)(col_seg34 + 0x4b32L))      /* DGROUP:0x4b32 */
+#define g_season_word                        ((col_i16 far *)(col_seg34 + 0x4b34L))       /* DGROUP:0x4b34; inferred: the gap to the next global */
+#define g_cmisc_word                         ((col_i16 far *)(col_seg34 + 0x4b38L))       /* DGROUP:0x4b38; inferred: the gap to the next global */
+#define g_4b3a                               (*(col_i16 far *)(col_seg34 + 0x4b3aL))      /* DGROUP:0x4b3a */
+#define g_eurolabel_word                     ((col_i16 far *)(col_seg34 + 0x4b3eL))       /* DGROUP:0x4b3e; inferred: the gap to the next global */
+#define g_nation_unit_count                  (*(col_i32 far *)(col_seg34 + 0x4b44L))      /* DGROUP:0x4b44; narrow_view: unsigned char */
+#define g_nation_colony_count                (*(col_i32 far *)(col_seg34 + 0x4b48L))      /* DGROUP:0x4b48; narrow_view: signed char, unsigned char */
+#define g_rec_4b48                           ((unsigned char far *)(col_seg34 + 0x4b48L)) /* DGROUP:0x4b48; a view into g_nation_colony_count */
+#define g_nation_modifier                    (*(col_i32 far *)(col_seg34 + 0x4b4cL))      /* DGROUP:0x4b4c; narrow_view: unsigned char */
+#define g_pop_by_nation                      (*(col_i32 far *)(col_seg34 + 0x4b50L))      /* DGROUP:0x4b50; narrow_view: unsigned char */
+#define g_nation_population                  (*(col_i32 far *)(col_seg34 + 0x4b54L))      /* DGROUP:0x4b54; narrow_view: unsigned char */
+#define g_4b58                               ((unsigned char far *)(col_seg34 + 0x4b58L)) /* DGROUP:0x4b58; inferred: the gap to the next global */
+#define g_long_4b58                          (*(col_i32 far *)(col_seg34 + 0x4b58L))      /* DGROUP:0x4b58; a view into g_4b58 */
+#define g_4b5c                               ((unsigned char far *)(col_seg34 + 0x4b5cL)) /* DGROUP:0x4b5c; inferred: the gap to the next global */
+#define g_byte_4b5c                          ((unsigned char far *)(col_seg34 + 0x4b5cL)) /* DGROUP:0x4b5c; a view into g_4b5c */
+#define g_long_4b5c                          (*(col_i32 far *)(col_seg34 + 0x4b5cL))      /* DGROUP:0x4b5c; a view into g_4b5c */
+#define g_4b60                               ((unsigned char far *)(col_seg34 + 0x4b60L)) /* DGROUP:0x4b60; inferred: the gap to the next global */
+#define g_long_4b60                          (*(col_i32 far *)(col_seg34 + 0x4b60L))      /* DGROUP:0x4b60; a view into g_4b60 */
+#define g_4b64                               ((unsigned char far *)(col_seg34 + 0x4b64L)) /* DGROUP:0x4b64; inferred: the gap to the next global */
+#define g_byte_4b64                          ((unsigned char far *)(col_seg34 + 0x4b64L)) /* DGROUP:0x4b64; a view into g_4b64 */
+#define g_long_4b64                          (*(col_i32 far *)(col_seg34 + 0x4b64L))      /* DGROUP:0x4b64; a view into g_4b64 */
+#define g_4b68                               ((unsigned char far *)(col_seg34 + 0x4b68L)) /* DGROUP:0x4b68; inferred: the gap to the next global */
+#define g_long_4b68                          (*(col_i32 far *)(col_seg34 + 0x4b68L))      /* DGROUP:0x4b68; a view into g_4b68 */
+#define g_nation_strength                    (*(col_i32 far *)(col_seg34 + 0x4b6cL))      /* DGROUP:0x4b6c; narrow_view: unsigned char */
+#define g_4b70                               ((unsigned char far *)(col_seg34 + 0x4b70L)) /* DGROUP:0x4b70; inferred: the gap to the next global */
+#define g_land_units                         ((unsigned char far *)(col_seg34 + 0x4b74L)) /* DGROUP:0x4b74; inferred: the gap to the next global */
+#define g_4b78                               (*(col_i16 far *)(col_seg34 + 0x4b78L))      /* DGROUP:0x4b78 */
+#define g_4b86                               (*(col_i16 far *)(col_seg34 + 0x4b86L))      /* DGROUP:0x4b86 */
+#define g_random_seed                        (*(col_i16 far *)(col_seg34 + 0x4b86L))      /* DGROUP:0x4b86; a view into g_4b86 */
+#define g_4b88                               (*(col_i16 far *)(col_seg34 + 0x4b88L))      /* DGROUP:0x4b88 */
+#define g_4b8a                               (*(col_i16 far *)(col_seg34 + 0x4b8aL))      /* DGROUP:0x4b8a */
+#define g_done_flag                          (*(col_i16 far *)(col_seg34 + 0x4b8cL))      /* DGROUP:0x4b8c */
+#define g_cell_class                         (*(unsigned char far *)(col_seg34 + 0x4b8eL)) /* DGROUP:0x4b8e */
+#define g_cell_terrain                       (*(unsigned char far *)(col_seg34 + 0x4b8fL)) /* DGROUP:0x4b8f */
+#define g_coast_edges                        ((unsigned char far *)(col_seg34 + 0x4b90L)) /* DGROUP:0x4b90 */
+#define g_cur_cell                           (*(unsigned char far * far *)(col_seg34 + 0x4b94L)) /* DGROUP:0x4b94 */
+#define g_closing_flag                       (*(col_i16 far *)(col_seg34 + 0x4b98L))      /* DGROUP:0x4b98 */
+#define g_pending_a                          (*(col_i16 far *)(col_seg34 + 0x4b9aL))      /* DGROUP:0x4b9a */
+#define g_tile_x                             (*(col_i16 far *)(col_seg34 + 0x4b9aL))      /* DGROUP:0x4b9a; a view into g_pending_a */
+#define g_pending_b                          (*(col_i16 far *)(col_seg34 + 0x4b9cL))      /* DGROUP:0x4b9c */
+#define g_tile_y                             (*(col_i16 far *)(col_seg34 + 0x4b9cL))      /* DGROUP:0x4b9c; a view into g_pending_b */
+#define g_cur_colony_rec                     (*(Colony far * far *)(col_seg34 + 0x4b9eL)) /* DGROUP:0x4b9e; other_pointee_spelling: Rec */
+#define g_cur_colony_idx                     (*(col_i16 far *)(col_seg34 + 0x4ba2L))      /* DGROUP:0x4ba2 */
+#define g_center_food                        (*(unsigned char far *)(col_seg34 + 0x4ba4L)) /* DGROUP:0x4ba4 */
+#define g_4ba5                               (*(unsigned char far *)(col_seg34 + 0x4ba5L)) /* DGROUP:0x4ba5 */
+#define g_center_kind                        (*(col_i8 far *)(col_seg34 + 0x4ba6L))       /* DGROUP:0x4ba6 */
+#define g_center_amount                      (*(col_i8 far *)(col_seg34 + 0x4ba7L))       /* DGROUP:0x4ba7 */
+#define g_fish_food                          (*(unsigned char far *)(col_seg34 + 0x4ba8L)) /* DGROUP:0x4ba8 */
+#define g_turn_phase                         (*(unsigned char far *)(col_seg34 + 0x4ba9L)) /* DGROUP:0x4ba9 */
+#define g_cur_colony_is_players              (*(char far *)(col_seg34 + 0x4baaL))         /* DGROUP:0x4baa */
+#define g_msg_seen                           (*(char far *)(col_seg34 + 0x4babL))         /* DGROUP:0x4bab */
+#define g_drag_active                        (*(unsigned char far *)(col_seg34 + 0x4baeL)) /* DGROUP:0x4bae */
+#define g_drag_goods                         (*(unsigned char far *)(col_seg34 + 0x4bafL)) /* DGROUP:0x4baf */
+#define g_drag_amount                        (*(unsigned char far *)(col_seg34 + 0x4bb0L)) /* DGROUP:0x4bb0 */
+#define g_drag_slot                          (*(unsigned char far *)(col_seg34 + 0x4bb1L)) /* DGROUP:0x4bb1 */
+#define g_tile_colonists                     (*(col_i16 far *)(col_seg34 + 0x4bb2L))      /* DGROUP:0x4bb2 */
+#define g_tile_units                         (*(col_i16 far *)(col_seg34 + 0x4bb4L))      /* DGROUP:0x4bb4 */
+#define g_tile_noncarriers                   (*(col_i16 far *)(col_seg34 + 0x4bb6L))      /* DGROUP:0x4bb6 */
+#define g_tile_first_unit                    (*(col_i16 far *)(col_seg34 + 0x4bb8L))      /* DGROUP:0x4bb8 */
+#define g_tile_sel                           (*(col_i16 far *)(col_seg34 + 0x4bbaL))      /* DGROUP:0x4bba */
+#define g_4bbc                               (*(col_i16 far *)(col_seg34 + 0x4bbcL))      /* DGROUP:0x4bbc */
+#define g_selected_colonist                  (*(col_i16 far *)(col_seg34 + 0x4bbcL))      /* DGROUP:0x4bbc; a view into g_4bbc */
+#define g_4bbe                               (*(col_i16 far *)(col_seg34 + 0x4bbeL))      /* DGROUP:0x4bbe */
+#define g_row_colonist                       (*(col_i16 far *)(col_seg34 + 0x4bbeL))      /* DGROUP:0x4bbe; a view into g_4bbe */
+#define g_portrait_gap                       (*(col_i8 far *)(col_seg34 + 0x4bc0L))       /* DGROUP:0x4bc0 */
+#define g_seed_base                          (*(col_i32 far *)(col_seg34 + 0x4bc2L))      /* DGROUP:0x4bc2 */
+#define g_nearest_dist                       (*(col_i16 far *)(col_seg34 + 0x4bc6L))      /* DGROUP:0x4bc6 */
+#define g_ocean_x                            (*(col_i16 far *)(col_seg34 + 0x4bc8L))      /* DGROUP:0x4bc8 */
+#define g_ocean_y                            (*(col_i16 far *)(col_seg34 + 0x4bcaL))      /* DGROUP:0x4bca */
+#define g_4bcc                               (*(col_i16 far *)(col_seg34 + 0x4bccL))      /* DGROUP:0x4bcc */
+#define g_colony_unit                        (*(col_i16 far *)(col_seg34 + 0x4bccL))      /* DGROUP:0x4bcc; a view into g_4bcc */
+#define g_4bce                               (*(col_i16 far *)(col_seg34 + 0x4bceL))      /* DGROUP:0x4bce */
+#define g_4bd0                               (*(col_i16 far *)(col_seg34 + 0x4bd0L))      /* DGROUP:0x4bd0 */
+#define g_cargo_amount                       (*(col_i16 far *)(col_seg34 + 0x4bd2L))      /* DGROUP:0x4bd2 */
+#define g_land_count                         (*(col_i16 far *)(col_seg34 + 0x4bd4L))      /* DGROUP:0x4bd4 */
+#define g_x_lo                               (*(col_i8 far *)(col_seg34 + 0x4bd6L))       /* DGROUP:0x4bd6 */
+#define g_y_lo                               (*(col_i8 far *)(col_seg34 + 0x4bd7L))       /* DGROUP:0x4bd7 */
+#define g_x_hi                               (*(col_i8 far *)(col_seg34 + 0x4bd8L))       /* DGROUP:0x4bd8 */
+#define g_y_hi                               (*(col_i8 far *)(col_seg34 + 0x4bd9L))       /* DGROUP:0x4bd9 */
+#define g_combat_flags                       ((col_i16 far *)(col_seg34 + 0x4bdaL))       /* DGROUP:0x4bda */
+#define g_4bdc                               (*(col_i16 far *)(col_seg34 + 0x4bdcL))      /* DGROUP:0x4bdc; a view into g_combat_flags */
+#define g_combat_flags2                      ((col_i16 far *)(col_seg34 + 0x4bdeL))       /* DGROUP:0x4bde */
+#define g_4be0                               (*(col_i16 far *)(col_seg34 + 0x4be0L))      /* DGROUP:0x4be0; a view into g_combat_flags2 */
+#define g_combat_str                         ((col_i16 far *)(col_seg34 + 0x4be2L))       /* DGROUP:0x4be2 */
+#define g_terrain_defence                    (*(col_i16 far *)(col_seg34 + 0x4be6L))      /* DGROUP:0x4be6 */
+#define g_4bea                               (*(col_i16 far *)(col_seg34 + 0x4beaL))      /* DGROUP:0x4bea */
+#define g_4bec                               (*(col_i16 far *)(col_seg34 + 0x4becL))      /* DGROUP:0x4bec */
+#define g_grid_x                             (*(col_i16 far *)(col_seg34 + 0x4bf0L))      /* DGROUP:0x4bf0 */
+#define g_grid_y                             (*(col_i16 far *)(col_seg34 + 0x4bf2L))      /* DGROUP:0x4bf2 */
+#define g_path_result                        (*(col_i16 far *)(col_seg34 + 0x4bf4L))      /* DGROUP:0x4bf4 */
+#define g_queue_tail                         (*(col_i16 far *)(col_seg34 + 0x4bf6L))      /* DGROUP:0x4bf6 */
+#define g_queue_head                         (*(col_i16 far *)(col_seg34 + 0x4bf8L))      /* DGROUP:0x4bf8 */
+#define g_near_last_x                        (*(col_i16 far *)(col_seg34 + 0x4bfaL))      /* DGROUP:0x4bfa */
+#define g_near_last_y                        (*(col_i16 far *)(col_seg34 + 0x4bfcL))      /* DGROUP:0x4bfc */
+#define g_far_start_x                        (*(col_i16 far *)(col_seg34 + 0x4bfeL))      /* DGROUP:0x4bfe */
+#define g_far_start_y                        (*(col_i16 far *)(col_seg34 + 0x4c00L))      /* DGROUP:0x4c00 */
+#define g_move_reason                        (*(col_i16 far *)(col_seg34 + 0x4c02L))      /* DGROUP:0x4c02 */
+#define g_move_reason_unit                   (*(col_i16 far *)(col_seg34 + 0x4c04L))      /* DGROUP:0x4c04 */
+#define g_4c06                               ((col_i8 far *)(col_seg34 + 0x4c06L))        /* DGROUP:0x4c06; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
+#define g_4c0a                               (*(unsigned char far *)(col_seg34 + 0x4c0aL)) /* DGROUP:0x4c0a */
+#define g_4c0b                               (*(unsigned char far *)(col_seg34 + 0x4c0bL)) /* DGROUP:0x4c0b */
+#define g_4c0c                               (*(unsigned char far *)(col_seg34 + 0x4c0cL)) /* DGROUP:0x4c0c */
+#define g_4c0e                               (*(col_i16 far *)(col_seg34 + 0x4c0eL))      /* DGROUP:0x4c0e */
+#define g_4c10                               (*(col_i16 far *)(col_seg34 + 0x4c10L))      /* DGROUP:0x4c10 */
+#define g_adjacent_colony_nation             (*(col_i16 far *)(col_seg34 + 0x4c12L))      /* DGROUP:0x4c12 */
+#define g_4c14                               (*(col_i16 far *)(col_seg34 + 0x4c14L))      /* DGROUP:0x4c14 */
+#define g_4c16                               (*(col_i16 far *)(col_seg34 + 0x4c16L))      /* DGROUP:0x4c16 */
+#define g_cur_route_rec                      (*(RouteRec far * far *)(col_seg34 + 0x4c18L)) /* DGROUP:0x4c18; other_pointee_spelling: char */
+#define g_cur_route_stop                     (*(Route far * far *)(col_seg34 + 0x4c1cL))  /* DGROUP:0x4c1c; other_pointee_spelling: char, int */
+#define g_cur_route                          (*(col_i16 far *)(col_seg34 + 0x4c20L))      /* DGROUP:0x4c20 */
+#define g_route_stop                         (*(col_i16 far *)(col_seg34 + 0x4c22L))      /* DGROUP:0x4c22 */
+#define g_4c24                               (*(char far *)(col_seg34 + 0x4c24L))         /* DGROUP:0x4c24 */
+#define g_route_unit                         (*(col_i16 far *)(col_seg34 + 0x4c26L))      /* DGROUP:0x4c26 */
+#define g_cur_tribe_rec                      (*(Tribe far * far *)(col_seg34 + 0x4c28L))  /* DGROUP:0x4c28 */
+#define g_rec_4c28                           (*(Rec4c28 far * far *)(col_seg34 + 0x4c28L)) /* DGROUP:0x4c28; a view into g_cur_tribe_rec */
+#define g_cur_settlement_rec                 (*(Settlement far * far *)(col_seg34 + 0x4c2cL)) /* DGROUP:0x4c2c */
+#define g_4c30                               (*(col_i16 far *)(col_seg34 + 0x4c30L))      /* DGROUP:0x4c30 */
+#define g_cur_tribe                          (*(col_i16 far *)(col_seg34 + 0x4c30L))      /* DGROUP:0x4c30; a view into g_4c30 */
+#define g_cur_tribe_nation                   (*(col_i16 far *)(col_seg34 + 0x4c32L))      /* DGROUP:0x4c32 */
+#define g_4c34                               (*(col_i16 far *)(col_seg34 + 0x4c34L))      /* DGROUP:0x4c34 */
+#define g_cur_settlement                     (*(col_i16 far *)(col_seg34 + 0x4c34L))      /* DGROUP:0x4c34; a view into g_4c34 */
+#define g_foreign_owner                      (*(col_i16 far *)(col_seg34 + 0x4c36L))      /* DGROUP:0x4c36 */
+#define g_nearest_unit_dist                  (*(col_i16 far *)(col_seg34 + 0x4c38L))      /* DGROUP:0x4c38 */
+#define g_row_count                          (*(col_i16 far *)(col_seg34 + 0x4c3aL))      /* DGROUP:0x4c3a */
+#define g_map_cells                          (*(col_i32 far *)(col_seg34 + 0x4c3cL))      /* DGROUP:0x4c3c */
+#define g_map_width                          ((col_i16 far *)(col_seg34 + 0x4c40L))       /* DGROUP:0x4c40; inferred: the gap to the next global; narrow_view: char */
+#define g_map_h                              (*(col_i16 far *)(col_seg34 + 0x4c42L))      /* DGROUP:0x4c42 */
+#define g_view_x0                            (*(col_i16 far *)(col_seg34 + 0x4c44L))      /* DGROUP:0x4c44 */
+#define g_view_y0                            (*(col_i16 far *)(col_seg34 + 0x4c46L))      /* DGROUP:0x4c46 */
+#define g_view_x1                            (*(col_i16 far *)(col_seg34 + 0x4c48L))      /* DGROUP:0x4c48 */
+#define g_view_y1                            (*(col_i16 far *)(col_seg34 + 0x4c4aL))      /* DGROUP:0x4c4a */
+#define g_tile_w                             (*(col_i16 far *)(col_seg34 + 0x4c4cL))      /* DGROUP:0x4c4c */
+#define g_tile_h                             (*(col_i16 far *)(col_seg34 + 0x4c4eL))      /* DGROUP:0x4c4e */
+#define g_view_w                             (*(col_i16 far *)(col_seg34 + 0x4c50L))      /* DGROUP:0x4c50 */
+#define g_view_h                             (*(col_i16 far *)(col_seg34 + 0x4c52L))      /* DGROUP:0x4c52 */
+#define g_view_px_w                          (*(col_i16 far *)(col_seg34 + 0x4c5cL))      /* DGROUP:0x4c5c */
+#define g_view_px_h                          (*(col_i16 far *)(col_seg34 + 0x4c5eL))      /* DGROUP:0x4c5e */
+#define g_4c60                               (*(col_i16 far *)(col_seg34 + 0x4c60L))      /* DGROUP:0x4c60 */
+#define g_4c62                               (*(col_i16 far *)(col_seg34 + 0x4c62L))      /* DGROUP:0x4c62 */
+#define g_overlay_plane                      (*(col_i8 far * far *)(col_seg34 + 0x4c64L)) /* DGROUP:0x4c64 */
+#define g_4c68                               (*(unsigned char far *)(col_seg34 + 0x4c68L)) /* DGROUP:0x4c68 */
+#define g_4c6b                               (*(unsigned char far *)(col_seg34 + 0x4c6bL)) /* DGROUP:0x4c6b */
+#define g_4c6c                               (*(unsigned char far *)(col_seg34 + 0x4c6cL)) /* DGROUP:0x4c6c */
+#define g_4c6d                               (*(unsigned char far *)(col_seg34 + 0x4c6dL)) /* DGROUP:0x4c6d */
+#define g_4c6e                               ((unsigned char far *)(col_seg34 + 0x4c6eL)) /* DGROUP:0x4c6e; inferred: the gap to the next global */
+#define g_map_tiles                          (*(unsigned char far * far *)(col_seg34 + 0x4c72L)) /* DGROUP:0x4c72 */
+#define g_map_plane1                         (*(unsigned char far * far *)(col_seg34 + 0x4c76L)) /* DGROUP:0x4c76 */
+#define g_draw_p1                            (*(unsigned char far * far *)(col_seg34 + 0x4c7eL)) /* DGROUP:0x4c7e */
+#define g_map_tiles2                         (*(unsigned char far * far *)(col_seg34 + 0x4c82L)) /* DGROUP:0x4c82 */
+#define g_draw_p3                            (*(unsigned char far * far *)(col_seg34 + 0x4c86L)) /* DGROUP:0x4c86 */
+#define g_draw_pix                           (*(col_i8 far * far *)(col_seg34 + 0x4c8aL)) /* DGROUP:0x4c8a; other_pointee_spelling: unsigned char */
+#define g_draw_x                             (*(col_i16 far *)(col_seg34 + 0x4c8eL))      /* DGROUP:0x4c8e */
+#define g_draw_y                             (*(col_i16 far *)(col_seg34 + 0x4c90L))      /* DGROUP:0x4c90 */
+#define g_draw_mask                          (*(unsigned char far *)(col_seg34 + 0x4c92L)) /* DGROUP:0x4c92 */
+#define g_draw_px                            (*(col_i16 far *)(col_seg34 + 0x4c94L))      /* DGROUP:0x4c94 */
+#define g_draw_py                            (*(col_i16 far *)(col_seg34 + 0x4c96L))      /* DGROUP:0x4c96 */
+#define g_draw_parity                        (*(col_i16 far *)(col_seg34 + 0x4c98L))      /* DGROUP:0x4c98 */
+#define g_sq_p1                              (*(unsigned char far *)(col_seg34 + 0x4c9aL)) /* DGROUP:0x4c9a */
+#define g_sq_p3                              (*(unsigned char far *)(col_seg34 + 0x4c9bL)) /* DGROUP:0x4c9b */
+#define g_sq_p0                              (*(unsigned char far *)(col_seg34 + 0x4c9cL)) /* DGROUP:0x4c9c */
+#define g_sq_class                           (*(unsigned char far *)(col_seg34 + 0x4c9dL)) /* DGROUP:0x4c9d */
+#define g_4c9e                               (*(unsigned char far *)(col_seg34 + 0x4c9eL)) /* DGROUP:0x4c9e */
+#define g_4ca1                               (*(unsigned char far *)(col_seg34 + 0x4ca1L)) /* DGROUP:0x4ca1 */
+#define g_4ca2                               ((unsigned char far *)(col_seg34 + 0x4ca2L)) /* DGROUP:0x4ca2; inferred: the gap to the next global */
+#define g_flag_4ca6                          (*(col_i16 far *)(col_seg34 + 0x4ca6L))      /* DGROUP:0x4ca6 */
+#define g_text_cursor                        (*(char far * far *)(col_seg34 + 0x4ca8L))   /* DGROUP:0x4ca8 */
+#define g_text_cursor_b                      (*(char far * far *)(col_seg34 + 0x4ca8L))   /* DGROUP:0x4ca8; a view into g_text_cursor */
+#define g_text_cursor_a                      (*(char far * far *)(col_seg34 + 0x4cacL))   /* DGROUP:0x4cac */
+#define g_cur_data                           (*(void far * far *)(col_seg34 + 0x4cb0L))   /* DGROUP:0x4cb0 */
+#define g_cur_res                            (*(void far * far *)(col_seg34 + 0x4cb4L))   /* DGROUP:0x4cb4 */
+#define g_drag_sprite                        (*(void far * far *)(col_seg34 + 0x4cb8L))   /* DGROUP:0x4cb8 */
+#define g_drag_port                          (*(GRPort far * far *)(col_seg34 + 0x4cbcL)) /* DGROUP:0x4cbc; other_pointee_spelling: void */
+#define g_drag_x                             (*(col_i16 far *)(col_seg34 + 0x4cc0L))      /* DGROUP:0x4cc0 */
+#define g_drag_y                             (*(col_i16 far *)(col_seg34 + 0x4cc2L))      /* DGROUP:0x4cc2 */
+#define g_cur_nation_rec                     (*(Nation far * far *)(col_seg34 + 0x4cc4L)) /* DGROUP:0x4cc4; other_pointee_spelling: Market, NationRec */
+#define g_cur_nation                         (*(col_i16 far *)(col_seg34 + 0x4cc8L))      /* DGROUP:0x4cc8 */
+#define g_4cd2                               (*(col_i16 far *)(col_seg34 + 0x4cd2L))      /* DGROUP:0x4cd2 */
+#define g_4cd8                               (*(col_i16 far *)(col_seg34 + 0x4cd8L))      /* DGROUP:0x4cd8 */
+#define g_drag_unit                          (*(col_i16 far *)(col_seg34 + 0x4cdaL))      /* DGROUP:0x4cda */
+#define g_drag_from                          (*(col_i16 far *)(col_seg34 + 0x4cdcL))      /* DGROUP:0x4cdc */
+#define g_4cde                               (*(col_i16 far *)(col_seg34 + 0x4cdeL))      /* DGROUP:0x4cde */
+#define g_4ce0                               (*(col_i16 far *)(col_seg34 + 0x4ce0L))      /* DGROUP:0x4ce0 */
+#define g_4ce2                               (*(col_i16 far *)(col_seg34 + 0x4ce2L))      /* DGROUP:0x4ce2 */
+#define g_4ce4                               (*(col_i16 far *)(col_seg34 + 0x4ce4L))      /* DGROUP:0x4ce4 */
+#define g_4ce6                               (*(col_i16 far *)(col_seg34 + 0x4ce6L))      /* DGROUP:0x4ce6 */
+#define g_4ce8                               (*(col_i16 far *)(col_seg34 + 0x4ce8L))      /* DGROUP:0x4ce8 */
+#define g_4cea                               (*(col_i16 far *)(col_seg34 + 0x4ceaL))      /* DGROUP:0x4cea */
+#define g_land_unit_count                    (*(col_i16 far *)(col_seg34 + 0x4cecL))      /* DGROUP:0x4cec */
+#define g_land_unit_index                    (*(col_i16 far *)(col_seg34 + 0x4ceeL))      /* DGROUP:0x4cee */
+#define g_4cf2                               (*(col_i16 far *)(col_seg34 + 0x4cf2L))      /* DGROUP:0x4cf2 */
+#define g_4cf4                               (*(col_i16 far *)(col_seg34 + 0x4cf4L))      /* DGROUP:0x4cf4 */
+#define g_cheat_step                         (*(col_i16 far *)(col_seg34 + 0x4cf6L))      /* DGROUP:0x4cf6 */
+#define g_popup_label_id                     ((col_i16 far *)(col_seg34 + 0x4cf8L))       /* DGROUP:0x4cf8; inferred: the gap to the next global */
+#define g_line                               ((char far *)(col_seg34 + 0x4cfeL))          /* DGROUP:0x4cfe */
+#define g_dialog_ok                          (*(col_i16 far *)(col_seg34 + 0x4dfeL))      /* DGROUP:0x4dfe */
+#define g_4e00                               (*(col_i16 far *)(col_seg34 + 0x4e00L))      /* DGROUP:0x4e00 */
+#define g_layout_x                           (*(col_i16 far *)(col_seg34 + 0x4e02L))      /* DGROUP:0x4e02 */
+#define g_layout_y                           (*(col_i16 far *)(col_seg34 + 0x4e04L))      /* DGROUP:0x4e04 */
+#define g_congress_nation                    (*(col_i16 far *)(col_seg34 + 0x4e06L))      /* DGROUP:0x4e06 */
+#define g_view_tile_w                        (*(col_i16 far *)(col_seg34 + 0x4e0cL))      /* DGROUP:0x4e0c */
+#define g_view_tile_h                        (*(col_i16 far *)(col_seg34 + 0x4e0eL))      /* DGROUP:0x4e0e */
+#define g_view_org_x                         (*(col_i16 far *)(col_seg34 + 0x4e10L))      /* DGROUP:0x4e10 */
+#define g_view_org_y                         (*(col_i16 far *)(col_seg34 + 0x4e12L))      /* DGROUP:0x4e12 */
+#define g_display_name_buf                   ((char far *)(col_seg34 + 0x4e14L))          /* DGROUP:0x4e14; inferred: the gap to the next global */
+#define g_4e64                               (*(col_i16 far *)(col_seg34 + 0x4e64L))      /* DGROUP:0x4e64 */
+#define g_flag_4e64                          (*(col_i16 far *)(col_seg34 + 0x4e64L))      /* DGROUP:0x4e64; a view into g_4e64 */
+#define g_about_step                         (*(col_i16 far *)(col_seg34 + 0x4e66L))      /* DGROUP:0x4e66 */
+#define g_log_font                           (*(col_u16 far *)(col_seg34 + 0x4e68L))      /* DGROUP:0x4e68; narrow_view: char */
+#define g_message_buf                        ((char far *)(col_seg34 + 0x4e6cL))          /* DGROUP:0x4e6c; inferred: the gap to the next global */
+#define g_number_buf                         ((char far *)(col_seg34 + 0x566cL))          /* DGROUP:0x566c; inferred: the gap to the next global */
+#define g_anim                               (*(void far * far *)(col_seg34 + 0x568cL))   /* DGROUP:0x568c */
+#define g_anim2                              (*(void far * far *)(col_seg34 + 0x5690L))   /* DGROUP:0x5690 */
+#define g_5694                               (*(col_i32 far *)(col_seg34 + 0x5694L))      /* DGROUP:0x5694 */
+#define g_scale_map                          (*(col_i16 far * far *)(col_seg34 + 0x5694L)) /* DGROUP:0x5694; a view into g_5694 */
+#define g_midi_done_cb                       (*(void far * far *)(col_seg34 + 0x5698L))   /* DGROUP:0x5698 */
+#define g_cd_done_cb                         (*(void far * far *)(col_seg34 + 0x569cL))   /* DGROUP:0x569c */
+#define g_slot_used                          ((unsigned char far *)(col_seg34 + 0x56a0L)) /* DGROUP:0x56a0; inferred: the gap to the next global */
+#define g_slot_state                         ((col_i32 far *)(col_seg34 + 0x56a4L))       /* DGROUP:0x56a4; inferred: the gap to the next global */
+#define g_dialog_result                      (*(col_i16 far *)(col_seg34 + 0x56b4L))      /* DGROUP:0x56b4 */
+#define g_dialog_owner                       (*(char far * far *)(col_seg34 + 0x56b6L))   /* DGROUP:0x56b6; other_pointee_spelling: void */
+#define g_lowmem_box                         (*(GameWin far * far *)(col_seg34 + 0x56baL)) /* DGROUP:0x56ba */
+#define g_lowmem_ok                          (*(SButton far * far *)(col_seg34 + 0x56beL)) /* DGROUP:0x56be */
+#define g_reserved_count                     (*(col_i16 far *)(col_seg34 + 0x56c2L))      /* DGROUP:0x56c2 */
+#define g_listbox_proc                       ((unsigned char far *)(col_seg34 + 0x56c8L)) /* DGROUP:0x56c8; the model could not parse WNDPROC; opaque record; extent is the gap to the next global */
+#define g_listbox_extra                      (*(col_i16 far *)(col_seg34 + 0x56ccL))      /* DGROUP:0x56cc */
+#define g_editbox_proc                       ((unsigned char far *)(col_seg34 + 0x56ceL)) /* DGROUP:0x56ce; the model could not parse WNDPROC; opaque record; extent is the gap to the next global */
+#define g_editbox_extra                      (*(col_i16 far *)(col_seg34 + 0x56d2L))      /* DGROUP:0x56d2 */
+#define g_last_key                           (*(col_u16 far *)(col_seg34 + 0x56d4L))      /* DGROUP:0x56d4 */
+#define g_scrollbar_registered               (*(col_i16 far *)(col_seg34 + 0x56d6L))      /* DGROUP:0x56d6 */
+#define g_scrollbar_extra                    (*(col_i16 far *)(col_seg34 + 0x56d8L))      /* DGROUP:0x56d8 */
+#define g_static_proc                        ((unsigned char far *)(col_seg34 + 0x56daL)) /* DGROUP:0x56da; the model could not parse WNDPROC; opaque record; extent is the gap to the next global */
+#define g_menu_depth                         (*(col_i16 far *)(col_seg34 + 0x56deL))      /* DGROUP:0x56de */
+#define g_resource_library                   (*(col_u16 far *)(col_seg34 + 0x56e0L))      /* DGROUP:0x56e0 */
+#define g_hinstance                          (*(col_i16 far *)(col_seg34 + 0x56e2L))      /* DGROUP:0x56e2; signedness_unresolved: int, unsigned */
+#define g_hprev                              (*(col_i16 far *)(col_seg34 + 0x56e4L))      /* DGROUP:0x56e4 */
+#define g_resource_libs                      ((col_u16 far *)(col_seg34 + 0x56e6L))       /* DGROUP:0x56e6; inferred: the gap to the next global */
+#define g_cd_notify_hwnd                     (*(col_u16 far *)(col_seg34 + 0x5726L))      /* DGROUP:0x5726 */
+#define g_ms_window_stack                    ((col_i16 far *)(col_seg34 + 0x5728L))       /* DGROUP:0x5728; declared; inferred as one element (last in segment) */
+#define g_tab_5728                           ((col_i16 far *)(col_seg34 + 0x5728L))       /* DGROUP:0x5728; a view into g_ms_window_stack */
 
-#else
-
-/* ---- SEG20 -- far, outside the automatic data segment */
-extern char far g_seg20_0;                            /* SEG20:0x0000 */
-extern char far g_prefs_root;                         /* SEG20:0x0010 */
-extern char far g_game_palette[1054];                 /* SEG20:0x01ac; inferred: the gap to the next global */
-extern WinRec far g_game_record;                      /* SEG20:0x05ca; narrow_view: char, int */
-extern MenuRec far g_menu_owner;                      /* SEG20:0x0656; narrow_view: char */
-extern MapWin far g_map_window;                       /* SEG20:0x0658; narrow_view: char */
-#define g_win_67e                              (*(char far *)((unsigned char far *)&g_map_window + 38))  /* SEG20:0x067e, inside g_map_window */
-#define g_map_timer                            (*(col_i16 far *)((unsigned char far *)&g_map_window + 1910))  /* SEG20:0x0dce, inside g_map_window */
-extern char far g_map_overlay[38];                    /* SEG20:0x0de0; inferred: the gap to the next global */
-extern char far g_win_e06;                            /* SEG20:0x0e06 */
-extern char far g_info_win[38];                       /* SEG20:0x1566; inferred: the gap to the next global */
-extern char far g_win_158c;                           /* SEG20:0x158c */
-extern col_i16 far g_report_window;                   /* SEG20:0x1d06; narrow_view: char */
-extern char far g_report_dialog;                      /* SEG20:0x1d2c */
-extern char far g_colony_window[38];                  /* SEG20:0x25be; inferred: the gap to the next global */
-extern WinRec far g_colony_win_rec;                   /* SEG20:0x25e4; narrow_view: char */
-#define g_ctx_25e4                             (*(char far *)((unsigned char far *)&g_colony_win_rec))  /* SEG20:0x25e4, same address */
-extern col_i16 far g_desk_x;                          /* SEG20:0x2d28 */
-extern col_i16 far g_desk_y;                          /* SEG20:0x2d2a */
-extern col_i16 far g_colony_timer;                    /* SEG20:0x2d34 */
-extern col_i16 far g_custom_house_colony;             /* SEG20:0x2fd0 */
-extern EuropeWin far g_europe_win;                    /* SEG20:0x2fd2; narrow_view: char */
-#define g_europe_win_rec                       (*(char far *)((unsigned char far *)&g_europe_win + 38))  /* SEG20:0x2ff8, inside g_europe_win */
-#define g_pedia_2ff8                           (*(char far *)((unsigned char far *)&g_europe_win + 38))  /* SEG20:0x2ff8, inside g_europe_win */
-#define g_win_2ff8                             (*(char far *)((unsigned char far *)&g_europe_win + 38))  /* SEG20:0x2ff8, inside g_europe_win */
-#define g_europe_x0                            (*(col_i16 far *)((unsigned char far *)&g_europe_win + 1898))  /* SEG20:0x373c, inside g_europe_win */
-#define g_europe_timer                         (*(col_i16 far *)((unsigned char far *)&g_europe_win + 1910))  /* SEG20:0x3748, inside g_europe_win */
-extern char far g_pedia_ctx[2138];                    /* SEG20:0x387c; inferred: the gap to the next global */
-extern char far g_game_record2[208];                  /* SEG20:0x40d6; inferred: the gap to the next global */
-extern SpriteRec far g_art_base[17];                  /* SEG20:0x41a6; inferred: the gap to the next global; narrow_view: char */
-extern char far g_art_43c6;                           /* SEG20:0x43c6 */
-extern SpriteRec far g_sprites_4506[1];               /* SEG20:0x4506; inferred: the gap to the next global */
-extern char far g_sprites_4526[22][0x20];             /* SEG20:0x4526; inferred: the gap to the next global */
-extern char far g_art_47e6;                           /* SEG20:0x47e6 */
-extern char far g_art_4866;                           /* SEG20:0x4866 */
-extern char far g_art_river[16][0x20];                /* SEG20:0x4926; inferred: the gap to the next global */
-extern char far g_art_coast[16][0x20];                /* SEG20:0x4b26; inferred: the gap to the next global */
-extern char far g_art_forest[17][0x20];               /* SEG20:0x4d26; inferred: the gap to the next global */
-extern char far g_art_4f46;                           /* SEG20:0x4f46 */
-extern char far g_art_4f66;                           /* SEG20:0x4f66 */
-extern char far g_art_4fa6;                           /* SEG20:0x4fa6 */
-extern char far g_art_4fc6;                           /* SEG20:0x4fc6 */
-extern char far g_art_bonus[59][0x20];                /* SEG20:0x5046; inferred: the gap to the next global */
-extern char far g_fog_sprite;                         /* SEG20:0x57a6 */
-extern char far g_art_57c6;                           /* SEG20:0x57c6 */
-extern SpriteRec far g_overlay_sprites[44];           /* SEG20:0x5cc6; inferred: the gap to the next global */
-extern Sprite far g_icon_sprites[1];                  /* SEG20:0x6246; inferred: the gap to the next global; narrow_view: char */
-extern char far g_art_6266[10][0x20];                 /* SEG20:0x6266; inferred: the gap to the next global */
-extern char far g_art_63a6[7][0x20];                  /* SEG20:0x63a6; inferred: the gap to the next global */
-extern char far g_sprite_6486;                        /* SEG20:0x6486 */
-extern char far g_cursor_sprite[128];                 /* SEG20:0x64a6; inferred: the gap to the next global */
-extern Sprite far g_goods_sprites[33];                /* SEG20:0x6526; inferred: the gap to the next global; narrow_view: char */
-extern char far g_boycott_sprite;                     /* SEG20:0x6946 */
-extern char far g_sprite_6986;                        /* SEG20:0x6986 */
-extern char far g_sprite_6a06;                        /* SEG20:0x6a06 */
-extern Sprite far g_bell_art;                         /* SEG20:0x6a26 */
-extern char far g_cell_frame_sprite;                  /* SEG20:0x6a66 */
-extern char far g_expert_sprites[19][0x20];           /* SEG20:0x6c86; inferred: the gap to the next global */
-extern char far g_label[256];                         /* SEG20:0x6ee6; inferred: the gap to the next global */
-extern char far g_claim_sprite;                       /* SEG20:0x6fe6 */
-extern Sprite far g_mood_art[9];                      /* SEG20:0x7086; inferred: the gap to the next global */
-extern char far g_empty_hold_sprite;                  /* SEG20:0x71a6 */
-extern Sprite far g_sol_flag_sprite;                  /* SEG20:0x71c6 */
-extern Sprite far g_tory_flag_sprite;                 /* SEG20:0x71e6 */
-extern char far g_flag_art[18][0x20];                 /* SEG20:0x72c6; inferred: the gap to the next global */
-extern Sprite far g_background_tile;                  /* SEG20:0x7506; narrow_view: char */
-extern char far g_route_panel_sprite;                 /* SEG20:0x7526 */
-extern SpriteRec far g_edge_sprites[16];              /* SEG20:0x7546; inferred: the gap to the next global */
-extern col_i16 far g_cursors[10][2];                  /* SEG20:0x7746; inferred: the gap to the next global; narrow_view: char */
-extern col_i16 far g_cursor_776e;                     /* SEG20:0x776e */
-extern col_i16 far g_tutorial_flags;                  /* SEG20:0x7782; narrow_view: char; signedness_unresolved: int, unsigned */
-extern col_i16 far g_flags_7784;                      /* SEG20:0x7784 */
-#define g_game_flags                           (*(col_i16 far *)((unsigned char far *)&g_flags_7784))  /* SEG20:0x7784, same address */
-#define g_flag_7785                            (*(unsigned char far *)((unsigned char far *)&g_flags_7784 + 1))  /* SEG20:0x7785, inside g_flags_7784 */
-#define g_flags_7785                           (*(unsigned char far *)((unsigned char far *)&g_flags_7784 + 1))  /* SEG20:0x7785, inside g_flags_7784 */
-extern col_i16 far g_7786;                            /* SEG20:0x7786 */
-#define g_flags_7786                           (*(col_i16 far *)((unsigned char far *)&g_7786))  /* SEG20:0x7786, same address */
-extern col_i16 far g_flags_7788;                      /* SEG20:0x7788 */
-#define g_scenario_flags                       (*(col_i16 far *)((unsigned char far *)&g_flags_7788))  /* SEG20:0x7788, same address */
-#define g_flags_7789                           (*(char far *)((unsigned char far *)&g_flags_7788 + 1))  /* SEG20:0x7789, inside g_flags_7788 */
-extern col_i16 far g_778a;                            /* SEG20:0x778a */
-extern col_i16 far g_word_778c;                       /* SEG20:0x778c */
-#define g_year                                 (*(col_i16 far *)((unsigned char far *)&g_word_778c))  /* SEG20:0x778c, same address */
-extern col_i16 far g_season;                          /* SEG20:0x778e */
-extern col_i16 far g_turn_counter;                    /* SEG20:0x7790; narrow_view: unsigned char */
-extern col_i16 far g_view_mode;                       /* SEG20:0x7792 */
-extern col_i16 far g_selected_unit;                   /* SEG20:0x7794 */
-extern col_i16 far g_turn_nation;                     /* SEG20:0x7796; narrow_view: unsigned char */
-extern col_i16 far g_view_nation;                     /* SEG20:0x7798; narrow_view: char, unsigned char */
-#define g_view_nation_b                        (*(unsigned char far *)((unsigned char far *)&g_view_nation))  /* SEG20:0x7798, same address */
-extern col_i16 far g_player_nation;                   /* SEG20:0x779a; narrow_view: unsigned char */
-extern col_i16 far g_settlement_count;                /* SEG20:0x779c */
-extern col_i16 far g_unit_count;                      /* SEG20:0x779e */
-extern col_i16 far g_colony_count;                    /* SEG20:0x77a0 */
-extern col_i16 far g_trade_route_count;               /* SEG20:0x77a2 */
-extern col_i16 far g_reveal_all;                      /* SEG20:0x77a4 */
-extern col_i16 far g_view_override;                   /* SEG20:0x77a6 */
-extern unsigned char far g_difficulty;                /* SEG20:0x77a8 */
-extern col_i8 far g_year_hi;                          /* SEG20:0x77a9 */
-extern col_i8 far g_year_lo;                          /* SEG20:0x77aa */
-extern col_i8 far g_father_owner[25];                 /* SEG20:0x77ab; inferred: the gap to the next global */
-extern col_i16 far g_game_in_progress;                /* SEG20:0x77c4 */
-extern col_i16 far g_message_flag;                    /* SEG20:0x77c6 */
-extern col_i16 far g_message_pending;                 /* SEG20:0x77c8 */
-extern col_i16 far g_77ca[4];                         /* SEG20:0x77ca */
-#define g_war_started                          ((col_i16 far *)((unsigned char far *)&g_77ca))  /* SEG20:0x77ca, same address */
-extern col_i16 far g_rebel_sentiment;                 /* SEG20:0x77d2 */
-extern col_i16 far g_mother_country_idx;              /* SEG20:0x77d4; narrow_view: char, unsigned char */
-#define g_mother_country_idx_b                 (*(unsigned char far *)((unsigned char far *)&g_mother_country_idx))  /* SEG20:0x77d4, same address */
-extern col_i16 far g_77d6;                            /* SEG20:0x77d6 */
-#define g_nation_77d6                          (*(col_i16 far *)((unsigned char far *)&g_77d6))  /* SEG20:0x77d6, same address */
-#define g_word_77d6                            (*(col_i16 far *)((unsigned char far *)&g_77d6))  /* SEG20:0x77d6, same address */
-extern col_i16 far g_merc_nation;                     /* SEG20:0x77d8 */
-extern col_i16 far g_rebel_step;                      /* SEG20:0x77da */
-extern col_i16 far g_77dc[4];                         /* SEG20:0x77dc */
-#define g_royal_forces                         ((col_i16 far *)((unsigned char far *)&g_77dc))  /* SEG20:0x77dc, same address */
-#define g_77e0                                 (*(col_i16 far *)((unsigned char far *)&g_77dc + 4))  /* SEG20:0x77e0, inside g_77dc */
-#define g_77e2                                 (*(col_i16 far *)((unsigned char far *)&g_77dc + 6))  /* SEG20:0x77e2, inside g_77dc */
-extern col_i16 far g_77e4[4];                         /* SEG20:0x77e4 */
-#define g_force                                ((col_i16 far *)((unsigned char far *)&g_77e4))  /* SEG20:0x77e4, same address */
-#define g_77e6                                 (*(col_i16 far *)((unsigned char far *)&g_77e4 + 2))  /* SEG20:0x77e6, inside g_77e4 */
-#define g_77e8                                 (*(col_i16 far *)((unsigned char far *)&g_77e4 + 4))  /* SEG20:0x77e8, inside g_77e4 */
-#define g_77ea                                 (*(col_i16 far *)((unsigned char far *)&g_77e4 + 6))  /* SEG20:0x77ea, inside g_77e4 */
-extern col_i16 far g_base_sales[16];                  /* SEG20:0x77ec; inferred: the gap to the next global */
-extern unsigned char far g_bits_780c[4];              /* SEG20:0x780c; inferred: the gap to the next global */
-extern Nation34 far g_nation_text[1];                 /* SEG20:0x7810; inferred: the gap to the next global; narrow_view: char */
-extern NationRec far g_nation_recs[4];                /* SEG20:0x7828 */
-#define g_rec52                                ((NationRec far *)((unsigned char far *)&g_nation_recs))  /* SEG20:0x7828, same address */
-#define g_nation52                             ((NationRec52 far *)((unsigned char far *)&g_nation_recs + 24))  /* SEG20:0x7840, inside g_nation_recs */
-#define g_rec52_7841                           ((Rec52 far *)((unsigned char far *)&g_nation_recs + 25))  /* SEG20:0x7841, inside g_nation_recs */
-#define g_recs                                 ((struct rec far *)((unsigned char far *)&g_nation_recs + 25))  /* SEG20:0x7841, inside g_nation_recs */
-#define g_rec6_78e0                            (*(char far *)((unsigned char far *)&g_nation_recs + 184))  /* SEG20:0x78e0, inside g_nation_recs */
-#define g_terrain_row_bytes                    ((unsigned char far *)((unsigned char far *)&g_nation_recs + 200))  /* SEG20:0x78f0, inside g_nation_recs */
-extern KindRec far g_terrain_rows[1];                 /* SEG20:0x78f8; inferred: the gap to the next global */
-extern Terrain far g_terrain[1];                      /* SEG20:0x78fc; inferred: the gap to the next global */
-#define g_work_needed                          ((unsigned char far *)((unsigned char far *)&g_terrain))  /* SEG20:0x78fc, same address */
-extern unsigned char far g_yield[28][16];             /* SEG20:0x78ff; inferred: the gap to the next global */
-extern UnitType far g_unit_types[1];                  /* SEG20:0x7ac8; inferred: the gap to the next global; narrow_view: unsigned char */
-extern UnitTypeInfo far g_unit_type_info[1];          /* SEG20:0x7acf; inferred: the gap to the next global */
-extern unsigned char far g_byte_7ae6;                 /* SEG20:0x7ae6 */
-#define g_type_7ae6                            (*(unsigned char far *)((unsigned char far *)&g_byte_7ae6))  /* SEG20:0x7ae6, same address */
-extern col_i16 far g_word_dragoons;                   /* SEG20:0x7b00 */
-extern col_i16 far g_word_regulars;                   /* SEG20:0x7b1c */
-extern col_i16 far g_word_cavalry;                    /* SEG20:0x7b38 */
-extern col_i16 far g_word_artillery;                  /* SEG20:0x7b62 */
-extern unsigned char far g_type_7b64;                 /* SEG20:0x7b64 */
-extern unsigned char far g_7bbd;                      /* SEG20:0x7bbd */
-extern unsigned char far g_type_7bc6;                 /* SEG20:0x7bc6 */
-extern Rec7c0a far g_rec_7c0a;                        /* SEG20:0x7c0a */
-extern LeaderFace far g_leader_face[1];               /* SEG20:0x7c18; inferred: the gap to the next global; narrow_view: char */
-#define g_7c18                                 ((col_i8 far *)((unsigned char far *)&g_leader_face))  /* SEG20:0x7c18, same address */
-#define g_byte_7c18                            ((col_i8 far *)((unsigned char far *)&g_leader_face))  /* SEG20:0x7c18, same address */
-#define g_tbl_7c18                             ((unsigned char far *)((unsigned char far *)&g_leader_face))  /* SEG20:0x7c18, same address */
-extern col_i8 far g_7c19[15];                         /* SEG20:0x7c19; inferred: the gap to the next global */
-extern Colony far g_colonies[1];                      /* SEG20:0x7c28; inferred: the gap to the next global; narrow_view: char, struct colony */
-extern col_i8 far g_colony_flags[47][0xca];           /* SEG20:0x7cac; inferred: the gap to the next global */
-extern Unit far g_units[299];                         /* SEG20:0xa208; inferred: the gap to the next global; narrow_view: char */
-extern Nation2 far g_nations2[1];                     /* SEG20:0xc2c4; inferred: the gap to the next global */
-extern Nation far g_nations[1];                       /* SEG20:0xc2f4; inferred: the gap to the next global; narrow_view: char */
-#define g_nations_b                            ((NationB far *)((unsigned char far *)&g_nations))  /* SEG20:0xc2f4, same address */
-#define g_rec316                               ((Rec316 far *)((unsigned char far *)&g_nations))  /* SEG20:0xc2f4, same address */
-extern char far g_nation_bits[35];                    /* SEG20:0xc2fb; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
-extern Nation far g_nation_money[1];                  /* SEG20:0xc31e; inferred: the gap to the next global */
-extern ScenarioRec far g_scenario[1];                 /* SEG20:0xc326; inferred: the gap to the next global */
-extern unsigned char far g_nation_pair[3][0x13c];     /* SEG20:0xc328; inferred: the gap to the next global */
-extern ClassRec far g_class[8];                       /* SEG20:0xc7e4; inferred: the gap to the next global */
-extern RouteRec far g_routes[12];                     /* SEG20:0xc804; inferred: the gap to the next global; narrow_view: char */
-extern LevelRec far g_level[1];                       /* SEG20:0xcb7c; inferred: the gap to the next global */
-extern Rec6 far g_rec6_cb7e[4];                       /* SEG20:0xcb7e; inferred: the gap to the next global */
-extern col_i16 far g_word_cb96;                       /* SEG20:0xcb96 */
-extern Settlement far g_settlements[1];               /* SEG20:0xcb9a; inferred: the gap to the next global; narrow_view: char */
-extern ARec far g_villages[66];                       /* SEG20:0xcb9c; inferred: the gap to the next global */
-extern TribeByNation far g_tribes_by_nation[1];       /* SEG20:0xd04a; inferred: the gap to the next global */
-extern Native far g_natives[1];                       /* SEG20:0xd051; inferred: the gap to the next global */
-extern unsigned char far g_rec4e_d052[304];           /* SEG20:0xd052; the model could not parse Rec4e; this is its extent; inferred: the gap to the next global */
-extern Tribe far g_tribes[1];                         /* SEG20:0xd182; inferred: the gap to the next global; narrow_view: char */
-extern BRec far g_tribe_rec[1];                       /* SEG20:0xd184; inferred: the gap to the next global */
-extern TribeRec far g_tribes4e[1];                    /* SEG20:0xd185; inferred: the gap to the next global */
-extern col_i16 far g_tension[6][0x27];                /* SEG20:0xd1c8; inferred: the gap to the next global */
-extern TribeName far g_tribe_names[1];                /* SEG20:0xd3da; inferred: the gap to the next global */
-extern Rec6 far g_rec6_d3dc[3];                       /* SEG20:0xd3dc; inferred: the gap to the next global */
-extern TribeName far g_tribe[1];                      /* SEG20:0xd3f2; inferred: the gap to the next global */
-extern Rec6 far g_rec6_d3f4[7];                       /* SEG20:0xd3f4; inferred: the gap to the next global */
-extern BuildingRec far g_buildings[1];                /* SEG20:0xd422; inferred: the gap to the next global */
-extern BuildingLink far g_building_links[1];          /* SEG20:0xd426; inferred: the gap to the next global */
-extern Rec12 far g_rec12_d42b[1];                     /* SEG20:0xd42b; inferred: the gap to the next global */
-extern col_i16 far g_fort_word_1;                     /* SEG20:0xd42e */
-extern col_i16 far g_fort_word_2;                     /* SEG20:0xd43a */
-extern col_i16 far g_word_d512;                       /* SEG20:0xd512 */
-extern SpecRec far g_spec_recs[1];                    /* SEG20:0xd61a; inferred: the gap to the next global */
-extern SpecInfo far g_spec_rec[27];                   /* SEG20:0xd61c; inferred: the gap to the next global; narrow_view: int */
-extern Father far g_fathers[25];                      /* SEG20:0xd6fa; inferred: the gap to the next global; narrow_view: int */
-extern col_i16 far g_founding_word[5];                /* SEG20:0xd790; inferred: the gap to the next global */
-extern col_i16 far g_word_d79a;                       /* SEG20:0xd79a */
-extern GoodsRec far g_goods[1];                       /* SEG20:0xd79c; inferred: the gap to the next global */
-extern GoodsInfo far g_goods_info[15];                /* SEG20:0xd7a0; inferred: the gap to the next global */
-extern Rec6 far g_rec6_d83c[1];                       /* SEG20:0xd83c; inferred: the gap to the next global */
-extern Recruit far g_recruit[1];                      /* SEG20:0xd83d; inferred: the gap to the next global */
-extern col_i16 far g_word_d846;                       /* SEG20:0xd846 */
-extern col_i16 far g_word_d858;                       /* SEG20:0xd858 */
-extern col_i16 far g_word_d85e;                       /* SEG20:0xd85e */
-extern unsigned char far g_resource_value[14];        /* SEG20:0xd860; inferred: the gap to the next global */
-extern col_i16 far g_goods_name_word[14];             /* SEG20:0xd86e; inferred: the gap to the next global */
-extern col_i16 far g_word_d88a;                       /* SEG20:0xd88a */
-extern col_i16 far g_word_d88c;                       /* SEG20:0xd88c */
-extern col_i16 far g_word_d88e;                       /* SEG20:0xd88e */
-extern col_i16 far g_word_d892;                       /* SEG20:0xd892 */
-extern col_i16 far g_nation_name[4];                  /* SEG20:0xd896; inferred: the gap to the next global */
-extern col_i16 far g_nation_adjective[4];             /* SEG20:0xd89e; inferred: the gap to the next global */
-extern col_i16 far g_nation_abbrev[4];                /* SEG20:0xd8a6; inferred: the gap to the next global */
-extern col_i16 far g_nation_name_word[4];             /* SEG20:0xd8ae; inferred: the gap to the next global */
-extern col_i16 far g_mission_word[4];                 /* SEG20:0xd8b6; inferred: the gap to the next global */
-extern col_i16 far g_order_word[13];                  /* SEG20:0xd8be; inferred: the gap to the next global */
-extern col_i16 far g_feature_words[5];                /* SEG20:0xd8d8; inferred: the gap to the next global */
-extern col_i16 far g_resource_name[14];               /* SEG20:0xd8e2; inferred: the gap to the next global */
-extern col_i16 far g_difficulty_words[5];             /* SEG20:0xd8fe; inferred: the gap to the next global */
-extern col_i16 far g_action_word[10];                 /* SEG20:0xd908; inferred: the gap to the next global */
-extern col_i16 far g_value_word[4];                   /* SEG20:0xd91c; inferred: the gap to the next global */
-extern col_i16 far g_attitude_word[5];                /* SEG20:0xd924; inferred: the gap to the next global */
-extern col_i16 far g_attitudinal_word[5];             /* SEG20:0xd92e; inferred: the gap to the next global */
-extern col_i16 far g_pedia_word[30];                  /* SEG20:0xd938; inferred: the gap to the next global */
-extern char far g_order_letter[14];                   /* SEG20:0xd974; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
-extern col_i16 far g_ctitle_word[1];                  /* SEG20:0xd982; inferred: the gap to the next global */
-extern col_i16 far g_word_d984;                       /* SEG20:0xd984 */
-extern col_i16 far g_word_d98a;                       /* SEG20:0xd98a */
-extern col_i16 far g_word_d98c;                       /* SEG20:0xd98c */
-extern col_i16 far g_page_word;                       /* SEG20:0xd98e */
-#define g_word_d98e                            (*(col_i16 far *)((unsigned char far *)&g_page_word))  /* SEG20:0xd98e, same address */
-extern col_i16 far g_menu_title_word;                 /* SEG20:0xd992 */
-extern col_i16 far g_word_d994;                       /* SEG20:0xd994 */
-extern col_i16 far g_colony_message_words[17];        /* SEG20:0xd996; inferred: the gap to the next global */
-extern col_i16 far g_word_d9b8;                       /* SEG20:0xd9b8 */
-extern col_i16 far g_word_d9ba;                       /* SEG20:0xd9ba */
-extern col_i16 far g_route_label[7];                  /* SEG20:0xd9bc; inferred: the gap to the next global */
-extern unsigned char far g_colour_d9ca[2];            /* SEG20:0xd9ca; inferred: the gap to the next global */
-extern col_i16 far g_word_d9cc;                       /* SEG20:0xd9cc */
-extern unsigned char far g_tribe_colour[8];           /* SEG20:0xd9ce; inferred: the gap to the next global */
-extern col_i16 far g_fleet_strength[4];               /* SEG20:0xd9d6; inferred: the gap to the next global; signedness_unresolved: int, unsigned, unsigned int */
-extern unsigned char far g_d9de[2];                   /* SEG20:0xd9de; inferred: the gap to the next global */
-#define g_unit_tally                           (*(char far *)((unsigned char far *)&g_d9de))  /* SEG20:0xd9de, same address */
-extern Rec19At0 far g_rec19_d9e0[1];                  /* SEG20:0xd9e0; inferred: the gap to the next global */
-extern Rec19 far g_rec19_d9eb[1];                     /* SEG20:0xd9eb; inferred: the gap to the next global */
-extern unsigned char far g_d9ee[2];                   /* SEG20:0xd9ee; inferred: the gap to the next global */
-extern unsigned char far g_d9f0[58];                  /* SEG20:0xd9f0; inferred: the gap to the next global */
-extern unsigned char far g_specialty_tally[30];       /* SEG20:0xda2a; inferred: the gap to the next global */
-extern col_i16 far g_da48[4];                         /* SEG20:0xda48; inferred: the gap to the next global */
-#define g_word_da48                            ((col_i16 far *)((unsigned char far *)&g_da48))  /* SEG20:0xda48, same address */
-extern char far g_region_2_5[16];                     /* SEG20:0xda50; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
-extern unsigned char far g_ba[16];                    /* SEG20:0xda60; inferred: the gap to the next global */
-#define g_region_settlements                   (*(char far *)((unsigned char far *)&g_ba))  /* SEG20:0xda60, same address */
-extern unsigned char far g_da70[4][16];               /* SEG20:0xda70; inferred: the gap to the next global */
-#define g_block_da70                           (*(char far *)((unsigned char far *)&g_da70))  /* SEG20:0xda70, same address */
-extern char far g_navy_table[4][16];                  /* SEG20:0xdab0; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
-extern unsigned char far g_daf0[4][16];               /* SEG20:0xdaf0; inferred: the gap to the next global */
-#define g_block_daf0                           (*(char far *)((unsigned char far *)&g_daf0))  /* SEG20:0xdaf0, same address */
-extern char far g_nation_region;                      /* SEG20:0xdb30; signedness_unresolved: char, unsigned char */
-extern unsigned char far g_db70[4][16];               /* SEG20:0xdb70; inferred: the gap to the next global */
-#define g_block_db70                           (*(char far *)((unsigned char far *)&g_db70))  /* SEG20:0xdb70, same address */
-extern char far g_nation_region_strength;             /* SEG20:0xdbb0; signedness_unresolved: char, unsigned char */
-extern char far g_region_flags;                       /* SEG20:0xdbf0; signedness_unresolved: char, unsigned char */
-extern char far g_tribe_strength;                     /* SEG20:0xdc00; signedness_unresolved: char, unsigned char */
-extern char far g_tribe_pop;                          /* SEG20:0xdc08; signedness_unresolved: char, unsigned char */
-extern char far g_tribe_settlement_count;             /* SEG20:0xdc10; signedness_unresolved: char, unsigned char */
-extern char far g_tribe_region;                       /* SEG20:0xdc18; signedness_unresolved: char, unsigned char */
-extern BuildNeed far g_build_needs[6];                /* SEG20:0xdca8; inferred: the gap to the next global */
-extern col_i16 far g_info_label[4];                   /* SEG20:0xdcc0; inferred: the gap to the next global */
-extern col_i16 far g_misc_words[2];                   /* SEG20:0xdcc8; inferred: the gap to the next global */
-extern col_i16 far g_word_dccc;                       /* SEG20:0xdccc */
-extern col_i16 far g_word_dcce;                       /* SEG20:0xdcce */
-extern col_i16 far g_job_name_dcd0;                   /* SEG20:0xdcd0 */
-#define g_word_dcd0                            (*(col_i16 far *)((unsigned char far *)&g_job_name_dcd0))  /* SEG20:0xdcd0, same address */
-extern col_i16 far g_word_dcd6;                       /* SEG20:0xdcd6 */
-extern col_i16 far g_word_dcd8;                       /* SEG20:0xdcd8 */
-extern col_i16 far g_word_dcda;                       /* SEG20:0xdcda */
-extern col_i16 far g_word_dcdc;                       /* SEG20:0xdcdc */
-extern col_i16 far g_word_dce2;                       /* SEG20:0xdce2 */
-extern col_i16 far g_word_dce4;                       /* SEG20:0xdce4 */
-extern col_i16 far g_word_dce6;                       /* SEG20:0xdce6 */
-extern col_i16 far g_word_dcea;                       /* SEG20:0xdcea */
-extern col_i16 far g_word_dcec;                       /* SEG20:0xdcec */
-extern col_i16 far g_word_dcee;                       /* SEG20:0xdcee */
-extern col_i16 far g_word_dcfc;                       /* SEG20:0xdcfc */
-extern col_i16 far g_word_dcfe;                       /* SEG20:0xdcfe */
-extern col_i16 far g_word_dd00;                       /* SEG20:0xdd00 */
-extern col_i16 far g_word_dd02;                       /* SEG20:0xdd02 */
-extern col_i16 far g_report_title_word;               /* SEG20:0xdd04 */
-extern col_i16 far g_word_dd06;                       /* SEG20:0xdd06 */
-extern col_i16 far g_cancel_id;                       /* SEG20:0xdd08 */
-extern col_i16 far g_yes_id;                          /* SEG20:0xdd0c */
-extern col_i16 far g_no_id;                           /* SEG20:0xdd0e */
-extern col_i16 far g_nation3_prefix_word;             /* SEG20:0xdd10 */
-extern col_i16 far g_congress_title;                  /* SEG20:0xdd12 */
-extern col_i16 far g_word_dd16;                       /* SEG20:0xdd16 */
-extern col_i16 far g_default_word;                    /* SEG20:0xdd18 */
-extern col_i16 far g_word_dd1a;                       /* SEG20:0xdd1a */
-extern col_i16 far g_word_dd1c;                       /* SEG20:0xdd1c */
-extern col_i16 far g_word_dd1e;                       /* SEG20:0xdd1e */
-extern col_i16 far g_cancel_word;                     /* SEG20:0xdd20 */
-extern col_i16 far g_word_dd22;                       /* SEG20:0xdd22 */
-extern col_i16 far g_word_dd26;                       /* SEG20:0xdd26 */
-extern col_i16 far g_word_dd28;                       /* SEG20:0xdd28 */
-extern col_i16 far g_labor_title_word;                /* SEG20:0xdd2a */
-extern col_i16 far g_econ_title_word;                 /* SEG20:0xdd2c */
-extern col_i16 far g_colony_report_title;             /* SEG20:0xdd2e */
-extern col_i16 far g_ship_report_title;               /* SEG20:0xdd30 */
-extern col_i16 far g_tally_word[4];                   /* SEG20:0xdd32; inferred: the gap to the next global */
-extern col_i16 far g_thousands_word;                  /* SEG20:0xdd3a */
-extern col_i16 far g_word_dd3c;                       /* SEG20:0xdd3c */
-extern col_i16 far g_word_dd3e;                       /* SEG20:0xdd3e */
-extern col_i16 far g_europe_word;                     /* SEG20:0xdd40 */
-extern col_i16 far g_ship_col1;                       /* SEG20:0xdd42 */
-extern col_i16 far g_ship_col2;                       /* SEG20:0xdd44 */
-#define g_word_dd44                            (*(col_i16 far *)((unsigned char far *)&g_ship_col2))  /* SEG20:0xdd44, same address */
-extern col_i16 far g_ship_col3;                       /* SEG20:0xdd46 */
-extern col_i16 far g_ship_col4;                       /* SEG20:0xdd48 */
-extern col_i16 far g_job_name_dd4a;                   /* SEG20:0xdd4a */
-#define g_word_dd4a                            (*(col_i16 far *)((unsigned char far *)&g_job_name_dd4a))  /* SEG20:0xdd4a, same address */
-extern col_i16 far g_word_dd50;                       /* SEG20:0xdd50 */
-extern col_i16 far g_override_a_val;                  /* SEG20:0xdd52 */
-#define g_word_dd52                            (*(col_i16 far *)((unsigned char far *)&g_override_a_val))  /* SEG20:0xdd52, same address */
-extern col_i16 far g_override_b_val;                  /* SEG20:0xdd54 */
-#define g_word_dd54                            (*(col_i16 far *)((unsigned char far *)&g_override_b_val))  /* SEG20:0xdd54, same address */
-extern col_i16 far g_word_dd56;                       /* SEG20:0xdd56 */
-extern col_i16 far g_word_dd5a;                       /* SEG20:0xdd5a */
-extern col_i16 far g_word_dd5c;                       /* SEG20:0xdd5c */
-extern col_i16 far g_word_dd5e;                       /* SEG20:0xdd5e */
-extern col_i16 far g_word_dd60;                       /* SEG20:0xdd60 */
-extern col_i16 far g_word_dd62;                       /* SEG20:0xdd62 */
-extern col_i16 far g_word_dd64;                       /* SEG20:0xdd64 */
-extern col_i16 far g_word_dd66;                       /* SEG20:0xdd66 */
-extern col_i16 far g_word_dd68;                       /* SEG20:0xdd68 */
-extern col_i16 far g_word_dd6a;                       /* SEG20:0xdd6a */
-extern col_i16 far g_word_dd6c;                       /* SEG20:0xdd6c */
-extern col_i16 far g_word_dd6e;                       /* SEG20:0xdd6e */
-extern col_i16 far g_word_dd70;                       /* SEG20:0xdd70 */
-extern col_i16 far g_word_dd72;                       /* SEG20:0xdd72 */
-extern col_i16 far g_rebel_adjective;                 /* SEG20:0xdd74 */
-extern col_i16 far g_royal_adjective;                 /* SEG20:0xdd76 */
-extern col_i16 far g_word_dd7a;                       /* SEG20:0xdd7a */
-extern col_i16 far g_word_dd7c;                       /* SEG20:0xdd7c */
-extern col_i16 far g_word_dd82;                       /* SEG20:0xdd82 */
-extern col_i16 far g_word_dd84;                       /* SEG20:0xdd84 */
-extern col_i16 far g_word_dd86;                       /* SEG20:0xdd86 */
-extern col_i16 far g_word_dd88;                       /* SEG20:0xdd88 */
-extern col_i16 far g_word_dd8a;                       /* SEG20:0xdd8a */
-extern col_i16 far g_word_dd8c;                       /* SEG20:0xdd8c */
-extern col_i16 far g_word_dd8e;                       /* SEG20:0xdd8e */
-extern col_i16 far g_word_dd90;                       /* SEG20:0xdd90 */
-extern col_i16 far g_word_dd96;                       /* SEG20:0xdd96 */
-extern col_i16 far g_word_dd98;                       /* SEG20:0xdd98 */
-extern col_i16 far g_word_dd9c;                       /* SEG20:0xdd9c */
-extern col_i16 far g_word_dda6;                       /* SEG20:0xdda6 */
-extern col_i16 far g_word_dda8;                       /* SEG20:0xdda8 */
-extern col_i16 far g_word_ddaa;                       /* SEG20:0xddaa */
-extern col_i16 far g_word_ddac;                       /* SEG20:0xddac */
-extern col_i16 far g_word_ddae;                       /* SEG20:0xddae */
-extern col_i16 far g_word_ddb0;                       /* SEG20:0xddb0 */
-extern col_i16 far g_word_ddb2;                       /* SEG20:0xddb2 */
-extern col_i16 far g_word_ddb6;                       /* SEG20:0xddb6 */
-extern col_i16 far g_word_ddba;                       /* SEG20:0xddba */
-extern col_i16 far g_word_ddc4;                       /* SEG20:0xddc4 */
-extern col_i16 far g_word_ddc6;                       /* SEG20:0xddc6 */
-extern col_i16 far g_word_ddc8;                       /* SEG20:0xddc8 */
-extern col_i16 far g_word_ddca;                       /* SEG20:0xddca */
-extern col_i16 far g_word_ddcc;                       /* SEG20:0xddcc */
-extern col_i16 far g_word_ddd0;                       /* SEG20:0xddd0 */
-extern col_i16 far g_word_ddd2;                       /* SEG20:0xddd2 */
-extern col_i16 far g_word_ddd4;                       /* SEG20:0xddd4 */
-extern col_i16 far g_word_ddd6;                       /* SEG20:0xddd6 */
-extern col_i16 far g_word_ddd8;                       /* SEG20:0xddd8 */
-extern col_i16 far g_word_ddda;                       /* SEG20:0xddda */
-extern col_i16 far g_word_dddc;                       /* SEG20:0xdddc */
-extern col_i16 far g_word_ddde;                       /* SEG20:0xddde */
-extern col_i16 far g_word_dde0;                       /* SEG20:0xdde0 */
-extern col_i16 far g_word_dde2;                       /* SEG20:0xdde2 */
-extern col_i16 far g_word_dde4;                       /* SEG20:0xdde4 */
-extern col_i16 far g_word_dde6;                       /* SEG20:0xdde6 */
-extern col_i16 far g_word_de10[8];                    /* SEG20:0xde10; inferred: the gap to the next global */
-extern col_i16 far g_word_de20[5];                    /* SEG20:0xde20; inferred: the gap to the next global */
-extern col_i16 far g_de2a;                            /* SEG20:0xde2a */
-extern col_i16 far g_de2c;                            /* SEG20:0xde2c */
-extern col_i16 far g_word_de2e;                       /* SEG20:0xde2e */
-extern col_i16 far g_word_de30;                       /* SEG20:0xde30 */
-extern col_i16 far g_word_de32;                       /* SEG20:0xde32 */
-extern col_i16 far g_word_de34;                       /* SEG20:0xde34 */
-extern col_i16 far g_word_de36;                       /* SEG20:0xde36 */
-extern col_i16 far g_word_de38;                       /* SEG20:0xde38 */
-extern col_i16 far g_word_de3a;                       /* SEG20:0xde3a */
-extern col_i16 far g_word_de3c;                       /* SEG20:0xde3c */
-extern col_i16 far g_word_de3e;                       /* SEG20:0xde3e */
-extern col_i16 far g_word_de40;                       /* SEG20:0xde40 */
-extern col_i16 far g_word_de44;                       /* SEG20:0xde44 */
-extern col_i16 far g_word_de46;                       /* SEG20:0xde46 */
-extern col_i16 far g_word_de48;                       /* SEG20:0xde48 */
-extern col_i16 far g_word_de4a;                       /* SEG20:0xde4a */
-extern col_i16 far g_word_de4c;                       /* SEG20:0xde4c */
-extern col_i16 far g_word_de4e;                       /* SEG20:0xde4e */
-extern col_i16 far g_word_de50;                       /* SEG20:0xde50 */
-extern col_i16 far g_word_de52;                       /* SEG20:0xde52 */
-extern col_i16 far g_word_de54;                       /* SEG20:0xde54 */
-extern col_i16 far g_word_de56;                       /* SEG20:0xde56 */
-extern col_i16 far g_word_de58;                       /* SEG20:0xde58 */
-extern col_i16 far g_word_de5a;                       /* SEG20:0xde5a */
-extern col_i16 far g_word_de5c;                       /* SEG20:0xde5c */
-extern col_i16 far g_word_de5e;                       /* SEG20:0xde5e */
-extern col_i16 far g_word_de60;                       /* SEG20:0xde60 */
-extern unsigned char far g_terrain_colour[30];        /* SEG20:0xde82; inferred: the gap to the next global */
-extern char far g_screen_surface;                     /* SEG20:0xdea0 */
-extern char far g_dec6[14];                           /* SEG20:0xdec6; inferred: the gap to the next global */
-extern char far g_save_magic;                         /* SEG20:0xded4 */
-
-/* ---- SEG21 -- far, outside the automatic data segment */
-extern unsigned char far g_site_kind[16];             /* SEG21:0x0000; inferred: the gap to the next global */
-extern col_i16 far g_kind_w[5];                       /* SEG21:0x0010; inferred: the gap to the next global */
-extern col_i16 far g_kind_h[5];                       /* SEG21:0x001a; inferred: the gap to the next global */
-extern col_i16 far g_kind_row_x[5];                   /* SEG21:0x0024; inferred: the gap to the next global */
-extern col_i16 far g_kind_row_y[5];                   /* SEG21:0x002e; inferred: the gap to the next global */
-extern col_i16 far g_tbl21_38[5];                     /* SEG21:0x0038; inferred: the gap to the next global */
-extern col_i16 far g_kind_out_x[5];                   /* SEG21:0x0042; inferred: the gap to the next global */
-extern col_i16 far g_kind_out_y[5];                   /* SEG21:0x004c; inferred: the gap to the next global */
-extern col_i16 far g_kind_out_w[5];                   /* SEG21:0x0056; inferred: the gap to the next global */
-extern col_i16 far g_site_ground[5];                  /* SEG21:0x0060; inferred: the gap to the next global */
-extern Pos far g_site_pos[15];                        /* SEG21:0x006a; inferred: the gap to the next global */
-extern char far g_sel_00a6[20];                       /* SEG21:0x00a6; inferred: the gap to the next global */
-#define g_tbl21_a6                             ((col_i8 far *)((unsigned char far *)&g_sel_00a6))  /* SEG21:0x00a6, same address */
-extern col_i8 far g_job_building[19];                 /* SEG21:0x00ba; inferred: the gap to the next global */
-extern col_i8 far g_job_goods[42];                    /* SEG21:0x00cd; inferred: the gap to the next global */
-extern col_i8 far g_tbl21_f7[19];                     /* SEG21:0x00f7; inferred: the gap to the next global */
-extern col_i8 far g_unit_type_class[24];              /* SEG21:0x010a; inferred: the gap to the next global */
-extern col_i16 far g_prod[5];                         /* SEG21:0x0122; inferred: the gap to the next global; signedness_unresolved: int, unsigned int */
-extern col_i16 far g_word_12c;                        /* SEG21:0x012c */
-extern col_i16 far g_tbl21_12e;                       /* SEG21:0x012e */
-extern col_i16 far g_tbl21_132;                       /* SEG21:0x0132 */
-extern col_i16 far g_tbl21_13e;                       /* SEG21:0x013e */
-extern col_i16 far g_tbl21_140;                       /* SEG21:0x0140 */
-#define g_word_140                             (*(col_i16 far *)((unsigned char far *)&g_tbl21_140))  /* SEG21:0x0140, same address */
-extern col_i16 far g_word_142;                        /* SEG21:0x0142 */
-extern col_i16 far g_crosses_this_turn;               /* SEG21:0x0144 */
-extern col_i16 far g_bells_this_turn;                 /* SEG21:0x0146; signedness_unresolved: int, unsigned int */
-extern char far g_grid_marks[5][5];                   /* SEG21:0x014a */
-extern col_i16 far g_value[20];                       /* SEG21:0x0164; inferred: the gap to the next global */
-extern col_i16 far g_over_lo[20];                     /* SEG21:0x018c; inferred: the gap to the next global */
-extern col_i16 far g_over_band[5];                    /* SEG21:0x01b4; inferred: the gap to the next global */
-extern col_i16 far g_word_1be;                        /* SEG21:0x01be */
-extern col_i16 far g_slot14_adjust;                   /* SEG21:0x01c0 */
-extern col_i16 far g_tbl21_1c4;                       /* SEG21:0x01c4 */
-extern col_i8 far g_site_building[15];                /* SEG21:0x01dc; inferred: the gap to the next global; signedness_unresolved: char, signed char */
-extern col_i8 far g_tbl21_1eb[15];                    /* SEG21:0x01eb; inferred: the gap to the next global */
-extern col_i8 far g_cell_claim_1fa[5][5];             /* SEG21:0x01fa */
-extern col_i8 far g_cell_claim_213[5][5];             /* SEG21:0x0213 */
-#define g_tile_tribe                           ((char far *)((unsigned char far *)&g_cell_claim_213))  /* SEG21:0x0213, same address */
-
-/* ---- SEG22 -- far, outside the automatic data segment */
-extern col_i16 far g_world_opt[1];                    /* SEG22:0x0000; inferred: the gap to the next global */
-extern col_i16 far g_seg22_2;                         /* SEG22:0x0002 */
-extern char far g_win[38];                            /* SEG22:0x000a; inferred: the gap to the next global */
-extern char far g_port_22_30[158];                    /* SEG22:0x0030; inferred: the gap to the next global */
-extern unsigned char far g_father_order[26];          /* SEG22:0x00ce; inferred: the gap to the next global */
-extern col_i16 far g_father_x[25];                    /* SEG22:0x00e8; inferred: the gap to the next global */
-extern col_i16 far g_father_y[1];                     /* SEG22:0x011a; declared; inferred as one element (last in segment) */
-
-/* ---- SEG23 -- far, outside the automatic data segment */
-extern unsigned char far g_grid_depth[15][18];        /* SEG23:0x0000 */
-extern unsigned char far g_near_depth[16][16];        /* SEG23:0x010e */
-extern unsigned char far g_queue_x[256];              /* SEG23:0x020e; inferred: the gap to the next global */
-extern unsigned char far g_queue_y[1];                /* SEG23:0x030e; declared; inferred as one element (last in segment) */
-
-/* ---- SEG24 -- far, outside the automatic data segment */
-extern Cell far g_cells[4][0x40];                     /* SEG24:0x0000; inferred: the gap to the next global */
-#define g_cells_l                              ((col_i32 far *)((unsigned char far *)&g_cells))  /* SEG24:0x0000, same address */
-extern Cell far g_cells2[4][16];                      /* SEG24:0x0400; inferred: the gap to the next global */
-extern unsigned char far g_region_state[4][16];       /* SEG24:0x0500; inferred: the gap to the next global */
-extern col_i8 far g_sketch[15][0x12];                 /* SEG24:0x0540; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
-extern unsigned char far g_goods_wanted_prev[16];     /* SEG24:0x064e; inferred: the gap to the next global */
-extern col_i8 far g_goods_wanted[14];                 /* SEG24:0x065e; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
-extern col_i8 far g_want_tools;                       /* SEG24:0x066c */
-extern col_i8 far g_want_muskets;                     /* SEG24:0x066d */
-extern col_i16 far g_colony_tally[4];                 /* SEG24:0x066e; inferred: the gap to the next global */
-extern Rec6 far g_table6[16];                         /* SEG24:0x0676; inferred: the gap to the next global */
-extern unsigned char far g_seg24_6d6[16];             /* SEG24:0x06d6; inferred: the gap to the next global */
-extern unsigned char far g_region_pop[16];            /* SEG24:0x06e6; inferred: the gap to the next global */
-extern unsigned char far g_slot_ok[1];                /* SEG24:0x06f6; declared; inferred as one element (last in segment) */
-
-/* ---- SEG25 -- far, outside the automatic data segment */
-extern col_i16 far g_seg25_6;                         /* SEG25:0x0006 */
-#define g_word_seg25_6                         (*(col_i16 far *)((unsigned char far *)&g_seg25_6))  /* SEG25:0x0006, same address */
-extern col_i16 far g_rank[4];                         /* SEG25:0x0008; signedness_unresolved: int, unsigned, unsigned int */
-extern col_i16 far g_native_buy[16];                  /* SEG25:0x0010; inferred: the gap to the next global */
-extern col_i16 far g_native_sell[1];                  /* SEG25:0x0030; declared; inferred as one element (last in segment) */
-
-/* ---- SEG26 -- far, outside the automatic data segment */
-extern GoodsRow far g_row;                            /* SEG26:0x0000 */
-extern col_i16 far g_merc[4];                         /* SEG26:0x0036 */
-
-/* ---- SEG27 -- far, outside the automatic data segment */
-extern col_i8 far g_dir_dx[9];                        /* SEG27:0x0000; inferred: the gap to the next global */
-extern col_i8 far g_dir_dy[9];                        /* SEG27:0x0009; inferred: the gap to the next global; signedness_unresolved: char, signed char */
-extern col_i8 far g_ring_dx[21];                      /* SEG27:0x0012; inferred: the gap to the next global */
-extern col_i8 far g_ring_dy[21];                      /* SEG27:0x0027; inferred: the gap to the next global */
-extern char far g_map_file_name[80];                  /* SEG27:0x003c; inferred: the gap to the next global */
-extern col_i16 far g_region_size[17];                 /* SEG27:0x008c; inferred: the gap to the next global */
-#define g_block_seg27_8c                       (*(char far *)((unsigned char far *)&g_region_size))  /* SEG27:0x008c, same address */
-#define g_word_seg27_8c                        ((col_i16 far *)((unsigned char far *)&g_region_size))  /* SEG27:0x008c, same address */
-extern char far g_grid_ae[270];                       /* SEG27:0x00ae; inferred: the gap to the next global; signedness_unresolved: char, unsigned char */
-extern char far g_block_b[270];                       /* SEG27:0x01bc; inferred: the gap to the next global */
-#define g_block_seg27_1bc                      (*(char far *)((unsigned char far *)&g_block_b))  /* SEG27:0x01bc, same address */
-#define g_grid_1bc                             ((unsigned char far *)((unsigned char far *)&g_block_b))  /* SEG27:0x01bc, same address */
-extern col_i16 far g_terrain_bonus[1];                /* SEG27:0x02ca; declared; inferred as one element (last in segment) */
-
-/* ---- SEG28 -- far, outside the automatic data segment */
-extern char far g_backdrop_port[38];                  /* SEG28:0x0000; inferred: the gap to the next global */
-extern char far g_sprite_26[32];                      /* SEG28:0x0026; inferred: the gap to the next global */
-extern char far g_flag_sprite[32];                    /* SEG28:0x0046; inferred: the gap to the next global */
-extern char far g_port_66[1];                         /* SEG28:0x0066; declared; inferred as one element (last in segment) */
-
-/* ---- SEG29 -- far, outside the automatic data segment */
-extern char far g_text_buf[80];                       /* SEG29:0x003c; inferred: the gap to the next global */
-extern char far g_field[80];                          /* SEG29:0x008c; inferred: the gap to the next global */
-extern char far g_text[4096];                         /* SEG29:0x00dc; inferred: the gap to the next global */
-extern unsigned char far g_block_29_10dc[4];          /* SEG29:0x10dc; the model could not parse MemBlock; this is its extent; opaque record; extent is the gap to the next global */
-#define g_text_pool                            ((char far *)((unsigned char far *)&g_block_29_10dc))  /* SEG29:0x10dc, same address */
-extern char far *far g_text_strings;                  /* SEG29:0x10e0 */
-extern char far g_strbuf[256];                        /* SEG29:0x10ea; inferred: the gap to the next global */
-extern char far g_win_11ea[38];                       /* SEG29:0x11ea; inferred: the gap to the next global */
-#define g_opening_win                          (*(char far *)((unsigned char far *)&g_win_11ea))  /* SEG29:0x11ea, same address */
-extern char far g_dialog_1210[1];                     /* SEG29:0x1210; declared; inferred as one element (last in segment) */
-
-/* ---- SEG30 -- far, outside the automatic data segment */
-extern char far g_seg30_rect[8];                      /* SEG30:0x0000; inferred: the gap to the next global */
-extern col_i16 far g_drag_rect_dst[4];                /* SEG30:0x0008; narrow_view: char, unsigned char */
-extern unsigned char far g_goods_value[4][16];        /* SEG30:0x0010; inferred: the gap to the next global */
-extern unsigned char far g_order_flags[1];            /* SEG30:0x0050; declared; inferred as one element (last in segment) */
-
-/* ---- SEG31 -- far, outside the automatic data segment */
-extern col_i16 far g_seg31_0c[22];                    /* SEG31:0x000c; inferred: the gap to the next global */
-extern col_i16 far g_seg31_38[48];                    /* SEG31:0x0038; inferred: the gap to the next global */
-extern char far *far g_popup_label[3];                /* SEG31:0x0098; inferred: the gap to the next global; other_pointee_spelling: void */
-extern char far g_default_route_name[80];             /* SEG31:0x00a4; inferred: the gap to the next global */
-#define g_edit_bufs                            ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_msg_name                             ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_name_buf                             ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_name_slots                           ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_namebuf_a4                           (*(char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_seg31_a4                             ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-#define g_text_answer                          ((char far *)((unsigned char far *)&g_default_route_name))  /* SEG31:0x00a4, same address */
-extern char far g_namebuf_f4;                         /* SEG31:0x00f4 */
-#define g_text_arg_f4                          (*(char far *)((unsigned char far *)&g_namebuf_f4))  /* SEG31:0x00f4, same address */
-extern col_i32 far g_text_args[1];                    /* SEG31:0x02d4; declared; inferred as one element (last in segment); narrow_view: int */
-
-/* ---- SEG32 -- far, outside the automatic data segment */
-extern col_i16 far g_group_members[7][8];             /* SEG32:0x0000; inferred: the gap to the next global */
-extern col_i16 far g_step_group[14];                  /* SEG32:0x0070; inferred: the gap to the next global */
-extern col_i16 far g_step_banner[14];                 /* SEG32:0x008c; inferred: the gap to the next global */
-extern col_i16 far g_step_footer[1];                  /* SEG32:0x00a8; declared; inferred as one element (last in segment) */
-
-/* ---- DGROUP -- the automatic data segment */
-extern col_i16 g_cycle_flag;                          /* DGROUP:0x0076 */
-extern col_i16 g_blink;                               /* DGROUP:0x0078 */
-extern col_u32 g_last_blink;                          /* DGROUP:0x007a */
-extern col_i16 g_save_version;                        /* DGROUP:0x007e */
-extern col_i16 g_84;                                  /* DGROUP:0x0084 */
-extern col_i16 g_88;                                  /* DGROUP:0x0088 */
-extern char g_8a;                                     /* DGROUP:0x008a */
-extern char g_loaded_flag;                            /* DGROUP:0x008b */
-extern unsigned char g_score_weight[10];              /* DGROUP:0x008e; inferred: the gap to the next global */
-extern col_i16 g_pedia_count;                         /* DGROUP:0x0098 */
-#define g_choice_colour                        ((unsigned char far *)((unsigned char far *)&g_pedia_count + 1))  /* DGROUP:0x0099, inside g_pedia_count */
-extern unsigned char g_nation_colour[1];              /* DGROUP:0x009a; inferred: the gap to the next global */
-extern unsigned char g_order_9b;                      /* DGROUP:0x009b */
-extern unsigned char g_order_9c;                      /* DGROUP:0x009c */
-extern unsigned char g_order_9d;                      /* DGROUP:0x009d */
-extern char g_text_ctx[20];                           /* DGROUP:0x009e; inferred: the gap to the next global */
-extern col_i16 g_b2;                                  /* DGROUP:0x00b2 */
-extern col_i16 g_b4;                                  /* DGROUP:0x00b4 */
-#define g_tutorial_on                          (*(col_i16 far *)((unsigned char far *)&g_b4))  /* DGROUP:0x00b4, same address */
-extern col_i16 g_debug_flags;                         /* DGROUP:0x00b6; narrow_view: unsigned char */
-extern col_i16 g_sound_event_music;                   /* DGROUP:0x00b8 */
-extern col_i16 g_sound_music;                         /* DGROUP:0x00ba */
-extern col_i16 g_sound_effects;                       /* DGROUP:0x00bc */
-extern EventWin far *g_overlay;                       /* DGROUP:0x00c6; other_pointee_spelling: char, void */
-extern char g_str_havetreaty[1695];                   /* DGROUP:0x015e; inferred: the gap to the next global */
-extern char g_save_prefix_eng[4];                     /* DGROUP:0x07fd; inferred: the gap to the next global */
-extern char g_save_prefix_fra[4];                     /* DGROUP:0x0801; inferred: the gap to the next global */
-extern char g_save_prefix_spa[4];                     /* DGROUP:0x0805; inferred: the gap to the next global */
-extern char g_save_prefix_dut[4];                     /* DGROUP:0x0809; inferred: the gap to the next global */
-extern char g_save_ext[203];                          /* DGROUP:0x080d; inferred: the gap to the next global */
-extern char g_str_8d8[10];                            /* DGROUP:0x08d8; inferred: the gap to the next global */
-extern char g_str_8e2[93];                            /* DGROUP:0x08e2; inferred: the gap to the next global */
-extern char g_name_default_0[10];                     /* DGROUP:0x093f; inferred: the gap to the next global */
-extern char g_name_default_1[27];                     /* DGROUP:0x0949; inferred: the gap to the next global */
-extern Opening far *g_opening;                        /* DGROUP:0x0964 */
-extern void far *g_opening_resource_names[4];         /* DGROUP:0x0968 */
-extern char g_res_9a9;                                /* DGROUP:0x09a9 */
-extern char g_res_9aa;                                /* DGROUP:0x09aa */
-extern char opening_class_name[25];                   /* DGROUP:0x09c3; inferred: the gap to the next global */
-extern col_i16 g_9dc;                                 /* DGROUP:0x09dc; narrow_view: char */
-#define g_9dd                                  (*(char far *)((unsigned char far *)&g_9dc + 1))  /* DGROUP:0x09dd, inside g_9dc */
-extern col_i16 g_9e0;                                 /* DGROUP:0x09e0 */
-extern col_i16 g_9e2;                                 /* DGROUP:0x09e2 */
-extern col_i16 g_9e4;                                 /* DGROUP:0x09e4 */
-extern col_i16 g_9e6;                                 /* DGROUP:0x09e6 */
-extern col_i16 g_9e8;                                 /* DGROUP:0x09e8 */
-extern col_i16 g_9ea;                                 /* DGROUP:0x09ea */
-extern GameWin far *g_colony_popup;                   /* DGROUP:0x09ec */
-extern col_i16 g_colony_id0;                          /* DGROUP:0x09f0 */
-extern col_i16 g_colony_id1;                          /* DGROUP:0x09f2 */
-extern col_i16 g_colony_id2;                          /* DGROUP:0x09f4 */
-extern char g_colony_move_busy;                       /* DGROUP:0x09f6 */
-extern char g_colony_rclick_busy;                     /* DGROUP:0x09f7 */
-extern char g_colony_slot28_busy;                     /* DGROUP:0x09f8 */
-extern col_i16 g_colony_key_busy;                     /* DGROUP:0x09fa */
-extern char g_panel_click_busy;                       /* DGROUP:0x09fc */
-extern col_i16 g_9fe;                                 /* DGROUP:0x09fe */
-extern ColChild far *g_owner_a00;                     /* DGROUP:0x0a00; other_pointee_spelling: char */
-extern char g_choose_busy;                            /* DGROUP:0x0a04 */
-extern char g_buy_busy;                               /* DGROUP:0x0a05 */
-extern col_i16 g_flag_a06;                            /* DGROUP:0x0a06 */
-extern col_i16 g_a08;                                 /* DGROUP:0x0a08 */
-extern unsigned char g_val_a;                         /* DGROUP:0x0a0a */
-extern unsigned char g_st_a;                          /* DGROUP:0x0a0b */
-extern unsigned char g_val_b;                         /* DGROUP:0x0a0c */
-extern char g_a0d;                                    /* DGROUP:0x0a0d */
-#define g_st_b                                 (*(unsigned char far *)((unsigned char far *)&g_a0d))  /* DGROUP:0x0a0d, same address */
-extern unsigned char g_val_c;                         /* DGROUP:0x0a0e */
-extern char g_a0f;                                    /* DGROUP:0x0a0f */
-#define g_st_c                                 (*(unsigned char far *)((unsigned char far *)&g_a0f))  /* DGROUP:0x0a0f, same address */
-extern col_i16 g_a10;                                 /* DGROUP:0x0a10 */
-#define g_pending_flag                         (*(col_i16 far *)((unsigned char far *)&g_a10))  /* DGROUP:0x0a10, same address */
-extern col_i16 g_colony_screen_open;                  /* DGROUP:0x0a12 */
-extern char g_str_bang1[2];                           /* DGROUP:0x0a95; inferred: the gap to the next global */
-extern char g_str_bang2[2];                           /* DGROUP:0x0a97; inferred: the gap to the next global */
-extern char g_str_howmuch1[274];                      /* DGROUP:0x0a99; inferred: the gap to the next global */
-extern char str_lparen_space[4];                      /* DGROUP:0x0bab; inferred: the gap to the next global */
-extern char str_space[4];                             /* DGROUP:0x0baf; inferred: the gap to the next global */
-extern char str_rparen_space[2];                      /* DGROUP:0x0bb3; inferred: the gap to the next global */
-extern char text_lobotomize[48];                      /* DGROUP:0x0bb5; inferred: the gap to the next global */
-extern col_i8 g_job_unit_type[9];                     /* DGROUP:0x0be5; inferred: the gap to the next global */
-extern unsigned char g_kind_count[5];                 /* DGROUP:0x0bee; inferred: the gap to the next global */
-extern unsigned char g_kind_base[14];                 /* DGROUP:0x0bf3; inferred: the gap to the next global */
-extern RingRec g_ring_counts_1[5];                    /* DGROUP:0x0c01; inferred: the gap to the next global */
-extern col_i16 g_c06;                                 /* DGROUP:0x0c06 */
-extern col_i16 g_cell_col;                            /* DGROUP:0x0c08 */
-extern col_i16 g_cell_row;                            /* DGROUP:0x0c0a */
-extern col_i16 g_c0c;                                 /* DGROUP:0x0c0c */
-#define g_panel_toggle                         (*(col_i16 far *)((unsigned char far *)&g_c0c))  /* DGROUP:0x0c0c, same address */
-extern char g_byte_c0e;                               /* DGROUP:0x0c0e */
-#define g_c0e                                  (*(unsigned char far *)((unsigned char far *)&g_byte_c0e))  /* DGROUP:0x0c0e, same address */
-extern char g_colony_mode;                            /* DGROUP:0x0c0f; signedness_unresolved: char, unsigned char */
-extern unsigned char g_colony_mode2;                  /* DGROUP:0x0c10 */
-extern unsigned char g_c12;                           /* DGROUP:0x0c12 */
-extern col_i16 g_carrier_count;                       /* DGROUP:0x0c14 */
-extern col_i16 g_selected_carrier;                    /* DGROUP:0x0c16 */
-extern col_i16 g_c18;                                 /* DGROUP:0x0c18 */
-extern col_i16 g_c1c;                                 /* DGROUP:0x0c1c */
-#define g_open_flag                            (*(col_i16 far *)((unsigned char far *)&g_c1c))  /* DGROUP:0x0c1c, same address */
-extern col_i16 g_abandon_flag;                        /* DGROUP:0x0c1e */
-extern col_i16 g_new_building;                        /* DGROUP:0x0c20 */
-extern char g_grid_marks_done;                        /* DGROUP:0x0c22; signedness_unresolved: char, unsigned char */
-extern char g_no_claims_c23;                          /* DGROUP:0x0c23 */
-extern col_i16 g_c24;                                 /* DGROUP:0x0c24 */
-#define g_colony_c24                           (*(col_i16 far *)((unsigned char far *)&g_c24))  /* DGROUP:0x0c24, same address */
-extern col_i16 g_menu_active;                         /* DGROUP:0x0c26 */
-extern col_i16 g_c28;                                 /* DGROUP:0x0c28 */
-#define g_word_c28                             (*(col_i16 far *)((unsigned char far *)&g_c28))  /* DGROUP:0x0c28, same address */
-extern col_i16 g_defence_village;                     /* DGROUP:0x0dc0 */
-extern col_i16 g_defence_colony;                      /* DGROUP:0x0dc2 */
-extern col_i16 g_game_over;                           /* DGROUP:0x0dc4 */
-extern col_i16 g_dc6;                                 /* DGROUP:0x0dc6 */
-extern col_i16 g_dc8;                                 /* DGROUP:0x0dc8 */
-extern col_i16 g_hint6_shown;                         /* DGROUP:0x0dca */
-extern col_i16 g_path_mode;                           /* DGROUP:0x10a0 */
-extern col_i16 g_10a2;                                /* DGROUP:0x10a2 */
-extern col_i16 g_moving_nation;                       /* DGROUP:0x10a4 */
-extern col_i16 g_path_shown;                          /* DGROUP:0x10a6 */
-extern col_i16 g_path_debug;                          /* DGROUP:0x10a8 */
-extern col_i16 g_land_claim;                          /* DGROUP:0x117e */
-extern col_i16 g_sea_claim;                           /* DGROUP:0x1180 */
-extern col_i16 g_1182;                                /* DGROUP:0x1182 */
-#define g_far_1182                             (*(col_i16 far *)((unsigned char far *)&g_1182))  /* DGROUP:0x1182, same address */
-extern char g_last_route;                             /* DGROUP:0x1184 */
-extern char g_msg[822];                               /* DGROUP:0x11c4; inferred: the gap to the next global */
-extern char g_text_prefix[6];                         /* DGROUP:0x14fa; inferred: the gap to the next global */
-extern char g_text_request_demand[1086];              /* DGROUP:0x1500; inferred: the gap to the next global */
-extern col_i16 g_boarding_193e;                       /* DGROUP:0x193e */
-extern col_i16 g_1940;                                /* DGROUP:0x1940 */
-#define g_flag_1940                            (*(col_i16 far *)((unsigned char far *)&g_1940))  /* DGROUP:0x1940, same address */
-extern unsigned char g_rumours_seen;                  /* DGROUP:0x1942 */
-extern unsigned char g_treasures_found;               /* DGROUP:0x1943 */
-extern col_i16 g_hover_on_unit;                       /* DGROUP:0x1c4e */
-extern col_i16 g_map_lclick_busy;                     /* DGROUP:0x1c50 */
-extern col_i16 g_map_click_busy;                      /* DGROUP:0x1c52 */
-extern col_i16 g_cursor_state;                        /* DGROUP:0x1c54 */
-extern char g_map_hover_busy;                         /* DGROUP:0x1c56 */
-extern char g_mouse_up_busy;                          /* DGROUP:0x1c57 */
-extern col_i8 g_ortho_dx[5];                          /* DGROUP:0x1c58; inferred: the gap to the next global */
-extern col_i8 g_ortho_dy[5];                          /* DGROUP:0x1c5d; inferred: the gap to the next global */
-extern col_i16 g_map_version;                         /* DGROUP:0x1c62 */
-extern col_i16 g_log_flag;                            /* DGROUP:0x1c68 */
-extern col_i16 g_plane0_handle;                       /* DGROUP:0x1c6a; signedness_unresolved: int, short */
-extern col_i16 g_plane1_handle;                       /* DGROUP:0x1c6c */
-extern col_i16 g_plane2_handle;                       /* DGROUP:0x1c6e */
-extern col_i16 g_plane3_handle;                       /* DGROUP:0x1c70; signedness_unresolved: int, short */
-extern char far *g_plane0;                            /* DGROUP:0x1c72; other_pointee_spelling: unsigned char, void */
-extern unsigned char far *g_plane1;                   /* DGROUP:0x1c76; other_pointee_spelling: void */
-extern unsigned char far *g_plane2;                   /* DGROUP:0x1c7a; other_pointee_spelling: void */
-extern char far *g_plane3;                            /* DGROUP:0x1c7e; other_pointee_spelling: unsigned char, void */
-extern col_i16 g_map_center_x;                        /* DGROUP:0x1c92 */
-extern col_i16 g_map_center_y;                        /* DGROUP:0x1c94 */
-extern col_i32 g_map_bytes;                           /* DGROUP:0x1c96; narrow_view: unsigned; signedness_unresolved: long, unsigned long */
-extern col_i16 g_zoom;                                /* DGROUP:0x1c9a; narrow_view: unsigned char */
-extern col_i16 g_1c9c;                                /* DGROUP:0x1c9c */
-extern col_i16 g_redraw_mode;                         /* DGROUP:0x1ca0 */
-extern col_i16 g_no_map_file;                         /* DGROUP:0x1ca2 */
-extern col_i16 g_map_mode;                            /* DGROUP:0x1ca4 */
-extern col_i16 g_scenery_seed;                        /* DGROUP:0x1ca6 */
-extern char g_title_area_map[21];                     /* DGROUP:0x1cb5; inferred: the gap to the next global */
-extern col_i8 g_icon_dx;                              /* DGROUP:0x1cca; signedness_unresolved: signed char, unsigned char */
-extern col_i8 g_icon_dy;                              /* DGROUP:0x1ccb; signedness_unresolved: signed char, unsigned char */
-extern col_i16 g_1ccc;                                /* DGROUP:0x1ccc */
-extern unsigned char g_use_data_dir;                  /* DGROUP:0x1ce2 */
-extern void far *g_font_1ce4;                         /* DGROUP:0x1ce4 */
-#define g_long_1ce4                            (*(col_i32 far *)((unsigned char far *)&g_font_1ce4))  /* DGROUP:0x1ce4, same address */
-extern void far *g_resource_ctx;                      /* DGROUP:0x1ce8 */
-extern void far *g_resource_ctx2;                     /* DGROUP:0x1cf0 */
-extern col_i16 g_text_count;                          /* DGROUP:0x1cf4 */
-extern char g_empty_string[5];                        /* DGROUP:0x1cf6; inferred: the gap to the next global */
-extern void far *g_resource_ctx3;                     /* DGROUP:0x1cfb */
-extern col_i32 g_res_key;                             /* DGROUP:0x1cff */
-extern col_i16 g_1d04;                                /* DGROUP:0x1d04 */
-#define g_flag_1d04                            (*(col_i16 far *)((unsigned char far *)&g_1d04))  /* DGROUP:0x1d04, same address */
-extern col_i16 g_tick_done;                           /* DGROUP:0x1d06 */
-extern col_i16 g_tick_index;                          /* DGROUP:0x1d08 */
-extern col_i32 g_tick_last;                           /* DGROUP:0x1d0c */
-extern col_i16 g_pending_track;                       /* DGROUP:0x1d10 */
-extern col_i16 g_cur_track;                           /* DGROUP:0x1d12 */
-extern col_i16 g_next_group;                          /* DGROUP:0x1d14 */
-extern col_i16 g_group;                               /* DGROUP:0x1d16 */
-extern col_i16 g_prev_group;                          /* DGROUP:0x1d18 */
-extern col_i16 g_music_change;                        /* DGROUP:0x1d1a */
-extern col_i16 g_cd_is_game_disc;                     /* DGROUP:0x1d1c */
-extern col_i16 g_cd_wrong_disc;                       /* DGROUP:0x1d1e */
-extern char g_zero_digit[2];                          /* DGROUP:0x1d5b; inferred: the gap to the next global */
-extern char g_space[52];                              /* DGROUP:0x1d5d; inferred: the gap to the next global */
-extern char g_dot[2];                                 /* DGROUP:0x1d91; inferred: the gap to the next global */
-extern char g_backslash[2];                           /* DGROUP:0x1d93; inferred: the gap to the next global */
-extern char g_fmt_alloc_failed[20];                   /* DGROUP:0x1d95; inferred: the gap to the next global */
-extern char g_fmt_lock_failed[103];                   /* DGROUP:0x1da9; inferred: the gap to the next global */
-extern char g_snd_meetking[13];                       /* DGROUP:0x1e10; inferred: the gap to the next global */
-extern char g_snd_1812[9];                            /* DGROUP:0x1e1d; inferred: the gap to the next global */
-extern char g_snd_musparty[13];                       /* DGROUP:0x1e26; inferred: the gap to the next global */
-extern char g_snd_wgnstop[12];                        /* DGROUP:0x1e33; inferred: the gap to the next global */
-extern char g_snd_hammers[12];                        /* DGROUP:0x1e3f; inferred: the gap to the next global */
-extern char g_snd_arrow[10];                          /* DGROUP:0x1e4b; inferred: the gap to the next global */
-extern char g_snd_board[10];                          /* DGROUP:0x1e55; inferred: the gap to the next global */
-extern char g_snd_shipsink[13];                       /* DGROUP:0x1e5f; inferred: the gap to the next global */
-extern char g_snd_fire1[10];                          /* DGROUP:0x1e6c; inferred: the gap to the next global */
-extern char g_snd_cockgun[12];                        /* DGROUP:0x1e76; inferred: the gap to the next global */
-extern char g_snd_amen[9];                            /* DGROUP:0x1e82; inferred: the gap to the next global */
-extern char g_snd_goldcity[13];                       /* DGROUP:0x1e8b; inferred: the gap to the next global */
-extern char g_snd_england[12];                        /* DGROUP:0x1e98; inferred: the gap to the next global */
-extern char g_snd_france[11];                         /* DGROUP:0x1ea4; inferred: the gap to the next global */
-extern char g_snd_dutch[10];                          /* DGROUP:0x1eaf; inferred: the gap to the next global */
-extern char g_snd_spain[10];                          /* DGROUP:0x1eb9; inferred: the gap to the next global */
-extern char g_snd_bltdirt[12];                        /* DGROUP:0x1ec3; inferred: the gap to the next global */
-extern char g_snd_blth20[11];                         /* DGROUP:0x1ecf; inferred: the gap to the next global */
-extern char g_snd_whoop[10];                          /* DGROUP:0x1eda; inferred: the gap to the next global */
-extern char g_snd_gunwhoop[13];                       /* DGROUP:0x1ee4; inferred: the gap to the next global */
-extern char g_snd_whphorse[13];                       /* DGROUP:0x1ef1; inferred: the gap to the next global */
-extern char g_snd_horgnwhp[13];                       /* DGROUP:0x1efe; inferred: the gap to the next global */
-extern char g_snd_lilgun[11];                         /* DGROUP:0x1f0b; inferred: the gap to the next global */
-extern char g_snd_biggun[11];                         /* DGROUP:0x1f16; inferred: the gap to the next global */
-extern char g_snd_dragoons[13];                       /* DGROUP:0x1f21; inferred: the gap to the next global */
-extern char g_snd_cannon0[12];                        /* DGROUP:0x1f2e; inferred: the gap to the next global */
-extern char g_snd_cannon1[12];                        /* DGROUP:0x1f3a; inferred: the gap to the next global */
-extern char g_snd_horses[11];                         /* DGROUP:0x1f46; inferred: the gap to the next global */
-extern char g_snd_lilexplo[13];                       /* DGROUP:0x1f51; inferred: the gap to the next global */
-extern char g_snd_boom2[10];                          /* DGROUP:0x1f5e; inferred: the gap to the next global */
-extern char g_snd_boom3[10];                          /* DGROUP:0x1f68; inferred: the gap to the next global */
-extern char g_snd_bigexplo[72];                       /* DGROUP:0x1f72; inferred: the gap to the next global */
-extern char g_zero_digit2[4];                         /* DGROUP:0x1fba; inferred: the gap to the next global */
-extern col_i16 g_1fbe;                                /* DGROUP:0x1fbe */
-extern col_i16 g_1fc0;                                /* DGROUP:0x1fc0 */
-extern col_i16 g_drag_mode;                           /* DGROUP:0x1fc4 */
-extern char g_1fc6;                                   /* DGROUP:0x1fc6 */
-extern col_i16 g_chain_count;                         /* DGROUP:0x1fca */
-extern char g_chain_1fcc[4];                          /* DGROUP:0x1fcc; inferred: the gap to the next global */
-#define g_1fcc                                 (*(col_i16 far *)((unsigned char far *)&g_chain_1fcc))  /* DGROUP:0x1fcc, same address */
-extern GameWin far *g_europe_popup;                   /* DGROUP:0x1fd0 */
-extern col_i16 g_europe_popup_id;                     /* DGROUP:0x1fd4 */
-extern col_i16 g_europe_rclick_busy;                  /* DGROUP:0x1fd6 */
-extern col_i16 g_europe_move_busy;                    /* DGROUP:0x1fd8 */
-extern col_i16 g_europe_click_busy;                   /* DGROUP:0x1fda */
-extern col_i16 g_flag_1fdc;                           /* DGROUP:0x1fdc */
-extern char g_in_accel;                               /* DGROUP:0x2012 */
-extern char g_text_king_welcome[13];                  /* DGROUP:0x2146; inferred: the gap to the next global */
-extern char g_text_king_again[11];                    /* DGROUP:0x2153; inferred: the gap to the next global */
-extern char g_text_king_prompt[9];                    /* DGROUP:0x215e; inferred: the gap to the next global */
-extern char g_text_king_reply1[10];                   /* DGROUP:0x2167; inferred: the gap to the next global */
-extern char g_text_king_reply5[77];                   /* DGROUP:0x2171; inferred: the gap to the next global */
-extern char g_str_kingvictory[12];                    /* DGROUP:0x21be; inferred: the gap to the next global */
-extern char g_str_countries[10];                      /* DGROUP:0x21ca; inferred: the gap to the next global */
-extern char g_str_kingwife[9];                        /* DGROUP:0x21d4; inferred: the gap to the next global */
-extern char g_str_ordinal[8];                         /* DGROUP:0x21dd; inferred: the gap to the next global */
-extern char g_str_kingwar[8];                         /* DGROUP:0x21e5; inferred: the gap to the next global */
-extern char g_str_countries2[10];                     /* DGROUP:0x21ed; inferred: the gap to the next global */
-extern char g_str_kingnavact[11];                     /* DGROUP:0x21f7; inferred: the gap to the next global */
-extern char g_str_kingstampact[341];                  /* DGROUP:0x2202; inferred: the gap to the next global */
-extern char g_text_405[15];                           /* DGROUP:0x2357; inferred: the gap to the next global */
-extern char g_text_406[14];                           /* DGROUP:0x2366; inferred: the gap to the next global */
-extern char g_text_411[360];                          /* DGROUP:0x2374; inferred: the gap to the next global */
-extern char g_dialog_ctx[12];                         /* DGROUP:0x24dc; inferred: the gap to the next global */
-extern char g_font16[4];                              /* DGROUP:0x24e8; inferred: the gap to the next global */
-extern char g_font12[4];                              /* DGROUP:0x24ec; inferred: the gap to the next global */
-extern char far *g_ptr_24f0;                          /* DGROUP:0x24f0; other_pointee_spelling: void */
-extern void far *g_24f4;                              /* DGROUP:0x24f4 */
-extern char g_24f8;                                   /* DGROUP:0x24f8 */
-#define g_popup_m0                             (*(unsigned char far *)((unsigned char far *)&g_24f8))  /* DGROUP:0x24f8, same address */
-extern char g_24f9;                                   /* DGROUP:0x24f9 */
-#define g_popup_m1                             (*(unsigned char far *)((unsigned char far *)&g_24f9))  /* DGROUP:0x24f9, same address */
-extern char g_24fa;                                   /* DGROUP:0x24fa */
-#define g_popup_m2                             (*(unsigned char far *)((unsigned char far *)&g_24fa))  /* DGROUP:0x24fa, same address */
-extern char g_24fb;                                   /* DGROUP:0x24fb */
-#define g_popup_m3                             (*(unsigned char far *)((unsigned char far *)&g_24fb))  /* DGROUP:0x24fb, same address */
-extern void far *g_parent_24fc;                       /* DGROUP:0x24fc */
-#define g_long_24fc                            (*(col_i32 far *)((unsigned char far *)&g_parent_24fc))  /* DGROUP:0x24fc, same address */
-#define g_popup_owner                          (*(void far * far *)((unsigned char far *)&g_parent_24fc))  /* DGROUP:0x24fc, same address */
-extern Dlg far *g_cur_dialog;                         /* DGROUP:0x2500; other_pointee_spelling: void */
-extern char far *g_ptr_2504;                          /* DGROUP:0x2504 */
-extern char far *g_cursor;                            /* DGROUP:0x2508 */
-extern char far *g_line_text;                         /* DGROUP:0x250c */
-extern void far *g_2510;                              /* DGROUP:0x2510 */
-extern col_i16 g_check_mask;                          /* DGROUP:0x2514 */
-#define g_flags_2514                           (*(col_u16 far *)((unsigned char far *)&g_check_mask))  /* DGROUP:0x2514, same address */
-extern col_i16 g_chosen_item;                         /* DGROUP:0x2516 */
-extern col_i16 g_2518;                                /* DGROUP:0x2518 */
-#define g_sel_c                                (*(col_i16 far *)((unsigned char far *)&g_2518))  /* DGROUP:0x2518, same address */
-extern col_i16 g_251a;                                /* DGROUP:0x251a */
-#define g_text_value                           (*(col_i16 far *)((unsigned char far *)&g_251a))  /* DGROUP:0x251a, same address */
-extern col_i16 g_251c;                                /* DGROUP:0x251c */
-#define g_sel_b                                (*(col_i16 far *)((unsigned char far *)&g_251c))  /* DGROUP:0x251c, same address */
-extern col_i16 g_super_win_open;                      /* DGROUP:0x251e */
-extern col_i16 g_2520;                                /* DGROUP:0x2520 */
-#define g_flag_2520                            (*(col_i16 far *)((unsigned char far *)&g_2520))  /* DGROUP:0x2520, same address */
-#define g_modal_done                           (*(col_i16 far *)((unsigned char far *)&g_2520))  /* DGROUP:0x2520, same address */
-extern char g_kw_string[7];                           /* DGROUP:0x25cc; inferred: the gap to the next global */
-extern char g_kw_number[7];                           /* DGROUP:0x25d3; inferred: the gap to the next global */
-extern char g_kw_hex[4];                              /* DGROUP:0x25da; inferred: the gap to the next global */
-extern char g_zero[2];                                /* DGROUP:0x25de; inferred: the gap to the next global */
-extern char g_kw_country[8];                          /* DGROUP:0x25e0; inferred: the gap to the next global */
-extern char g_kw_year[5];                             /* DGROUP:0x25e8; inferred: the gap to the next global */
-extern char g_percent[2];                             /* DGROUP:0x25ed; inferred: the gap to the next global */
-extern char g_empty2[1];                              /* DGROUP:0x25ef; inferred: the gap to the next global */
-extern char g_empty[116];                             /* DGROUP:0x25f0; inferred: the gap to the next global */
-extern Pt far *g_report_rect;                         /* DGROUP:0x2664; other_pointee_spelling: RECT */
-extern col_i16 g_trade_name_busy;                     /* DGROUP:0x2668 */
-extern col_i16 g_266a;                                /* DGROUP:0x266a */
-extern float g_scale_denom;                           /* DGROUP:0x2876 */
-extern col_i16 g_pedia_page;                          /* DGROUP:0x28a6 */
-extern Pattern g_forest_pattern;                      /* DGROUP:0x28a8 */
-extern char g_title_map[234];                         /* DGROUP:0x28da; inferred: the gap to the next global */
-extern col_i32 g_res_type_29c4;                       /* DGROUP:0x29c4 */
-extern col_i32 g_res_type_29c8;                       /* DGROUP:0x29c8 */
-extern char g_error_ctx[2];                           /* DGROUP:0x2ac0; inferred: the gap to the next global */
-extern GRPort far *g_current_port;                    /* DGROUP:0x2ac2; other_pointee_spelling: void */
-extern FontRec far *g_current_font;                   /* DGROUP:0x2ac6 */
-extern void far *g_font_2aca;                         /* DGROUP:0x2aca */
-extern void far *g_font_2ace;                         /* DGROUP:0x2ace */
-extern void far *g_default_font_ref;                  /* DGROUP:0x2ad2 */
-#define g_font_2ad2                            (*(col_i32 far *)((unsigned char far *)&g_default_font_ref))  /* DGROUP:0x2ad2, same address */
-extern void far *g_font_2ad6;                         /* DGROUP:0x2ad6 */
-extern char g_line_color_index;                       /* DGROUP:0x2ada; signedness_unresolved: char, unsigned char */
-extern char g_font_flag_2adb;                         /* DGROUP:0x2adb; signedness_unresolved: char, unsigned char */
-extern char g_font_flag_2adc;                         /* DGROUP:0x2adc; signedness_unresolved: char, unsigned char */
-extern char g_line_color_a;                           /* DGROUP:0x2add; signedness_unresolved: char, unsigned char */
-extern char g_line_color_b;                           /* DGROUP:0x2ade; signedness_unresolved: char, unsigned char */
-extern void far *g_current_window;                    /* DGROUP:0x2ae0 */
-extern Modal far *g_modal_win;                        /* DGROUP:0x2ae4 */
-extern MrTimer far *g_timer;                          /* DGROUP:0x2ae8; other_pointee_spelling: void */
-extern char g_log_name[6];                            /* DGROUP:0x2aec; inferred: the gap to the next global */
-extern void far *g_color_resource_type;               /* DGROUP:0x2af2 */
-extern void far *g_flic_resource_type;                /* DGROUP:0x2af6 */
-extern col_i32 g_frr_resource_type;                   /* DGROUP:0x2afa */
-extern col_i32 g_lbm_resource_type;                   /* DGROUP:0x2afe */
-extern col_i32 g_pcx_resource_type;                   /* DGROUP:0x2b02 */
-extern col_i32 g_gif_resource_type;                   /* DGROUP:0x2b06 */
-extern void far *g_picture_resource_type;             /* DGROUP:0x2b0a */
-extern col_i16 g_scale_num;                           /* DGROUP:0x2b0e */
-extern col_i16 g_scale_den;                           /* DGROUP:0x2b10 */
-extern col_i32 g_sprt_type;                           /* DGROUP:0x2b12 */
-extern col_i32 g_sprt_palette_type;                   /* DGROUP:0x2b16 */
-extern col_i16 g_current_slot;                        /* DGROUP:0x3246 */
-extern void far *g_lowmem_win;                        /* DGROUP:0x3248 */
-extern col_i16 g_lowmem_kb;                           /* DGROUP:0x324c */
-extern col_i16 g_lowmem_res;                          /* DGROUP:0x324e */
-extern col_i16 g_lowmem_flag;                         /* DGROUP:0x3250 */
-extern col_i16 g_lowmem_timer;                        /* DGROUP:0x3252 */
-extern col_i16 g_lowmem_busy;                         /* DGROUP:0x3254 */
-extern col_i16 g_lowmem_count;                        /* DGROUP:0x3256 */
-extern col_i32 g_lowmem_deadline;                     /* DGROUP:0x3258 */
-extern col_i32 g_restype_text;                        /* DGROUP:0x325c */
-extern col_i16 g_337f;                                /* DGROUP:0x337f; narrow_view: unsigned char */
-#define g_draw_color                           (*(col_i16 far *)((unsigned char far *)&g_337f + -1))  /* DGROUP:0x337e, inside g_337f */
-#define g_colour_337f                          (*(col_i16 far *)((unsigned char far *)&g_337f))  /* DGROUP:0x337f, same address */
-#define g_palette_mode                         (*(col_i16 far *)((unsigned char far *)&g_337f + 1))  /* DGROUP:0x3380, inside g_337f */
-extern unsigned char g_palette_template[62];          /* DGROUP:0x3382; inferred: the gap to the next global */
-extern col_i16 g_hover_active;                        /* DGROUP:0x33c0 */
-extern col_i16 g_hover_pressed;                       /* DGROUP:0x33c2 */
-extern col_i16 g_checkbox_capture;                    /* DGROUP:0x33c4 */
-extern col_i16 g_radio_capture;                       /* DGROUP:0x33c6 */
-extern col_i16 g_radio_rcapture;                      /* DGROUP:0x33c8 */
-extern col_i16 g_listbox_registered;                  /* DGROUP:0x33ca */
-extern col_i16 g_editbox_registered;                  /* DGROUP:0x33cc */
-extern char g_key_accepted;                           /* DGROUP:0x33ce */
-extern char g_key_down_seen;                          /* DGROUP:0x33cf */
-extern col_i16 g_static_registered;                   /* DGROUP:0x33d0 */
-extern col_i16 g_keymap[690];                         /* DGROUP:0x33d2; inferred: the gap to the next global */
-extern char g_msg_not_writable[43];                   /* DGROUP:0x3937; inferred: the gap to the next global */
-extern char g_crlf[3];                                /* DGROUP:0x3962; inferred: the gap to the next global */
-extern char g_msg_fstat_failed[79];                   /* DGROUP:0x3965; inferred: the gap to the next global */
-extern col_i16 g_wing_orientation;                    /* DGROUP:0x39b4 */
-extern col_i16 g_wing_warned;                         /* DGROUP:0x39b6 */
-extern col_u16 g_next_menu_id;                        /* DGROUP:0x39b8 */
-extern char g_sep_marker[5];                          /* DGROUP:0x3c71; inferred: the gap to the next global */
-extern col_i16 g_resource_lib_count;                  /* DGROUP:0x3c76; signedness_unresolved: int, unsigned */
-extern col_u16 g_mci_device;                          /* DGROUP:0x3c78 */
-extern col_u16 g_cd_device;                           /* DGROUP:0x3c7a */
-extern col_u16 g_cd_tray_device;                      /* DGROUP:0x3c7c */
-extern col_i16 g_window_count;                        /* DGROUP:0x3c7e */
-extern col_i16 g_count_3c80;                          /* DGROUP:0x3c80 */
-#define g_ms_window_count                      (*(col_i16 far *)((unsigned char far *)&g_count_3c80))  /* DGROUP:0x3c80, same address */
-extern char g_msg_window_stack[2050];                 /* DGROUP:0x3ebf; inferred: the gap to the next global */
-extern unsigned char g_char_class[1087];              /* DGROUP:0x46c1; inferred: the gap to the next global */
-extern col_i16 g_4b00;                                /* DGROUP:0x4b00 */
-extern col_i16 g_4b02;                                /* DGROUP:0x4b02 */
-extern col_i16 g_quit_flag;                           /* DGROUP:0x4b04 */
-extern char g_title_font;                             /* DGROUP:0x4b06 */
-extern char g_report_font_small;                      /* DGROUP:0x4b0a */
-extern char g_font_4b0e;                              /* DGROUP:0x4b0e */
-extern char g_info_font_small;                        /* DGROUP:0x4b12; signedness_unresolved: char, unsigned char */
-extern char g_info_font_large;                        /* DGROUP:0x4b16; signedness_unresolved: char, unsigned char */
-extern char g_number_font;                            /* DGROUP:0x4b1a */
-extern char g_font_small[4];                          /* DGROUP:0x4b1e; inferred: the gap to the next global */
-extern char g_heading_font;                           /* DGROUP:0x4b22 */
-extern char g_report_font;                            /* DGROUP:0x4b26 */
-extern col_i16 g_4b2a;                                /* DGROUP:0x4b2a */
-extern char g_4b2c;                                   /* DGROUP:0x4b2c */
-extern col_i16 g_map_pixels;                          /* DGROUP:0x4b2e; signedness_unresolved: int, short */
-extern col_i16 g_cursor_x;                            /* DGROUP:0x4b30 */
-extern col_i16 g_cursor_y;                            /* DGROUP:0x4b32 */
-extern col_i16 g_season_word[2];                      /* DGROUP:0x4b34; inferred: the gap to the next global */
-extern col_i16 g_cmisc_word[1];                       /* DGROUP:0x4b38; inferred: the gap to the next global */
-extern col_i16 g_4b3a;                                /* DGROUP:0x4b3a */
-extern col_i16 g_eurolabel_word[3];                   /* DGROUP:0x4b3e; inferred: the gap to the next global */
-extern col_i32 g_nation_unit_count;                   /* DGROUP:0x4b44; narrow_view: unsigned char */
-extern col_i32 g_nation_colony_count;                 /* DGROUP:0x4b48; narrow_view: signed char, unsigned char */
-#define g_rec_4b48                             ((unsigned char far *)((unsigned char far *)&g_nation_colony_count))  /* DGROUP:0x4b48, same address */
-extern col_i32 g_nation_modifier;                     /* DGROUP:0x4b4c; narrow_view: unsigned char */
-extern col_i32 g_pop_by_nation;                       /* DGROUP:0x4b50; narrow_view: unsigned char */
-extern col_i32 g_nation_population;                   /* DGROUP:0x4b54; narrow_view: unsigned char */
-extern unsigned char g_4b58[4];                       /* DGROUP:0x4b58; inferred: the gap to the next global */
-#define g_long_4b58                            (*(col_i32 far *)((unsigned char far *)&g_4b58))  /* DGROUP:0x4b58, same address */
-extern unsigned char g_4b5c[4];                       /* DGROUP:0x4b5c; inferred: the gap to the next global */
-#define g_byte_4b5c                            ((unsigned char far *)((unsigned char far *)&g_4b5c))  /* DGROUP:0x4b5c, same address */
-#define g_long_4b5c                            (*(col_i32 far *)((unsigned char far *)&g_4b5c))  /* DGROUP:0x4b5c, same address */
-extern unsigned char g_4b60[4];                       /* DGROUP:0x4b60; inferred: the gap to the next global */
-#define g_long_4b60                            (*(col_i32 far *)((unsigned char far *)&g_4b60))  /* DGROUP:0x4b60, same address */
-extern unsigned char g_4b64[4];                       /* DGROUP:0x4b64; inferred: the gap to the next global */
-#define g_byte_4b64                            ((unsigned char far *)((unsigned char far *)&g_4b64))  /* DGROUP:0x4b64, same address */
-#define g_long_4b64                            (*(col_i32 far *)((unsigned char far *)&g_4b64))  /* DGROUP:0x4b64, same address */
-extern unsigned char g_4b68[4];                       /* DGROUP:0x4b68; inferred: the gap to the next global */
-#define g_long_4b68                            (*(col_i32 far *)((unsigned char far *)&g_4b68))  /* DGROUP:0x4b68, same address */
-extern col_i32 g_nation_strength;                     /* DGROUP:0x4b6c; narrow_view: unsigned char */
-extern unsigned char g_4b70[4];                       /* DGROUP:0x4b70; inferred: the gap to the next global */
-extern unsigned char g_land_units[4];                 /* DGROUP:0x4b74; inferred: the gap to the next global */
-extern col_i16 g_4b78;                                /* DGROUP:0x4b78 */
-extern col_i16 g_4b86;                                /* DGROUP:0x4b86 */
-#define g_random_seed                          (*(col_i16 far *)((unsigned char far *)&g_4b86))  /* DGROUP:0x4b86, same address */
-extern col_i16 g_4b88;                                /* DGROUP:0x4b88 */
-extern col_i16 g_4b8a;                                /* DGROUP:0x4b8a */
-extern col_i16 g_done_flag;                           /* DGROUP:0x4b8c */
-extern unsigned char g_cell_class;                    /* DGROUP:0x4b8e */
-extern unsigned char g_cell_terrain;                  /* DGROUP:0x4b8f */
-extern unsigned char g_coast_edges[4];                /* DGROUP:0x4b90 */
-extern unsigned char far *g_cur_cell;                 /* DGROUP:0x4b94 */
-extern col_i16 g_closing_flag;                        /* DGROUP:0x4b98 */
-extern col_i16 g_pending_a;                           /* DGROUP:0x4b9a */
-#define g_tile_x                               (*(col_i16 far *)((unsigned char far *)&g_pending_a))  /* DGROUP:0x4b9a, same address */
-extern col_i16 g_pending_b;                           /* DGROUP:0x4b9c */
-#define g_tile_y                               (*(col_i16 far *)((unsigned char far *)&g_pending_b))  /* DGROUP:0x4b9c, same address */
-extern Colony far *g_cur_colony_rec;                  /* DGROUP:0x4b9e; other_pointee_spelling: Rec */
-extern col_i16 g_cur_colony_idx;                      /* DGROUP:0x4ba2 */
-extern unsigned char g_center_food;                   /* DGROUP:0x4ba4 */
-extern unsigned char g_4ba5;                          /* DGROUP:0x4ba5 */
-extern col_i8 g_center_kind;                          /* DGROUP:0x4ba6 */
-extern col_i8 g_center_amount;                        /* DGROUP:0x4ba7 */
-extern unsigned char g_fish_food;                     /* DGROUP:0x4ba8 */
-extern unsigned char g_turn_phase;                    /* DGROUP:0x4ba9 */
-extern char g_cur_colony_is_players;                  /* DGROUP:0x4baa */
-extern char g_msg_seen;                               /* DGROUP:0x4bab */
-extern unsigned char g_drag_active;                   /* DGROUP:0x4bae */
-extern unsigned char g_drag_goods;                    /* DGROUP:0x4baf */
-extern unsigned char g_drag_amount;                   /* DGROUP:0x4bb0 */
-extern unsigned char g_drag_slot;                     /* DGROUP:0x4bb1 */
-extern col_i16 g_tile_colonists;                      /* DGROUP:0x4bb2 */
-extern col_i16 g_tile_units;                          /* DGROUP:0x4bb4 */
-extern col_i16 g_tile_noncarriers;                    /* DGROUP:0x4bb6 */
-extern col_i16 g_tile_first_unit;                     /* DGROUP:0x4bb8 */
-extern col_i16 g_tile_sel;                            /* DGROUP:0x4bba */
-extern col_i16 g_4bbc;                                /* DGROUP:0x4bbc */
-#define g_selected_colonist                    (*(col_i16 far *)((unsigned char far *)&g_4bbc))  /* DGROUP:0x4bbc, same address */
-extern col_i16 g_4bbe;                                /* DGROUP:0x4bbe */
-#define g_row_colonist                         (*(col_i16 far *)((unsigned char far *)&g_4bbe))  /* DGROUP:0x4bbe, same address */
-extern col_i8 g_portrait_gap;                         /* DGROUP:0x4bc0 */
-extern col_i32 g_seed_base;                           /* DGROUP:0x4bc2 */
-extern col_i16 g_nearest_dist;                        /* DGROUP:0x4bc6 */
-extern col_i16 g_ocean_x;                             /* DGROUP:0x4bc8 */
-extern col_i16 g_ocean_y;                             /* DGROUP:0x4bca */
-extern col_i16 g_4bcc;                                /* DGROUP:0x4bcc */
-#define g_colony_unit                          (*(col_i16 far *)((unsigned char far *)&g_4bcc))  /* DGROUP:0x4bcc, same address */
-extern col_i16 g_4bce;                                /* DGROUP:0x4bce */
-extern col_i16 g_4bd0;                                /* DGROUP:0x4bd0 */
-extern col_i16 g_cargo_amount;                        /* DGROUP:0x4bd2 */
-extern col_i16 g_land_count;                          /* DGROUP:0x4bd4 */
-extern col_i8 g_x_lo;                                 /* DGROUP:0x4bd6 */
-extern col_i8 g_y_lo;                                 /* DGROUP:0x4bd7 */
-extern col_i8 g_x_hi;                                 /* DGROUP:0x4bd8 */
-extern col_i8 g_y_hi;                                 /* DGROUP:0x4bd9 */
-extern col_i16 g_combat_flags[2];                     /* DGROUP:0x4bda */
-#define g_4bdc                                 (*(col_i16 far *)((unsigned char far *)&g_combat_flags + 2))  /* DGROUP:0x4bdc, inside g_combat_flags */
-extern col_i16 g_combat_flags2[2];                    /* DGROUP:0x4bde */
-#define g_4be0                                 (*(col_i16 far *)((unsigned char far *)&g_combat_flags2 + 2))  /* DGROUP:0x4be0, inside g_combat_flags2 */
-extern col_i16 g_combat_str[2];                       /* DGROUP:0x4be2 */
-extern col_i16 g_terrain_defence;                     /* DGROUP:0x4be6 */
-extern col_i16 g_4bea;                                /* DGROUP:0x4bea */
-extern col_i16 g_4bec;                                /* DGROUP:0x4bec */
-extern col_i16 g_grid_x;                              /* DGROUP:0x4bf0 */
-extern col_i16 g_grid_y;                              /* DGROUP:0x4bf2 */
-extern col_i16 g_path_result;                         /* DGROUP:0x4bf4 */
-extern col_i16 g_queue_tail;                          /* DGROUP:0x4bf6 */
-extern col_i16 g_queue_head;                          /* DGROUP:0x4bf8 */
-extern col_i16 g_near_last_x;                         /* DGROUP:0x4bfa */
-extern col_i16 g_near_last_y;                         /* DGROUP:0x4bfc */
-extern col_i16 g_far_start_x;                         /* DGROUP:0x4bfe */
-extern col_i16 g_far_start_y;                         /* DGROUP:0x4c00 */
-extern col_i16 g_move_reason;                         /* DGROUP:0x4c02 */
-extern col_i16 g_move_reason_unit;                    /* DGROUP:0x4c04 */
-extern col_i8 g_4c06[4];                              /* DGROUP:0x4c06; inferred: the gap to the next global; signedness_unresolved: signed char, unsigned char */
-extern unsigned char g_4c0a;                          /* DGROUP:0x4c0a */
-extern unsigned char g_4c0b;                          /* DGROUP:0x4c0b */
-extern unsigned char g_4c0c;                          /* DGROUP:0x4c0c */
-extern col_i16 g_4c0e;                                /* DGROUP:0x4c0e */
-extern col_i16 g_4c10;                                /* DGROUP:0x4c10 */
-extern col_i16 g_adjacent_colony_nation;              /* DGROUP:0x4c12 */
-extern col_i16 g_4c14;                                /* DGROUP:0x4c14 */
-extern col_i16 g_4c16;                                /* DGROUP:0x4c16 */
-extern RouteRec far *g_cur_route_rec;                 /* DGROUP:0x4c18; other_pointee_spelling: char */
-extern Route far *g_cur_route_stop;                   /* DGROUP:0x4c1c; other_pointee_spelling: char, int */
-extern col_i16 g_cur_route;                           /* DGROUP:0x4c20 */
-extern col_i16 g_route_stop;                          /* DGROUP:0x4c22 */
-extern char g_4c24;                                   /* DGROUP:0x4c24 */
-extern col_i16 g_route_unit;                          /* DGROUP:0x4c26 */
-extern Tribe far *g_cur_tribe_rec;                    /* DGROUP:0x4c28 */
-#define g_rec_4c28                             (*(Rec4c28 far * far *)((unsigned char far *)&g_cur_tribe_rec))  /* DGROUP:0x4c28, same address */
-extern Settlement far *g_cur_settlement_rec;          /* DGROUP:0x4c2c */
-extern col_i16 g_4c30;                                /* DGROUP:0x4c30 */
-#define g_cur_tribe                            (*(col_i16 far *)((unsigned char far *)&g_4c30))  /* DGROUP:0x4c30, same address */
-extern col_i16 g_cur_tribe_nation;                    /* DGROUP:0x4c32 */
-extern col_i16 g_4c34;                                /* DGROUP:0x4c34 */
-#define g_cur_settlement                       (*(col_i16 far *)((unsigned char far *)&g_4c34))  /* DGROUP:0x4c34, same address */
-extern col_i16 g_foreign_owner;                       /* DGROUP:0x4c36 */
-extern col_i16 g_nearest_unit_dist;                   /* DGROUP:0x4c38 */
-extern col_i16 g_row_count;                           /* DGROUP:0x4c3a */
-extern col_i32 g_map_cells;                           /* DGROUP:0x4c3c */
-extern col_i16 g_map_width[1];                        /* DGROUP:0x4c40; inferred: the gap to the next global; narrow_view: char */
-extern col_i16 g_map_h;                               /* DGROUP:0x4c42 */
-extern col_i16 g_view_x0;                             /* DGROUP:0x4c44 */
-extern col_i16 g_view_y0;                             /* DGROUP:0x4c46 */
-extern col_i16 g_view_x1;                             /* DGROUP:0x4c48 */
-extern col_i16 g_view_y1;                             /* DGROUP:0x4c4a */
-extern col_i16 g_tile_w;                              /* DGROUP:0x4c4c */
-extern col_i16 g_tile_h;                              /* DGROUP:0x4c4e */
-extern col_i16 g_view_w;                              /* DGROUP:0x4c50 */
-extern col_i16 g_view_h;                              /* DGROUP:0x4c52 */
-extern col_i16 g_view_px_w;                           /* DGROUP:0x4c5c */
-extern col_i16 g_view_px_h;                           /* DGROUP:0x4c5e */
-extern col_i16 g_4c60;                                /* DGROUP:0x4c60 */
-extern col_i16 g_4c62;                                /* DGROUP:0x4c62 */
-extern col_i8 far *g_overlay_plane;                   /* DGROUP:0x4c64 */
-extern unsigned char g_4c68;                          /* DGROUP:0x4c68 */
-extern unsigned char g_4c6b;                          /* DGROUP:0x4c6b */
-extern unsigned char g_4c6c;                          /* DGROUP:0x4c6c */
-extern unsigned char g_4c6d;                          /* DGROUP:0x4c6d */
-extern unsigned char g_4c6e[4];                       /* DGROUP:0x4c6e; inferred: the gap to the next global */
-extern unsigned char far *g_map_tiles;                /* DGROUP:0x4c72 */
-extern unsigned char far *g_map_plane1;               /* DGROUP:0x4c76 */
-extern unsigned char far *g_draw_p1;                  /* DGROUP:0x4c7e */
-extern unsigned char far *g_map_tiles2;               /* DGROUP:0x4c82 */
-extern unsigned char far *g_draw_p3;                  /* DGROUP:0x4c86 */
-extern col_i8 far *g_draw_pix;                        /* DGROUP:0x4c8a; other_pointee_spelling: unsigned char */
-extern col_i16 g_draw_x;                              /* DGROUP:0x4c8e */
-extern col_i16 g_draw_y;                              /* DGROUP:0x4c90 */
-extern unsigned char g_draw_mask;                     /* DGROUP:0x4c92 */
-extern col_i16 g_draw_px;                             /* DGROUP:0x4c94 */
-extern col_i16 g_draw_py;                             /* DGROUP:0x4c96 */
-extern col_i16 g_draw_parity;                         /* DGROUP:0x4c98 */
-extern unsigned char g_sq_p1;                         /* DGROUP:0x4c9a */
-extern unsigned char g_sq_p3;                         /* DGROUP:0x4c9b */
-extern unsigned char g_sq_p0;                         /* DGROUP:0x4c9c */
-extern unsigned char g_sq_class;                      /* DGROUP:0x4c9d */
-extern unsigned char g_4c9e;                          /* DGROUP:0x4c9e */
-extern unsigned char g_4ca1;                          /* DGROUP:0x4ca1 */
-extern unsigned char g_4ca2[4];                       /* DGROUP:0x4ca2; inferred: the gap to the next global */
-extern col_i16 g_flag_4ca6;                           /* DGROUP:0x4ca6 */
-extern char far *g_text_cursor;                       /* DGROUP:0x4ca8 */
-#define g_text_cursor_b                        (*(char far * far *)((unsigned char far *)&g_text_cursor))  /* DGROUP:0x4ca8, same address */
-extern char far *g_text_cursor_a;                     /* DGROUP:0x4cac */
-extern void far *g_cur_data;                          /* DGROUP:0x4cb0 */
-extern void far *g_cur_res;                           /* DGROUP:0x4cb4 */
-extern void far *g_drag_sprite;                       /* DGROUP:0x4cb8 */
-extern GRPort far *g_drag_port;                       /* DGROUP:0x4cbc; other_pointee_spelling: void */
-extern col_i16 g_drag_x;                              /* DGROUP:0x4cc0 */
-extern col_i16 g_drag_y;                              /* DGROUP:0x4cc2 */
-extern Nation far *g_cur_nation_rec;                  /* DGROUP:0x4cc4; other_pointee_spelling: Market, NationRec */
-extern col_i16 g_cur_nation;                          /* DGROUP:0x4cc8 */
-extern col_i16 g_4cd2;                                /* DGROUP:0x4cd2 */
-extern col_i16 g_4cd8;                                /* DGROUP:0x4cd8 */
-extern col_i16 g_drag_unit;                           /* DGROUP:0x4cda */
-extern col_i16 g_drag_from;                           /* DGROUP:0x4cdc */
-extern col_i16 g_4cde;                                /* DGROUP:0x4cde */
-extern col_i16 g_4ce0;                                /* DGROUP:0x4ce0 */
-extern col_i16 g_4ce2;                                /* DGROUP:0x4ce2 */
-extern col_i16 g_4ce4;                                /* DGROUP:0x4ce4 */
-extern col_i16 g_4ce6;                                /* DGROUP:0x4ce6 */
-extern col_i16 g_4ce8;                                /* DGROUP:0x4ce8 */
-extern col_i16 g_4cea;                                /* DGROUP:0x4cea */
-extern col_i16 g_land_unit_count;                     /* DGROUP:0x4cec */
-extern col_i16 g_land_unit_index;                     /* DGROUP:0x4cee */
-extern col_i16 g_4cf2;                                /* DGROUP:0x4cf2 */
-extern col_i16 g_4cf4;                                /* DGROUP:0x4cf4 */
-extern col_i16 g_cheat_step;                          /* DGROUP:0x4cf6 */
-extern col_i16 g_popup_label_id[3];                   /* DGROUP:0x4cf8; inferred: the gap to the next global */
-extern char g_line[256];                              /* DGROUP:0x4cfe */
-extern col_i16 g_dialog_ok;                           /* DGROUP:0x4dfe */
-extern col_i16 g_4e00;                                /* DGROUP:0x4e00 */
-extern col_i16 g_layout_x;                            /* DGROUP:0x4e02 */
-extern col_i16 g_layout_y;                            /* DGROUP:0x4e04 */
-extern col_i16 g_congress_nation;                     /* DGROUP:0x4e06 */
-extern col_i16 g_view_tile_w;                         /* DGROUP:0x4e0c */
-extern col_i16 g_view_tile_h;                         /* DGROUP:0x4e0e */
-extern col_i16 g_view_org_x;                          /* DGROUP:0x4e10 */
-extern col_i16 g_view_org_y;                          /* DGROUP:0x4e12 */
-extern char g_display_name_buf[80];                   /* DGROUP:0x4e14; inferred: the gap to the next global */
-extern col_i16 g_4e64;                                /* DGROUP:0x4e64 */
-#define g_flag_4e64                            (*(col_i16 far *)((unsigned char far *)&g_4e64))  /* DGROUP:0x4e64, same address */
-extern col_i16 g_about_step;                          /* DGROUP:0x4e66 */
-extern col_u16 g_log_font;                            /* DGROUP:0x4e68; narrow_view: char */
-extern char g_message_buf[2048];                      /* DGROUP:0x4e6c; inferred: the gap to the next global */
-extern char g_number_buf[32];                         /* DGROUP:0x566c; inferred: the gap to the next global */
-extern void far *g_anim;                              /* DGROUP:0x568c */
-extern void far *g_anim2;                             /* DGROUP:0x5690 */
-extern col_i32 g_5694;                                /* DGROUP:0x5694 */
-#define g_scale_map                            (*(col_i16 far * far *)((unsigned char far *)&g_5694))  /* DGROUP:0x5694, same address */
-extern void far *g_midi_done_cb;                      /* DGROUP:0x5698 */
-extern void far *g_cd_done_cb;                        /* DGROUP:0x569c */
-extern unsigned char g_slot_used[4];                  /* DGROUP:0x56a0; inferred: the gap to the next global */
-extern col_i32 g_slot_state[4];                       /* DGROUP:0x56a4; inferred: the gap to the next global */
-extern col_i16 g_dialog_result;                       /* DGROUP:0x56b4 */
-extern char far *g_dialog_owner;                      /* DGROUP:0x56b6; other_pointee_spelling: void */
-extern GameWin far *g_lowmem_box;                     /* DGROUP:0x56ba */
-extern SButton far *g_lowmem_ok;                      /* DGROUP:0x56be */
-extern col_i16 g_reserved_count;                      /* DGROUP:0x56c2 */
-extern unsigned char g_listbox_proc[4];               /* DGROUP:0x56c8; the model could not parse WNDPROC; this is its extent; opaque record; extent is the gap to the next global */
-extern col_i16 g_listbox_extra;                       /* DGROUP:0x56cc */
-extern unsigned char g_editbox_proc[4];               /* DGROUP:0x56ce; the model could not parse WNDPROC; this is its extent; opaque record; extent is the gap to the next global */
-extern col_i16 g_editbox_extra;                       /* DGROUP:0x56d2 */
-extern col_u16 g_last_key;                            /* DGROUP:0x56d4 */
-extern col_i16 g_scrollbar_registered;                /* DGROUP:0x56d6 */
-extern col_i16 g_scrollbar_extra;                     /* DGROUP:0x56d8 */
-extern unsigned char g_static_proc[4];                /* DGROUP:0x56da; the model could not parse WNDPROC; this is its extent; opaque record; extent is the gap to the next global */
-extern col_i16 g_menu_depth;                          /* DGROUP:0x56de */
-extern col_u16 g_resource_library;                    /* DGROUP:0x56e0 */
-extern col_i16 g_hinstance;                           /* DGROUP:0x56e2; signedness_unresolved: int, unsigned */
-extern col_i16 g_hprev;                               /* DGROUP:0x56e4 */
-extern col_u16 g_resource_libs[32];                   /* DGROUP:0x56e6; inferred: the gap to the next global */
-extern col_u16 g_cd_notify_hwnd;                      /* DGROUP:0x5726 */
-extern col_i16 g_ms_window_stack[1];                  /* DGROUP:0x5728; declared; inferred as one element (last in segment) */
-#define g_tab_5728                             ((col_i16 far *)((unsigned char far *)&g_ms_window_stack))  /* DGROUP:0x5728, same address */
-
-#endif
 #endif

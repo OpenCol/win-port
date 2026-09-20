@@ -1,0 +1,1458 @@
+{
+ "what": "far pointers the Windows loader used to fill in",
+ "resolved_here": [
+  {
+   "segment": 31,
+   "offset": 152,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 9530
+  },
+  {
+   "segment": 31,
+   "offset": 156,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 9534
+  },
+  {
+   "segment": 31,
+   "offset": 160,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 9540
+  },
+  {
+   "segment": 34,
+   "offset": 204,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 2200
+  },
+  {
+   "segment": 34,
+   "offset": 208,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 2208
+  },
+  {
+   "segment": 34,
+   "offset": 212,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 2215
+  },
+  {
+   "segment": 34,
+   "offset": 216,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 2221
+  },
+  {
+   "segment": 34,
+   "offset": 4880,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5084
+  },
+  {
+   "segment": 34,
+   "offset": 4884,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5090
+  },
+  {
+   "segment": 34,
+   "offset": 4888,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5099
+  },
+  {
+   "segment": 34,
+   "offset": 4892,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5105
+  },
+  {
+   "segment": 34,
+   "offset": 4896,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5117
+  },
+  {
+   "segment": 34,
+   "offset": 4900,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5124
+  },
+  {
+   "segment": 34,
+   "offset": 4904,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5135
+  },
+  {
+   "segment": 34,
+   "offset": 4908,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5140
+  },
+  {
+   "segment": 34,
+   "offset": 4912,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5150
+  },
+  {
+   "segment": 34,
+   "offset": 4916,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5155
+  },
+  {
+   "segment": 34,
+   "offset": 4920,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5160
+  },
+  {
+   "segment": 34,
+   "offset": 4924,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5167
+  },
+  {
+   "segment": 34,
+   "offset": 4928,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5171
+  },
+  {
+   "segment": 34,
+   "offset": 4932,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5182
+  },
+  {
+   "segment": 34,
+   "offset": 4936,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5193
+  },
+  {
+   "segment": 34,
+   "offset": 4940,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 5206
+  },
+  {
+   "segment": 34,
+   "offset": 7336,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 7358
+  },
+  {
+   "segment": 34,
+   "offset": 7396,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 19234
+  },
+  {
+   "segment": 34,
+   "offset": 9456,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 9448
+  },
+  {
+   "segment": 34,
+   "offset": 9460,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 9452
+  },
+  {
+   "segment": 34,
+   "offset": 9468,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 20,
+   "target_offset": 1482
+  },
+  {
+   "segment": 34,
+   "offset": 10950,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 20072
+  },
+  {
+   "segment": 34,
+   "offset": 10954,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 20072
+  },
+  {
+   "segment": 34,
+   "offset": 10958,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 20072
+  },
+  {
+   "segment": 34,
+   "offset": 10962,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 20072
+  },
+  {
+   "segment": 34,
+   "offset": 10966,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 20072
+  },
+  {
+   "segment": 34,
+   "offset": 17318,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17512
+  },
+  {
+   "segment": 34,
+   "offset": 17322,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17520
+  },
+  {
+   "segment": 34,
+   "offset": 17326,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17544
+  },
+  {
+   "segment": 34,
+   "offset": 17330,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17570
+  },
+  {
+   "segment": 34,
+   "offset": 17334,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17585
+  },
+  {
+   "segment": 34,
+   "offset": 17338,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17605
+  },
+  {
+   "segment": 34,
+   "offset": 17342,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17623
+  },
+  {
+   "segment": 34,
+   "offset": 17346,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17639
+  },
+  {
+   "segment": 34,
+   "offset": 17350,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17660
+  },
+  {
+   "segment": 34,
+   "offset": 17354,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17678
+  },
+  {
+   "segment": 34,
+   "offset": 17358,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17707
+  },
+  {
+   "segment": 34,
+   "offset": 17362,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17727
+  },
+  {
+   "segment": 34,
+   "offset": 17366,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17742
+  },
+  {
+   "segment": 34,
+   "offset": 17370,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17762
+  },
+  {
+   "segment": 34,
+   "offset": 17374,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17775
+  },
+  {
+   "segment": 34,
+   "offset": 17378,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17776
+  },
+  {
+   "segment": 34,
+   "offset": 17382,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17791
+  },
+  {
+   "segment": 34,
+   "offset": 17386,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17829
+  },
+  {
+   "segment": 34,
+   "offset": 17390,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17845
+  },
+  {
+   "segment": 34,
+   "offset": 17394,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17859
+  },
+  {
+   "segment": 34,
+   "offset": 17398,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17876
+  },
+  {
+   "segment": 34,
+   "offset": 17402,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17893
+  },
+  {
+   "segment": 34,
+   "offset": 17406,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17911
+  },
+  {
+   "segment": 34,
+   "offset": 17410,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17929
+  },
+  {
+   "segment": 34,
+   "offset": 17414,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17930
+  },
+  {
+   "segment": 34,
+   "offset": 17418,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17931
+  },
+  {
+   "segment": 34,
+   "offset": 17422,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17932
+  },
+  {
+   "segment": 34,
+   "offset": 17426,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17933
+  },
+  {
+   "segment": 34,
+   "offset": 17430,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17934
+  },
+  {
+   "segment": 34,
+   "offset": 17434,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17935
+  },
+  {
+   "segment": 34,
+   "offset": 17438,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17936
+  },
+  {
+   "segment": 34,
+   "offset": 17442,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17937
+  },
+  {
+   "segment": 34,
+   "offset": 17446,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17938
+  },
+  {
+   "segment": 34,
+   "offset": 17450,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17939
+  },
+  {
+   "segment": 34,
+   "offset": 17454,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17953
+  },
+  {
+   "segment": 34,
+   "offset": 17458,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17970
+  },
+  {
+   "segment": 34,
+   "offset": 17462,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 17990
+  },
+  {
+   "segment": 34,
+   "offset": 17466,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18008
+  },
+  {
+   "segment": 34,
+   "offset": 17470,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18009
+  },
+  {
+   "segment": 34,
+   "offset": 17474,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18010
+  },
+  {
+   "segment": 34,
+   "offset": 17478,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18011
+  },
+  {
+   "segment": 34,
+   "offset": 17482,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18012
+  },
+  {
+   "segment": 34,
+   "offset": 17486,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18013
+  },
+  {
+   "segment": 34,
+   "offset": 17490,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18014
+  },
+  {
+   "segment": 34,
+   "offset": 17494,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18015
+  },
+  {
+   "segment": 34,
+   "offset": 17498,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18016
+  },
+  {
+   "segment": 34,
+   "offset": 17502,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18017
+  },
+  {
+   "segment": 34,
+   "offset": 17506,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18018
+  },
+  {
+   "segment": 34,
+   "offset": 18052,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18100
+  },
+  {
+   "segment": 34,
+   "offset": 18056,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18102
+  },
+  {
+   "segment": 34,
+   "offset": 18060,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18103
+  },
+  {
+   "segment": 34,
+   "offset": 18064,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18104
+  },
+  {
+   "segment": 34,
+   "offset": 18068,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18105
+  },
+  {
+   "segment": 34,
+   "offset": 18072,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18106
+  },
+  {
+   "segment": 34,
+   "offset": 18076,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18107
+  },
+  {
+   "segment": 34,
+   "offset": 18080,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18108
+  },
+  {
+   "segment": 34,
+   "offset": 18084,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18109
+  },
+  {
+   "segment": 34,
+   "offset": 18088,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 18110
+  },
+  {
+   "segment": 34,
+   "offset": 19026,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 22612
+  },
+  {
+   "segment": 34,
+   "offset": 19030,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 34,
+   "target_offset": 22616
+  }
+ ],
+ "need_a_ported_function": [
+  {
+   "segment": 34,
+   "offset": 220,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 62936,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 228,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 232,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63144,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 240,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 244,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63236,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 252,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 256,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63340,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 264,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 268,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63444,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 276,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 280,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63518,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 288,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 292,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63590,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 300,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 304,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 63662,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 312,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 316,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 62348,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 324,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 328,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 62030,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 336,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2424,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 3,
+   "target_offset": 13598,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2432,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2436,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 3,
+   "target_offset": 12728,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2444,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2448,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 3,
+   "target_offset": 12884,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2456,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2580,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 3,
+   "target_offset": 62414,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 2588,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 3532,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 5,
+   "target_offset": 46216,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 3540,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 3544,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 5,
+   "target_offset": 46026,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 3552,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4486,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 6,
+   "target_offset": 59080,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4494,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 20142,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4948,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 7,
+   "target_offset": 63184,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4956,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4960,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 7,
+   "target_offset": 62854,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4968,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4972,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 7,
+   "target_offset": 62940,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4980,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4984,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 7,
+   "target_offset": 63030,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 4992,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 6470,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 8,
+   "target_offset": 36542,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 6478,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 6482,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 8,
+   "target_offset": 36392,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 6490,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 7456,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 9,
+   "target_offset": 46872,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 7464,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8212,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 10,
+   "target_offset": 62160,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8220,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8224,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 10,
+   "target_offset": 61582,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8232,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8236,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 10,
+   "target_offset": 61696,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 8244,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9506,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 11,
+   "target_offset": 39124,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9514,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9518,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 11,
+   "target_offset": 39676,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9526,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9836,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 12,
+   "target_offset": 51654,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 9844,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10418,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 28578,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10426,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10430,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 28428,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10438,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10700,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 36372,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10708,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10712,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 36154,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 10720,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 11036,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 39704,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 11044,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 20142,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 11048,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 39880,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 11056,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 20142,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 12896,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 59344,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 12904,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 12908,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 14,
+   "target_offset": 59654,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 12916,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 41601,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 16330,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 19,
+   "target_offset": 1246,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 16334,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 19,
+   "target_offset": 1569,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 18436,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 16386,
+   "symbol": "_xnew_handler_qv_rtl"
+  },
+  {
+   "segment": 34,
+   "offset": 18474,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 20788,
+   "symbol": "EXIT"
+  },
+  {
+   "segment": 34,
+   "offset": 18478,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 20788,
+   "symbol": "EXIT"
+  },
+  {
+   "segment": 34,
+   "offset": 18482,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 20788,
+   "symbol": "EXIT"
+  },
+  {
+   "segment": 34,
+   "offset": 19074,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 60928,
+   "symbol": "create_game_globals"
+  },
+  {
+   "segment": 34,
+   "offset": 19080,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 5,
+   "target_offset": 45940,
+   "symbol": "create_module_gamewin_1020_b374"
+  },
+  {
+   "segment": 34,
+   "offset": 19086,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 9,
+   "target_offset": 17730,
+   "symbol": "create_map_ports"
+  },
+  {
+   "segment": 34,
+   "offset": 19092,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 9,
+   "target_offset": 46544,
+   "symbol": "create_module_gamewin_1040_b5d0"
+  },
+  {
+   "segment": 34,
+   "offset": 19098,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 11,
+   "target_offset": 38954,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19104,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 45302,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19122,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 16723,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19128,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 21326,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19134,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 21386,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19140,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 21464,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19146,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 24486,
+   "symbol": "tzset_rtl"
+  },
+  {
+   "segment": 34,
+   "offset": 19152,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 2,
+   "target_offset": 61373,
+   "symbol": "destroy_game_globals"
+  },
+  {
+   "segment": 34,
+   "offset": 19158,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 5,
+   "target_offset": 45996,
+   "symbol": "destroy_module_gamewin_1020_b3ac"
+  },
+  {
+   "segment": 34,
+   "offset": 19164,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 9,
+   "target_offset": 17829,
+   "symbol": "destroy_map_ports"
+  },
+  {
+   "segment": 34,
+   "offset": 19170,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 9,
+   "target_offset": 46600,
+   "symbol": "destroy_module_gamewin_1040_b608"
+  },
+  {
+   "segment": 34,
+   "offset": 19176,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 11,
+   "target_offset": 39027,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19182,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 13,
+   "target_offset": 45371,
+   "symbol": null
+  },
+  {
+   "segment": 34,
+   "offset": 19194,
+   "addr_type": "FAR_ADDR32",
+   "target_segment": 1,
+   "target_offset": 16812,
+   "symbol": null
+  }
+ ]
+}

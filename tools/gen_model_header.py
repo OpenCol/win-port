@@ -359,79 +359,50 @@ def main():
                             'reason': ('same address' if info[n]['off'] == o['start']
                                        else 'inside its extent')})
 
-    # Two placements of the same 1,161 names, from the same arithmetic.
+    # ONE spelling, both targets. Every name is a macro into the segment image that
+    # tools/extract_segments.py lifted out of COLONIZE.EXE, at the offset the shipped
+    # program kept it. That is not a convenience: it keeps the shipped CONTENTS behind
+    # every global, keeps the shipped ORDER within a segment, and makes the 360 inferred
+    # extents harmless -- a global whose real array is longer than the gap this repo had
+    # to guess from still has its real bytes behind it.
     #
-    #   Win16   each object is an ordinary definition and the linker places it. `far`
-    #           keeps the non-DGROUP data out of a 64 KiB DGROUP; the shipped ADDRESS is
-    #           not reproduced and does not need to be, because nothing links against the
-    #           shipped image.
-    #
-    #   host    each object is placed AT its shipped seg:off inside a slab, so a write the
-    #           host makes and a write the emulator records are the same coordinate. That
-    #           is what lets tests/differential.py compare a ported function against the
-    #           shipped bytes without an OMF fixup resolver.
-    win, host, defs = [], [], []
+    # It also means the host build and the Win16 build address memory identically, so an
+    # observation from the emulator and an observation from the host are the same
+    # coordinate and can be compared directly.
+    lines, primaries = [], []
     for seg in sorted(by_seg):
         far = seg != DGROUP
-        title = ('/* ---- %s %s */'
-                 % ('SEG%d' % seg if far else 'DGROUP',
-                    '-- far, outside the automatic data segment' if far
-                    else '-- the automatic data segment'))
-        win.append(title)
-        host.append(title)
+        lines.append('/* ---- %s %s */'
+                     % ('SEG%d' % seg if far else 'DGROUP',
+                        '-- far, outside the automatic data segment' if far
+                        else '-- the automatic data segment'))
         for o in [x for x in objects if x['seg'] == seg]:
             p = o['primary']
             i = info[p]
             known = i['base'] in BASE_SIZE or i['base'] in records or i['stars']
-            base = i['base'] if known else None
-            cmt_extra = ''
-            if base is None:            # an unparsed record: storage, named honestly
-                dims, base, stars = ['%d' % i['size']], 'unsigned char', 0
-                cmt_extra = 'the model could not parse %s; this is its extent' % i['base']
-            else:
-                dims, stars = i['dims'], i['stars']
-                if dims and dims[0] == '':
-                    unit = size_of(base, stars, dims[1:], records) or 1
-                    dims = ['%d' % max(1, i['size'] // unit)] + dims[1:]
-            cmt = i['addr']
-            if cmt_extra:
-                cmt += '; ' + cmt_extra
-            if i['how'] != 'declared':
-                cmt += '; ' + i['how']
-            for k, t in i['notes']:
-                cmt += '; %s: %s' % (k, ', '.join(t))
-            d = decl(base, stars, dims, p, far)
-            win.append('extern %-46s /* %s */' % (d + ';', cmt))
-            defs.append('%s;' % d)
             for n in [p] + o['aliases']:
                 a = info[n]
-                cast = (spell(a['base']) + ' far ' + '*' * a['stars']).strip() \
-                    if a['stars'] else spell(a['base'])
-                if n == p:
-                    cast, adims = (base + ' ' + '*' * stars).strip(), dims
+                if n == p and not known:
+                    cast, isarr = 'unsigned char', True
                 else:
-                    adims = a['dims']
-                at = 'col_seg(%d) + 0x%04x' % (seg, a['off'])
-                body = ('((%s *)(%s))' if adims else '(*(%s *)(%s))') % (cast, at)
-                host.append('#define %-36s %s' % (n, body))
-            for n in o['aliases']:
-                a = info[n]
-                cast = (spell(a['base']) + ' far ' + '*' * a['stars']).strip() \
-                    if a['stars'] else spell(a['base'])
-                d = a['off'] - i['off']
-                addr = ('(unsigned char far *)&%s + %d' % (p, d)) if d else \
-                       ('(unsigned char far *)&%s' % p)
-                body = (('((%s far *)(%s))' if a['dims'] else '(*(%s far *)(%s))')
-                        % (cast, addr))
-                win.append('#define %-38s %s  /* %s, %s */'
-                           % (n, body, a['addr'],
-                              'same address' if not d else 'inside %s' % p))
-        win.append('')
-        host.append('')
-    lines = ['#ifdef COL_HOST', '',
-             '/* Placed at the shipped addresses, in the slab tests/host/colmem.c owns. */',
-             '#include "col/colmem.h"', ''] + host + \
-            ['#else', ''] + win + ['#endif']
+                    cast = (spell(a['base']) + ' far ' + '*' * a['stars']).strip() \
+                        if a['stars'] else spell(a['base'])
+                    isarr = bool(a['dims'])
+                at = 'col_seg%d + 0x%04xL' % (seg, a['off'])
+                body = ('((%s far *)(%s))' if isarr else '(*(%s far *)(%s))') % (cast, at)
+                cmt = a['addr']
+                if n == p:
+                    if not known:
+                        cmt += '; the model could not parse %s' % a['base']
+                    if a['how'] != 'declared':
+                        cmt += '; ' + a['how']
+                else:
+                    cmt += '; a view into %s' % p
+                for k, t in a['notes']:
+                    cmt += '; %s: %s' % (k, ', '.join(t))
+                lines.append('#define %-36s %-44s /* %s */' % (n, body, cmt))
+                primaries.append(n)
+        lines.append('')
 
     gh = ['/* GENERATED by tools/gen_model_header.py from model/model.json -- do not edit.',
           ' *',
@@ -450,29 +421,13 @@ def main():
           ' * totals about 88 KiB, so the data outside DGROUP has to stay outside it.',
           ' */',
           '#ifndef COL_GLOBALS_H', '#define COL_GLOBALS_H', '',
-          '#include "col/win16.h"', '#include "col/records.h"', ''] + lines + ['#endif']
-
-    world = ['/* GENERATED by tools/gen_model_header.py -- do not edit.',
-             ' *',
-             ' * The storage behind col/globals.h for the Win16 build: one definition per',
-             ' * object, `far` for everything the shipped program kept outside DGROUP.',
-             ' * The host build does not use this file -- there the slab is the storage.',
-             ' *',
-             ' * NOT YET INITIALISED. %d of these objects ship with CONTENTS in the'
-             % len(objects),
-             ' * binary\'s data segments -- tables the game reads before anything writes',
-             ' * them -- and zeroed storage is a behaviour difference, not a detail. The',
-             ' * initialisers come from the shipped image; see README, "What is not done".',
-             ' */',
-             '#ifndef COL_HOST',
-             '#include "col/globals.h"', ''] + defs + ['#endif']
+          '#include "col/win16.h"', '#include "col/types.h"',
+          '#include "col/records.h"', '#include "col/segments.h"', ''] + lines + ['#endif']
 
     os.makedirs(INC, exist_ok=True)
-    os.makedirs(os.path.join(REPO, 'src'), exist_ok=True)
     changed = []
     for path, text in ((os.path.join(INC, 'records.h'), '\n'.join(rh) + '\n'),
                        (os.path.join(INC, 'globals.h'), '\n'.join(gh) + '\n'),
-                       (os.path.join(REPO, 'src', 'world.c'), '\n'.join(world) + '\n'),
                        (DERIVED, json.dumps({
                            'what': 'what the header generator concluded, and what it could not',
                            'model_sha256': prov['model_sha256'],

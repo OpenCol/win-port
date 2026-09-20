@@ -101,6 +101,7 @@ int main(void)
         (void)a0; (void)a1; (void)a2; (void)a3;
 %s
         col_reset();
+        col_relocate();
 %s
         col_snapshot();
         r = %s;
@@ -147,7 +148,8 @@ def run_case(path, verbose=False, mutate=None):
     exe = os.path.join(BUILD, name)
     cmd = [CC] + CFLAGS + ['-I' + os.path.join(REPO, 'include'), '-o', exe, drv,
                            os.path.join(REPO, case['source']),
-                           os.path.join(HERE, 'host', 'colmem.c')]
+                           os.path.join(HERE, 'host', 'colmem.c'),
+                           os.path.join(REPO, 'src', 'segdata.c')]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode:
         print('%s: HOST BUILD FAILED\n%s' % (name, r.stderr[:3000]))

@@ -53,10 +53,13 @@ data totals about 88 KiB — segment 20 alone runs to offset 0xded4 (57,044). So
 | `include/col/records.h`, `globals.h` | **generated** — do not edit; regenerate |
 | `include/col/types.h`, `win16.h`, `colmem.h` | hand-written: widths, the platform seam, the host's memory |
 | `include/*.h` | the `#define`-only headers, ported unchanged from the byte-exact repo |
-| `src/world.c` | **generated** — the storage behind `globals.h` for the Win16 build |
+| `tools/extract_segments.py` | lifts the shipped data segments out of `COLONIZE.EXE` |
+| `src/segdata.c`, `include/col/segments.h` | **generated** — the 15 data segments, 123,164 bytes, byte for byte |
+| `model/relocations.json` | the 193 far pointers the Windows loader used to fill in |
 | `src/game/*.c` | ported functions |
 | `tools/bcc.py` | compiles one unit with the real Borland C++ 4.52 under DOSBox-X |
 | `tests/differential.py` | the harness: a ported function against the shipped bytes |
+| `tests/verify_segments.py` | is `segdata.c` really the shipped image? an independent loader answers |
 | `tools/check.sh` | all of the above |
 
 `include/README.md`'s prohibition on a shared header is a property of the byte-exact
@@ -68,10 +71,17 @@ contract and does not apply here. The `#define`-only headers it describes port u
   1,161 globals over 1,034 objects, 170 records. Every record carries a compile-time size
   assertion, and Borland accepts all of them — which is a check that the model's offsets
   and the 16-bit byte-aligned layout agree, not a formality.
-- **`src/world.c` compiles too**: the whole world is a 23 KB object file.
-- **The header also compiles host-native**, with `COL_HOST` selecting a placement in which
-  every global sits at its shipped `seg:off` inside a slab. That is what makes the host
-  and the emulator share a coordinate system.
+- **The program's data is the shipped data.** All 15 DATA segments are lifted out of
+  `COLONIZE.EXE` and every global is a macro into one of them at its shipped offset.
+  `tests/verify_segments.py` compares all 123,164 bytes against the same image loaded by
+  an independent loader — the byte-exact repo's emulator, which walks the relocation
+  chains, none of which the extractor does — and finds **0 unexplained differences**, with
+  every one of the 193 relocation sites accounted for.
+- **`src/segdata.c` compiles under Borland too**, to a 127 KB object.
+- **The header compiles host-native too**, and both targets address memory identically:
+  the segment image is the storage on each. That is what lets an observation from the
+  emulator and one from the host be compared as the same coordinate, and it is why the
+  differential can now run against `--state shipped` rather than only a save.
 - **The differential harness is green on one function** (`clear_colony_flag_1c`,
   1018:0438) over 13 argument sets, on return value and on memory afterwards — and its
   `--selftest` breaks the port two ways on purpose and requires both to be caught.
@@ -92,12 +102,13 @@ stood up yet. A function whose *result* depends on a wrong read still fails here
 
 Ordered by how much it can hurt.
 
-1. **`src/world.c` is uninitialised.** Many of these objects ship with *contents* in the
-   binary's data segments — tables the game reads before anything writes them — and zeroed
-   storage is a behaviour difference, not a detail. The initialisers are extractable from
-   the shipped image's segments; nothing here does it yet. **This is the first thing to
-   fix**, because the differential's `--state save` masks it: the emulator loads real data
-   where the host has zeros, and only a function that reads such a table will show it.
+1. **100 of the 193 relocations cannot be written yet.** These are far pointers the
+   Windows loader filled in; the file holds a chain offset instead. 93 point into data and
+   `col_relocate()` sets them at startup. The other 100 point at **code** — function
+   pointers in dispatch tables — and cannot be written until those functions are ported.
+   `model/relocations.json` lists each with the name it wants, from the symbol map. Until
+   then a dispatch through one of those tables goes nowhere, so they are the natural
+   companion to porting each function.
 2. **No link.** No `.DEF`, no resource binding, no `.EXE`. The three inputs are known and
    `tools/rebuild.py` in the byte-exact repo generates all three from the shipped header
    (heap, stack, AUTODATA, 180 IMPORTS) and binds 42 resources with BRC.
@@ -132,7 +143,10 @@ From the model, unresolved and carried forward rather than papered over:
   still wrong and will mislead anyone who reads them as layouts.
 - **360 globals have no declared extent** (`char far @[]`). The generator infers each from
   the gap to the next global in the same segment, which is an **upper bound**, and marks
-  it. A wrong extent is a layout difference, not a silent read.
+  it. Since the storage is the whole segment image rather than 1,034 separate objects,
+  a wrong guess is largely harmless: the bytes past the guess are the shipped bytes and in
+  the shipped order, so code that walks past the end reads what it read in 1995. The
+  extents still matter for anything that takes `sizeof`, which is why they are listed.
 - **127 names are views into another object**, 101 at the same address and 26 inside
   another's extent. They are emitted as macros, not as second declarations, so a write
   through either name is seen by the other. `SEG31:0x00a4` carries eight names on purpose
