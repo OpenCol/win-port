@@ -1,0 +1,23 @@
+{
+ "what": "the first ported function, checked against the bytes it was ported from",
+ "symbol": "clear_colony_flag_1c",
+ "shipped": "1018:0438",
+ "source": "src/game/clear_colony_flag_1c.c",
+ "state": "save",
+ "sweep": [
+  "0=-4..8"
+ ],
+ "stage": {
+  "SEG20:0x1000": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1cff1e1f20"
+ },
+ "pointers": {
+  "DGROUP:0x4b9e": "SEG20:0x1000"
+ },
+ "host_stage": [
+  "g_cur_colony_rec = (Colony *)(col_seg(20) + 0x1000);"
+ ],
+ "call": "(long)clear_colony_flag_1c((char)a0)",
+ "note": "the staged colony has 0xff at +0x1c, so bit 7 is set and clearing it is visible",
+ "prototype": "char clear_colony_flag_1c(char n);",
+ "ret_bits": 8
+}

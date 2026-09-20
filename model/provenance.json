@@ -1,0 +1,33 @@
+{
+ "source_repo": "/Users/danielderevjanik/Repositories/dderevjanik/col-win-re",
+ "source_commit": "ab39b6239b1c9a061fce59f865fbeb471936e280",
+ "model_sha256": "3fb73a402208a1e6eef45167a8a65eebca53cc74e62baaf44064fc7907eed9af",
+ "headers": [
+  "aicol.h",
+  "building.h",
+  "colflag.h",
+  "colonize.h",
+  "colopt.h",
+  "control.h",
+  "dbgopt.h",
+  "difficul.h",
+  "fathers.h",
+  "gameflag.h",
+  "goods.h",
+  "grerror.h",
+  "jobs.h",
+  "nations.h",
+  "royal.h",
+  "settle.h",
+  "sounds.h",
+  "terrain.h",
+  "tribes.h",
+  "tutflag.h",
+  "units.h",
+  "vaction.h",
+  "w16const.h",
+  "w16mci.h",
+  "w16types.h",
+  "woodcut.h"
+ ]
+}
