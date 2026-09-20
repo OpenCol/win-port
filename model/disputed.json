@@ -2,8 +2,11 @@
  "what": "ports whose behaviour DISAGREES with the shipped bytes, held out pending a reading of the disassembly",
  "why": "a disagreement is evidence about one of three things and it takes the shipped instructions to say which: the reconstruction, this repo's port of it, or the harness. job_input_goods went this way and turned out to be the reconstruction. None of these are in src/: an unresolved disagreement is not a port.",
  "disputed": {
-  "shift_table_down": "the port writes elements 0..14 where the shipped writes 1..15 -- an off-by-one element in the loop, or a base this repo has 6 bytes low. 10 of 25 argument sets agree.",
   "goods_row_add": "the writes are indexed by the global g_row_count, which the sweep cannot control; at the shipped value they wrap inside segment 26 (26:fffe) and run off the array on a host. Needs the emulator-side differential or a staged counter.",
   "MapWin_TileSize": "returns 0x4944 where the shipped returns 0x944: one bit, which reads like a member taken at the wrong width."
+ },
+ "resolved": {
+  "shift_table_down": "the reconstruction had the copy backwards; hand-written from the write log and now 25/25. docs/findings/shift-table-down-copy-direction.md",
+  "job_input_goods": "the reconstruction had two switch arms swapped; hand-written from the jump table and now 29/29. docs/findings/job-input-goods-jump-table.md"
  }
 }

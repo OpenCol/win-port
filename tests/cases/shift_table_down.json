@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "shift_table_down",
+ "shipped": "1028:019c",
+ "source": "src/game/shift_table_down.c",
+ "prototype": "void shift_table_down(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "shift_table_down((col_i16)a0)",
+ "globals_read": [
+  "g_table6"
+ ]
+}
