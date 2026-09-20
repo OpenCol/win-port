@@ -3,13 +3,13 @@
  "symbol": "max_int_1050_836b",
  "shipped": "1050:836b",
  "source": "src/game/max_int_1050_836b.c",
- "prototype": "int max_int_1050_836b(int a, int b);",
+ "prototype": "col_i16 max_int_1050_836b(col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)max_int_1050_836b((int)a0, (int)a1)",
+ "call": "(long)max_int_1050_836b((col_i16)a0, (col_i16)a1)",
  "globals_read": []
 }

@@ -10,11 +10,11 @@
  */
 #include "col/globals.h"
 
-int on_map(int x, int y)
+col_i16 on_map(col_i16 x, col_i16 y)
 {
- int r = 1;
+    col_i16 r = 1;
 
- if (x < 1 || y < 1 || (*g_map_width) - 1 < x || g_map_h - 1 < y)
- r = 0;
- return r;
+    if (x < 1 || y < 1 || (*g_map_width) - 1 < x || g_map_h - 1 < y)
+        r = 0;
+    return r;
 }

@@ -12,5 +12,5 @@
 
 void set_order_e(void)
 {
- g_nation_colour[g_mother_country_idx] = 0xe;
+    g_nation_colour[g_mother_country_idx] = 0xe;
 }

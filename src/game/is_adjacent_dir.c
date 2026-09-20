@@ -6,11 +6,11 @@
  */
 #include "col/globals.h"
 
-int is_adjacent_dir(int a, int b)
+col_i16 is_adjacent_dir(col_i16 a, col_i16 b)
 {
- int r = 0;
+    col_i16 r = 0;
 
- if (((b + 1) & 7) == a || ((b - 1) & 7) == a)
- r = 1;
- return r;
+    if (((b + 1) & 7) == a || ((b - 1) & 7) == a)
+        r = 1;
+    return r;
 }

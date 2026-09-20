@@ -86,9 +86,9 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **128 functions are ported and verified**: 5,405 argument sets, 0 disagreements, on
-  return value and on memory afterwards, against `--state shipped`. All 128 also compile
-  with the real Borland C++ 4.52 targeting Win16.
+- **191 functions are ported and verified**: 6,147 argument sets, 0 disagreements, on
+  return value and on memory afterwards, against `--state shipped`. All of them compile
+  with the real Borland C++ 4.52 targeting Win16, link, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   256 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -104,13 +104,36 @@ tools/check.sh          # regenerate-and-compare, selftest, differential, Borlan
 standalone translation unit — it re-declares every type and global because a byte-exact
 file cannot include a shared header — so the port is mostly deletion, and deletion is
 where a port quietly changes meaning. It therefore refuses rather than guesses, and a
-refusal names its reason. Of 3,173 functions, 130 are portable as they stand; the rest
-wait on tier B (1,617 declare their own struct, whose members must be mapped onto the
-merged record by offset), on their callees, or on a limitation below.
+refusal names its reason. **Tier B is done**: a file's own struct is mapped onto the merged record by OFFSET, not
+by name. Where the merged record names that byte at that width the member is renamed to
+its spelling; where it names it differently, or not at all, or the file reads it as an
+array, the port gets a cast at the site — which is what the brief prescribes for a narrow
+reading and works equally for an unnamed offset. Rule-47 in-file stubs are dropped and
+replaced by a prototype, since the stub was also the file's only declaration of that
+callee.
 
-Three functions were ported, verified to compare nothing, and withdrawn: the generated
-sweep never reached the branch that writes, so the case was green without testing
-anything. Nothing sits in `src/` that the harness has not checked.
+**Pointer arguments** are verified by pointing them at a staged region the model says
+nothing names, in a segment with room. The host is handed the address in its own
+coordinates and the emulator the same one as `offset, selector` — two argument words
+rather than a swept axis.
+
+Of 3,173 functions, 191 are ported. The rest wait on their callees (751 at the last
+count), on a limitation below, or on the translation-unit partition: 431 files define a
+second function with a real body, which means two functions shared a translation unit.
+
+Three functions were ported, verified to compare nothing, and withdrawn to
+`model/withdrawn.json`: the generated sweep never reached the branch that writes, so the
+case was green without testing anything. `port.py` cannot know that in advance — it takes
+running the shipped function to find out — so the list is recorded rather than
+rediscovered. Nothing sits in `src/` that the harness has not checked.
+
+One port is hand-written and marked not-regenerable: **`job_input_goods`**, because the
+reconstruction it would come from has two of its jobs the wrong way round. The
+differential disagreed on exactly those two, the shipped jump table settles it, and the
+byte match cannot see it — the arms are identical either way and only the table bytes
+differ, which the comparator forgives like a relocation.
+`docs/findings/job-input-goods-jump-table.md` has the argument, for the repo that owns
+those bytes.
 
 ## The link
 
@@ -155,12 +178,18 @@ argument set twice — once to learn which bytes it writes, then again with exac
 bytes poisoned to the complement of what they held — and the host is given the same
 poison, so every write changes something on both sides.
 
-Three things cannot be compared on a host at all, and `port.py` refuses them: a **pointer-
-valued global** (four bytes in the game, eight on the host, so its stored value there is an
-encoding and following it faults), a **`long` argument** (the sweep hands the emulator one
-16-bit word per argument), and a function that **returns an uninitialised local** — which
-one stubbed-out routine left in the shipped build does, making its answer whatever the
-registers held.
+Four things cannot be compared on a host at all, and `port.py` refuses them: a **pointer-
+valued global or struct member** (four bytes in the game, eight on the host, so its stored
+value there is an encoding and following it faults), a **`long` argument** (the sweep hands
+the emulator one 16-bit word per argument), and a function that **returns an uninitialised
+local** — which one stubbed-out routine left in the shipped build does, making its answer
+whatever the registers held.
+
+Ported bodies are respelt through `col/types.h`: `int` is 16 bits under Borland and 32 on
+the host, and a body that still says `int` is a different program here. `lfsr_step` shifts
+a word right and the sign bit landed in a different place. `#include "w16types.h"` is
+dropped for the same reason — its `RECT` is bare `int`, so a `RECT` laid over game memory
+would have its members at the wrong offsets on the host.
 
 ## What is not done
 

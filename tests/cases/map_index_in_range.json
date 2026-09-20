@@ -3,14 +3,14 @@
  "symbol": "map_index_in_range",
  "shipped": "1038:b4ef",
  "source": "src/game/map_index_in_range.c",
- "prototype": "int map_index_in_range(int x, int y);",
+ "prototype": "col_i16 map_index_in_range(col_i16 x, col_i16 y);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)map_index_in_range((int)a0, (int)a1)",
+ "call": "(long)map_index_in_range((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_map_h",
   "g_map_width"

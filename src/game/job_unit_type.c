@@ -9,4 +9,4 @@
  */
 #include "col/globals.h"
 
-int job_unit_type(int job) { return g_job_unit_type[job]; }
+col_i16 job_unit_type(col_i16 job) { return g_job_unit_type[job]; }

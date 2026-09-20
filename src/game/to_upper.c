@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-int to_upper(int c)
+col_i16 to_upper(col_i16 c)
 {
- if (c >= 'a' && c <= 'z')
- c -= 0x20;
- return c;
+    if (c >= 'a' && c <= 'z')
+        c -= 0x20;
+    return c;
 }

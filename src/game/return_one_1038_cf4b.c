@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-int return_one_1038_cf4b(void)
+col_i16 return_one_1038_cf4b(void)
 {
- int r = 1;
+    col_i16 r = 1;
 
- return r;
+    return r;
 }

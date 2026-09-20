@@ -3,12 +3,12 @@
  "symbol": "round_up_4",
  "shipped": "1070:dc61",
  "source": "src/platform/round_up_4.c",
- "prototype": "int round_up_4(int n);",
+ "prototype": "col_i16 round_up_4(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)round_up_4((int)a0)",
+ "call": "(long)round_up_4((col_i16)a0)",
  "globals_read": []
 }

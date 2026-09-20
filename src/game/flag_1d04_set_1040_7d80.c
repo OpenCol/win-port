@@ -11,5 +11,5 @@
 
 void flag_1d04_set_1040_7d80(void)
 {
- g_flag_1d04 = 1;
+    g_flag_1d04 = 1;
 }

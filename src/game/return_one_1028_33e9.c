@@ -6,10 +6,10 @@
  */
 #include "col/globals.h"
 
-int return_one_1028_33e9(int kind)
+col_i16 return_one_1028_33e9(col_i16 kind)
 {
- register int r = 0;
+    register col_i16 r = 0;
 
- r = 1;
- return r;
+    r = 1;
+    return r;
 }

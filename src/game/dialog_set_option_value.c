@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-void dialog_set_option_value(int i, int v)
+void dialog_set_option_value(col_i16 i, col_i16 v)
 {
- g_text_args[i] = v;
+    g_text_args[i] = v;
 }

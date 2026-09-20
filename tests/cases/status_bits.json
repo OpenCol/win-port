@@ -3,14 +3,14 @@
  "symbol": "status_bits",
  "shipped": "1028:080e",
  "source": "src/game/status_bits.c",
- "prototype": "int status_bits(int p1, int p2);",
+ "prototype": "col_i16 status_bits(col_i16 p1, col_i16 p2);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)status_bits((int)a0, (int)a1)",
+ "call": "(long)status_bits((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_ba",
   "g_navy_table",

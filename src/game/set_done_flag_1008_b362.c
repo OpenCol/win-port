@@ -11,5 +11,5 @@
 
 void set_done_flag_1008_b362(void)
 {
- g_done_flag = 1;
+    g_done_flag = 1;
 }

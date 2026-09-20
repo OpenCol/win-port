@@ -3,13 +3,13 @@
  "symbol": "min_int_1060_641a",
  "shipped": "1060:641a",
  "source": "src/game/min_int_1060_641a.c",
- "prototype": "int min_int_1060_641a(int a, int b);",
+ "prototype": "col_i16 min_int_1060_641a(col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)min_int_1060_641a((int)a0, (int)a1)",
+ "call": "(long)min_int_1060_641a((col_i16)a0, (col_i16)a1)",
  "globals_read": []
 }

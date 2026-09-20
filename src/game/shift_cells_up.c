@@ -9,10 +9,10 @@
  */
 #include "col/globals.h"
 
-void shift_cells_up(int row, int n)
+void shift_cells_up(col_i16 row, col_i16 n)
 {
- register int i;
+    register col_i16 i;
 
- for (i = 0x3e; i >= n; i--)
- g_cells_l[row][i + 1] = g_cells_l[row][i];
+    for (i = 0x3e; i >= n; i--)
+        g_cells_l[row][i + 1] = g_cells_l[row][i];
 }

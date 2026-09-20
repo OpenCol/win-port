@@ -3,13 +3,13 @@
  "symbol": "set_wing_orientation",
  "shipped": "1070:a637",
  "source": "src/platform/set_wing_orientation.c",
- "prototype": "void set_wing_orientation(int n);",
+ "prototype": "void set_wing_orientation(col_i16 n);",
  "state": "shipped",
  "ret_bits": 0,
  "sweep": [
   "0=-4..24"
  ],
- "call": "set_wing_orientation((int)a0)",
+ "call": "set_wing_orientation((col_i16)a0)",
  "globals_read": [
   "g_wing_orientation"
  ]

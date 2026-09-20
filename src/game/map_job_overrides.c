@@ -12,17 +12,17 @@
 #include "gameflag.h"
 
 
-int map_job_overrides(int job)
+col_i16 map_job_overrides(col_i16 job)
 {
- int r = 0x15;
+    col_i16 r = 0x15;
 
- if (((*g_game_flags) & GAMEFLAG_INDEPENDENCE) && job == 0x15)
- r = -1;
- if (job == 0x1a)
- r = 0x19;
- if (job == 0x19)
- r = 0x1c;
- if (job == 0x1b)
- r = 0x1b;
- return r;
+    if (((*g_game_flags) & GAMEFLAG_INDEPENDENCE) && job == 0x15)
+        r = -1;
+    if (job == 0x1a)
+        r = 0x19;
+    if (job == 0x19)
+        r = 0x1c;
+    if (job == 0x1b)
+        r = 0x1b;
+    return r;
 }

@@ -3,13 +3,13 @@
  "symbol": "map_job_overrides",
  "shipped": "1020:3ed7",
  "source": "src/game/map_job_overrides.c",
- "prototype": "int map_job_overrides(int job);",
+ "prototype": "col_i16 map_job_overrides(col_i16 job);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)map_job_overrides((int)a0)",
+ "call": "(long)map_job_overrides((col_i16)a0)",
  "globals_read": [
   "g_game_flags"
  ]

@@ -6,10 +6,10 @@
  */
 #include "col/globals.h"
 
-int min_int_1010_e5d0(int a, int b)
+col_i16 min_int_1010_e5d0(col_i16 a, col_i16 b)
 {
- if (a > b)
- return b;
- else
- return a;
+    if (a > b)
+        return b;
+    else
+        return a;
 }

@@ -3,14 +3,14 @@
  "symbol": "woodcut_set",
  "shipped": "1060:046f",
  "source": "src/game/woodcut_set.c",
- "prototype": "void woodcut_set(int n, int on);",
+ "prototype": "void woodcut_set(col_i16 n, col_i16 on);",
  "state": "shipped",
  "ret_bits": 0,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "woodcut_set((int)a0, (int)a1)",
+ "call": "woodcut_set((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_bits_780c"
  ]

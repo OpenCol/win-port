@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-void set_text_arg_char(int i, char v)
+void set_text_arg_char(col_i16 i, char v)
 {
- g_text_args[i] = (long)v;
+    g_text_args[i] = (col_i32)v;
 }

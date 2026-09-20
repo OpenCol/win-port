@@ -12,6 +12,6 @@
 
 void mark_2520_no_super_1050_6c31(void)
 {
- if (g_super_win_open == 0)
- g_flag_2520 = 1;
+    if (g_super_win_open == 0)
+        g_flag_2520 = 1;
 }

@@ -6,10 +6,10 @@
  */
 #include "col/globals.h"
 
-int hit_region_2(int x, int y)
+col_i16 hit_region_2(col_i16 x, col_i16 y)
 {
- int inside = 0;
- if (x < 0x11a && x > 0x8f && y < 0x17b && y > 0x102)
- inside = 1;
- return inside;
+    col_i16 inside = 0;
+    if (x < 0x11a && x > 0x8f && y < 0x17b && y > 0x102)
+        inside = 1;
+    return inside;
 }

@@ -12,8 +12,8 @@
 
 void bump_counter_1060_7eed(void)
 {
- if (g_about_step < 0xf)
- g_about_step = 0x10;
- else
- g_flag_4e64 = 1;
+    if (g_about_step < 0xf)
+        g_about_step = 0x10;
+    else
+        g_flag_4e64 = 1;
 }

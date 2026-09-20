@@ -6,11 +6,11 @@
  */
 #include "col/globals.h"
 
-int fold_goods_index(int v)
+col_i16 fold_goods_index(col_i16 v)
 {
- if (v == 0x11 || v == 9)
- v = 8;
- else if (v >= 8)
- v -= 0xf;
- return v;
+    if (v == 0x11 || v == 9)
+        v = 8;
+    else if (v >= 8)
+        v -= 0xf;
+    return v;
 }

@@ -11,25 +11,25 @@
  */
 #include "col/globals.h"
 
-int status_bits(int p1, int p2)
+col_i16 status_bits(col_i16 p1, col_i16 p2)
 {
- int r = 0;
- int q;
- int t;
- int sum;
- int i;
+    col_i16 r = 0;
+    col_i16 q;
+    col_i16 t;
+    col_i16 sum;
+    col_i16 i;
 
- if (p2 < 0) goto done;
- q = g_region_size[p2] / 12;
- sum = g_ba[p2];
- for (i = 0; i < 4; i++)
- sum += g_navy_table[i][p2];
- t = (q - sum > 0) ? 1 : ((q - sum < 0) ? -1 : 0);
- r += t;
- if (sum - g_ba[p2] == 0)
- r += 2;
- if (g_navy_table[p1][p2] < 1)
- r += 4;
+    if (p2 < 0) goto done;
+    q = g_region_size[p2] / 12;
+    sum = g_ba[p2];
+    for (i = 0; i < 4; i++)
+        sum += g_navy_table[i][p2];
+    t = (q - sum > 0) ? 1 : ((q - sum < 0) ? -1 : 0);
+    r += t;
+    if (sum - g_ba[p2] == 0)
+        r += 2;
+    if (g_navy_table[p1][p2] < 1)
+        r += 4;
 done:
- return r;
+    return r;
 }

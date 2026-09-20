@@ -11,5 +11,5 @@
 
 void message_buf_clear(void)
 {
- g_message_buf[0] = 0;
+    g_message_buf[0] = 0;
 }

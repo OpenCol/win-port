@@ -3,14 +3,14 @@
  "symbol": "set_text_arg_i_1018_b472",
  "shipped": "1018:b472",
  "source": "src/game/set_text_arg_i_1018_b472.c",
- "prototype": "void set_text_arg_i_1018_b472(int i, int v);",
+ "prototype": "void set_text_arg_i_1018_b472(col_i16 i, col_i16 v);",
  "state": "shipped",
  "ret_bits": 0,
  "sweep": [
   "0=0..5",
   "1=0..7"
  ],
- "call": "set_text_arg_i_1018_b472((int)a0, (int)a1)",
+ "call": "set_text_arg_i_1018_b472((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_text_args"
  ]

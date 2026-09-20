@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-void set_wing_orientation(int n)
+void set_wing_orientation(col_i16 n)
 {
- g_wing_orientation = n;
+    g_wing_orientation = n;
 }

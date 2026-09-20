@@ -11,5 +11,5 @@
 
 void closing_flag_set_1010_0403(void)
 {
- g_closing_flag = 1;
+    g_closing_flag = 1;
 }

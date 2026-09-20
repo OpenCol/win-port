@@ -3,7 +3,7 @@
  "symbol": "click_sets_4ca6",
  "shipped": "1040:4668",
  "source": "src/game/click_sets_4ca6.c",
- "prototype": "int click_sets_4ca6(void);",
+ "prototype": "col_i16 click_sets_4ca6(void);",
  "state": "shipped",
  "ret_bits": 16,
  "call": "(long)click_sets_4ca6()",

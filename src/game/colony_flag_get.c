@@ -9,9 +9,9 @@
  */
 #include "col/globals.h"
 
-int colony_flag_get(int colony, int bit)
+col_i16 colony_flag_get(col_i16 colony, col_i16 bit)
 {
- if (bit < 0)
- return 0;
- return g_colony_flags[colony][bit >> 3] & (1 << (bit & 7));
+    if (bit < 0)
+        return 0;
+    return g_colony_flags[colony][bit >> 3] & (1 << (bit & 7));
 }

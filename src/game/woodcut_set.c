@@ -9,16 +9,16 @@
  */
 #include "col/globals.h"
 
-void woodcut_set(int n, int on)
+void woodcut_set(col_i16 n, col_i16 on)
 {
- register int idx;
- int mask;
+    register col_i16 idx;
+    col_i16 mask;
 
- n--;
- idx = n >> 3;
- mask = 1 << (n & 7);
- if (on != 0)
- g_bits_780c[idx] |= mask;
- else
- g_bits_780c[idx] &= ~mask;
+    n--;
+    idx = n >> 3;
+    mask = 1 << (n & 7);
+    if (on != 0)
+        g_bits_780c[idx] |= mask;
+    else
+        g_bits_780c[idx] &= ~mask;
 }

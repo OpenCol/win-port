@@ -3,13 +3,13 @@
  "symbol": "pair_score_table",
  "shipped": "1018:64ba",
  "source": "src/game/pair_score_table.c",
- "prototype": "int pair_score_table(int a, int b);",
+ "prototype": "col_i16 pair_score_table(col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)pair_score_table((int)a0, (int)a1)",
+ "call": "(long)pair_score_table((col_i16)a0, (col_i16)a1)",
  "globals_read": []
 }

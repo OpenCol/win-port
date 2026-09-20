@@ -3,7 +3,7 @@
  "symbol": "in_range_mode",
  "shipped": "1038:b52a",
  "source": "src/game/in_range_mode.c",
- "prototype": "int in_range_mode(int dx, int dy, int mode);",
+ "prototype": "col_i16 in_range_mode(col_i16 dx, col_i16 dy, col_i16 mode);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
@@ -11,6 +11,6 @@
   "1=0..3",
   "2=0..3"
  ],
- "call": "(long)in_range_mode((int)a0, (int)a1, (int)a2)",
+ "call": "(long)in_range_mode((col_i16)a0, (col_i16)a1, (col_i16)a2)",
  "globals_read": []
 }

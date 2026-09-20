@@ -8,7 +8,7 @@
 
 unsigned char to_upper_char(unsigned char c)
 {
- if (c >= 'a' && c <= 'z')
- c -= 0x20;
- return c;
+    if (c >= 'a' && c <= 'z')
+        c -= 0x20;
+    return c;
 }

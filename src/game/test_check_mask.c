@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-int test_check_mask(int n)
+col_i16 test_check_mask(col_i16 n)
 {
- return (1 << n) & g_check_mask;
+    return (1 << n) & g_check_mask;
 }

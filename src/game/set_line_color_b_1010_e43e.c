@@ -11,5 +11,5 @@
 
 void set_line_color_b_1010_e43e(char v)
 {
- g_line_color_b = v;
+    g_line_color_b = v;
 }

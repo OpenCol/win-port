@@ -3,12 +3,12 @@
  "symbol": "fold_goods_index",
  "shipped": "1040:442f",
  "source": "src/game/fold_goods_index.c",
- "prototype": "int fold_goods_index(int v);",
+ "prototype": "col_i16 fold_goods_index(col_i16 v);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)fold_goods_index((int)a0)",
+ "call": "(long)fold_goods_index((col_i16)a0)",
  "globals_read": []
 }

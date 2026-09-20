@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "minimax",
+ "shipped": "1040:7ae2",
+ "source": "src/game/minimax.c",
+ "prototype": "col_i16 minimax(col_i16 v, col_i16 lo, col_i16 hi);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)minimax((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": []
+}

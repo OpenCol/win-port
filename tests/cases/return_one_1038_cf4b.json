@@ -3,7 +3,7 @@
  "symbol": "return_one_1038_cf4b",
  "shipped": "1038:cf4b",
  "source": "src/game/return_one_1038_cf4b.c",
- "prototype": "int return_one_1038_cf4b(void);",
+ "prototype": "col_i16 return_one_1038_cf4b(void);",
  "state": "shipped",
  "ret_bits": 16,
  "call": "(long)return_one_1038_cf4b()",

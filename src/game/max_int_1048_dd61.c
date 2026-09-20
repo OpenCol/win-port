@@ -6,10 +6,10 @@
  */
 #include "col/globals.h"
 
-int max_int_1048_dd61(int a, int b)
+col_i16 max_int_1048_dd61(col_i16 a, col_i16 b)
 {
- if (a < b)
- return b;
- else
- return a;
+    if (a < b)
+        return b;
+    else
+        return a;
 }

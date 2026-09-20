@@ -9,8 +9,8 @@
  */
 #include "col/globals.h"
 
-int click_sets_4ca6(void)
+col_i16 click_sets_4ca6(void)
 {
- g_flag_4ca6 = 1;
- return 1;
+    g_flag_4ca6 = 1;
+    return 1;
 }

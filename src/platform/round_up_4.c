@@ -6,7 +6,7 @@
  */
 #include "col/globals.h"
 
-int round_up_4(int n)
+col_i16 round_up_4(col_i16 n)
 {
- return (n + 3) / 4 * 4;
+    return (n + 3) / 4 * 4;
 }

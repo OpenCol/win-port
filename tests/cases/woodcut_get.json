@@ -3,13 +3,13 @@
  "symbol": "woodcut_get",
  "shipped": "1060:04c2",
  "source": "src/game/woodcut_get.c",
- "prototype": "int woodcut_get(int n);",
+ "prototype": "col_i16 woodcut_get(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)woodcut_get((int)a0)",
+ "call": "(long)woodcut_get((col_i16)a0)",
  "globals_read": [
   "g_bits_780c"
  ]

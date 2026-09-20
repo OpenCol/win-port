@@ -3,13 +3,13 @@
  "symbol": "test_check_mask",
  "shipped": "1050:63fb",
  "source": "src/game/test_check_mask.c",
- "prototype": "int test_check_mask(int n);",
+ "prototype": "col_i16 test_check_mask(col_i16 n);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)test_check_mask((int)a0)",
+ "call": "(long)test_check_mask((col_i16)a0)",
  "globals_read": [
   "g_check_mask"
  ]

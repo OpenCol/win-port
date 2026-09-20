@@ -3,14 +3,14 @@
  "symbol": "set_flag_bit",
  "shipped": "1050:63ca",
  "source": "src/game/set_flag_bit.c",
- "prototype": "void set_flag_bit(int bit, int on);",
+ "prototype": "void set_flag_bit(col_i16 bit, col_i16 on);",
  "state": "shipped",
  "ret_bits": 0,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "set_flag_bit((int)a0, (int)a1)",
+ "call": "set_flag_bit((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_flags_2514"
  ]

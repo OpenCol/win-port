@@ -9,18 +9,18 @@
  */
 #include "col/globals.h"
 
-char terrain_class(int v)
+char terrain_class(col_i16 v)
 {
- v = (unsigned char)(v & 0x1f);
- switch (g_map_mode) {
- case 2:
- if (v < 0x18 && v >= 8)
- v = (v & 7) | 8;
- break;
- case 3:
- if (v < 0x18)
- v = v & 7;
- break;
- }
- return v;
+    v = (unsigned char)(v & 0x1f);
+    switch (g_map_mode) {
+    case 2:
+        if (v < 0x18 && v >= 8)
+            v = (v & 7) | 8;
+        break;
+    case 3:
+        if (v < 0x18)
+            v = v & 7;
+        break;
+    }
+    return v;
 }

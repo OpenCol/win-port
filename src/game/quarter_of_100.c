@@ -6,17 +6,17 @@
  */
 #include "col/globals.h"
 
-int quarter_of_100(int v)
+col_i16 quarter_of_100(col_i16 v)
 {
- int r;
+    col_i16 r;
 
- if (v < 25)
- r = 0;
- else if (v < 50)
- r = 1;
- else if (v < 75)
- r = 2;
- else
- r = 3;
- return r;
+    if (v < 25)
+        r = 0;
+    else if (v < 50)
+        r = 1;
+    else if (v < 75)
+        r = 2;
+    else
+        r = 3;
+    return r;
 }

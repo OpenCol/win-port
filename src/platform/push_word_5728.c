@@ -10,8 +10,8 @@
  */
 #include "col/globals.h"
 
-void push_word_5728(int v)
+void push_word_5728(col_i16 v)
 {
- g_tab_5728[g_count_3c80] = v;
- g_count_3c80++;
+    g_tab_5728[g_count_3c80] = v;
+    g_count_3c80++;
 }

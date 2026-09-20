@@ -8,17 +8,17 @@
 
 #include "terrain.h"
 
-int terrain_from_map_byte(int b)
+col_i16 terrain_from_map_byte(col_i16 b)
 {
- int t;
+    col_i16 t;
 
- if (b & MAP0_HILLY) {
- if (b & MAP0_MOUNTAINS)
- t = TERRAIN_MOUNTAINS;
- else
- t = TERRAIN_HILLS;
- } else {
- t = (unsigned char)(b & MAP0_TERRAIN_MASK);
- }
- return t;
+    if (b & MAP0_HILLY) {
+        if (b & MAP0_MOUNTAINS)
+            t = TERRAIN_MOUNTAINS;
+        else
+            t = TERRAIN_HILLS;
+    } else {
+        t = (unsigned char)(b & MAP0_TERRAIN_MASK);
+    }
+    return t;
 }

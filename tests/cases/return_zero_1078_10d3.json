@@ -3,7 +3,7 @@
  "symbol": "return_zero_1078_10d3",
  "shipped": "1078:10d3",
  "source": "src/platform/return_zero_1078_10d3.c",
- "prototype": "int return_zero_1078_10d3(void);",
+ "prototype": "col_i16 return_zero_1078_10d3(void);",
  "state": "shipped",
  "ret_bits": 16,
  "call": "(long)return_zero_1078_10d3()",

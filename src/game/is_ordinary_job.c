@@ -7,8 +7,8 @@
 #include "col/globals.h"
 
 #include "jobs.h"
-int is_ordinary_job(int job)
+col_i16 is_ordinary_job(col_i16 job)
 {
- return job != JOB_COLONIST_ALT && job != JOB_COLONIST && job != JOB_INDENTURED_SERVANT
- && job != JOB_CRIMINAL && job != JOB_CONVERT;
+    return job != JOB_COLONIST_ALT && job != JOB_COLONIST && job != JOB_INDENTURED_SERVANT
+        && job != JOB_CRIMINAL && job != JOB_CONVERT;
 }

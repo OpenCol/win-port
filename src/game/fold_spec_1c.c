@@ -7,9 +7,9 @@
 #include "col/globals.h"
 
 #include "jobs.h"
-int fold_spec_1c(int spec)
+col_i16 fold_spec_1c(col_i16 spec)
 {
- if (spec == JOB_COLONIST_ALT)
- spec = JOB_COLONIST;
- return spec;
+    if (spec == JOB_COLONIST_ALT)
+        spec = JOB_COLONIST;
+    return spec;
 }

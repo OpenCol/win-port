@@ -3,12 +3,12 @@
  "symbol": "lookup_code",
  "shipped": "1040:85ed",
  "source": "src/game/lookup_code.c",
- "prototype": "int lookup_code(int x);",
+ "prototype": "col_i16 lookup_code(col_i16 x);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)lookup_code((int)a0)",
+ "call": "(long)lookup_code((col_i16)a0)",
  "globals_read": []
 }

@@ -3,14 +3,14 @@
  "symbol": "dialog_set_option_value",
  "shipped": "1048:db6a",
  "source": "src/game/dialog_set_option_value.c",
- "prototype": "void dialog_set_option_value(int i, int v);",
+ "prototype": "void dialog_set_option_value(col_i16 i, col_i16 v);",
  "state": "shipped",
  "ret_bits": 0,
  "sweep": [
   "0=0..5",
   "1=0..7"
  ],
- "call": "dialog_set_option_value((int)a0, (int)a1)",
+ "call": "dialog_set_option_value((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_text_args"
  ]

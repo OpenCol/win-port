@@ -6,11 +6,11 @@
  */
 #include "col/globals.h"
 
-extern int nation_flag_test(int nation, int bit);
+extern col_i16 nation_flag_test(col_i16 nation, col_i16 bit);
 
-int nation_flag_is_clear(int nation, int bit)
+col_i16 nation_flag_is_clear(col_i16 nation, col_i16 bit)
 {
- if (nation_flag_test(nation, bit) != 0)
- return 0;
- return 1;
+    if (nation_flag_test(nation, bit) != 0)
+        return 0;
+    return 1;
 }

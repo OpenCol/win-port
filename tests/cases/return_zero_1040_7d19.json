@@ -3,7 +3,7 @@
  "symbol": "return_zero_1040_7d19",
  "shipped": "1040:7d19",
  "source": "src/game/return_zero_1040_7d19.c",
- "prototype": "int return_zero_1040_7d19(void);",
+ "prototype": "col_i16 return_zero_1040_7d19(void);",
  "state": "shipped",
  "ret_bits": 16,
  "call": "(long)return_zero_1040_7d19()",

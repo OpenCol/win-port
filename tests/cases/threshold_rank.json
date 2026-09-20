@@ -3,7 +3,7 @@
  "symbol": "threshold_rank",
  "shipped": "1020:9884",
  "source": "src/game/threshold_rank.c",
- "prototype": "int threshold_rank(void);",
+ "prototype": "col_i16 threshold_rank(void);",
  "state": "shipped",
  "ret_bits": 16,
  "call": "(long)threshold_rank()",

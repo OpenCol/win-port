@@ -12,13 +12,13 @@
  */
 #include "col/globals.h"
 
-int in_map_rect(int x, int y)
+col_i16 in_map_rect(col_i16 x, col_i16 y)
 {
- int r = 1;
+    col_i16 r = 1;
 
- if (x < g_view_x0 || x > g_view_x1)
- r = 0;
- if (y < g_view_y0 || y > g_view_y1)
- r = 0;
- return r;
+    if (x < g_view_x0 || x > g_view_x1)
+        r = 0;
+    if (y < g_view_y0 || y > g_view_y1)
+        r = 0;
+    return r;
 }

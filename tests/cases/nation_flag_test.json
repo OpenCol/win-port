@@ -3,14 +3,14 @@
  "symbol": "nation_flag_test",
  "shipped": "1020:a82e",
  "source": "src/game/nation_flag_test.c",
- "prototype": "int nation_flag_test(int nation, int bit);",
+ "prototype": "col_i16 nation_flag_test(col_i16 nation, col_i16 bit);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=0..7",
   "1=0..7"
  ],
- "call": "(long)nation_flag_test((int)a0, (int)a1)",
+ "call": "(long)nation_flag_test((col_i16)a0, (col_i16)a1)",
  "globals_read": [
   "g_nation_bits"
  ]

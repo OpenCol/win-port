@@ -11,7 +11,7 @@
 
 unsigned char TextColor(unsigned char v)
 {
- unsigned char old = g_line_color_index;
- g_line_color_index = v;
- return old;
+    unsigned char old = g_line_color_index;
+    g_line_color_index = v;
+    return old;
 }

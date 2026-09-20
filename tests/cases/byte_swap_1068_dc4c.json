@@ -3,12 +3,12 @@
  "symbol": "byte_swap_1068_dc4c",
  "shipped": "1068:dc4c",
  "source": "src/gfx/byte_swap_1068_dc4c.c",
- "prototype": "unsigned byte_swap_1068_dc4c(unsigned v);",
+ "prototype": "col_u16 byte_swap_1068_dc4c(col_u16 v);",
  "state": "shipped",
  "ret_bits": 16,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)byte_swap_1068_dc4c((unsigned)a0)",
+ "call": "(long)byte_swap_1068_dc4c((col_u16)a0)",
  "globals_read": []
 }

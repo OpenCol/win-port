@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clip_rect_to_map_rect",
+ "shipped": "1040:05b3",
+ "source": "src/game/clip_rect_to_map_rect.c",
+ "prototype": "void clip_rect_to_map_rect(col_i16 * l, col_i16 * t, col_i16 * r, col_i16 * b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "sweep": [
+  "0=6468",
+  "1=4360",
+  "2=6532",
+  "3=4360",
+  "4=6596",
+  "5=4360",
+  "6=6660",
+  "7=4360"
+ ],
+ "stage": {
+  "SEG34:0x1944": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1984": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x19c4": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1a04": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "clip_rect_to_map_rect((col_i16 far *)(col_seg34 + 0x1944L), (col_i16 far *)(col_seg34 + 0x1984L), (col_i16 far *)(col_seg34 + 0x19c4L), (col_i16 far *)(col_seg34 + 0x1a04L))",
+ "globals_read": [
+  "g_view_x0",
+  "g_view_x1",
+  "g_view_y0",
+  "g_view_y1"
+ ]
+}

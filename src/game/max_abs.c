@@ -6,15 +6,15 @@
  */
 #include "col/globals.h"
 
-int max_abs(int a, int b)
+col_i16 max_abs(col_i16 a, col_i16 b)
 {
- int r;
+    col_i16 r;
 
- a = a > 0 ? a : ~a + 1;
- b = b > 0 ? b : ~b + 1;
- if (a > b)
- r = a;
- else
- r = b;
- return r;
+    a = a > 0 ? a : ~a + 1;
+    b = b > 0 ? b : ~b + 1;
+    if (a > b)
+        r = a;
+    else
+        r = b;
+    return r;
 }

@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-void set_56b4(int a, int b)
+void set_56b4(col_i16 a, col_i16 b)
 {
- g_dialog_result = b;
+    g_dialog_result = b;
 }

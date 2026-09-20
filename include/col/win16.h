@@ -11,6 +11,8 @@
 #ifndef COL_WIN16_H
 #define COL_WIN16_H
 
+#include "col/types.h" 
+
 #ifndef COL_HOST
 #  include <windows.h>
 #else
@@ -29,11 +31,34 @@ typedef void far      *HDC;
 typedef void far      *HANDLE;
 typedef void far      *HINSTANCE;
 typedef long (far pascal *WNDPROC)(HWND, WORD, WORD, long);
-typedef struct { int left, top, right, bottom; } RECT;
-typedef struct { int x, y; } POINT;
+/* The Windows 3.1 structures whose layout the API fixes. w16types.h in include/ is the
+ * byte-exact repo's copy of these and spells them with bare `int`, which is 16 bits
+ * there and 32 here -- so a RECT laid over game memory would have the wrong offsets on
+ * the host. These are the same structures at the same offsets, spelt so they keep them.
+ * tools/port.py drops a file's `#include "w16types.h"`: windows.h covers it on Win16 and
+ * this covers it here. */
+typedef struct { col_i16 left, top, right, bottom; } RECT;
+typedef struct { col_i16 x, y; } POINT;
+typedef struct { col_i16 cx, cy; } SIZE;
+typedef struct { unsigned char peRed, peGreen, peBlue, peFlags; } PALETTEENTRY;
+typedef struct {
+    col_u16 hdc;
+    col_i16 fErase;
+    RECT rcPaint;
+    col_i16 fRestore, fIncUpdate;
+    unsigned char rgbReserved[16];
+} PAINTSTRUCT;
+typedef struct {
+    col_i16 lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
+    unsigned char lfItalic, lfUnderline, lfStrikeOut, lfCharSet,
+                  lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
+    char lfFaceName[32];
+} LOGFONT;
+#define W16TYPES_H          /* so a stray include of it is a no-op */
 typedef struct { HWND hwnd; WORD message, wParam; DWORD lParam, time; POINT pt; } MSG;
+
 typedef struct { BYTE rgbBlue, rgbGreen, rgbRed, rgbReserved; } RGBQUAD;
-typedef struct { int tmHeight, tmAscent, tmDescent,
+typedef struct { col_i16 tmHeight, tmAscent, tmDescent,
                      tmInternalLeading, tmExternalLeading;
                  unsigned char tmRest[22]; } TEXTMETRIC;
 #endif

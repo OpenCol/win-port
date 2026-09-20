@@ -9,10 +9,10 @@
  */
 #include "col/globals.h"
 
-int threshold_rank(void)
+col_i16 threshold_rank(void)
 {
- int n = 0;
- if (g_year >= 0x640) n++;
- if (g_year >= 0x6a4) n++;
- return n;
+    col_i16 n = 0;
+    if (g_year >= 0x640) n++;
+    if (g_year >= 0x6a4) n++;
+    return n;
 }

@@ -14,8 +14,8 @@
 
 void reset_default_order(void)
 {
- (*g_nation_colour) = 10;
- g_order_9b = 11;
- g_order_9c = 12;
- g_order_9d = 13;
+    (*g_nation_colour) = 10;
+    g_order_9b = 11;
+    g_order_9c = 12;
+    g_order_9d = 13;
 }

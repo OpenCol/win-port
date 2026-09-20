@@ -1,0 +1,9 @@
+{
+ "what": "ports this repo made, verified to compare NOTHING, and took back out",
+ "why": "tools/port.py cannot know in advance: it takes running the shipped function to find that the generated sweep never reaches the branch that writes. Without this list the cascade re-ports them every time and the suite carries three cases that pass while testing nothing.",
+ "withdrawn": {
+  "set_cursor_pos": "the sweep never reaches the branch that writes; needs a hand-written case",
+  "show_strategy": "the sweep never reaches the branch that writes; needs a hand-written case",
+  "spin_over_count": "the sweep never reaches the branch that writes; needs a hand-written case"
+ }
+}

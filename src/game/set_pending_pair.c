@@ -11,9 +11,9 @@
  */
 #include "col/globals.h"
 
-void set_pending_pair(int a, int b)
+void set_pending_pair(col_i16 a, col_i16 b)
 {
- g_pending_flag = 1;
- g_pending_a = a;
- g_pending_b = b;
+    g_pending_flag = 1;
+    g_pending_a = a;
+    g_pending_b = b;
 }

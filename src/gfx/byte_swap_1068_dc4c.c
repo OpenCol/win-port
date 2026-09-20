@@ -6,7 +6,7 @@
  */
 #include "col/globals.h"
 
-unsigned byte_swap_1068_dc4c(unsigned v)
+col_u16 byte_swap_1068_dc4c(col_u16 v)
 {
- return ((v & 0xff) << 8) | ((v & 0xff00) >> 8);
+    return ((v & 0xff) << 8) | ((v & 0xff00) >> 8);
 }

@@ -43,6 +43,30 @@ GLOBALS = DERIVED['globals']
 ALIASES = {a['name'] for a in DERIVED['aliases']}
 SEGSIZE = {int(k): v for k, v in
            json.load(open(os.path.join(REPO, 'model', 'segments.json')))['sizes'].items()}
+WITHDRAWN = json.load(open(os.path.join(REPO, 'model', 'withdrawn.json')))['withdrawn']
+MODEL = json.load(open(os.path.join(REPO, 'model', 'model.json')))
+RECORDS = MODEL['records']
+# What the generated header actually calls each member: the generator renames a member
+# whose name the merge gave to two offsets. Rebuilt here from the same rule rather than
+# parsed out of the header, so the two cannot drift.
+CANON = {}
+for _rn, _r in RECORDS.items():
+    _used, _by_off = {}, {}
+    for _m in sorted(_r['members'], key=lambda m: m['offset']):
+        _nm = _m['name']
+        if _nm in _used:
+            _nm = '%s_%x' % (_nm, _m['offset'])
+        _used[_nm] = _m['offset']
+        _by_off.setdefault(_m['offset'], (_nm, _m['type']))
+    CANON[_rn] = _by_off
+
+MEMBER = re.compile(r'(unsigned char|signed char|unsigned short|unsigned long'
+                    r'|unsigned int|unsigned|char|short|int|long)\s+([^;]+);')
+WIDTH = {'char': 1, 'signed char': 1, 'unsigned char': 1, 'short': 2,
+         'unsigned short': 2, 'int': 2, 'unsigned int': 2, 'unsigned': 2,
+         'long': 4, 'unsigned long': 4}
+PAD = re.compile(r'^(pad|rest|unused|reserved)\w*$')
+
 
 QUALS = ('far', 'near', 'huge', '_far', '_near', '_huge', '__far', '__near', '__huge')
 CONV = ('pascal', 'cdecl', '_pascal', '_cdecl', '__pascal', '__cdecl')
@@ -57,6 +81,162 @@ TYPEDEF = re.compile(r'\btypedef\b')
 ADDR = re.compile(r'\b((?:SEG\d+|DGROUP)\s*[: ]\s*(?:0x)?[0-9a-fA-F]+)')
 DEF = re.compile(r'^(?P<head>[A-Za-z_][\w\s\*]*?)(?P<name>\w+)\s*\((?P<args>[^;{]*)\)\s*\{',
                  re.M)
+
+
+
+def dim(expr):
+    """`0x75e - 0x149` -> 1557. The reconstructions write a dimension as the arithmetic
+    that produced it, which is more legible than the total and has to be read back."""
+    expr = expr.strip()
+    if not expr or not re.fullmatch(r'[0-9a-fA-FxX +\-*()]+', expr):
+        return None
+    try:
+        return int(eval(expr, {'__builtins__': {}}, {}))      # noqa: S307
+    except Exception:
+        return None
+
+
+def width_of(base, pointer):
+    if pointer:
+        return 4                                  # every pointer here is far
+    if base in WIDTH:
+        return WIDTH[base]
+    if base in RECORDS:
+        return RECORDS[base]['size']
+    return {'RECT': 8, 'POINT': 4}.get(base)
+
+
+def local_layout(body):
+    """[(offset, name, type, width, is_array)] for a file's own struct, or None.
+
+    The same accumulation the model used, and deliberately as strict: a member this
+    cannot read makes every offset after it wrong, and a wrong offset downstream is
+    indistinguishable from a right one. So anything unreadable returns None rather than
+    a guess.
+    """
+    out, at = [], 0
+    for decl in body.split(';'):
+        decl = ' '.join(decl.split())
+        if not decl:
+            continue
+        words = [w for w in re.split(r'\s+', decl) if w not in QUALS]
+        if not words:
+            return None
+        # the base type is the leading type words; the rest are declarators
+        base, rest_i = '', 0
+        for i, w in enumerate(words):
+            cand = (base + ' ' + w).strip()
+            if cand in WIDTH or cand in RECORDS or cand in ('RECT', 'POINT') or \
+                    w in ('unsigned', 'signed', 'struct', 'void'):
+                base, rest_i = cand, i + 1
+            else:
+                break
+        if not base:
+            return None
+        for part in ' '.join(words[rest_i:]).split(','):
+            part = part.strip()
+            m = re.match(r'^(\**)\s*(\w+)((?:\s*\[[^\]]*\])*)$', part)
+            if not m:
+                return None
+            pointer, name = bool(m.group(1)), m.group(2)
+            dims = re.findall(r'\[([^\]]*)\]', m.group(3))
+            unit = width_of(base, pointer)
+            if unit is None:
+                return None
+            n = 1
+            for d in dims:
+                v = dim(d)
+                if v is None:
+                    return None
+                n *= v
+            out.append((at, name, base, unit * n, bool(dims), pointer))
+            at += unit * n
+    return out
+
+
+STUB_BODY = re.compile(r'\A(?:return\s+[-\w]+\s*;)?\Z')
+
+
+def definitions(blank):
+    """[(name, body, start, end)] for every function defined in `blank`, brace-matched."""
+    out = []
+    for m in DEF.finditer(blank):
+        i, depth = m.end() - 1, 0
+        while i < len(blank):
+            if blank[i] == '{':
+                depth += 1
+            elif blank[i] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        out.append((m.group('name'), ' '.join(blank[m.end():i].split()),
+                    m.start(), i + 1))
+    return out
+
+
+# Borland's int is 16 bits; a host compiler's is 32. A ported body that still says `int`
+# is a DIFFERENT PROGRAM on the host -- lfsr_step shifts a word right and the sign bit
+# lands in a different place -- so every multi-byte type is respelt through col/types.h,
+# where it is `int` under Borland and `short` on the host. char stays char: one byte
+# either way, and signed under both toolchains as configured.
+RETYPE = [('unsigned char', 'unsigned char'), ('signed char', 'signed char'),
+          ('unsigned long', 'col_u32'), ('unsigned short', 'col_u16'),
+          ('unsigned int', 'col_u16'), ('unsigned', 'col_u16'),
+          ('signed int', 'col_i16'), ('long', 'col_i32'), ('short', 'col_i16'),
+          ('int', 'col_i16')]
+RETYPE_RE = re.compile(r'\b(%s)\b' % '|'.join(re.escape(k).replace(r'\ ', r'\s+')
+                                               for k, _ in RETYPE))
+RETYPE_MAP = dict(RETYPE)
+
+
+def retype(text):
+    """Respell the widths, outside comments and strings."""
+    mask = blank_comments(text)
+    out, at = [], 0
+    for m in RETYPE_RE.finditer(mask):
+        want = RETYPE_MAP[' '.join(m.group(1).split())]
+        out.append(text[at:m.start()])
+        out.append(want)
+        at = m.end()
+    return ''.join(out) + text[at:]
+
+
+def _indexed(text, i):
+    """Is the access at `i` immediately subscripted? `c->name[k]` wants a pointer;
+    `c->pop` wants the value."""
+    while i < len(text) and text[i] in ' \t':
+        i += 1
+    return i < len(text) and text[i] == '['
+
+
+def receiver_before(text, i):
+    """The primary expression that ends at `i`, or None.
+
+    Walking backwards beats a regex here: a receiver can be `g_colonies[unit_colony(u)]`
+    or `((Colony far *)p)`, and balancing brackets is the only way to find where it
+    starts. Returns the slice, so the caller can rebuild the access around it.
+    """
+    j = i
+    while j > 0 and text[j - 1] in ' \t':
+        j -= 1
+    end = j
+    depth = 0
+    while j > 0:
+        c = text[j - 1]
+        if c in ')]':
+            depth += 1
+        elif c in '([':
+            if depth == 0:
+                break
+            depth -= 1
+        elif depth == 0 and not (c.isalnum() or c in '_.' or
+                                 (c == '>' and text[j - 2:j] == '->') or
+                                 (c == '-' and text[j:j + 1] == '>')):
+            break
+        j -= 1
+    expr = text[j:end].strip()
+    return expr or None
 
 
 def blank_comments(text):
@@ -87,9 +267,19 @@ def blank_comments(text):
 
 
 def strip_quals(text):
+    """Drop far/near/huge, and tidy only the gap each one left.
+
+    Collapsing ALL runs of spaces also eats the indentation, which turned every ported
+    body into a flat one-space-indented block. The reconstructions are readable and the
+    ports should stay that way.
+    """
     for q in QUALS:
         text = re.sub(r'\b%s\b' % q, ' ', text)
-    return re.sub(r'[ \t]+', ' ', text)
+    out = []
+    for line in text.split('\n'):
+        lead = line[:len(line) - len(line.lstrip())]
+        out.append(lead + re.sub(r'[ \t]+', ' ', line.strip()))
+    return '\n'.join(out)
 
 
 def normalise_addr(s):
@@ -106,19 +296,30 @@ def parse_params(args):
     out = []
     for part in args.split(','):
         part = part.strip()
-        if '*' in part or '[' in part:
+        if '[' in part:
             return None
-        words = part.split()
+        words = part.replace('*', ' * ').split()
+        stars = words.count('*')
+        words = [w for w in words if w != '*']
         if len(words) < 2:
             return None
         name, ty = words[-1], ' '.join(words[:-1])
+        if stars > 1:
+            return None
+        if stars:
+            # A pointer parameter: not swept, pointed at a staged region. Its type has to
+            # be one this can spell and size, so the region can be big enough.
+            if not (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT', 'void')):
+                return None
+            out.append(('%s *' % ty, name))
+            continue
         if ty not in INTEGRAL or INTEGRAL[ty] == 0:
             return None
         out.append((ty, name))
     return out
 
 
-def index_bound(rest, params, names):
+def index_bounds(rest, params, names):
     """How far argument 0 may be swept before it indexes past a table, or None.
 
     A sweep that runs off the end of a global array is a harness bug rather than a port
@@ -128,9 +329,15 @@ def index_bound(rest, params, names):
     it. Only the UPPER end needs bounding -- a negative index still lands inside the
     segment image, where both sides read the same bytes and agree.
     """
-    if not params:
-        return None
-    p0 = params[0][1]
+    out = {}
+    for pname in [p[1] for p in params if not p[0].endswith('*')]:
+        best = _bound_for(rest, pname, names)
+        if best is not None:
+            out[pname] = best
+    return out
+
+
+def _bound_for(rest, p0, names):
     best = None
     for n in names:
         g = GLOBALS.get(n)
@@ -157,6 +364,28 @@ def index_bound(rest, params, names):
     return best
 
 
+def scratch(size):
+    """A (segment, offset) with `size` bytes no global names, for a pointer argument.
+
+    A pointer parameter cannot be swept -- there is no integer to enumerate -- so the
+    case points it at a staged region instead. The region is chosen where the model names
+    nothing, so the call perturbs no global the function might also read. Even if it did,
+    both sides would see the same bytes, because both address the same segment image;
+    this is about keeping the observation legible, not about correctness.
+    """
+    named = {}
+    for g in GLOBALS.values():
+        named.setdefault(g['seg'], []).append((g['off'], g['off'] + (g['size'] or 1)))
+    for seg in sorted(SEGSIZE, reverse=True):
+        spans = sorted(named.get(seg, []))
+        at = 0
+        for lo, hi in spans + [(SEGSIZE[seg], SEGSIZE[seg])]:
+            if lo - at >= size:
+                return seg, at
+            at = max(at, hi)
+    return None
+
+
 def sweep_for(params):
     """A sweep that exercises each argument, kept under 64 calls so a case stays cheap."""
     n = len(params)
@@ -179,9 +408,80 @@ def port(path, force=False):
     head, body = (m.group(0), text[m.end():]) if m else ('', text)
 
     blank = blank_comments(body)
-    if TYPEDEF.search(blank):
-        return None, 'declares its own struct (tier B, not written yet)'
+    # A file-local struct is not automatically something to unify away. It is one of two
+    # things, and only the first is a conflict with the shared header:
+    #
+    #   it types a GLOBAL   -- `extern Unit far g_units[];` after `typedef struct {...}
+    #                          Unit;`. The header already declares that object with the
+    #                          MERGED record, so the file's own view of it has to be
+    #                          mapped onto that one, member by member, by offset. Not
+    #                          done yet: a wrongly named receiver compiles identically,
+    #                          so it needs its own checking.
+    #
+    #   it types a PARAMETER or a local -- `scroll_get_range(Ctl far *c, ...)`. Nothing
+    #                          shared is involved: there is no object in the header for
+    #                          it to disagree with, and unifying it would be inventing a
+    #                          claim rather than porting one. It stays.
+    local_types = [m.group(2) for m in
+                   re.finditer(r'typedef\s+struct\s*\{(.*?)\}\s*(\w+)\s*;',
+                               blank, re.S)]
+    typedefs = {m.group(2): m.group(1) for m in
+                re.finditer(r'typedef\s+struct\s*\{(.*?)\}\s*(\w+)\s*;', body, re.S)}
+    # Windows' own structs bring member names of their own into the file; a rewrite of
+    # `.right` meant for the game's record would hit `RECT.right` too.
+    # Only the members of a Windows struct the file ACTUALLY uses. `x`, `y` and `hwnd`
+    # are ordinary game field names too, and guarding them unconditionally refused 202
+    # files over a collision that was not there.
+    PLATFORM_FIELDS = {'RECT': {'left', 'top', 'right', 'bottom'},
+                       'POINT': {'x', 'y'},
+                       'MSG': {'hwnd', 'message', 'wParam', 'lParam', 'time', 'pt'}}
+    PLATFORM_MEMBERS = set()
+    for _t, _f in PLATFORM_FIELDS.items():
+        if re.search(r'\b%s\b' % _t, blank):
+            PLATFORM_MEMBERS |= _f
+    renames, casts, drop_typedefs, protos = {}, {}, [], []
+    for t, tbody in typedefs.items():
+        if t not in RECORDS:
+            continue          # types nothing shared: it stays, see above
+        lay = local_layout(blank_comments(tbody))
+        if lay is None:
+            return None, 'its own %s has a member this cannot lay out' % t
+        canon = CANON[t]
+        used = set(re.findall(r'(?:->|\.)\s*(\w+)', blank))
+        for off, name, ty, width, is_array, is_pointer in lay:
+            if name not in used or PAD.match(name):
+                continue
+            if name in PLATFORM_MEMBERS:
+                return None, '%s.%s collides with a Windows struct member of the same ' \
+                             'name' % (t, name)
+            # Three outcomes, in order of how much they keep:
+            #   the merged record names this byte at this width -> rename, and the port
+            #     reads like the record;
+            #   it names it at another width, or does not name it, or the file reads it
+            #     as an array -> a CAST AT THE SITE, which is what the brief prescribes
+            #     for a narrow reading and works equally for an unnamed offset;
+            #   the type is one this cannot spell -> refuse.
+            cname, ctype = canon.get(off, (None, None))
+            if not is_array and cname and WIDTH.get(ctype) == width:
+                if cname != name:
+                    renames[name] = cname
+                continue
+            if is_pointer:
+                # Same wall as a pointer-valued global: four bytes in the game, eight on
+                # the host, so the host cannot hold one at the shipped offset and the
+                # differential cannot compare it.
+                return None, 'uses the pointer member %s.%s, which is 4 bytes in the ' \
+                             'game and 8 on the host' % (t, name)
+            elem = ty if (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT')) \
+                else None
+            if elem is None:
+                return None, '%s.%s is a %s at +0x%02x, which needs a cast this cannot ' \
+                             'spell' % (t, name, ty, off)
+            casts[name] = (off, elem)
+        drop_typedefs.append(t)
 
+    if name in WITHDRAWN:
+        return None, 'withdrawn: %s' % WITHDRAWN[name]
     shipped = re.search(r'candidate for (\w{4}:\w{4})', head)
     if not shipped:
         return None, 'no shipped address in the header comment'
@@ -227,18 +527,51 @@ def port(path, force=False):
         blank_rest += blank[at:start]
         at = end
     rest, blank_rest = rest + body[at:], blank_rest + blank[at:]
-    d = DEF.search(blank_rest)
-    if not d:
+    # Rule 47: the shipped code reaches a callee in the SAME translation unit with a
+    # four-byte PUSH CS / CALL NEAR, and a byte-exact file reproduces that by DEFINING
+    # the callee locally -- empty, or `return 0;`. Those definitions are an artefact of
+    # byte-matching and every one of them has to go; the real function is ported from its
+    # own file and the linker joins them. A file with a second REAL body is a different
+    # thing -- two functions that shared a translation unit -- and needs the partition,
+    # which is not done.
+    defs = definitions(blank_rest)
+    if not defs:
         return None, 'no function definition found'
-    if d.group('name') != name:
-        return None, 'defines %s, not %s' % (d.group('name'), name)
-    if len(DEF.findall(blank_rest)) > 1:
-        return None, 'defines more than one function (an in-file stub)'
+    if name not in [d[0] for d in defs]:
+        return None, 'defines %s, not %s' % (defs[0][0], name)
+    extras = [d for d in defs if d[0] != name]
+    real = [d for d in extras if not STUB_BODY.match(d[1])]
+    if real:
+        return None, 'defines %d other function%s with a real body (%s): they shared a ' \
+                     'translation unit and the partition is not done' \
+                     % (len(real), '' if len(real) == 1 else 's', real[0][0])
+    if extras:
+        # Each dropped stub was also this file's only DECLARATION of that callee, so a
+        # prototype has to replace it or the call compiles as implicit-int and the two
+        # sides disagree about the return width.
+        for _n, _b, st, en in extras:
+            m2 = DEF.search(blank_rest[st:en])
+            if m2:
+                protos.append(retype(strip_quals(
+                    '%s%s(%s)' % (m2.group('head'), m2.group('name'),
+                                  m2.group('args'))).strip()) + ';')
+        keep, at = '', 0
+        kb = ''
+        for _n, _b, st, en in sorted(extras, key=lambda d: d[2]):
+            keep += rest[at:st]
+            kb += blank_rest[at:st]
+            at = en
+        rest, blank_rest = keep + rest[at:], kb + blank_rest[at:]
+    d = DEF.search(blank_rest)
+    if not d or d.group('name') != name:
+        return None, 'the subject definition went missing when the stubs came out'
 
     # A callee this repo has not ported yet would not link, and porting it blind is how a
     # port acquires a function nobody checked. Decline, and the file becomes portable the
     # moment its callee is.
-    KEYWORDS = {'if', 'while', 'for', 'switch', 'return', 'sizeof', 'do', 'else'}
+    KEYWORDS = {'if', 'while', 'for', 'switch', 'return', 'sizeof', 'do', 'else',
+                'void', 'char', 'int', 'short', 'long', 'unsigned', 'signed', 'float',
+                'double', 'struct', 'union', 'const', 'volatile', 'far', 'near', 'huge'}
     called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', blank_rest)
               if c not in KEYWORDS and c != name}
     missing = sorted(c for c in called
@@ -275,13 +608,47 @@ def port(path, force=False):
         return None, 'calls through a global function pointer, which the model types as ' \
                      'data'
 
-    sweeps, calls = sweep_for(params)
-    bound = index_bound(rest, params, [n for _, ns in dropped for n in ns])
-    if sweeps and bound is not None and bound >= 0:
-        lo, _, hi = sweeps[0].partition('=')[2].partition('..')
-        sweeps[0] = '0=%s..%d' % (lo, min(int(hi), bound))
-    if sweeps is None:
+    # Lay the arguments out as the emulator sees them: 16-bit WORDS. A scalar is one
+    # word and gets a swept axis; a pointer is two (offset, then selector) and gets a
+    # fixed pair, because there is no integer to enumerate -- it points at a staged
+    # region instead, and the host is handed the same address in its own coordinates.
+    npoint = sum(1 for t, _ in params if t.endswith('*'))
+    nscalar = len(params) - npoint
+    if nscalar > 3 or len(params) > 5:
         return None, '%d arguments is more than a sweep should enumerate' % len(params)
+    per = {0: [], 1: ['0=-4..24'], 2: ['0=0..7', '1=0..7'],
+           3: ['0=0..3', '1=0..3', '2=0..3']}[nscalar]
+    base = scratch(64 * max(1, npoint) + 512) if npoint else None
+    if npoint and base is None:
+        return None, 'no room in any data segment to stage %d pointer argument%s' \
+            % (npoint, '' if npoint == 1 else 's')
+    bounds = index_bounds(rest, params, [n for _, ns in dropped for n in ns])
+    sweeps, callargs, stage, k, blk, si = [], [], {}, 0, 0, 0
+    for ty, pname in params:
+        if ty.endswith('*'):
+            pt = ty[:-1].strip()
+            off = base[1] + blk * 64
+            blk += 1
+            sel = 0x1000 + (base[0] - 1) * 8
+            sweeps += ['%d=%d' % (k, off), '%d=%d' % (k + 1, sel)]
+            callargs.append('(%s far *)(col_seg%d + 0x%04xL)'
+                            % (retype(pt), base[0], off))
+            # something to read that is not all zeroes, identical on both sides
+            stage['SEG%d:0x%04x' % (base[0], off)] = \
+                ''.join('%02x' % ((i * 7 + 3) & 0xFF) for i in range(64))
+            k += 2
+        else:
+            rng = per[si].split('=')[1]
+            # An index that runs off the end of a table is a harness bug, not a port bug:
+            # on the host the access lands in whatever is next, while the emulator's
+            # selector simply ends. The model knows where each segment stops.
+            if pname in bounds and '..' in rng:
+                lo, _, hi = rng.partition('..')
+                rng = '%s..%d' % (lo, min(int(hi), bounds[pname]))
+            sweeps.append('%d=%s' % (k, rng))
+            callargs.append('(%s)a%d' % (retype(ty), k))
+            k += 1
+            si += 1
 
     ret = strip_quals(d.group('head')).strip()
     for c in CONV:
@@ -296,6 +663,27 @@ def port(path, force=False):
     # indexes and another reads whole is indexable in the header and scalar at the site.
     # Rewrite the scalar uses; a use that takes its ADDRESS has no such rewrite, so refuse.
     body_text = rest
+    for t in drop_typedefs:
+        body_text = re.sub(r'typedef\s+struct\s*\{.*?\}\s*%s\s*;\s*' % re.escape(t),
+                           '', body_text, flags=re.S)
+    for old, new in renames.items():
+        body_text = re.sub(r'(->|\.)(\s*)%s\b' % re.escape(old),
+                           lambda m: m.group(1) + m.group(2) + new, body_text)
+    for name, (off, elem) in sorted(casts.items()):
+        while True:
+            m = re.search(r'(->|\.)\s*%s\b' % re.escape(name), body_text)
+            if not m:
+                break
+            recv = receiver_before(body_text, m.start())
+            if recv is None:
+                return None, 'cannot see what %s is a member of' % name
+            base = '(%s)' % recv if m.group(1) == '->' else '&(%s)' % recv
+            rep = '((%s far *)((unsigned char far *)%s + 0x%x))' % (elem, base, off)
+            if m.group(1) == '.' or True:
+                pass
+            body_text = (body_text[:m.start() - len(recv)]
+                         + (rep if _indexed(body_text, m.end()) else '(*%s)' % rep)
+                         + body_text[m.end():])
     for _, names in dropped:
         for n in names:
             if not GLOBALS.get(n, {}).get('dims'):
@@ -317,9 +705,14 @@ def port(path, force=False):
             return None, 'returns the uninitialised local %s: undefined, and the ' \
                          'shipped value is whatever the registers held' % ret_id
 
-    ported = strip_quals(body_text).strip()
-    sig = '%s %s%s(%s)' % (ret, (conv[0] + ' ') if conv else '', name,
-                           ', '.join('%s %s' % p for p in params) or 'void')
+    # The reconstruction includes the byte-exact repo's w16types.h for RECT and friends.
+    # col/win16.h provides those here -- windows.h on Win16, and 16-bit-wide copies on the
+    # host, where w16types.h's bare `int` would put the members at the wrong offsets.
+    body_text = re.sub(r'^[ \t]*#\s*include\s+"w16types\.h".*\n?', '', body_text,
+                       flags=re.M)
+    ported = retype(strip_quals(body_text)).strip()
+    sig = retype('%s %s%s(%s)' % (ret, (conv[0] + ' ') if conv else '', name,
+                                  ', '.join('%s %s' % p for p in params) or 'void'))
     note = ['/* %s -- shipped at %s.' % (name, shipped.group(1)), ' *',
             ' * Ported by tools/port.py from %s.'
             % os.path.relpath(path, SRC_REPO), ' *']
@@ -330,21 +723,36 @@ def port(path, force=False):
             note.append(' *   %-52s %s' % (line, ', '.join(
                 GLOBALS[n]['addr'] for n in names if n in GLOBALS)))
         note.append(' *')
+    if drop_typedefs:
+        note.append(' * The file\'s own %s dropped for the merged record in '
+                    'col/records.h.' % ', '.join(drop_typedefs))
+        if renames:
+            note.append(' * Members renamed to the merged record\'s spelling, by OFFSET: '
+                        + ', '.join('%s -> %s' % kv for kv in sorted(renames.items())))
+        note.append(' *')
     note += [' * far/near dropped throughout: an addressing mode with no semantic here.',
              ' */']
-    src = '\n'.join(note) + '\n#include "col/globals.h"\n\n' + ported + '\n'
+    src = '\n'.join(note) + '\n#include "col/globals.h"\n\n'
+    if protos:
+        src += ('/* The callees whose in-file stub came out: declared here, defined in '
+                'their own\n * translation units, joined by the linker. */\n'
+                + '\n'.join(sorted(set(protos))) + '\n\n')
+    src += ported + '\n'
 
-    args = ', '.join('(%s)a%d' % (p[0], i) for i, p in enumerate(params))
+    args = ', '.join(callargs)
     case = {'what': 'ported by tools/port.py; compared against the shipped bytes',
             'symbol': name, 'shipped': shipped.group(1),
             'source': 'src/%s/%s.c' % (os.path.basename(os.path.dirname(path)), name),
             'prototype': sig + ';',
             'state': 'shipped', 'ret_bits': INTEGRAL[ret],
-            'sweep': sweeps, 'call': ('(long)%s(%s)' if INTEGRAL[ret] else '%s(%s)') % (name, args),
+            'sweep': sweeps, 'stage': stage,
+            'call': ('(long)%s(%s)' if INTEGRAL[ret] else '%s(%s)') % (name, args),
             'globals_read': sorted({n for _, names in dropped for n in names})}
-    if calls is not None and not sweeps:
+    if not sweeps:
         case['call_args'] = ['0']
         del case['sweep']
+    if not stage:
+        del case['stage']
     return src, case
 
 

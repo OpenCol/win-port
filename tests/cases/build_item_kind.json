@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "build_item_kind",
+ "shipped": "1018:82be",
+ "source": "src/game/build_item_kind.c",
+ "prototype": "col_i16 build_item_kind(col_i16 item, col_i16 * idx);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "sweep": [
+  "0=-4..24",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)build_item_kind((col_i16)a0, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "globals_read": []
+}

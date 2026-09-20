@@ -9,8 +9,8 @@
  */
 #include "col/globals.h"
 
-int set_quit_flag(void)
+col_i16 set_quit_flag(void)
 {
- g_quit_flag = 1;
- return 1;
+    g_quit_flag = 1;
+    return 1;
 }

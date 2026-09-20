@@ -9,13 +9,13 @@
  */
 #include "col/globals.h"
 
-int woodcut_get(int n)
+col_i16 woodcut_get(col_i16 n)
 {
- int idx;
- int mask;
+    col_i16 idx;
+    col_i16 mask;
 
- n--;
- idx = n >> 3;
- mask = 1 << (n & 7);
- return (unsigned char)(g_bits_780c[idx] & mask);
+    n--;
+    idx = n >> 3;
+    mask = 1 << (n & 7);
+    return (unsigned char)(g_bits_780c[idx] & mask);
 }

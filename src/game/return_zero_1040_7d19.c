@@ -6,7 +6,7 @@
  */
 #include "col/globals.h"
 
-int return_zero_1040_7d19(void)
+col_i16 return_zero_1040_7d19(void)
 {
- return 0;
+    return 0;
 }

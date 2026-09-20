@@ -10,10 +10,10 @@
  */
 #include "col/globals.h"
 
-int map_index_in_range(int x, int y)
+col_i16 map_index_in_range(col_i16 x, col_i16 y)
 {
- if (x < 0 || y < 0 || (*g_map_width) - 1 < x || g_map_h - 1 < y)
- return 0;
- else
- return 1;
+    if (x < 0 || y < 0 || (*g_map_width) - 1 < x || g_map_h - 1 < y)
+        return 0;
+    else
+        return 1;
 }

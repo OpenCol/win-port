@@ -157,9 +157,8 @@ int main(void)
     static unsigned char vals[4096];
     printf("{\\"observations\\":[");
     for (i = 0; i < NSETS; i++) {
-        long a0 = argsets[i][0], a1 = 0, a2 = 0, a3 = 0;
+%s
         long r;
-        (void)a0; (void)a1; (void)a2; (void)a3;
 %s
         col_reset();
         col_relocate();
@@ -173,7 +172,10 @@ int main(void)
         col_snapshot();
         %s;
         n = col_diff(segs, offs, vals, 4096);
-        printf("%%s{\\"args\\":[%%ld], \\"ret\\":%%ld, \\"at\\":{", i ? "," : "", a0, r);
+        printf("%%s{\\"args\\":[", i ? "," : "");
+        for (k = 0; k < NARGS; k++)
+            printf("%%s%%ld", k ? "," : "", argsets[i][k]);
+        printf("], \\"ret\\":%%ld, \\"at\\":{", r);
         for (k = 0; k < NPROBE; k++)
             printf("%%s\\"%%d:%%04lx\\":%%d", k ? "," : "", probes[k].seg,
                    probes[k].off, col_seg(probes[k].seg)[probes[k].off]);
@@ -187,8 +189,12 @@ int main(void)
 }
 ''' % (os.path.basename(case['_path']), case['prototype'], nargs, len(argsets), rows,
        len(probe_addrs), probes, npois, pois,
-       '\n'.join('        if (NARGS > %d) a%d = argsets[i][%d %% NARGS];' % (k, k, k)
-                 for k in (1, 2, 3)),
+       # one `aK` per argument WORD, not a fixed four: a pointer argument takes two
+       # words, so a four-argument function can reach a4.
+       '        long ' + ', '.join('a%d = argsets[i][%d]' % (k, k)
+                                   for k in range(max(nargs, 1))) + ';'
+       if nargs else '        long a0 = 0;',
+       '\n'.join('        (void)a%d;' % k for k in range(max(nargs, 1))),
        '\n'.join(stage),
        ('r = ' + case['call']) if case.get('ret_bits', 16) else
        ('(void)(' + case['call'] + '), r = 0'))

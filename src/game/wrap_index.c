@@ -6,11 +6,11 @@
  */
 #include "col/globals.h"
 
-int wrap_index(int i, int n)
+col_i16 wrap_index(col_i16 i, col_i16 n)
 {
- if (i < 0)
- i = n - 1;
- if (i >= n)
- i = 0;
- return i;
+    if (i < 0)
+        i = n - 1;
+    if (i >= n)
+        i = 0;
+    return i;
 }

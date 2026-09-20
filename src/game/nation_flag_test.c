@@ -9,11 +9,11 @@
  */
 #include "col/globals.h"
 
-int nation_flag_test(int nation, int bit)
+col_i16 nation_flag_test(col_i16 nation, col_i16 bit)
 {
- if (bit < 0)
- return 1;
- if (nation >= 4)
- return 0;
- return g_nation_bits[nation][bit >> 3] & (1 << (bit & 7));
+    if (bit < 0)
+        return 1;
+    if (nation >= 4)
+        return 0;
+    return g_nation_bits[nation][bit >> 3] & (1 << (bit & 7));
 }

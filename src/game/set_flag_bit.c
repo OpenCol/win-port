@@ -9,10 +9,10 @@
  */
 #include "col/globals.h"
 
-void set_flag_bit(int bit, int on)
+void set_flag_bit(col_i16 bit, col_i16 on)
 {
- if (on)
- g_flags_2514 |= 1 << bit;
- else
- g_flags_2514 &= ~(1 << bit);
+    if (on)
+        g_flags_2514 |= 1 << bit;
+    else
+        g_flags_2514 &= ~(1 << bit);
 }
