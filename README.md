@@ -165,6 +165,25 @@ also hold the heap (1,024) and the stack (32,768), which is 58,858 of 65,536 —
 61,825. Units are compiled with `-dc` so string literals go to the code segment rather
 than spending that headroom.
 
+## Two oracles, and where they overlap
+
+`tests/differential.py` compiles the port with a HOST compiler: fast, runs anywhere, and
+structurally unable to represent a far pointer in four bytes, wrap an index inside a 64 KiB
+segment, or say anything about calling convention.
+
+`tests/emu_differential.py` asks the same question of the same source in 16 bits. Built
+with `-DCOL_EMU`, `col/segments.h` makes each segment a compile-time far constant at its
+shipped selector, so a ported unit compiles with **no relocations and no external
+references** and drops straight into the emulator beside the shipped function. It compares
+the return value, every data write, and the **stack delta** — which is how the calling
+convention gets checked at all.
+
+**298 of 351 agree in 16 bits, none disagree**, and the other 53 are reported as
+unsupported rather than passed: a function that calls anything — a ported callee, or a
+runtime helper like `F_SCOPY` behind a struct assignment — compiles with a fixup for that
+call, and nothing resolves fixups yet. Resolving them is what turns this into the harness
+that can verify the 292 functions the host one refuses.
+
 ### What the harness cannot see
 
 Stated so a pass is not read as more than it is. The host side has no MMU; it diffs

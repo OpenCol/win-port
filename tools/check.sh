@@ -19,6 +19,10 @@ run python3 tests/differential.py --all
 if [ "${1:-}" != "fast" ]; then
   # The link is the only check that covers whether the pieces FIT: one definition each,
   # the segments inside 64 KiB, DGROUP not overflowing, imports resolved, resources bound.
+  # The same question in 16 bits: the same sources, compiled by Borland and run in the
+  # emulator beside the shipped function, where far pointers, segment wrap and stack
+  # discipline are native rather than approximated.
+  [ -x "$UC" ] && run "$UC" tests/emu_differential.py --all
   run python3 tools/link.py
   [ -x "$UC" ] && run "$UC" tests/boot.py
 fi

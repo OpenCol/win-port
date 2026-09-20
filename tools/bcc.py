@@ -86,11 +86,12 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240, tdump=False):
     return (data, log) + ((td,) if tdump else ())
 
 
-CHUNK = 32          # DOSBox's [autoexec] stops running somewhere past this many lines:
+CHUNK = 16          # halved once TDUMP doubled the lines per unit;
+                    # DOSBox's [autoexec] stops running somewhere past this many lines:
                     # 20 files compile, 132 silently produce nothing at all.
 
 
-def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200):
+def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200, tdump=False):
     """Compile many units in ONE DOSBox session.
 
     Booting DOSBox-X costs a few seconds and compiling one of these files costs a
@@ -104,7 +105,7 @@ def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200):
     if len(paths) > CHUNK:
         out = {}
         for i in range(0, len(paths), CHUNK):
-            out.update(compile_all(paths[i:i + CHUNK], flags, timeout))
+            out.update(compile_all(paths[i:i + CHUNK], flags, timeout, tdump))
         return out
     os.makedirs(WORK, exist_ok=True)
     link(os.path.join(DOS, 'BC452'), BC452)
@@ -121,6 +122,8 @@ def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200):
                 pass
         lines.append('BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ %s.C > %s.TXT'
                      % (flags, stem, stem, stem))
+        if tdump:
+            lines.append('TDUMP %s.OBJ > %sD.TXT' % (stem, stem))
     conf = os.path.join(DOS, 'bccall.conf')
     open(conf, 'w').write(
         '[dosbox]\nmemsize=32\n[cpu]\ncore=auto\ncputype=pentium\ncycles=max\n'
@@ -140,7 +143,12 @@ def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200):
             log = open(lp, errors='replace').read()
         op = os.path.join(WORK, stem + '.OBJ')
         obj = open(op, 'rb').read() if os.path.exists(op) and os.path.getsize(op) else None
-        out[p] = (obj, log)
+        if tdump:
+            tp = os.path.join(WORK, stem + 'D.TXT')
+            out[p] = (obj, log,
+                      open(tp, errors='replace').read() if os.path.exists(tp) else '')
+        else:
+            out[p] = (obj, log)
     return out
 
 
