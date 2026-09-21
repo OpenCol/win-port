@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "current_nation_boycotts",
+ "shipped": "1048:497c",
+ "source": "src/game/current_nation_boycotts.c",
+ "prototype": "col_i16 current_nation_boycotts(col_i16 g);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)current_nation_boycotts((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation_rec"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}

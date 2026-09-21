@@ -59,10 +59,10 @@ def main():
         for idx, (data, n) in pristine.items():
             m.write(idx, 0, data)
 
-    def written():
-        """Every byte address the last call wrote, outside the stack."""
+    def addrs(kind):
+        """Every byte address the last call READ or WROTE, outside the stack."""
         out = set()
-        for w in m.log['writes']:
+        for w in m.log[kind]:
             if w.get('space') in ('stack', 'scratch') or not w.get('addr'):
                 continue
             sel, _, off = w['addr'].partition(':')
@@ -70,6 +70,9 @@ def main():
             for k in range(w.get('size', 1)):
                 out.add((seg, int(off, 16) + k))
         return out
+
+    def written():
+        return addrs('writes')
 
     if DUMP:
         # The host's idea of "the shipped state" is the raw segment image; the emulator's
@@ -103,6 +106,11 @@ def main():
         # with the complement of the pristine byte put 0xff there -- exactly the value the
         # function goes on to write -- and a port that did nothing still matched.
         wrote = {(seg, off): m.read(seg, off, 1)[0] for seg, off in first}
+        # Poison every byte the function wrote. Excluding the ones it also READ was too
+        # cautious: unit_clear_flags_high does `flags &= 0xf` on a byte whose high nibble
+        # is already clear, so without poison a port that did nothing matched. Reading a
+        # byte is not the problem -- CHANGING WHAT THE FUNCTION DOES is, and that is
+        # detected below by comparing the two runs' write sets.
         restore()
         poison = {}
         for seg, off in sorted(first):
@@ -122,12 +130,12 @@ def main():
             restore()
             o = probe.observe(m, CASE['shipped'], args, CASE.get('max_instr', 200000))
             poison, first = {}, written()
-        touched = {}
+        finals = {}
         for seg, off in sorted(first | written()):
-            touched['%d:%04x' % (seg, off)] = m.read(seg, off, 1)[0]
+            finals['%d:%04x' % (seg, off)] = m.read(seg, off, 1)[0]
         out.append({'args': list(args), 'ax': o['return_dxax'] & 0xFFFF,
                     'dxax': o['return_dxax'], 'returned': o['reached_return'],
-                    'poison': poison, 'final': touched})
+                    'poison': poison, 'final': finals})
     json.dump({'state': meta.get('state'), 'observations': out}, sys.stdout)
 
 

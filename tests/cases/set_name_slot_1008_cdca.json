@@ -19,5 +19,6 @@
  "globals_read": [
   "g_name_slots"
  ],
- "near_callees": []
+ "near_callees": [],
+ "host_blind": "calls strcpy: the host links its own, the shipped code calls Borland's"
 }

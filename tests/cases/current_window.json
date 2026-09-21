@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "current_window",
+ "shipped": "1060:9fcd",
+ "source": "src/game/current_window.c",
+ "prototype": "void * current_window(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)current_window()",
+ "globals_read": [
+  "g_current_window"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_current_window: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

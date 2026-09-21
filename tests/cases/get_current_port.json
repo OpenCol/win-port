@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "get_current_port",
+ "shipped": "1068:614a",
+ "source": "src/gfx/get_current_port.c",
+ "prototype": "void * get_current_port(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)get_current_port()",
+ "globals_read": [
+  "g_current_port"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_current_port: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

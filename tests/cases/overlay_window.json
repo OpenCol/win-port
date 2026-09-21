@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "overlay_window",
+ "shipped": "1008:4bd3",
+ "source": "src/game/overlay_window.c",
+ "prototype": "EventWin * overlay_window(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)overlay_window()",
+ "globals_read": [
+  "g_overlay"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_overlay: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

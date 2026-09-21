@@ -19,7 +19,7 @@
  "globals_read": [
   "g_over_band",
   "g_prod",
-  "g_sel_00a6",
+  "g_tbl21_a6",
   "g_value"
  ],
  "near_callees": []

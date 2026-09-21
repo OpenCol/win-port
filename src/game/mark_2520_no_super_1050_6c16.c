@@ -4,7 +4,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern int g_super_win_open;                         DGROUP:0x251e
- *   extern int g_flag_2520;                              DGROUP:0x2520
+ *   extern int g_modal_done;                             DGROUP:0x2520
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -13,5 +13,5 @@
 void mark_2520_no_super_1050_6c16(void)
 {
     if (g_super_win_open == 0)
-        g_flag_2520 = 1;
+        g_modal_done = 1;
 }

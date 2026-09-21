@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_current_tribe",
+ "shipped": "1038:0000",
+ "source": "src/game/set_current_tribe.c",
+ "prototype": "void set_current_tribe(col_i16 t);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "set_current_tribe((col_i16)a0)",
+ "globals_read": [
+  "g_cur_tribe",
+  "g_cur_tribe_nation",
+  "g_cur_tribe_rec",
+  "g_tribes"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_tribe_rec: four bytes in the game, eight on a host"
+}

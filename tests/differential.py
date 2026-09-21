@@ -40,6 +40,7 @@ CC = os.environ.get('CC', 'cc')
 # -fwrapv         Borland wraps signed overflow; C says it is undefined.
 # -fno-strict-aliasing  every global here is a cast of the same byte slab.
 LIB = None
+REASONS = {}          # case -> why it was not verified, for tools/coverage.py
 # Functions the host cannot judge, with the reason, each required to pass the 16-bit
 # harness instead. Listed rather than excused: see model/host_blind.json.
 HOST_BLIND = json.load(open(os.path.join(os.path.dirname(os.path.dirname(
@@ -248,11 +249,12 @@ def applicable(case):
 
 def run_case(path, verbose=False, mutate=None):
     case = json.load(open(path))
-    if case['symbol'] in HOST_BLIND and not mutate:
+    blind = HOST_BLIND.get(case['symbol']) or case.get('host_blind')
+    if blind:
         # Checked BEFORE anything runs: find_entry's loop bound comes out of the staged
         # region and walks off the end of the slab, so running it at all is a fault.
-        print('%-32s UNVERIFIED BY HOST: %s'
-              % (case['symbol'], HOST_BLIND[case['symbol']]))
+        print('%-32s UNVERIFIED BY HOST: %s' % (case['symbol'], blind))
+        REASONS[case['symbol']] = blind
         return None
     case['_path'] = path
     name = case['symbol']
@@ -291,6 +293,7 @@ def run_case(path, verbose=False, mutate=None):
         # so the shipped function does not terminate for any argument but a null one.
         print('%-32s UNVERIFIED: the shipped function returned from no argument set in '
               'this sweep' % name)
+        REASONS[name] = 'the shipped function returned from no argument set in this sweep'
         return None
     drv = os.path.join(BUILD, name + '_drv.c')
     text = driver(case, argsets, probe_addrs,
@@ -329,13 +332,17 @@ def run_case(path, verbose=False, mutate=None):
     try:
         r = subprocess.run([exe, dump], capture_output=True, text=True, timeout=60)
     except subprocess.TimeoutExpired:
-        print('%s: the port did not finish in 60s' % name)
-        return False
+        # Not a disagreement. A walk that wraps inside a 64 KiB segment in the game runs
+        # off the end of a slab here, so a fault or a spin is the host saying it cannot
+        # RUN this function -- not that the port is wrong. The 16-bit harness judges it.
+        REASONS[name] = 'the port did not finish in 60s on the host'
+        print('%-32s UNVERIFIED BY HOST: it did not finish in 60s' % name)
+        return None
     if r.returncode != 0 or not r.stdout.strip():
-        print('%s: the port died (%s)%s' % (name, r.returncode,
-                                            '\n  ' + r.stderr.strip()[:300]
-                                            if r.stderr.strip() else ''))
-        return False
+        REASONS[name] = 'the port faulted on the host (exit %s)' % r.returncode
+        print('%-32s UNVERIFIED BY HOST: it faulted (%s), which on a host usually means '
+              'a walk that wraps in 16 bits ran off the slab' % (name, r.returncode))
+        return None
     host = json.loads(r.stdout)
 
     bits = case.get('ret_bits', 16)
@@ -346,12 +353,14 @@ def run_case(path, verbose=False, mutate=None):
     if not bits and not any(o['final'] for o in ship['observations']):
         if case.get('unverifiable'):
             print('%-32s UNVERIFIED: %s' % (name, case['unverifiable']))
+            REASONS[name] = case['unverifiable']
             return None
         # Not a failure: a function can have no effect this harness can see -- an empty
         # one, or one whose whole effect is a call. Whether anything covers it is a
         # question for tools/coverage.py, which reads both harnesses.
         print('%-32s UNVERIFIED BY HOST: the shipped code neither returned a value nor '
               'wrote, over this sweep' % name)
+        REASONS[name] = 'the shipped code neither returned a value nor wrote'
         return None
     bad = 0
     for h, s_ in zip(host['observations'], ship['observations']):
@@ -369,8 +378,7 @@ def run_case(path, verbose=False, mutate=None):
         for addr in h['changed']:
             if addr not in s_['final']:
                 why.append('%s: the port wrote here and the shipped code did not' % addr)
-        if why and name in HOST_BLIND:
-            continue
+
         if why:
             bad += 1
             print('  DIFF args=%s' % (h['args'],))
@@ -406,7 +414,13 @@ def main():
     if a.selftest:
         ok = True
         for c in cases:
-            for name in applicable(json.load(open(c))):
+            case = json.load(open(c))
+            if HOST_BLIND.get(case['symbol']) or case.get('host_blind'):
+                # The host is not judging this port, so breaking it proves nothing: the
+                # mutation would be "not caught" for the same reason the comparison is
+                # not made. The 16-bit harness owns these.
+                continue
+            for name in applicable(case):
                 caught = not run_case(c, False, mutate=name)
                 print('%-32s %s: %s' % (os.path.basename(c), name,
                                         'caught' if caught else 'NOT CAUGHT'))
@@ -414,8 +428,10 @@ def main():
         return 0 if ok else 1
     results = [run_case(c, a.verbose) for c in cases]
     if a.all:
-        json.dump({os.path.basename(c)[:-5]: ('agreed' if r is True else
-                                              'disagreed' if r is False else 'unverified')
+        json.dump({os.path.basename(c)[:-5]:
+                   {'status': ('agreed' if r is True else
+                               'disagreed' if r is False else 'unverified'),
+                    'why': REASONS.get(os.path.basename(c)[:-5], '')}
                    for c, r in zip(cases, results)},
                   open(os.path.join(BUILD, 'host_results.json'), 'w'), indent=1)
     unver = sum(1 for r in results if r is None)

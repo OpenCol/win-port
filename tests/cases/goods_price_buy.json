@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "goods_price_buy",
+ "shipped": "1048:406e",
+ "source": "src/game/goods_price_buy.c",
+ "prototype": "col_i16 goods_price_buy(col_i16 g);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)goods_price_buy((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_goods_info"
+ ],
+ "near_callees": [
+  "max_int_1048_dd61"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}

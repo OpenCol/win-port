@@ -16,5 +16,6 @@
  },
  "call": "trim_right((char far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
- "near_callees": []
+ "near_callees": [],
+ "host_blind": "calls strlen: the host links its own, the shipped code calls Borland's"
 }

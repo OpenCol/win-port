@@ -3,7 +3,7 @@
  * Ported by tools/port.py from matched/game/set_flag_bit.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern unsigned g_flags_2514;                        DGROUP:0x2514
+ *   extern unsigned g_check_mask;                        DGROUP:0x2514
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -12,7 +12,7 @@
 void set_flag_bit(col_i16 bit, col_i16 on)
 {
     if (on)
-        g_flags_2514 |= 1 << bit;
+        g_check_mask |= 1 << bit;
     else
-        g_flags_2514 &= ~(1 << bit);
+        g_check_mask &= ~(1 << bit);
 }

@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_entry_init",
+ "shipped": "1028:c5ca",
+ "source": "src/game/route_entry_init.c",
+ "prototype": "void route_entry_init(col_i16 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "route_entry_init((col_i16)a0)",
+ "globals_read": [
+  "g_cur_route_stop"
+ ],
+ "near_callees": [
+  "route_stop_flag_nibble_set"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_stop: four bytes in the game, eight on a host"
+}

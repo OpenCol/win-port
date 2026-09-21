@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tile_neighbor_match_alt",
+ "shipped": "1040:0000",
+ "source": "src/game/tile_neighbor_match_alt.c",
+ "prototype": "col_i16 tile_neighbor_match_alt(col_i16 value, col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)tile_neighbor_match_alt((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_map_tiles2",
+  "g_map_width"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_map_tiles2: four bytes in the game, eight on a host"
+}

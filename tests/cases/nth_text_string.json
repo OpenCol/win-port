@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nth_text_string",
+ "shipped": "1040:774e",
+ "source": "src/game/nth_text_string.c",
+ "prototype": "char * nth_text_string(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(void)nth_text_string((col_i16)a0)",
+ "globals_read": [
+  "g_empty_string",
+  "g_text_count",
+  "g_text_strings"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_text_strings: four bytes in the game, eight on a host"
+}

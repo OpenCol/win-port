@@ -86,12 +86,12 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **492 functions are ported**, and `tools/coverage.py` says what checks each one:
-  393 verified by both harnesses, 31 on the host only, 54 in 16 bits only, and 14 by
-  neither — every one of those named in `model/uncovered.json` with its reason, so a new
-  hole cannot appear unnoticed. No function disagrees with the shipped bytes.
-  The host suite runs 9,552 argument sets. All of them compile with the real Borland
-  C++ 4.52 targeting Win16, link into an NE, and the result boots.
+- **613 functions are ported**, and `tools/coverage.py` says what checks each one:
+  363 verified by both harnesses, 220 by exactly one, and 30 by neither — each of those
+  30 carrying a reason from BOTH harnesses, so an unexplained hole fails the check.
+  No function disagrees with the shipped bytes. The host suite runs 9,386 argument sets
+  and the 16-bit one agrees on 553. All of them compile with the real Borland C++ 4.52
+  targeting Win16, link into an 11-segment NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -205,12 +205,16 @@ argument set twice — once to learn which bytes it writes, then again with exac
 bytes poisoned to the complement of what they held — and the host is given the same
 poison, so every write changes something on both sides.
 
-Four things cannot be compared on a host at all, and `port.py` refuses them: a **pointer-
-valued global or struct member** (four bytes in the game, eight on the host, so its stored
-value there is an encoding and following it faults), a **`long` argument** (the sweep hands
-the emulator one 16-bit word per argument), and a function that **returns an uninitialised
-local** — which one stubbed-out routine left in the shipped build does, making its answer
-whatever the registers held.
+Three things cannot be compared on a host, and each is now HANDED TO THE 16-BIT HARNESS
+rather than refused: a **pointer-valued global or struct member** (four bytes in the game,
+eight on a host), a function that **calls a C runtime routine** (the host links its own
+`strcpy`; the shipped code calls Borland's), and one whose **walk wraps inside a segment**
+(off the end of a slab here, and it faults). `port.py` marks these `host_blind` with the
+reason, the host reports them unverified, and the 16-bit oracle owns them.
+
+`port.py` still refuses a **`long` argument** (the sweep hands the emulator one 16-bit word
+per argument) and a function that **returns an uninitialised local** — one stubbed-out
+routine left in the shipped build does that, making its answer whatever the registers held.
 
 Ported bodies are respelt through `col/types.h`: `int` is 16 bits under Borland and 32 on
 the host, and a body that still says `int` is a different program here. `lfsr_step` shifts

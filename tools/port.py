@@ -544,6 +544,7 @@ def port(path, force=False):
         if re.search(r'\b%s\b' % _t, blank):
             PLATFORM_MEMBERS |= _f
     renames, casts, drop_typedefs, protos, near_callees = {}, {}, [], [], []
+    host_blind = None
     for t, tbody in typedefs.items():
         if t not in canon_of:
             continue          # types nothing shared: it stays, see above
@@ -571,11 +572,16 @@ def port(path, force=False):
                     renames[mname] = cname
                 continue
             if is_pointer:
-                # Same wall as a pointer-valued global: four bytes in the game, eight on
-                # the host, so the host cannot hold one at the shipped offset and the
-                # differential cannot compare it.
-                return None, 'uses the pointer member %s.%s, which is 4 bytes in the ' \
-                             'game and 8 on the host' % (t, mname)
+                # Same as a pointer-valued global: the host cannot hold one at the shipped
+                # offset, the 16-bit harness can. Cast at the site and let that oracle
+                # own it.
+                host_blind = host_blind or ('uses the pointer member %s.%s: four bytes '
+                                            'in the game, eight on a host' % (t, mname))
+                # Cast it as a POINTER, not as a 32-bit integer: the site returns it,
+                # passes it on or dereferences it, and an integer there is a type error
+                # rather than a narrower reading.
+                casts[mname] = (off, 'void far *')
+                continue
             elem = ty if (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT')) \
                 else None
             if elem is None:
@@ -672,8 +678,13 @@ def port(path, force=False):
     for _, names in dropped:
         for n in names:
             if GLOBALS.get(n, {}).get('stars'):
-                return None, 'uses the pointer global %s, which is 4 bytes in the game ' \
-                             'and 8 on the host' % n
+                # Not a refusal any more. A far pointer is four bytes in the game and
+                # eight on a host, so the HOST harness cannot judge such a function -- but
+                # tests/emu_differential.py compiles with Borland and runs in the
+                # emulator, where four bytes is what a far pointer is. Port it, and say
+                # which oracle owns it.
+                host_blind = host_blind or ('uses the pointer global %s: four bytes in '
+                                            'the game, eight on a host' % n)
 
     if re.search(r'\(\s*\*\s*g_\w+\s*\)\s*\(', blank_rest):
         return None, 'calls through a global function pointer, which the model types as ' \
@@ -710,9 +721,12 @@ def port(path, force=False):
             sweeps += ['%d=%d' % (k, off), '%d=%d' % (k + 1, sel)]
             callargs.append('(%s far *)(col_seg%d + 0x%04xL)'
                             % (retype(pt), base[0], off))
-            # something to read that is not all zeroes, identical on both sides
+            # Something to read that is not all zeroes, identical on both sides, and
+            # DIFFERENT PER ARGUMENT: two pointers staged with the same bytes made
+            # swap_ints a no-op, so a port that did nothing passed its own selftest.
             stage['SEG%d:0x%04x' % (base[0], off)] = \
-                ''.join('%02x' % ((i * 7 + 3) & 0xFF) for i in range(64))
+                ''.join('%02x' % ((i * 7 + 3 + (blk - 1) * 29) & 0xFF)
+                        for i in range(64))
             k += 2
         else:
             rng = per[si].split('=')[1]
@@ -789,7 +803,9 @@ def port(path, force=False):
             if recv is None:
                 return None, 'cannot see what %s is a member of' % cname_
             base = '(%s)' % recv if m.group(1) == '->' else '&(%s)' % recv
-            rep = '((%s far *)((unsigned char far *)%s + 0x%x))' % (elem, base, off)
+            rep = ('((%s *)((unsigned char far *)%s + 0x%x))' if elem.endswith('*')
+                   else '((%s far *)((unsigned char far *)%s + 0x%x))') % (
+                       elem, base, off)
             if m.group(1) == '.' or True:
                 pass
             body_text = (body_text[:m.start() - len(recv)]
@@ -891,6 +907,14 @@ def port(path, force=False):
             # a function: it loads the candidate in a selector of its own, so a far call
             # to a near callee returns through the wrong kind of RET.
             'near_callees': sorted(set(near_callees))}
+    if runtime and not host_blind:
+        # The host links its OWN strcpy; the shipped code calls Borland's. Same contract,
+        # different code, and on a staged buffer that does not terminate inside itself
+        # they part company. The 16-bit harness calls the very routine the game calls.
+        host_blind = ('calls %s: the host links its own, the shipped code calls '
+                      "Borland's" % ', '.join(RUNTIME[r][0] for r in runtime))
+    if host_blind:
+        case['host_blind'] = host_blind
     # A forwarder: its whole body is one call to a callee the shipped code reaches with a
     # near call. The host sees no effect of its own, and the 16-bit harness cannot place
     # the candidate in the callee's segment, so NEITHER oracle can check it. Said here, so

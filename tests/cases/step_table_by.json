@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "step_table_by",
+ "shipped": "1068:99e7",
+ "source": "src/gfx/step_table_by.c",
+ "prototype": "col_i16 step_table_by(col_i16 a, col_i16 b, col_i16 exact);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)step_table_by((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_scale_den",
+  "g_scale_map",
+  "g_scale_num"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_scale_map: four bytes in the game, eight on a host"
+}

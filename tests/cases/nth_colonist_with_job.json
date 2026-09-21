@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nth_colonist_with_job",
+ "shipped": "1018:5a60",
+ "source": "src/game/nth_colonist_with_job.c",
+ "prototype": "col_i16 nth_colonist_with_job(unsigned char job, col_i16 nth);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)nth_colonist_with_job((unsigned char)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

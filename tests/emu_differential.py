@@ -136,6 +136,7 @@ def observed(m, addr, args, max_instr):
 
 BUILT = {}
 SYMS = {}
+REASONS = {}          # case -> why it was not verified, for tools/coverage.py
 
 
 def prebuild(cases):
@@ -171,9 +172,10 @@ def run_case(path, verbose=False):
         print('%-32s BORLAND BUILD FAILED\n%s' % (name, (log or '')[:600]))
         return False
     if case.get('near_callees'):
-        print('%-32s unsupported: the shipped code reaches %s with a near call from '
-              'inside its own segment, and the candidate runs in a selector of its own'
-              % (name, ', '.join(case['near_callees'][:2])))
+        REASONS[name] = ('the shipped code reaches %s with a near call from inside its '
+                         'own segment; the candidate runs in a selector of its own'
+                         % ', '.join(case['near_callees'][:2]))
+        print('%-32s unsupported: %s' % (name, REASONS[name]))
         return None
     code, _ = BM.parse_tdump(td)
     sliced, missing = resolve(code, td, name, SYMS)
@@ -181,8 +183,8 @@ def run_case(path, verbose=False):
         print('%-32s %s' % (name, missing[0]))
         return False
     if missing:
-        print('%-32s unsupported: cannot resolve %s'
-              % (name, ', '.join(sorted(set(missing))[:3]))) 
+        REASONS[name] = 'cannot resolve %s' % ', '.join(sorted(set(missing))[:3])
+        print('%-32s unsupported: %s' % (name, REASONS[name]))
         return None
 
     m, meta = probe.build(case.get('state', 'shipped'), case.get('stubs', []))
@@ -240,8 +242,9 @@ def run_case(path, verbose=False):
         # Every set was dropped because the shipped function never returned. Zero of zero
         # agreeing is not agreement, and counting it as such would make an unrunnable
         # function look verified.
-        print('%-32s UNVERIFIED: the shipped function returned from none of the %d '
-              'argument sets' % (name, dropped))
+        REASONS[name] = ('the shipped function returned from none of the %d argument '
+                         'sets' % dropped)
+        print('%-32s UNVERIFIED: %s' % (name, REASONS[name]))
         return None
     print('%-32s %d/%d argument sets agree (16-bit, state: %s%s)'
           % (name, total - bad, total, meta.get('state'),
@@ -265,8 +268,10 @@ def main():
     if a.all:
         out = os.path.join(REPO, 'build', 'diff')
         os.makedirs(out, exist_ok=True)
-        json.dump({os.path.basename(c)[:-5]: ('agreed' if r is True else
-                                              'disagreed' if r is False else 'unsupported')
+        json.dump({os.path.basename(c)[:-5]:
+                   {'status': ('agreed' if r is True else
+                               'disagreed' if r is False else 'unsupported'),
+                    'why': REASONS.get(os.path.basename(c)[:-5], '')}
                    for c, r in zip(cases, results)},
                   open(os.path.join(out, 'emu_results.json'), 'w'), indent=1)
     ok = sum(1 for r in results if r is True)

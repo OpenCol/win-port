@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tile_neighbor_clear",
+ "shipped": "1040:01b2",
+ "source": "src/game/tile_neighbor_clear.c",
+ "prototype": "col_i16 tile_neighbor_clear(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)tile_neighbor_clear()",
+ "globals_read": [
+  "g_draw_mask",
+  "g_draw_p3",
+  "g_map_width"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_draw_p3: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

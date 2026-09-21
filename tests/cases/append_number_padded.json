@@ -20,5 +20,6 @@
  "globals_read": [
   "g_zero_digit"
  ],
- "near_callees": []
+ "near_callees": [],
+ "host_blind": "calls strcat, strlen: the host links its own, the shipped code calls Borland's"
 }

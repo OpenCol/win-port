@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "next_csv_field",
+ "shipped": "1040:6efc",
+ "source": "src/game/next_csv_field.c",
+ "prototype": "char * next_csv_field(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)next_csv_field()",
+ "globals_read": [
+  "g_field",
+  "g_text_cursor_b"
+ ],
+ "near_callees": [
+  "trim_both"
+ ],
+ "host_blind": "uses the pointer global g_text_cursor_b: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

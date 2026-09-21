@@ -3,7 +3,6 @@
  * Ported by tools/port.py from matched/game/ColChild_CancelMessage.c.
  *
  * The file's own ColChild dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: flag1 -> active, flag2 -> kind
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

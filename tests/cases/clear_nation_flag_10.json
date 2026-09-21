@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clear_nation_flag_10",
+ "shipped": "1020:82c7",
+ "source": "src/game/clear_nation_flag_10.c",
+ "prototype": "void clear_nation_flag_10(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "clear_nation_flag_10()",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_turn_nation"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

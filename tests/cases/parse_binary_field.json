@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "parse_binary_field",
+ "shipped": "1040:7023",
+ "source": "src/game/parse_binary_field.c",
+ "prototype": "unsigned char parse_binary_field(void);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "call": "(long)parse_binary_field()",
+ "globals_read": [
+  "g_field"
+ ],
+ "near_callees": [
+  "next_csv_field"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

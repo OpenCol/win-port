@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cur_win_ret1",
+ "shipped": "1060:2bc3",
+ "source": "src/game/cur_win_ret1.c",
+ "prototype": "col_i16 cur_win_ret1(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)cur_win_ret1()",
+ "globals_read": [],
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

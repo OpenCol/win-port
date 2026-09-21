@@ -13,7 +13,7 @@
  ],
  "call": "set_flag_bit((col_i16)a0, (col_i16)a1)",
  "globals_read": [
-  "g_flags_2514"
+  "g_check_mask"
  ],
  "near_callees": []
 }

@@ -9,7 +9,7 @@
  "ret_bits_emu": 0,
  "call": "mark_2520_no_super_1050_6c31()",
  "globals_read": [
-  "g_flag_2520",
+  "g_modal_done",
   "g_super_win_open"
  ],
  "near_callees": [],

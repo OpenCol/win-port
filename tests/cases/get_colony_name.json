@@ -17,5 +17,6 @@
  },
  "call": "get_colony_name((char far *)(col_seg34 + 0x0dccL), (col_i16)a2)",
  "globals_read": [],
- "near_callees": []
+ "near_callees": [],
+ "host_blind": "calls strcat, strcpy: the host links its own, the shipped code calls Borland's"
 }

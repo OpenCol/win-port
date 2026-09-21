@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "text_buf_seek_end",
+ "shipped": "1040:6f95",
+ "source": "src/game/text_buf_seek_end.c",
+ "prototype": "void text_buf_seek_end(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "text_buf_seek_end()",
+ "globals_read": [
+  "g_text_buf",
+  "g_text_cursor"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_text_cursor: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

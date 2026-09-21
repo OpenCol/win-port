@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "stock_would_overflow",
+ "shipped": "1018:499d",
+ "source": "src/game/stock_would_overflow.c",
+ "prototype": "col_i16 stock_would_overflow(col_i16 k);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)stock_would_overflow((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_prod",
+  "g_value"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

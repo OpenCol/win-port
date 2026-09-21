@@ -7,19 +7,6 @@
   "Sprite_IsLocked",
   "Sprite_SetHotSpot",
   "TextColor",
-  "append_colon_space",
-  "append_comma_space",
-  "append_lbrace",
-  "append_letter_x",
-  "append_lparen",
-  "append_minus",
-  "append_newline",
-  "append_number_padded",
-  "append_percent",
-  "append_plus",
-  "append_rbrace",
-  "append_rparen",
-  "append_space",
   "arrived_unit_mission",
   "arrived_unit_orders_0",
   "arrived_unit_orders_1",
@@ -46,10 +33,10 @@
   "count_fathers_owned",
   "ctable_hpal",
   "ctl_clear_20",
+  "cur_win_ret1",
   "decode_planar",
   "default_width",
   "deref_long",
-  "dialog_set_option_text",
   "dialog_set_option_value",
   "event_table_clear_1008_ea88",
   "event_table_clear_1010_3036",
@@ -71,7 +58,6 @@
   "fold_goods_index",
   "fold_spec_1c",
   "get_adjective",
-  "get_colony_name",
   "get_pos_words_1060_af79",
   "get_pos_words_1070_9c38",
   "get_rect_at_8",
@@ -189,14 +175,7 @@
   "max_int_1068_98e4",
   "max_int_1068_d81a",
   "mci_set_time_format",
-  "message_buf_cat_1058_c084",
-  "message_buf_cat_1060_684c",
-  "message_buf_cat_1060_897c",
   "message_buf_clear",
-  "message_buf_set_1030_e978",
-  "message_buf_set_1058_c0a6",
-  "message_buf_set_1060_682a",
-  "message_buf_set_1060_8925",
   "min_int_1008_ce76",
   "min_int_1010_e5d0",
   "min_int_1018_b329",
@@ -313,15 +292,6 @@
   "set_flag_bit",
   "set_line_color_a_1010_e423",
   "set_line_color_b_1010_e43e",
-  "set_name_slot",
-  "set_name_slot_1008_cdca",
-  "set_name_slot_1010_e658",
-  "set_name_slot_1018_b3f6",
-  "set_name_slot_1020_a94a",
-  "set_name_slot_1028_e412",
-  "set_name_slot_1038_8775",
-  "set_name_slot_1050_8e3a",
-  "set_name_slot_1058_c2a5",
   "set_order_e",
   "set_pair_6e_1038_e1d5",
   "set_pair_6e_1048_e130",
@@ -425,12 +395,40 @@
   "minimax",
   "nation_pair_flags_clear_both",
   "nation_pair_flags_or_both",
-  "rect_is_empty",
-  "trim_both"
+  "rect_is_empty"
  ],
  "emu_only": [
+  "GRPort_GetWin_1068_968c",
+  "GRPort_GetWin_1068_d91d",
+  "GRPort_GetWin_1070_960d",
+  "GRPort_IsLocked",
+  "anim_unbind",
+  "append_colon_space",
+  "append_comma_space",
+  "append_lbrace",
+  "append_letter_x",
+  "append_lparen",
+  "append_minus",
+  "append_newline",
+  "append_number_padded",
+  "append_percent",
   "append_period_spaces",
+  "append_plus",
+  "append_rbrace",
+  "append_rparen",
+  "append_space",
+  "bitmap_test",
+  "clear_nation_flag_10",
+  "colonist_move_kind",
+  "colonist_spec_nibble",
+  "colony_flag2_set",
+  "colony_flag_set",
+  "colony_mark_export",
+  "colony_warehouse_capacity",
   "ctl_swap_state_byte",
+  "current_nation_boycotts",
+  "current_window",
+  "dialog_set_option_text",
   "empty_1010_b03a",
   "empty_1040_a948",
   "empty_1040_aa02",
@@ -447,11 +445,45 @@
   "empty_1070_dc82",
   "empty_1070_dd0f",
   "find_entry",
+  "get_colony_name",
+  "get_current_port",
+  "get_p_18_1068_989f",
+  "get_p_18_1068_dd01",
+  "get_p_1c",
+  "get_p_22_1038_e355",
+  "get_p_22_1070_dc44",
+  "get_p_2_1010_ee6f",
+  "get_p_2_1040_b1ea",
+  "get_p_2_1048_e5f6",
+  "get_p_2_1058_c3d9",
+  "get_p_2_1060_6b75",
+  "get_p_2_1060_aa47",
+  "get_p_2_1060_af34",
+  "get_p_2_1068_966f",
+  "get_p_2_1068_d762",
+  "get_p_2_1070_97b7",
+  "get_p_2e_1060_ac7c",
+  "get_p_2e_1070_99c5",
+  "get_p_4_1050_948e",
+  "get_p_4_1060_ab51",
+  "get_p_4_1068_d61a",
+  "get_p_4_1070_96a8",
+  "get_p_6_1008_e4e5",
+  "get_p_6_1030_ed1f",
+  "get_p_6_1038_e372",
+  "get_p_6_1040_aee6",
+  "get_p_6_1050_94fb",
+  "get_p_6_1068_96e8",
+  "get_p_6_1070_95f0",
+  "get_p_6_1070_dd3f",
+  "get_p_8",
+  "get_p_8c",
   "identity_ptr_1008_d74e",
   "identity_ptr_1068_9625",
   "identity_ptr_1068_9991",
   "identity_ptr_1070_97ee",
   "layout_origin",
+  "market_price_rise",
   "max_char_ptr",
   "max_ptr_1018_b55a",
   "max_ptr_1020_e7e6",
@@ -465,6 +497,13 @@
   "message_buf_1058_bec6",
   "message_buf_1060_686e",
   "message_buf_1060_899e",
+  "message_buf_cat_1058_c084",
+  "message_buf_cat_1060_684c",
+  "message_buf_cat_1060_897c",
+  "message_buf_set_1030_e978",
+  "message_buf_set_1058_c0a6",
+  "message_buf_set_1060_682a",
+  "message_buf_set_1060_8925",
   "min_char_ptr_1020_b2f3",
   "min_char_ptr_1030_f50a",
   "min_char_ptr_1048_efbd",
@@ -476,28 +515,200 @@
   "min_ptr_1038_8dc4",
   "min_ptr_1048_f021",
   "min_ptr_1050_979f",
+  "nth_colonist_with_job",
+  "nth_text_string",
+  "overlay_window",
+  "port_bind_anim",
+  "port_bits",
+  "port_unbind_anim",
+  "ptr_is_null",
   "ptr_plus_16",
   "ptr_plus_8",
+  "read_line",
   "return_null",
+  "route_stop_flag_nibble_set",
+  "set_cd_done_cb",
+  "set_current_colony",
+  "set_current_nation",
+  "set_current_route",
+  "set_current_tribe",
+  "set_current_window",
+  "set_handler_574",
+  "set_handler_762_1038_e10b",
+  "set_handler_762_1058_ba08",
+  "set_handler_762_1060_62d8",
+  "set_midi_done_cb",
+  "set_name_slot",
+  "set_name_slot_1008_cdca",
+  "set_name_slot_1010_e658",
+  "set_name_slot_1018_b3f6",
+  "set_name_slot_1020_a94a",
+  "set_name_slot_1028_e412",
+  "set_name_slot_1038_8775",
+  "set_name_slot_1050_8e3a",
+  "set_name_slot_1058_c2a5",
+  "set_p_1a_1010_eb0f",
+  "set_p_1a_1040_aecc",
+  "set_p_1a_1048_d65a",
+  "set_p_1a_1058_bb68",
+  "set_p_1a_1060_6584",
+  "set_p_1a_1060_6685",
+  "set_p_1a_1068_e03c",
+  "set_p_1c_1010_eaf5",
+  "set_p_1c_1030_e5bf",
+  "set_p_1c_1048_e087",
+  "set_p_1c_1050_8b2c",
+  "set_p_1c_1068_db5c",
+  "set_p_1e_1050_88d6",
+  "set_p_1e_1068_e056",
+  "set_p_22_1048_e033",
+  "set_p_22_1050_89cd",
+  "set_p_38a",
+  "set_p_38e",
+  "set_p_4",
+  "set_p_8",
+  "set_p_80_1038_e1ba",
+  "set_p_80_1048_e176",
+  "set_p_c0_1048_d738",
+  "set_p_c0_1050_857d",
+  "set_ptr_24f0",
+  "set_ptr_24f0_buf",
+  "set_ptr_2504",
   "skip_record",
+  "step_table_by",
+  "stock_would_overflow",
+  "swap_current_port",
+  "text_buf_seek_end",
+  "tile_neighbor_clear",
+  "tile_passable_1038_d44f",
+  "tile_passable_1040_00d5",
   "tribe_record_for",
   "trim_right",
-  "unpack_bits"
+  "unpack_bits",
+  "window_of",
+  "window_of_1048_e6d0",
+  "window_of_1068_d72a"
  ],
- "neither": [
-  "call_2ea8",
-  "call_2ec7",
-  "call_830c",
-  "call_832b",
-  "call_8865",
-  "call_8967",
-  "call_8b0b",
-  "call_96a9",
-  "call_96c8",
-  "call_b01f",
-  "call_b03e",
-  "call_d69b",
-  "call_d6ba",
-  "fill_unless"
- ]
+ "neither": {
+  "call_2ea8": {
+   "host": "a forwarder to rect_width_1010_2ea8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1010_2ea8 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_2ec7": {
+   "host": "a forwarder to rect_height_1010_2ec7, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1010_2ec7 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_830c": {
+   "host": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1050_830c with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_832b": {
+   "host": "a forwarder to rect_height_1050_832b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1050_832b with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_8865": {
+   "host": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1060_8865 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_8967": {
+   "host": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1038_8967 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_8b0b": {
+   "host": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1060_8b0b with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_96a9": {
+   "host": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1068_96a9 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_96c8": {
+   "host": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1068_96c8 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_b01f": {
+   "host": "a forwarder to rect_width_1020_b01f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1020_b01f with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_b03e": {
+   "host": "a forwarder to rect_height_1020_b03e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1020_b03e with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_d69b": {
+   "host": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_width_1048_d69b with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "call_d6ba": {
+   "host": "a forwarder to rect_height_1048_d6ba, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "the shipped code reaches rect_height_1048_d6ba with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "coast_neighbours": {
+   "host": "uses the pointer global g_cur_cell: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 1 argument sets"
+  },
+  "fill_unless": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "goods_price_buy": {
+   "host": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped code reaches max_int_1048_dd61 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "goods_price_sell": {
+   "host": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped code reaches max_int_1048_dd61 with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "neighbor_terrain_scan_1040_02cc": {
+   "host": "uses the pointer global g_map_tiles2: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 1 argument sets"
+  },
+  "next_csv_field": {
+   "host": "uses the pointer global g_text_cursor_b: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped code reaches trim_both with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "orthogonal_neighbor_bits": {
+   "host": "uses the pointer global g_map_tiles: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "parse_binary_field": {
+   "host": "the port faulted on the host (exit -11)",
+   "sixteen_bit": "the shipped code reaches next_csv_field with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "port_remap_pixels": {
+   "host": "uses the pointer member Port.bits: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "port_row_step": {
+   "host": "uses the pointer member Port.hdc: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 1 argument sets"
+  },
+  "port_row_step_rev": {
+   "host": "uses the pointer member Port.hdc: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 1 argument sets"
+  },
+  "route_entry_init": {
+   "host": "uses the pointer global g_cur_route_stop: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped code reaches route_stop_flag_nibble_set with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "set_current_native_settlement": {
+   "host": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped code reaches set_current_tribe with a near call from inside its own segment; the candidate runs in a selector of its own"
+  },
+  "tile_neighbor_mask": {
+   "host": "uses the pointer global g_map_tiles2: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "tile_neighbor_match": {
+   "host": "uses the pointer global g_map_tiles: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "tile_neighbor_match_alt": {
+   "host": "uses the pointer global g_map_tiles2: four bytes in the game, eight on a host",
+   "sixteen_bit": "the shipped function returned from none of the 64 argument sets"
+  },
+  "trim_both": {
+   "host": "calls strcpy: the host links its own, the shipped code calls Borland's",
+   "sixteen_bit": "the shipped code reaches trim_right with a near call from inside its own segment; the candidate runs in a selector of its own"
+  }
+ }
 }

@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_stop_flag_nibble_set",
+ "shipped": "1028:c4d1",
+ "source": "src/game/route_stop_flag_nibble_set.c",
+ "prototype": "void route_stop_flag_nibble_set(col_i16 high, col_i16 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "route_stop_flag_nibble_set((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_route_stop"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_route_stop: four bytes in the game, eight on a host"
+}

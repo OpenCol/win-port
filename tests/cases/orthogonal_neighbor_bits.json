@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "orthogonal_neighbor_bits",
+ "shipped": "1038:d68c",
+ "source": "src/game/orthogonal_neighbor_bits.c",
+ "prototype": "col_i16 orthogonal_neighbor_bits(col_i16 mask, col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)orthogonal_neighbor_bits((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_map_tiles",
+  "g_map_width"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_map_tiles: four bytes in the game, eight on a host"
+}

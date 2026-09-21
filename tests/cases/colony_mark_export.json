@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_mark_export",
+ "shipped": "1018:045e",
+ "source": "src/game/colony_mark_export.c",
+ "prototype": "void colony_mark_export(col_i16 goods, col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "colony_mark_export((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_prod"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

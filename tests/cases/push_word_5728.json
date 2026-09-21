@@ -12,8 +12,8 @@
  ],
  "call": "push_word_5728((col_i16)a0)",
  "globals_read": [
-  "g_count_3c80",
-  "g_tab_5728"
+  "g_ms_window_count",
+  "g_ms_window_stack"
  ],
  "near_callees": []
 }

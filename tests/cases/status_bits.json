@@ -13,8 +13,8 @@
  ],
  "call": "(long)status_bits((col_i16)a0, (col_i16)a1)",
  "globals_read": [
-  "g_ba",
   "g_navy_table",
+  "g_region_settlements",
   "g_region_size"
  ],
  "near_callees": []

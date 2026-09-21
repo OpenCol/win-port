@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_current_colony",
+ "shipped": "1018:394a",
+ "source": "src/game/set_current_colony.c",
+ "prototype": "void set_current_colony(col_i16 c);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "set_current_colony((col_i16)a0)",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_count",
+  "g_cur_colony_idx",
+  "g_cur_colony_is_players",
+  "g_cur_colony_rec",
+  "g_grid_marks_done",
+  "g_nation52",
+  "g_view_nation"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}
