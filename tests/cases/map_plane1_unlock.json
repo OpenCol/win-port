@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_plane1_unlock",
+ "shipped": "1038:b903",
+ "source": "src/game/map_plane1_unlock.c",
+ "prototype": "void map_plane1_unlock(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "map_plane1_unlock()",
+ "globals_read": [
+  "g_plane1",
+  "g_plane1_handle"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_plane1: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

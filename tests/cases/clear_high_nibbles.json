@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clear_high_nibbles",
+ "shipped": "1040:4275",
+ "source": "src/game/clear_high_nibbles.c",
+ "prototype": "void clear_high_nibbles(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "clear_high_nibbles()",
+ "globals_read": [
+  "g_map_h",
+  "g_map_width"
+ ],
+ "near_callees": [],
+ "host_blind": "calls map_plane2_set_high_nibble, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

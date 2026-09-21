@@ -10,12 +10,12 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void * rect_width_1060_63b5(void *p);
+col_i16 rect_width_1060_63b5(RECT *r);
 
 /* same object: 4-byte `push cs; call ` */
 
 
-void * call_63b5_at_8(Obj *o)
+col_i16 call_63b5_at_8(Obj *o)
 {
-    return rect_width_1060_63b5(((char *)((unsigned char *)(o) + 0x8)));
+    return rect_width_1060_63b5(&(*((RECT *)((unsigned char *)(o) + 0x8))));
 }

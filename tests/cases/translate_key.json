@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "translate_key",
+ "shipped": "1070:6831",
+ "source": "src/platform/translate_key.c",
+ "prototype": "col_i16 translate_key(col_i16 key);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)translate_key((col_i16)a0)",
+ "globals_read": [
+  "g_keymap",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "ctrl_key_down",
+  "shift_key_down"
+ ],
+ "host_blind": "calls ctrl_key_down, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

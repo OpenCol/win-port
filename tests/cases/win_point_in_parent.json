@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_point_in_parent",
+ "shipped": "1078:25e4",
+ "source": "src/platform/win_point_in_parent.c",
+ "prototype": "void win_point_in_parent(Win * w, col_i16 x, col_i16 y, col_i16 * px, col_i16 * py);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..7",
+  "3=0..7",
+  "4=3596",
+  "5=4360",
+  "6=3660",
+  "7=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+  "SEG34:0x0e4c": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6"
+ },
+ "call": "win_point_in_parent((Win far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16 far *)(col_seg34 + 0x0e0cL), (col_i16 far *)(col_seg34 + 0x0e4cL))",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "calls GetParent, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

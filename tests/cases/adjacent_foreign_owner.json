@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "adjacent_foreign_owner",
+ "shipped": "1038:28c9",
+ "source": "src/game/adjacent_foreign_owner.c",
+ "prototype": "col_i16 adjacent_foreign_owner(col_i16 x, col_i16 y, col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)adjacent_foreign_owner((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_foreign_owner"
+ ],
+ "near_callees": [],
+ "host_blind": "calls square_nation_bit0, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

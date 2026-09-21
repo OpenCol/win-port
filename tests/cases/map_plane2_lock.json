@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_plane2_lock",
+ "shipped": "1038:babf",
+ "source": "src/game/map_plane2_lock.c",
+ "prototype": "void map_plane2_lock(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "map_plane2_lock()",
+ "globals_read": [
+  "g_plane2",
+  "g_plane2_handle"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_plane2: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

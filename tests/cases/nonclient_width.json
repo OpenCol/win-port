@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nonclient_width",
+ "shipped": "1078:2484",
+ "source": "src/platform/nonclient_width.c",
+ "prototype": "col_i16 nonclient_width(MSWin * w);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)nonclient_width((MSWin far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [],
+ "near_callees": [
+  "nonclient_height",
+  "rect_height_1078_3418",
+  "rect_width_1078_33f9"
+ ],
+ "host_blind": "calls GetClientRect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

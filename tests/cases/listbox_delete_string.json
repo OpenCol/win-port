@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "listbox_delete_string",
+ "shipped": "1070:5433",
+ "source": "src/platform/listbox_delete_string.c",
+ "prototype": "void listbox_delete_string(col_u16 hwnd, col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "listbox_delete_string((col_u16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "calls SendMessage, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

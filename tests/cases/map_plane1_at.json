@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_plane1_at",
+ "shipped": "1038:b7e7",
+ "source": "src/game/map_plane1_at.c",
+ "prototype": "unsigned char map_plane1_at(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)map_plane1_at((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_map_width",
+  "g_plane1",
+  "g_plane1_handle"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_plane1: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

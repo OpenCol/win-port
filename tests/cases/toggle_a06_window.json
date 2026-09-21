@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "toggle_a06_window",
+ "shipped": "1010:adfa",
+ "source": "src/game/toggle_a06_window.c",
+ "prototype": "void toggle_a06_window(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "toggle_a06_window()",
+ "globals_read": [
+  "g_flag_a06",
+  "g_owner_a00"
+ ],
+ "near_callees": [
+  "control_hide_1010_e54d",
+  "control_show_1010_e574"
+ ],
+ "host_blind": "uses the pointer global g_owner_a00: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

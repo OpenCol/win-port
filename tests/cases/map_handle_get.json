@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_handle_get",
+ "shipped": "1040:3efb",
+ "source": "src/game/map_handle_get.c",
+ "prototype": "unsigned char map_handle_get(col_i16 handle, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)map_handle_get((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_map_width"
+ ],
+ "near_callees": [],
+ "host_blind": "calls MSHLock, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

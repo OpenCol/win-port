@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "EuropeWin_Close",
+ "shipped": "1048:8d8e",
+ "source": "src/game/EuropeWin_Close.c",
+ "prototype": "col_i16 EuropeWin_Close(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)EuropeWin_Close()",
+ "globals_read": [],
+ "near_callees": [
+  "europe_release_focus"
+ ],
+ "host_blind": "calls europe_release_focus, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

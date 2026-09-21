@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "destroy_MSMMWindow_window",
+ "shipped": "1078:09ac",
+ "source": "src/platform/destroy_MSMMWindow_window.c",
+ "prototype": "void destroy_MSMMWindow_window(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "destroy_MSMMWindow_window()",
+ "globals_read": [
+  "g_cd_notify_hwnd"
+ ],
+ "near_callees": [
+  "MSCloseCD",
+  "MSCloseSound",
+  "stop_mci_device_1078_0940"
+ ],
+ "host_blind": "calls DestroyWindow, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

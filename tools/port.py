@@ -210,6 +210,31 @@ def retype(text):
 # not reconstructions to port: they come out of CWL.LIB at the link, and the host has them
 # too. Only the ANSI ones are here -- Borland's own extensions (strupr, itoa) would not
 # link on a host, so a file using those still waits.
+# The 180 Windows entry points the shipped program imports, by API name. A call to one of
+# these is not a missing port: IMPORT.LIB resolves it at the link, and the emulator
+# simulates it. The name comes from the shipped import table, so this cannot drift from
+# what the program actually imports.
+def _imports():
+    out = {}
+    for key, nm in json.load(open(os.path.join(SRC_REPO, 're', 'symbols.json')
+                                  ))['imports'].items():
+        mod, _, ordinal = key.partition('_')
+        api = nm[len(mod) + 1:] if nm.startswith(mod + '_') else nm
+        out[api.upper()] = (mod, int(ordinal))
+    return out
+
+
+WINAPI = _imports()
+TAINT = os.path.join(REPO, 'model', 'api_taint.json')
+
+
+def tainted():
+    try:
+        return set(json.load(open(TAINT))['reaches_a_windows_api'])
+    except Exception:
+        return set()
+
+
 RUNTIME = {'STRCAT': ('strcat', 'string.h'), 'STRCPY': ('strcpy', 'string.h'),
            'STRNCPY': ('strncpy', 'string.h'), 'STRLEN': ('strlen', 'string.h'),
            'STRCMP': ('strcmp', 'string.h'), 'STRNCMP': ('strncmp', 'string.h'),
@@ -467,7 +492,7 @@ def port(path, force=False):
             j = body.find('*/', end + 2)
             end = len(body) if j < 0 else j + 2
         spans.append((start, end))
-    cut, unknown, file_shape, file_dims = [], set(), {}, {}
+    cut, unknown, file_shape, file_dims, api_protos = [], set(), {}, {}, []
     for start, end in spans:
         line = body[start:end]
         names = re.findall(r'\b(g_\w+)\b', blank[start:end])
@@ -478,6 +503,14 @@ def port(path, force=False):
             # prototypes yet, and the call check refuses the file unless the callee is
             # ported.
             if any(re.search(r'\b%s\b' % r, blank[start:end]) for r in RUNTIME):
+                cut.append((start, end))
+            elif any(re.search(r'\b%s\b' % a, blank[start:end], re.I)
+                     for a in WINAPI):
+                # A Windows API prototype. windows.h declares it when Borland builds this,
+                # and a second declaration is a type mismatch there; the host has no
+                # windows.h and still has to COMPILE the unit, so the file's own
+                # declaration is kept for that build only.
+                api_protos.append(re.split(r'/\*', line.strip())[0].strip())
                 cut.append((start, end))
             continue
         for n in names:
@@ -681,8 +714,10 @@ def port(path, force=False):
     called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', blank_rest)
               if c not in KEYWORDS and c != name}
     runtime = sorted(c for c in called if c in RUNTIME)
+    api = sorted(c for c in called if c.upper() in WINAPI and c not in RUNTIME)
+    taint = tainted()
     missing = sorted(c for c in called
-                     if c not in RUNTIME
+                     if c not in RUNTIME and c.upper() not in WINAPI
                      and not glob.glob(os.path.join(REPO, 'src', '*', c + '.c')))
     if missing:
         return None, 'calls %s, which is not ported' % ', '.join(missing[:3])
@@ -928,6 +963,13 @@ def port(path, force=False):
         src += ('/* The callees whose in-file stub came out: declared here, defined in '
                 'their own\n * translation units, joined by the linker. */\n'
                 + '\n'.join(sorted(set(protos))) + '\n\n')
+    if api_protos:
+        src += ('/* Windows APIs. windows.h declares these when Borland builds this; the\n'
+                ' * host has no windows.h and still has to compile the unit. */\n'
+                '#ifdef COL_HOST\n'
+                + '\n'.join(retype(strip_quals(x)).rstrip(';') + ';'
+                             for x in sorted(set(api_protos)))
+                + '\n#endif\n\n')
     src += ported + '\n'
     bad = compiles(src)
     if bad:
@@ -951,6 +993,13 @@ def port(path, force=False):
             # a function: it loads the candidate in a selector of its own, so a far call
             # to a near callee returns through the wrong kind of RET.
             'near_callees': sorted(set(near_callees))}
+    # A call that reaches a Windows API, directly or through a ported callee, cannot be
+    # judged on the host: there is no such API there, and a stub would be a different
+    # program. The emulator simulates them, so the 16-bit harness owns these.
+    reaches_api = bool(api) or bool(called & taint)
+    if reaches_api and not host_blind:
+        host_blind = ('calls %s, a Windows API the host does not have; the emulator '
+                      'simulates it' % (api[0] if api else sorted(called & taint)[0]))
     if void_blind and not host_blind:
         # Nothing the HOST can see: no return value, no global, no pointer written
         # through. The 16-bit harness still compares the stack delta and every write the
@@ -965,6 +1014,8 @@ def port(path, force=False):
                       "Borland's" % ', '.join(RUNTIME[r][0] for r in runtime))
     if host_blind:
         case['host_blind'] = host_blind
+    if reaches_api:
+        case['reaches_windows_api'] = True
     # A forwarder: its whole body is one call to a callee the shipped code reaches with a
     # near call. The host sees no effect of its own, and the 16-bit harness cannot place
     # the candidate in the callee's segment, so NEITHER oracle can check it. Said here, so
@@ -1026,6 +1077,11 @@ def write(path, force=False):
     open(dst, 'w').write(src)
     json.dump(case, open(os.path.join(REPO, 'tests', 'cases', name + '.json'), 'w'),
               indent=1)
+    if case.get('reaches_windows_api'):
+        t = tainted() | {name}
+        json.dump({'what': 'ports whose call graph reaches a Windows API, so the host '
+                           'cannot judge them and the 16-bit harness owns them',
+                   'reaches_a_windows_api': sorted(t)}, open(TAINT, 'w'), indent=1)
     return True, dst
 
 

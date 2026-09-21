@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_set_long",
+ "shipped": "1060:ab8b",
+ "source": "src/game/win_set_long.c",
+ "prototype": "void win_set_long(Rec * o, void * p);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=3596",
+  "3=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9"
+ },
+ "call": "win_set_long((Rec far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL))",
+ "globals_read": [
+  "g_stub_a",
+  "g_stub_s"
+ ],
+ "near_callees": [
+  "get_w_0_1060_afce",
+  "window_of"
+ ],
+ "host_blind": "uses the pointer member Rec.p: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

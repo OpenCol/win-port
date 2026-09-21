@@ -50,26 +50,14 @@ MACHINES = {}
 
 
 def one(CASE, DUMP, emit=True):
-    key = (CASE.get('state', 'save'), tuple(CASE.get('stubs', [])))
-    if key not in MACHINES:
-        mm, mmeta = probe.build(key[0], list(key[1]))
-        # Relocate EVERYTHING before the snapshot. The emulator relocates a segment when
-        # something first reaches it, so a snapshot taken at build time holds unrelocated
-        # bytes for segments no case has touched yet -- and restoring those between cases
-        # UN-relocates a segment an earlier case had already fixed up. That is
-        # order-dependent corruption: to_upper disagreed on all 29 arguments in a batch
-        # and passed on its own.
-        mm.relocate_all()
-        b = {}
-        for idx, seg in mm.image.segs.items():
-            if mm.image.is_code(idx):
-                continue
-            n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
-            b[idx] = mm.read(idx, 0, n)
-        MACHINES[key] = (mm, mmeta, b)
-    m, meta, base = MACHINES[key]
-    for idx, data in base.items():
-        m.write(idx, 0, data)
+    # A FRESH machine per case. Reusing one across cases is a false economy that has now
+    # cost four bugs in two harnesses -- stale relocations, the emulator's translation
+    # cache, a drifting stack pointer, and whatever else register state carries. Every one
+    # of them looked like a port disagreeing with the shipped bytes, and every one was
+    # found the same way: the case passed when it was run alone. The speed comes from
+    # running SHARDS in parallel processes, where nothing is shared at all.
+    m, meta = probe.build(CASE.get('state', 'save'), CASE.get('stubs', []))
+    m.relocate_all()
     for spec, hexbytes in CASE.get('stage', {}).items():
         seg, off = seg_of(spec)
         m.write(seg, off, bytes.fromhex(hexbytes))
@@ -86,7 +74,12 @@ def one(CASE, DUMP, emit=True):
     # the previous colour; without this it returned a different one every time and every
     # comparison after the first was meaningless. Capture the data segments once, after
     # staging, and put them back before each call.
-    pristine = {idx: (m.read(idx, 0, len(d)), len(d)) for idx, d in base.items()}
+    pristine = {}
+    for idx, seg in m.image.segs.items():
+        if m.image.is_code(idx):
+            continue
+        n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
+        pristine[idx] = (m.read(idx, 0, n), n)
 
     def restore():
         for idx, (data, n) in pristine.items():

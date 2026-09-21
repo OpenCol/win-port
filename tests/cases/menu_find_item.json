@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "menu_find_item",
+ "shipped": "1070:6871",
+ "source": "src/platform/menu_find_item.c",
+ "prototype": "col_i32 menu_find_item(col_u16 hmenu, col_u16 id);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)menu_find_item((col_u16)a0, (col_u16)a1)",
+ "globals_read": [
+  "g_menu_depth"
+ ],
+ "near_callees": [],
+ "host_blind": "calls GetMenuItemCount, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

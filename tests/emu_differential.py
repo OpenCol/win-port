@@ -58,6 +58,17 @@ def _res():
     return EXTDEF_RE, FIXUP_RE
 
 
+def imports():
+    """API name -> (module, ordinal), from the shipped import table."""
+    out = {}
+    for key, nm in json.load(open(os.path.join(SRC, 're', 'symbols.json')
+                                  ))['imports'].items():
+        mod, _, ordinal = key.partition('_')
+        api = nm[len(mod) + 1:] if nm.startswith(mod + '_') else nm
+        out[api.upper()] = (mod, int(ordinal))
+    return out
+
+
 def symbols():
     """name -> (segment, offset) for every function the shipped image has a label for.
 
@@ -81,7 +92,7 @@ def symbols():
     return out
 
 
-def resolve(code, td, sym, syms):
+def resolve(code, td, sym, syms, m=None, imps=None):
     """Cut `sym` out of the object and point every call at the SHIPPED callee.
 
     A ported function that calls another function compiles to a far call with a fixup.
@@ -103,11 +114,23 @@ def resolve(code, td, sym, syms):
     end = min(later) if later else len(code)
     extdefs = {int(m.group(1)): m.group(2) for m in ext_re.finditer(td)}
     out, missing = bytearray(code[off:end]), []
-    for m in fix_re.finditer(td):
-        at, loc, ei = int(m.group(1), 16), m.group(3), int(m.group(4))
+    for fx in fix_re.finditer(td):
+        at, loc, ei = int(fx.group(1), 16), fx.group(3), int(fx.group(4))
         if not (off <= at < end):
             continue
         target = extdefs.get(ei, '?').lstrip('_')
+        if loc == 'Pointer16' and target not in syms and imps and \
+                target.upper() in imps and m is not None:
+            # A Windows API. The emulator answers it through the same trap the shipped
+            # program's own import thunk goes to, so the candidate and the shipped code
+            # reach exactly one implementation -- winsim's.
+            mod, ordinal = imps[target.upper()]
+            lin = m._trap_addr((mod, ordinal))
+            import win16emu as W
+            off16, sel = lin - W.TRAP_BASE, W.TRAP_SEL
+            out[at - off:at - off + 4] = bytes([off16 & 0xFF, off16 >> 8,
+                                                sel & 0xFF, sel >> 8])
+            continue
         if loc != 'Pointer16' or target not in syms:
             missing.append('%s (%s)' % (target, loc))
             continue
@@ -135,12 +158,26 @@ def observed(m, addr, args, max_instr):
         for k in range(w.get('size', 1)):
             writes['%d:%04x' % (seg, int(off, 16) + k)] = \
                 m.read(seg, int(off, 16) + k, 1)[0]
+    # The API CALLS the function made, with their arguments. This is what makes a
+    # function that never returns still comparable: the emulator does not simulate every
+    # import -- MSCloseFile stops at KERNEL.81 after 24 instructions -- and both sides stop
+    # at the same place for the same reason. What they did on the way there is the
+    # evidence, and it is the same surface the byte-exact repo's whole-binary differential
+    # treats as its strictest.
+    # Which imports, in order. NOT their arguments: the log reports a window of the
+    # stack, and below the real arguments it holds whatever the frame left there, which
+    # differs between the shipped function and a candidate with its own frame. The
+    # sequence of APIs is the part both sides must agree on; data effects are covered by
+    # the write comparison.
+    calls = [str(c.get('target')) for c in m.log.get('calls', [])
+             if c.get('kind') == 'import']
     return {'dxax': o['return_dxax'], 'returned': o['reached_return'],
-            'sp_delta': o['sp_delta'], 'writes': writes}
+            'sp_delta': o['sp_delta'], 'writes': writes, 'calls': calls}
 
 
 BUILT = {}
 SYMS = {}
+IMPORTS = {}
 MACHINES = {}         # (state, stubs) -> (machine, meta, pristine data segments)
 CURSOR = {}           # (state, stubs) -> next free offset in the candidate selector
 REASONS = {}          # case -> why it was not verified, for tools/coverage.py
@@ -207,14 +244,6 @@ def run_case(path, verbose=False):
         print('%-32s BORLAND BUILD FAILED\n%s' % (name, (log or '')[:600]))
         return False
     code, _ = BM.parse_tdump(td)
-    sliced, missing = resolve(code, td, name, SYMS)
-    if sliced is None:
-        print('%-32s %s' % (name, missing[0]))
-        return False
-    if missing:
-        REASONS[name] = 'cannot resolve %s' % ', '.join(sorted(set(missing))[:3])
-        print('%-32s unsupported: %s' % (name, REASONS[name]))
-        return None
 
     # A FRESH machine per case. Sharing one across cases was worth about a minute and
     # cost three separate bugs -- lazy relocation restoring stale bytes, the emulator's
@@ -224,6 +253,16 @@ def run_case(path, verbose=False):
     # nothing is shared by construction.
     m, meta = probe.build(case.get('state', 'shipped'), case.get('stubs', []))
     m.relocate_all()
+    if not IMPORTS:
+        IMPORTS.update(imports())
+    sliced, missing = resolve(code, td, name, SYMS, m, IMPORTS)
+    if sliced is None:
+        print('%-32s %s' % (name, missing[0]))
+        return False
+    if missing:
+        REASONS[name] = 'cannot resolve %s' % ', '.join(sorted(set(missing))[:3])
+        print('%-32s unsupported: %s' % (name, REASONS[name]))
+        return None
     for spec, hexbytes in case.get('stage', {}).items():
         seg, off = seg_of(spec)
         m.write(seg, off, bytes.fromhex(hexbytes))
@@ -255,10 +294,24 @@ def run_case(path, verbose=False):
         for idx, data in pristine.items():
             m.write(idx, 0, data)
         b = observed(m, cand, args, case.get('max_instr', 200000))
-        if not a['returned']:
-            dropped += 1
-            continue
         why = []
+        if a['returned'] != b['returned']:
+            why.append('the shipped code %s and the port %s'
+                       % ('returned' if a['returned'] else 'did not return',
+                          'returned' if b['returned'] else 'did not'))
+        if a['calls'] != b['calls']:
+            why.append('the imports called differ: shipped %s, the port %s'
+                       % (a['calls'][:4], b['calls'][:4]))
+        if not a['returned'] and not why:
+            # Neither reached its return, both stopped at the same unsimulated import
+            # having made the same calls. That is agreement on everything observable.
+            continue
+        if not a['returned']:
+            bad += 1
+            print('  DIFF args=%s' % (list(args),))
+            for w in why[:4]:
+                print('       ' + w)
+            continue
         if mask and (a['dxax'] & mask) != (b['dxax'] & mask):
             why.append('returned 0x%x, shipped 0x%x (%d bits)'
                        % (b['dxax'] & mask, a['dxax'] & mask, bits))

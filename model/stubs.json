@@ -1,7 +1,10 @@
 {
  "what": "what the linker could not find: the remaining work, its own list",
- "translation_units": 818,
+ "translation_units": 1103,
  "stubs": [
-  "colonist_specialty_get"
+  "WinGGetDIBPointer",
+  "colonist_specialty_get",
+  "mciSendCommand",
+  "sndPlaySound"
  ]
 }

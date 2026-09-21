@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_hide_1008_d0bc",
+ "shipped": "1008:d0bc",
+ "source": "src/game/win_hide_1008_d0bc.c",
+ "prototype": "void win_hide_1008_d0bc(Obj * o);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "win_hide_1008_d0bc((Obj far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "uses the pointer member Obj.win: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}
