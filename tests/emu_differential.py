@@ -46,7 +46,7 @@ FIXUP_RE = None
 
 
 def _res():
-    global EXTDEF_RE, FIXUP_RE
+    global EXTDEF_RE, FIXUP_RE, LEDATA_RE
     import re
     if EXTDEF_RE is None:
         # TDUMP writes the first entry on the EXTDEF line and the rest on continuation
@@ -55,7 +55,8 @@ def _res():
                                re.M)
         FIXUP_RE = re.compile(r"FixUp:\s*([0-9a-fA-F]+)\s+Mode:\s*(\w+)\s+"
                               r"Loc:\s*(\w+)\s+Frame:\s*\S+\s+Target:\s*EI\[(\d+)\]")
-    return EXTDEF_RE, FIXUP_RE
+        LEDATA_RE = re.compile(r"LEDATA\s+Segment:\s*(\S+)\s+Offset:\s*([0-9a-fA-F]+)")
+    return EXTDEF_RE, FIXUP_RE, LEDATA_RE
 
 
 def imports():
@@ -152,7 +153,7 @@ def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
     Returns (bytes, unresolved names).
     """
     import bytematch as BM
-    ext_re, fix_re = _res()
+    ext_re, fix_re, led_re = _res()
     pubs = BM.parse_pubdefs(td)
     name = next((c for c in (sym, '_' + sym) if c in pubs), None)
     if name is None:
@@ -165,14 +166,26 @@ def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
     # generated beside it -- a C++ destructor calls its members' destructors that way, and
     # slicing the method alone cuts the callee off. Entering at the method's own offset
     # gives the same execution with the helpers still reachable.
-    whole = any(fx.group(3) in ('Base', 'CodeOffset16')
-                for fx in fix_re.finditer(td))
+    # A FIXUPP offset is relative to the LEDATA record before it, and a C++ object has
+    # several. Taking it as absolute clobbered code 8 bytes into the function --
+    # CDControlWin's `MOV DS,AX; PUSH SI` became a half-written far call -- and the
+    # candidate then ran a different program. Walk the dump in order and carry the base.
+    fixes = []
+    base = 0
+    for ln in td.splitlines():
+        ml = led_re.search(ln)
+        if ml:
+            base = int(ml.group(2), 16)
+            continue
+        mf = fix_re.search(ln)
+        if mf:
+            fixes.append((base + int(mf.group(1), 16), mf.group(3), int(mf.group(4))))
+    whole = any(loc in ('Base', 'CodeOffset16') for _a, loc, _e in fixes)
     lo, hi = (0, len(code)) if whole else (off, end)
     entry = off - lo
     out, missing, fb_i, resolved_by_site = bytearray(code[lo:hi]), [], [0], []
     off = lo
-    for fx in fix_re.finditer(td):
-        at, loc, ei = int(fx.group(1), 16), fx.group(3), int(fx.group(4))
+    for at, loc, ei in fixes:
         if not (off <= at < end):
             continue
         target = extdefs.get(ei, '?').lstrip('_')
