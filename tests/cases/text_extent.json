@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "text_extent",
+ "shipped": "1078:1484",
+ "source": "src/platform/text_extent.c",
+ "prototype": "col_i16 text_extent(col_u16 hfont, char * s);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)text_extent((col_u16)a0, (char far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls GetDC, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

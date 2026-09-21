@@ -332,9 +332,11 @@ def normalise_addr(s):
     return '%s:0x%04x' % (where, int(off, 16))
 
 
-def parse_params(args):
+def parse_params(args, local_types=()):
     """[(type, name)] for a parameter list, or None if it has something unsweepable."""
-    args = strip_quals(args).strip()
+    # `const char far *s` and `register int u` are ordinary parameters: the qualifiers
+    # say nothing about how to generate a value for them.
+    args = re.sub(r'\b(?:const|volatile|register|auto)\b', ' ', strip_quals(args)).strip()
     if args in ('', 'void'):
         return []
     out = []
@@ -353,7 +355,11 @@ def parse_params(args):
         if stars:
             # A pointer parameter: not swept, pointed at a staged region. Its type has to
             # be one this can spell and size, so the region can be big enough.
-            if not (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT', 'void')):
+            # A pointer to a type THIS FILE declares is fine: the case stages a region
+            # and the file's own declaration says how to read it. 146 functions were
+            # refused for a pointee the model does not happen to name.
+            if not (ty in WIDTH or ty in RECORDS or ty in local_types
+                    or ty in ('RECT', 'POINT', 'void')):
                 return None
             out.append(('%s *' % ty, name))
             continue
@@ -782,10 +788,6 @@ def port(path, force=False):
                                 ' and '.join('%s+0x%02x' % (r2, o2)
                                              for r2, o2 in sorted(offs.items())))
 
-    if name in WITHDRAWN:
-        return None, 'withdrawn: %s' % WITHDRAWN[name]
-    if name in DISPUTED:
-        return None, 'disputed: %s' % DISPUTED[name]
     shipped = re.search(r'candidate for (\w{4}:\w{4})', head)
     if not shipped:
         return None, 'no shipped address in the header comment'
@@ -856,7 +858,9 @@ def port(path, force=False):
     if missing:
         return None, 'calls %s, which is not ported' % ', '.join(missing[:3])
 
-    params = parse_params(d.group('args'))
+    local_types = set(typedefs) | set(tags) | {
+        m2.group(1) for m2 in re.finditer(r'^\s*class\s+(\w+)', blank, re.M)}
+    params = parse_params(d.group('args'), local_types)
 
     if params is None:
         return None, 'a parameter this cannot generate values for'
@@ -902,7 +906,20 @@ def port(path, force=False):
     lowest = 0 if re.search(r'\bg_\w+\s*\[', blank_rest) else -4
     per = {0: [], 1: ['0=%d..24' % lowest], 2: ['0=0..7', '1=0..7'],
            3: ['0=0..3', '1=0..3', '2=0..3']}[nscalar]
-    base = scratch(64 * max(1, npoint) + 512) if npoint else None
+    # Size the staged region to the POINTEE, not a flat 64 bytes. A record bigger than
+    # the block meant the function read past the pattern into whatever followed, which is
+    # how the MS*File family came to take an early exit the shipped code does not.
+    def pointee_size(t):
+        t = t[:-1].strip()
+        if t in RECORDS:
+            return RECORDS[t]['size']
+        lay = local_layout(blank_comments(typedefs.get(t, ''))) if t in typedefs else None
+        if lay:
+            return max(o + w for o, _n, _t, w, _a, _p in lay)
+        return 64
+    block = max([64] + [pointee_size(t) for t, _ in params if t.endswith('*')])
+    block = (block + 15) & ~15
+    base = scratch(block * max(1, npoint) + 512) if npoint else None
     if npoint and base is None:
         return None, 'no room in any data segment to stage %d pointer argument%s' \
             % (npoint, '' if npoint == 1 else 's')
@@ -911,7 +928,7 @@ def port(path, force=False):
     for ty, pname in params:
         if ty.endswith('*'):
             pt = ty[:-1].strip()
-            off = base[1] + blk * 64
+            off = base[1] + blk * block
             blk += 1
             sel = 0x1000 + (base[0] - 1) * 8
             sweeps += ['%d=%d' % (k, off), '%d=%d' % (k + 1, sel)]
@@ -922,7 +939,7 @@ def port(path, force=False):
             # swap_ints a no-op, so a port that did nothing passed its own selftest.
             stage['SEG%d:0x%04x' % (base[0], off)] = \
                 ''.join('%02x' % ((i * 7 + 3 + (blk - 1) * 29) & 0xFF)
-                        for i in range(64))
+                        for i in range(block))
             k += 2
         elif ty.endswith('long'):
             # A long is TWO words on the stack, low first. Sweeping it as one would put

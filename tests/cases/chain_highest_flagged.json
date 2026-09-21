@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "chain_highest_flagged",
+ "shipped": "1028:0aa7",
+ "source": "src/game/chain_highest_flagged.c",
+ "prototype": "col_i16 chain_highest_flagged(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)chain_highest_flagged((col_i16)a0)",
+ "globals_read": [
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

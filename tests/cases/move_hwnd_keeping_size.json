@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "move_hwnd_keeping_size",
+ "shipped": "1070:0b8b",
+ "source": "src/platform/move_hwnd_keeping_size.c",
+ "prototype": "void move_hwnd_keeping_size(col_u16 hwnd, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "move_hwnd_keeping_size((col_u16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "rect_height_1070_9649",
+  "rect_width_1070_962a"
+ ],
+ "host_blind": "calls GetWindowRect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

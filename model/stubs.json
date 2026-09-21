@@ -1,14 +1,10 @@
 {
  "what": "what the linker could not find: the remaining work, its own list",
- "translation_units": 1149,
+ "translation_units": 1270,
  "stubs": [
-  "MSCloseFile",
-  "MSPositionFile",
-  "MSReadFile",
-  "MSSeekFile",
-  "MSWriteFile",
   "WinGGetDIBPointer",
   "mciSendCommand",
+  "message_append",
   "sndPlaySound"
  ]
 }

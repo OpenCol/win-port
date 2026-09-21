@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "market_record_purchase",
+ "shipped": "1048:4fbe",
+ "source": "src/game/market_record_purchase.c",
+ "prototype": "void market_record_purchase(col_i16 good, col_i16 amount);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "market_record_purchase((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_goods",
+  "g_nations"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "goods_price_buy",
+  "scaled_rate"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}

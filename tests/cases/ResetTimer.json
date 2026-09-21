@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "ResetTimer",
+ "shipped": "1068:90ba",
+ "source": "src/gfx/ResetTimer.c",
+ "prototype": "void ResetTimer(col_i16 t);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "ResetTimer((col_i16)a0)",
+ "globals_read": [
+  "g_error_ctx",
+  "g_timer"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "empty_1068_963d"
+ ],
+ "host_blind": "uses the pointer global g_timer: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

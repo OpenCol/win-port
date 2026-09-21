@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_buy_goods",
+ "shipped": "1048:516b",
+ "source": "src/game/europe_buy_goods.c",
+ "prototype": "col_i16 europe_buy_goods(col_i16 unit, col_i16 good, col_i16 want);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)europe_buy_goods((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cur_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "goods_price_buy",
+  "market_record_purchase",
+  "min_int_1048_db44"
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "market_price_fall",
+ "shipped": "1048:4f20",
+ "source": "src/game/market_price_fall.c",
+ "prototype": "void market_price_fall(col_i16 g);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "market_price_fall((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation_rec"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1048_dd61"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}
