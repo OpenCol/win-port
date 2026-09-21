@@ -20,6 +20,7 @@
   "g_stub_a",
   "g_tutorial_on"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "MSSetFocus_of_1048_e0cd"
  ],

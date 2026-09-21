@@ -17,6 +17,7 @@
  },
  "call": "win_set_menu((MSWin far *)(col_seg34 + 0x0dccL), (col_u16)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3 -r-",
  "near_callees": [
   "win_client_height_1078_241a",
   "win_client_width_1078_23db",

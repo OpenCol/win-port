@@ -12,7 +12,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal ClientToScreen(col_u16 hwnd, POINT *p);;
+extern void pascal ClientToScreen(col_u16 hwnd, POINT *p);
 #endif
 
 void win_client_to_screen(Win *w, col_i16 x, col_i16 y, col_i16 *px, col_i16 *py)

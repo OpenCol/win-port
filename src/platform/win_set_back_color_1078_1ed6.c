@@ -12,9 +12,9 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal DeleteObject(col_u16 h);;
-extern col_i16 pascal InvalidateRect(col_u16 hwnd, void *r, col_i16 erase);;
-extern col_u16 pascal CreateSolidBrush(col_u32 color);;
+extern col_i16 pascal DeleteObject(col_u16 h);
+extern col_i16 pascal InvalidateRect(col_u16 hwnd, void *r, col_i16 erase);
+extern col_u16 pascal CreateSolidBrush(col_u32 color);
 #endif
 
 void win_set_back_color_1078_1ed6(MSWin *w, char index)

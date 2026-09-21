@@ -19,6 +19,7 @@
  },
  "call": "(void)port_row_step_rev((Port far *)(col_seg34 + 0x0dccL), (unsigned char far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Port.hdc: four bytes in the game, eight on a host"
 }

@@ -11,6 +11,7 @@
  "globals_read": [
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "current_colony_building_count",
   "min_int_1018_b329"

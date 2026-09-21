@@ -20,5 +20,6 @@
  },
  "call": "sort_pairs_by_key((col_i16)a0, (char far *)(col_seg34 + 0x0dccL), (char far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

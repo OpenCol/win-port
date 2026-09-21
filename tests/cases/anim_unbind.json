@@ -16,6 +16,7 @@
  },
  "call": "anim_unbind((Anim far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Anim.port: four bytes in the game, eight on a host"
 }

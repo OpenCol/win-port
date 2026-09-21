@@ -12,7 +12,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal LoadLibrary(const char *name);;
+extern col_u16 pascal LoadLibrary(const char *name);
 #endif
 
 void load_resource_library(void)

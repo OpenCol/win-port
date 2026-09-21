@@ -16,6 +16,7 @@
  },
  "call": "(long)desktop_fits_640((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "rect_width_1048_d69b"
  ],

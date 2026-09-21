@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal CheckMenuItem(col_u16 hmenu, col_u16 id, col_u16 flags);;
+extern col_i16 pascal CheckMenuItem(col_u16 hmenu, col_u16 id, col_u16 flags);
 #endif
 
 void menu_check_item(col_u16 hmenu, col_u32 id, char check)

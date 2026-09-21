@@ -1,6 +1,6 @@
 {
  "what": "what the linker could not find: the remaining work, its own list",
- "translation_units": 1143,
+ "translation_units": 1142,
  "stubs": [
   "MSCloseFile",
   "MSPositionFile",

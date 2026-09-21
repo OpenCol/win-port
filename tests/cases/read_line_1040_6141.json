@@ -21,6 +21,7 @@
  "globals_read": [
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "read_file_1040_a84d",
   "strip_char"

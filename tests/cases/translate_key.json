@@ -15,6 +15,7 @@
   "g_keymap",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "ctrl_key_down",
   "shift_key_down"

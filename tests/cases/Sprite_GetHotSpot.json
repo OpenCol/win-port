@@ -22,5 +22,6 @@
  },
  "call": "Sprite_GetHotSpot((Sprite far *)(col_seg34 + 0x0dccL), (col_i16 far *)(col_seg34 + 0x0e0cL), (col_i16 far *)(col_seg34 + 0x0e4cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -12,8 +12,8 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal GetCursorPos(POINT *p);;
-extern void pascal ScreenToClient(col_u16 hwnd, POINT *p);;
+extern void pascal GetCursorPos(POINT *p);
+extern void pascal ScreenToClient(col_u16 hwnd, POINT *p);
 #endif
 
 void MSGetMousePos(Win *w, col_i16 *x, col_i16 *y)

@@ -12,5 +12,6 @@
  ],
  "call": "(long)terrain_tile_index((col_i16)a0)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

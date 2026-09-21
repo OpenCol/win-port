@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal DrawMenuBar(col_u16 hwnd);;
+extern void pascal DrawMenuBar(col_u16 hwnd);
 #endif
 
 /* the HWND is at +2 */

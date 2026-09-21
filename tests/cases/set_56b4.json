@@ -15,5 +15,6 @@
  "globals_read": [
   "g_dialog_result"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

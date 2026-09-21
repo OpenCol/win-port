@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal GetClientRect(col_u16 hwnd, RECT *r);;
+extern void pascal GetClientRect(col_u16 hwnd, RECT *r);
 #endif
 
 col_i16 win_client_width_1078_23db(MSWin *w)

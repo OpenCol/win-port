@@ -17,5 +17,6 @@
  },
  "call": "set_b_98_1010_eb29((Rec far *)(col_seg34 + 0x0dccL), (char)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

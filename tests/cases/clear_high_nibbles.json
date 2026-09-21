@@ -12,6 +12,7 @@
   "g_map_h",
   "g_map_width"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls map_plane2_set_high_nibble, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true,

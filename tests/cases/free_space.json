@@ -9,6 +9,7 @@
  "ret_bits_emu": 32,
  "call": "(long)free_space()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls GetFreeSpace, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true,

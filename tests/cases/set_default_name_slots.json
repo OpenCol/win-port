@@ -13,6 +13,7 @@
   "g_name_default_1",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "set_name_slot_1008_cdca"
  ],

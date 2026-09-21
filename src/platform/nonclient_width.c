@@ -17,8 +17,8 @@ col_i16 rect_width_1078_33f9(RECT *r);
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal GetClientRect(col_u16 hwnd, RECT *r);;
-extern col_i16 pascal GetWindowRect(col_u16 hwnd, RECT *r);;
+extern col_i16 pascal GetClientRect(col_u16 hwnd, RECT *r);
+extern col_i16 pascal GetWindowRect(col_u16 hwnd, RECT *r);
 #endif
 
 col_i16 nonclient_width(MSWin *w)

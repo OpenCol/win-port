@@ -16,6 +16,7 @@
  },
  "call": "control_hide_1060_669f((DlgControl far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls hide_hwnd, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

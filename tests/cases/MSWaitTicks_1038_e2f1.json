@@ -12,6 +12,7 @@
  ],
  "call": "MSWaitTicks_1038_e2f1((col_i16)a0)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls MSWaitTicks, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

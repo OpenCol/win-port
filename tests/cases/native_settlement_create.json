@@ -18,6 +18,7 @@
   "g_settlement_count",
   "g_settlements"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "settle_initial_size"
  ],

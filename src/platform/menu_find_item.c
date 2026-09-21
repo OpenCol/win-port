@@ -12,9 +12,9 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal GetMenuItemCount(col_u16 hmenu);;
-extern col_i16 pascal GetMenuItemID(col_u16 hmenu, col_i16 pos);;
-extern col_u16 pascal GetSubMenu(col_u16 hmenu, col_i16 pos);;
+extern col_i16 pascal GetMenuItemCount(col_u16 hmenu);
+extern col_i16 pascal GetMenuItemID(col_u16 hmenu, col_i16 pos);
+extern col_u16 pascal GetSubMenu(col_u16 hmenu, col_i16 pos);
 #endif
 
 col_i32 menu_find_item(col_u16 hmenu, col_u16 id)

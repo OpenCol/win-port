@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "Font::Font()",
  "shipped": "1068:dd36",
  "source": "src/gfx/Font_ctor_1068_dd36.cpp",

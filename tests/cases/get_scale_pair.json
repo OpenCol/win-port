@@ -22,5 +22,6 @@
   "g_scale_den",
   "g_scale_num"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

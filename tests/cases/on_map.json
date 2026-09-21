@@ -16,5 +16,6 @@
   "g_map_h",
   "g_map_width"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

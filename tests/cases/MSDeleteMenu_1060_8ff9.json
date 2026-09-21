@@ -18,6 +18,7 @@
  },
  "call": "MSDeleteMenu_1060_8ff9((col_i16)a0, (col_i16)a1, (void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls MSDeleteMenu, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

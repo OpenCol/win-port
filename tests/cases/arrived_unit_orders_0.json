@@ -12,6 +12,7 @@
   "g_selected_unit",
   "g_units"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "call_args": [
   "0"

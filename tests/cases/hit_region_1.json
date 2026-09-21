@@ -13,5 +13,6 @@
  ],
  "call": "(long)hit_region_1((col_i16)a0, (col_i16)a1)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

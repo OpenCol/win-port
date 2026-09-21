@@ -16,6 +16,7 @@
  },
  "call": "(void)get_p_2_1060_af34((Rec far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Rec.v: four bytes in the game, eight on a host"
 }

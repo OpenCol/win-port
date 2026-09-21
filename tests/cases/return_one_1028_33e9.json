@@ -12,5 +12,6 @@
  ],
  "call": "(long)return_one_1028_33e9((col_i16)a0)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -14,5 +14,6 @@
  "globals_read": [
   "g_game_flags"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

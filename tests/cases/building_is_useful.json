@@ -16,6 +16,7 @@
   "g_tbl21_13e",
   "g_tbl21_140"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "current_colony_flag_get"
  ]

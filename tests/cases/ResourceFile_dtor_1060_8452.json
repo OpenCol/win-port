@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "ResourceFile::~ResourceFile()",
  "shipped": "1060:8452",
  "source": "src/game/ResourceFile_dtor_1060_8452.cpp",

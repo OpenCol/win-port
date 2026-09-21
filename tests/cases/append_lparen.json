@@ -16,6 +16,7 @@
  },
  "call": "append_lparen((char far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls strcat: the host links its own, the shipped code calls Borland's"
 }

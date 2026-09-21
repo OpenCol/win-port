@@ -18,5 +18,6 @@
   "g_rec316",
   "g_year"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

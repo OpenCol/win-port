@@ -17,6 +17,7 @@
   "g_nations",
   "g_stub_l"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "max_long_1018_b375",
   "min_long_1018_b3a3",

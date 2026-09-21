@@ -18,6 +18,7 @@
  },
  "call": "MSCenterWindow((Win far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "rect_height_1078_3418",
   "rect_width_1078_33f9"

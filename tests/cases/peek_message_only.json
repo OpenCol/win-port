@@ -9,6 +9,7 @@
  "ret_bits_emu": 0,
  "call": "peek_message_only()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls PeekMessage, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true,

@@ -17,5 +17,6 @@
  },
  "call": "strip_char((char far *)(col_seg34 + 0x0dccL), (char)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

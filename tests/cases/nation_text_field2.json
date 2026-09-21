@@ -15,5 +15,6 @@
   "g_nation_adjective",
   "g_tribe"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

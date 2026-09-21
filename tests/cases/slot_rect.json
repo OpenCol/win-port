@@ -26,5 +26,6 @@
  },
  "call": "slot_rect((col_i16)a0, (col_i16 far *)(col_seg34 + 0x1944L), (col_i16 far *)(col_seg34 + 0x1984L), (col_i16 far *)(col_seg34 + 0x19c4L), (col_i16 far *)(col_seg34 + 0x1a04L))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

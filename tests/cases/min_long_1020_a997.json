@@ -15,5 +15,6 @@
  ],
  "call": "(long)min_long_1020_a997((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0), (col_i32)(((col_u32)(col_u16)a3 << 16) | (col_u16)a2))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

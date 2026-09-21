@@ -15,6 +15,7 @@
  "globals_read": [
   "g_map_tiles2"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_map_tiles2: four bytes in the game, eight on a host"
 }

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "DlgControl::DlgControl()",
  "shipped": "1068:e3e9",
  "source": "src/gfx/DlgControl_ctor_1068_e3e9.cpp",

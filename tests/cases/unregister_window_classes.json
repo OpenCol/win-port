@@ -12,6 +12,7 @@
   "g_error_ctx",
   "g_hinstance"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "empty_1070_dc82"
  ],

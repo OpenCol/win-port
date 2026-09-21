@@ -17,6 +17,7 @@
   "g_plane2",
   "g_plane2_handle"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_plane2: four bytes in the game, eight on a host",
  "reaches_windows_api": true

@@ -16,6 +16,7 @@
  },
  "call": "(long)nonclient_height((MSWin far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "nonclient_width",
   "rect_height_1078_3418",

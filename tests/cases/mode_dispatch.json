@@ -11,6 +11,7 @@
  "globals_read": [
   "g_colony_mode"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "empty_1010_e0f1",
   "empty_1010_e129",

@@ -15,5 +15,6 @@
   "g_ms_window_count",
   "g_ms_window_stack"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

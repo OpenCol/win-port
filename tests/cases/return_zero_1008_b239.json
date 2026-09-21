@@ -22,5 +22,6 @@
  },
  "call": "(long)return_zero_1008_b239((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL), (void far *)(col_seg34 + 0x0e4cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -12,6 +12,7 @@
   "g_about_step",
   "g_flag_4e64"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "call_args": [
   "0"

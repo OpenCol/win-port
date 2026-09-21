@@ -14,5 +14,6 @@
  ],
  "call": "(long)in_range_mode((col_i16)a0, (col_i16)a1, (col_i16)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

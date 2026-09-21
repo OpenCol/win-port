@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal MessageBeep(col_u16 type);;
+extern void pascal MessageBeep(col_u16 type);
 #endif
 
 void beep(void)

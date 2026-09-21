@@ -21,6 +21,7 @@
  },
  "call": "track_popup_submenu((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL), (col_i16)a4, (col_i16)a5)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "submenu_of_1048_e8c1",
   "window_of_1048_e6d0"

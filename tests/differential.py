@@ -295,12 +295,20 @@ def applicable(case):
 
 def run_case(path, verbose=False, mutate=None):
     case = json.load(open(path))
+    if case['source'].endswith('.cpp'):
+        # C++ is verified in 16 bits only: this harness builds no C++ and a constructor's
+        # work is member construction and a vtable, which a host build does not reproduce.
+        REASONS[os.path.basename(path)[:-5]] = (
+            'a C++ method: the host harness does not build C++, and a constructor\'s work '
+            'is member construction and a vtable')
+        print('%-32s UNVERIFIED BY HOST: a C++ method' % case['symbol'])
+        return None
     blind = HOST_BLIND.get(case['symbol']) or case.get('host_blind')
     if blind:
         # Checked BEFORE anything runs: find_entry's loop bound comes out of the staged
         # region and walks off the end of the slab, so running it at all is a fault.
         print('%-32s UNVERIFIED BY HOST: %s' % (case['symbol'], blind))
-        REASONS[case['symbol']] = blind
+        REASONS[os.path.basename(path)[:-5]] = blind
         return None
     case['_path'] = path
     name = case['symbol']

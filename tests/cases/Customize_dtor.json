@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "Customize::~Customize()",
  "shipped": "1030:ea51",
  "source": "src/game/Customize_dtor.cpp",

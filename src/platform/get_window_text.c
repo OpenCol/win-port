@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i32 pascal SendMessage(col_i16 h, col_i16 msg, col_i16 w, col_i32 l);;
+extern col_i32 pascal SendMessage(col_i16 h, col_i16 msg, col_i16 w, col_i32 l);
 #endif
 
 void get_window_text(col_i16 h, col_i32 buf)

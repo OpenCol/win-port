@@ -16,6 +16,7 @@
  },
  "call": "(long)GRPort_IsLocked((GRPort far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot",
  "near_callees": [],
  "host_blind": "uses the pointer member GRPort.surface: four bytes in the game, eight on a host"
 }

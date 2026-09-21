@@ -16,6 +16,7 @@
  },
  "call": "win_set_focus((Win far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Win.hwnd: four bytes in the game, eight on a host",
  "reaches_windows_api": true

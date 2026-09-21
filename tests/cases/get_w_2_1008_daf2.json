@@ -16,6 +16,7 @@
  },
  "call": "(long)get_w_2_1008_daf2((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "get_w_2_1008_d707"
  ],

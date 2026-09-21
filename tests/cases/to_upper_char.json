@@ -12,5 +12,6 @@
  ],
  "call": "(long)to_upper_char((unsigned char)a0)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

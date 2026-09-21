@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "LogWindow::~LogWindow()",
  "shipped": "1060:a87c",
  "source": "src/game/LogWindow_dtor.cpp",

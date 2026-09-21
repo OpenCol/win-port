@@ -17,6 +17,7 @@
   "g_unit_types",
   "g_units"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "min_int_1018_b329",
   "unit_cargo_amount",

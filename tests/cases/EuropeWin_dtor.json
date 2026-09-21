@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "EuropeWin::~EuropeWin()",
  "shipped": "1008:e02f",
  "source": "src/game/EuropeWin_dtor.cpp",

@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal ShowWindow(col_i16 h, col_i16 cmd);;
+extern col_i16 pascal ShowWindow(col_i16 h, col_i16 cmd);
 #endif
 
 void hide_hwnd(col_i16 h)

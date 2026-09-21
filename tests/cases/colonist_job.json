@@ -15,6 +15,7 @@
   "g_cur_colony_rec",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "nth_colonist_unit",
   "unit_colonist_class"

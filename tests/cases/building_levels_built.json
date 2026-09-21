@@ -15,6 +15,7 @@
   "g_buildings",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "building_slot_of"
  ]

@@ -14,6 +14,7 @@
  ],
  "call": "map_plane2_set_nibble((col_i16)a0, (col_i16)a1, (col_i16)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_index_in_range",
   "map_plane2_ptr"

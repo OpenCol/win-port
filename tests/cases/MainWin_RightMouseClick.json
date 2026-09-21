@@ -16,6 +16,7 @@
  },
  "call": "MainWin_RightMouseClick((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "track_popup_submenu"
  ],

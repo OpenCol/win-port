@@ -16,5 +16,6 @@
   "g_colonies",
   "g_reveal_all"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -15,5 +15,6 @@
   "g_colony_message_words",
   "g_colony_window"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

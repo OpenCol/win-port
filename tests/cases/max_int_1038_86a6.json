@@ -13,5 +13,6 @@
  ],
  "call": "(long)max_int_1038_86a6((col_i16)a0, (col_i16)a1)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

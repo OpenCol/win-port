@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "Screen::Screen()",
  "shipped": "1060:a41c",
  "source": "src/game/Screen_ctor.cpp",

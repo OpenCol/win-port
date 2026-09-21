@@ -17,6 +17,7 @@
   "g_plane2",
   "g_plane2_handle"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_index_in_range"
  ],

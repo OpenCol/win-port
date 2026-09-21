@@ -12,6 +12,7 @@
   "g_flag_a06",
   "g_owner_a00"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "control_hide_1010_e54d",
   "control_show_1010_e574"

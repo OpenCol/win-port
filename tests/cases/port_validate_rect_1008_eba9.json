@@ -19,6 +19,7 @@
  },
  "call": "port_validate_rect_1008_eba9((Port far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Port.hwnd: four bytes in the game, eight on a host",
  "reaches_windows_api": true

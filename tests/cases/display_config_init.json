@@ -16,6 +16,7 @@
  },
  "call": "display_config_init((Cfg far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "rect_height_1040_aa80",
   "rect_width_1040_a903"

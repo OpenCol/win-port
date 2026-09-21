@@ -17,6 +17,7 @@
  },
  "call": "ColChild_AddToMessage((Message far *)(col_seg34 + 0x0dccL), (col_i16)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "message_append"
  ],

@@ -18,6 +18,7 @@
  "globals_read": [
   "g_current_port"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_current_port: four bytes in the game, eight on a host"
 }

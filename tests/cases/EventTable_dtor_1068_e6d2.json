@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "EventTable::~EventTable()",
  "shipped": "1068:e6d2",
  "source": "src/gfx/EventTable_dtor_1068_e6d2.cpp",

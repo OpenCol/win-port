@@ -21,6 +21,7 @@
  },
  "call": "(long)alert_box_1068_d470((char far *)(col_seg34 + 0x0dccL), (char far *)(col_seg34 + 0x0e0cL), (col_i16)a4, (col_i16)a5)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls alert_box_1070_66cf, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

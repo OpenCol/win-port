@@ -18,6 +18,7 @@
   "g_dir_dy",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_plane1_test_bits"
  ],

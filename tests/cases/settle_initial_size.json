@@ -15,5 +15,6 @@
   "g_tribe_rec",
   "g_villages"
  ],
+ "flags": "-ml -WS -O -3",
  "near_callees": []
 }

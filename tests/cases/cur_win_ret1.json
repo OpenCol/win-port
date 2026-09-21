@@ -9,6 +9,7 @@
  "ret_bits_emu": 16,
  "call": "(long)cur_win_ret1()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "call_args": [
   "0"

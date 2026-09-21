@@ -14,6 +14,7 @@
  "globals_read": [
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "colonist_spec_nibble"
  ]

@@ -16,5 +16,6 @@
  },
  "call": "set_flag_16((Ctl far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

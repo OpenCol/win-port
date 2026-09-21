@@ -16,5 +16,6 @@
  },
  "call": "(long)return_zero_1040_a4cb((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

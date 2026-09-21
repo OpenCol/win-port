@@ -12,8 +12,8 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal GetParent(col_u16 hwnd);;
-extern void pascal MapWindowPoints(col_u16 from, col_u16 to, POINT *p, col_u16 n);;
+extern col_u16 pascal GetParent(col_u16 hwnd);
+extern void pascal MapWindowPoints(col_u16 from, col_u16 to, POINT *p, col_u16 n);
 #endif
 
 void win_point_in_parent(Win *w, col_i16 x, col_i16 y, col_i16 *px, col_i16 *py)

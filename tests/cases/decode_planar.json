@@ -24,5 +24,6 @@
  },
  "call": "decode_planar((unsigned char far *)(col_seg34 + 0x0dccL), (Hdr far *)(col_seg34 + 0x0e0cL), (unsigned char far *)(col_seg34 + 0x0e4cL), (col_i16)a6, (col_i16)a7)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

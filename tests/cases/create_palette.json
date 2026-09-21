@@ -18,6 +18,7 @@
  "globals_read": [
   "g_palette_mode"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls CreatePalette, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

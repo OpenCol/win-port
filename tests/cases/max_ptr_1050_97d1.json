@@ -19,5 +19,6 @@
  },
  "call": "(void)max_ptr_1050_97d1((col_i16 far *)(col_seg34 + 0x0dccL), (col_i16 far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

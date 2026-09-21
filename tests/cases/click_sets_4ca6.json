@@ -11,6 +11,7 @@
  "globals_read": [
   "g_flag_4ca6"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "call_args": [
   "0"

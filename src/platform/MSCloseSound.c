@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal sndPlaySound(const char *name, col_u16 flags);;
+extern col_i16 pascal sndPlaySound(const char *name, col_u16 flags);
 #endif
 
 col_i16 MSCloseSound(void)

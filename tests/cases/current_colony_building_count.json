@@ -14,6 +14,7 @@
  "globals_read": [
   "g_building_links"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "current_colony_flag_get"
  ]

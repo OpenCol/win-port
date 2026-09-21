@@ -15,6 +15,7 @@
   "g_cur_nation_rec",
   "g_goods_info"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "max_int_1048_dd61"
  ],

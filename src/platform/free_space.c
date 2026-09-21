@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u32 pascal GetFreeSpace(col_u16 flags);;
+extern col_u32 pascal GetFreeSpace(col_u16 flags);
 #endif
 
 col_u32 free_space(void)

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "RGBTree::RGBTree()",
  "shipped": "1068:1259",
  "source": "src/gfx/RGBTree_ctor.cpp",

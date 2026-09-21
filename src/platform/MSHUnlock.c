@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal GlobalUnlock(col_i16 h);;
+extern col_i16 pascal GlobalUnlock(col_i16 h);
 #endif
 
 col_i32 MSHUnlock(col_i16 h)

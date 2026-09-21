@@ -17,5 +17,6 @@
   "g_player_nation",
   "g_rec52"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

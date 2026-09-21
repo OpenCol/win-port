@@ -11,6 +11,7 @@
  "globals_read": [
   "g_cd_notify_hwnd"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "MSCloseCD",
   "MSCloseSound",

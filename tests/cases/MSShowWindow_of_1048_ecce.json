@@ -16,6 +16,7 @@
  },
  "call": "MSShowWindow_of_1048_ecce((Obj far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer member Obj.win: four bytes in the game, eight on a host",
  "reaches_windows_api": true

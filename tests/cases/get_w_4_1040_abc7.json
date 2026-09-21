@@ -16,5 +16,6 @@
  },
  "call": "(long)get_w_4_1040_abc7((Rec far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "EventTable::~EventTable()",
  "shipped": "1020:b19e",
  "source": "src/game/EventTable_dtor_1020_b19e.cpp",

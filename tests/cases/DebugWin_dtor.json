@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "DebugWin::~DebugWin()",
  "shipped": "1008:d3eb",
  "source": "src/game/DebugWin_dtor.cpp",

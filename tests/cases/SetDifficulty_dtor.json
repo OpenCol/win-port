@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "SetDifficulty::~SetDifficulty()",
  "shipped": "1030:e8b5",
  "source": "src/game/SetDifficulty_dtor.cpp",

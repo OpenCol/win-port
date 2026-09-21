@@ -15,6 +15,7 @@
  "globals_read": [
   "g_cur_colony_rec"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
 }

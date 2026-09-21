@@ -14,7 +14,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal SelectPalette(col_u16 hdc, col_u16 hpal, col_i16 force);;
+extern col_u16 pascal SelectPalette(col_u16 hdc, col_u16 hpal, col_i16 force);
 #endif
 
 void win_select_palette_1078_279f(MSWin *w, col_i16 pal)

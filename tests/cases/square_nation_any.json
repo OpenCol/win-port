@@ -13,6 +13,7 @@
  ],
  "call": "(long)square_nation_any((col_i16)a0, (col_i16)a1)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_index_in_range",
   "square_nation",

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "DiskFile::DiskFile()",
  "shipped": "1068:9285",
  "source": "src/gfx/DiskFile_ctor.cpp",

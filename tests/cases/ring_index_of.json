@@ -16,5 +16,6 @@
   "g_ring_dx",
   "g_ring_dy"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "MenuClass::MenuClass()",
  "shipped": "1060:8f1a",
  "source": "src/game/MenuClass_ctor.cpp",

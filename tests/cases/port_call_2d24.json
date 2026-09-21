@@ -16,6 +16,7 @@
  },
  "call": "port_call_2d24((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "window_of_1048_e6d0"
  ],

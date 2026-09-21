@@ -9,6 +9,7 @@
  "ret_bits_emu": 0,
  "call": "empty_1048_4ee9()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
  "call_args": [

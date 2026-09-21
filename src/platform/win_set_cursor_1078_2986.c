@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal SetCursor(col_u16 hcursor);;
+extern col_u16 pascal SetCursor(col_u16 hcursor);
 #endif
 
 void win_set_cursor_1078_2986(MSWin *w, col_i16 cur)

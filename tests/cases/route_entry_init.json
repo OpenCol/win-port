@@ -14,6 +14,7 @@
  "globals_read": [
   "g_cur_route_stop"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "route_stop_flag_nibble_set"
  ],

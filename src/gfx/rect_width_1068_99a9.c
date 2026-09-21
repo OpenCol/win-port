@@ -8,12 +8,11 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void * rect_width_1068_96a9(void *p);
+col_i16 rect_width_1068_96a9(RECT *r);
 
 /* same object: 4-byte `push cs; call ` */
 
-
-void * rect_width_1068_99a9(void *p)
+col_i16 rect_width_1068_99a9(void *p)
 {
     return rect_width_1068_96a9(p);
 }

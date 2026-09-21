@@ -12,6 +12,7 @@
   "g_cur_nation_rec",
   "g_turn_nation"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
  "call_args": [

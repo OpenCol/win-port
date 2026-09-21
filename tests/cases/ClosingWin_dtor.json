@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "ClosingWin::~ClosingWin()",
  "shipped": "1010:029f",
  "source": "src/game/ClosingWin_dtor.cpp",

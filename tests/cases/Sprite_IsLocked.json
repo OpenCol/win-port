@@ -16,5 +16,6 @@
  },
  "call": "(long)Sprite_IsLocked((Sprite far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot",
  "near_callees": []
 }

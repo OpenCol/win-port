@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal SetFocus(col_u16 hwnd);;
+extern col_u16 pascal SetFocus(col_u16 hwnd);
 #endif
 
 void set_focus(col_u16 hwnd)

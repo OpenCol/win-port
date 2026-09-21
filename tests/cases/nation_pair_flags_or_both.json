@@ -14,6 +14,7 @@
  ],
  "call": "(long)nation_pair_flags_or_both((col_i16)a0, (col_i16)a1, (col_i16)a2)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "nation_pair_flags_get",
   "nation_pair_flags_set"

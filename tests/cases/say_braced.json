@@ -20,6 +20,7 @@
   "g_stub_a",
   "g_stub_s"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "append_lbrace",
   "append_rbrace",

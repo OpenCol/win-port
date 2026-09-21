@@ -15,5 +15,6 @@
  "globals_read": [
   "g_text_args"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

@@ -16,5 +16,6 @@
  },
  "call": "(long)rect_height_1078_3418((RECT far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

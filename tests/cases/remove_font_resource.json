@@ -12,6 +12,7 @@
  ],
  "call": "remove_font_resource((col_i16)a0)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls DeleteObject, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

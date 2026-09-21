@@ -16,6 +16,7 @@
  "globals_read": [
   "g_stub_l"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "nation_add_gold"
  ],

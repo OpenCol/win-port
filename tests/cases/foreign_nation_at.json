@@ -16,6 +16,7 @@
  "globals_read": [
   "g_nation_pair"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_index_in_range",
   "map_plane2_high_nibble"

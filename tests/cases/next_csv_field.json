@@ -12,6 +12,7 @@
   "g_field",
   "g_text_cursor_b"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "trim_both"
  ],

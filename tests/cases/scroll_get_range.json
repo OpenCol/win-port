@@ -20,6 +20,7 @@
  },
  "call": "scroll_get_range((col_i16)a0, (col_i16 far *)(col_seg34 + 0x0dccL), (col_i16 far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls GetScrollRange, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

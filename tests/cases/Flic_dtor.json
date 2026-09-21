@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "Flic::~Flic()",
  "shipped": "1068:1df1",
  "source": "src/gfx/Flic_dtor.cpp",

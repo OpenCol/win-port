@@ -15,13 +15,13 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal DeleteDC(col_u16 hdc);;
-extern col_i16 pascal DrawText(col_u16 hdc, const char *s, col_i16 n, RECT *r, col_u16 fmt);;
-extern col_i16 pascal ReleaseDC(col_u16 hwnd, col_u16 hdc);;
-extern col_u16 pascal CreateCompatibleDC(col_u16 hdc);;
-extern col_u16 pascal GetDC(col_u16 hwnd);;
-extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);;
-extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b);;
+extern col_i16 pascal DeleteDC(col_u16 hdc);
+extern col_i16 pascal DrawText(col_u16 hdc, const char *s, col_i16 n, RECT *r, col_u16 fmt);
+extern col_i16 pascal ReleaseDC(col_u16 hwnd, col_u16 hdc);
+extern col_u16 pascal CreateCompatibleDC(col_u16 hdc);
+extern col_u16 pascal GetDC(col_u16 hwnd);
+extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);
+extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b);
 #endif
 
 extern FontRec * MSHLock_1068_93af(col_u16 h);

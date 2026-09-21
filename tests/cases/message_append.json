@@ -19,6 +19,7 @@
  },
  "call": "message_append((Message far *)(col_seg34 + 0x0dccL), (char far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls strcat: the host links its own, the shipped code calls Borland's"
 }

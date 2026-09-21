@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "MrTimer::MrTimer()",
  "shipped": "1068:91c8",
  "source": "src/gfx/MrTimer_ctor.cpp",

@@ -16,6 +16,7 @@
  },
  "call": "win_redraw_menu_bar_1008_d7b3((Win far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "get_p_6_1008_e4e5"
  ],

@@ -11,10 +11,10 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u16 pascal GetParent(col_u16 hwnd);;
-extern void pascal GetWindowRect(col_u16 hwnd, RECT *r);;
-extern void pascal MapWindowPoints(col_u16 from, col_u16 to, void *pts, col_i16 n);;
-extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b);;
+extern col_u16 pascal GetParent(col_u16 hwnd);
+extern void pascal GetWindowRect(col_u16 hwnd, RECT *r);
+extern void pascal MapWindowPoints(col_u16 from, col_u16 to, void *pts, col_i16 n);
+extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b);
 #endif
 
 void win_rect_in_parent_1078_2644(MSWin *w, RECT *r)

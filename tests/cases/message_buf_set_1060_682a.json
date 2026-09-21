@@ -18,6 +18,7 @@
  "globals_read": [
   "g_message_buf"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls strcpy: the host links its own, the shipped code calls Borland's"
 }

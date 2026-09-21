@@ -19,5 +19,6 @@
  },
  "call": "ColChild_ActivateMessage((ColChild far *)(col_seg34 + 0x0dccL), (char)a2, (col_i32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

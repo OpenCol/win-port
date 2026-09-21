@@ -528,6 +528,11 @@ def cpp_port(path, name, head, body, blank):
         return None, 'no room to stage a `this` pointer'
     sel = 0x1000 + (base[0] - 1) * 8
     case = {'what': 'a C++ method, compared against the shipped bytes in 16 bits',
+            # The flags the byte-exact repo determined for THIS function, from its own
+            # header. -Od matters: without it Borland's codegen diverges eight bytes in.
+            'flags': (re.search(r'flags:\s*([-\w \t]+)', head).group(1).strip()
+                      if re.search(r'flags:\s*([-\w \t]+)', head) else
+                      '-ml -WS -Od -Ot -3 -P'),
             'symbol': symbol, 'shipped': shipped.group(1),
             'source': 'src/%s/%s.cpp' % (os.path.basename(os.path.dirname(path)), name),
             'prototype': '', 'state': 'shipped', 'ret_bits': 0, 'ret_bits_emu': 16,
@@ -1075,6 +1080,10 @@ def port(path, force=False):
             'call': ('(long)%s(%s)' if INTEGRAL[ret] else '(void)%s(%s)'
                      if ret_is_ptr else '%s(%s)') % (name, args),
             'globals_read': sorted({n for _, names in dropped for n in names}),
+            # The flags this function's own reconstruction was matched with.
+            'flags': (re.search(r'flags:\s*([-\w \t]+)', head).group(1).strip()
+                      if re.search(r'flags:\s*([-\w \t]+)', head) else
+                      '-ml -WS -Od -Ot -3'),
             # Callees the SHIPPED code reaches with a four-byte PUSH CS / CALL NEAR from
             # inside its own segment (rule 47). tests/emu_differential.py cannot run such
             # a function: it loads the candidate in a selector of its own, so a far call

@@ -16,6 +16,7 @@
   "g_val_b",
   "g_val_c"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "empty_1010_bdea",
   "empty_1010_be3e",

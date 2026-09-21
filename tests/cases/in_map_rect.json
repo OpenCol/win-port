@@ -18,5 +18,6 @@
   "g_view_y0",
   "g_view_y1"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

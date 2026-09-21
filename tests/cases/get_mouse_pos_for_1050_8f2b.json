@@ -22,6 +22,7 @@
  },
  "call": "get_mouse_pos_for_1050_8f2b((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL), (void far *)(col_seg34 + 0x0e4cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "get_p_6_1050_94fb"
  ],

@@ -21,6 +21,7 @@
   "g_feature_words",
   "g_terrain_rows"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "append_space",
   "say_string"

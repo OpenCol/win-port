@@ -38,7 +38,15 @@ SRC = os.environ.get('COL_SRC_REPO',
 sys.path.insert(0, os.path.join(SRC, 'tools', 're_agent'))
 sys.path.insert(0, os.path.join(SRC, 'tools'))
 sys.path.insert(0, os.path.join(REPO, 'tools'))
-FLAGS = '-ml -WS -Ot -3 -dc -DCOL_EMU'
+# The DEFAULT only. Each case carries the flags its own reconstruction was matched with
+# -- `flags:` in the byte-exact header -- and those win. -Od is the one that matters: 435
+# reconstructions specify it, and without it Borland's codegen for a C++ member function
+# diverges from the shipped bytes eight bytes in.
+FLAGS = '-ml -WS -Od -Ot -3 -dc -DCOL_EMU'
+
+
+def case_flags(case):
+    return (case.get('flags') or FLAGS) + ' -dc -DCOL_EMU'
 
 
 EXTDEF_RE = None
@@ -170,15 +178,20 @@ def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
     # several. Taking it as absolute clobbered code 8 bytes into the function --
     # CDControlWin's `MOV DS,AX; PUSH SI` became a half-written far call -- and the
     # candidate then ran a different program. Walk the dump in order and carry the base.
+    # Only the TEXT records, exactly as bytematch.parse_tdump concatenates them. A C++
+    # object also carries _DATA and vtable LEDATAs, and counting those moved the base so
+    # every call site was patched somewhere harmless and left as an ffff:0000 placeholder
+    # -- the candidate then called nothing at all.
     fixes = []
-    base = 0
+    base, in_text = 0, True
     for ln in td.splitlines():
         ml = led_re.search(ln)
         if ml:
+            in_text = 'TEXT' in ml.group(1).upper()
             base = int(ml.group(2), 16)
             continue
         mf = fix_re.search(ln)
-        if mf:
+        if mf and in_text:
             fixes.append((base + int(mf.group(1), 16), mf.group(3), int(mf.group(4))))
     whole = any(loc in ('Base', 'CodeOffset16') for _a, loc, _e in fixes)
     lo, hi = (0, len(code)) if whole else (off, end)
@@ -282,28 +295,44 @@ def prebuild(cases):
     SYMS.update(symbols())
     srcs = sorted({os.path.join(REPO, json.load(open(c))['source']) for c in cases})
     srcs = [s for s in srcs if os.path.exists(s)]
+    by_flags = {}
+    for c in cases:
+        cs = json.load(open(c))
+        src = os.path.join(REPO, cs['source'])
+        if os.path.exists(src):
+            by_flags.setdefault(case_flags(cs), []).append(src)
     # Compiled ONCE, by the parent, into a cache the shards read. Letting each shard
     # compile its own subset put ten concurrent DOSBox sessions in one work directory,
     # where they overwrote each other's objects -- 736 cases "disagreed" on garbage.
     todo = [x for x in srcs
-            if not os.path.exists(os.path.join(cache_dir(),
-                                               os.path.basename(x)[:-2] + '.td'))
-            or os.path.getmtime(x) > os.path.getmtime(
-                os.path.join(cache_dir(), os.path.basename(x)[:-2] + '.td'))]
+            if not os.path.exists(os.path.join(
+                cache_dir(), os.path.splitext(os.path.basename(x))[0] + '.td'))
+            or os.path.getmtime(x) > os.path.getmtime(os.path.join(
+                cache_dir(), os.path.splitext(os.path.basename(x))[0] + '.td'))]
     if todo:
-        print('compiling %d units with Borland C++ 4.52 (-DCOL_EMU)' % len(todo))
-        for src, (obj, log, td) in bcc.compile_all(todo, FLAGS, tdump=True).items():
-            stem = os.path.join(cache_dir(), os.path.basename(src)[:-2])
-            open(stem + '.td', 'w').write(td or '')
-            open(stem + '.log', 'w').write(log or '')
-            if obj:
-                open(stem + '.obj', 'wb').write(obj)
+        print('compiling %d units with Borland C++ 4.52' % len(todo))
+        pending = set(todo)
+        for flags, group in sorted(by_flags.items()):
+            group = [g for g in group if g in pending]
+            if not group:
+                continue
+            for src, (obj, log, td) in bcc.compile_all(group, flags,
+                                                       tdump=True).items():
+                stem = os.path.join(cache_dir(),
+                                    os.path.splitext(os.path.basename(src))[0])
+                open(stem + '.td', 'w').write(td or '')
+                open(stem + '.log', 'w').write(log or '')
+                if obj:
+                    open(stem + '.obj', 'wb').write(obj)
 
 
 def run_case(path, verbose=False):
     import bcc, bytematch as BM, probe
     case = json.load(open(path))
     name = case['symbol']
+    # The results file is keyed by the CASE, so a reason has to be too -- storing it under
+    # the symbol meant tools/coverage.py saw an uncovered function with no reason given.
+    key = os.path.basename(path)[:-5]
     src = os.path.join(REPO, case['source'])
     if not os.path.exists(src):
         print('%-32s no source at %s' % (name, case['source']))
@@ -311,13 +340,13 @@ def run_case(path, verbose=False):
 
     if not SYMS:
         SYMS.update(symbols())
-    stem = os.path.join(cache_dir(), os.path.basename(src)[:-2])
+    stem = os.path.join(cache_dir(), os.path.splitext(os.path.basename(src))[0])
     if os.path.exists(stem + '.td'):
         td = open(stem + '.td').read()
         log = open(stem + '.log').read() if os.path.exists(stem + '.log') else ''
         obj = open(stem + '.obj', 'rb').read() if os.path.exists(stem + '.obj') else None
     else:
-        obj, log, td = bcc.compile_unit(src, FLAGS, tdump=True)
+        obj, log, td = bcc.compile_unit(src, case_flags(case), tdump=True)
     if obj is None:
         print('%-32s BORLAND BUILD FAILED\n%s' % (name, (log or '')[:600]))
         return False
@@ -341,8 +370,8 @@ def run_case(path, verbose=False):
         print('%-32s %s' % (name, missing[0]))
         return False
     if missing:
-        REASONS[name] = 'cannot resolve %s' % ', '.join(sorted(set(missing))[:3])
-        print('%-32s unsupported: %s' % (name, REASONS[name]))
+        REASONS[key] = 'cannot resolve %s' % ', '.join(sorted(set(missing))[:3])
+        print('%-32s unsupported: %s' % (name, REASONS[key]))
         return None
     for spec, hexbytes in case.get('stage', {}).items():
         seg, off = seg_of(spec)
@@ -417,9 +446,9 @@ def run_case(path, verbose=False):
         # Every set was dropped because the shipped function never returned. Zero of zero
         # agreeing is not agreement, and counting it as such would make an unrunnable
         # function look verified.
-        REASONS[name] = ('the shipped function returned from none of the %d argument '
+        REASONS[key] = ('the shipped function returned from none of the %d argument '
                          'sets' % dropped)
-        print('%-32s UNVERIFIED: %s' % (name, REASONS[name]))
+        print('%-32s UNVERIFIED: %s' % (name, REASONS[key]))
         return None
     print('%-32s %d/%d argument sets agree (16-bit, state: %s%s)'
           % (name, total - bad, total, meta.get('state'),

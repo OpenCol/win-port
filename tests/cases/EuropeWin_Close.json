@@ -9,6 +9,7 @@
  "ret_bits_emu": 16,
  "call": "(long)EuropeWin_Close()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "europe_release_focus"
  ],

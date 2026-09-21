@@ -9,9 +9,9 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal GetClientRect(col_u16 hwnd, RECT *r);;
-extern void pascal InvalidateRect(col_u16 hwnd, RECT *r, col_i16 erase);;
-extern void pascal UpdateWindow(col_u16 hwnd);;
+extern void pascal GetClientRect(col_u16 hwnd, RECT *r);
+extern void pascal InvalidateRect(col_u16 hwnd, RECT *r, col_i16 erase);
+extern void pascal UpdateWindow(col_u16 hwnd);
 #endif
 
 void repaint_hwnd(col_u16 hwnd)

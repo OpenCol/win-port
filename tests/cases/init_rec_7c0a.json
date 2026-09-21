@@ -15,5 +15,6 @@
  "globals_read": [
   "g_rec_7c0a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

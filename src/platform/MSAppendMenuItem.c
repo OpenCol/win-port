@@ -9,9 +9,9 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern char pascal AppendMenu(col_u16 hmenu, col_u16 flags, col_u16 id, char *s);;
-extern col_i16 pascal GetMenuItemCount(col_u16 hmenu);;
-extern col_u16 pascal GetSubMenu(col_u16 hmenu, col_i16 pos);;
+extern char pascal AppendMenu(col_u16 hmenu, col_u16 flags, col_u16 id, char *s);
+extern col_i16 pascal GetMenuItemCount(col_u16 hmenu);
+extern col_u16 pascal GetSubMenu(col_u16 hmenu, col_i16 pos);
 #endif
 
 void MSAppendMenuItem(col_u16 hmenu, col_i16 pos, char *text, col_u16 id)

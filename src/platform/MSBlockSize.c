@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u32 pascal GlobalSize(col_i16 h);;
+extern col_u32 pascal GlobalSize(col_i16 h);
 #endif
 
 col_u32 MSBlockSize(col_i16 h)

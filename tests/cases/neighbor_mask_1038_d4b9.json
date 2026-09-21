@@ -16,6 +16,7 @@
   "g_map_width",
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "tile_passable_1038_d44f"
  ]

@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "StatWin::~StatWin()",
  "shipped": "1008:e366",
  "source": "src/game/StatWin_dtor.cpp",

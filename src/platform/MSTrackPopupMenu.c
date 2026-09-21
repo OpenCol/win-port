@@ -12,8 +12,8 @@
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
 extern col_i16 pascal TrackPopupMenu(col_u16 hmenu, col_u16 flags, col_i16 x, col_i16 y,
-                                     col_i16 reserved, col_u16 hwnd, const void *r);;
-extern void pascal ClientToScreen(col_u16 hwnd, POINT *p);;
+                                     col_i16 reserved, col_u16 hwnd, const void *r);
+extern void pascal ClientToScreen(col_u16 hwnd, POINT *p);
 #endif
 
 void MSTrackPopupMenu(col_u16 hmenu, MSWin *w, col_i16 x, col_i16 y)

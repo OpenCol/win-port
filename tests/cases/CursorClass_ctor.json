@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "CursorClass::CursorClass()",
  "shipped": "1008:f592",
  "source": "src/game/CursorClass_ctor.cpp",

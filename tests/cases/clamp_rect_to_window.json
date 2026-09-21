@@ -19,6 +19,7 @@
  },
  "call": "clamp_rect_to_window((Win far *)(col_seg34 + 0x0dccL), (RECT far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "rect_height_1038_dfdc",
   "rect_width_1038_dfbd"

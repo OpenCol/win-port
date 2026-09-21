@@ -11,6 +11,7 @@
  "globals_read": [
   "g_field"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "next_csv_field"
  ],

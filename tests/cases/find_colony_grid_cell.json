@@ -22,6 +22,7 @@
  "globals_read": [
   "g_stub_a"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "colony_cell_colonist"
  ]

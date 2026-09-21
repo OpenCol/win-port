@@ -11,9 +11,9 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal EnableWindow(col_u16 hwnd, col_i16 enable);;
-extern col_i16 pascal IsWindow(col_u16 hwnd);;
-extern col_u16 pascal GetParent(col_u16 hwnd);;
+extern col_i16 pascal EnableWindow(col_u16 hwnd, col_i16 enable);
+extern col_i16 pascal IsWindow(col_u16 hwnd);
+extern col_u16 pascal GetParent(col_u16 hwnd);
 #endif
 
 void disable_parent(MSWin *w)

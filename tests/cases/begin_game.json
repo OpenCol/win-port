@@ -21,6 +21,7 @@
   "g_goods_value",
   "g_loaded_flag"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "max_int_1008_ce9c"
  ],

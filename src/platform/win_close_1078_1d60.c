@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_u32 pascal SendMessage(col_u16 hwnd, col_u16 msg, col_u16 wparam, col_i32 lparam);;
+extern col_u32 pascal SendMessage(col_u16 hwnd, col_u16 msg, col_u16 wparam, col_i32 lparam);
 #endif
 
 void win_close_1078_1d60(MSWin *w)

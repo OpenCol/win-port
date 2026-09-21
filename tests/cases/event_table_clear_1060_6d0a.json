@@ -16,5 +16,6 @@
  },
  "call": "event_table_clear_1060_6d0a((EventTable far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }

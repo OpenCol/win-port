@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void * pascal WinGGetDIBPointer(col_i16 hbm, void *info);;
+extern void * pascal WinGGetDIBPointer(col_i16 hbm, void *info);
 #endif
 
 void * wing_dib_pointer(WinGRec *r)

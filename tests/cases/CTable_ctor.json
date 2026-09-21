@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "CTable::CTable()",
  "shipped": "1068:004e",
  "source": "src/gfx/CTable_ctor.cpp",

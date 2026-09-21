@@ -16,6 +16,7 @@
  },
  "call": "(long)rect_width_at_8_1060_60c4((Obj far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "rect_width_1060_63b5"
  ],

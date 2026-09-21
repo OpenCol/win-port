@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal hmemcpy(void *dst, void *src, col_i32 n);;
+extern void pascal hmemcpy(void *dst, void *src, col_i32 n);
 #endif
 
 void copy_logpalette(void *src, void *dst)

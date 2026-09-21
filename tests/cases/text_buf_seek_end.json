@@ -12,6 +12,7 @@
   "g_text_buf",
   "g_text_cursor"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "uses the pointer global g_text_cursor: four bytes in the game, eight on a host",
  "call_args": [

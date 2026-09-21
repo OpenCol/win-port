@@ -11,10 +11,10 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal GetTextMetrics(col_u16 hdc, TEXTMETRIC *tm);;
-extern col_i16 pascal ReleaseDC(col_u16 hwnd, col_u16 hdc);;
-extern col_u16 pascal GetDC(col_u16 hwnd);;
-extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);;
+extern col_i16 pascal GetTextMetrics(col_u16 hdc, TEXTMETRIC *tm);
+extern col_i16 pascal ReleaseDC(col_u16 hwnd, col_u16 hdc);
+extern col_u16 pascal GetDC(col_u16 hwnd);
+extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);
 #endif
 
 extern FontRec * MSHLock(col_u16 h);

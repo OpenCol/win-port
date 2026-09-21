@@ -1,5 +1,6 @@
 {
  "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
  "symbol": "VListItem::VListItem()",
  "shipped": "1068:9c48",
  "source": "src/gfx/VListItem_ctor.cpp",

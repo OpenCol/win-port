@@ -11,7 +11,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal IsZoomed(col_u16 hwnd);;
+extern col_i16 pascal IsZoomed(col_u16 hwnd);
 #endif
 
 col_i16 win_is_zoomed_1078_212b(MSWin *w)

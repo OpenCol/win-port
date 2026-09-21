@@ -19,6 +19,7 @@
  },
  "call": "MSAppendMenuItem((col_u16)a0, (col_i16)a1, (char far *)(col_seg34 + 0x0dccL), (col_u16)a4)",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls AppendMenu, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

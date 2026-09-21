@@ -18,7 +18,7 @@ void stop_mci_device_1078_0940(void);
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern void pascal DestroyWindow(col_u16 hwnd);;
+extern void pascal DestroyWindow(col_u16 hwnd);
 #endif
 
 /* same object: 4-byte `push cs; call ` */

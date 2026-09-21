@@ -9,6 +9,7 @@
  "ret_bits_emu": 16,
  "call": "(long)MSDoTask()",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls DispatchMessage, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true,

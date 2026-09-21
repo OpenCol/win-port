@@ -13,6 +13,7 @@
  ],
  "call": "win_release_capture((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0))",
  "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
  "host_blind": "calls ReleaseCapture, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

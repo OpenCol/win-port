@@ -9,7 +9,7 @@
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
 #ifdef COL_HOST
-extern col_i16 pascal DestroyMenu(col_u16 hmenu);;
+extern col_i16 pascal DestroyMenu(col_u16 hmenu);
 #endif
 
 void MSDestroyMenu(col_u16 hmenu)

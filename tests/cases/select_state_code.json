@@ -16,5 +16,6 @@
   "g_game_flags",
   "g_recs"
  ],
+ "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []
 }
