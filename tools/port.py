@@ -838,7 +838,7 @@ def port(path, force=False):
     # col/globals.h gives an array-shaped global a POINTER form, because a global one file
     # indexes and another reads whole is indexable in the header and scalar at the site.
     # Rewrite the scalar uses; a use that takes its ADDRESS has no such rewrite, so refuse.
-    body_text = rest
+    body_pre = rest
     # The header may give a global MORE dimensions than the file used: g_nation_bits is
     # `char (*)[0x13c]` here and `char g_nation_bits[]` there, so the file's
     # `g_nation_bits[row * 0x13c + byte]` would index whole ROWS. Flatten it at the site.
@@ -853,8 +853,9 @@ def port(path, force=False):
             if g['base'] not in WIDTH or not file_dims.get(n):
                 continue
             elem = retype(g['base'])
-            body_text = re.sub(r'(?<![\w.>])%s\b' % re.escape(n),
-                               '((%s far *)%s)' % (elem, n), body_text)
+            body_pre = re.sub(r'(?<![\w.>])%s\b' % re.escape(n),
+                              '((%s far *)%s)' % (elem, n), body_pre)
+    body_text = body_pre
     for t in drop_typedefs:
         if t.startswith('struct '):
             tag = t.split()[1]
@@ -899,9 +900,10 @@ def port(path, force=False):
                 # "pointer to the first element" and wrapping it in `(*...)` would pass a
                 # char where a char * belongs.
                 continue
-            if re.search(r'&\s*%s\b' % re.escape(n), blank_rest):
-                return None, 'takes the address of %s, which the header spells as a ' \
-                             'pointer' % n
+            # `&g_x` where the header spells the global as a pointer-to-first-element:
+            # the two denote the same address, so the & simply comes off. Refusing it cost
+            # MSDisposeHandle and everything behind it.
+            body_pre = re.sub(r'&\s*%s\b' % re.escape(n), '(%s)' % n, body_pre)
             body_text = re.sub(r'\b%s\b(?!\s*\[)' % re.escape(n), '(*%s)' % n, body_text)
 
     # A function that returns a local it never assigned is undefined, and the shipped

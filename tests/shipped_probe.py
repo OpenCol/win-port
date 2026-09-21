@@ -100,7 +100,11 @@ def one(CASE, DUMP, emit=True):
     def written():
         return addrs('writes')
 
-    if DUMP:
+    if DUMP and not os.path.exists(DUMP):
+        # ONE file per state, not per case: it is 123 KB and 1,100 cases filled the disk.
+        # The staging is not in it -- the driver applies the case's own staging after
+        # loading -- so every case in a given state shares one dump.
+        #
         # The host's idea of "the shipped state" is the raw segment image; the emulator's
         # is that image AFTER its startup has run, and the startup writes into DGROUP --
         # a selector at 0x2ad8, and more. Any function that reads those bytes sees

@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_message",
+ "shipped": "1010:c085",
+ "source": "src/game/colony_message.c",
+ "prototype": "void colony_message(col_i16 idx);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "colony_message((col_i16)a0)",
+ "globals_read": [
+  "g_colony_message_words",
+  "g_colony_window"
+ ],
+ "near_callees": []
+}

@@ -86,11 +86,11 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **1,101 functions are ported** — 35% of the corpus — and `tools/coverage.py` says what
-  checks each one: 429 verified by both harnesses, 666 by exactly one, and 6 by neither,
-  each of those 6 carrying a reason from BOTH harnesses, so an unexplained hole fails the
-  check. No function disagrees with the shipped bytes. The host suite runs 21,790 argument
-  sets and the 16-bit one agrees on 1,094. All of them compile with the real Borland C++
+- **1,148 functions are ported** — 36% of the corpus — and `tools/coverage.py` says what
+  checks each one: 431 verified by both harnesses, 710 by exactly one, and 7 by neither,
+  each of those 7 carrying a reason from BOTH harnesses, so an unexplained hole fails the
+  check. No function disagrees with the shipped bytes. The host suite runs 10,897 argument
+  sets and the 16-bit one agrees on 1,140. All of them compile with the real Borland C++
   4.52 targeting Win16, link into a 14-segment NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
@@ -208,8 +208,13 @@ a port disagreeing with the shipped bytes, and each was found the same way: **th
 passed when run alone**. A disagreement that depends on how the suite is run is never a
 port bug.
 
-The remaining lever is the host side's 816 clang compiles, one per case. One driver binary
-per chunk would replace them with about sixteen.
+The remaining lever is the host side's clang compiles, one per case. One driver binary per
+chunk would replace them with about sixteen.
+
+**Disk.** A run used to leave a 123 KB state dump, a driver, an executable and a `.dSYM`
+directory per case, which at a thousand cases filled the disk and killed a port run.
+One state dump per STATE is enough -- the driver applies the case's own staging after
+loading it -- and the rest is deleted as it goes. `build/diff` went from 263 MB to 9.5.
 
 ### What the harness cannot see
 

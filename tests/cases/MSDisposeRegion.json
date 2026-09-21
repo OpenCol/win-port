@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSDisposeRegion",
+ "shipped": "1070:0c99",
+ "source": "src/platform/MSDisposeRegion.c",
+ "prototype": "void MSDisposeRegion(col_u16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "MSDisposeRegion((col_u16)a0)",
+ "globals_read": [
+  "g_error_ctx"
+ ],
+ "near_callees": [
+  "empty_1070_969a"
+ ]
+}

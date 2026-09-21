@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSDisposeRadio",
+ "shipped": "1070:42aa",
+ "source": "src/platform/MSDisposeRadio.c",
+ "prototype": "void MSDisposeRadio(col_i16 n, col_u16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "MSDisposeRadio((col_i16)a0, (col_u16)a1)",
+ "globals_read": [
+  "g_error_ctx"
+ ],
+ "near_callees": [
+  "empty_1070_969a"
+ ],
+ "host_blind": "calls DestroyWindow, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

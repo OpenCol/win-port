@@ -45,8 +45,11 @@ REASONS = {}          # case -> why it was not verified, for tools/coverage.py
 # harness instead. Listed rather than excused: see model/host_blind.json.
 HOST_BLIND = json.load(open(os.path.join(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))), 'model', 'host_blind.json')))['blind']
+# No -g: a debug build leaves a .dSYM directory per case, and there are a thousand cases.
+# -O0 because the driver stages memory and makes one call; optimising it buys nothing and
+# costs compile time, which is the dominant cost of this harness.
 CFLAGS = ['-std=c89', '-DCOL_HOST=1', '-fsigned-char', '-fwrapv', '-fno-strict-aliasing',
-          '-Wall', '-Wno-unused-value', '-g', '-O1']
+          '-Wall', '-Wno-unused-value', '-O0']
 
 
 BROKEN = {}
@@ -97,7 +100,9 @@ def probe_all(cases):
     back between cases.
     """
     os.makedirs(BUILD, exist_ok=True)
-    jobs = [{'case': c, 'dump': os.path.join(BUILD, os.path.basename(c)[:-5] + '.state')}
+    jobs = [{'case': c,
+             'dump': os.path.join(BUILD, 'state_%s.bin'
+                                  % json.load(open(c)).get('state', 'shipped'))}
             for c in cases]
     # Split across processes. Batching alone put every emulated call in ONE interpreter,
     # which is serial by construction -- 816 cases spent twenty minutes there at 90% of a
@@ -305,7 +310,7 @@ def run_case(path, verbose=False, mutate=None):
         return False
     # The shipped side runs FIRST, because what it wrote decides what the host is asked
     # about.
-    dump = os.path.join(BUILD, name + '.state')
+    dump = os.path.join(BUILD, 'state_%s.bin' % case.get('state', 'shipped'))
     if path in SHIPPED:
         ship = SHIPPED[path]
         if 'error' in ship:
@@ -389,6 +394,12 @@ def run_case(path, verbose=False, mutate=None):
               'a walk that wraps in 16 bits ran off the slab' % (name, r.returncode))
         return None
     host = json.loads(r.stdout)
+    # The driver and its executable are ~100 KB a case and there are a thousand of them.
+    for f in (exe, drv):
+        try:
+            os.remove(f)
+        except OSError:
+            pass
 
     bits = case.get('ret_bits', 16)
     mask = (1 << bits) - 1 if bits else 0
