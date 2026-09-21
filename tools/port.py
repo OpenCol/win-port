@@ -485,11 +485,50 @@ def cpp_port(path, name, head, body, blank):
     here needs that yet, because what is being compared is one method against the shipped
     bytes of that same method.
     """
-    d = CPP_DEF.search(blank)
-    if not d:
+    defs = list(CPP_DEF.finditer(blank))
+    if not defs:
         return None, 'a C++ file this cannot find a method definition in'
-    if len(CPP_DEF.findall(blank)) > 1:
-        return None, 'a C++ file defining more than one method'
+    # The subject is the method the FILE is named for: AboutWin_ctor -> AboutWin::AboutWin,
+    # AboutWin_dtor -> AboutWin::~AboutWin. The others are base-class constructors the
+    # compiler needed here and that have reconstructions of their own, so they come out and
+    # the linker joins them -- the same rule as a C file with a second real body.
+    want = None
+    m0 = re.match(r'^(\w+?)_(ctor|dtor)(?:_|$)', name)
+    if m0:
+        want = (m0.group(1), ('~' if m0.group(2) == 'dtor' else '') + m0.group(1))
+    subject = None
+    for d0 in defs:
+        if want and (d0.group('cls'), d0.group('meth')) == want:
+            subject = d0
+    if subject is None and len(defs) == 1:
+        subject = defs[0]
+    if subject is None:
+        return None, 'a C++ file defining %d methods and none of them the one it is ' \
+                     'named for' % len(defs)
+    extras = [d0 for d0 in defs if d0 is not subject]
+    orphan = [d0 for d0 in extras
+              # `GameWin_ctor_1010_28a9.c` as well as `GameWin_ctor.c`: the image has
+              # several constructors for some classes and the corpus suffixes them.
+              if not glob.glob(os.path.join(SRC_REPO, 'matched', '*', '%s_%s*.c'
+                                            % (d0.group('cls'),
+                                               'dtor' if d0.group('meth').startswith('~')
+                                               else 'ctor')))]
+    if orphan:
+        return None, 'a C++ file also defining %s::%s, which has no reconstruction of ' \
+                     'its own' % (orphan[0].group('cls'), orphan[0].group('meth'))
+    for d0 in sorted(extras, key=lambda x: x.start(), reverse=True):
+        i, depth = d0.end() - 1, 0
+        while i < len(blank):
+            if blank[i] == '{':
+                depth += 1
+            elif blank[i] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        body = body[:d0.start()] + body[i + 1:]
+        blank = blank[:d0.start()] + blank[i + 1:]
+    d = subject
     cls, meth = d.group('cls'), d.group('meth')
     if d.group('args').strip() not in ('', 'void'):
         return None, 'a C++ method with arguments, which the case generator cannot sweep '\
@@ -551,7 +590,12 @@ def port(path, force=False):
     head, body = (m.group(0), text[m.end():]) if m else ('', text)
 
     blank = blank_comments(body)
-    if re.search(r'^\s*class\s+\w+', blank, re.M) or CPP_DEF.search(blank):
+    # A class declaration alone does not make this the C++ path. ColChild_DragIcon
+    # declares `class GRPort` and then defines a plain C function inside `extern "C"`: it
+    # needs C++ COMPILATION (the header says -P) and nothing else. Only a file that
+    # defines a Class::method goes through cpp_port.
+    is_cpp = bool(re.search(r'^\s*class\s+\w+', blank, re.M) or 'extern "C"' in blank)
+    if CPP_DEF.search(blank):
         return cpp_port(path, name, head, body, blank)
     # A file-local struct is not automatically something to unify away. It is one of two
     # things, and only the first is a conflict with the shared header:
@@ -1070,7 +1114,8 @@ def port(path, force=False):
     args = ', '.join(callargs)
     case = {'what': 'ported by tools/port.py; compared against the shipped bytes',
             'symbol': name, 'shipped': shipped.group(1),
-            'source': 'src/%s/%s.c' % (os.path.basename(os.path.dirname(path)), name),
+            'source': 'src/%s/%s.%s' % (os.path.basename(os.path.dirname(path)), name,
+                                        'cpp' if is_cpp else 'c'),
             'prototype': sig + ';',
             'state': 'shipped', 'ret_bits': INTEGRAL[ret],
             # What the 16-bit harness compares, when it differs: a returned far pointer is

@@ -86,12 +86,11 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **1,197 functions are ported** — 38% of the corpus, including **119 C++ methods** — and
-  `tools/coverage.py` says what checks each one: 444 verified by both harnesses, 751 by
-  exactly one, and 2 by neither with a reason from both. No function disagrees with the
-  shipped bytes: 21,762 host argument sets and 1,195 agreeing in 16 bits. All of them
-  compile with the real Borland C++ 4.52 targeting Win16, link into a 14-segment NE, and
-  the result boots.
+- **1,235 functions are ported** — 39% of the corpus — and `tools/coverage.py` says what
+  checks each one: 444 verified by both harnesses, 787 by exactly one, and 4 by neither
+  with a reason from both. No function disagrees with the shipped bytes: 21,762 host
+  argument sets and 1,231 agreeing in 16 bits. All of them compile with the real Borland
+  C++ 4.52 targeting Win16, link into a 14-segment NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -215,9 +214,19 @@ function diverges from the shipped bytes eight bytes in, which cost an iteration
 measuring calling conventions before the answer turned out to be written in the file all
 along. With it, `CDControlWin::~CDControlWin()` compiles to the shipped bytes exactly.
 
-119 of 131 verify. The 12 that do not are withdrawn with their reason, and it is the same
-wall as a rule-47 forwarder: a member destructor reached by a NEAR call to an external,
-which no harness that loads the candidate in a selector of its own can run.
+Two things about C++ turned out to be misrouting rather than difficulty. A class
+declaration alone does not make a file the C++ path -- `ColChild_DragIcon` declares
+`class GRPort` and then defines a plain C function inside `extern "C"`, so it needs C++
+COMPILATION and nothing else. And a C++ file defining several methods follows the same
+rule as a C file with several bodies: the base-class constructors it also defines have
+reconstructions of their own, under suffixed names like `GameWin_ctor_1010_28a9`, so they
+come out and the linker rejoins them.
+
+What remains is one family, withdrawn with its reason: a **constructor or destructor whose
+member-constructor calls** resolve to targets that do not reproduce the shipped behaviour.
+The method itself compiles to the shipped bytes exactly. A handful also hit the rule-47
+wall -- a member destructor reached by a NEAR call to an external, which no harness that
+loads the candidate in a selector of its own can run.
 
 ### How long it takes, and why
 

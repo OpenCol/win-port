@@ -1,0 +1,19 @@
+{
+ "what": "a C++ method, compared against the shipped bytes in 16 bits",
+ "flags": "-ml -WS -Od -Ot -3 -P",
+ "symbol": "GameWin::GameWin()",
+ "shipped": "1010:2bd6",
+ "source": "src/game/GameWin_ctor_1010_2bd6.cpp",
+ "prototype": "",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=11034",
+  "1=4360"
+ ],
+ "call": "",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "a C++ method: the host harness has no way to call it, and a constructor's work is member construction and a vtable"
+}
