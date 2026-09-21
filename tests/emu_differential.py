@@ -89,10 +89,58 @@ def symbols():
     for nm in list(out):
         out.setdefault(nm.lower(), out[nm])
         out.setdefault(nm + '@', out[nm])
+    # C++ methods, as TDUMP demangles them. The symbol map spells a constructor
+    # `Class_ctor` and a destructor `Class_dtor`, with an address suffix when the image
+    # has several -- `EventWin_ctor_1010_28a9`. A name that resolves to exactly one
+    # address is taken; one that does not is left unresolved and reported, because the
+    # call site is what decides and a name cannot.
+    import collections
+    byprefix = collections.defaultdict(list)
+    for nm in list(out):
+        if '_ctor' in nm or '_dtor' in nm:
+            cls, _, rest = nm.partition('_')
+            byprefix[(cls, 'ctor' if rest.startswith('ctor') else 'dtor')].append(nm)
+    for (cls, kind), names in byprefix.items():
+        exact = [n for n in names if n == '%s_%s' % (cls, kind)]
+        pick = exact or (names if len(names) == 1 else [])
+        if pick:
+            key = '%s::%s%s()' % (cls, '~' if kind == 'dtor' else '', cls)
+            out.setdefault(key, out[pick[0]])
+    for nm in list(out):
+        if '_' in nm:
+            cls, _, meth = nm.partition('_')
+            if meth and not meth[0].isdigit():
+                out.setdefault('%s::%s()' % (cls, meth), out[nm])
     return out
 
 
-def resolve(code, td, sym, syms, m=None, imps=None):
+def shipped_calls(addr, size=1024):
+    """The far-call targets in the SHIPPED function, in order.
+
+    A name cannot always say which callee a call means: the image has six
+    `EventWin_ctor_*`, and only the call site knows. The shipped function's own bytes do
+    know -- a `9A off seg` is a far call with its target in the instruction -- so when a
+    demangled name is ambiguous the Nth unresolved call takes the Nth shipped target. If
+    that alignment is wrong the differential says so, which is the point of running it.
+    """
+    import bytematch as BM
+    try:
+        b = bytes(BM.target_bytes(addr, size))
+    except Exception:
+        return []
+    out, i = [], 0
+    while i < len(b) - 4:
+        if b[i] == 0x9A:
+            off = b[i + 1] | (b[i + 2] << 8)
+            sel = b[i + 3] | (b[i + 4] << 8)
+            out.append((sel, off))
+            i += 5
+        else:
+            i += 1
+    return out
+
+
+def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
     """Cut `sym` out of the object and point every call at the SHIPPED callee.
 
     A ported function that calls another function compiles to a far call with a fixup.
@@ -113,7 +161,16 @@ def resolve(code, td, sym, syms, m=None, imps=None):
     later = [o for o in pubs.values() if o > off]
     end = min(later) if later else len(code)
     extdefs = {int(m.group(1)): m.group(2) for m in ext_re.finditer(td)}
-    out, missing = bytearray(code[off:end]), []
+    # WHOLE object, not one symbol, when the method near-calls something the compiler
+    # generated beside it -- a C++ destructor calls its members' destructors that way, and
+    # slicing the method alone cuts the callee off. Entering at the method's own offset
+    # gives the same execution with the helpers still reachable.
+    whole = any(fx.group(3) in ('Base', 'CodeOffset16')
+                for fx in fix_re.finditer(td))
+    lo, hi = (0, len(code)) if whole else (off, end)
+    entry = off - lo
+    out, missing, fb_i, resolved_by_site = bytearray(code[lo:hi]), [], [0], []
+    off = lo
     for fx in fix_re.finditer(td):
         at, loc, ei = int(fx.group(1), 16), fx.group(3), int(fx.group(4))
         if not (off <= at < end):
@@ -131,6 +188,14 @@ def resolve(code, td, sym, syms, m=None, imps=None):
             out[at - off:at - off + 4] = bytes([off16 & 0xFF, off16 >> 8,
                                                 sel & 0xFF, sel >> 8])
             continue
+        if loc == 'Pointer16' and target not in syms and fb_i[0] < len(fallback):
+            # Ambiguous by name: take the shipped function's own next far-call target.
+            sel, toff = fallback[fb_i[0]]
+            fb_i[0] += 1
+            resolved_by_site.append(target)
+            out[at - off:at - off + 4] = bytes([toff & 0xFF, toff >> 8,
+                                                sel & 0xFF, sel >> 8])
+            continue
         if loc != 'Pointer16' or target not in syms:
             missing.append('%s (%s)' % (target, loc))
             continue
@@ -138,7 +203,7 @@ def resolve(code, td, sym, syms, m=None, imps=None):
         sel = 0x1000 + (seg - 1) * 8
         out[at - off:at - off + 4] = bytes([toff & 0xFF, toff >> 8,
                                             sel & 0xFF, sel >> 8])
-    return bytes(out), missing
+    return (bytes(out), entry), missing
 
 
 def seg_of(spec):
@@ -255,7 +320,10 @@ def run_case(path, verbose=False):
     m.relocate_all()
     if not IMPORTS:
         IMPORTS.update(imports())
-    sliced, missing = resolve(code, td, name, SYMS, m, IMPORTS)
+    sliced, missing = resolve(code, td, name, SYMS, m, IMPORTS,
+                              shipped_calls(case['shipped']))
+    if sliced is not None:
+        sliced, entry = sliced
     if sliced is None:
         print('%-32s %s' % (name, missing[0]))
         return False
@@ -280,6 +348,9 @@ def run_case(path, verbose=False):
         n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
         pristine[idx] = m.read(idx, 0, n)
     cand = m.load_candidate(sliced)
+    if entry:
+        sel, _, _o = cand.partition(':')
+        cand = '%s:%04x' % (sel, entry)
 
     argsets = probe.parse_sweep(case.get('sweep', []), case.get('call_args', []))
     # A returned far pointer is a real value here and not on a host, so the case carries

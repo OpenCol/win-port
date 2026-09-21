@@ -63,6 +63,9 @@ typedef struct { col_i16 tmHeight, tmAscent, tmDescent,
                  unsigned char tmRest[22]; } TEXTMETRIC;
 #endif
 
+/* A C++ port declares its own `class GameWin` and would collide with these, so it defines
+ * COL_CPP_PORT and brings its own. */
+#ifndef COL_CPP_PORT
 /* Records the byte-exact corpus names but never defines a body for: it reaches them only
  * through a pointer, so the port does the same. An incomplete type is the honest
  * spelling -- it keeps the name and makes a dereference a compile error rather than a
@@ -71,5 +74,6 @@ typedef struct Dlg      Dlg;
 typedef struct GameWin  GameWin;
 typedef struct MrTimer  MrTimer;
 typedef struct Rec4c28  Rec4c28;
+#endif
 
 #endif

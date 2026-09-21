@@ -69,6 +69,8 @@ def archive():
     objdir = os.path.join(BUILD, 'obj')
     os.makedirs(objdir, exist_ok=True)
     lib = os.path.join(BUILD, 'libcol.a')
+    # .c only: a C++ port is verified in 16 bits and never built here. A destructor's
+    # work is member construction and a vtable, which a host build does not reproduce.
     objs, sources = [], sorted(glob.glob(os.path.join(REPO, 'src', '*', '*.c'))) + \
         [os.path.join(REPO, 'src', 'segdata.c'), os.path.join(HERE, 'host', 'colmem.c')]
     stale = False

@@ -50,19 +50,23 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240, tdump=False):
     link(os.path.join(DOS, 'BC452'), BC452)
     link(os.path.join(DOS, 'INC'), os.path.join(REPO, 'include'))
     stem = os.path.splitext(os.path.basename(path))[0][:8].upper()
-    for f in ('T.C', stem + '.OBJ', 'CC.TXT', 'TD.TXT'):
+    # Borland decides C from C++ by the EXTENSION, and the corpus has both: a class with
+    # a constructor is a .cpp here and TDUMP demangles its symbols, which is what lets a
+    # method be sliced by the name a person would write.
+    src_name = 'T.CPP' if path.endswith(('.cpp', '.cc')) else 'T.C'
+    for f in ('T.C', 'T.CPP', stem + '.OBJ', 'CC.TXT', 'TD.TXT'):
         try:
             os.remove(os.path.join(WORK, f))
         except FileNotFoundError:
             pass
-    shutil.copyfile(path, os.path.join(WORK, 'T.C'))
+    shutil.copyfile(path, os.path.join(WORK, src_name))
     conf = os.path.join(DOS, 'bcc.conf')
     open(conf, 'w').write(
         '[dosbox]\nmemsize=32\n[cpu]\ncore=auto\ncputype=pentium\ncycles=max\n'
         '[autoexec]\n'
         'MOUNT C %s\nC:\nSET PATH=C:\\BC452\\BIN\nCD \\WORK\n'
-        'BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ T.C > CC.TXT\n%sEXIT\n'
-        % (DOS, flags, stem,
+        'BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ %s > CC.TXT\n%sEXIT\n'
+        % (DOS, flags, stem, src_name,
            'TDUMP %s.OBJ > TD.TXT\n' % stem if tdump else ''))
     try:
         subprocess.run(['dosbox-x', '-silent', '-nolog', '-conf', conf],
@@ -116,14 +120,15 @@ def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200, tdump=False):
     for i, p in enumerate(paths):
         stem = 'U%04d' % i
         stems[p] = stem
-        shutil.copyfile(p, os.path.join(WORK, stem + '.C'))
-        for f in (stem + '.OBJ', stem + '.TXT'):
+        ext = '.CPP' if p.endswith(('.cpp', '.cc')) else '.C'
+        shutil.copyfile(p, os.path.join(WORK, stem + ext))
+        for f in (stem + '.OBJ', stem + '.TXT', stem + 'D.TXT'):
             try:
                 os.remove(os.path.join(WORK, f))
             except FileNotFoundError:
                 pass
-        lines.append('BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ %s.C > %s.TXT'
-                     % (flags, stem, stem, stem))
+        lines.append('BCC -c %s -IC:\\BC452\\INCLUDE;C:\\INC -o%s.OBJ %s%s > %s.TXT'
+                     % (flags, stem, stem, ext, stem))
         if tdump:
             lines.append('TDUMP %s.OBJ > %sD.TXT' % (stem, stem))
     open(os.path.join(WORK, 'GO.BAT'), 'w', newline='\r\n').write(

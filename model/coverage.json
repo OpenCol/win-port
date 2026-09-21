@@ -433,19 +433,53 @@
   "win_set_word_20",
   "wrap_index"
  ],
- "host_only": [
-  "swap_long"
- ],
+ "host_only": [],
  "emu_only": [
+  "CTable_ctor",
   "CTable_load_rgb",
+  "ClosingWin_dtor",
   "ColChild_AddToMessage",
   "ColChild_BackspaceMessage",
   "ColonyWin_Close",
+  "CursorClass_ctor",
+  "Customize_dtor",
+  "DebugWin_dtor",
+  "DiskFile_ctor",
+  "DlgControl_ctor_1008_ec05",
+  "DlgControl_ctor_1030_f013",
+  "DlgControl_ctor_1040_b0e8",
+  "DlgControl_ctor_1048_ed24",
+  "DlgControl_ctor_1050_9389",
+  "DlgControl_ctor_1058_c632",
+  "DlgControl_ctor_1068_e3e9",
   "EuropeWin_Close",
+  "EuropeWin_dtor",
+  "EventTable_dtor_1008_e4b1",
+  "EventTable_dtor_1010_2e4b",
+  "EventTable_dtor_1010_f0eb",
+  "EventTable_dtor_1020_b19e",
+  "EventTable_dtor_1030_f31f",
+  "EventTable_dtor_1038_8ff8",
+  "EventTable_dtor_1040_b42d",
+  "EventTable_dtor_1048_ee26",
+  "EventTable_dtor_1050_9518",
+  "EventTable_dtor_1058_c871",
+  "EventTable_dtor_1060_70a2",
+  "EventTable_dtor_1060_8a6b",
+  "EventTable_dtor_1068_e6d2",
+  "Flic_dtor",
+  "Font_ctor_1008_d478",
+  "Font_ctor_1060_a8b0",
+  "Font_ctor_1068_dd36",
+  "Font_dtor_1008_d4b5",
+  "Font_dtor_1050_7ff9",
+  "Font_dtor_1060_a8ed",
+  "Font_dtor_1068_dd73",
   "GRPort_GetWin_1068_968c",
   "GRPort_GetWin_1068_d91d",
   "GRPort_GetWin_1070_960d",
   "GRPort_IsLocked",
+  "LogWindow_dtor",
   "MSAppendMenu",
   "MSAppendMenuItem",
   "MSBlockSize",
@@ -500,6 +534,7 @@
   "MSGetDesktopSize",
   "MSGetMousePos",
   "MSGetSubMenu",
+  "MSGetTicks",
   "MSGetTicks_1068_d953",
   "MSGetWinRect",
   "MSGetWinRect_of",
@@ -564,8 +599,25 @@
   "MSWriteFile_1068_958b",
   "MSWriteFile_1068_dc9a",
   "MSWriteLine",
+  "MagicWin_dtor",
   "MainWin_RightMouseClick",
+  "MainWin_dtor",
+  "MenuClass_ctor",
+  "MrTimer_ctor",
+  "RGBTree_ctor",
+  "ResourceFile_dtor_1008_cfa3",
+  "ResourceFile_dtor_1010_2867",
+  "ResourceFile_dtor_1060_8452",
+  "Screen_ctor",
+  "SetDifficulty_dtor",
+  "SetNations_dtor",
   "Sprite_Clear",
+  "StatWin_dtor",
+  "VListItem_ctor",
+  "VListItem_dtor",
+  "VList_ctor",
+  "VList_ctor_1008_e84f",
+  "VList_dtor",
   "adjacent_foreign_owner",
   "alert_box_1068_d470",
   "alert_box_1070_66cf",
@@ -1147,34 +1199,5 @@
   "window_of_1068_d72a",
   "wing_dib_pointer"
  ],
- "neither": {
-  "MSCloseFile": {
-   "host": "calls _lclose, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve LCLOSE (Pointer16)"
-  },
-  "MSGetTicks": {
-   "host": "calls GetTickCount, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve F_LUDIV@ (Pointer16)"
-  },
-  "MSPositionFile": {
-   "host": "calls _llseek, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve LLSEEK (Pointer16)"
-  },
-  "MSReadFile": {
-   "host": "calls _hread, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve HREAD (Pointer16)"
-  },
-  "MSSeekFile": {
-   "host": "calls _llseek, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve LLSEEK (Pointer16)"
-  },
-  "MSWriteFile": {
-   "host": "calls _hwrite, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve HWRITE (Pointer16)"
-  },
-  "read_text_line": {
-   "host": "calls _hread, a Windows API the host does not have; the emulator simulates it",
-   "sixteen_bit": "cannot resolve HREAD (Pointer16)"
-  }
- }
+ "neither": {}
 }

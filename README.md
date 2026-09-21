@@ -86,12 +86,11 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **1,148 functions are ported** — 36% of the corpus — and `tools/coverage.py` says what
-  checks each one: 431 verified by both harnesses, 710 by exactly one, and 7 by neither,
-  each of those 7 carrying a reason from BOTH harnesses, so an unexplained hole fails the
-  check. No function disagrees with the shipped bytes. The host suite runs 10,897 argument
-  sets and the 16-bit one agrees on 1,140. All of them compile with the real Borland C++
-  4.52 targeting Win16, link into a 14-segment NE, and the result boots.
+- **1,194 functions are ported** — 38% of the corpus, including **53 C++ methods** — and
+  `tools/coverage.py` says what checks each one: 431 verified by both harnesses, the rest
+  by exactly one, and none by neither. No function disagrees with the shipped bytes. All
+  of them compile with the real Borland C++ 4.52 targeting Win16, link into a 14-segment
+  NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -190,6 +189,29 @@ What it still cannot run is a **rule-47 forwarder**: the shipped code reaches th
 with a near call from inside its own segment, and the candidate lives in a selector of its
 own, so the callee's near return would unwind the wrong stack. Those are reported as
 unsupported, and `model/uncovered.json` names them.
+
+### C++
+
+248 reconstructions are C++ -- a class with an opaque body and one method defined out of
+line -- and they gate a large part of the call graph, because `GRPort`, `Popup` and
+`DiskFile` are not missing ports but class constructors. Borland compiles a `.cpp` by
+extension and **TDUMP demangles**, so a method is sliced from the object by the name a
+person would write (`AboutWin::~AboutWin()`) and its calls resolve the same way a C
+function's do. Where a demangled name is ambiguous -- the image has six
+`EventWin_ctor_*` and only the call site knows which -- the Nth unresolved call takes the
+Nth far-call target out of the SHIPPED function's own bytes.
+
+A C++ port includes no shared header: it declares its own classes, and several of those
+share a name with a merged record (`EventWin`, `CTable`, `GRPort`) or with `col/win16.h`'s
+opaque typedefs (`GameWin`). The globals it uses are emitted per file instead, at the
+model's addresses, typed with the model's type name -- which resolves to the class THAT
+FILE declares, which is what the original code meant by it.
+
+53 of 131 verify. The rest are withdrawn with their reason: two hit the same wall as a
+rule-47 forwarder (a near call to an external, which no harness that loads the candidate
+in its own selector can run), and most of the others disagree in a way that points at how
+Borland passes `this` to a 16-bit member function -- unsettled, and not something to
+guess at.
 
 ### How long it takes, and why
 

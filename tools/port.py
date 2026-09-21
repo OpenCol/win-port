@@ -455,6 +455,89 @@ def sweep_for(params):
     return None, None
 
 
+# A C++ reconstruction: class declarations with opaque bodies and one method defined out
+# of line. Borland compiles it by extension and TDUMP demangles the symbols, so the method
+# can be sliced by the name a person would write -- `AboutWin::~AboutWin()`.
+CPP_DEF = re.compile(r'^(?P<head>[\w\s\*:~]*?)(?P<cls>\w+)::(?P<meth>~?\w+)\s*'
+                     r'\((?P<args>[^;{]*)\)\s*(?:const\s*)?\{', re.M)
+
+
+def globals_for(blank):
+    """The `#define`s for the globals a C++ file uses, and nothing else."""
+    used = sorted({n for n in re.findall(r'\b(g_\w+)\b', blank) if n in GLOBALS})
+    if not used:
+        return ''
+    out = ['#include "col/segments.h"', '']
+    for n in used:
+        g = GLOBALS[n]
+        cast = retype(g['base']) + (' far ' + '*' * g['stars'] if g['stars'] else '')
+        body = ('((%s far *)(col_seg%d + 0x%04xL))' if g['dims'] else
+                '(*(%s far *)(col_seg%d + 0x%04xL))') % (cast.strip(), g['seg'], g['off'])
+        out.append('#define %-34s %-44s /* %s */' % (n, body, g['addr']))
+    return '\n'.join(out) + '\n\n'
+
+
+def cpp_port(path, name, head, body, blank):
+    """(source, case) for a C++ file, or (None, reason).
+
+    The classes stay as the file declares them. Unifying them the way tier B unifies a
+    struct would need a shared class header and the vtable layout to go with it; nothing
+    here needs that yet, because what is being compared is one method against the shipped
+    bytes of that same method.
+    """
+    d = CPP_DEF.search(blank)
+    if not d:
+        return None, 'a C++ file this cannot find a method definition in'
+    if len(CPP_DEF.findall(blank)) > 1:
+        return None, 'a C++ file defining more than one method'
+    cls, meth = d.group('cls'), d.group('meth')
+    if d.group('args').strip() not in ('', 'void'):
+        return None, 'a C++ method with arguments, which the case generator cannot sweep '\
+                     'yet'
+    shipped = re.search(r'candidate for (\w{4}:\w{4})', head)
+    if not shipped:
+        return None, 'no shipped address in the header comment'
+    symbol = '%s::%s()' % (cls, meth)
+    # w16types.h is this file's ONLY source of RECT unless col/segments.h is pulled in
+    # (which reaches windows.h). Strip it exactly when something else will declare them --
+    # stripping it unconditionally broke seven files that needed it.
+    uses_globals = bool(re.search(r'\bg_\w+', blank))
+    if uses_globals:
+        body = re.sub(r'^[ \t]*#\s*include\s+"w16types\.h".*\n?', '', body, flags=re.M)
+    ported = retype(strip_quals(body)).strip()
+    src = ('/* %s -- shipped at %s.\n *\n * Ported by tools/port.py from %s.\n *\n'
+           ' * C++: the classes are as the file declares them, and the method is compiled\n'
+           ' * by Borland and sliced from the object by its demangled name. The host\n'
+           ' * harness does not judge these -- a constructor\'s work is member\n'
+           ' * construction and a vtable, which a host build does not reproduce.\n */\n'
+           % (symbol, shipped.group(1), os.path.relpath(path, SRC_REPO))
+           # NOT col/globals.h: it carries the merged records, and several share a NAME
+           # with a class declared here (EventWin, CTable, GRPort), which is a
+           # redeclaration in C++ and broke 180 of these files. The globals this file
+           # actually uses are emitted instead, at the addresses the model gives, typed
+           # with the model's own type name -- which resolves to the class THIS FILE
+           # declares,, which is what the original code meant by it.
+           # types.h always: the body is respelt through col_i16 and friends whether or
+           # not it touches a global, and it carries no record typedefs to collide with.
+           # COL_CPP_PORT keeps col/win16.h's opaque GameWin/Dlg/MrTimer typedefs out of
+           # the way of the classes this file declares with those names.
+           + '#define COL_CPP_PORT 1\n#include "col/types.h"\n\n'
+           + globals_for(blank) + ported + '\n')
+    base = scratch(1024)
+    if base is None:
+        return None, 'no room to stage a `this` pointer'
+    sel = 0x1000 + (base[0] - 1) * 8
+    case = {'what': 'a C++ method, compared against the shipped bytes in 16 bits',
+            'symbol': symbol, 'shipped': shipped.group(1),
+            'source': 'src/%s/%s.cpp' % (os.path.basename(os.path.dirname(path)), name),
+            'prototype': '', 'state': 'shipped', 'ret_bits': 0, 'ret_bits_emu': 16,
+            'sweep': ['0=%d' % base[1], '1=%d' % sel],
+            'call': '', 'globals_read': [], 'near_callees': [],
+            'host_blind': 'a C++ method: the host harness has no way to call it, and a '
+                          'constructor\'s work is member construction and a vtable'}
+    return src, case
+
+
 def port(path, force=False):
     """(source text, case dict) or (None, reason)."""
     name = os.path.splitext(os.path.basename(path))[0]
@@ -463,6 +546,8 @@ def port(path, force=False):
     head, body = (m.group(0), text[m.end():]) if m else ('', text)
 
     blank = blank_comments(body)
+    if re.search(r'^\s*class\s+\w+', blank, re.M) or CPP_DEF.search(blank):
+        return cpp_port(path, name, head, body, blank)
     # A file-local struct is not automatically something to unify away. It is one of two
     # things, and only the first is a conflict with the shared header:
     #
@@ -1073,7 +1158,8 @@ def write(path, force=False):
         return False, case
     sub = os.path.basename(os.path.dirname(path))
     os.makedirs(os.path.join(REPO, 'src', sub), exist_ok=True)
-    dst = os.path.join(REPO, 'src', sub, name + '.c')
+    dst = os.path.join(REPO, 'src', sub,
+                       name + ('.cpp' if case.get('source', '').endswith('.cpp') else '.c'))
     if os.path.exists(dst) and not force:
         return False, 'already ported'
     open(dst, 'w').write(src)
