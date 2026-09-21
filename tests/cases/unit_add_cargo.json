@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_add_cargo",
+ "shipped": "1018:7d1c",
+ "source": "src/game/unit_add_cargo.c",
+ "prototype": "col_i16 unit_add_cargo(col_i16 u, col_i16 goods, col_i16 amount);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)unit_add_cargo((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_unit_types",
+  "g_units"
+ ],
+ "near_callees": [
+  "min_int_1018_b329",
+  "unit_cargo_amount",
+  "unit_cargo_type",
+  "unit_set_cargo_amount",
+  "unit_set_cargo_type"
+ ]
+}

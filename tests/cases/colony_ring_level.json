@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_ring_level",
+ "shipped": "1018:3f16",
+ "source": "src/game/colony_ring_level.c",
+ "prototype": "col_i16 colony_ring_level(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)colony_ring_level()",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "current_colony_building_count",
+  "min_int_1018_b329"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

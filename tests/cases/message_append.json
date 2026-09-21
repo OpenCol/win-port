@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "message_append",
+ "shipped": "1048:10ef",
+ "source": "src/game/message_append.c",
+ "prototype": "void message_append(Message * m, char * s);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=3596",
+  "3=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9"
+ },
+ "call": "message_append((Message far *)(col_seg34 + 0x0dccL), (char far *)(col_seg34 + 0x0e0cL))",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "calls strcat: the host links its own, the shipped code calls Borland's"
+}

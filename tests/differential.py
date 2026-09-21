@@ -26,7 +26,7 @@ WHAT THIS CANNOT SEE, stated so a pass is not read as more than it is:
     tests/differential.py tests/cases/clear_colony_flag_1c.json
     tests/differential.py --all
 """
-import argparse, glob, json, os, subprocess, sys
+import argparse, concurrent.futures, glob, json, multiprocessing, os, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -83,6 +83,45 @@ def archive():
     if stale or not os.path.exists(lib):
         subprocess.run(['ar', 'rcs', lib] + objs, check=True)
     return lib
+
+
+SHIPPED = {}          # case path -> the shipped side's answer, from one batched run
+
+
+def probe_all(cases):
+    """Ask the emulator about every case in ONE process.
+
+    Each shipped probe used to build its own machine, which parses and relocates the whole
+    image: a second or two, times 800 cases, times two harnesses. The machine is the same
+    for every case in a given state, so it is built once and the data segments are put
+    back between cases.
+    """
+    os.makedirs(BUILD, exist_ok=True)
+    jobs = [{'case': c, 'dump': os.path.join(BUILD, os.path.basename(c)[:-5] + '.state')}
+            for c in cases]
+    # Split across processes. Batching alone put every emulated call in ONE interpreter,
+    # which is serial by construction -- 816 cases spent twenty minutes there at 90% of a
+    # single core. Each worker pays one machine build and then runs its share.
+    n = max(1, min(multiprocessing.cpu_count(), 12))
+    chunks = [jobs[i::n] for i in range(n)]
+    mans = []
+    for i, ch in enumerate(chunks):
+        if not ch:
+            continue
+        man = os.path.join(BUILD, 'probe_manifest_%d.json' % i)
+        json.dump(ch, open(man, 'w'))
+        mans.append(man)
+
+    def one_batch(man):
+        return subprocess.run([UC, os.path.join(HERE, 'shipped_probe.py'), '--batch', man,
+                               SRC_REPO], capture_output=True, text=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(mans)) as pool:
+        for r in pool.map(one_batch, mans):
+            if r.returncode or not r.stdout.strip():
+                print('a batched shipped probe failed:\n' + (r.stderr or '')[-2000:])
+                return False
+            SHIPPED.update(json.loads(r.stdout))
+    return True
 
 
 def sweep(case):
@@ -267,12 +306,18 @@ def run_case(path, verbose=False, mutate=None):
     # The shipped side runs FIRST, because what it wrote decides what the host is asked
     # about.
     dump = os.path.join(BUILD, name + '.state')
-    r = subprocess.run([UC, os.path.join(HERE, 'shipped_probe.py'), path, SRC_REPO, dump],
-                       capture_output=True, text=True)
-    if r.returncode:
-        print('%s: SHIPPED PROBE FAILED\n%s' % (name, r.stderr[-3000:]))
-        return False
-    ship = json.loads(r.stdout)
+    if path in SHIPPED:
+        ship = SHIPPED[path]
+        if 'error' in ship:
+            print('%s: SHIPPED PROBE FAILED: %s' % (name, ship['error']))
+            return False
+    else:
+        r = subprocess.run([UC, os.path.join(HERE, 'shipped_probe.py'), path, SRC_REPO,
+                            dump], capture_output=True, text=True)
+        if r.returncode:
+            print('%s: SHIPPED PROBE FAILED\n%s' % (name, r.stderr[-3000:]))
+            return False
+        ship = json.loads(r.stdout)
     written = sorted({tuple(int(x, 16 if ':' in a else 10) for x in
                             (a.split(':')[0], a.split(':')[1]))
                       for o in ship['observations'] for a in o['final']},
@@ -407,6 +452,8 @@ def main():
     a = ap.parse_args()
     global LIB
     LIB = archive()
+    if a.all and os.path.exists(UC):
+        probe_all(sorted(glob.glob(os.path.join(HERE, 'cases', '*.json'))))
     cases = sorted(glob.glob(os.path.join(HERE, 'cases', '*.json'))) if a.all \
         else [a.case]
     if not cases or cases == [None]:
@@ -415,10 +462,13 @@ def main():
         ok = True
         for c in cases:
             case = json.load(open(c))
+            # Mutating a port the host does not JUDGE proves nothing: the mutation comes
+            # back "not caught" for the same reason the real comparison is not made. That
+            # covers the ones marked host-blind and the ones where the shipped function
+            # has no effect this harness can see, so the plain run decides.
             if HOST_BLIND.get(case['symbol']) or case.get('host_blind'):
-                # The host is not judging this port, so breaking it proves nothing: the
-                # mutation would be "not caught" for the same reason the comparison is
-                # not made. The 16-bit harness owns these.
+                continue
+            if run_case(c, False) is not True:
                 continue
             for name in applicable(case):
                 caught = not run_case(c, False, mutate=name)
@@ -426,7 +476,15 @@ def main():
                                         'caught' if caught else 'NOT CAUGHT'))
                 ok = ok and caught
         return 0 if ok else 1
-    results = [run_case(c, a.verbose) for c in cases]
+    if len(cases) > 4:
+        # The per-case cost is a clang compile and a link, which are independent: the
+        # shipped side has already been answered for every case by one batched probe, so
+        # nothing here shares state. Serialising them cost half an hour at 816 cases.
+        with concurrent.futures.ThreadPoolExecutor(
+                max_workers=min(multiprocessing.cpu_count(), 12)) as pool:
+            results = list(pool.map(lambda c: run_case(c, a.verbose), cases))
+    else:
+        results = [run_case(c, a.verbose) for c in cases]
     if a.all:
         json.dump({os.path.basename(c)[:-5]:
                    {'status': ('agreed' if r is True else

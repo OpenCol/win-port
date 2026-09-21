@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cur_win_set_9e0",
+ "shipped": "1040:9d9f",
+ "source": "src/game/cur_win_set_9e0.c",
+ "prototype": "void cur_win_set_9e0(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "cur_win_set_9e0()",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+ "call_args": [
+  "0"
+ ]
+}

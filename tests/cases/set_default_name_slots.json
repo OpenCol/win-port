@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_default_name_slots",
+ "shipped": "1008:cc49",
+ "source": "src/game/set_default_name_slots.c",
+ "prototype": "void set_default_name_slots(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "set_default_name_slots()",
+ "globals_read": [
+  "g_name_default_0",
+  "g_name_default_1",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "set_name_slot_1008_cdca"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

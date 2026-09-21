@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_sort_colonists",
+ "shipped": "1018:604c",
+ "source": "src/game/colony_sort_colonists.c",
+ "prototype": "void colony_sort_colonists(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "colony_sort_colonists()",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_selected_colonist",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "colonist_set_spec_nib",
+  "colonist_spec_nibble"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

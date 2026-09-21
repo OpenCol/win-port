@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "point_to_current_window",
+ "shipped": "1060:0839",
+ "source": "src/game/point_to_current_window.c",
+ "prototype": "void point_to_current_window(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "point_to_current_window((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

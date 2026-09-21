@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nth_colonist_unit",
+ "shipped": "1018:456c",
+ "source": "src/game/nth_colonist_unit.c",
+ "prototype": "col_i16 nth_colonist_unit(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)nth_colonist_unit((col_i16)a0)",
+ "globals_read": [
+  "g_tile_first_unit",
+  "g_unit_type_class",
+  "g_unit_types",
+  "g_units"
+ ],
+ "near_callees": [
+  "unit_is_colonist"
+ ]
+}

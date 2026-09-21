@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "region_at",
+ "shipped": "1048:4235",
+ "source": "src/game/region_at.c",
+ "prototype": "col_i16 region_at(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)region_at((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "near_callees": [
+  "hit_region_0",
+  "hit_region_1",
+  "hit_region_10",
+  "hit_region_2",
+  "hit_region_3",
+  "hit_region_4"
+ ]
+}

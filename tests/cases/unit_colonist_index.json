@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_colonist_index",
+ "shipped": "1018:45c8",
+ "source": "src/game/unit_colonist_index.c",
+ "prototype": "col_i16 unit_colonist_index(col_i16 target);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)unit_colonist_index((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a",
+  "g_tile_first_unit"
+ ],
+ "near_callees": [
+  "unit_is_colonist"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

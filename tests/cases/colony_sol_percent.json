@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_sol_percent",
+ "shipped": "1018:3c91",
+ "source": "src/game/colony_sol_percent.c",
+ "prototype": "col_i16 colony_sol_percent(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)colony_sol_percent()",
+ "globals_read": [
+  "g_cur_colony_rec"
+ ],
+ "near_callees": [
+  "min_int_1018_b329"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

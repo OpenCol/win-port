@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_find_cargo_slot",
+ "shipped": "1018:7f78",
+ "source": "src/game/unit_find_cargo_slot.c",
+ "prototype": "col_i16 unit_find_cargo_slot(col_i16 u, col_i16 goods);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)unit_find_cargo_slot((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cargo_amount",
+  "g_units"
+ ],
+ "near_callees": [
+  "unit_cargo_amount",
+  "unit_cargo_type"
+ ]
+}

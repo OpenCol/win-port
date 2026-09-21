@@ -1,5 +1,7 @@
 {
  "what": "what the linker could not find: the remaining work, its own list",
- "translation_units": 615,
- "stubs": []
+ "translation_units": 818,
+ "stubs": [
+  "colonist_specialty_get"
+ ]
 }

@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_swap_links",
+ "shipped": "1038:1f11",
+ "source": "src/game/unit_swap_links.c",
+ "prototype": "void unit_swap_links(col_i16 a, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "unit_swap_links((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_a",
+  "g_units"
+ ],
+ "near_callees": [
+  "unit_chain_next"
+ ]
+}

@@ -86,9 +86,11 @@ def compile_unit(path, flags=DEFAULT_FLAGS, timeout=240, tdump=False):
     return (data, log) + ((td,) if tdump else ())
 
 
-CHUNK = 16          # halved once TDUMP doubled the lines per unit;
-                    # DOSBox's [autoexec] stops running somewhere past this many lines:
-                    # 20 files compile, 132 silently produce nothing at all.
+# DOSBox's [autoexec] stops running somewhere past ~32 lines -- 20 files compiled, 132
+# silently produced nothing -- but a DOS BATCH FILE has no such limit, so the work goes in
+# one and autoexec just calls it. The chunk is now about keeping a single session's runtime
+# bounded rather than about the line count.
+CHUNK = 256
 
 
 def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200, tdump=False):
@@ -124,11 +126,13 @@ def compile_all(paths, flags=DEFAULT_FLAGS, timeout=1200, tdump=False):
                      % (flags, stem, stem, stem))
         if tdump:
             lines.append('TDUMP %s.OBJ > %sD.TXT' % (stem, stem))
+    open(os.path.join(WORK, 'GO.BAT'), 'w', newline='\r\n').write(
+        '\n'.join(['@echo off'] + lines) + '\n')
     conf = os.path.join(DOS, 'bccall.conf')
     open(conf, 'w').write(
         '[dosbox]\nmemsize=32\n[cpu]\ncore=auto\ncputype=pentium\ncycles=max\n'
-        '[autoexec]\nMOUNT C %s\nC:\nSET PATH=C:\\BC452\\BIN\nCD \\WORK\n%s\nEXIT\n'
-        % (DOS, '\n'.join(lines)))
+        '[autoexec]\nMOUNT C %s\nC:\nSET PATH=C:\\BC452\\BIN\nCD \\WORK\n'
+        'CALL GO.BAT\nEXIT\n' % DOS)
     try:
         subprocess.run(['dosbox-x', '-silent', '-nolog', '-conf', conf],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,

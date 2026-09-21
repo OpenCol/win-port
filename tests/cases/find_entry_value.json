@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "find_entry_value",
+ "shipped": "1040:7470",
+ "source": "src/game/find_entry_value.c",
+ "prototype": "col_i16 find_entry_value(col_i16 a, col_i16 b, col_i16 c);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)find_entry_value((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_stub_s"
+ ],
+ "near_callees": [
+  "find_entry"
+ ]
+}

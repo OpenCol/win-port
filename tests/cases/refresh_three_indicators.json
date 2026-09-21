@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "refresh_three_indicators",
+ "shipped": "1010:e1c6",
+ "source": "src/game/refresh_three_indicators.c",
+ "prototype": "void refresh_three_indicators(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "refresh_three_indicators()",
+ "globals_read": [
+  "g_st_a",
+  "g_st_b",
+  "g_st_c",
+  "g_val_a",
+  "g_val_b",
+  "g_val_c"
+ ],
+ "near_callees": [
+  "empty_1010_bdea",
+  "empty_1010_be3e",
+  "empty_1010_bf0d",
+  "empty_1010_e1aa"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

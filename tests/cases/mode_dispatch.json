@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mode_dispatch",
+ "shipped": "1010:e145",
+ "source": "src/game/mode_dispatch.c",
+ "prototype": "void mode_dispatch(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "mode_dispatch()",
+ "globals_read": [
+  "g_colony_mode"
+ ],
+ "near_callees": [
+  "empty_1010_e0f1",
+  "empty_1010_e129",
+  "empty_1010_e137"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

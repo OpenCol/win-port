@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "building_is_useful",
+ "shipped": "1018:9400",
+ "source": "src/game/building_is_useful.c",
+ "prototype": "col_i16 building_is_useful(col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)building_is_useful((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_tbl21_13e",
+  "g_tbl21_140"
+ ],
+ "near_callees": [
+  "current_colony_flag_get"
+ ]
+}

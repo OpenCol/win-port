@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "max_long_1018_b375",
+ "shipped": "1018:b375",
+ "source": "src/game/max_long_1018_b375.c",
+ "prototype": "col_i32 max_long_1018_b375(col_i32 a, col_i32 b);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..7",
+  "1=0",
+  "2=0..7",
+  "3=0"
+ ],
+ "call": "(long)max_long_1018_b375((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0), (col_i32)(((col_u32)(col_u16)a3 << 16) | (col_u16)a2))",
+ "globals_read": [],
+ "near_callees": []
+}

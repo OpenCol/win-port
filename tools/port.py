@@ -543,6 +543,12 @@ def port(path, force=False):
     for _t, _f in PLATFORM_FIELDS.items():
         if re.search(r'\b%s\b' % _t, blank):
             PLATFORM_MEMBERS |= _f
+    # Every record in play in this file: the ones its own structs stand for, and the ones
+    # its globals are declared with. A member name that means a DIFFERENT OFFSET in two of
+    # them cannot be rewritten by name -- colonist_specialty_set uses `spec` for both
+    # Colony+0x40 and Unit+0x17, and rewriting by name put the colony's offset on a unit.
+    # A wrongly named receiver compiles identically, so this is refused rather than
+    # guessed at.
     renames, casts, drop_typedefs, protos, near_callees = {}, {}, [], [], []
     host_blind = None
     for t, tbody in typedefs.items():
@@ -580,15 +586,34 @@ def port(path, force=False):
                 # Cast it as a POINTER, not as a 32-bit integer: the site returns it,
                 # passes it on or dereferences it, and an integer there is a type error
                 # rather than a narrower reading.
-                casts[mname] = (off, 'void far *')
+                casts[mname] = (off, 'void far *', False)
                 continue
             elem = ty if (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT')) \
                 else None
             if elem is None:
                 return None, '%s.%s is a %s at +0x%02x, which needs a cast this cannot ' \
                              'spell' % (t, mname, ty, off)
-            casts[mname] = (off, elem)
+            casts[mname] = (off, elem, is_array)
         drop_typedefs.append(t)
+    in_play = {canon_of[t] for t in drop_typedefs}
+    for _, gnames in dropped:
+        for n in gnames:
+            b = GLOBALS.get(n, {}).get('base')
+            if b in RECORDS:
+                in_play.add(b)
+    used_names = set(re.findall(r'(?:->|\.)\s*(\w+)', blank_rest))
+    for rn in sorted(in_play):
+        for m2 in RECORDS[rn]['members']:
+            if m2['name'] not in used_names:
+                continue
+            offs = {r2: o2 for r2 in in_play
+                    for o2, (nm2, _t2) in CANON[r2].items() if nm2 == m2['name']}
+            if len(set(offs.values())) > 1:
+                return None, 'the member name %s means %s in this file, and a rewrite ' \
+                             'by name cannot tell which receiver is which' \
+                             % (m2['name'],
+                                ' and '.join('%s+0x%02x' % (r2, o2)
+                                             for r2, o2 in sorted(offs.items())))
 
     if name in WITHDRAWN:
         return None, 'withdrawn: %s' % WITHDRAWN[name]
@@ -611,11 +636,17 @@ def port(path, force=False):
     if name not in [d[0] for d in defs]:
         return None, 'defines %s, not %s' % (defs[0][0], name)
     extras = [d for d in defs if d[0] != name]
+    # A second REAL body is a function that shared a translation unit with this one. It
+    # does not have to stay here: 412 of the 432 such files have every extra available as
+    # its own reconstruction, so the extra comes out like a stub, the call becomes a far
+    # call to the separately ported definition, and the linker joins them. That changes
+    # the CALL FORM, which mattered for byte-exactness and does not matter here.
     real = [d for d in extras if not STUB_BODY.match(d[1])]
-    if real:
-        return None, 'defines %d other function%s with a real body (%s): they shared a ' \
-                     'translation unit and the partition is not done' \
-                     % (len(real), '' if len(real) == 1 else 's', real[0][0])
+    orphan = [d[0] for d in real
+              if not glob.glob(os.path.join(SRC_REPO, 'matched', '*', d[0] + '.c'))]
+    if orphan:
+        return None, 'defines %s with a real body and there is no reconstruction of it ' \
+                     'to port separately' % orphan[0]
     if extras:
         # Each dropped stub was also this file's only DECLARATION of that callee, so a
         # prototype has to replace it or the call compiles as implicit-int and the two
@@ -657,11 +688,7 @@ def port(path, force=False):
         return None, 'calls %s, which is not ported' % ', '.join(missing[:3])
 
     params = parse_params(d.group('args'))
-    if params and any(p[0].endswith('long') for p in params):
-        # The sweep hands the emulator one 16-bit word per argument; a long takes two, so
-        # every argument after it would land on the wrong stack slot. The disagreement
-        # would be the harness's, not the port's.
-        return None, 'a long argument, which the sweep passes as one word'
+
     if params is None:
         return None, 'a parameter this cannot generate values for'
     conv = [c for c in CONV if re.search(r'\b%s\b' % c, d.group('head'))]
@@ -728,6 +755,23 @@ def port(path, force=False):
                 ''.join('%02x' % ((i * 7 + 3 + (blk - 1) * 29) & 0xFF)
                         for i in range(64))
             k += 2
+        elif ty.endswith('long'):
+            # A long is TWO words on the stack, low first. Sweeping it as one would put
+            # every later argument on the wrong slot; sweeping the low word and fixing
+            # the high one at 0 keeps the layout right and still varies the value.
+            rng = per[si].split('=')[1]
+            if pname in bounds and '..' in rng:
+                lo, _, hi = rng.partition('..')
+                b = bounds[pname]
+                rng = '%d..%d' % (max(int(lo), b[0]), min(int(hi), b[1]))
+            sweeps += ['%d=%s' % (k, rng), '%d=0' % (k + 1)]
+            # Build the long from BOTH words, the way the stack holds it. Passing just the
+            # low word sign-extended it on the host while the emulator saw a positive
+            # value with a zero high word, so every negative argument disagreed.
+            callargs.append('(%s)(((col_u32)(col_u16)a%d << 16) | (col_u16)a%d)'
+                            % (retype(ty), k + 1, k))
+            k += 2
+            si += 1
         else:
             rng = per[si].split('=')[1]
             # An index that runs off the end of a table is a harness bug, not a port bug:
@@ -753,12 +797,8 @@ def port(path, force=False):
         ret = 'void'
     if ret not in INTEGRAL:
         return None, 'returns %r, which the comparison cannot mask' % ret
-    if INTEGRAL[ret] == 0 and not dropped and not any(t.endswith('*') for t, _ in params):
-        # Nothing to compare: no return value to mask, no global it could have written,
-        # and no pointer argument it could have written THROUGH. A pointer argument makes
-        # it comparable again, because the case stages the region behind it.
-        return None, 'returns void, touches no global this repo knows and takes no ' \
-                     'pointer it could write through'
+    void_blind = (INTEGRAL[ret] == 0 and not dropped
+                  and not any(t.endswith('*') for t, _ in params))
 
     # col/globals.h gives an array-shaped global a POINTER form, because a global one file
     # indexes and another reads whole is indexable in the header and scalar at the site.
@@ -794,7 +834,7 @@ def port(path, force=False):
     for old, new in renames.items():
         body_text = re.sub(r'(->|\.)(\s*)%s\b' % re.escape(old),
                            lambda m: m.group(1) + m.group(2) + new, body_text)
-    for cname_, (off, elem) in sorted(casts.items()):
+    for cname_, (off, elem, was_array) in sorted(casts.items()):
         while True:
             m = re.search(r'(->|\.)\s*%s\b' % re.escape(cname_), body_text)
             if not m:
@@ -808,8 +848,12 @@ def port(path, force=False):
                        elem, base, off)
             if m.group(1) == '.' or True:
                 pass
-            body_text = (body_text[:m.start() - len(recv)]
-                         + (rep if _indexed(body_text, m.end()) else '(*%s)' % rep)
+            # An ARRAY member is always the pointer form: it decays to one in every
+            # context, and `w->msg` passed to strlen is as common as `w->msg[i]`.
+            # Dereferencing it gave strlen a char. Only a scalar taken through a cast
+            # needs the `*`.
+            use = rep if (was_array or _indexed(body_text, m.end())) else '(*%s)' % rep
+            body_text = (body_text[:m.start() - len(recv)] + use
                          + body_text[m.end():])
     for _, names in dropped:
         for n in names:
@@ -907,6 +951,12 @@ def port(path, force=False):
             # a function: it loads the candidate in a selector of its own, so a far call
             # to a near callee returns through the wrong kind of RET.
             'near_callees': sorted(set(near_callees))}
+    if void_blind and not host_blind:
+        # Nothing the HOST can see: no return value, no global, no pointer written
+        # through. The 16-bit harness still compares the stack delta and every write the
+        # call makes, so it owns these rather than nobody owning them.
+        host_blind = ('returns void and touches nothing the host can observe; the 16-bit '
+                      'harness compares the stack and the writes its call makes')
     if runtime and not host_blind:
         # The host links its OWN strcpy; the shipped code calls Borland's. Same contract,
         # different code, and on a staged buffer that does not terminate inside itself

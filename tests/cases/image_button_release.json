@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "image_button_release",
+ "shipped": "1070:2774",
+ "source": "src/platform/image_button_release.c",
+ "prototype": "void image_button_release(col_u16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "image_button_release((col_u16)a0)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

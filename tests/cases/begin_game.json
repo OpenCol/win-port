@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "begin_game",
+ "shipped": "1008:2927",
+ "source": "src/game/begin_game.c",
+ "prototype": "void begin_game(GameCursor * p);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "begin_game((GameCursor far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_game_in_progress",
+  "g_goods_value",
+  "g_loaded_flag"
+ ],
+ "near_callees": [
+  "max_int_1008_ce9c"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}

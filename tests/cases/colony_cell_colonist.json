@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_cell_colonist",
+ "shipped": "1018:423b",
+ "source": "src/game/colony_cell_colonist.c",
+ "prototype": "char colony_cell_colonist(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)colony_cell_colonist((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "ring_index_of"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

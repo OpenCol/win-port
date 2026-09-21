@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "build_item_name",
+ "shipped": "1018:830f",
+ "source": "src/game/build_item_name.c",
+ "prototype": "char * build_item_name(col_i16 item);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(void)build_item_name((col_i16)a0)",
+ "globals_read": [
+  "g_buildings",
+  "g_cancel_id",
+  "g_unit_types",
+  "g_units"
+ ],
+ "near_callees": [
+  "build_item_kind"
+ ]
+}

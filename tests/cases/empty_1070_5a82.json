@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "empty_1070_5a82",
+ "shipped": "1070:5a82",
+ "source": "src/platform/empty_1070_5a82.c",
+ "prototype": "void empty_1070_5a82(col_i16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "empty_1070_5a82((col_i16)a0)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "neighbor_mask_1038_d4b9",
+ "shipped": "1038:d4b9",
+ "source": "src/game/neighbor_mask_1038_d4b9.c",
+ "prototype": "col_i16 neighbor_mask_1038_d4b9(col_i16 p, col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)neighbor_mask_1038_d4b9((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_map_width",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "tile_passable_1038_d44f"
+ ]
+}

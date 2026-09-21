@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "dialog_click_152",
+ "shipped": "1030:0000",
+ "source": "src/game/dialog_click_152.c",
+ "prototype": "void dialog_click_152(col_i16 code);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "dialog_click_152((col_i16)a0)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "spec_expert_name",
+ "shipped": "1018:3c20",
+ "source": "src/game/spec_expert_name.c",
+ "prototype": "col_i16 spec_expert_name(col_i16 spec);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)spec_expert_name((col_i16)a0)",
+ "globals_read": [
+  "g_spec_recs"
+ ],
+ "near_callees": [
+  "fold_spec_1c"
+ ]
+}

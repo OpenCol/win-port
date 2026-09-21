@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colonist_set_spec_nib",
+ "shipped": "1018:4a39",
+ "source": "src/game/colonist_set_spec_nib.c",
+ "prototype": "void colonist_set_spec_nib(col_i16 c, col_i16 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "colonist_set_spec_nib((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec"
+ ],
+ "near_callees": [
+  "min_int_1018_b329"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

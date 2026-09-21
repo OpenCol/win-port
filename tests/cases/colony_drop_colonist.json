@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_drop_colonist",
+ "shipped": "1018:4aad",
+ "source": "src/game/colony_drop_colonist.c",
+ "prototype": "void colony_drop_colonist(col_i16 c);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "colony_drop_colonist((col_i16)a0)",
+ "globals_read": [
+  "g_colony_screen_open",
+  "g_cur_colony_rec",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "colonist_set_spec_nib",
+  "colonist_spec_nibble"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

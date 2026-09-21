@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colonist_portrait",
+ "shipped": "1018:4d71",
+ "source": "src/game/colonist_portrait.c",
+ "prototype": "col_i16 colonist_portrait(col_i16 c);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)colonist_portrait((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a",
+  "g_unit_types",
+  "g_units"
+ ],
+ "near_callees": [
+  "colonist_job",
+  "colonist_specialty_get",
+  "nth_colonist_unit"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_text_arg_l_1030_ec2f",
+ "shipped": "1030:ec2f",
+ "source": "src/game/set_text_arg_l_1030_ec2f.c",
+ "prototype": "void set_text_arg_l_1030_ec2f(col_i16 i, col_i32 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..5",
+  "1=0..7",
+  "2=0"
+ ],
+ "call": "set_text_arg_l_1030_ec2f((col_i16)a0, (col_i32)(((col_u32)(col_u16)a2 << 16) | (col_u16)a1))",
+ "globals_read": [
+  "g_text_args"
+ ],
+ "near_callees": []
+}

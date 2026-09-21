@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "min_long_1070_de2b",
+ "shipped": "1070:de2b",
+ "source": "src/platform/min_long_1070_de2b.c",
+ "prototype": "col_i32 min_long_1070_de2b(col_i32 a, col_i32 b);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..7",
+  "1=0",
+  "2=0..7",
+  "3=0"
+ ],
+ "call": "(long)min_long_1070_de2b((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0), (col_i32)(((col_u32)(col_u16)a3 << 16) | (col_u16)a2))",
+ "globals_read": [],
+ "near_callees": []
+}

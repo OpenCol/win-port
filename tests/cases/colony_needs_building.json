@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_needs_building",
+ "shipped": "1018:038f",
+ "source": "src/game/colony_needs_building.c",
+ "prototype": "col_i16 colony_needs_building(col_i16 idx);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)colony_needs_building((col_i16)a0)",
+ "globals_read": [
+  "g_build_needs",
+  "g_cur_colony_rec",
+  "g_prod"
+ ],
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

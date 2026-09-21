@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "current_colony_building_count",
+ "shipped": "1018:3e08",
+ "source": "src/game/current_colony_building_count.c",
+ "prototype": "col_i16 current_colony_building_count(col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)current_colony_building_count((col_i16)a0)",
+ "globals_read": [
+  "g_building_links"
+ ],
+ "near_callees": [
+  "current_colony_flag_get"
+ ]
+}

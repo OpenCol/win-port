@@ -16,15 +16,20 @@ compile-time far constant at the SHIPPED selector, so a ported unit compiles to 
 no relocations and no external references at all -- it addresses segment 20 at
 0x10a0:0000 directly. That object can be dropped into the emulator as-is.
 
-WHAT IT CANNOT DO YET. A function that calls anything -- another ported function, or a C
-runtime helper like F_SCOPY behind a struct assignment -- compiles with a fixup for that
-call, and nothing here resolves fixups. Those are reported as unsupported rather than
-skipped quietly.
+A CALL IS RESOLVED to the SHIPPED callee, by name, through the symbol map. That includes a
+callee the shipped code reaches with rule 47's four-byte `PUSH CS / CALL NEAR`: that form
+gives the callee a far-style return address, so the callee ends in RETF and a genuine far
+call from the candidate returns correctly. This harness refused those for a while on the
+strength of a stack-delta mismatch that turned out to be a symbol-map bug -- segment
+numbers read as hex when they are decimal -- and not the call form at all.
+
+What it still cannot resolve is a call to something the symbol map does not name; those
+are reported as unsupported rather than skipped quietly.
 
     tests/emu_differential.py tests/cases/job_goods.json
     tests/emu_differential.py --all
 """
-import argparse, glob, json, os, sys
+import argparse, concurrent.futures, glob, json, multiprocessing, os, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -136,7 +141,20 @@ def observed(m, addr, args, max_instr):
 
 BUILT = {}
 SYMS = {}
+MACHINES = {}         # (state, stubs) -> (machine, meta, pristine data segments)
+CURSOR = {}           # (state, stubs) -> next free offset in the candidate selector
 REASONS = {}          # case -> why it was not verified, for tools/coverage.py
+
+
+CACHE = None
+
+
+def cache_dir():
+    global CACHE
+    if CACHE is None:
+        CACHE = os.path.join(REPO, 'build', 'emu_objs')
+        os.makedirs(CACHE, exist_ok=True)
+    return CACHE
 
 
 def prebuild(cases):
@@ -149,8 +167,22 @@ def prebuild(cases):
     SYMS.update(symbols())
     srcs = sorted({os.path.join(REPO, json.load(open(c))['source']) for c in cases})
     srcs = [s for s in srcs if os.path.exists(s)]
-    print('compiling %d units with Borland C++ 4.52 (-DCOL_EMU)' % len(srcs))
-    BUILT.update(bcc.compile_all(srcs, FLAGS, tdump=True))
+    # Compiled ONCE, by the parent, into a cache the shards read. Letting each shard
+    # compile its own subset put ten concurrent DOSBox sessions in one work directory,
+    # where they overwrote each other's objects -- 736 cases "disagreed" on garbage.
+    todo = [x for x in srcs
+            if not os.path.exists(os.path.join(cache_dir(),
+                                               os.path.basename(x)[:-2] + '.td'))
+            or os.path.getmtime(x) > os.path.getmtime(
+                os.path.join(cache_dir(), os.path.basename(x)[:-2] + '.td'))]
+    if todo:
+        print('compiling %d units with Borland C++ 4.52 (-DCOL_EMU)' % len(todo))
+        for src, (obj, log, td) in bcc.compile_all(todo, FLAGS, tdump=True).items():
+            stem = os.path.join(cache_dir(), os.path.basename(src)[:-2])
+            open(stem + '.td', 'w').write(td or '')
+            open(stem + '.log', 'w').write(log or '')
+            if obj:
+                open(stem + '.obj', 'wb').write(obj)
 
 
 def run_case(path, verbose=False):
@@ -164,19 +196,16 @@ def run_case(path, verbose=False):
 
     if not SYMS:
         SYMS.update(symbols())
-    if src in BUILT:
-        obj, log, td = BUILT[src]
+    stem = os.path.join(cache_dir(), os.path.basename(src)[:-2])
+    if os.path.exists(stem + '.td'):
+        td = open(stem + '.td').read()
+        log = open(stem + '.log').read() if os.path.exists(stem + '.log') else ''
+        obj = open(stem + '.obj', 'rb').read() if os.path.exists(stem + '.obj') else None
     else:
         obj, log, td = bcc.compile_unit(src, FLAGS, tdump=True)
     if obj is None:
         print('%-32s BORLAND BUILD FAILED\n%s' % (name, (log or '')[:600]))
         return False
-    if case.get('near_callees'):
-        REASONS[name] = ('the shipped code reaches %s with a near call from inside its '
-                         'own segment; the candidate runs in a selector of its own'
-                         % ', '.join(case['near_callees'][:2]))
-        print('%-32s unsupported: %s' % (name, REASONS[name]))
-        return None
     code, _ = BM.parse_tdump(td)
     sliced, missing = resolve(code, td, name, SYMS)
     if sliced is None:
@@ -187,7 +216,14 @@ def run_case(path, verbose=False):
         print('%-32s unsupported: %s' % (name, REASONS[name]))
         return None
 
+    # A FRESH machine per case. Sharing one across cases was worth about a minute and
+    # cost three separate bugs -- lazy relocation restoring stale bytes, the emulator's
+    # translation cache serving a previous candidate's code, and a stack pointer that
+    # moved between cases. Each showed up as a function that passed alone and disagreed
+    # in a batch. The speed comes from running cases in parallel processes instead, where
+    # nothing is shared by construction.
     m, meta = probe.build(case.get('state', 'shipped'), case.get('stubs', []))
+    m.relocate_all()
     for spec, hexbytes in case.get('stage', {}).items():
         seg, off = seg_of(spec)
         m.write(seg, off, bytes.fromhex(hexbytes))
@@ -196,6 +232,8 @@ def run_case(path, verbose=False):
         tseg, toff = seg_of(points_to)
         sel = 0x1000 + (tseg - 1) * 8
         m.write(seg, off, bytes([toff & 0xFF, toff >> 8, sel & 0xFF, sel >> 8]))
+    # Captured AFTER this case's staging, so a restore between argument sets puts the
+    # staged bytes back too.
     pristine = {}
     for idx, seg in m.image.segs.items():
         if m.image.is_code(idx):
@@ -257,23 +295,58 @@ def main():
     ap.add_argument('case', nargs='?')
     ap.add_argument('--all', action='store_true')
     ap.add_argument('-v', '--verbose', action='store_true')
+    ap.add_argument('--shard', help='i/n: run only this slice of the cases')
     a = ap.parse_args()
     cases = sorted(glob.glob(os.path.join(HERE, 'cases', '*.json'))) if a.all \
         else [a.case]
     if not cases or cases == [None]:
         ap.error('name a case or pass --all')
+    if a.shard:
+        i, n = (int(x) for x in a.shard.split('/'))
+        cases = cases[i::n]
+    elif a.all and len(cases) > 8:
+        # One process per core, each with its OWN machines. Sharing a machine across cases
+        # was tried and reverted (see run_case); this gets the same wall-clock without
+        # sharing anything.
+        n = max(1, min(multiprocessing.cpu_count(), 10))
+        prebuild(cases)                      # compile once, for every shard to reuse
+        out = os.path.join(REPO, 'build', 'diff')
+        os.makedirs(out, exist_ok=True)
+
+        def shard(i):
+            return subprocess.run(
+                [sys.executable, os.path.abspath(__file__), '--all', '--shard',
+                 '%d/%d' % (i, n)], capture_output=True, text=True,
+                env=dict(os.environ, COL_EMU_SHARD='%d' % i))
+        merged, bad = {}, 0
+        with concurrent.futures.ThreadPoolExecutor(max_workers=n) as pool:
+            for r in pool.map(shard, range(n)):
+                sys.stdout.write(r.stdout)
+                bad |= r.returncode
+        for i in range(n):
+            f = os.path.join(out, 'emu_results_shard%d.json' % i)
+            if os.path.exists(f):
+                merged.update(json.load(open(f)))
+        json.dump(merged, open(os.path.join(out, 'emu_results.json'), 'w'), indent=1)
+        print('\n%d agreed, %d disagreed, %d unsupported'
+              % (sum(1 for v in merged.values() if v['status'] == 'agreed'),
+                 sum(1 for v in merged.values() if v['status'] == 'disagreed'),
+                 sum(1 for v in merged.values() if v['status'] == 'unsupported')))
+        return 1 if any(v['status'] == 'disagreed' for v in merged.values()) else 0
     if len(cases) > 1:
         prebuild(cases)
     results = [run_case(c, a.verbose) for c in cases]
     if a.all:
         out = os.path.join(REPO, 'build', 'diff')
         os.makedirs(out, exist_ok=True)
+        tag = ('_shard%s' % os.environ['COL_EMU_SHARD']) if os.environ.get(
+            'COL_EMU_SHARD') else ''
         json.dump({os.path.basename(c)[:-5]:
                    {'status': ('agreed' if r is True else
                                'disagreed' if r is False else 'unsupported'),
                     'why': REASONS.get(os.path.basename(c)[:-5], '')}
                    for c, r in zip(cases, results)},
-                  open(os.path.join(out, 'emu_results.json'), 'w'), indent=1)
+                  open(os.path.join(out, 'emu_results%s.json' % tag), 'w'), indent=1)
     ok = sum(1 for r in results if r is True)
     bad = sum(1 for r in results if r is False)
     skip = sum(1 for r in results if r is None)

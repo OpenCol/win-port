@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "empty_1010_bddc",
+ "shipped": "1010:bddc",
+ "source": "src/game/empty_1010_bddc.c",
+ "prototype": "void empty_1010_bddc(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "empty_1010_bddc()",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+ "call_args": [
+  "0"
+ ]
+}

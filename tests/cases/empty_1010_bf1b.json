@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "empty_1010_bf1b",
+ "shipped": "1010:bf1b",
+ "source": "src/game/empty_1010_bf1b.c",
+ "prototype": "void empty_1010_bf1b(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "empty_1010_bf1b()",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+ "call_args": [
+  "0"
+ ]
+}

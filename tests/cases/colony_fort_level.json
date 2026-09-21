@@ -1,0 +1,16 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_fort_level",
+ "shipped": "1020:7e1b",
+ "source": "src/game/colony_fort_level.c",
+ "prototype": "col_i16 colony_fort_level(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)colony_fort_level()",
+ "globals_read": [],
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

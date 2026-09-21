@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_add_gold",
+ "shipped": "1018:4053",
+ "source": "src/game/nation_add_gold.c",
+ "prototype": "void nation_add_gold(col_i16 n, col_i32 amount);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7",
+  "2=0"
+ ],
+ "call": "nation_add_gold((col_i16)a0, (col_i32)(((col_u32)(col_u16)a2 << 16) | (col_u16)a1))",
+ "globals_read": [
+  "g_nations",
+  "g_stub_l"
+ ],
+ "near_callees": [
+  "max_long_1018_b375",
+  "min_long_1018_b3a3",
+  "nation_gold"
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_take_gold",
+ "shipped": "1018:40c5",
+ "source": "src/game/nation_take_gold.c",
+ "prototype": "void nation_take_gold(col_i16 n, col_i32 amount);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7",
+  "2=0"
+ ],
+ "call": "nation_take_gold((col_i16)a0, (col_i32)(((col_u32)(col_u16)a2 << 16) | (col_u16)a1))",
+ "globals_read": [
+  "g_stub_l"
+ ],
+ "near_callees": [
+  "nation_add_gold"
+ ],
+ "unverifiable": "a forwarder to nation_add_gold, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

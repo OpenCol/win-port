@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "empty_1038_b26f",
+ "shipped": "1038:b26f",
+ "source": "src/game/empty_1038_b26f.c",
+ "prototype": "void empty_1038_b26f(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "empty_1038_b26f()",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+ "call_args": [
+  "0"
+ ]
+}

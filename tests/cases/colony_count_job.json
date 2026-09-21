@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_count_job",
+ "shipped": "1018:52e8",
+ "source": "src/game/colony_count_job.c",
+ "prototype": "col_i16 colony_count_job(col_i16 job);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)colony_count_job((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a"
+ ],
+ "near_callees": [
+  "colonist_job"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "empty_1010_bf37",
+ "shipped": "1010:bf37",
+ "source": "src/game/empty_1010_bf37.c",
+ "prototype": "void empty_1010_bf37(col_i16 a, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "empty_1010_bf37((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

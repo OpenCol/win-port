@@ -86,12 +86,12 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **613 functions are ported**, and `tools/coverage.py` says what checks each one:
-  363 verified by both harnesses, 220 by exactly one, and 30 by neither — each of those
-  30 carrying a reason from BOTH harnesses, so an unexplained hole fails the check.
-  No function disagrees with the shipped bytes. The host suite runs 9,386 argument sets
-  and the 16-bit one agrees on 553. All of them compile with the real Borland C++ 4.52
-  targeting Win16, link into an 11-segment NE, and the result boots.
+- **816 functions are ported**, and `tools/coverage.py` says what checks each one:
+  428 verified by both harnesses, 371 by exactly one, and 17 by neither — each of those
+  17 carrying a reason from BOTH harnesses, so an unexplained hole fails the check.
+  No function disagrees with the shipped bytes. The host suite runs 10,894 argument sets
+  and the 16-bit one agrees on 798. All of them compile with the real Borland C++ 4.52
+  targeting Win16, link into a 12-segment NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -190,6 +190,26 @@ What it still cannot run is a **rule-47 forwarder**: the shipped code reaches th
 with a near call from inside its own segment, and the candidate lives in a selector of its
 own, so the callee's near return would unwind the wrong stack. Those are reported as
 unsupported, and `model/uncovered.json` names them.
+
+### How long it takes, and why
+
+A full `tools/check.sh` was over an hour and is now about twenty minutes, from four
+changes. Borland is driven from a DOS **batch file** rather than `[autoexec]`, which stops
+running past about 32 lines -- one session now compiles 256 units instead of 16, and the
+objects are cached by mtime so an unchanged source skips Borland entirely. The shipped
+probes are answered in **parallel processes**, and so are the per-case host builds and the
+16-bit shards.
+
+What is NOT shared is the emulator machine. Reusing one across cases was tried and
+reverted: it saved about a minute and cost three correlated bugs -- a stale relocation
+restored over a fixed-up segment, the emulator's translation cache serving a previous
+candidate's code, and a stack pointer that drifted between cases. Each looked exactly like
+a port disagreeing with the shipped bytes, and each was found the same way: **the function
+passed when run alone**. A disagreement that depends on how the suite is run is never a
+port bug.
+
+The remaining lever is the host side's 816 clang compiles, one per case. One driver binary
+per chunk would replace them with about sixteen.
 
 ### What the harness cannot see
 

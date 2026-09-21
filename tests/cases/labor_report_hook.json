@@ -1,0 +1,17 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "labor_report_hook",
+ "shipped": "1058:31fd",
+ "source": "src/game/labor_report_hook.c",
+ "prototype": "void labor_report_hook(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "labor_report_hook()",
+ "globals_read": [],
+ "near_callees": [],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+ "call_args": [
+  "0"
+ ]
+}

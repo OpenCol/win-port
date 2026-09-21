@@ -11,9 +11,19 @@ the addresses the shipped code touched is a question both sides can answer.
 """
 import json, os, sys
 
-CASE = json.load(open(sys.argv[1]))
-SRC = sys.argv[2]
-DUMP = sys.argv[3] if len(sys.argv) > 3 else None
+# One case per invocation, or MANY: `--batch <manifest.json>` takes
+# [{case, dump}, ...] and answers them all from ONE machine. Building the machine parses
+# and relocates the whole image; 800 cases do not need 800 of those, and the data segments
+# are put back between cases, which is what a fresh build would have given.
+BATCH = None
+if sys.argv[1] == '--batch':
+    BATCH = json.load(open(sys.argv[2]))
+    SRC = sys.argv[3]
+    CASE, DUMP = None, None
+else:
+    CASE = json.load(open(sys.argv[1]))
+    SRC = sys.argv[2]
+    DUMP = sys.argv[3] if len(sys.argv) > 3 else None
 sys.path.insert(0, os.path.join(SRC, 'tools', 're_agent'))
 sys.path.insert(0, os.path.join(SRC, 'tools'))
 import probe  # noqa: E402
@@ -31,7 +41,35 @@ def selector(seg):
 
 
 def main():
-    m, meta = probe.build(CASE.get('state', 'save'), CASE.get('stubs', []))
+    if BATCH is not None:
+        return batch()
+    return one(CASE, DUMP)
+
+
+MACHINES = {}
+
+
+def one(CASE, DUMP, emit=True):
+    key = (CASE.get('state', 'save'), tuple(CASE.get('stubs', [])))
+    if key not in MACHINES:
+        mm, mmeta = probe.build(key[0], list(key[1]))
+        # Relocate EVERYTHING before the snapshot. The emulator relocates a segment when
+        # something first reaches it, so a snapshot taken at build time holds unrelocated
+        # bytes for segments no case has touched yet -- and restoring those between cases
+        # UN-relocates a segment an earlier case had already fixed up. That is
+        # order-dependent corruption: to_upper disagreed on all 29 arguments in a batch
+        # and passed on its own.
+        mm.relocate_all()
+        b = {}
+        for idx, seg in mm.image.segs.items():
+            if mm.image.is_code(idx):
+                continue
+            n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
+            b[idx] = mm.read(idx, 0, n)
+        MACHINES[key] = (mm, mmeta, b)
+    m, meta, base = MACHINES[key]
+    for idx, data in base.items():
+        m.write(idx, 0, data)
     for spec, hexbytes in CASE.get('stage', {}).items():
         seg, off = seg_of(spec)
         m.write(seg, off, bytes.fromhex(hexbytes))
@@ -48,12 +86,7 @@ def main():
     # the previous colour; without this it returned a different one every time and every
     # comparison after the first was meaningless. Capture the data segments once, after
     # staging, and put them back before each call.
-    pristine = {}
-    for idx, seg in m.image.segs.items():
-        if m.image.is_code(idx):
-            continue
-        n = min(seg.get('min_alloc') or seg['length'] or 0x10000, 0x10000)
-        pristine[idx] = (m.read(idx, 0, n), n)
+    pristine = {idx: (m.read(idx, 0, len(d)), len(d)) for idx, d in base.items()}
 
     def restore():
         for idx, (data, n) in pristine.items():
@@ -136,7 +169,22 @@ def main():
         out.append({'args': list(args), 'ax': o['return_dxax'] & 0xFFFF,
                     'dxax': o['return_dxax'], 'returned': o['reached_return'],
                     'poison': poison, 'final': finals})
-    json.dump({'state': meta.get('state'), 'observations': out}, sys.stdout)
+    result = {'state': meta.get('state'), 'observations': out}
+    if emit:
+        json.dump(result, sys.stdout)
+    return result
+
+
+def batch():
+    out = {}
+    for job in BATCH:
+        try:
+            out[job['case']] = one(json.load(open(job['case'])), job.get('dump'),
+                                   emit=False)
+        except Exception as e:                       # one bad case must not stop 800
+            out[job['case']] = {'error': '%s: %s' % (type(e).__name__, e)}
+    json.dump(out, sys.stdout)
+    return 0
 
 
 if __name__ == '__main__':
