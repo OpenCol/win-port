@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSPlayCDTrack",
+ "shipped": "1078:0718",
+ "source": "src/platform/MSPlayCDTrack.c",
+ "prototype": "col_i32 MSPlayCDTrack(unsigned char track);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)MSPlayCDTrack((unsigned char)a0)",
+ "globals_read": [
+  "g_cd_device",
+  "g_cd_notify_hwnd",
+  "g_error_ctx"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "mm_error_report"
+ ],
+ "host_blind": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+ "reaches_windows_api": true
+}

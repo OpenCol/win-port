@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSInitMenu",
+ "shipped": "1070:d5e6",
+ "source": "src/platform/MSInitMenu.c",
+ "prototype": "col_u16 MSInitMenu(col_u16 id);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)MSInitMenu((col_u16)a0)",
+ "globals_read": [
+  "g_hinstance"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+ "reaches_windows_api": true
+}

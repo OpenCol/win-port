@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "chain_has_ship",
+ "shipped": "1038:3553",
+ "source": "src/game/chain_has_ship.c",
+ "prototype": "col_i16 chain_has_ship(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)chain_has_ship((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain_next",
+  "unit_chain_tail"
+ ]
+}

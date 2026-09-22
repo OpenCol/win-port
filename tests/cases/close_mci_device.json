@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "close_mci_device",
+ "shipped": "1078:2dbe",
+ "source": "src/platform/close_mci_device.c",
+ "prototype": "void close_mci_device(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "close_mci_device()",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

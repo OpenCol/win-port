@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_chain_apply_270a",
+ "shipped": "1038:272f",
+ "source": "src/game/unit_chain_apply_270a.c",
+ "prototype": "void unit_chain_apply_270a(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "unit_chain_apply_270a((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain_next",
+  "unit_chain_tail",
+  "unit_clear_flags_high"
+ ]
+}

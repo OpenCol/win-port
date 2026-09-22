@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cd_prev_track",
+ "shipped": "1078:0ed8",
+ "source": "src/platform/cd_prev_track.c",
+ "prototype": "void cd_prev_track(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "cd_prev_track()",
+ "globals_read": [
+  "g_cd_device",
+  "g_cd_notify_hwnd",
+  "g_error_ctx"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSPlayCDTrack"
+ ],
+ "host_blind": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

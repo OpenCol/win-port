@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_chain_count",
+ "shipped": "1038:1b05",
+ "source": "src/game/unit_chain_count.c",
+ "prototype": "col_i16 unit_chain_count(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)unit_chain_count((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain_next",
+  "unit_chain_tail"
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nth_in_chain",
+ "shipped": "1038:1a02",
+ "source": "src/game/nth_in_chain.c",
+ "prototype": "col_i16 nth_in_chain(col_i16 u, col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)nth_in_chain((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain_next",
+  "unit_chain_tail"
+ ]
+}

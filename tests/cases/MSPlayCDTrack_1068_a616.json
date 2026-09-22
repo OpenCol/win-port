@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSPlayCDTrack_1068_a616",
+ "shipped": "1068:a616",
+ "source": "src/gfx/MSPlayCDTrack_1068_a616.c",
+ "prototype": "void MSPlayCDTrack_1068_a616(col_i16 a);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "MSPlayCDTrack_1068_a616((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls MSPlayCDTrack, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

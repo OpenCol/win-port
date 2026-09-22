@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_reaches_colony",
+ "shipped": "1028:bd95",
+ "source": "src/game/unit_reaches_colony.c",
+ "prototype": "col_i16 unit_reaches_colony(col_i16 colony, col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)unit_reaches_colony((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_map_width",
+  "g_ocean_x",
+  "g_ocean_y",
+  "g_turn_nation",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "can_build_item",
+ "shipped": "1018:8933",
+ "source": "src/game/can_build_item.c",
+ "prototype": "col_i16 can_build_item(col_i16 item);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)can_build_item((col_i16)a0)",
+ "globals_read": [
+  "g_buildings",
+  "g_cur_colony_rec",
+  "g_ring_counts_1",
+  "g_ring_dx",
+  "g_ring_dy",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "build_item_kind",
+  "colony_ring_level",
+  "colony_warehouse_capacity",
+  "current_colony_flag_get"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

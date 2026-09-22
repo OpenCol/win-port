@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_long_1ce4",
+ "shipped": "1040:605f",
+ "source": "src/game/set_long_1ce4.c",
+ "prototype": "void set_long_1ce4(col_i32 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24",
+  "1=0"
+ ],
+ "call": "set_long_1ce4((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0))",
+ "globals_read": [
+  "g_font_1ce4"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_font_1ce4: four bytes in the game, eight on a host"
+}

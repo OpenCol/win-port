@@ -86,11 +86,11 @@ contract and does not apply here. The `#define`-only headers it describes port u
   the segment image is the storage on each. That is what lets an observation from the
   emulator and one from the host be compared as the same coordinate, and it is why the
   differential can now run against `--state shipped` rather than only a save.
-- **1,356 functions are ported** — 43% of the corpus — and `tools/coverage.py` says what
-  checks each one: 445 verified by both harnesses, 907 by exactly one, and 4 by neither
-  with a reason from both. No function disagrees with the shipped bytes: 21,812 host
-  argument sets and 1,352 agreeing in 16 bits. All of them compile with the real Borland
-  C++ 4.52 targeting Win16, link into a 15-segment NE, and the result boots.
+- **1,508 functions are ported** — 48% of the corpus — and `tools/coverage.py` says what
+  checks each one: 447 verified by both harnesses, 1,057 by exactly one, and 4 by neither
+  with a reason from both. No function disagrees with the shipped bytes: 21,836 host
+  argument sets and 1,504 agreeing in 16 bits. All of them compile with the real Borland
+  C++ 4.52 targeting Win16, link into a 17-segment NE, and the result boots.
 - **The harness's own null case holds**: `--selftest` breaks every port on purpose and all
   700 mutations are caught. A mutation that changes no source text is reported rather than
   counted, and a case that compares no return value and observes no write is reported as
@@ -279,6 +279,13 @@ block meant the function read past the pattern into whatever followed, which is 
 `MS*File` family came to take an early exit the shipped code does not. And a pointer to a
 type only the FILE declares is fine -- the file's own declaration says how to read it --
 which was 146 functions refused for a pointee the model does not happen to name.
+
+**The compiler decides what the host can represent.** A port that fails to compile ONLY
+on pointer width or signedness -- a cast between a pointer and a 32-bit integer, four
+bytes in the game and eight here -- is not a broken port; it is one the host cannot
+represent. `port.py` re-checks it with exactly those diagnostics relaxed and, if it is
+otherwise clean, hands it to the 16-bit oracle with that reason. That took the
+compile-failure list from 99 to 37.
 
 `port.py` still refuses a **`long` argument** (the sweep hands the emulator one 16-bit word
 per argument) and a function that **returns an uninitialised local** — one stubbed-out

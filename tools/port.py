@@ -591,6 +591,13 @@ def cpp_port(path, name, head, body, blank):
 def port(path, force=False):
     """(source text, case dict) or (None, reason)."""
     name = os.path.splitext(os.path.basename(path))[0]
+    # FIRST, before any dispatch or parsing. This guard has been lost twice: once behind
+    # the C++ dispatch, and once to an edit whose pattern did not match, which DELETED it
+    # silently. Everything held out came straight back on the next cascade both times.
+    if name in WITHDRAWN:
+        return None, 'withdrawn: %s' % WITHDRAWN[name]
+    if name in DISPUTED:
+        return None, 'disputed: %s' % DISPUTED[name]
     text = open(path, errors='replace').read()
     m = HEADER.match(text)
     head, body = (m.group(0), text[m.end():]) if m else ('', text)
@@ -1124,7 +1131,22 @@ def port(path, force=False):
                              for x in sorted(set(api_protos)))
                 + '\n#endif\n\n')
     src += ported + '\n'
-    bad = compiles(src)
+    bad = compiles(src, bool(host_blind))
+    if bad and not host_blind and any(
+            k in bad for k in ('smaller integer type', 'integer to pointer',
+                               'pointer to integer', 'incompatible pointer types',
+                               'different sign', "from 'char *'", "to 'char *'")):
+        # It only fails on pointer WIDTH or SIGNEDNESS. A function that casts between a
+        # pointer and a 32-bit integer is not host-representable by construction -- four
+        # bytes in the game, eight here -- so the compiler has just told us which oracle
+        # owns it. Re-check with those diagnostics relaxed and hand it to the 16-bit one.
+        again = compiles(src, True)
+        if not again:
+            host_blind = ('casts between a pointer and an integer, which a host cannot '
+                          'represent: a far pointer is 4 bytes in the game and 8 here')
+            bad = None
+        else:
+            bad = again
     if bad:
         return None, 'the port does not compile: %s' % bad
 
@@ -1194,7 +1216,7 @@ def port(path, force=False):
     return src, case
 
 
-def compiles(text):
+def compiles(text, host_blind=False):
     """Does this port compile? Returns None, or the first error.
 
     A port that does not compile is not a port, and it should never reach src/. The tier-B
@@ -1207,10 +1229,24 @@ def compiles(text):
         f.write(text)
         tmp = f.name
     try:
+        # A host-blind port is never RUN on the host, only compiled so the archive
+        # builds. Its pointer/integer casts are exact in 16 bits and impossible on a
+        # 64-bit host, so those diagnostics say nothing about the port -- everything else
+        # still has to compile clean.
+        relax = ['-Wno-error=int-conversion',
+                 '-Wno-error=int-to-pointer-cast',
+                 '-Wno-error=pointer-to-int-cast',
+                 '-Wno-error=incompatible-pointer-types',
+                 '-Wno-error=pointer-integer-compare',
+                 '-Wno-error=shorten-64-to-32',
+                 '-Wno-error=pointer-sign',
+                 '-Wno-error=incompatible-pointer-types-discards-qualifiers',
+                 '-Wno-error=int-to-void-pointer-cast',
+                 '-Wno-error=void-pointer-to-int-cast'] if host_blind else []
         r = subprocess.run(
             [os.environ.get('CC', 'cc'), '-std=c89', '-DCOL_HOST=1', '-fsigned-char',
-             '-fwrapv', '-fno-strict-aliasing', '-Wno-unused-value', '-Werror',
-             '-fsyntax-only', '-I' + os.path.join(REPO, 'include'), tmp],
+             '-fwrapv', '-fno-strict-aliasing', '-Wno-unused-value', '-Werror'] + relax +
+            ['-fsyntax-only', '-I' + os.path.join(REPO, 'include'), tmp],
             capture_output=True, text=True)
     finally:
         os.remove(tmp)

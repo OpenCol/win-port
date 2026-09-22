@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_plane2_nibble_if_land",
+ "shipped": "1038:bbda",
+ "source": "src/game/map_plane2_nibble_if_land.c",
+ "prototype": "col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)map_plane2_nibble_if_land((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_index_in_range",
+  "map_plane2_nibble",
+  "on_map"
+ ],
+ "host_blind": "calls map_plane2_nibble, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "square_accepts_unit",
+ "shipped": "1030:308a",
+ "source": "src/game/square_accepts_unit.c",
+ "prototype": "col_i16 square_accepts_unit(col_i16 u, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)square_accepts_unit((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls square_nation_bit0, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

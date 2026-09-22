@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_route",
+ "shipped": "1028:bce8",
+ "source": "src/game/set_route.c",
+ "prototype": "void set_route(col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "set_route((col_i16)a0)",
+ "globals_read": [
+  "g_cur_route_rec",
+  "g_cur_route_stop",
+  "g_route_stop"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host"
+}

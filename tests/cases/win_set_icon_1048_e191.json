@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_set_icon_1048_e191",
+ "shipped": "1048:e191",
+ "source": "src/game/win_set_icon_1048_e191.c",
+ "prototype": "void win_set_icon_1048_e191(GameWinBase * o, col_i16 a);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=-4..24"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "win_set_icon_1048_e191((GameWinBase far *)(col_seg34 + 0x0dccL), (col_i16)a2)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls win_set_icon_1078_2832, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_stop_nibble_get",
+ "shipped": "1028:c515",
+ "source": "src/game/route_stop_nibble_get.c",
+ "prototype": "col_i16 route_stop_nibble_get(col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)route_stop_nibble_get((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "route_stop_nibble_ptr"
+ ]
+}

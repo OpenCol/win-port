@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "button_click",
+ "shipped": "1070:1dbb",
+ "source": "src/platform/button_click.c",
+ "prototype": "void button_click(col_u16 hwnd);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "button_click((col_u16)a0)",
+ "globals_read": [
+  "g_current_window"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1070_9837",
+  "MSWaitTicks_1070_984a",
+  "call_handler_slot_28_1070_9863",
+  "get_p_4_1070_96a8",
+  "get_w_1a_1070_981e",
+  "get_w_2_1070_96c5",
+  "object_from_hwnd",
+  "repaint_hwnd"
+ ],
+ "host_blind": "uses the pointer member Win.ctl: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

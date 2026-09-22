@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_long_24fc",
+ "shipped": "1050:0000",
+ "source": "src/game/set_long_24fc.c",
+ "prototype": "void set_long_24fc(col_i32 v);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24",
+  "1=0"
+ ],
+ "call": "set_long_24fc((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0))",
+ "globals_read": [
+  "g_popup_owner"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_popup_owner: four bytes in the game, eight on a host"
+}

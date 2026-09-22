@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "control_is_current",
+ "shipped": "1070:502b",
+ "source": "src/platform/control_is_current.c",
+ "prototype": "col_i16 control_is_current(col_u16 hwnd);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)control_is_current((col_u16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "get_w_2a_1070_99ac",
+  "object_from_hwnd"
+ ],
+ "host_blind": "uses the pointer member Obj.ctl: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

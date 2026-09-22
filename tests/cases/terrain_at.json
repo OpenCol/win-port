@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "terrain_at",
+ "shipped": "1040:42e8",
+ "source": "src/game/terrain_at.c",
+ "prototype": "col_i16 terrain_at(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)terrain_at((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "terrain_from_map_byte"
+ ],
+ "host_blind": "calls map_plane0_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}
