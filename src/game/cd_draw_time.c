@@ -7,7 +7,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern unsigned char far g_draw_color;               DGROUP:0x337e
- *   extern char far g_font_small[];                      DGROUP:0x4b1e
+ *   extern char far g_font_small;                        DGROUP:0x4b1e
  *
  * The file's own Win dropped for the merged record in col/records.h.
  *
@@ -63,6 +63,6 @@ void cd_draw_time(Win *w)
     } else {
         strcpy(out, "00:00");
     }
-    draw_string_shadowed(w, g_font_small, out, w->ox + 0x96, w->oy + 0x23, 0);
+    draw_string_shadowed(w, &(*g_font_small), out, w->ox + 0x96, w->oy + 0x23, 0);
     copy_rect_to_screen_1040_af03(w, &r);
 }

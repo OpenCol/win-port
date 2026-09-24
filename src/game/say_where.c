@@ -27,7 +27,7 @@
 extern col_i16 on_map(col_i16 x, col_i16 y);
 extern col_i16 terrain_at(col_i16 x, col_i16 y);
 extern col_i16 colony_at(col_i16 x, col_i16 y);
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void say_number(char *s, col_i16 v);
 extern void append_lparen(char *s);
 extern void append_rparen(char *s);

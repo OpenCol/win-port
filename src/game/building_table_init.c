@@ -12,7 +12,7 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 col_i16 building_table_set_fields(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 i);
-col_i16 rec6_d83c_set(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 i);
+col_i16 recruit_set(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 i);
 
 /* same object: 4-byte `push cs; call ` */
 
@@ -68,10 +68,10 @@ void building_table_init(void)
     building_table_set_fields(40, 39, -1, 41, i);
     building_table_set_fields(41, 40, -1, -1, i);
     j = -1;
-    rec6_d83c_set(0, 11, 500, 2, -1, ++j);
-    rec6_d83c_set(0, 13, 1000, 2, -1, ++j);
-    rec6_d83c_set(0, 14, 2000, 4, -1, ++j);
-    rec6_d83c_set(0, 15, 3000, 6, -1, ++j);
-    rec6_d83c_set(0, 16, 2000, 3, -1, ++j);
-    rec6_d83c_set(0, 17, 5000, 8, -1, ++j);
+    recruit_set(0, 11, 500, 2, -1, ++j);
+    recruit_set(0, 13, 1000, 2, -1, ++j);
+    recruit_set(0, 14, 2000, 4, -1, ++j);
+    recruit_set(0, 15, 3000, 6, -1, ++j);
+    recruit_set(0, 16, 2000, 3, -1, ++j);
+    recruit_set(0, 17, 5000, 8, -1, ++j);
 }

@@ -6,7 +6,7 @@
  *   extern FontRec far * far g_current_font;             DGROUP:0x2ac6
  *   extern char far g_error_ctx;                         DGROUP:0x2ac0
  *
- * The file's own Win, GRPort, FontRec dropped for the merged record in col/records.h.
+ * The file's own MSWin, GRPort, FontRec dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -18,7 +18,7 @@ void empty_1068_963d(void *ctx, char *msg);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void MSDrawText(Win *w, col_u16 hfont, const char *s, RECT *r,
+extern void MSDrawText(MSWin *w, col_u16 hfont, const char *s, RECT *r,
                            col_i16 flags);
 
 void draw_text_curfont(GRPort *p, const char *s, RECT *r, col_i16 flags)
@@ -27,5 +27,5 @@ void draw_text_curfont(GRPort *p, const char *s, RECT *r, col_i16 flags)
         empty_1068_963d(&(*g_error_ctx), "Error: No current font selected");
         return;
     }
-    MSDrawText((*((Win * *)((unsigned char *)(p) + 0x22))), g_current_font->hfont, s, r, flags);
+    MSDrawText((*((MSWin * *)((unsigned char *)(p) + 0x22))), g_current_font->hfont, s, r, flags);
 }

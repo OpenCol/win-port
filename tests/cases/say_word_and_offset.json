@@ -8,7 +8,7 @@
  "ret_bits": 0,
  "ret_bits_emu": 0,
  "sweep": [
-  "0=-4..24",
+  "0=0..4",
   "1=3532",
   "2=4360"
  ],
@@ -17,7 +17,7 @@
  },
  "call": "say_word_and_offset((col_i16)a0, (char far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
-  "g_word_d79a"
+  "g_founding_word"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

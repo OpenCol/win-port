@@ -9,9 +9,9 @@
  */
 #include "col/globals.h"
 
-extern void draw_unit_marks(void *w, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e);
+extern void draw_unit_marks(void *w, void *sprite, col_i16 x, col_i16 y, col_i16 flags);
 
-void map_call_a99f(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e)
+void map_call_a99f(void *sprite, col_i16 x, col_i16 y, col_i16 flags)
 {
-    draw_unit_marks((&g_map_window), a, b, c, d, e);
+    draw_unit_marks((&g_map_window), sprite, x, y, flags);
 }

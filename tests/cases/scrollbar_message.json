@@ -20,7 +20,7 @@
  "near_callees": [
   "call_handler_slot_26_1070_9af3",
   "call_handler_slot_30_1070_9b19",
-  "get_p_4_1070_96a8",
+  "ctl_window_1070_96a8",
   "get_w_22",
   "get_w_26_1070_9ada"
  ],

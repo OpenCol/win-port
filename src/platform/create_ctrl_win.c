@@ -5,8 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern unsigned far g_hinstance;                     DGROUP:0x56e2
  *
- * The file's own Win, CtrlBlock dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: hwnd -> hdc
+ * The file's own MSWin, CtrlBlock dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -15,10 +14,10 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 CtrlBlock * InitCtrlBlock(col_u16 hwnd, void *obj);
-Win * get_p_6_1070_95f0(void *o);
+MSWin * get_p_6_1070_95f0(void *o);
 col_i16 rect_height_1070_9649(RECT *r);
 col_i16 rect_width_1070_962a(RECT *r);
-void * get_p_4_1070_96a8(void *o);
+void * ctl_window_1070_96a8(void *o);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
@@ -55,7 +54,7 @@ col_u16 create_ctrl_win(col_i16 x, col_i16 y, col_i16 w, col_i16 h, void *obj, c
     SetRect(&r, x, y, x + w, y + h);
     hwnd = CreateWindow("MSControlClass", "", style, x, y,
                         rect_width_1070_962a(&r), rect_height_1070_9649(&r),
-                        get_p_6_1070_95f0(get_p_4_1070_96a8(obj))->hdc,
+                        get_p_6_1070_95f0(ctl_window_1070_96a8(obj))->hwnd,
                         0, g_hinstance, 0);
     c = InitCtrlBlock(hwnd, obj);
     c->kind = 5;

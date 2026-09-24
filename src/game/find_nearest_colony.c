@@ -23,7 +23,7 @@ void set_current_colony(col_i16 c);
 
 
 
-extern col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);
+extern col_i16 square_region_if_land(col_i16 x, col_i16 y);
 extern col_i16 octile_distance(col_i16 dx, col_i16 dy);
 
 
@@ -39,13 +39,13 @@ col_i16 find_nearest_colony(col_i16 x, col_i16 y, col_i16 nation, col_i16 land)
 
     if (land == -2) {
         check = 1;
-        land = map_plane2_nibble_if_land(x, y);
+        land = square_region_if_land(x, y);
     }
     for (c = 0; c < g_colony_count; c++) {
         if (nation >= 0 && g_colonies[c].nation != (unsigned char)nation)
             continue;
         if (land >= 0) {
-            nib = map_plane2_nibble_if_land(g_colonies[c].x, g_colonies[c].y);
+            nib = square_region_if_land(g_colonies[c].x, g_colonies[c].y);
             if (nib != land)
                 continue;
         }

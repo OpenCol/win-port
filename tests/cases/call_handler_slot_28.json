@@ -3,7 +3,7 @@
  "symbol": "call_handler_slot_28",
  "shipped": "1070:9d7d",
  "source": "src/platform/call_handler_slot_28.c",
- "prototype": "void call_handler_slot_28(HandlerTable * t, col_i16 a, col_i16 b);",
+ "prototype": "void call_handler_slot_28(void * t, col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -16,7 +16,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "call_handler_slot_28((HandlerTable far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
+ "call": "call_handler_slot_28((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

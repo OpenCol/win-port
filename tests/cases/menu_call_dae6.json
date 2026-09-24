@@ -3,23 +3,24 @@
  "symbol": "menu_call_dae6",
  "shipped": "1060:8f99",
  "source": "src/game/menu_call_dae6.c",
- "prototype": "void menu_call_dae6(void * w, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e);",
+ "prototype": "void menu_call_dae6(void * w, col_i16 a, col_i16 b, char * text, col_u16 id);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
  "sweep": [
   "0=3532",
   "1=4360",
-  "2=0..1",
-  "3=0..1",
-  "4=0..1",
-  "5=0..1",
-  "6=0..1"
+  "2=0..3",
+  "3=0..3",
+  "4=3596",
+  "5=4360",
+  "6=0..3"
  ],
  "stage": {
-  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9"
  },
- "call": "menu_call_dae6((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5, (col_i16)a6)",
+ "call": "menu_call_dae6((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (char far *)(col_seg34 + 0x0e0cL), (col_u16)a6)",
  "globals_read": [
   "g_stub_a"
  ],

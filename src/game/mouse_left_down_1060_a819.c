@@ -8,7 +8,7 @@
 
 extern col_i16 mouse_left_down_1078_2cd2(void);
 
-col_i16 mouse_left_down_1060_a819(col_i16 unused1, col_i16 unused2)
+col_i16 mouse_left_down_1060_a819(void *w)
 {
     return mouse_left_down_1078_2cd2();
 }

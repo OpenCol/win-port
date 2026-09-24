@@ -25,7 +25,7 @@
  *   extern int far g_turn_nation;                        SEG20:0x7796
  *   extern int far g_view_nation;                        SEG20:0x7798
  *   extern unsigned char far g_difficulty;               SEG20:0x77a8
- *   extern char far g_edit_bufs[][0x50];                 SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *
  * The file's own Unit, NationRec52, Nation, Settlement dropped for the merged record in col/records.h.
  *
@@ -63,7 +63,7 @@ extern void empty_1020_41ff(col_i16 n);
 extern col_i16 lookup_with_two_overrides(col_i16 i);
 extern void set_name_slot_from_text(col_i16 slot, col_i16 word);
 extern col_i16 nation_pair_flags_get(col_i16 a, col_i16 b);
-extern void say_string(char *dst, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 
 extern void say_number(char *buf, col_i16 n);
 extern void play_sound_effect(col_i16 id);
@@ -205,8 +205,8 @@ again:
     if (outcome == 7)
         gold = (rand_range(1, 10) + rand_range(1, 10) + rand_range(1, 10) + rand_range(1, 10)) * 2;
     if (outcome == 9) {
-        g_edit_bufs[0][0] = 0;
-        say_string(g_edit_bufs[0], g_nation_name[g_turn_nation]);
+        g_name_slots[0][0] = 0;
+        say_string(g_name_slots[0], g_nation_name[g_turn_nation]);
     }
     if (outcome == 5) {
         if (g_nation_population[g_turn_nation] <= 4 && g_nation_colony_count[g_turn_nation] <= 2)

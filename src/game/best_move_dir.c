@@ -39,7 +39,7 @@ extern col_i16 square_nation_bit0(col_i16 x, col_i16 y);
 extern char map_plane2_high_nibble(col_i16 x, col_i16 y);
 extern col_i16 nation_pair_flags_get(col_i16 a, col_i16 b);
 extern unsigned char map_plane3_at(col_i16 x, col_i16 y);
-extern col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);
+extern col_i16 square_region_if_land(col_i16 x, col_i16 y);
 
 /* same object: 4-byte `push cs; call ` */
 
@@ -88,7 +88,7 @@ col_i16 best_move_dir(col_i16 nation, col_i16 x, col_i16 y, col_i16 use_status, 
                              || (nation_pair_flags_get(nation, n) & 0x40) == 0)
                             && use_status != 0)
                             score += (map_plane3_at(x2, y2) & 0xf)
-                                   + (status_bits(nation, map_plane2_nibble_if_land(nx, ny)) << 4);
+                                   + (status_bits(nation, square_region_if_land(nx, ny)) << 4);
                     }
                 }
             }

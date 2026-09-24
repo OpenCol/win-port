@@ -31,7 +31,7 @@ col_i16 atol(char *digits);
 extern col_i16 STRNICMP(const char *a, const char *b, col_u16 n);
 extern void ltoa_rtl(col_i32 v, char *s, col_i16 radix);
 extern void LTOA1(col_i16 v, char *s, col_i16 radix);
-extern void say_string(char *dst, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 

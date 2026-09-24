@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_mother_country_colour",
+ "shipped": "1038:4f4a",
+ "source": "src/game/set_mother_country_colour.c",
+ "prototype": "void set_mother_country_colour(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "set_mother_country_colour()",
+ "globals_read": [
+  "g_mother_country_idx",
+  "g_nation_colour"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

@@ -6,9 +6,10 @@
  */
 #include "col/globals.h"
 
-extern col_i16 ReportWin_DoReport_parent(void *a, void *b, col_i32 c);
+extern col_i16 ReportWin_DoReport_parent(void *o, col_i16 kind, char flag,
+                                         void *rec);
 
-col_i16 ReportWin_DoReport(void *a, void *b)
+col_i16 ReportWin_DoReport(void *o, col_i16 kind, char flag)
 {
-    return ReportWin_DoReport_parent(a, b, 0L);
+    return ReportWin_DoReport_parent(o, kind, flag, 0);
 }

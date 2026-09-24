@@ -10,8 +10,8 @@
  "call": "tutorial_landfall()",
  "globals_read": [
   "g_game_flags",
+  "g_name_slots",
   "g_nation_recs",
-  "g_seg31_a4",
   "g_text_ctx",
   "g_text_value",
   "g_turn_nation"

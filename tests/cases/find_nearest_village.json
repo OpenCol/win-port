@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "find_nearest_village",
+ "shipped": "1038:05b8",
+ "source": "src/game/find_nearest_village.c",
+ "prototype": "col_i16 find_nearest_village(col_i16 x, col_i16 y, col_i16 nation, col_i16 land);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "(long)find_nearest_village((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_nearest_dist",
+  "g_settlement_count",
+  "g_settlements",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "set_current_native_settlement"
+ ],
+ "host_blind": "calls square_region_if_land, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

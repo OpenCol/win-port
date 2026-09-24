@@ -3,7 +3,7 @@
  "symbol": "slot_rect",
  "shipped": "1048:4dbc",
  "source": "src/game/slot_rect.c",
- "prototype": "void slot_rect(col_i16 i, col_i16 * x, col_i16 * y, col_i16 * w, col_i16 * h);",
+ "prototype": "void slot_rect(col_i16 i, void * x, void * y, void * w, void * h);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -24,7 +24,7 @@
   "SEG34:0x19c4": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6",
   "SEG34:0x1a04": "5a61686f767d848b9299a0a7aeb5bcc3cad1d8dfe6edf4fb020910171e252c333a41484f565d646b727980878e959ca3aab1b8bfc6cdd4dbe2e9f0f7fe050c13"
  },
- "call": "slot_rect((col_i16)a0, (col_i16 far *)(col_seg34 + 0x1944L), (col_i16 far *)(col_seg34 + 0x1984L), (col_i16 far *)(col_seg34 + 0x19c4L), (col_i16 far *)(col_seg34 + 0x1a04L))",
+ "call": "slot_rect((col_i16)a0, (void far *)(col_seg34 + 0x1944L), (void far *)(col_seg34 + 0x1984L), (void far *)(col_seg34 + 0x19c4L), (void far *)(col_seg34 + 0x1a04L))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

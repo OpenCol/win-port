@@ -12,7 +12,7 @@
  ],
  "call": "(long)current_colony_building_count((col_i16)a0)",
  "globals_read": [
-  "g_building_links"
+  "g_buildings"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

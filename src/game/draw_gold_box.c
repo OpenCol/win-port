@@ -4,7 +4,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern unsigned char far g_draw_color;               DGROUP:0x337e
- *   extern char far g_font_small[];                      DGROUP:0x4b1e
+ *   extern char far g_font_small;                        DGROUP:0x4b1e
  *   extern int g_stub_a;                                 
  *
  * The file's own Win dropped for the merged record in col/records.h.
@@ -42,6 +42,6 @@ void draw_gold_box(Win *w)
     FillColor(w, &r, g_draw_color);
     TextColor(12);
     LTOA1(w->track, buf, 10);
-    draw_string_shadowed(w, g_font_small, buf, w->ox + 0x23, w->oy + 0x23, 0);
+    draw_string_shadowed(w, &(*g_font_small), buf, w->ox + 0x23, w->oy + 0x23, 0);
     copy_rect_to_screen_1040_af03(w, &r);
 }

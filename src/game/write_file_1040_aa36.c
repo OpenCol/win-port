@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-extern col_i16 MSWriteFile(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i32 e);
+extern col_i16 MSWriteFile(void *f, void *buf, col_i32 n);
 
-col_i16 write_file_1040_aa36(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i32 e)
+col_i16 write_file_1040_aa36(void *f, void *buf, col_i32 n)
 {
-    return MSWriteFile(a, b, c, d, e);
+    return MSWriteFile(f, buf, n);
 }

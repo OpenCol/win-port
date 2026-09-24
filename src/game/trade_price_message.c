@@ -4,7 +4,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern int far g_goods_name_word[];                  SEG20:0xd86e
- *   extern int far g_word_d984;                          SEG20:0xd984
+ *   extern int far g_ctitle_word[];                      SEG20:0xd982
  *   extern int far g_cur_nation;                         DGROUP:0x4cc8
  *
  * The file's own Message dropped for the merged record in col/records.h.
@@ -46,7 +46,7 @@ void trade_price_message(Message *m, col_i16 goods, col_i16 price, col_i16 buy, 
     ColChild_AddToMessage(m, g_goods_name_word[goods]);
     msg_add_nation_word(m, 12);
     ColChild_AddNumberToMessage(m, qty * price);
-    ColChild_AddToMessage(m, g_word_d984);
+    ColChild_AddToMessage(m, g_ctitle_word[1]);
     message_append(m, "(");
     add_nation_money_to_message(m, g_cur_nation);
     ColChild_BackspaceMessage(m);

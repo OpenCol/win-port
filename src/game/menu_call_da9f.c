@@ -8,9 +8,9 @@
  */
 #include "col/globals.h"
 
-extern void MSModifyMenu(col_i16 hmenu, col_i32 a, col_i16 b, col_i16 c);
+extern void MSModifyMenu(col_u16 hmenu, col_i32 id, char *text);
 
-void menu_call_da9f(MenuRec *m, col_i32 a, col_i16 b, col_i16 c)
+void menu_call_da9f(MenuRec *m, col_i32 a, char *text)
 {
-    MSModifyMenu(m->hmenu, a, b, c);
+    MSModifyMenu(m->hmenu, a, text);
 }

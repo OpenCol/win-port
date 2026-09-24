@@ -24,7 +24,7 @@ col_i16 on_map(col_i16 x, col_i16 y);
 col_i16 tile_decoration(col_i16 x, col_i16 y);
 unsigned char * map_plane3_ptr(col_i16 x, col_i16 y);
 unsigned char map_plane0_at(col_i16 x, col_i16 y);
-unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+unsigned char square_region(col_i16 x, col_i16 y);
 
 #include "terrain.h"
 
@@ -115,7 +115,7 @@ void score_colony_sites(void)
                 }
             }
             adj = find_adjacent_ocean(x, y);
-            if (adj != 0 && map_plane2_nibble(g_ocean_x, g_ocean_y) != 1)
+            if (adj != 0 && square_region(g_ocean_x, g_ocean_y) != 1)
                 adj = 0;
             if (adj == 0)
                 total = total >> 1;

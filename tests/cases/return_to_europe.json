@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "return_to_europe",
+ "shipped": "1048:a37e",
+ "source": "src/game/return_to_europe.c",
+ "prototype": "void return_to_europe(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "return_to_europe()",
+ "globals_read": [
+  "g_game_flags",
+  "g_selected_unit"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ask_text_resource"
+ ],
+ "host_blind": "calls unit_stack_arrives, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

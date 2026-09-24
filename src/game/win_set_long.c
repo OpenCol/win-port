@@ -14,7 +14,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_0_1060_afce(void *p);
+col_i16 get_w_0(void *p);
 void * window_of(void *o);
 
 extern void win_set_menu(void *w, col_i16 a);
@@ -24,6 +24,6 @@ extern void win_set_menu(void *w, col_i16 a);
 
 void win_set_long(Rec *o, void *p)
 {
-    win_set_menu(window_of(o), get_w_0_1060_afce(p));
+    win_set_menu(window_of(o), get_w_0(p));
     (*((void * *)((unsigned char *)(o) + 0x6a))) = p;
 }

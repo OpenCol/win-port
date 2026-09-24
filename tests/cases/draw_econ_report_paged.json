@@ -31,8 +31,8 @@
   "ctl_flag_clear",
   "ctl_flag_set",
   "draw_econ_report_block",
-  "get_w_2_1058_bcfb",
-  "get_w_2_1058_be8e"
+  "port_width_1058_bcfb",
+  "port_width_1058_be8e"
  ],
  "host_blind": "uses the pointer member ReportWin.prev: four bytes in the game, eight on a host",
  "reaches_windows_api": true

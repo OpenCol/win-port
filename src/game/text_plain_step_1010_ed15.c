@@ -11,9 +11,10 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 text_dialog_plain_1010_ef3c(void *p, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 f);
+col_i16 text_dialog_plain_1010_ef3c(void *p, void *ctx, void *name,
+                                    col_i16 c, col_i16 g);
 
-col_i16 text_plain_step_1010_ed15(void *p, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e)
+col_i16 text_plain_step_1010_ed15(void *p, void *ctx, char *name, col_i16 a)
 {
-    return text_dialog_plain_1010_ef3c(p, a, b, c, d, 0, e);
+    return text_dialog_plain_1010_ef3c(p, ctx, name, 0, a);
 }

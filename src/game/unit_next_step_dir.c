@@ -60,7 +60,7 @@ extern col_i16 square_nation_any(col_i16 x, col_i16 y);
 extern col_i16 square_european_nation(col_i16 x, col_i16 y);
 extern unsigned char map_plane0_at(col_i16 x, col_i16 y);
 extern unsigned char map_plane1_at(col_i16 x, col_i16 y);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
 extern unsigned char unit_move_points(col_i16 u);
 extern col_i16 rand_range(col_i16 lo, col_i16 hi);
 extern col_i16 tile_claim(col_i16 x, col_i16 y, col_i16 n);
@@ -198,7 +198,7 @@ col_i16 unit_next_step_dir(col_i16 u)
         owner = square_nation_any(nx, ny);
         if (((owner < 0 || owner == nation)
              && ((terrain == TERRAIN_OCEAN || terrain == TERRAIN_SEA_LANE) ? 1 : 0) == ship
-             && (ship == 0 || map_plane2_nibble(nx, ny) == 1))
+             && (ship == 0 || square_region(nx, ny) == 1))
             || (square_european_nation(nx, ny) == nation && nx == tx && ny == ty)) {
             if (roads != 0 && (map_plane1_at(nx, ny) & (MAP1_SETTLEMENT | MAP1_ROAD)))
                 score = 1;
@@ -223,7 +223,7 @@ col_i16 unit_next_step_dir(col_i16 u)
                 owner = square_nation_any(nx, ny);
                 if (!((owner < 0 || owner == nation)
                       && ocean(nx, ny) == ship
-                      && (ship == 0 || map_plane2_nibble(nx, ny) == 1)
+                      && (ship == 0 || square_region(nx, ny) == 1)
                       && on_map(nx, ny)))
                     dir = -1;
             }

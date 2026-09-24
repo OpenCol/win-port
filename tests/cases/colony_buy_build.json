@@ -19,7 +19,7 @@
  "globals_read": [
   "g_buy_busy",
   "g_colonies",
-  "g_msg_name",
+  "g_name_slots",
   "g_nations",
   "g_text_args"
  ],

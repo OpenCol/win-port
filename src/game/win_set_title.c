@@ -7,9 +7,9 @@
 #include "col/globals.h"
 
 typedef struct { char pad[6]; void *win; } GameWinBase;
-extern void MSSetWinTitle(void *w, col_i16 a, col_i16 b);
+extern void MSSetWinTitle(void *w, char *s);
 
-void win_set_title(GameWinBase *o, col_i16 a, col_i16 b)
+void win_set_title(GameWinBase *o, char *s)
 {
-    MSSetWinTitle(o->win, a, b);
+    MSSetWinTitle(o->win, s);
 }

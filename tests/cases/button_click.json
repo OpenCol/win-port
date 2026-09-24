@@ -19,9 +19,9 @@
   "MSDoAllTasks_1070_9837",
   "MSWaitTicks_1070_984a",
   "call_handler_slot_28_1070_9863",
-  "get_p_4_1070_96a8",
+  "ctl_id_1070_96c5",
+  "ctl_window_1070_96a8",
   "get_w_1a_1070_981e",
-  "get_w_2_1070_96c5",
   "object_from_hwnd",
   "repaint_hwnd"
  ],

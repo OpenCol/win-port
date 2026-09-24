@@ -3,7 +3,7 @@
  "symbol": "ctl_init_button_1030_e55b",
  "shipped": "1030:e55b",
  "source": "src/game/ctl_init_button_1030_e55b.c",
- "prototype": "void ctl_init_button_1030_e55b(Ctl * c, void * win, col_i16 y, RECT * r, char * title);",
+ "prototype": "void ctl_init_button_1030_e55b(Ctl * c, void * win, col_i16 id, RECT * r, char * title);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

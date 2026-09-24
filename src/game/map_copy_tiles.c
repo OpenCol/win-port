@@ -8,7 +8,7 @@
  *   extern int far g_tile_w;                             DGROUP:0x4c4c
  *   extern int far g_tile_h;                             DGROUP:0x4c4e
  *   extern char far g_map_window[];                      SEG20:0x0658
- *   extern char far g_map_overlay[];                     SEG20:0x0de0
+ *   extern char far g_map_overlay;                       SEG20:0x0de0
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -30,6 +30,6 @@ void map_copy_tiles(col_i16 x, col_i16 y, col_i16 w, col_i16 h)
     ph = g_tile_h * h;
     if (pw > 0 && ph > 0) {
         map_copy_rect((&g_map_window), px, py, pw, ph);
-        redraw_map_rect(g_map_overlay, x, y, w, h);
+        redraw_map_rect(&(*g_map_overlay), x, y, w, h);
     }
 }

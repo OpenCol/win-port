@@ -2,15 +2,14 @@
  *
  * Ported by tools/port.py from matched/game/MSSetCursor_of.c.
  *
- * The file's own Obj dropped for the merged record in col/records.h.
- *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
-extern void MSSetCursor(void *w, void *p);
+typedef struct { char pad[6]; void *win; } GameWinBase;
+extern void MSSetCursor(void *w, col_i16 cur, col_i16 now);
 
-void MSSetCursor_of(Obj *o, void *p)
+void MSSetCursor_of(GameWinBase *o, col_i16 cur, col_i16 now)
 {
-    MSSetCursor((*((void * *)((unsigned char *)(o) + 0x6))), p);
+    MSSetCursor(o->win, cur, now);
 }

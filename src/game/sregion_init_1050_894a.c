@@ -10,7 +10,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void dlg_control_init_1010_edf9(DlgControl *o, void *win, col_i16 x, col_i16 y, RECT *r);
+void dlg_control_init_1050_9418(DlgControl *o, void *win, col_i16 kind, col_i16 id, RECT *r);
 
 /* 0x1a bytes */
 /* 0x2e bytes */
@@ -19,9 +19,9 @@ extern col_i16 MSInitRegion(RECT *r, DlgControl *b);
 
 
 
-void sregion_init_1050_894a(SRegion *o, void *win, col_i16 y, RECT *r)
+void sregion_init_1050_894a(SRegion *o, void *win, col_i16 id, RECT *r)
 {
-    dlg_control_init_1010_edf9(&(*((DlgControl *)((unsigned char *)(o) + 0x0))), win, 1, y, r);
+    dlg_control_init_1050_9418(&(*((DlgControl *)((unsigned char *)(o) + 0x0))), win, 1, id, r);
     (*((col_i32 *)((unsigned char *)(o) + 0x2e))) = 0;
     (*((col_i32 *)((unsigned char *)(o) + 0x32))) = 0;
     (*((col_i32 *)((unsigned char *)(o) + 0x36))) = 0;

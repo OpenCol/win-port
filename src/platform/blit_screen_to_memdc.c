@@ -5,8 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern char far g_error_ctx;                         DGROUP:0x2ac0
  *
- * The file's own Win dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: hwnd -> hdc
+ * The file's own MSWin dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -41,7 +40,7 @@ extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);
 
 
 
-void blit_screen_to_memdc(Win *w, RECT *r)
+void blit_screen_to_memdc(MSWin *w, RECT *r)
 {
     col_u16 hbm;
     col_i16 width;
@@ -57,7 +56,7 @@ void blit_screen_to_memdc(Win *w, RECT *r)
     SelectObject(mem, hbm);
     if (!BitBlt(mem, 0, 0, width, height, screen, r->left, r->top, 0xcc0020L))
         empty_1070_dc82(&(*g_error_ctx), "BitBlt error: copy screen to memDC");
-    if (!BitBlt(w->hdc, 0, 0, width, height, mem, 0, 0, 0xcc0020L))
+    if (!BitBlt(w->hwnd, 0, 0, width, height, mem, 0, 0, 0xcc0020L))
         empty_1070_dc82(&(*g_error_ctx), "BitBlt error: copy memDC to WinGDC");
     DeleteDC(mem);
     DeleteDC(screen);

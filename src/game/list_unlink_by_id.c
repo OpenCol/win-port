@@ -9,8 +9,8 @@
 #include "col/globals.h"
 
 typedef struct { char pad[0x8c]; Item *head; } List;
-extern col_i16 get_w_2_1060_abca(void *item);
-extern Item * get_p_12_1060_abe3(void *item);
+extern col_i16 ctl_id_1060_abca(void *item);
+extern Item * ctl_next_1060_abe3(void *item);
 
 void list_unlink_by_id(List *l, col_i16 id)
 {
@@ -20,17 +20,17 @@ void list_unlink_by_id(List *l, col_i16 id)
         return;
     else {
         p = l->head;
-        if (get_w_2_1060_abca(p) == id)
+        if (ctl_id_1060_abca(p) == id)
             l->head = (*((void * *)((unsigned char *)((Item *)p) + 0x12)));
         else
             while (p != 0) {
-                if (get_p_12_1060_abe3(p) == 0)
+                if (ctl_next_1060_abe3(p) == 0)
                     goto done;
-                if (get_w_2_1060_abca(get_p_12_1060_abe3(p)) == id) {
-                    (*((void * *)((unsigned char *)(p) + 0x12))) = get_p_12_1060_abe3(get_p_12_1060_abe3(p));
+                if (ctl_id_1060_abca(ctl_next_1060_abe3(p)) == id) {
+                    (*((void * *)((unsigned char *)(p) + 0x12))) = ctl_next_1060_abe3(ctl_next_1060_abe3(p));
                     goto done;
                 }
-                p = get_p_12_1060_abe3(p);
+                p = ctl_next_1060_abe3(p);
             }
     }
 done:

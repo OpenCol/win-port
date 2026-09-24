@@ -6,6 +6,6 @@
  */
 #include "col/globals.h"
 
-void empty_1038_af7e(col_i16 unused1, col_i16 unused2)
+void empty_1038_af7e(col_i16 unused1, col_i16 colour)
 {
 }

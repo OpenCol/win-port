@@ -13,14 +13,14 @@
  * translation units, joined by the linker. */
 col_i16 submenu_of_1060_a938(void *w, col_i16 a);
 
-extern void MSAppendMenuItem(col_i16 h, col_i16 b, col_i16 c, col_i16 d, col_i16 e);
+extern void MSAppendMenuItem(col_u16 h, col_i16 pos, char *text, col_u16 id);
 
 
 
-void menu_call_dae6(void *w, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e)
+void menu_call_dae6(void *w, col_i16 a, col_i16 b, char *text, col_u16 id)
 {
     col_i16 h;
 
     h = submenu_of_1060_a938(w, a);
-    MSAppendMenuItem(h, b, c, d, e);
+    MSAppendMenuItem(h, b, text, id);
 }

@@ -4,14 +4,14 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern Unit far g_units[];                           SEG20:0xa208
- *   extern UnitTypeInfo far g_unit_type_info[];          SEG20:0x7acf
+ *   extern UnitType far g_unit_types[];                  SEG20:0x7ac8
  *   extern NationRec52 far g_nation52[];                 SEG20:0x7840
  *   extern Colony far * far g_cur_colony_rec;            DGROUP:0x4b9e
  *   extern int far g_unit_count;                         SEG20:0x779e
  *   extern unsigned char far g_game_flags;               SEG20:0x7784
  *   extern unsigned char far g_mother_country_idx;       SEG20:0x77d4
  *
- * The file's own Unit, UnitTypeInfo, NationRec52, Colony dropped for the merged record in col/records.h.
+ * The file's own Unit, UnitType, NationRec52, Colony dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -47,7 +47,7 @@ col_i16 foreign_attack_revolution_check(col_i16 u, col_i16 colony)
     set_current_colony(colony);
     if (g_units[u].type == UNIT_SCOUTS)
         r = scout_enters_colony(u);
-    else if (g_unit_type_info[g_units[u].type].f0 != 0)
+    else if (g_unit_types[g_units[u].type].holds != 0)
         r = foreign_colony(u);
     else
         ;

@@ -3,7 +3,7 @@
  "symbol": "chain_count_flagged",
  "shipped": "1048:49a0",
  "source": "src/game/chain_count_flagged.c",
- "prototype": "col_i16 chain_count_flagged(col_i16 * out);",
+ "prototype": "col_i16 chain_count_flagged(void * out);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -14,10 +14,10 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)chain_count_flagged((col_i16 far *)(col_seg34 + 0x0dccL))",
+ "call": "(long)chain_count_flagged((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
   "g_cur_nation",
-  "g_unit_type_info",
+  "g_unit_types",
   "g_units"
  ],
  "flags": "-ml -WS -Od -Ot -3",

@@ -3,7 +3,7 @@
  "symbol": "radio_init",
  "shipped": "1068:df8f",
  "source": "src/gfx/radio_init.c",
- "prototype": "void radio_init(Ctl * c, void * win, col_i16 y, RECT * r, col_i16 n, col_i16 a, col_i16 b);",
+ "prototype": "void radio_init(Ctl * c, void * win, col_i16 id, RECT * r, col_i16 n, col_i16 a, col_i16 b);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

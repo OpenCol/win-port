@@ -11,15 +11,15 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void dlg_control_init_1058_c3f6(SButton *b, col_i16 a, col_i16 c, col_i16 kind, col_i16 d, void *pos);
+void dlg_control_init_1058_c3f6(SButton *b, void *win, col_i16 kind, col_i16 id, void *pos);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern col_i16 MSInitButton(void *pos, SButton *b, char *title, col_i16 style);
 
-void SButton_init(SButton *b, col_i16 a, col_i16 c, col_i16 d, void *pos, char *title)
+void SButton_init(SButton *b, void *win, col_i16 id, void *pos, char *title)
 {
-    dlg_control_init_1058_c3f6(b, a, c, 6, d, pos);
+    dlg_control_init_1058_c3f6(b, win, 6, id, pos);
     b->f1c = 0;
     b->handle = MSInitButton(pos, b, title, 1);
     b->f1a = 1;

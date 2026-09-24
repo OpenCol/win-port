@@ -8,8 +8,8 @@
  *   extern char far g_colony_win_rec;                    SEG20:0x25e4
  *   extern unsigned char far g_game_flags;               SEG20:0x7784
  *   extern unsigned far g_tutorial_flags;                SEG20:0x7782
- *   extern int far g_over_lo;                            SEG21:0x018c
- *   extern int far g_over_band;                          SEG21:0x01b4
+ *   extern int far g_over_lo[];                          SEG21:0x018c
+ *   extern int far g_over_band[];                        SEG21:0x01b4
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -54,7 +54,7 @@ void tutorial_colony_food(void)
     colony_draw_carriers(&(*g_colony_window), 1);
     colony_draw_warehouse(&(*g_colony_window), 1);
     colony_draw_status(&(*g_colony_window));
-    if ((g_game_flags & GAMEFLAG_TUTORIAL) && !(g_tutorial_flags & 0x10) && ((*g_over_lo) != 0 || (*g_over_band) != 0)) {
+    if ((g_game_flags & GAMEFLAG_TUTORIAL) && !(g_tutorial_flags & 0x10) && (g_over_lo[0] != 0 || g_over_band[0] != 0)) {
         win_disable_1010_e459(&g_colony_win_rec);
         show_text_dialog_1010_e528("TUTORIAL16");
         win_enable_1010_e4d4(&g_colony_win_rec);

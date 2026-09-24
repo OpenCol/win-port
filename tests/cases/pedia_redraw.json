@@ -20,9 +20,9 @@
  "near_callees": [
   "control_hide_1060_669f",
   "control_show_1060_68a5",
-  "get_w_2_1060_65ca",
-  "get_w_4_1060_65e3",
   "pedia_prompt",
+  "port_height_1060_65e3",
+  "port_width_1060_65ca",
   "rect_height_1060_63d4",
   "rect_width_1060_63b5"
  ],

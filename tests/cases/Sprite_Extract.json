@@ -3,7 +3,7 @@
  "symbol": "Sprite_Extract",
  "shipped": "1068:7639",
  "source": "src/gfx/Sprite_Extract.c",
- "prototype": "void Sprite_Extract(Sprite * s, void * src, col_i16 x, col_i16 y, col_i16 w, col_i16 h);",
+ "prototype": "void Sprite_Extract(Sprite * spr, void * src, col_i16 x, col_i16 y, col_i16 w, col_i16 h);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

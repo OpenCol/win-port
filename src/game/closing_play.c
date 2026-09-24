@@ -4,7 +4,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern int g_closing_flag;                           DGROUP:0x4b98
- *   extern char far g_game_palette[];                    SEG20:0x01ac
+ *   extern char far g_game_palette;                      SEG20:0x01ac
  *   extern int g_stub_a;                                 
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
@@ -44,7 +44,7 @@ void closing_play(char *w)
     MSCloseSound();
     anim_stop(w + 0x100);
     MSHideWindow_of_1010_2b41(w + 0x26);
-    palette_set_range(g_game_palette, 10, 0xec, w + 0x704);
+    palette_set_range(&(*g_game_palette), 10, 0xec, w + 0x704);
     MSDoAllTasks_1010_2a54();
     MSHideWindow_of_1010_2b41(w + 0x678);
     MSDoAllTasks_1010_2a54();

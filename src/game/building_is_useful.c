@@ -3,8 +3,7 @@
  * Ported by tools/port.py from matched/game/building_is_useful.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern int far g_tbl21_13e;                          SEG21:0x013e
- *   extern int far g_tbl21_140;                          SEG21:0x0140
+ *   extern int far g_prod[];                             SEG21:0x0122
  *   extern int g_stub_a;                                 
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
@@ -16,7 +15,7 @@
 col_i16 current_colony_flag_get(col_i16 bit);
 
 #include "building.h"
-
+#include "goods.h"
 
 
 
@@ -39,9 +38,9 @@ col_i16 building_is_useful(col_i16 b)
     if (b == 6) {
         if (current_colony_flag_get(BUILDING_ARMORY) != 0)
             goto done;
-        if (g_tbl21_13e != 0)
+        if (g_prod[GOODS_TOOLS] != 0)
             goto done;
-        if (g_tbl21_140 != 0)
+        if (g_prod[GOODS_MUSKETS] != 0)
             goto done;
     }
     r = 1;

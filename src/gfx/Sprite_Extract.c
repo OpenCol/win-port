@@ -17,11 +17,11 @@ extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b)
 extern col_i16 ExtractSprite(Sprite *s, void *src, col_i16 transparent, RECT *r);
 extern void Sprite_Lock(Sprite *s);
 
-void Sprite_Extract(Sprite *s, void *src, col_i16 x, col_i16 y, col_i16 w, col_i16 h)
+void Sprite_Extract(Sprite *spr, void *src, col_i16 x, col_i16 y, col_i16 w, col_i16 h)
 {
     RECT rc;
 
     SetRect(&rc, x, y, x + w, y + h);
-    s->handle = ExtractSprite(s, src, -1, &rc);
-    Sprite_Lock(s);
+    spr->handle = ExtractSprite(spr, src, -1, &rc);
+    Sprite_Lock(spr);
 }

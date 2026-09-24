@@ -18,9 +18,9 @@
  "call": "europe_draw_dock_1048_95c1((EuropeWin far *)(col_seg33 + 0x0000L), (col_i16)a2)",
  "globals_read": [
   "g_cur_nation",
+  "g_misc_words",
   "g_nation_recs",
-  "g_report_font_small",
-  "g_word_dcdc"
+  "g_report_font_small"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

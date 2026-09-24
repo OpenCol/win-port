@@ -16,14 +16,13 @@
  },
  "call": "europe_draw_status((EuropeWin far *)(col_seg33 + 0x0000L))",
  "globals_read": [
+  "g_ctitle_word",
   "g_cur_nation",
   "g_cur_nation_rec",
   "g_nation_name",
   "g_nation_name_word",
   "g_season",
   "g_season_word",
-  "g_word_d984",
-  "g_word_d994",
   "g_year"
  ],
  "flags": "-ml -WS -Od -Ot -3",

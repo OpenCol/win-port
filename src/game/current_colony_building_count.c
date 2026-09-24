@@ -3,9 +3,9 @@
  * Ported by tools/port.py from matched/game/current_colony_building_count.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern BuildingLink far g_building_links[];          SEG20:0xd426
+ *   extern BuildingRec far g_buildings[];                SEG20:0xd422
  *
- * The file's own BuildingLink dropped for the merged record in col/records.h.
+ * The file's own BuildingRec dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -24,7 +24,7 @@ col_i16 current_colony_building_count(col_i16 b)
     do {
         if (current_colony_flag_get(b))
             n++;
-        b = g_building_links[b].link;
+        b = g_buildings[b].next_level;
     } while (b >= 0);
     return n;
 }

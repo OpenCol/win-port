@@ -11,8 +11,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
+col_i16 font_height_1038_8739(void *font);
 col_i16 font_text_extent_1038_8713(void *font, char *s);
-col_i16 get_w_2_1038_8739(void *font);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
@@ -46,7 +46,7 @@ void draw_number_label(void *w, void *font, col_i16 n, col_i16 x, col_i16 y, col
     buf[0] = 0;
     LTOA1(n, buf, 10);
     tw = font_text_extent_1038_8713(font, buf);
-    th = get_w_2_1038_8739(font);
+    th = font_height_1038_8739(font);
     if (fill != 0) {
         SetRect(&r, px + 1, py + 1, px + tw + 1, py + th - 1);
         FillColor(w, &r, 0);

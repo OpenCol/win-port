@@ -3,7 +3,7 @@
  "symbol": "sregion_init_1048_dfb0",
  "shipped": "1048:dfb0",
  "source": "src/game/sregion_init_1048_dfb0.c",
- "prototype": "void sregion_init_1048_dfb0(SRegion * o, void * win, col_i16 y, RECT * r);",
+ "prototype": "void sregion_init_1048_dfb0(SRegion * o, void * win, col_i16 id, RECT * r);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -25,7 +25,7 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "dlg_control_init_1010_edf9"
+  "dlg_control_init_1048_e633"
  ],
  "host_blind": "uses the pointer member DlgControl.win: four bytes in the game, eight on a host",
  "reaches_windows_api": true

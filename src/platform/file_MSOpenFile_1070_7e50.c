@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-extern col_i16 MSOpenFile(col_i16 a, col_i16 b, col_i16 c, col_i16 d);
+extern col_i16 MSOpenFile(char *name, void *f);
 
-col_i16 file_MSOpenFile_1070_7e50(col_i16 a, col_i16 b, col_i16 c, col_i16 d)
+col_i16 file_MSOpenFile_1070_7e50(char *name, void *f)
 {
-    return MSOpenFile(a, b, c, d);
+    return MSOpenFile(name, f);
 }

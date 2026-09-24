@@ -2,7 +2,7 @@
  *
  * Ported by tools/port.py from matched/game/msg_box_1060_a772.c.
  *
- * The file's own Win dropped for the merged record in col/records.h.
+ * The file's own MSWin dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -10,11 +10,11 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-Win * window_of(void *o);
+MSWin * window_of(void *o);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void wait_mouse_button(Win *w, col_i16 a, col_i16 b, col_i16 c);
+extern void wait_mouse_button(MSWin *w, col_i16 a, col_i16 b, col_i16 c);
 void msg_box_1060_a772(void *o, char own, col_i16 b, col_i16 c)
 {
     if (own) {

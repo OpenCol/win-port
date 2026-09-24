@@ -9,7 +9,7 @@
  *   extern Colony far g_colonies[];                      SEG20:0x7c28
  *   extern Nation far g_nations[];                       SEG20:0xc2f4
  *   extern char g_buy_busy;                              DGROUP:0x0a05
- *   extern char far g_msg_name[];                        SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *   extern long far g_text_args[];                       SEG31:0x02d4
  *
  * The file's own ColChild, Colony, Nation dropped for the merged record in col/records.h.
@@ -76,7 +76,7 @@ void colony_buy_build(ColChild *w, col_i16 unused1)
         price += (g_nations[g_colonies[w->colony].nation].f5a + 4) * tshort;
     if (g_colonies[w->colony].hammers == 0)
         price = price * 2;
-    strcpy(g_msg_name, build_item_name(g_colonies[w->colony].item));
+    strcpy(g_name_slots[0], build_item_name(g_colonies[w->colony].item));
     g_text_args[0] = (col_i32)price;
     g_text_args[1] = nation_gold(g_colonies[w->colony].nation);
     if (nation_gold(g_colonies[w->colony].nation) >= (col_i32)price)

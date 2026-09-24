@@ -5,7 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern char far g_game_palette;                      SEG20:0x01ac
  *   extern char far g_game_record;                       SEG20:0x05ca
- *   extern char far g_sprites_4526[][0x20];              SEG20:0x4526
+ *   extern char far g_art_base[][0x20];                  SEG20:0x41a6
  *   extern int g_4bec;                                   DGROUP:0x4bec
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
@@ -60,7 +60,7 @@ void build_bordered_window(char *win, col_i16 x, col_i16 y, col_i16 w, col_i16 h
     port_set_clip(win, &r);
     for (py = 3; h - 3 > py; py += 0x2f)
         for (px = 3; w - 3 > px; px += 0x3e)
-            sprite_draw(&tmp, g_sprites_4526[383], win, px, py);
+            sprite_draw(&tmp, (&g_art_base[411]), win, px, py);
     port_apply_rect(win);
     SetRect(&r, 0, 0, w, h);
     TextColor(0x21);

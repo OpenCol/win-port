@@ -13,7 +13,8 @@
  */
 #include "col/globals.h"
 
-/* 316 bytes at SEG20:0xc2f4 */
+/* 316 bytes at SEG20:0xc2f4; this
+                                                  file needs the SIZE and no member */
 
 
 

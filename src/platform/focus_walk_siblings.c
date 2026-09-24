@@ -2,8 +2,7 @@
  *
  * Ported by tools/port.py from matched/platform/focus_walk_siblings.c.
  *
- * The file's own Win, Obj dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: hwnd -> hdc
+ * The file's own MSWin, Obj dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -11,9 +10,9 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-Win * get_p_6_1070_95f0(void *o);
+MSWin * get_p_6_1070_95f0(void *o);
 col_i16 control_is_current(col_u16 hwnd);
-col_i16 get_w_0_1070_9669(void *o);
+col_i16 ctl_kind_1070_9669(void *o);
 col_i16 get_w_1a_1070_981e(void *o);
 col_i16 get_w_20_1070_997b(void *o);
 col_i16 hwnd_is_ms_control(col_u16 h);
@@ -57,15 +56,15 @@ void focus_walk_siblings(Obj *o, col_u16 hwnd, col_i16 dir)
     h = hwnd;
     if (h == 0) {
         h = GetFocus();
-        if (IsChild(get_p_6_1070_95f0(o)->hdc, h) == 0)
+        if (IsChild(get_p_6_1070_95f0(o)->hwnd, h) == 0)
             h = 0;
     }
     if (h == 0) {
         if ((*((void * *)((unsigned char *)(o) + 0x8c))) != 0) {
             if (dir == 2)
-                h = GetWindow(get_p_6_1070_95f0(o)->hdc, GW_CHILD);
+                h = GetWindow(get_p_6_1070_95f0(o)->hwnd, GW_CHILD);
             else
-                h = GetWindow(GetWindow(get_p_6_1070_95f0(o)->hdc, GW_CHILD), GW_HWNDLAST);
+                h = GetWindow(GetWindow(get_p_6_1070_95f0(o)->hwnd, GW_CHILD), GW_HWNDLAST);
         } else {
             return;
         }
@@ -85,10 +84,10 @@ void focus_walk_siblings(Obj *o, col_u16 hwnd, col_i16 dir)
         } else if (hwnd_is_ms_control(h) == 0) {
             ctl = list_find_by_id(h, (*((void * *)((unsigned char *)(o) + 0x8c))));
             if (ctl != 0) {
-                if ((get_w_0_1070_9669(ctl) == 6 && get_w_1a_1070_981e(ctl) != 0)
-                 || (get_w_0_1070_9669(ctl) == 2 && get_w_20_1070_997b(ctl) != 0)
-                 || get_w_0_1070_9669(ctl) == 4
-                 || get_w_0_1070_9669(ctl) == 7) {
+                if ((ctl_kind_1070_9669(ctl) == 6 && get_w_1a_1070_981e(ctl) != 0)
+                 || (ctl_kind_1070_9669(ctl) == 2 && get_w_20_1070_997b(ctl) != 0)
+                 || ctl_kind_1070_9669(ctl) == 4
+                 || ctl_kind_1070_9669(ctl) == 7) {
                     SetFocus(h);
                     break;
                 }

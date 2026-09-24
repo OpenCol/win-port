@@ -9,9 +9,9 @@
  "ret_bits_emu": 0,
  "call": "load_sprite_sheet_cc()",
  "globals_read": [
+  "g_art_base",
   "g_game_palette",
-  "g_screen_surface",
-  "g_sprites_4526"
+  "g_screen_surface"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

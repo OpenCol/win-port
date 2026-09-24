@@ -10,7 +10,7 @@
  */
 #include "col/globals.h"
 
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void append_space(char *s);
 extern col_i16 tolower_rtl(col_i16 c);
 

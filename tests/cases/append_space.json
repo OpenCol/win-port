@@ -3,7 +3,7 @@
  "symbol": "append_space",
  "shipped": "1040:a192",
  "source": "src/game/append_space.c",
- "prototype": "void append_space(char * s);",
+ "prototype": "void append_space(char * buf);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

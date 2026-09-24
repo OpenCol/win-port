@@ -8,14 +8,14 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void append_space(char *s);
+void append_space(char *buf);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-void append_spaces(char *s, col_i16 n)
+void append_spaces(char *buf, col_i16 n)
 {
     col_i16 i;
 
     for (i = 0; i < n; i++)
-        append_space(s);
+        append_space(buf);
 }

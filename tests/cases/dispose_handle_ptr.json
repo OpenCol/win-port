@@ -3,7 +3,7 @@
  "symbol": "dispose_handle_ptr",
  "shipped": "1078:3316",
  "source": "src/platform/dispose_handle_ptr.c",
- "prototype": "void dispose_handle_ptr(col_i16 * p);",
+ "prototype": "void dispose_handle_ptr(void * p);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -14,7 +14,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "dispose_handle_ptr((col_i16 far *)(col_seg34 + 0x0dccL))",
+ "call": "dispose_handle_ptr((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

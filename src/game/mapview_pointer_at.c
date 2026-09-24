@@ -9,7 +9,7 @@
  *   extern int g_cursor_state;                           DGROUP:0x1c54
  *   extern int far g_view_mode;                          SEG20:0x7792
  *   extern int far g_selected_unit;                      SEG20:0x7794
- *   extern char far g_cursors;                           SEG20:0x7746
+ *   extern char far g_cursors[];                         SEG20:0x7746
  *
  * The file's own Unit, MapWin dropped for the merged record in col/records.h.
  *
@@ -65,7 +65,7 @@ void mapview_pointer_at(col_i16 x, col_i16 y)
         if (mouse_left_down_1060_a819((char *)o + 0x26) != 0 && g_view_mode != 1) {
             MSWaitTicks_1038_e2f1(0x14);
             if (mouse_left_down_1060_a819((char *)o + 0x26) != 0 && g_cursor_state != 0x80) {
-                win_set_cursor_1038_e30a((char *)o + 0x26, &(*g_cursors));
+                win_set_cursor_1038_e30a((char *)o + 0x26, ((col_i16 *)g_cursors));
                 g_cursor_state = 0x80;
                 o->drag = -2;
                 close_dialog_1038_e279((char *)o + 0x26);

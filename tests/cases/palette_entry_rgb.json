@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "palette_entry_rgb",
+ "shipped": "1070:dc90",
+ "source": "src/platform/palette_entry_rgb.c",
+ "prototype": "void palette_entry_rgb(void * p, col_i16 idx, char * r, char * g, char * b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=6468",
+  "1=4360",
+  "2=-4..24",
+  "3=6532",
+  "4=4360",
+  "5=6596",
+  "6=4360",
+  "7=6660",
+  "8=4360"
+ ],
+ "stage": {
+  "SEG34:0x1944": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1984": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+  "SEG34:0x19c4": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6",
+  "SEG34:0x1a04": "5a61686f767d848b9299a0a7aeb5bcc3cad1d8dfe6edf4fb020910171e252c333a41484f565d646b727980878e959ca3aab1b8bfc6cdd4dbe2e9f0f7fe050c13"
+ },
+ "call": "palette_entry_rgb((void far *)(col_seg34 + 0x1944L), (col_i16)a2, (char far *)(col_seg34 + 0x1984L), (char far *)(col_seg34 + 0x19c4L), (char far *)(col_seg34 + 0x1a04L))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls palette_get_entry_rgb, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

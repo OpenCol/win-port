@@ -6,10 +6,10 @@
  */
 #include "col/globals.h"
 
-extern col_i16 run_text_dialog(void *file, void *name, col_i16 a, col_i32 l1, col_i32 l2,
-                               col_i32 l3, col_i16 b);
+extern col_i16 run_text_dialog(void *file, void *name, col_i16 a, void *d1, void *d2,
+                               void *d3, col_i16 b);
 
 col_i16 text_dialog_1020_b169(void *file, void *name, col_i16 a, col_i16 b)
 {
-    return run_text_dialog(file, name, a, 0L, 0L, 0L, b);
+    return run_text_dialog(file, name, a, 0, 0, 0, b);
 }

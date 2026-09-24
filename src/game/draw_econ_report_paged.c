@@ -21,8 +21,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1058_bcfb(Sized *o);
-col_i16 get_w_2_1058_be8e(Sized *o);
+col_i16 port_width_1058_bcfb(Sized *o);
+col_i16 port_width_1058_be8e(Sized *o);
 void ctl_flag_clear(SButton *b);
 void ctl_flag_set(SButton *b);
 void draw_econ_report_block(ReportWin *o, char nation);
@@ -47,7 +47,7 @@ extern void sprite_draw(RECT *out, void *sprite, ReportWin *o, col_i16 x, col_i1
 extern void invalidate_hwnd(col_i16 h);
 extern char * LTOA1(col_i16 v, char *s, col_i16 radix);
 extern void append_space(char *s);
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 
 
 

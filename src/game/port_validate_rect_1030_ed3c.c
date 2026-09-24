@@ -8,7 +8,7 @@
  */
 #include "col/globals.h"
 
-extern void MSValidRect(void *hwnd, void *rect);
+extern void MSValidRect(void *w, void *rect);
 
 void port_validate_rect_1030_ed3c(Port *p, void *rect)
 {

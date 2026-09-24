@@ -9,7 +9,7 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 col_i16 get_w_10_1070_9681(void *item);
-void * get_p_12_1070_a09a(void *item);
+void * ctl_next_1070_a09a(void *item);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
@@ -22,7 +22,7 @@ void * list_find_by_id(col_i16 id, void *p)
     while (q != 0) {
         if (get_w_10_1070_9681(q) == n)
             return q;
-        q = get_p_12_1070_a09a(q);
+        q = ctl_next_1070_a09a(q);
     }
     return 0;
 }

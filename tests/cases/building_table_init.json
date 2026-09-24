@@ -14,9 +14,9 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "building_table_set_fields",
-  "rec6_d83c_set"
+  "recruit_set"
  ],
- "host_blind": "calls building_table_set_fields, rec6_d83c_set, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "host_blind": "calls building_table_set_fields, recruit_set, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
  "call_args": [
   "0"
  ]

@@ -8,7 +8,7 @@
  *   extern int far g_goods_name_word[];                  SEG20:0xd86e
  *   extern char far g_text_ctx;                          DGROUP:0x009e
  *   extern int far g_cargo_amount;                       DGROUP:0x4bd2
- *   extern int far g_text_args;                          SEG31:0x02d4
+ *   extern long far g_text_args[];                       SEG31:0x02d4
  *
  * The file's own Unit, UnitType dropped for the merged record in col/records.h.
  *
@@ -76,7 +76,7 @@ col_i16 unit_transfer_cargo_1010_b882(void *w, register col_i16 from, col_i16 to
         set_text_arg_1010_ebb0(0, n);
         if (prompt_text_number(&(*g_text_ctx), "HOWMUCH3", n) != 0)
             goto out;
-        cap = minimax((*g_text_args), 0, n);
+        cap = minimax((col_i16)g_text_args[0], 0, n);
         n = min_int_1010_e5d0(cap, n);
         if (n <= 0)
             goto out;

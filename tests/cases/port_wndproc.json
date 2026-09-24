@@ -21,8 +21,8 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "get_p_22_1070_dc44",
-  "get_w_2_1070_dbc7",
-  "get_w_4_1070_dbe6",
+  "port_height_1070_dbe6",
+  "port_width_1070_dbc7",
   "rect_height",
   "rect_width"
  ],

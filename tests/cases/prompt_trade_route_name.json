@@ -16,14 +16,14 @@
   "g_cur_route_rec",
   "g_font_small",
   "g_game_record",
-  "g_seg31_a4",
+  "g_name_slots",
   "g_text_ctx",
   "g_trade_name_busy"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "MSDoAllTasks_1058_bc15",
-  "get_w_2_1058_be4f",
+  "font_height_1058_be4f",
   "route_strip_click"
  ],
  "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host",

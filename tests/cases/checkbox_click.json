@@ -17,9 +17,9 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "call_handler_slot_26_1070_9952",
-  "get_p_4_1070_96a8",
+  "ctl_id_1070_96c5",
+  "ctl_window_1070_96a8",
   "get_w_1e_1070_9921",
-  "get_w_2_1070_96c5",
   "object_from_hwnd",
   "set_w_1e_1070_993a"
  ],

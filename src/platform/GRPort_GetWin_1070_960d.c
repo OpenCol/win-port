@@ -2,13 +2,13 @@
  *
  * Ported by tools/port.py from matched/platform/GRPort_GetWin_1070_960d.c.
  *
- * The file's own Win, GRPort dropped for the merged record in col/records.h.
+ * The file's own MSWin, GRPort dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
-Win * GRPort_GetWin_1070_960d(GRPort *p)
+MSWin * GRPort_GetWin_1070_960d(GRPort *p)
 {
-    return (*((Win * *)((unsigned char *)(p) + 0x22)));
+    return (*((MSWin * *)((unsigned char *)(p) + 0x22)));
 }

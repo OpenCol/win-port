@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_record_free",
+ "shipped": "1038:2532",
+ "source": "src/game/unit_record_free.c",
+ "prototype": "void unit_record_free(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "unit_record_free((col_i16)a0)",
+ "globals_read": [
+  "g_nation_unit_count",
+  "g_selected_unit",
+  "g_settlements",
+  "g_unit_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_unlink"
+ ],
+ "host_blind": "calls unit_unlink, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

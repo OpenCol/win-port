@@ -3,7 +3,7 @@
  "symbol": "empty_1038_af7e",
  "shipped": "1038:af7e",
  "source": "src/game/empty_1038_af7e.c",
- "prototype": "void empty_1038_af7e(col_i16 unused1, col_i16 unused2);",
+ "prototype": "void empty_1038_af7e(col_i16 unused1, col_i16 colour);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

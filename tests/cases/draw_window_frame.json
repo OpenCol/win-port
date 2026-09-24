@@ -16,13 +16,13 @@
  },
  "call": "draw_window_frame((Win far *)(col_seg33 + 0x0000L))",
  "globals_read": [
-  "g_sprites_4526",
+  "g_art_base",
   "g_title_font"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_w_2_1048_d4f6",
-  "get_w_4_1048_d7c5"
+  "port_height_1048_d7c5",
+  "port_width_1048_d4f6"
  ],
  "host_blind": "calls InflateRect, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true

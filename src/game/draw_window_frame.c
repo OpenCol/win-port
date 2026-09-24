@@ -3,7 +3,7 @@
  * Ported by tools/port.py from matched/game/draw_window_frame.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern char far g_sprites_4526[][0x20];              SEG20:0x4526
+ *   extern char far g_art_base[][0x20];                  SEG20:0x41a6
  *   extern char far g_title_font;                        DGROUP:0x4b06
  *
  * The file's own Win dropped for the merged record in col/records.h.
@@ -14,8 +14,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1048_d4f6(Win *w);
-col_i16 get_w_4_1048_d7c5(Win *w);
+col_i16 port_height_1048_d7c5(Win *w);
+col_i16 port_width_1048_d4f6(Win *w);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
@@ -60,20 +60,20 @@ void draw_window_frame(Win *w)
 
     get_rect_at_8(w, &clip);
     port_apply_rect(w);
-    cw = get_w_2_1048_d4f6(w);
-    ch = get_w_4_1048_d7c5(w);
+    cw = port_width_1048_d4f6(w);
+    ch = port_height_1048_d7c5(w);
     gx = cw / w->tile_w * w->tile_w;
     gy = ch / w->tile_h * w->tile_h;
     scale_map_select(1, 1);
     for (row = 0; ch / w->tile_h + 1 > row; row++) {
-        sprite_draw(&t1, g_sprites_4526[383], w, 0, w->tile_h * row);
-        sprite_draw(&t2, g_sprites_4526[383], w, gx, w->tile_h * row);
-        sprite_draw(&t3, g_sprites_4526[383], w, gx - w->tile_w, w->tile_h * row);
+        sprite_draw(&t1, (&g_art_base[411]), w, 0, w->tile_h * row);
+        sprite_draw(&t2, (&g_art_base[411]), w, gx, w->tile_h * row);
+        sprite_draw(&t3, (&g_art_base[411]), w, gx - w->tile_w, w->tile_h * row);
     }
     for (col = 0; cw / w->tile_w + 1 > col; col++) {
-        sprite_draw(&t4, g_sprites_4526[383], w, w->tile_w * col, 0);
-        sprite_draw(&t5, g_sprites_4526[383], w, w->tile_w * col, gy);
-        sprite_draw(&t6, g_sprites_4526[383], w, w->tile_w * col, gy - w->tile_h);
+        sprite_draw(&t4, (&g_art_base[411]), w, w->tile_w * col, 0);
+        sprite_draw(&t5, (&g_art_base[411]), w, w->tile_w * col, gy);
+        sprite_draw(&t6, (&g_art_base[411]), w, w->tile_w * col, gy - w->tile_h);
     }
     SetRect(&r, 0, 0, cw, ch);
     draw_bevel(w, &r, 2, 0x16, 0x12);

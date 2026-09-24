@@ -14,14 +14,14 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-Ctl * get_p_12_1060_abe3(Ctl *c);
+Ctl * ctl_next_1060_abe3(Ctl *c);
 char byte_at_16(Ctl *c);
 
 Ctl * find_control(Win *w)
 {
     Ctl *c;
 
-    for (c = (*((Ctl * *)((unsigned char *)(w) + 0x8c))); c != 0; c = get_p_12_1060_abe3(c)) {
+    for (c = (*((Ctl * *)((unsigned char *)(w) + 0x8c))); c != 0; c = ctl_next_1060_abe3(c)) {
         if (byte_at_16(c))
             return c;
     }

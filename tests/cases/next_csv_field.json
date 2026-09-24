@@ -10,13 +10,13 @@
  "call": "(void)next_csv_field()",
  "globals_read": [
   "g_field",
-  "g_text_cursor_b"
+  "g_text_cursor"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "trim_both"
  ],
- "host_blind": "uses the pointer global g_text_cursor_b: four bytes in the game, eight on a host",
+ "host_blind": "uses the pointer global g_text_cursor: four bytes in the game, eight on a host",
  "call_args": [
   "0"
  ]

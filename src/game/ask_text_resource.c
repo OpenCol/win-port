@@ -3,7 +3,7 @@
  * Ported by tools/port.py from matched/game/ask_text_resource.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern char far g_dialog_ctx;                        DGROUP:0x24dc
+ *   extern char far g_dialog_ctx[];                      DGROUP:0x24dc
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -19,5 +19,5 @@ extern col_i16 text_dialog_1048_e911(void *ctx, char *name, col_i16 a);
 
 col_i16 ask_text_resource(char *name)
 {
-    return text_dialog_1048_e6ed(&(*g_dialog_ctx), name);
+    return text_dialog_1048_e6ed(g_dialog_ctx, name);
 }

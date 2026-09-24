@@ -2,8 +2,7 @@
  *
  * Ported by tools/port.py from matched/platform/wing_set_dib_colours.c.
  *
- * The file's own RGBQUAD, Win dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: hwnd -> hdc
+ * The file's own RGBQUAD, MSWin dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -24,7 +23,7 @@ extern col_i16 pascal WinGSetDIBColorTable(col_u16 hdc, col_u16 start, col_u16 n
 /* same object: 4-byte `push cs; call ` */
 
 
-void wing_set_dib_colours(Win *w, void *pal, col_i16 start, col_i16 count)
+void wing_set_dib_colours(MSWin *w, void *pal, col_i16 start, col_i16 count)
 {
     unsigned char tbl[0x400];
     register col_i16 i;
@@ -33,5 +32,5 @@ void wing_set_dib_colours(Win *w, void *pal, col_i16 start, col_i16 count)
         palette_entry_rgb(pal, i, i * 4 + tbl + 2, i * 4 + tbl + 1, i * 4 + tbl);
         *(i * 4 + tbl + 3) = 0;
     }
-    WinGSetDIBColorTable(w->hdc, start, count, (RGBQUAD *)tbl);
+    WinGSetDIBColorTable(w->hwnd, start, count, (RGBQUAD *)tbl);
 }

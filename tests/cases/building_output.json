@@ -3,7 +3,7 @@
  "symbol": "building_output",
  "shipped": "1018:6a20",
  "source": "src/game/building_output.c",
- "prototype": "col_i16 building_output(col_i16 c, col_i16 * good);",
+ "prototype": "col_i16 building_output(col_i16 c, void * good);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -15,13 +15,13 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)building_output((col_i16)a0, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "call": "(long)building_output((col_i16)a0, (void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
+  "g_buildings",
   "g_cur_colony_rec",
   "g_difficulty",
   "g_nation52",
-  "g_nations",
-  "g_rec12_d42b"
+  "g_nations"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

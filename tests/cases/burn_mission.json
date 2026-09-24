@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "burn_mission",
+ "shipped": "1038:0162",
+ "source": "src/game/burn_mission.c",
+ "prototype": "void burn_mission(col_i16 tribe, col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "burn_mission((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_nation52",
+  "g_settlement_count",
+  "g_settlements"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls set_name_slot_from_text, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

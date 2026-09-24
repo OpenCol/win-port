@@ -3,9 +3,9 @@
  * Ported by tools/port.py from matched/game/colony_building_top.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern BuildingLink far g_building_links[];          SEG20:0xd426
+ *   extern BuildingRec far g_buildings[];                SEG20:0xd422
  *
- * The file's own BuildingLink dropped for the merged record in col/records.h.
+ * The file's own BuildingRec dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -25,7 +25,7 @@ col_i16 colony_building_top(col_i16 b)
         if (!current_colony_flag_get(b))
             break;
         top = b;
-        b = g_building_links[b].link;
+        b = g_buildings[b].next_level;
     }
     return top;
 }

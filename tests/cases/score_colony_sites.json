@@ -23,9 +23,9 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "map_plane0_at",
-  "map_plane2_nibble",
   "map_plane3_ptr",
   "on_map",
+  "square_region",
   "tile_decoration"
  ],
  "host_blind": "calls check_timer_tick, a Windows API the host does not have; the emulator simulates it",

@@ -11,9 +11,9 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void wing_set_dib_colours(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 f);
+void wing_set_dib_colours(void *w, void *pal, col_i16 start, col_i16 count);
 
-void text_call_a93c(col_i16 a, col_i16 b, col_i16 c, col_i16 d)
+void text_call_a93c(void *w, void *pal)
 {
-    wing_set_dib_colours(a, b, c, d, 0, 0x100);
+    wing_set_dib_colours(w, pal, 0, 0x100);
 }

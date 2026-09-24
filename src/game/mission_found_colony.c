@@ -19,7 +19,7 @@
  *   extern unsigned char far g_colony_mode;              DGROUP:0x0c0f
  *   extern int far g_colony_c24;                         DGROUP:0x0c24
  *   extern char far g_text_ctx;                          DGROUP:0x009e
- *   extern char far g_name_buf;                          SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *   extern char far g_colony_window;                     SEG20:0x25be
  *
  * The file's own Unit, NationRec52, Nation, Colony dropped for the merged record in col/records.h.
@@ -97,7 +97,7 @@ void mission_found_colony(register col_i16 u)
     colony_flag_set(0x1b, 1);
     colony_flag_set(0x27, 1);
     if (g_turn_nation < NATION_EUROPEAN_COUNT && g_nation52[g_turn_nation].control == CONTROL_HUMAN)
-        strcpy(((char *)((unsigned char *)(g_cur_colony_rec) + 0x2)), &(*g_name_buf));
+        strcpy(((char *)((unsigned char *)(g_cur_colony_rec) + 0x2)), g_name_slots[0]);
     if (g_turn_nation == g_view_nation
         || (g_reveal_all != 0
             && (g_game_flags & (g_turn_nation >= NATION_EUROPEAN_COUNT ? 0x8000 : 0x4000)) != 0))

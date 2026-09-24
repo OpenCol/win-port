@@ -3,7 +3,7 @@
  "symbol": "stack_icon",
  "shipped": "1040:0b6c",
  "source": "src/game/stack_icon.c",
- "prototype": "col_i16 stack_icon(col_i16 u, col_i16 own, col_i16 self, col_i16 * more);",
+ "prototype": "col_i16 stack_icon(col_i16 u, col_i16 own, col_i16 self, void * more);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -17,7 +17,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)stack_icon((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "call": "(long)stack_icon((col_i16)a0, (col_i16)a1, (col_i16)a2, (void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
   "g_unit_types",
   "g_units"

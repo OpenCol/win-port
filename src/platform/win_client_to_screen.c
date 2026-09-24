@@ -2,8 +2,7 @@
  *
  * Ported by tools/port.py from matched/platform/win_client_to_screen.c.
  *
- * The file's own Win dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: hwnd -> hdc
+ * The file's own MSWin dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -15,7 +14,7 @@
 extern void pascal ClientToScreen(col_u16 hwnd, POINT *p);
 #endif
 
-void win_client_to_screen(Win *w, col_i16 x, col_i16 y, col_i16 *px, col_i16 *py)
+void win_client_to_screen(MSWin *w, col_i16 x, col_i16 y, col_i16 *px, col_i16 *py)
 {
     POINT pt;
 
@@ -23,7 +22,7 @@ void win_client_to_screen(Win *w, col_i16 x, col_i16 y, col_i16 *px, col_i16 *py
         return;
     pt.x = x;
     pt.y = y;
-    ClientToScreen(w->hdc, &pt);
+    ClientToScreen(w->hwnd, &pt);
     *px = pt.x;
     *py = pt.y;
 }

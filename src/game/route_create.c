@@ -10,8 +10,8 @@
  *   extern RouteRec far g_routes[];                      SEG20:0xc804
  *   extern RouteRec far *g_cur_route_rec;                DGROUP:0x4c18
  *   extern int far g_trade_route_count;                  SEG20:0x77a2
- *   extern long far g_text_args;                         SEG31:0x02d4
- *   extern char far g_default_route_name[];              SEG31:0x00a4
+ *   extern long far g_text_args[];                       SEG31:0x02d4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *   extern char far g_text_buf[];                        SEG29:0x003c
  *   extern char far g_text_ctx;                          DGROUP:0x009e
  *   extern int far g_random_seed;                        DGROUP:0x4b86
@@ -80,7 +80,7 @@ void route_create(void)
     col_i16 found;
 
     if (g_trade_route_count >= 12) {
-        (*g_text_args) = 12;
+        g_text_args[0] = 12;
         show_text_dialog_1028_e48e("TRADEMANY");
         goto done;
     }
@@ -124,7 +124,7 @@ void route_create(void)
         goto done;
     idx = g_trade_route_count;
     set_current_route(idx);
-    strcpy(((char *)((unsigned char *)(g_cur_route_rec) + 0x0)), g_default_route_name);
+    strcpy(((char *)((unsigned char *)(g_cur_route_rec) + 0x0)), g_name_slots[0]);
     g_cur_route_rec->kind = kind;
     g_cur_route_rec->stops = 2;
     set_route(0);

@@ -2,13 +2,13 @@
  *
  * Ported by tools/port.py from matched/game/window_of.c.
  *
- * The file's own Obj dropped for the merged record in col/records.h.
- *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
-void * window_of(Obj *o)
+typedef struct { char pad[6]; void *win; } GameWinBase;
+
+void * window_of(GameWinBase *o)
 {
-    return (*((void * *)((unsigned char *)(o) + 0x6)));
+    return o->win;
 }

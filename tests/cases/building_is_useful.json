@@ -8,13 +8,12 @@
  "ret_bits": 16,
  "ret_bits_emu": 16,
  "sweep": [
-  "0=-4..24"
+  "0=0..4"
  ],
  "call": "(long)building_is_useful((col_i16)a0)",
  "globals_read": [
-  "g_stub_a",
-  "g_tbl21_13e",
-  "g_tbl21_140"
+  "g_prod",
+  "g_stub_a"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

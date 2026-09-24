@@ -5,7 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern int far g_view_mode;                          SEG20:0x7792
  *   extern int far g_cycle_flag;                         DGROUP:0x0076
- *   extern char far g_game_record2[];                    SEG20:0x40d6
+ *   extern char far g_game_record2;                      SEG20:0x40d6
  *   extern int far g_map_center_x;                       DGROUP:0x1c92
  *   extern int far g_map_center_y;                       DGROUP:0x1c94
  *   extern int g_stub_a;                                 
@@ -29,11 +29,11 @@ void map_goto(col_i16 x, col_i16 y, col_i16 flag)
     if (on_map(x, y) != 0) {
         if (g_view_mode == 1) {
             if (flag != 0 && g_cycle_flag != 0)
-                refresh_unit_cursor(g_game_record2);
+                refresh_unit_cursor(&(*g_game_record2));
             set_cursor_pos(x, y);
             if (flag != 0) {
                 g_cycle_flag = 0;
-                refresh_unit_cursor(g_game_record2);
+                refresh_unit_cursor(&(*g_game_record2));
             }
         }
         g_map_center_x = x;

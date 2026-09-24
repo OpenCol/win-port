@@ -5,7 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern char far g_screen_surface;                    SEG20:0xdea0
  *   extern char far g_game_palette;                      SEG20:0x01ac
- *   extern char far g_sprites_4526[][0x20];              SEG20:0x4526
+ *   extern char far g_art_base[][0x20];                  SEG20:0x41a6
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -36,18 +36,18 @@ void load_sprite_sheet_cc(void)
     MSLockGraf(&g_screen_surface);
     x = 0xcf;
     y = 0xb7;
-    sprite_extract_to_screen(g_sprites_4526[150], mode, x, y, 0x20, 0x20);
-    sprite_extract_to_screen(g_sprites_4526[151], mode, x + 0x21, y, 0x20, 0x20);
-    sprite_extract_to_screen(g_sprites_4526[152], mode, x, y + 0x21, 0x20, 0x20);
-    sprite_extract_to_screen(g_sprites_4526[153], mode, x + 0x21, y + 0x21, 0x20, 0x20);
+    sprite_extract_to_screen((&g_art_base[178]), mode, x, y, 0x20, 0x20);
+    sprite_extract_to_screen((&g_art_base[179]), mode, x + 0x21, y, 0x20, 0x20);
+    sprite_extract_to_screen((&g_art_base[180]), mode, x, y + 0x21, 0x20, 0x20);
+    sprite_extract_to_screen((&g_art_base[181]), mode, x + 0x21, y + 0x21, 0x20, 0x20);
     x = 0xd;
     y = 0x52;
     for (i = 0; i < 16; i++, x += 0x21)
-        sprite_extract_to_screen(g_sprites_4526[i], mode, x, y, 0x20, 0x20);
+        sprite_extract_to_screen((&g_art_base[i + 28]), mode, x, y, 0x20, 0x20);
     x = 0xd;
     y += 0x21;
     for (i = 0; i < 16; i++, x += 0x21)
-        sprite_extract_to_screen(g_sprites_4526[i + 16], mode, x, y, 0x20, 0x20);
+        sprite_extract_to_screen((&g_art_base[i + 16 + 28]), mode, x, y, 0x20, 0x20);
     MSUnlockGraf(&g_screen_surface);
     GRPort_Init_wh_1008_d6e7(&g_screen_surface);
 }

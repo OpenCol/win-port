@@ -14,8 +14,8 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 PortInfo * get_p_22_1070_dc44(void *p);
-col_i16 get_w_2_1070_dbc7(void *p);
-col_i16 get_w_4_1070_dbe6(void *p);
+col_i16 port_height_1070_dbe6(void *port);
+col_i16 port_width_1070_dbc7(void *port);
 col_i16 rect_height(RECT *r);
 col_i16 rect_width(RECT *r);
 
@@ -67,17 +67,17 @@ col_i32 pascal port_wndproc(col_u16 hwnd, col_u16 msg, col_u16 wparam,
             hdc = BeginPaint(hwnd, &ps);
             rc = ps.rcPaint;
             SetRect(&dst, 0, 0, 0, 0);
-            if (get_w_2_1070_dbc7(port) < get_w_4_1070_dbe6(port)) {
-                dst.right = get_w_2_1070_dbc7(port) * rect_width(&rc) / get_w_4_1070_dbe6(port);
+            if (port_width_1070_dbc7(port) < port_height_1070_dbe6(port)) {
+                dst.right = port_width_1070_dbc7(port) * rect_width(&rc) / port_height_1070_dbe6(port);
                 dst.bottom = rect_height(&rc);
             } else {
                 dst.right = rect_width(&rc);
-                dst.bottom = get_w_4_1070_dbe6(port) * rect_height(&rc) / get_w_2_1070_dbc7(port);
+                dst.bottom = port_height_1070_dbe6(port) * rect_height(&rc) / port_width_1070_dbc7(port);
             }
             srcdc = get_p_22_1070_dc44(port)->hdc;
             WinGStretchBlt(hdc, (rect_width(&rc) - rect_width(&dst)) >> 1,
                            (rect_height(&rc) - rect_height(&dst)) >> 1, dst.right, dst.bottom, srcdc, 0, 0,
-                           get_w_2_1070_dbc7(port), get_w_4_1070_dbe6(port));
+                           port_width_1070_dbc7(port), port_height_1070_dbe6(port));
             EndPaint(hwnd, &ps);
         } else if (IsWindowVisible(hwnd)) {
             BeginPaint(hwnd, &ps);

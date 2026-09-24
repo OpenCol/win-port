@@ -10,7 +10,7 @@
 #include <string.h>
 #include "col/globals.h"
 
-void append_space(char *s)
+void append_space(char *buf)
 {
-    strcat(s, " ");
+    strcat(buf, " ");
 }

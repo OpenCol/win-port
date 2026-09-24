@@ -2,15 +2,14 @@
  *
  * Ported by tools/port.py from matched/game/MSShowWindow_of_1048_ecce.c.
  *
- * The file's own Obj dropped for the merged record in col/records.h.
- *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
+typedef struct { char pad[6]; void *win; } GameWinBase;
 extern void MSShowWindow(void *w);
 
-void MSShowWindow_of_1048_ecce(Obj *o)
+void MSShowWindow_of_1048_ecce(GameWinBase *o)
 {
-    MSShowWindow((*((void * *)((unsigned char *)(o) + 0x6))));
+    MSShowWindow(o->win);
 }

@@ -3,7 +3,7 @@
  "symbol": "deref_long",
  "shipped": "1068:d5fe",
  "source": "src/gfx/deref_long.c",
- "prototype": "col_i32 deref_long(col_i32 * p);",
+ "prototype": "col_i32 deref_long(void * p);",
  "state": "shipped",
  "ret_bits": 32,
  "ret_bits_emu": 32,
@@ -14,7 +14,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)deref_long((col_i32 far *)(col_seg34 + 0x0dccL))",
+ "call": "(long)deref_long((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

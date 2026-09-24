@@ -6,6 +6,6 @@
  */
 #include "col/globals.h"
 
-void empty_1068_dc30(void *unused1, void *unused2, void *unused3)
+void empty_1068_dc30(void *unused1, void *unused2, void *inname)
 {
 }

@@ -26,7 +26,7 @@
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_w_2_1058_bcfb",
+  "port_width_1058_bcfb",
   "rect_width_at_8_1058_c203"
  ],
  "host_blind": "calls scale_map_select, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"

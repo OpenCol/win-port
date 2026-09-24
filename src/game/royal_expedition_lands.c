@@ -9,12 +9,12 @@
  *   extern int far g_colony_count;                       SEG20:0x77a0
  *   extern UnitType far g_unit_types[];                  SEG20:0x7ac8
  *   extern Unit far g_units[];                           SEG20:0xa208
- *   extern Rec19 far g_rec19_d9eb[];                     SEG20:0xd9eb
+ *   extern unsigned char far g_unit_tally[][0x13];       SEG20:0xd9de
  *   extern signed char far g_dir_dx[];                   SEG27:0x0000
  *   extern signed char far g_dir_dy[];                   SEG27:0x0009
  *   extern char far g_map_window;                        SEG20:0x0658
  *
- * The file's own Unit, UnitType, Colony, Rec19 dropped for the merged record in col/records.h.
+ * The file's own Unit, UnitType, Colony dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -45,8 +45,8 @@ extern col_i16 colony_sol_percent(void);
 extern void sort_int_pairs_by_key(col_i16 n, col_i16 *ids, col_i16 *keys);
 extern col_i16 ocean(col_i16 x, col_i16 y);
 extern col_i16 square_nation(col_i16 x, col_i16 y);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
-extern col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
+extern col_i16 square_region_if_land(col_i16 x, col_i16 y);
 extern unsigned char map_plane2_high_nibble(col_i16 x, col_i16 y);
 extern void map_goto(col_i16 x, col_i16 y, col_i16 flag);
 extern void MapWin_SlideIcon(char *w, col_i16 u, col_i16 speed, col_i16 a, col_i16 x0, col_i16 y0,
@@ -129,7 +129,7 @@ void royal_expedition_lands(col_i16 nation)
         if (g_royal_forces[ROYAL_MAN_O_WAR] == total)
             goto done;
     } else {
-        if (g_rec19_d9eb[g_mother_country_idx].fleet_gone == 0)
+        if (g_unit_tally[g_mother_country_idx][UNIT_MAN_O_WAR] == 0)
             g_royal_forces[ROYAL_MAN_O_WAR]++;
         goto done;
     }
@@ -201,7 +201,7 @@ void royal_expedition_lands(col_i16 nation)
     troops = min_int_1038_8680(g_unit_types[0x12].holds, troops);
     if (skip >= n)
         goto done;
-    region = map_plane2_nibble_if_land(g_cur_colony_rec->x, g_cur_colony_rec->y);
+    region = square_region_if_land(g_cur_colony_rec->x, g_cur_colony_rec->y);
     best = 0;
     for (d = 0; d < 8; d++) {
         nx = g_cur_colony_rec->x + g_dir_dx[d];
@@ -209,14 +209,14 @@ void royal_expedition_lands(col_i16 nation)
         score = 0;
         if (!ocean(nx, ny))
             continue;
-        if (map_plane2_nibble(nx, ny) != 1)
+        if (square_region(nx, ny) != 1)
             continue;
         for (d2 = 0; d2 < 8; d2++) {
             nx2 = g_dir_dx[d2] + nx;
             ny2 = g_dir_dy[d2] + ny;
             if (ocean(nx2, ny2))
                 continue;
-            if (map_plane2_nibble_if_land(nx2, ny2) != region)
+            if (square_region_if_land(nx2, ny2) != region)
                 continue;
             if (square_nation(nx2, ny2) >= 0)
                 continue;
@@ -278,7 +278,7 @@ void royal_expedition_lands(col_i16 nation)
                 continue;
             if (ABSDIFF(ny, g_cur_colony_rec->y) > 1)
                 continue;
-            region2 = map_plane2_nibble_if_land(nx, ny);
+            region2 = square_region_if_land(nx, ny);
             if (region != region2)
                 continue;
             if (troops > 0) {

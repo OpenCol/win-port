@@ -10,17 +10,17 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void dlg_control_init_1068_e478(Ctl *c, void *win, col_i16 x, col_i16 y, RECT *r);
+void dlg_control_init_1068_e478(Ctl *c, void *win, col_i16 kind, col_i16 id, RECT *r);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern col_i16 MSInitRadio(void *sub, RECT *r, col_i16 n, Ctl *c, col_i16 a, col_i16 b, col_i16 f);
 extern void * MSHLock(col_i16 h);
 
-void radio_init(Ctl *c, void *win, col_i16 y, RECT *r,
+void radio_init(Ctl *c, void *win, col_i16 id, RECT *r,
                               register col_i16 n, col_i16 a, col_i16 b)
 {
-    dlg_control_init_1068_e478(c, win, 3, y, r);
+    dlg_control_init_1068_e478(c, win, 3, id, r);
     (*((col_i32 *)((unsigned char *)(c) + 0x1a))) = 0;
     (*((col_i32 *)((unsigned char *)(c) + 0x1e))) = 0;
     (*((col_i32 *)((unsigned char *)(c) + 0x22))) = 0;

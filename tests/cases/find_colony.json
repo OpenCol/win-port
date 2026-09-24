@@ -12,7 +12,7 @@
   "g_colony_count",
   "g_cur_colony_rec",
   "g_game_record2",
-  "g_name_buf",
+  "g_name_slots",
   "g_reveal_all",
   "g_text_ctx",
   "g_view_nation"

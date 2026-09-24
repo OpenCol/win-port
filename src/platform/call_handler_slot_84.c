@@ -8,8 +8,8 @@
 
 typedef struct { char pad[0x54]; void ( *handler)(col_i16 a); } HandlerTable;
 
-void call_handler_slot_84(HandlerTable *t, col_i16 a)
+void call_handler_slot_84(HandlerTable *t, col_i16 pos)
 {
     if (t->handler != 0)
-        (*t->handler)(a);
+        (*t->handler)(pos);
 }

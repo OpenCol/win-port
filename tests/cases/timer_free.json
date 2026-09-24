@@ -3,7 +3,7 @@
  "symbol": "timer_free",
  "shipped": "1068:9190",
  "source": "src/gfx/timer_free.c",
- "prototype": "void timer_free(Timers * t, col_i16 slot);",
+ "prototype": "void timer_free(void * t, col_i16 slot);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -15,7 +15,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "timer_free((Timers far *)(col_seg34 + 0x0dccL), (col_i16)a2)",
+ "call": "timer_free((void far *)(col_seg34 + 0x0dccL), (col_i16)a2)",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

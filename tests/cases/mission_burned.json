@@ -26,5 +26,5 @@
   "burn_mission",
   "show_text_dialog_1038_865b"
  ],
- "host_blind": "calls burn_mission, set_name_slot_from_text, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+ "host_blind": "calls set_name_slot_from_text, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

@@ -15,6 +15,7 @@
  "near_callees": [
   "colony_site_layout"
  ],
+ "host_blind": "calls colony_site_layout, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
  "unverifiable": "a forwarder to colony_site_layout, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
  "call_args": [
   "0"

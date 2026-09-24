@@ -3,7 +3,7 @@
  "symbol": "colony_trade_summary",
  "shipped": "1018:7fe7",
  "source": "src/game/colony_trade_summary.c",
- "prototype": "col_i16 colony_trade_summary(col_i16 * best_out, col_i16 * own_out, col_i16 * total_out);",
+ "prototype": "col_i16 colony_trade_summary(void * best_out, void * own_out, void * total_out);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -20,7 +20,7 @@
   "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
   "SEG34:0x0e4c": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6"
  },
- "call": "(long)colony_trade_summary((col_i16 far *)(col_seg34 + 0x0dccL), (col_i16 far *)(col_seg34 + 0x0e0cL), (col_i16 far *)(col_seg34 + 0x0e4cL))",
+ "call": "(long)colony_trade_summary((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL), (void far *)(col_seg34 + 0x0e4cL))",
  "globals_read": [
   "g_cur_colony_rec",
   "g_dir_dx",

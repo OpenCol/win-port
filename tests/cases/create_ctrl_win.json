@@ -26,7 +26,7 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "InitCtrlBlock",
-  "get_p_4_1070_96a8",
+  "ctl_window_1070_96a8",
   "get_p_6_1070_95f0",
   "rect_height_1070_9649",
   "rect_width_1070_962a"

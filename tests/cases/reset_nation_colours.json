@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "reset_nation_colours",
+ "shipped": "1038:4f6d",
+ "source": "src/game/reset_nation_colours.c",
+ "prototype": "void reset_nation_colours(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "reset_nation_colours()",
+ "globals_read": [
+  "g_nation_colour"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

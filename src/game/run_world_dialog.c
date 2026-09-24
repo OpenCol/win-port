@@ -15,8 +15,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1030_e93a(Screen *s);
-col_i16 get_w_4_1030_e959(Screen *s);
+col_i16 port_height_1030_e959(Screen *s);
+col_i16 port_width_1030_e93a(Screen *s);
 void MSDoAllTasks_1030_e5fe(void);
 void MSDoTask_1030_e630(void);
 void MSHideWindow_of_1030_e647(void *w);
@@ -92,12 +92,12 @@ col_i16 run_world_dialog(Screen *s)
     load_picture_resource(((char *)((unsigned char *)(s) + 0x178)), 0x44e, 0x28, 0xc0, &(*g_game_palette));
     draw_selected_panels(s);
     set_handler_slot_4_1030_e522((char *)s + 0x33, dispatch_click_1030_1241);
-    SetRect(&r, 0, 0, get_w_2_1030_e93a(s) / 3, 0x19);
-    OffsetRect(&r, get_w_2_1030_e93a(s) / 3 / 2, get_w_4_1030_e959(s) - 0x1e);
+    SetRect(&r, 0, 0, port_width_1030_e93a(s) / 3, 0x19);
+    OffsetRect(&r, port_width_1030_e93a(s) / 3 / 2, port_height_1030_e959(s) - 0x1e);
     ctl_init_button_1030_e55b(((char *)((unsigned char *)(s) + 0x134)), (char *)s + 0x26, 0x64, &r, "~Ok");
     set_p_1c_1030_e5bf(((char *)((unsigned char *)(s) + 0x134)), dialog_click_19e);
-    SetRect(&r, get_w_2_1030_e93a(s) / 2, 0, get_w_2_1030_e93a(s) / 2 + get_w_2_1030_e93a(s) / 3, 0x19);
-    OffsetRect(&r, 0, get_w_4_1030_e959(s) - 0x1e);
+    SetRect(&r, port_width_1030_e93a(s) / 2, 0, port_width_1030_e93a(s) / 2 + port_width_1030_e93a(s) / 3, 0x19);
+    OffsetRect(&r, 0, port_height_1030_e959(s) - 0x1e);
     ctl_init_button_1030_e55b(((char *)((unsigned char *)(s) + 0x156)), (char *)s + 0x26, 0x65, &r, "~Cancel");
     set_p_1c_1030_e5bf(((char *)((unsigned char *)(s) + 0x156)), dialog_click_19e);
     win_center_1030_e5d9((char *)s + 0x26);

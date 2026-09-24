@@ -3,7 +3,7 @@
  "symbol": "empty_1068_dc30",
  "shipped": "1068:dc30",
  "source": "src/gfx/empty_1068_dc30.c",
- "prototype": "void empty_1068_dc30(void * unused1, void * unused2, void * unused3);",
+ "prototype": "void empty_1068_dc30(void * unused1, void * unused2, void * inname);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

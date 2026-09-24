@@ -18,8 +18,8 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_w_2_1048_d4f6",
-  "get_w_4_1048_d7c5",
+  "port_height_1048_d7c5",
+  "port_width_1048_d4f6",
   "rect_height_1048_d6ba",
   "rect_width_1048_d69b",
   "win_center_1048_d80b",

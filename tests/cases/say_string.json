@@ -3,7 +3,7 @@
  "symbol": "say_string",
  "shipped": "1040:a33d",
  "source": "src/game/say_string.c",
- "prototype": "void say_string(char * dst, col_i16 n);",
+ "prototype": "void say_string(char * buf, col_i16 word);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

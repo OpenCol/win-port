@@ -3,7 +3,7 @@
  "symbol": "win_center_1050_851f",
  "shipped": "1050:851f",
  "source": "src/game/win_center_1050_851f.c",
- "prototype": "void win_center_1050_851f(GameWinBase * o);",
+ "prototype": "void win_center_1050_851f(void * o);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -14,7 +14,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "win_center_1050_851f((GameWinBase far *)(col_seg34 + 0x0dccL))",
+ "call": "win_center_1050_851f((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

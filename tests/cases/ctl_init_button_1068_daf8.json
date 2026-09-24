@@ -3,7 +3,7 @@
  "symbol": "ctl_init_button_1068_daf8",
  "shipped": "1068:daf8",
  "source": "src/gfx/ctl_init_button_1068_daf8.c",
- "prototype": "void ctl_init_button_1068_daf8(Ctl * c, void * win, col_i16 y, RECT * r, char * title);",
+ "prototype": "void ctl_init_button_1068_daf8(Ctl * c, void * win, col_i16 id, RECT * r, char * title);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

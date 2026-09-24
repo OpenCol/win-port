@@ -8,7 +8,7 @@
  *   extern int far g_view_nation;                        SEG20:0x7798
  *   extern int far g_reveal_all;                         SEG20:0x77a4
  *   extern char far g_text_ctx;                          DGROUP:0x009e
- *   extern char far g_name_buf;                          SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *   extern char far g_game_record2;                      SEG20:0x40d6
  *
  * The file's own Colony dropped for the merged record in col/records.h.
@@ -43,7 +43,7 @@ void find_colony(void)
     if (prompt_text_loop(&(*g_text_ctx), "FINDCITY", 0x17, "") == 0) {
         for (c = 0; found < 0 && c < g_colony_count; c++) {
             set_current_colony(c);
-            if (STRICMP(&(*g_name_buf), ((char *)((unsigned char *)(g_cur_colony_rec) + 0x2))) == 0) {
+            if (STRICMP(g_name_slots[0], ((char *)((unsigned char *)(g_cur_colony_rec) + 0x2))) == 0) {
                 if (g_view_nation >= NATION_EUROPEAN_COUNT
                     || (map_plane3_at(g_cur_colony_rec->x, g_cur_colony_rec->y)
                         & (0x10 << g_view_nation))
@@ -55,7 +55,7 @@ void find_colony(void)
             view_pieces(&(*g_game_record2));
             map_goto(g_cur_colony_rec->x, g_cur_colony_rec->y, 0);
         } else {
-            dialog_set_option_text(0, &(*g_name_buf));
+            dialog_set_option_text(0, g_name_slots[0]);
             ask_text_resource("NOCITY");
         }
     }

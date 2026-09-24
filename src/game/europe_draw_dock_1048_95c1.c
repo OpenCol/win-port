@@ -7,7 +7,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern NationRec far g_nation_recs[4];               SEG20:0x7828
- *   extern int far g_word_dcdc;                          SEG20:0xdcdc
+ *   extern int far g_misc_words[];                       SEG20:0xdcc8
  *   extern char far g_report_font_small;                 DGROUP:0x4b0a
  *   extern int g_cur_nation;                             DGROUP:0x4cc8
  *
@@ -30,7 +30,7 @@ extern void pascal SetRect(RECT *r, col_i16 l, col_i16 t, col_i16 rt, col_i16 b)
 #endif
 
 /* 0x34 bytes */
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void TextColor(col_i16 v);
 extern void draw_string_shadowed(EuropeWin *w, void *font, char *s,
                                      col_i16 x, col_i16 y, col_i16 a);
@@ -59,7 +59,7 @@ void europe_draw_dock_1048_95c1(EuropeWin *w, col_i16 refresh)
     set_current_nation(w->nation);
     colony_blit_cell_1048_9d70(w, 0x8f, 0x102, 0x8b, 0x79);
     buf[0] = 0;
-    say_string(buf, g_word_dcdc);
+    say_string(buf, g_misc_words[10]);
     TextColor(0x77);
     draw_string_shadowed(w, &g_report_font_small, buf, w->ox + 0xd4, w->oy + 0x10c, 0);
     buf[0] = 0;

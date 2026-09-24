@@ -11,7 +11,7 @@
  "globals_read": [
   "g_colonies",
   "g_cur_route_rec",
-  "g_default_route_name",
+  "g_name_slots",
   "g_random_seed",
   "g_routes",
   "g_text_args",

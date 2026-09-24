@@ -3,7 +3,7 @@
  * Ported by tools/port.py from matched/game/map_goods_flag_message.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern char far g_colony_window[];                   SEG20:0x25be
+ *   extern char far g_colony_window;                     SEG20:0x25be
  *   extern char far g_map_window[];                      SEG20:0x0658
  *   extern int far g_goods_name_word[];                  SEG20:0xd86e
  *   extern int g_stub_a;                                 
@@ -25,7 +25,7 @@ extern void ColChild_AddToMessage(void *w, col_i16 idx);
 
 void map_goods_flag_message(col_i16 goods, col_i16 unused, col_i16 flag)
 {
-    ColChild_CancelMessage(g_colony_window, 1);
+    ColChild_CancelMessage(&(*g_colony_window), 1);
     if (flag != 0)
         colony_message(0xf);
     else

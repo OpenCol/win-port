@@ -3,7 +3,7 @@
  "symbol": "rle_pack_handle",
  "shipped": "1068:c831",
  "source": "src/gfx/rle_pack_handle.c",
- "prototype": "col_i32 rle_pack_handle(col_i16 * h, col_i32 n);",
+ "prototype": "col_i32 rle_pack_handle(void * h, col_i32 n);",
  "state": "shipped",
  "ret_bits": 32,
  "ret_bits_emu": 32,
@@ -16,7 +16,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)rle_pack_handle((col_i16 far *)(col_seg34 + 0x0dccL), (col_i32)(((col_u32)(col_u16)a3 << 16) | (col_u16)a2))",
+ "call": "(long)rle_pack_handle((void far *)(col_seg34 + 0x0dccL), (col_i32)(((col_u32)(col_u16)a3 << 16) | (col_u16)a2))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

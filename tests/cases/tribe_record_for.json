@@ -14,8 +14,8 @@
  "globals_read": [
   "g_game_flags",
   "g_mother_country_idx",
-  "g_player_nation",
-  "g_rec52"
+  "g_nation_recs",
+  "g_player_nation"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

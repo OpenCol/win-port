@@ -12,8 +12,8 @@
  * translation units, joined by the linker. */
 col_i16 get_w_22(void *r);
 col_i16 get_w_26_1070_9ada(void *r);
-void * get_p_4_1070_96a8(void *r);
-void call_handler_slot_26_1070_9af3(void *t, col_i16 a);
+void * ctl_window_1070_96a8(void *r);
+void call_handler_slot_26_1070_9af3(void *bar, col_i16 pos);
 void call_handler_slot_30_1070_9b19(void *t, col_i16 a);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
@@ -59,19 +59,19 @@ void scrollbar_message(col_u16 hwnd, col_u16 msg, col_u16 code, col_i32 value)
         case SB_THUMBPOSITION:
             pos = (col_i16)value;
             SetScrollPos(h, SB_CTL, pos, 1);
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             bar->pos = pos;
             call_handler_slot_26_1070_9af3(bar, bar->pos);
             break;
         case SB_THUMBTRACK:
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             call_handler_slot_30_1070_9b19(bar, (col_i16)value);
             break;
         case SB_LINEDOWN:
             pos++;
             SetScrollPos(h, SB_CTL, pos, 1);
             pos = GetScrollPos(h, SB_CTL);
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             bar->pos = pos;
             call_handler_slot_26_1070_9af3(bar, pos);
             break;
@@ -79,7 +79,7 @@ void scrollbar_message(col_u16 hwnd, col_u16 msg, col_u16 code, col_i32 value)
             pos--;
             SetScrollPos(h, SB_CTL, pos, 1);
             pos = GetScrollPos(h, SB_CTL);
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             bar->pos = pos;
             call_handler_slot_26_1070_9af3(bar, pos);
             break;
@@ -87,7 +87,7 @@ void scrollbar_message(col_u16 hwnd, col_u16 msg, col_u16 code, col_i32 value)
             pos += get_w_22(bar);
             SetScrollPos(h, SB_CTL, pos, 1);
             pos = GetScrollPos(h, SB_CTL);
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             bar->pos = pos;
             call_handler_slot_26_1070_9af3(bar, pos);
             break;
@@ -95,7 +95,7 @@ void scrollbar_message(col_u16 hwnd, col_u16 msg, col_u16 code, col_i32 value)
             pos -= get_w_22(bar);
             SetScrollPos(h, SB_CTL, pos, 1);
             pos = GetScrollPos(h, SB_CTL);
-            set_current_window(get_p_4_1070_96a8(bar));
+            set_current_window(ctl_window_1070_96a8(bar));
             bar->pos = pos;
             call_handler_slot_26_1070_9af3(bar, pos);
             break;

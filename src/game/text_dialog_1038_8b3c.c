@@ -11,9 +11,9 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 text_dialog_1038_8c3c(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 f);
+col_i16 text_dialog_1038_8c3c(void *file, void *name, col_i16 a, col_i16 b);
 
-col_i16 text_dialog_1038_8b3c(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e)
+col_i16 text_dialog_1038_8b3c(void *file, void *name, col_i16 b)
 {
-    return text_dialog_1038_8c3c(a, b, c, d, 0, e);
+    return text_dialog_1038_8c3c(file, name, 0, b);
 }

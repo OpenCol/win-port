@@ -21,8 +21,8 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "control_is_current",
+  "ctl_kind_1070_9669",
   "get_p_6_1070_95f0",
-  "get_w_0_1070_9669",
   "get_w_1a_1070_981e",
   "get_w_20_1070_997b",
   "hwnd_is_ms_control",

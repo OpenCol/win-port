@@ -3,7 +3,7 @@
  "symbol": "cell_production",
  "shipped": "1018:6587",
  "source": "src/game/cell_production.c",
- "prototype": "col_i16 cell_production(col_i16 col, col_i16 row, col_i16 * kind_out, col_i16 flag);",
+ "prototype": "col_i16 cell_production(col_i16 col, col_i16 row, void * kind_out, col_i16 flag);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -17,13 +17,13 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)cell_production((col_i16)a0, (col_i16)a1, (col_i16 far *)(col_seg34 + 0x0dccL), (col_i16)a4)",
+ "call": "(long)cell_production((col_i16)a0, (col_i16)a1, (void far *)(col_seg34 + 0x0dccL), (col_i16)a4)",
  "globals_read": [
   "g_cur_colony_rec",
   "g_difficulty",
   "g_nation52",
-  "g_turn_phase",
-  "g_yield"
+  "g_terrain_rows",
+  "g_turn_phase"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

@@ -30,7 +30,7 @@ void set_text_arg_i_1038_86cc(col_i16 slot, col_i16 v);
 extern col_i16 rand_range(col_i16 lo, col_i16 hi);
 extern char nation_pair_flags_get(col_i16 a, col_i16 b);
 extern void say_number(char *s, col_i16 v);
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void append_space(char *s);
 extern void append_comma_space(char *s);
 extern void set_nation_name_slot(col_i16 slot, col_i16 flag, col_i16 nation);

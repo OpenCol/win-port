@@ -3,7 +3,7 @@
  "symbol": "font_text_extent_1060_6977",
  "shipped": "1060:6977",
  "source": "src/game/font_text_extent_1060_6977.c",
- "prototype": "col_i16 font_text_extent_1060_6977(FontRec * f, char * s);",
+ "prototype": "col_i16 font_text_extent_1060_6977(FontRec * f, char * buf);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,

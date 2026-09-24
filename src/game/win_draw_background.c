@@ -14,8 +14,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1050_8b8a(void *w);
-col_i16 get_w_4_1050_8ba9(void *w);
+col_i16 port_height_1050_8ba9(void *w);
+col_i16 port_width_1050_8b8a(void *w);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
@@ -48,8 +48,8 @@ void win_draw_background(Win *w, col_i16 unused1, col_i16 unused2, col_i16 unuse
     register col_i16 b;
 
     if ((*((col_i16 *)((unsigned char *)(w) + 0x340))) != 0) {
-        width = get_w_2_1050_8b8a((*((void * *)((unsigned char *)(w) + 0x0))));
-        height = get_w_4_1050_8ba9((*((void * *)((unsigned char *)(w) + 0x0))));
+        width = port_width_1050_8b8a((*((void * *)((unsigned char *)(w) + 0x0))));
+        height = port_height_1050_8ba9((*((void * *)((unsigned char *)(w) + 0x0))));
         for (a = 0; a < height; a += 0x20)
             for (b = 0; b < width; b += 0x20)
                 sprite_draw(&r1, ((char *)((unsigned char *)(w) + 0x4e)), (*((void * *)((unsigned char *)(w) + 0x0))), b, a);
@@ -91,8 +91,8 @@ void win_draw_background(Win *w, col_i16 unused1, col_i16 unused2, col_i16 unuse
         rc.bottom--;
         GRPort_DrawRect((*((void * *)((unsigned char *)(w) + 0x0))), &rc);
     } else {
-        width = get_w_2_1050_8b8a((*((void * *)((unsigned char *)(w) + 0x0))));
-        height = get_w_4_1050_8ba9((*((void * *)((unsigned char *)(w) + 0x0))));
+        width = port_width_1050_8b8a((*((void * *)((unsigned char *)(w) + 0x0))));
+        height = port_height_1050_8ba9((*((void * *)((unsigned char *)(w) + 0x0))));
         SetRect(&rc, 0, 0, width, height);
         FillColor((*((void * *)((unsigned char *)(w) + 0x0))), &rc, 0x24);
         SetRect(&rc, 3, 3, width - 3, height - 3);

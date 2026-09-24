@@ -5,7 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern Unit far g_units[];                           SEG20:0xa208
  *   extern int far g_selected_unit;                      SEG20:0x7794
- *   extern char far g_info_win[];                        SEG20:0x1566
+ *   extern char far g_info_win;                          SEG20:0x1566
  *
  * The file's own Unit dropped for the merged record in col/records.h.
  *
@@ -34,7 +34,7 @@ void open_colony_under_unit_1008_0e05(void)
     set_current_colony(c);
     if (unload_cheapest_goods(sel, 0) != 0)
         goto out;
-    window_relayout(g_info_win);
+    window_relayout(&(*g_info_win));
 out:
     ;
 }

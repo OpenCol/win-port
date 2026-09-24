@@ -13,7 +13,7 @@
  ],
  "call": "(long)colony_flag_get((col_i16)a0, (col_i16)a1)",
  "globals_read": [
-  "g_colony_flags"
+  "g_colonies"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

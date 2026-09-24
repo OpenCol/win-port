@@ -13,11 +13,11 @@
  * translation units, joined by the linker. */
 void * window_of(void *o);
 
-extern void scroll_get_range_ex_1070_604d(void *w, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 f);
+extern void scroll_get_range_ex_1070_604d(void *w, col_i16 *lo, col_i16 *hi, col_i16 f);
 
 
 
-void scroll_get_range_ex_1060_adea(void *o, col_i16 a, col_i16 b, col_i16 c, col_i16 d)
+void scroll_get_range_ex_1060_adea(void *o, col_i16 *lo, col_i16 *hi)
 {
-    scroll_get_range_ex_1070_604d(window_of(o), a, b, c, d, 0);
+    scroll_get_range_ex_1070_604d(window_of(o), lo, hi, 0);
 }

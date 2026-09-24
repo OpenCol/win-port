@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-extern col_i16 MSCreateFile(col_i16 a, col_i16 b, col_i16 c, col_i16 d);
+extern col_i16 MSCreateFile(char *name, void *f);
 
-col_i16 file_MSCreateFile_1070_7f21(col_i16 a, col_i16 b, col_i16 c, col_i16 d)
+col_i16 file_MSCreateFile_1070_7f21(char *name, void *f)
 {
-    return MSCreateFile(a, b, c, d);
+    return MSCreateFile(name, f);
 }

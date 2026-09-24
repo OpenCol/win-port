@@ -287,6 +287,24 @@ def _shipped_labels():
 SHIPPED = _shipped_labels()
 
 
+def driver_sig(sig, params):
+    """`sig` with any pointee the shared header does not define replaced by `void`.
+
+    tests/differential.py writes a driver beside the case and declares the function
+    there. A file-local struct -- `GameWinBase`, defined in the ported unit and nowhere
+    else -- is a name that driver cannot see, and the build failed on it.
+    """
+    for ty, _nm in params:
+        if not ty.endswith('*'):
+            continue
+        pt = ty[:-1].strip()
+        if pt in RECORDS or retype(pt) in WIDTH or pt in ('RECT', 'POINT', 'void',
+                                                          'char'):
+            continue
+        sig = re.sub(r'\b%s\b(?=\s*\*)' % re.escape(retype(pt)), 'void', sig)
+    return sig
+
+
 def ported_paths(name):
     """The ports of exactly this name, matched CASE-SENSITIVELY.
 
@@ -852,13 +870,14 @@ def port(path, force=False):
     # A wrongly named receiver compiles identically, so this is refused rather than
     # guessed at.
     renames, casts, drop_typedefs, protos, near_callees = {}, {}, [], [], []
+    stride_local = set()
     # Which record each by-name rule was derived from. A name that means one offset
     # everywhere needs no receiver: the rule is the same whoever it is applied to. A
     # name that means two needs this, to apply the rule only to ITS record's receivers.
     rule_record = {}
     host_blind = None
     for t, tbody in typedefs.items():
-        if t not in canon_of:
+        if t not in canon_of or t in stride_local:
             continue          # types nothing shared: it stays, see above
         lay = local_layout(blank_comments(tbody))
         if lay is None:
@@ -875,9 +894,20 @@ def port(path, force=False):
             for m3 in re.finditer(r'\b%s\b(?:\s+(?:far|near))*\s*\**\s*(\w+)'
                                   % re.escape(t), blank):
                 if re.search(r'\b%s\s*\[' % re.escape(m3.group(1)), blank_rest):
-                    return None, 'its own %s is %d bytes and the record of that name is ' \
-                                 '%d, and the file indexes an array of them: the stride ' \
-                                 'would be wrong' % (t, own, want)
+                    # KEEP the file's own struct rather than refuse. Its stride is what
+                    # the code it came from indexes by, and eleven reconstructions say
+                    # Settlement is 18 bytes where the merged record says 32. The file is
+                    # self-consistent; mapping it onto a record of another size is what
+                    # would be wrong. It stays local, and local_only renames it below if
+                    # the name collides with the header's.
+                    stride_local.add(t)
+                    break
+        if t in stride_local:
+            # Out of canon_of as well, so local_only below renames it away from the
+            # header's typedef of the same name -- otherwise the two definitions of
+            # `Settlement` meet in one translation unit and neither compiles.
+            canon_of.pop(t, None)
+            continue          # its own struct stays; nothing is mapped onto the record
         canon = CANON[canon_of[t]]
         used = set(re.findall(r'(?:->|\.)\s*(\w+)', blank))
         for off, mname, ty, width, is_array, is_pointer in lay:
@@ -1163,8 +1193,16 @@ def port(path, force=False):
             blk += 1
             sel = 0x1000 + (base[0] - 1) * 8
             sweeps += ['%d=%d' % (k, off), '%d=%d' % (k + 1, sel)]
-            callargs.append('(%s far *)(col_seg%d + 0x%04xL)'
-                            % (retype(pt), base[0], off))
+            # Through `void far *`, not the pointee's own name. The DRIVER is a
+            # separate file that includes only the shared header, so a type the port
+            # keeps to itself -- `GameWinBase`, defined in the unit -- is a name the
+            # driver cannot see, and three cases failed to build on exactly that. The
+            # staged address is the same address whatever it is spelt as.
+            known = pt in RECORDS or retype(pt) in WIDTH or pt in ('RECT', 'POINT',
+                                                                   'void', 'char')
+            callargs.append(('(%s far *)(col_seg%d + 0x%04xL)' % (retype(pt), base[0], off))
+                            if known else
+                            ('(void far *)(col_seg%d + 0x%04xL)' % (base[0], off)))
             # Something to read that is not all zeroes, identical on both sides, and
             # DIFFERENT PER ARGUMENT: two pointers staged with the same bytes made
             # swap_ints a no-op, so a port that did nothing passed its own selftest.
@@ -1643,7 +1681,10 @@ def port(path, force=False):
             'symbol': name, 'shipped': shipped.group(1),
             'source': 'src/%s/%s.%s' % (os.path.basename(os.path.dirname(path)), name,
                                         'cpp' if is_cpp else 'c'),
-            'prototype': sig + ';',
+            # The prototype the DRIVER declares, which is a separate file that sees
+            # only the shared header: a pointee this unit keeps to itself has to be
+            # spelt `void *` there, exactly as its staged argument is.
+            'prototype': driver_sig(sig, params) + ';',
             'state': 'shipped', 'ret_bits': INTEGRAL[ret],
             # What the 16-bit harness compares, when it differs: a returned far pointer is
             # a real 32-bit value there and meaningless on a host.

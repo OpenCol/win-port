@@ -14,7 +14,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1060_abca(Ctl *c);
+col_i16 ctl_id_1060_abca(Ctl *c);
 void list_unlink_by_id(void *w, col_i16 id);
 
 void controls_unlink_all(Win *w)
@@ -22,5 +22,5 @@ void controls_unlink_all(Win *w)
     Ctl *c;
 
     for (c = (*((Ctl * *)((unsigned char *)(w) + 0x8c))); c != 0; c = (*((void * *)((unsigned char *)(c) + 0x12))))
-        list_unlink_by_id(w, get_w_2_1060_abca(c));
+        list_unlink_by_id(w, ctl_id_1060_abca(c));
 }

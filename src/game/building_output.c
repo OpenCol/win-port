@@ -7,9 +7,9 @@
  *   extern NationRec52 far g_nation52[];                 SEG20:0x7840
  *   extern unsigned char far g_difficulty;               SEG20:0x77a8
  *   extern Nation far g_nations[];                       SEG20:0xc2f4
- *   extern Rec12 far g_rec12_d42b[];                     SEG20:0xd42b
+ *   extern BuildingRec far g_buildings[];                SEG20:0xd422
  *
- * The file's own Colony, NationRec52, Nation, Rec12 dropped for the merged record in col/records.h.
+ * The file's own Colony, NationRec52, Nation, BuildingRec dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -33,7 +33,7 @@ col_i16 max_int_1018_b34f(col_i16 a, col_i16 b);
 #include "building.h"
 /* 52 bytes at SEG20:0x7840; +1 is CONTROL: 0 human, 1 computer, 2 defeated */
 /* 316 bytes at SEG20:0xc2f4 */
-/* 12 bytes at SEG20:0xd42b */
+/* 12 bytes at SEG20:0xd426; 0xd42b is +5, .level */
 
 
 
@@ -87,7 +87,7 @@ col_i16 building_output(col_i16 c, col_i16 *good)
     out = -1;
     slot = building_slot_of(job);
     top = colony_building_top(slot);
-    if ((col_i16)g_rec12_d42b[top].level > 0 && (g_nations[g_cur_colony_rec->nation].flags & 0x10))
+    if ((col_i16)g_buildings[top].f9 > 0 && (g_nations[g_cur_colony_rec->nation].flags & 0x10))
         halve = 1;
     switch (spec) {
     case 0x1a:

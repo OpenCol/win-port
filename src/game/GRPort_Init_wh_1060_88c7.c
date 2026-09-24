@@ -8,7 +8,7 @@
 
 extern void GRPort_Init_wh(void *p, col_i16 w, col_i16 h);
 
-void GRPort_Init_wh_1060_88c7(void *p)
+void GRPort_Init_wh_1060_88c7(void *port)
 {
-    GRPort_Init_wh(p, 0, 0);
+    GRPort_Init_wh(port, 0, 0);
 }

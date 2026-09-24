@@ -21,7 +21,7 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "byte_at_16",
-  "get_p_12_1060_abe3"
+  "ctl_next_1060_abe3"
  ],
  "host_blind": "uses the pointer member Ctl.next: four bytes in the game, eight on a host"
 }

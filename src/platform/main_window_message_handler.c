@@ -12,8 +12,8 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 Win * get_p_6_1070_dd3f(Obj *o);
-col_i16 get_w_2_1070_dd5c(void *p);
-col_i16 get_w_4_1070_dd75(void *p);
+col_i16 port_height_1070_dd75(void *p);
+col_i16 port_width_1070_dd5c(void *p);
 col_i16 rect_height(RECT *r);
 col_i16 rect_width(RECT *r);
 col_i16 win_client_height_1070_ddb3(Obj *o);
@@ -115,8 +115,8 @@ col_i32 pascal main_window_message_handler(col_u16 hwnd, col_u16 msg, col_u16 wp
         hdc = BeginPaint(hwnd, &ps);
         o = (Obj *)GetWindowLong(hwnd, 0);
         if ((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0xe))) != 0) {
-            tw = get_w_2_1070_dd5c((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0xe))));
-            th = get_w_4_1070_dd75((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0xe))));
+            tw = port_width_1070_dd5c((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0xe))));
+            th = port_height_1070_dd75((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0xe))));
             if (tw != 0 && th != 0) {
                 box = ps.rcPaint;
                 SetRect(&rc, 0, 0, tw, th);
@@ -131,8 +131,8 @@ col_i32 pascal main_window_message_handler(col_u16 hwnd, col_u16 msg, col_u16 wp
         } else if (get_p_6_1070_dd3f(o)->f8 != 0)
             FillRect(hdc, &ps.rcPaint, get_p_6_1070_dd3f(o)->f8);
         if ((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0x16))) != 0) {
-            tw = get_w_2_1070_dd5c((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0x16))));
-            th = get_w_4_1070_dd75((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0x16))));
+            tw = port_width_1070_dd5c((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0x16))));
+            th = port_height_1070_dd75((*((void * *)((unsigned char *)(get_p_6_1070_dd3f(o)) + 0x16))));
             box = ps.rcPaint;
             SetRect(&rc, 0, 0, tw, th);
             OffsetRect(&rc, (win_client_width_1070_dd8e(o) - tw) / 2,

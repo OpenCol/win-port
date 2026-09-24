@@ -3,7 +3,7 @@
  "symbol": "GRPort_GetWin_1068_968c",
  "shipped": "1068:968c",
  "source": "src/gfx/GRPort_GetWin_1068_968c.c",
- "prototype": "Win * GRPort_GetWin_1068_968c(GRPort * p);",
+ "prototype": "MSWin * GRPort_GetWin_1068_968c(GRPort * p);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 32,

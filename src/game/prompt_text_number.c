@@ -4,7 +4,7 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern long far g_text_args[];                       SEG31:0x02d4
- *   extern char far g_text_answer[];                     SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -27,6 +27,6 @@ col_i16 prompt_text_number(char *ctx, char *name, col_i16 n)
 
     LTOA1(n, buf, 10);
     result = prompt_text_loop(ctx, name, 5, buf);
-    g_text_args[0] = atol(g_text_answer);
+    g_text_args[0] = atol(g_name_slots[0]);
     return result;
 }

@@ -3,7 +3,7 @@
  "symbol": "MSWriteFile_1068_dc9a",
  "shipped": "1068:dc9a",
  "source": "src/gfx/MSWriteFile_1068_dc9a.c",
- "prototype": "col_i16 MSWriteFile_1068_dc9a(void * f, void * buf, col_i32 n);",
+ "prototype": "col_i16 MSWriteFile_1068_dc9a(void * out, void * buf, col_i32 n);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,

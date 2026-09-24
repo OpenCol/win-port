@@ -3,7 +3,7 @@
  "symbol": "dlg_control_init_1058_c3f6",
  "shipped": "1058:c3f6",
  "source": "src/game/dlg_control_init_1058_c3f6.c",
- "prototype": "void dlg_control_init_1058_c3f6(DlgControl * o, void * win, col_i16 x, col_i16 y, RECT * r);",
+ "prototype": "void dlg_control_init_1058_c3f6(DlgControl * o, void * win, col_i16 kind, col_i16 id, RECT * r);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

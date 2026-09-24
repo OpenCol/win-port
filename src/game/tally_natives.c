@@ -34,7 +34,7 @@ void add_clamped_255(unsigned char *p, col_i16 delta);
 
 
 extern void set_current_native_settlement(col_i16 s);
-extern col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);
+extern col_i16 square_region_if_land(col_i16 x, col_i16 y);
 extern col_i16 unit_combat_strength(col_i16 u, col_i16 a);
 extern col_i16 unit_tile_nibble(col_i16 u);
 
@@ -61,7 +61,7 @@ void tally_natives(register col_i16 tribe)
         if (g_cur_settlement_rec->owner == (unsigned char)owner) {
             g_tribe_settlement_count[tribe]++;
             g_tribe_pop[tribe] += g_cur_settlement_rec->size;
-            cell = map_plane2_nibble_if_land(g_cur_settlement_rec->x,
+            cell = square_region_if_land(g_cur_settlement_rec->x,
                                              g_cur_settlement_rec->y);
             g_region_settlements[cell]++;
         }

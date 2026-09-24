@@ -6,7 +6,7 @@
  * from this file's far-pointer prototype.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern int far g_word_dcda;                          SEG20:0xdcda
+ *   extern int far g_misc_words[];                       SEG20:0xdcc8
  *   extern char far g_report_font_small;                 DGROUP:0x4b0a
  *   extern int g_cur_nation;                             DGROUP:0x4cc8
  *
@@ -56,7 +56,7 @@ void europe_draw_left(EuropeWin *w, col_i16 refresh)
 
     set_current_nation(w->nation);
     colony_blit_cell_1048_9d70(w, 2, 0x102, 0x8b, 0x79);
-    strcpy(buf, nth_text_string(g_word_dcda));
+    strcpy(buf, nth_text_string(g_misc_words[9]));
     TextColor(0x77);
     draw_string_shadowed(w, &g_report_font_small, buf, w->ox + 0x47, w->oy + 0x10c, 0);
     x = 3;

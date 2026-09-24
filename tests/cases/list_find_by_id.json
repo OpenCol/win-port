@@ -19,7 +19,7 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_p_12_1070_a09a",
+  "ctl_next_1070_a09a",
   "get_w_10_1070_9681"
  ]
 }

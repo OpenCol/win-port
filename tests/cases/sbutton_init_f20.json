@@ -3,7 +3,7 @@
  "symbol": "sbutton_init_f20",
  "shipped": "1010:eabb",
  "source": "src/game/sbutton_init_f20.c",
- "prototype": "void sbutton_init_f20(SButton * o, void * win, col_i16 y, RECT * r, col_i16 f20, char * title);",
+ "prototype": "void sbutton_init_f20(SButton * o, void * win, col_i16 id, RECT * r, col_i16 f20, char * title);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

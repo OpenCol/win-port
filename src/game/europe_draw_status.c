@@ -9,8 +9,7 @@
  *   extern Nation far *g_cur_nation_rec;                 DGROUP:0x4cc4
  *   extern int far g_nation_name_word[];                 SEG20:0xd8ae
  *   extern int far g_nation_name[];                      SEG20:0xd896
- *   extern int far g_word_d994;                          SEG20:0xd994
- *   extern int far g_word_d984;                          SEG20:0xd984
+ *   extern int far g_ctitle_word[];                      SEG20:0xd982
  *   extern int far g_season;                             SEG20:0x778e
  *   extern int far g_year;                               SEG20:0x778c
  *   extern int far g_season_word[];                      DGROUP:0x4b34
@@ -36,7 +35,7 @@ extern void append_comma_space(char *s);
 extern void append_period_spaces(char *s);
 extern void append_percent(char *s);
 extern void append_space(char *s);
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void say_number(char *s, col_i16 v);
 extern void say_nation_gold(col_i16 nation, char *buf);
 extern char * LTOA1(col_i16 v, char *s, col_i16 radix);
@@ -64,12 +63,12 @@ void europe_draw_status(EuropeWin *w)
     LTOA1(g_year, num, 10);
     strcat(buf, num);
     append_period_spaces(buf);
-    say_string(buf, g_word_d994);
+    say_string(buf, g_ctitle_word[9]);
     say_number(buf, g_cur_nation_rec->tax);
     append_percent(buf);
     append_space(buf);
     append_space(buf);
-    say_string(buf, g_word_d984);
+    say_string(buf, g_ctitle_word[1]);
     append_space(buf);
     say_nation_gold(g_cur_nation, buf);
     sub_1048_d48b(w, buf);

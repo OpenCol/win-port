@@ -26,5 +26,5 @@
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
- "host_blind": "calls draw_units_in_rect, set_cursor_pos, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+ "host_blind": "calls draw_units_in_rect, refresh_arrived_unit_1040_0e2e, set_cursor_pos, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

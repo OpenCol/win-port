@@ -14,13 +14,13 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-Entry * find_entry(col_i16 a, col_i16 b, col_i16 c);
+Entry * find_entry(void *root, col_i16 which);
 
-col_i16 find_entry_value(col_i16 a, col_i16 b, col_i16 c)
+col_i16 find_entry_value(void *root, col_i16 which)
 {
     Entry *e;
 
-    e = find_entry(a, b, c);
+    e = find_entry(root, which);
     if (e == 0)
         return -1;
     return e->value_a;

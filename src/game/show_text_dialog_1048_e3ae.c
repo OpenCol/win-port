@@ -12,9 +12,9 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 text_dialog_1048_e911(void *p, col_i16 a, col_i16 b, col_i16 c);
+col_i16 text_dialog_1048_e911(void *file, void *name, col_i16 b);
 
-col_i16 show_text_dialog_1048_e3ae(col_i16 a, col_i16 b, col_i16 c)
+col_i16 show_text_dialog_1048_e3ae(char *name, col_i16 b)
 {
-    return text_dialog_1048_e911(g_dialog_ctx, a, b, c);
+    return text_dialog_1048_e911(g_dialog_ctx, name, b);
 }

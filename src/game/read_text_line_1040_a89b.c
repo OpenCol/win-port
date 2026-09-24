@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-extern col_i16 read_text_line(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e);
+extern col_i16 read_text_line(void *f, char *out, col_i16 max);
 
-col_i16 read_text_line_1040_a89b(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e)
+col_i16 read_text_line_1040_a89b(void *f, char *out, col_i16 max)
 {
-    return read_text_line(a, b, c, d, e);
+    return read_text_line(f, out, max);
 }

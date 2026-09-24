@@ -3,7 +3,7 @@
  "symbol": "GRPort_Init_wh_1060_88c7",
  "shipped": "1060:88c7",
  "source": "src/game/GRPort_Init_wh_1060_88c7.c",
- "prototype": "void GRPort_Init_wh_1060_88c7(void * p);",
+ "prototype": "void GRPort_Init_wh_1060_88c7(void * port);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

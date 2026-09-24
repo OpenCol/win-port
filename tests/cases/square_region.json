@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "square_region",
+ "shipped": "1038:ba45",
+ "source": "src/game/square_region.c",
+ "prototype": "unsigned char square_region(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)square_region((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_i"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_plane2_at"
+ ],
+ "host_blind": "calls map_plane2_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -20,9 +20,9 @@
  },
  "call": "trade_price_message((Message far *)(col_seg33 + 0x0000L), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5)",
  "globals_read": [
+  "g_ctitle_word",
   "g_cur_nation",
-  "g_goods_name_word",
-  "g_word_d984"
+  "g_goods_name_word"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

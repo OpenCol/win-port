@@ -3,7 +3,7 @@
  "symbol": "sbutton_init_1010_eeac",
  "shipped": "1010:eeac",
  "source": "src/game/sbutton_init_1010_eeac.c",
- "prototype": "void sbutton_init_1010_eeac(SButton * o, void * win, col_i16 y, RECT * r, char * title);",
+ "prototype": "void sbutton_init_1010_eeac(SButton * o, void * win, col_i16 id, RECT * r, char * title);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

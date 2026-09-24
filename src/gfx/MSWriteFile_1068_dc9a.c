@@ -8,7 +8,7 @@
 
 extern col_i16 MSWriteFile(void *f, void *buf, col_i32 n);
 
-col_i16 MSWriteFile_1068_dc9a(void *f, void *buf, col_i32 n)
+col_i16 MSWriteFile_1068_dc9a(void *out, void *buf, col_i32 n)
 {
-    return MSWriteFile(f, buf, n);
+    return MSWriteFile(out, buf, n);
 }

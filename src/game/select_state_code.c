@@ -3,17 +3,17 @@
  * Ported by tools/port.py from matched/game/select_state_code.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern struct rec far g_recs[];                      SEG20:0x7841
+ *   extern NationRec52 far g_nation52[];                 SEG20:0x7840
  *   extern char far g_game_flags;                        SEG20:0x7784
+ *
+ * The file's own NationRec52 dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
-struct rec { char busy; char pad[0x33]; };
-
-
-
+#include "control.h"
+#include "gameflag.h"
 col_i16 select_state_code(col_i16 x, col_i16 y)
 {
     col_i16 r;
@@ -26,11 +26,11 @@ col_i16 select_state_code(col_i16 x, col_i16 y)
         r = 0xb;
         break;
     case 1:
-        r = (y < 4 && g_recs[y].busy == 0) ? ((g_game_flags & 1) ? 7 : 4) : 8;
+        r = (y < 4 && g_nation52[y].control == CONTROL_HUMAN) ? ((g_game_flags & GAMEFLAG_INDEPENDENCE) ? 7 : 4) : 8;
         break;
     case 0:
     default:
-        r = (y < 4 && g_recs[y].busy == 0) ? ((g_game_flags & 1) ? 9 : 4) : 6;
+        r = (y < 4 && g_nation52[y].control == CONTROL_HUMAN) ? ((g_game_flags & GAMEFLAG_INDEPENDENCE) ? 9 : 4) : 6;
         break;
     }
     return r;

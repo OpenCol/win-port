@@ -9,7 +9,7 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 void * deref_long(void *item);
-void * get_p_8(void *item);
+void * vlist_item_prev(void *item);
 
 typedef struct { void *head; col_i32 pad; void *cur; } List;
 
@@ -18,7 +18,7 @@ typedef struct { void *head; col_i32 pad; void *cur; } List;
 void * list_prev(List *l)
 {
     if (l->cur != 0) {
-        l->cur = get_p_8(l->cur);
+        l->cur = vlist_item_prev(l->cur);
         if (l->cur == 0)
             return 0;
         else

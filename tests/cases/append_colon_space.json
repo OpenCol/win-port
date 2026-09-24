@@ -3,7 +3,7 @@
  "symbol": "append_colon_space",
  "shipped": "1040:a1fd",
  "source": "src/game/append_colon_space.c",
- "prototype": "void append_colon_space(char * s);",
+ "prototype": "void append_colon_space(char * buf);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

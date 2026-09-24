@@ -7,9 +7,9 @@
 #include "col/globals.h"
 
 typedef struct { char pad[6]; void *win; } GameWinBase;
-extern void win_move_to_rect_1078_221b(void *w, col_i16 a, col_i16 b);
+extern void win_move_to_rect_1078_221b(void *w, void *r);
 
-void win_move_to_rect_1048_d6da(GameWinBase *o, col_i16 a, col_i16 b)
+void win_move_to_rect_1048_d6da(GameWinBase *o, void *r)
 {
-    win_move_to_rect_1078_221b(o->win, a, b);
+    win_move_to_rect_1078_221b(o->win, r);
 }

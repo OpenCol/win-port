@@ -2,15 +2,14 @@
  *
  * Ported by tools/port.py from matched/game/win_set_focus.c.
  *
- * The file's own Win dropped for the merged record in col/records.h.
- *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
 #include "col/globals.h"
 
+typedef struct { char pad[6]; void *win; } GameWinBase;
 extern void MSSetFocus(void *hwnd);
 
-void win_set_focus(Win *w)
+void win_set_focus(GameWinBase *w)
 {
-    MSSetFocus((*((void * *)((unsigned char *)(w) + 0x6))));
+    MSSetFocus(w->win);
 }

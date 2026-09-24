@@ -45,7 +45,7 @@ void show_text_dialog_1018_b3d1(char *name);
 extern col_i16 on_map(col_i16 x, col_i16 y);
 extern unsigned char * map_plane1_ptr(col_i16 x, col_i16 y);
 extern unsigned char map_plane3_at(col_i16 x, col_i16 y);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
 extern col_i16 find_adjacent_ocean(col_i16 x, col_i16 y);
 extern col_i16 nation_flag_test(col_i16 nation, col_i16 bit);
 extern void reveal_around_colony(col_i16 c, col_i16 nation);
@@ -136,7 +136,7 @@ col_i16 create_colony(col_i16 nation, col_i16 x, col_i16 y, col_i16 unit)
         if (i >= 4 || (map_plane3_at(x, y) & (0x10 << i)))
             ((unsigned char *)((unsigned char *)(g_cur_colony_rec) + 0xba))[i] = 1;
     }
-    if (find_adjacent_ocean(x, y) && map_plane2_nibble(g_ocean_x, g_ocean_y) == 1)
+    if (find_adjacent_ocean(x, y) && square_region(g_ocean_x, g_ocean_y) == 1)
         g_colonies[col].status |= 0x40;
     g_cur_colony_rec->item = 0xf;
     if (g_cur_colony_rec->status & 0x40)

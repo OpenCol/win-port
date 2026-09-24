@@ -11,7 +11,7 @@
  *   extern unsigned char far g_game_flags;               SEG20:0x7784
  *   extern int far g_text_value;                         DGROUP:0x251a
  *   extern char g_text_ctx[];                            DGROUP:0x009e
- *   extern char far g_seg31_a4[];                        SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *
  * The file's own NationRec dropped for the merged record in col/records.h.
  *
@@ -31,7 +31,7 @@ void tutorial_landfall(void)
     woodcut_show(WOODCUT_DISCOVERY_OF_THE_NEW_WORLD);
     g_text_value = 0;
     prompt_text_name(g_text_ctx, "LANDHO", 0x17, ((char *)((unsigned char *)&(g_nation_recs[g_turn_nation]) + 0x0)));
-    strcpy(((char *)((unsigned char *)&(g_nation_recs[g_turn_nation]) + 0x0)), ((char *)g_seg31_a4));
+    strcpy(((char *)((unsigned char *)&(g_nation_recs[g_turn_nation]) + 0x0)), g_name_slots[0]);
     if (g_game_flags & GAMEFLAG_TUTORIAL)
         text_message_show("TUTORIAL2", 0);
 }

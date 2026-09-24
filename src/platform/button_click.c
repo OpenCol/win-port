@@ -14,9 +14,9 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 Win * object_from_hwnd(col_u16 hwnd);
+col_i16 ctl_id_1070_96c5(Ctl *c);
 col_i16 get_w_1a_1070_981e(Ctl *c);
-col_i16 get_w_2_1070_96c5(Ctl *c);
-void * get_p_4_1070_96a8(Ctl *c);
+void * ctl_window_1070_96a8(Ctl *c);
 void MSDoAllTasks_1070_9837(void);
 void MSWaitTicks_1070_984a(col_i16 n);
 void call_handler_slot_28_1070_9863(Ctl *c, col_i16 a);
@@ -56,6 +56,6 @@ void button_click(col_u16 hwnd)
     MSDoAllTasks_1070_9837();
     MSWaitTicks_1070_984a(8);
     repaint_hwnd(hwnd);
-    g_current_window = get_p_4_1070_96a8(c);
-    call_handler_slot_28_1070_9863(c, get_w_2_1070_96c5(c));
+    g_current_window = ctl_window_1070_96a8(c);
+    call_handler_slot_28_1070_9863(c, ctl_id_1070_96c5(c));
 }

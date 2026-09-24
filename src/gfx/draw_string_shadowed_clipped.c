@@ -5,7 +5,7 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern unsigned char far g_draw_color;               DGROUP:0x337e
  *
- * The file's own Win, GRPort dropped for the merged record in col/records.h.
+ * The file's own MSWin, GRPort dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -19,7 +19,7 @@ extern void pascal OffsetRect(RECT *r, col_i16 dx, col_i16 dy);
 
 extern col_i16 font_metrics(col_u16 hfont);
 extern unsigned char TextColor(unsigned char v);
-extern void MSDrawString(Win *w, col_u16 hfont, const char *s, RECT *r,
+extern void MSDrawString(MSWin *w, col_u16 hfont, const char *s, RECT *r,
                              col_i16 flags);
 
 
@@ -37,8 +37,8 @@ void draw_string_shadowed_clipped(GRPort *p, col_u16 *hf, const char *s,
         r = *clip;
         OffsetRect(&r, off, off);
         saved = TextColor(g_draw_color);
-        MSDrawString((*((Win * *)((unsigned char *)(p) + 0x22))), *hf, s, &r, flags);
+        MSDrawString((*((MSWin * *)((unsigned char *)(p) + 0x22))), *hf, s, &r, flags);
         TextColor(saved);
     }
-    MSDrawString((*((Win * *)((unsigned char *)(p) + 0x22))), *hf, s, clip, flags);
+    MSDrawString((*((MSWin * *)((unsigned char *)(p) + 0x22))), *hf, s, clip, flags);
 }

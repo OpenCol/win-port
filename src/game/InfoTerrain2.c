@@ -19,7 +19,7 @@ extern void TextColor(col_i16 v);
 extern void append_lparen(char *s);
 extern void append_rparen(char *s);
 
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 extern void MSGetDesktopSize(RECT *r);
 extern void draw_string_shadowed(void *w, void *font, char *s, col_i16 x, col_i16 y, col_i16 size);
 

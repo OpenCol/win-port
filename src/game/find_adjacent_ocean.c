@@ -14,7 +14,7 @@
 
 extern col_i16 on_map(col_i16 x, col_i16 y);
 extern col_i16 ocean(col_i16 x, col_i16 y);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
 
 col_i16 find_adjacent_ocean(col_i16 x, col_i16 y)
 {
@@ -30,7 +30,7 @@ col_i16 find_adjacent_ocean(col_i16 x, col_i16 y)
         ny = g_dir_dy[dir] + y;
         if (on_map(nx, ny) != 0 && ocean(nx, ny) != 0) {
             found = 1;
-            v = map_plane2_nibble(nx, ny);
+            v = square_region(nx, ny);
             if (v == 0)
                 v = 0x10;
             if (best < 0 || v < best) {

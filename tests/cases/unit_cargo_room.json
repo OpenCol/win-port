@@ -3,7 +3,7 @@
  "symbol": "unit_cargo_room",
  "shipped": "1018:7eba",
  "source": "src/game/unit_cargo_room.c",
- "prototype": "col_i16 unit_cargo_room(col_i16 u, col_i16 goods, col_i16 * room);",
+ "prototype": "col_i16 unit_cargo_room(col_i16 u, col_i16 goods, void * room);",
  "state": "shipped",
  "ret_bits": 16,
  "ret_bits_emu": 16,
@@ -16,7 +16,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "(long)unit_cargo_room((col_i16)a0, (col_i16)a1, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "call": "(long)unit_cargo_room((col_i16)a0, (col_i16)a1, (void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [
   "g_unit_types",
   "g_units"

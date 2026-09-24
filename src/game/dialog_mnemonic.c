@@ -12,7 +12,7 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 RadioItem * get_p_2e_1060_ac7c(Ctl *c);
-col_i16 get_w_0_1060_ac19(Ctl *c);
+col_i16 ctl_kind_1060_ac19(Ctl *c);
 col_i16 get_w_10_1060_ac4a(Ctl *c);
 col_i16 get_w_1a_1060_ac31(Ctl *c);
 col_i16 get_w_20_1060_ac63(Ctl *c);
@@ -51,17 +51,17 @@ col_i16 dialog_mnemonic(Win *w, char key)
     for (c = (*((Ctl * *)((unsigned char *)(w) + 0x8c))); c != 0 && found == 0; c = (*((void * *)((unsigned char *)(c) + 0x12)))) {
         if (c->accel >= 0) {
             if ((*((char *)((unsigned char *)(c) + 0x17))) == key) {
-                if (get_w_0_1060_ac19(c) == 6 && get_w_1a_1060_ac31(c) != 0) {
+                if (ctl_kind_1060_ac19(c) == 6 && get_w_1a_1060_ac31(c) != 0) {
                     button_click(get_w_10_1060_ac4a(c));
                     r = 1;
                     break;
-                } else if (get_w_0_1060_ac19(c) == 2 && get_w_20_1060_ac63(c) != 0) {
+                } else if (ctl_kind_1060_ac19(c) == 2 && get_w_20_1060_ac63(c) != 0) {
                     checkbox_click(get_w_10_1060_ac4a(c));
                     r = 1;
                     break;
                 }
             }
-        } else if (get_w_0_1060_ac19(c) == 3) {
+        } else if (ctl_kind_1060_ac19(c) == 3) {
             grp = c;
             items = get_p_2e_1060_ac7c(grp);
             n = get_w_26_1060_ac99(grp);

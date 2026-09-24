@@ -6,5 +6,9 @@
  */
 #include "col/globals.h"
 
-extern col_u16 MSBlockSize(col_i16 handle);
-col_u16 block_size(col_i16 handle, col_i16 unused1) { return MSBlockSize(handle); }
+extern col_u32 MSBlockSize(col_i16 handle);
+
+col_u32 block_size(void *res)
+{
+    return MSBlockSize((col_i16)res);
+}

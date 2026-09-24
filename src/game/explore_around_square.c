@@ -28,7 +28,7 @@ void map_plane3_set_nation_bit(col_i16 x, col_i16 y, col_i16 nation, col_i16 fla
 extern col_i16 on_map(col_i16 x, col_i16 y);
 extern col_i16 ocean(col_i16 x, col_i16 y);
 extern char map_plane1_at(col_i16 x, col_i16 y);
-extern col_i16 map_plane2_nibble_if_land(col_i16 x, col_i16 y);
+extern col_i16 square_region_if_land(col_i16 x, col_i16 y);
 extern void woodcut_show(col_i16 hint);
 
 
@@ -50,7 +50,7 @@ void explore_around_square(col_i16 x, col_i16 y, col_i16 nation, col_i16 radius,
         goto done;
     if (nation >= NATION_EUROPEAN_COUNT)
         goto done;
-    terr = map_plane2_nibble_if_land(x, y);
+    terr = square_region_if_land(x, y);
     for (dy = -radius; dy <= radius; dy++) {
         for (dx = -radius; dx <= radius; dx++) {
             tx = x + dx;
@@ -61,7 +61,7 @@ void explore_around_square(col_i16 x, col_i16 y, col_i16 nation, col_i16 radius,
             if (outer) {
                 if (ocean(tx, ty) != is_ship)
                     continue;
-                if (is_ship == 0 && map_plane2_nibble_if_land(tx, ty) != terr)
+                if (is_ship == 0 && square_region_if_land(tx, ty) != terr)
                     continue;
             } else if (g_hint6_shown == 0 && nation < NATION_EUROPEAN_COUNT && g_nation52[nation].control == CONTROL_HUMAN
                        && ocean(tx, ty) && (map_plane1_at(tx, ty) & MAP1_BIT5)) {

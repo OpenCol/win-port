@@ -10,7 +10,7 @@
 
 extern col_i16 text_extent(col_u16 hfont, const char *s);
 
-col_i16 font_text_extent_1060_6977(FontRec *f, const char *s)
+col_i16 font_text_extent_1060_6977(FontRec *f, const char *buf)
 {
-    return text_extent(f->hfont, s);
+    return text_extent(f->hfont, buf);
 }

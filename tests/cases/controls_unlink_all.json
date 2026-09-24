@@ -20,7 +20,7 @@
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_w_2_1060_abca",
+  "ctl_id_1060_abca",
   "list_unlink_by_id"
  ],
  "host_blind": "uses the pointer member Ctl.next: four bytes in the game, eight on a host"

@@ -6,9 +6,9 @@
  */
 #include "col/globals.h"
 
-extern void * MSAlertBox(col_i32 *key, char *name);
+extern void * MSAlertBox(char *text, col_i16 icon, col_i16 buttons);
 
-void * MSAlertBox_1068_d44a(col_i32 *key, char *name)
+void * MSAlertBox_1068_d44a(char *text, col_i16 icon, col_i16 buttons)
 {
-    return MSAlertBox(key, name);
+    return MSAlertBox(text, icon, buttons);
 }

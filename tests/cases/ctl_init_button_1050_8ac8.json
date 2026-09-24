@@ -3,7 +3,7 @@
  "symbol": "ctl_init_button_1050_8ac8",
  "shipped": "1050:8ac8",
  "source": "src/game/ctl_init_button_1050_8ac8.c",
- "prototype": "void ctl_init_button_1050_8ac8(Ctl * c, void * win, col_i16 y, RECT * r, char * title);",
+ "prototype": "void ctl_init_button_1050_8ac8(Ctl * c, void * win, col_i16 id, RECT * r, char * title);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,

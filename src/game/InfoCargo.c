@@ -16,7 +16,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 get_w_2_1058_bcfb(void *w);
+col_i16 port_width_1058_bcfb(void *w);
 col_i16 rect_width_at_8_1058_c203(void *s);
 
 #include "goods.h"
@@ -91,7 +91,7 @@ again:
     }
     if (x + 0xe == mx)
         goto done;
-    if (get_w_2_1058_bcfb(port) - 0x14 < mx && mx > 1)
+    if (port_width_1058_bcfb(port) - 0x14 < mx && mx > 1)
         zoom--;
     else
         goto done;

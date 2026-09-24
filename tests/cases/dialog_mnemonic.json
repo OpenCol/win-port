@@ -19,8 +19,8 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
+  "ctl_kind_1060_ac19",
   "get_p_2e_1060_ac7c",
-  "get_w_0_1060_ac19",
   "get_w_10_1060_ac4a",
   "get_w_1a_1060_ac31",
   "get_w_20_1060_ac63",

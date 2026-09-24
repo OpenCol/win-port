@@ -8,9 +8,9 @@
  */
 #include "col/globals.h"
 
-extern void scroll_get_range(col_i16 h, col_i16 a, col_i16 b, col_i16 c, col_i16 d);
+extern void scroll_get_range(col_i16 h, col_i16 *lo, col_i16 *hi);
 
-void control_call_5fbf(DlgControl *c, col_i16 a, col_i16 b, col_i16 d, col_i16 e)
+void control_call_5fbf(DlgControl *c, col_i16 *lo, col_i16 *hi)
 {
-    scroll_get_range(c->hwnd, a, b, d, e);
+    scroll_get_range(c->hwnd, lo, hi);
 }

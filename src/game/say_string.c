@@ -17,7 +17,7 @@
  * translation units, joined by the linker. */
 char * nth_text_string(col_i16 n);
 
-void say_string(char *dst, col_i16 n)
+void say_string(char *buf, col_i16 word)
 {
-    strcat(dst, nth_text_string(n));
+    strcat(buf, nth_text_string(word));
 }

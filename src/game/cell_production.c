@@ -4,12 +4,12 @@
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern Colony far *g_cur_colony_rec;                 DGROUP:0x4b9e
- *   extern unsigned char far g_yield[][16];              SEG20:0x78ff
+ *   extern TerrainRec far g_terrain_rows[];              SEG20:0x78f8
  *   extern unsigned char far g_difficulty;               SEG20:0x77a8
  *   extern NationRec52 far g_nation52[];                 SEG20:0x7840
  *   extern unsigned char g_turn_phase;                   DGROUP:0x4ba9
  *
- * The file's own Colony, NationRec52 dropped for the merged record in col/records.h.
+ * The file's own Colony, NationRec52, TerrainRec dropped for the merged record in col/records.h.
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -36,6 +36,7 @@ col_i16 pair_score_table(col_i16 a, col_i16 b);
 #include "jobs.h"
 /* 52 bytes at SEG20:0x7840; +1 is CONTROL: 0 human, 1 computer, 2 defeated */
 
+/* 0x10 bytes */
 
 
 
@@ -87,7 +88,7 @@ col_i16 cell_production(col_i16 col, col_i16 row, col_i16 *kind_out, col_i16 fla
     mapbyte = map_plane0_at(tx, ty);
     terr = terrain_from_map_byte(mapbyte);
     deco = tile_decoration(tx, ty);
-    amount = g_yield[terr][kind];
+    amount = ((unsigned char *)((unsigned char *)&(g_terrain_rows[terr]) + 0x7))[kind];
     if (amount != 0) {
         if (kind >= 8) {
             waterc = count_terrain_around(tx, ty, TERRAIN_OCEAN, TERRAIN_SEA_LANE);

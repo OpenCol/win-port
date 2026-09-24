@@ -14,7 +14,7 @@
  *   extern char far g_report_window;                     SEG20:0x1d06
  *   extern char far g_report_dialog;                     SEG20:0x1d2c
  *   extern char far g_game_palette;                      SEG20:0x01ac
- *   extern char far g_edit_bufs[][0x50];                 SEG31:0x00a4
+ *   extern char far g_name_slots[][0x50];                SEG31:0x00a4
  *
  * The file's own Item, Edit, Check, Popup dropped for the merged record in col/records.h.
  *
@@ -110,7 +110,7 @@ col_i16 popup_run(Popup *p, char *text)
         ctl_get_text((*((Edit * *)((unsigned char *)(p) + 0x3a8))), text);
     if ((*((col_i16 *)((unsigned char *)(p) + 0x7a))) > 1) {
         for (i = 0; (*((col_i16 *)((unsigned char *)(p) + 0x7a))) > i; i++)
-            ctl_get_text(&((Edit * *)((unsigned char *)(p) + 0x3a8))[i], g_edit_bufs[i]);
+            ctl_get_text(&((Edit * *)((unsigned char *)(p) + 0x3a8))[i], g_name_slots[i]);
     }
     if ((*((col_i16 *)((unsigned char *)(p) + 0x0))) & 0x1000) {
         if ((*((col_i16 *)((unsigned char *)(p) + 0xa8))) == 0) {

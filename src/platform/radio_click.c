@@ -15,9 +15,9 @@
  * translation units, joined by the linker. */
 Obj * object_from_hwnd(col_u16 hwnd);
 RadioItem * get_p_2e_1070_99c5(Ctl *c);
-col_i16 get_w_2_1070_96c5(Ctl *c);
-col_i16 get_w_2a_1070_99ac(Ctl *c);
-void * get_p_4_1070_96a8(Ctl *c);
+col_i16 ctl_id_1070_96c5(Ctl *c);
+col_i16 get_w_2a_1070_99ac(Ctl *ctl);
+void * ctl_window_1070_96a8(Ctl *c);
 void call_handler_slot_26_1070_99e2(Ctl *c, col_i16 a, col_i16 b);
 void set_w_2a_1070_9994(Ctl *c, col_i16 v);
 
@@ -56,6 +56,6 @@ void radio_click(register col_u16 hwnd)
         set_w_2a_1070_9994(c, m->sel);
         InvalidateRect(get_p_2e_1070_99c5(c)[get_w_2a_1070_99ac(c)].hwnd, 0L, 0);
     }
-    g_current_window = get_p_4_1070_96a8(c);
-    call_handler_slot_26_1070_99e2(c, get_w_2_1070_96c5(c), get_w_2a_1070_99ac(c));
+    g_current_window = ctl_window_1070_96a8(c);
+    call_handler_slot_26_1070_99e2(c, ctl_id_1070_96c5(c), get_w_2a_1070_99ac(c));
 }

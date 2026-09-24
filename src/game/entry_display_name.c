@@ -19,7 +19,7 @@
 extern char * nth_text_string(col_i16 n);
 
 extern void append_space(char *s);
-extern void say_string(char *s, col_i16 word);
+extern void say_string(char *buf, col_i16 word);
 
 char * entry_display_name(void *unused, Entry *e)
 {

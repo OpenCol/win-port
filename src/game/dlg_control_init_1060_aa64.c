@@ -15,13 +15,13 @@ void register_control(void *win, DlgControl *c);
 /* 0x1a bytes */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-void dlg_control_init_1060_aa64(DlgControl *o, void *win, col_i16 x, col_i16 y, RECT *r)
+void dlg_control_init_1060_aa64(DlgControl *o, void *win, col_i16 kind, col_i16 id, RECT *r)
 {
     (*((void * *)((unsigned char *)(o) + 0x4))) = win;
-    (*((col_i16 *)((unsigned char *)(o) + 0x0))) = x;
-    (*((col_i16 *)((unsigned char *)(o) + 0x2))) = y;
+    (*((col_i16 *)((unsigned char *)(o) + 0x0))) = kind;
+    (*((col_i16 *)((unsigned char *)(o) + 0x2))) = id;
     (*((RECT *)((unsigned char *)(o) + 0x8))) = *r;
-    (*((col_i32 *)((unsigned char *)(o) + 0x12))) = 0;
+    (*((void * *)((unsigned char *)(o) + 0x12))) = 0;
     o->hwnd = 0;
     (*((char *)((unsigned char *)(o) + 0x16))) = 0;
     register_control(win, o);

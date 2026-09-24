@@ -20,7 +20,7 @@
  },
  "call": "(long)prompt_text_number((char far *)(col_seg34 + 0x0dccL), (char far *)(col_seg34 + 0x0e0cL), (col_i16)a4)",
  "globals_read": [
-  "g_text_answer",
+  "g_name_slots",
   "g_text_args"
  ],
  "flags": "-ml -WS -Od -Ot -3",

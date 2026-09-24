@@ -3,7 +3,7 @@
  "symbol": "menu_attach_1060_6c08",
  "shipped": "1060:6c08",
  "source": "src/game/menu_attach_1060_6c08.c",
- "prototype": "void menu_attach_1060_6c08(DialogWin * d);",
+ "prototype": "void menu_attach_1060_6c08(void * d);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 0,
@@ -14,7 +14,7 @@
  "stage": {
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
  },
- "call": "menu_attach_1060_6c08((DialogWin far *)(col_seg34 + 0x0dccL))",
+ "call": "menu_attach_1060_6c08((void far *)(col_seg34 + 0x0dccL))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

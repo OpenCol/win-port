@@ -21,9 +21,9 @@
  "call": "build_bordered_window((char far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5)",
  "globals_read": [
   "g_4bec",
+  "g_art_base",
   "g_game_palette",
-  "g_game_record",
-  "g_sprites_4526"
+  "g_game_record"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

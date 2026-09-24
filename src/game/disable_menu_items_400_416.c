@@ -3,7 +3,7 @@
  * Ported by tools/port.py from matched/game/disable_menu_items_400_416.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern char far g_menu_owner[];                      SEG20:0x0656
+ *   extern char far g_menu_owner;                        SEG20:0x0656
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -21,5 +21,5 @@ void disable_menu_items_400_416(void)
     register col_i16 i;
 
     for (i = 0x190; i <= 0x1a0; i++)
-        menu_enable_item_1008_cec2((&g_menu_owner), (col_i32)i, 0);
+        menu_enable_item_1008_cec2(&g_menu_owner, (col_i32)i, 0);
 }

@@ -3,7 +3,7 @@
  "symbol": "min_ptr_1030_f474",
  "shipped": "1030:f474",
  "source": "src/game/min_ptr_1030_f474.c",
- "prototype": "col_i16 * min_ptr_1030_f474(col_i16 * a, col_i16 * b);",
+ "prototype": "void * min_ptr_1030_f474(void * a, void * b);",
  "state": "shipped",
  "ret_bits": 0,
  "ret_bits_emu": 32,
@@ -17,7 +17,7 @@
   "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
   "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9"
  },
- "call": "(void)min_ptr_1030_f474((col_i16 far *)(col_seg34 + 0x0dccL), (col_i16 far *)(col_seg34 + 0x0e0cL))",
+ "call": "(void)min_ptr_1030_f474((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL))",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": []

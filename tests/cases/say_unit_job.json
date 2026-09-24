@@ -18,8 +18,7 @@
  },
  "call": "say_unit_job((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
  "globals_read": [
-  "g_job_name_dcd0",
-  "g_job_name_dd4a",
+  "g_misc_words",
   "g_spec_recs",
   "g_units"
  ],

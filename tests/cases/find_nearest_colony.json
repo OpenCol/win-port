@@ -24,6 +24,6 @@
  "near_callees": [
   "set_current_colony"
  ],
- "host_blind": "calls map_plane2_nibble_if_land, a Windows API the host does not have; the emulator simulates it",
+ "host_blind": "calls square_region_if_land, a Windows API the host does not have; the emulator simulates it",
  "reaches_windows_api": true
 }

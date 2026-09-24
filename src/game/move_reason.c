@@ -31,7 +31,7 @@ extern col_i16 square_european_nation(col_i16 x, col_i16 y);
 extern col_i16 unit_chain_tail(col_i16 u);
 extern unsigned char unit_move_points(col_i16 u);
 extern col_i16 unit_chain_next(col_i16 u);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
 extern col_i16 square_nation_bit0(col_i16 x, col_i16 y);
 extern void unit_chain_relink(col_i16 u, col_i16 x, col_i16 y);
 
@@ -123,7 +123,7 @@ col_i16 move_reason(register col_i16 u, register col_i16 x, col_i16 y)
     }
     if (IS_SHIP(g_units[u].type)) {
         if (tdst == TERRAIN_OCEAN || tdst == TERRAIN_SEA_LANE) {
-            if (map_plane2_nibble(x, y) != 1) {
+            if (square_region(x, y) != 1) {
                 g_move_reason = 8;
                 goto relink;
             }

@@ -20,8 +20,8 @@
  "call": "(long)popup_run((Popup far *)(col_seg33 + 0x0000L), (char far *)(col_seg33 + 0x0360L))",
  "globals_read": [
   "g_cur_dialog",
-  "g_edit_bufs",
   "g_game_palette",
+  "g_name_slots",
   "g_popup_owner",
   "g_report_dialog",
   "g_report_window",

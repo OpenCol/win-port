@@ -44,7 +44,7 @@ extern col_i16 unit_chain_next(col_i16 u);
 extern col_i16 square_native_nation(col_i16 x, col_i16 y);
 extern col_i16 tile_decoration(col_i16 x, col_i16 y);
 extern col_i16 find_adjacent_ocean(col_i16 x, col_i16 y);
-extern unsigned char map_plane2_nibble(col_i16 x, col_i16 y);
+extern unsigned char square_region(col_i16 x, col_i16 y);
 extern void mission_found_colony(col_i16 u);
 extern col_i16 colony_employ_unit(col_i16 col, col_i16 u);
 extern void redraw_map_1040_11b7(col_i16 full);
@@ -121,7 +121,7 @@ void build_colony(void)
             }
             port = find_adjacent_ocean(g_units[u].x, g_units[u].y);
             if (port != 0)
-                port = map_plane2_nibble(g_ocean_x, g_ocean_y) == 1 ? 1 : 0;
+                port = square_region(g_ocean_x, g_ocean_y) == 1 ? 1 : 0;
             if (port == 0) {
                 if (text_message_show("NOPORT", 3) != 2)
                     goto out;

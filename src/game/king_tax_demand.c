@@ -7,7 +7,7 @@
  *   extern Nation far *g_cur_nation_rec;                 DGROUP:0x4cc4
  *   extern int g_cur_nation;                             DGROUP:0x4cc8
  *   extern unsigned char far g_difficulty;               SEG20:0x77a8
- *   extern long far g_text_args;                         SEG31:0x02d4
+ *   extern long far g_text_args[];                       SEG31:0x02d4
  *
  * The file's own NationRec52, Nation dropped for the merged record in col/records.h.
  *
@@ -43,7 +43,7 @@ void king_tax_demand(void)
     amount = 6 - (((g_cur_nation < NATION_EUROPEAN_COUNT && g_nation52[g_cur_nation].control == CONTROL_HUMAN) ? g_difficulty : 0) + ((g_cur_nation_rec->demands + 1) >> 1));
     amount = max_int_1048_dd61(1, amount);
     amount *= 100;
-    (*g_text_args) = amount;
+    g_text_args[0] = amount;
     if (human && ask_text_resource("KINGFUND") != 1)
         goto done;
     g_cur_nation_rec->gold += amount;

@@ -25,8 +25,8 @@
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
-  "get_w_2_1050_8b8a",
-  "get_w_4_1050_8ba9"
+  "port_height_1050_8ba9",
+  "port_width_1050_8b8a"
  ],
  "host_blind": "uses the pointer member Win.port: four bytes in the game, eight on a host",
  "reaches_windows_api": true

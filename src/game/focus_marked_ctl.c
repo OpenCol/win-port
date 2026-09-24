@@ -10,7 +10,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-Ctl * get_p_12_1060_abe3(Ctl *c);
+Ctl * ctl_next_1060_abe3(Ctl *c);
 
 extern char byte_at_16(Ctl *c);
 /* same object: 4-byte `push cs; call ` (rule 47) */
@@ -27,7 +27,7 @@ void focus_marked_ctl(Owner *o)
                 focus_at_or_after(o, c);
             return;
         }
-        c = get_p_12_1060_abe3(c);
+        c = ctl_next_1060_abe3(c);
     }
     c = (*((Ctl * *)((unsigned char *)(o) + 0x8c)));
     if (c != 0) {
