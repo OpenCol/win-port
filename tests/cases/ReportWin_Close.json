@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "ReportWin_Close",
+ "shipped": "1058:0b83",
+ "source": "src/game/ReportWin_Close.c",
+ "prototype": "col_i16 ReportWin_Close(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)ReportWin_Close()",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "close_report_window"
+ ],
+ "host_blind": "calls close_report_window, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

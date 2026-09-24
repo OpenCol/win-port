@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "stack_reorder",
+ "shipped": "1038:200f",
+ "source": "src/game/stack_reorder.c",
+ "prototype": "void stack_reorder(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "stack_reorder((col_i16)a0)",
+ "globals_read": [
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_at",
+  "unit_chain_next",
+  "unit_chain_tail",
+  "unit_detach_attach"
+ ],
+ "host_blind": "calls unit_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

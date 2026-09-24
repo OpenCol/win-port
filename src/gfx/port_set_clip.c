@@ -20,5 +20,5 @@ void port_set_clip(GRPort *p, RECT *r)
 {
     SetRect(&(*((RECT *)((unsigned char *)(p) + 0x8))), r->left, r->top, r->right, r->bottom);
     IntersectRect(&(*((RECT *)((unsigned char *)(p) + 0x8))), &(*((RECT *)((unsigned char *)(p) + 0x8))), &(*((RECT *)((unsigned char *)(p) + 0x10))));
-    empty_1070_af4e((*((void * *)((unsigned char *)(p) + 0x22))), &(*((RECT *)((unsigned char *)(p) + 0x8))));
+    empty_1070_af4e((*((Win * *)((unsigned char *)(p) + 0x22))), &(*((RECT *)((unsigned char *)(p) + 0x8))));
 }

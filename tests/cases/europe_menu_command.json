@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_menu_command",
+ "shipped": "1048:8901",
+ "source": "src/game/europe_menu_command.c",
+ "prototype": "void europe_menu_command(col_i16 cmd);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "europe_menu_command((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "europe_purchase",
+  "europe_recruit",
+  "recruit_at_university",
+  "set_current_nation"
+ ],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

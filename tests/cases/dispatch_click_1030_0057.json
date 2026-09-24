@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "dispatch_click_1030_0057",
+ "shipped": "1030:0057",
+ "source": "src/game/dispatch_click_1030_0057.c",
+ "prototype": "void dispatch_click_1030_0057(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "dispatch_click_1030_0057((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls track_nation_choice, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

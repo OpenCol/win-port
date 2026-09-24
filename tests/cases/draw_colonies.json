@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "draw_colonies",
+ "shipped": "1038:de64",
+ "source": "src/game/draw_colonies.c",
+ "prototype": "void draw_colonies(void * w);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "draw_colonies((void far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_count",
+  "g_tile_h",
+  "g_tile_w",
+  "g_view_x0",
+  "g_view_x1",
+  "g_view_y0",
+  "g_view_y1"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls draw_colony, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

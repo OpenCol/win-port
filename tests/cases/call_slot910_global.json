@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "call_slot910_global",
+ "shipped": "1050:3319",
+ "source": "src/game/call_slot910_global.c",
+ "prototype": "void call_slot910_global(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "call_slot910_global()",
+ "globals_read": [
+  "g_cur_dialog"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_cur_dialog: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

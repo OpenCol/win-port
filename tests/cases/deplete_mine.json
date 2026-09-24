@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "deplete_mine",
+ "shipped": "1018:903e",
+ "source": "src/game/deplete_mine.c",
+ "prototype": "void deplete_mine(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "deplete_mine()",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_msg_seen"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colonist_job",
+  "colony_cell_colonist",
+  "colony_event_message"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

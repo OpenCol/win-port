@@ -8,7 +8,7 @@
  "ret_bits": 16,
  "ret_bits_emu": 16,
  "sweep": [
-  "0=0..24"
+  "0=0..3"
  ],
  "call": "(long)building_class_value((col_i16)a0)",
  "globals_read": [
@@ -20,5 +20,6 @@
  "near_callees": [
   "building_family_base",
   "current_colony_flag_get"
- ]
+ ],
+ "host_blind": "calls building_family_base, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

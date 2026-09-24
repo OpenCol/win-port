@@ -1,0 +1,33 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "crosses_required",
+ "shipped": "1048:7757",
+ "source": "src/game/crosses_required.c",
+ "prototype": "col_i16 crosses_required(col_i16 nation, col_i16 * rate);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)crosses_required((col_i16)a0, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_count",
+  "g_cur_nation",
+  "g_difficulty",
+  "g_nation52",
+  "g_nations",
+  "g_unit_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "min_int_1048_db44"
+ ]
+}

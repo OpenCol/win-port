@@ -1182,7 +1182,14 @@
    "base": "int",
    "stars": 0,
    "dims": [],
-   "notes": [],
+   "notes": [
+    [
+     "settled_by_a_writer",
+     [
+      "XOR WORD [0x7784],0x2000 at 1048:a717 (cheat_menu_toggle) and again in its other arm: a word store, so the object is two bytes. The corpus also spells it `unsigned char far @[]`, which has more dimensions and won the pick; the port then truncated GAMEFLAG_CHEAT_MENU (0x2000) to a byte and flipped nothing."
+     ]
+    ]
+   ],
    "addr": "SEG20:0x7784",
    "spellings": [
     "int far @"
@@ -1191,19 +1198,16 @@
   "g_game_flags": {
    "seg": 20,
    "off": 30596,
-   "size": 1,
-   "how": "inferred: the gap to the next global",
-   "base": "unsigned char",
+   "size": 2,
+   "how": "declared",
+   "base": "int",
    "stars": 0,
-   "dims": [
-    ""
-   ],
+   "dims": [],
    "notes": [
     [
-     "signedness_unresolved",
+     "settled_by_a_writer",
      [
-      "char",
-      "unsigned char"
+      "XOR WORD [0x7784],0x2000 at 1048:a717 (cheat_menu_toggle) and again in its other arm: a word store, so the object is two bytes. The corpus also spells it `unsigned char far @[]`, which has more dimensions and won the pick; the port then truncated GAMEFLAG_CHEAT_MENU (0x2000) to a byte and flipped nothing."
      ]
     ]
    ],
@@ -28932,7 +28936,7 @@
    "address": "SEG20:0x7784",
    "aliases": "g_flags_7784",
    "delta": 0,
-   "type": "unsigned char",
+   "type": "int",
    "reason": "same address"
   },
   {
@@ -29891,15 +29895,6 @@
    "emitted": "int"
   },
   {
-   "name": "g_game_flags",
-   "address": "SEG20:0x7784",
-   "types": [
-    "char",
-    "unsigned char"
-   ],
-   "emitted": "unsigned char"
-  },
-  {
    "name": "g_flags_7789",
    "address": "SEG20:0x7789",
    "types": [
@@ -30656,7 +30651,6 @@
   "g_font_small",
   "g_force",
   "g_founding_word",
-  "g_game_flags",
   "g_game_palette",
   "g_game_record2",
   "g_goods",

@@ -1,0 +1,37 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "build_colony",
+ "shipped": "1008:0953",
+ "source": "src/game/build_colony.c",
+ "prototype": "void build_colony(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "build_colony()",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_difficulty",
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_game_flags",
+  "g_nation_colony_count",
+  "g_nearest_dist",
+  "g_ocean_x",
+  "g_ocean_y",
+  "g_selected_unit",
+  "g_turn_nation",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "set_name_slot_1008_cdca",
+  "show_text_dialog_1008_cdf3"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

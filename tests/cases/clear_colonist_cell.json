@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clear_colonist_cell",
+ "shipped": "1018:62db",
+ "source": "src/game/clear_colonist_cell.c",
+ "prototype": "void clear_colonist_cell(col_i16 id);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "clear_colonist_cell((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_set_cell",
+  "find_colony_grid_cell"
+ ],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

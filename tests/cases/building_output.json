@@ -1,0 +1,38 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "building_output",
+ "shipped": "1018:6a20",
+ "source": "src/game/building_output.c",
+ "prototype": "col_i16 building_output(col_i16 c, col_i16 * good);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)building_output((col_i16)a0, (col_i16 far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_difficulty",
+  "g_nation52",
+  "g_nations",
+  "g_rec12_d42b"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "building_slot_of",
+  "colonist_job",
+  "colonist_specialty_get",
+  "colony_building_top",
+  "colony_sol_percent",
+  "current_colony_building_count",
+  "current_colony_flag_get",
+  "max_int_1018_b34f"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

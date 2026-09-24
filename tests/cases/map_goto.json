@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_goto",
+ "shipped": "1038:afe2",
+ "source": "src/game/map_goto.c",
+ "prototype": "void map_goto(col_i16 x, col_i16 y, col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "map_goto((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cycle_flag",
+  "g_game_record2",
+  "g_map_center_x",
+  "g_map_center_y",
+  "g_stub_a",
+  "g_view_mode"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "set_cursor_pos"
+ ],
+ "host_blind": "calls redraw_map_1040_11b7, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

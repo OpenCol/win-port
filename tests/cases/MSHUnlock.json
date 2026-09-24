@@ -3,14 +3,14 @@
  "symbol": "MSHUnlock",
  "shipped": "1070:d0a0",
  "source": "src/platform/MSHUnlock.c",
- "prototype": "col_i32 MSHUnlock(col_i16 h);",
+ "prototype": "void * MSHUnlock(col_i16 h);",
  "state": "shipped",
- "ret_bits": 32,
+ "ret_bits": 0,
  "ret_bits_emu": 32,
  "sweep": [
   "0=-4..24"
  ],
- "call": "(long)MSHUnlock((col_i16)a0)",
+ "call": "(void)MSHUnlock((col_i16)a0)",
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],

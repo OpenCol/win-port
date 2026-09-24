@@ -127,6 +127,29 @@ def pointee_score(name, records):
     return (1 if dupes else 0, -len(set(names)))
 
 
+def _widths():
+    try:
+        return json.load(open(os.path.join(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))), 'model', 'widths.json')))['widths']
+    except Exception:
+        return {}
+
+
+WIDTHS = _widths()
+
+
+def dim(expr):
+    """`0x75e - 0x149` -> 1557, or None. A dimension is written as the arithmetic that
+    produced it, which is more legible than the total and has to be read back."""
+    expr = (expr or '').strip()
+    if not expr or not re.fullmatch(r'[0-9a-fA-FxX +\-*()]+', expr):
+        return None
+    try:
+        return int(eval(expr, {'__builtins__': {}}, {}))
+    except Exception:
+        return None
+
+
 def pick(spellings, records):
     """One canonical (base, stars, dims) for an address, plus what was discarded."""
     parsed = [parse(s) for s in spellings]
@@ -318,7 +341,15 @@ def main():
         offs = sorted({e[0] for e in entries})
         nxt = {o: n for o, n in zip(offs, offs[1:])}
         for off, name, g in entries:
-            (base, stars, dims), notes = pick(g['types'], records)
+            # A width a WRITER settles. Counting spellings picks the reading the corpus
+            # repeats most, and a narrow read of a wide object is a common reading; a
+            # store is not. model/widths.json holds the instruction for each one.
+            over = WIDTHS.get(g['address'])
+            if over:
+                (base, stars, dims), notes = pick([over['spelling']], records)
+                notes.append(('settled_by_a_writer', [over['evidence']]))
+            else:
+                (base, stars, dims), notes = pick(g['types'], records)
             size, how = size_of(base, stars, dims, records), 'declared'
             if size is None and not dims:
                 # a record whose body the model could not parse: it has no size to state,

@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "king_adjust_tax",
+ "shipped": "1048:6a74",
+ "source": "src/game/king_adjust_tax.c",
+ "prototype": "void king_adjust_tax(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "king_adjust_tax()",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_difficulty",
+  "g_turn_counter"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "apply_tax_change",
+  "ask_text_resource"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

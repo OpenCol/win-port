@@ -10,5 +10,5 @@
 
 Win * GRPort_GetWin_1070_960d(GRPort *p)
 {
-    return (*((void * *)((unsigned char *)(p) + 0x22)));
+    return (*((Win * *)((unsigned char *)(p) + 0x22)));
 }

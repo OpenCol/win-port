@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "viceroy_unit_msg5",
+ "shipped": "1038:b28b",
+ "source": "src/game/viceroy_unit_msg5.c",
+ "prototype": "void viceroy_unit_msg5(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "viceroy_unit_msg5((col_i16)a0)",
+ "globals_read": [
+  "g_map_window",
+  "g_nation_adjective",
+  "g_nation_name_word",
+  "g_stub_a",
+  "g_turn_nation",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "viceroy_activate_message",
+  "viceroy_message"
+ ]
+}

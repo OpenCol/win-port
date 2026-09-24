@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "destroy_game_fonts",
+ "shipped": "1050:9873",
+ "source": "src/game/destroy_game_fonts.c",
+ "prototype": "void destroy_game_fonts(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "destroy_game_fonts()",
+ "globals_read": [
+  "g_font12",
+  "g_font16"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "Font_dtor_1050_7ff9"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

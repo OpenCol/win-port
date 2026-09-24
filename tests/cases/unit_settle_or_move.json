@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_settle_or_move",
+ "shipped": "1038:35fc",
+ "source": "src/game/unit_settle_or_move.c",
+ "prototype": "void unit_settle_or_move(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "unit_settle_or_move((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ship_take_aboard",
+  "unit_detach_attach"
+ ],
+ "host_blind": "calls ship_take_aboard, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

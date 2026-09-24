@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_four_bytes",
+ "shipped": "1050:0090",
+ "source": "src/game/set_four_bytes.c",
+ "prototype": "void set_four_bytes(char a, char b, char c, char d);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "set_four_bytes((char)a0, (char)a1, (char)a2, (char)a3)",
+ "globals_read": [
+  "g_popup_m0",
+  "g_popup_m1",
+  "g_popup_m2",
+  "g_popup_m3"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

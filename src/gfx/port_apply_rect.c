@@ -18,5 +18,5 @@ extern void empty_1070_af4e(Win *w, RECT *r);
 void port_apply_rect(GRPort *p)
 {
     SetRect(&(*((RECT *)((unsigned char *)(p) + 0x8))), (*((RECT *)((unsigned char *)(p) + 0x10))).left, (*((RECT *)((unsigned char *)(p) + 0x10))).top, (*((RECT *)((unsigned char *)(p) + 0x10))).right, (*((RECT *)((unsigned char *)(p) + 0x10))).bottom);
-    empty_1070_af4e((*((void * *)((unsigned char *)(p) + 0x22))), &(*((RECT *)((unsigned char *)(p) + 0x8))));
+    empty_1070_af4e((*((Win * *)((unsigned char *)(p) + 0x22))), &(*((RECT *)((unsigned char *)(p) + 0x8))));
 }

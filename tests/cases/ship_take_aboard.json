@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "ship_take_aboard",
+ "shipped": "1038:3296",
+ "source": "src/game/ship_take_aboard.c",
+ "prototype": "void ship_take_aboard(col_i16 ship);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "ship_take_aboard((col_i16)a0)",
+ "globals_read": [
+  "g_boarding_193e",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "stack_reorder",
+  "unit_at",
+  "unit_board_ship",
+  "unit_chain_next",
+  "unit_chain_tail",
+  "unit_detach_attach"
+ ],
+ "host_blind": "calls ocean, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

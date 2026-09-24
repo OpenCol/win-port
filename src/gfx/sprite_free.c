@@ -9,7 +9,7 @@
  */
 #include "col/globals.h"
 
-extern col_i32 MSHUnlock(col_i16 h);
+extern void * MSHUnlock(col_i16 h);
 extern col_u16 MSDisposeHandle(col_u16 h);
 extern void Sprite_Clear(Sprite *s);
 

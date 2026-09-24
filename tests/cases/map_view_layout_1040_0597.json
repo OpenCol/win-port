@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_view_layout_1040_0597",
+ "shipped": "1040:0597",
+ "source": "src/game/map_view_layout_1040_0597.c",
+ "prototype": "void map_view_layout_1040_0597(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "map_view_layout_1040_0597()",
+ "globals_read": [
+  "g_map_window"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls map_view_layout, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

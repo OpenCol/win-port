@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_planes_free",
+ "shipped": "1008:7b2c",
+ "source": "src/game/map_planes_free.c",
+ "prototype": "void map_planes_free(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "map_planes_free()",
+ "globals_read": [
+  "g_map_pixels",
+  "g_plane0",
+  "g_plane0_handle",
+  "g_plane1",
+  "g_plane1_handle",
+  "g_plane2",
+  "g_plane2_handle",
+  "g_plane3",
+  "g_plane3_handle"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_plane0: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

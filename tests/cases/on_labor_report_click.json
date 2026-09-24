@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "on_labor_report_click",
+ "shipped": "1058:3b14",
+ "source": "src/game/on_labor_report_click.c",
+ "prototype": "void on_labor_report_click(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "on_labor_report_click((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "dismiss_report_on_click",
+  "labor_report_colonist_detail"
+ ],
+ "host_blind": "calls SetRect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

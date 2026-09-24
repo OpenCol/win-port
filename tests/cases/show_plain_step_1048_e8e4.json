@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "show_plain_step_1048_e8e4",
+ "shipped": "1048:e8e4",
+ "source": "src/game/show_plain_step_1048_e8e4.c",
+ "prototype": "col_i16 show_plain_step_1048_e8e4(void * p, col_i16 a, col_i16 b, col_i16 c, col_i16 d);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..2",
+  "3=0..2",
+  "4=0..2",
+  "5=0..2"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)show_plain_step_1048_e8e4((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "text_plain_step_1048_de5f"
+ ],
+ "unverifiable": "a forwarder to text_plain_step_1048_de5f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "reset_tribe_claims",
+ "shipped": "1030:a541",
+ "source": "src/game/reset_tribe_claims.c",
+ "prototype": "void reset_tribe_claims(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "reset_tribe_claims()",
+ "globals_read": [
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_ring_counts_1",
+  "g_ring_dx",
+  "g_ring_dy",
+  "g_tribes"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "tribe_joins_tory_side"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

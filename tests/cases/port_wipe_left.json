@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "port_wipe_left",
+ "shipped": "1068:b40f",
+ "source": "src/gfx/port_wipe_left.c",
+ "prototype": "void port_wipe_left(Screen * s, col_i16 step, RECT * r);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=-4..24",
+  "3=3596",
+  "4=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9"
+ },
+ "call": "port_wipe_left((Screen far *)(col_seg34 + 0x0dccL), (col_i16)a2, (RECT far *)(col_seg34 + 0x0e0cL))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "GRPort_GetWin_1068_d91d",
+  "window_of_1068_d72a"
+ ],
+ "host_blind": "uses the pointer member Obj.win: four bytes in the game, eight on a host",
+ "unverifiable": "a forwarder to GRPort_GetWin_1068_d91d, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

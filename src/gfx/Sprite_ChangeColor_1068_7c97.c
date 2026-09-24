@@ -20,8 +20,8 @@ void Sprite_Lock(Sprite *s);
 void Sprite_Unlock(Sprite *s);
 void empty_1068_963d(void *ctx, char *msg);
 
-extern void * MSHLock(col_i16 handle);
-extern void * MSHUnlock(col_i16 handle);
+extern void * MSHLock(col_i16 h);
+extern void * MSHUnlock(col_i16 h);
 
 
 

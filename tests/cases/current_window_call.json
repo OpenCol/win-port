@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "current_window_call",
+ "shipped": "1060:2b6b",
+ "source": "src/game/current_window_call.c",
+ "prototype": "void current_window_call(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "current_window_call()",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "win_close_1060_2a47"
+ ],
+ "host_blind": "calls win_close_1060_2a47, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

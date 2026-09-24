@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colonist_at_x",
+ "shipped": "1010:5dac",
+ "source": "src/game/colonist_at_x.c",
+ "prototype": "col_i16 colonist_at_x(col_i16 px, col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)colonist_at_x((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_icon_sprites",
+  "g_portrait_gap",
+  "g_stub_a",
+  "g_tile_colonists"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1010_e632",
+  "rect_width_at_8_1010_e60f"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

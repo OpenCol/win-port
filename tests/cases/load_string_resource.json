@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "load_string_resource",
+ "shipped": "1040:78b8",
+ "source": "src/game/load_string_resource.c",
+ "prototype": "void load_string_resource(unsigned char * dst, col_i16 id, col_i16 index);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..7",
+  "3=0..7"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "load_string_resource((unsigned char far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_resource_ctx3"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "lock_resource_1040_a99c",
+  "unlock_resource_1040_a9bc"
+ ],
+ "host_blind": "uses the pointer global g_resource_ctx3: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

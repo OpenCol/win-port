@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cell_note_or_insert_1028_03d1",
+ "shipped": "1028:03d1",
+ "source": "src/game/cell_note_or_insert_1028_03d1.c",
+ "prototype": "void cell_note_or_insert_1028_03d1(col_i16 row, char a, char b, char c, char d);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "cell_note_or_insert_1028_03d1((col_i16)a0, (char)a1, (char)a2, (char)a3, (char)a4)",
+ "globals_read": [
+  "g_cells2"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "shift_cells2_up"
+ ]
+}

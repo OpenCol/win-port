@@ -13,7 +13,7 @@ extern col_i32 pascal SendMessage(col_i16 h, col_i16 msg, col_i16 w, col_i32 l);
 #endif
 
 extern void * MSHLock(col_i16 h);
-extern col_i32 MSHUnlock(col_i16 h);
+extern void * MSHUnlock(col_i16 h);
 
 
 void set_font_from_handle(col_i16 hwnd, col_i16 hmem)

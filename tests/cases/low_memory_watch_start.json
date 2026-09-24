@@ -1,0 +1,35 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "low_memory_watch_start",
+ "shipped": "1068:bcc3",
+ "source": "src/gfx/low_memory_watch_start.c",
+ "prototype": "void low_memory_watch_start(col_i16 kb, col_i16 secs, col_i16 res, void * win, col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=3532",
+  "4=4360",
+  "5=0..2"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "low_memory_watch_start((col_i16)a0, (col_i16)a1, (col_i16)a2, (void far *)(col_seg34 + 0x0dccL), (col_i16)a5)",
+ "globals_read": [
+  "g_lowmem_busy",
+  "g_lowmem_count",
+  "g_lowmem_flag",
+  "g_lowmem_kb",
+  "g_lowmem_res",
+  "g_lowmem_timer",
+  "g_lowmem_win"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_lowmem_win: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_spend_tools",
+ "shipped": "1028:a250",
+ "source": "src/game/unit_spend_tools.c",
+ "prototype": "void unit_spend_tools(col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "unit_spend_tools((col_i16)a0)",
+ "globals_read": [
+  "g_msg",
+  "g_nation52",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

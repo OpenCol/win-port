@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "wake_units_near",
+ "shipped": "1030:4f7c",
+ "source": "src/game/wake_units_near.c",
+ "prototype": "void wake_units_near(col_i16 nation, col_i16 owner);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "wake_units_near((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_unit_count",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls square_european_nation, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

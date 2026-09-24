@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "read_text_line_1040_a89b",
+ "shipped": "1040:a89b",
+ "source": "src/game/read_text_line_1040_a89b.c",
+ "prototype": "col_i16 read_text_line_1040_a89b(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "(long)read_text_line_1040_a89b((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls read_text_line, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "write_gui_error_log",
+ "shipped": "1070:afce",
+ "source": "src/platform/write_gui_error_log.c",
+ "prototype": "void write_gui_error_log(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "write_gui_error_log()",
+ "globals_read": [
+  "g_error_ctx",
+  "g_log_font"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "empty_1070_dc82",
+  "empty_1070_dd0f",
+  "sub_1070_dcc1"
+ ],
+ "host_blind": "calls LTOA1, scale_cache_reset, sub_1070_dcc1, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

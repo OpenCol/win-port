@@ -8,7 +8,7 @@
  */
 #include "col/globals.h"
 
-extern void invalidate_hwnd(col_u16 hwnd);
+extern void invalidate_hwnd(col_i16 h);
 
 void ctl_flag_clear(Ctl *c)
 {

@@ -26,11 +26,11 @@ col_i16 select_state_code(col_i16 x, col_i16 y)
         r = 0xb;
         break;
     case 1:
-        r = (y < 4 && g_recs[y].busy == 0) ? (((*g_game_flags) & 1) ? 7 : 4) : 8;
+        r = (y < 4 && g_recs[y].busy == 0) ? ((g_game_flags & 1) ? 7 : 4) : 8;
         break;
     case 0:
     default:
-        r = (y < 4 && g_recs[y].busy == 0) ? (((*g_game_flags) & 1) ? 9 : 4) : 6;
+        r = (y < 4 && g_recs[y].busy == 0) ? ((g_game_flags & 1) ? 9 : 4) : 6;
         break;
     }
     return r;

@@ -16,7 +16,7 @@ extern col_i16 pascal DeleteObject(col_u16 obj);
 extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 obj);
 #endif
 
-extern void MSHUnlock(col_u16 h);
+extern void MSHUnlock(col_i16 h);
 extern void MSDisposeHandle(col_u16 h);
 
 void * dispose_wing_surface(WinGRec *r)

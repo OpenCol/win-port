@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_plane1_set_bits",
+ "shipped": "1038:b87a",
+ "source": "src/game/map_plane1_set_bits.c",
+ "prototype": "void map_plane1_set_bits(col_i16 x, col_i16 y, unsigned char mask, col_i16 on);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "map_plane1_set_bits((col_i16)a0, (col_i16)a1, (unsigned char)a2, (col_i16)a3)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_index_in_range",
+  "map_plane1_ptr"
+ ],
+ "host_blind": "calls map_plane1_ptr, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

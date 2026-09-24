@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "select_cargo_to_transfer",
+ "shipped": "1058:8635",
+ "source": "src/game/select_cargo_to_transfer.c",
+ "prototype": "void select_cargo_to_transfer(col_i16 side, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "select_cargo_to_transfer((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cur_route_rec",
+  "g_goods_sprites",
+  "g_route_stop"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "rect_width_at_8_1058_c203",
+  "set_name_slot_1058_c2a5"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host"
+}

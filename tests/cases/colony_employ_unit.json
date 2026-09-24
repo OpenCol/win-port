@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_employ_unit",
+ "shipped": "1018:ae62",
+ "source": "src/game/colony_employ_unit.c",
+ "prototype": "col_i16 colony_employ_unit(col_i16 colony, col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)colony_employ_unit((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_native_claims",
+  "colony_refresh_screen",
+  "set_current_colony",
+  "unit_colonist_index"
+ ],
+ "host_blind": "calls colony_refresh_screen, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

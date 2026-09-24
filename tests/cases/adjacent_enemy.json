@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "adjacent_enemy",
+ "shipped": "1028:0df4",
+ "source": "src/game/adjacent_enemy.c",
+ "prototype": "col_i16 adjacent_enemy(col_i16 x, col_i16 y, col_i16 nation, col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "(long)adjacent_enemy((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_adjacent_colony_nation",
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "kind_if_known"
+ ],
+ "host_blind": "calls ocean, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

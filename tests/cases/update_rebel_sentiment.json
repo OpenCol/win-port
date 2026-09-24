@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "update_rebel_sentiment",
+ "shipped": "1038:79e8",
+ "source": "src/game/update_rebel_sentiment.c",
+ "prototype": "void update_rebel_sentiment(col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "update_rebel_sentiment((col_i16)a0)",
+ "globals_read": [
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_nation_population",
+  "g_nations2",
+  "g_player_nation",
+  "g_rebel_sentiment",
+  "g_rebel_step"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "independence_war_turn",
+  "king_mobilises_forces",
+  "nation_sol_average",
+  "set_text_arg_i_1038_86cc",
+  "spanish_succession_event"
+ ],
+ "host_blind": "calls independence_war_turn, king_mobilises_forces, music_set_mood, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

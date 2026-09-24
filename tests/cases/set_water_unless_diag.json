@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_water_unless_diag",
+ "shipped": "1020:047e",
+ "source": "src/game/set_water_unless_diag.c",
+ "prototype": "col_i16 set_water_unless_diag(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)set_water_unless_diag((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_plane0_handle"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls map_handle_get, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

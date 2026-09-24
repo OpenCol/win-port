@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "ring_tile_set_bits",
+ "shipped": "1018:41df",
+ "source": "src/game/ring_tile_set_bits.c",
+ "prototype": "void ring_tile_set_bits(col_i16 x, col_i16 y, col_i16 bits);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "ring_tile_set_bits((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ring_index_of"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

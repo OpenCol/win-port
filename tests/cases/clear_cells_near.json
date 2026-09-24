@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clear_cells_near",
+ "shipped": "1028:0042",
+ "source": "src/game/clear_cells_near.c",
+ "prototype": "void clear_cells_near(col_i16 row, char kind, col_i16 x, col_i16 y, col_i16 radius);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "clear_cells_near((col_i16)a0, (char)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [
+  "g_cells2"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

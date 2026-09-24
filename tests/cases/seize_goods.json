@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "seize_goods",
+ "shipped": "1038:4df4",
+ "source": "src/game/seize_goods.c",
+ "prototype": "void seize_goods(unsigned char x, unsigned char y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "seize_goods((unsigned char)a0, (unsigned char)a1)",
+ "globals_read": [
+  "g_mother_country_idx",
+  "g_nation52",
+  "g_unit_count",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_record_free"
+ ],
+ "host_blind": "calls ocean, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

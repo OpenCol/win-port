@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "gui_init",
+ "shipped": "1070:af5c",
+ "source": "src/platform/gui_init.c",
+ "prototype": "col_i16 gui_init(col_i16 hinst, col_i16 hprev);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)gui_init((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_hinstance",
+  "g_hprev"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls register_window_classes, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

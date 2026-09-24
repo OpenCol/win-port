@@ -163,7 +163,12 @@ def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
     import bytematch as BM
     ext_re, fix_re, led_re = _res()
     pubs = BM.parse_pubdefs(td)
-    name = next((c for c in (sym, '_' + sym) if c in pubs), None)
+    # A `pascal` function's PUBDEF is UPPERCASE and carries no leading underscore --
+    # that is what the convention means to Borland, and it is why six window procedures
+    # came back "not in PUBDEFs" and were counted as disagreements rather than as
+    # symbols this could not find.
+    name = next((c for c in (sym, '_' + sym, sym.upper(), '_' + sym.upper())
+                 if c in pubs), None)
     if name is None:
         return None, ['%s not in PUBDEFs' % sym]
     off = pubs[name]
@@ -341,7 +346,12 @@ def run_case(path, verbose=False):
     if not SYMS:
         SYMS.update(symbols())
     stem = os.path.join(cache_dir(), os.path.splitext(os.path.basename(src))[0])
-    if os.path.exists(stem + '.td'):
+    # STALE means wrong, not slow. prebuild() applies this test before it fills the
+    # cache; a single case run straight from the command line read whatever was there,
+    # and a re-ported file was compared as the version before the fix -- which reads as
+    # the fix not working. Same test, in one place.
+    if os.path.exists(stem + '.td') and \
+            os.path.getmtime(stem + '.td') >= os.path.getmtime(src):
         td = open(stem + '.td').read()
         log = open(stem + '.log').read() if os.path.exists(stem + '.log') else ''
         obj = open(stem + '.obj', 'rb').read() if os.path.exists(stem + '.obj') else None
@@ -484,15 +494,38 @@ def main():
                 [sys.executable, os.path.abspath(__file__), '--all', '--shard',
                  '%d/%d' % (i, n)], capture_output=True, text=True,
                 env=dict(os.environ, COL_EMU_SHARD='%d' % i))
+        # A shard that DIES takes its cases with it, and nothing here used to say so:
+        # its stderr was discarded, its partial results file merged as though complete,
+        # and tools/coverage.py then reported its cases as uncovered and unexplained.
+        # One shard lost 81 of its 238 that way and the run still called itself a run.
         merged, bad = {}, 0
+        for i in range(n):                    # stale ones would merge as this run's
+            f = os.path.join(out, 'emu_results_shard%d.json' % i)
+            if os.path.exists(f):
+                os.remove(f)
         with concurrent.futures.ThreadPoolExecutor(max_workers=n) as pool:
             for r in pool.map(shard, range(n)):
                 sys.stdout.write(r.stdout)
+                if r.returncode and r.stderr:
+                    sys.stdout.write(r.stderr)
                 bad |= r.returncode
+        short = []
         for i in range(n):
             f = os.path.join(out, 'emu_results_shard%d.json' % i)
-            if os.path.exists(f):
-                merged.update(json.load(open(f)))
+            want = len(cases[i::n])
+            if not os.path.exists(f):
+                short.append('shard %d wrote no results at all' % i)
+                continue
+            got = json.load(open(f))
+            if len(got) != want:
+                short.append('shard %d ran %d of its %d cases'
+                             % (i, len(got), want))
+            merged.update(got)
+        if short:
+            print('THE RUN IS INCOMPLETE, so it is not a result:')
+            for line in short:
+                print('  ' + line)
+            bad = 1
         json.dump(merged, open(os.path.join(out, 'emu_results.json'), 'w'), indent=1)
         print('\n%d agreed, %d disagreed, %d unsupported'
               % (sum(1 for v in merged.values() if v['status'] == 'agreed'),
@@ -501,7 +534,23 @@ def main():
         return 1 if any(v['status'] == 'disagreed' for v in merged.values()) else 0
     if len(cases) > 1:
         prebuild(cases)
-    results = [run_case(c, a.verbose) for c in cases]
+    # ONE case must not cost the others. A candidate that makes the emulator raise --
+    # writing a selector no descriptor covers, say -- used to take the whole shard down
+    # with it, and the parent merged the partial results as though the run had finished:
+    # 81 cases came back "uncovered and unexplained" because of one. Caught here, named,
+    # and counted as unsupported with the emulator's own words as the reason.
+    results = []
+    for c in cases:
+        try:
+            results.append(run_case(c, a.verbose))
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:
+            key = os.path.basename(c)[:-5]
+            why = 'the emulator raised %s: %s' % (type(e).__name__, str(e)[:120])
+            REASONS[key] = why
+            print('%-32s %s' % (json.load(open(c))['symbol'], why))
+            results.append(None)
     if a.all:
         out = os.path.join(REPO, 'build', 'diff')
         os.makedirs(out, exist_ok=True)

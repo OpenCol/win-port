@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "pump_keystate_400",
+ "shipped": "1060:a7c2",
+ "source": "src/game/pump_keystate_400.c",
+ "prototype": "col_i16 pump_keystate_400(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)pump_keystate_400()",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls message_pump_with_keystate, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "begin_trade_route",
+ "shipped": "1048:a3bd",
+ "source": "src/game/begin_trade_route.c",
+ "prototype": "void begin_trade_route(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "begin_trade_route()",
+ "globals_read": [
+  "g_selected_unit",
+  "g_trade_route_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls no_trade_routes_defined, route_pick_stop, trade_route_single_port_check, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

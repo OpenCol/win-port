@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_count_specialty",
+ "shipped": "1018:59c7",
+ "source": "src/game/colony_count_specialty.c",
+ "prototype": "col_i16 colony_count_specialty(col_i16 spec);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)colony_count_specialty((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colonist_specialty_get"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

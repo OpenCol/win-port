@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "draw_colonies_view",
+ "shipped": "1040:0b2f",
+ "source": "src/game/draw_colonies_view.c",
+ "prototype": "void draw_colonies_view(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "draw_colonies_view()",
+ "globals_read": [
+  "g_stub_a",
+  "g_view_h",
+  "g_view_w",
+  "g_view_x0",
+  "g_view_y0"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "draw_colonies_in_rect"
+ ],
+ "host_blind": "calls draw_colonies_in_rect, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "unverifiable": "a forwarder to draw_colonies_in_rect, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+ "call_args": [
+  "0"
+ ]
+}

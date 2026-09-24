@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "view_pieces",
+ "shipped": "1008:2d0d",
+ "source": "src/game/view_pieces.c",
+ "prototype": "void view_pieces(void * ctx);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "view_pieces((void far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_selected_unit",
+  "g_units",
+  "g_view_mode"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "disable_menu_items_400_416"
+ ],
+ "host_blind": "calls disable_menu_items_400_416, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "on_info_window_pointer",
+ "shipped": "1058:8b67",
+ "source": "src/game/on_info_window_pointer.c",
+ "prototype": "void on_info_window_pointer(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "on_info_window_pointer((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_game_record2",
+  "g_message_flag",
+  "g_message_pending",
+  "g_view_mode"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "win_show_and_focus_1058_bc47"
+ ],
+ "host_blind": "calls view_pieces, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

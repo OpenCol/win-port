@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mobilise_continental_army",
+ "shipped": "1038:723e",
+ "source": "src/game/mobilise_continental_army.c",
+ "prototype": "void mobilise_continental_army(char nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "mobilise_continental_army((char)a0)",
+ "globals_read": [
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1038_86a6",
+  "min_int_1038_8680",
+  "set_name_slot_1038_8775",
+  "set_text_arg_i_1038_86cc",
+  "unit_at"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

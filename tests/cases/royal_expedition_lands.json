@@ -1,0 +1,44 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "royal_expedition_lands",
+ "shipped": "1038:5473",
+ "source": "src/game/royal_expedition_lands.c",
+ "prototype": "void royal_expedition_lands(col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "royal_expedition_lands((col_i16)a0)",
+ "globals_read": [
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_map_window",
+  "g_mother_country_idx",
+  "g_rec19_d9eb",
+  "g_royal_forces",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_defence_str",
+  "create_unit_1038_2246",
+  "max_int_1038_86a6",
+  "min_int_1038_8680",
+  "seize_goods",
+  "select_state_code",
+  "set_name_slot_1038_8775",
+  "tile_unit_tally",
+  "unit_at",
+  "unit_chain_next",
+  "unit_chain_relink",
+  "unit_nation_flag_set",
+  "unit_refresh_move_points"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

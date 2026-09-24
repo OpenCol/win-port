@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_activate_message",
+ "shipped": "1010:c04f",
+ "source": "src/game/colony_activate_message.c",
+ "prototype": "void colony_activate_message(char kind, col_i32 arg);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7",
+  "2=0"
+ ],
+ "call": "colony_activate_message((char)a0, (col_i32)(((col_u32)(col_u16)a2 << 16) | (col_u16)a1))",
+ "globals_read": [
+  "g_colony_window"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

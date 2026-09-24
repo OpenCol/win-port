@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "low_memory_timer",
+ "shipped": "1068:bc53",
+ "source": "src/gfx/low_memory_timer.c",
+ "prototype": "void low_memory_timer(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "low_memory_timer()",
+ "globals_read": [
+  "g_lowmem_busy",
+  "g_lowmem_count",
+  "g_lowmem_deadline",
+  "g_lowmem_flag",
+  "g_lowmem_kb",
+  "g_lowmem_res",
+  "g_lowmem_win"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSGetTicks_1068_d953",
+  "low_memory_warn_show"
+ ],
+ "host_blind": "uses the pointer global g_lowmem_win: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

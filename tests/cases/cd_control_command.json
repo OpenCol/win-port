@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cd_control_command",
+ "shipped": "1040:9ffa",
+ "source": "src/game/cd_control_command.c",
+ "prototype": "void cd_control_command(col_i16 cmd);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "cd_control_command((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "draw_gold_box"
+ ],
+ "host_blind": "calls MSCloseCD, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

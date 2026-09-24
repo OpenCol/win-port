@@ -82,7 +82,11 @@ HEADER = re.compile(r'\A\s*/\*.*?\*/', re.S)
 EXTERN = re.compile(r'^[ \t]*extern\b[^;]*;', re.M)
 TYPEDEF = re.compile(r'\btypedef\b')
 ADDR = re.compile(r'\b((?:SEG\d+|DGROUP)\s*[: ]\s*(?:0x)?[0-9a-fA-F]+)')
-DEF = re.compile(r'^(?P<head>[A-Za-z_][\w\s\*]*?)(?P<name>\w+)\s*\((?P<args>[^;{]*)\)\s*\{',
+# `extern "C"` in front of the definition. The byte-exact repo puts it on every C++ file
+# whose function keeps a C name, and the quotes are not in the head's character class, so
+# the definition was invisible and 18 files reported having none.
+DEF = re.compile(r'^(?:extern\s*"C"\s+)?'
+                 r'(?P<head>[A-Za-z_][\w\s\*]*?)(?P<name>\w+)\s*\((?P<args>[^;{]*)\)\s*\{',
                  re.M)
 
 
@@ -134,7 +138,14 @@ def local_layout(body):
                 base, rest_i = cand, i + 1
             else:
                 break
-        if not base:
+        # `struct Item far *next` -- a self-referential list node. `struct` alone is not
+        # a type, and the tag that follows it names a struct whose layout is this one,
+        # still being read. As a POINTER it needs no layout, only its four bytes.
+        if base == 'struct' and rest_i < len(words) and \
+                re.fullmatch(r'\w+', words[rest_i]) and \
+                ' '.join(words[rest_i + 1:]).lstrip().startswith('*'):
+            base, rest_i = 'struct ' + words[rest_i], rest_i + 1
+        if not base or base == 'struct':
             return None
         for part in ' '.join(words[rest_i:]).split(','):
             part = part.strip()
@@ -246,12 +257,72 @@ RUNTIME = {'STRCAT': ('strcat', 'string.h'), 'STRCPY': ('strcpy', 'string.h'),
            'LABS': ('labs', 'stdlib.h')}
 
 
+# Macros, not functions. windows.h defines all of these; a call to one compiles to
+# shifts and masks with nothing to link, so demanding a port of them held up 47 files
+# over a callee that does not exist.
+WINMACRO = {'MAKELONG', 'MAKELP', 'MAKEINTRESOURCE', 'MAKEINTATOM', 'MAKEPOINT',
+            'LOWORD', 'HIWORD', 'LOBYTE', 'HIBYTE', 'SELECTOROF', 'OFFSETOF',
+            'FIELDOFFSET', 'RGB', 'GetRValue', 'GetGValue', 'GetBValue',
+            'MAKELRESULT', 'MAKEWPARAM', 'MAKELPARAM'}
+
+# Borland's C++ runtime, as the disassembly labels it. `mem_new` is what the byte-exact
+# repo calls `operator new(unsigned)`, and the shipped image has it under its mangled
+# name. Spelling it the shipped way is what lets the 16-bit harness point the call at
+# the very allocator the shipped function calls, instead of at a second heap.
+SHIPPED_ALIAS = {'mem_new': '__bnew_qui_rtl', 'mem_free': '__bdele_qnv_rtl'}
+
+
+def _shipped_labels():
+    """Every name the shipped image has a label for, spelled as a call site might."""
+    try:
+        labels = json.load(open(os.path.join(SRC_REPO, 're', 'symbols.json')))['labels']
+    except Exception:
+        return set()
+    out = set()
+    for nm in labels.values():
+        out |= {nm, nm.lower(), nm.upper(), nm + '@'}
+    return out
+
+
+SHIPPED = _shipped_labels()
+
+
+def ported_paths(name):
+    """The ports of exactly this name, matched CASE-SENSITIVELY.
+
+    glob on macOS asks a case-insensitive filesystem, so `src/*/ATOL.c` came back with
+    `src/game/atol.c` -- a different function -- and ATOL was taken for ported. The case
+    was then not marked host-blind, and the host archive would not link for want of
+    `_ATOL`, which broke every other case that linked against that unit too.
+    """
+    # os.listdir, not glob: on a case-insensitive filesystem glob answers with the
+    # PATTERN's spelling, so filtering its results by basename compares `ATOL` with
+    # `ATOL` and always agrees. Only the directory listing says what is really there.
+    out = []
+    for d in glob.glob(os.path.join(REPO, 'src', '*')):
+        if not os.path.isdir(d):
+            continue
+        for f in os.listdir(d):
+            stem, ext = os.path.splitext(f)
+            if stem == name and ext in ('.c', '.cpp'):
+                out.append(os.path.join(d, f))
+    return out
+
+
 def _indexed(text, i):
     """Is the access at `i` immediately subscripted? `c->name[k]` wants a pointer;
     `c->pop` wants the value."""
     while i < len(text) and text[i] in ' \t':
         i += 1
     return i < len(text) and text[i] == '['
+
+
+class Opaque(Exception):
+    """A file's opaque class and the model's record disagree about a size."""
+
+
+class Ambiguous(Exception):
+    """A member name that means two offsets, at a receiver this cannot type."""
 
 
 def receiver_before(text, i):
@@ -602,6 +673,29 @@ def port(path, force=False):
     m = HEADER.match(text)
     head, body = (m.group(0), text[m.end():]) if m else ('', text)
 
+    # `extern "C" {` ... `}` around the whole file. The declarations inside it are cut
+    # out one by one, and the brace it opened was then left behind as a stray `}` in the
+    # middle of the port. Blanked to spaces, in place, so every offset this tool takes
+    # from `body` still means what it meant.
+    while True:
+        mb = re.search(r'extern\s*"C"\s*\{', blank_comments(body))
+        if not mb:
+            break
+        depth, k = 0, mb.end() - 1
+        bl = blank_comments(body)
+        while k < len(bl):
+            if bl[k] == '{':
+                depth += 1
+            elif bl[k] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+            k += 1
+        if k >= len(bl):
+            return None, 'an extern "C" block this cannot find the end of'
+        body = (body[:mb.start()] + ' ' * (mb.end() - mb.start())
+                + body[mb.end():k] + ' ' + body[k + 1:])
+
     blank = blank_comments(body)
     # A class declaration alone does not make this the C++ path. ColChild_DragIcon
     # declares `class GRPort` and then defines a plain C function inside `extern "C"`: it
@@ -672,6 +766,26 @@ def port(path, force=False):
                 a, b = normalise_addr(want.group(1)), GLOBALS[n]['addr']
                 if a != b:
                     return None, '%s: the file says %s, the model says %s' % (n, a, b)
+            # And the WIDTH, which the address check used to let through. The header
+            # spelt g_game_flags a byte where this file spells it a word; dropping the
+            # file's declaration for the header's truncated `^= 0x2000` to `^= 0` and the
+            # port flipped nothing, silently and with a clean compile. A NARROWER header
+            # is never safe; a wider one is only a read of bytes the file does not use.
+            g = GLOBALS.get(n)
+            # The header's DIMENSIONS are not the question -- `char g_x[]` against
+            # `unsigned g_x` is exactly the case that bit -- only its element width
+            # against the one the file declares.
+            if g is not None and not g.get('stars'):
+                decl = re.split(r'/\*', line.strip())[0]
+                base = re.sub(r'\b(?:extern|far|near|const|volatile)\b', ' ',
+                              decl.split(n)[0]).strip()
+                fw = WIDTH.get(' '.join(base.split()))
+                hw = g.get('size')
+                if fw and hw and fw > hw and '*' not in decl.split(n)[0] \
+                        and '[' not in decl.split(n, 1)[-1]:
+                    return None, '%s is %d bytes in this file and %d in the model: the ' \
+                                 'header would truncate every value written through it' \
+                                 % (n, fw, hw)
         # Keep only the declaration: the trailing /* address */ would close the comment
         # this line is about to be quoted inside, and the model's address is authoritative
         # anyway.
@@ -695,10 +809,18 @@ def port(path, force=False):
     # `struct unit {...};`. The second is not a typedef and its tag is lower case, so the
     # record it stands for is found through the GLOBAL declared with it -- which is
     # evidence rather than a name match, and works for both.
-    typedefs = {m.group(2): m.group(1) for m in
-                re.finditer(r'typedef\s+struct\s*\{(.*?)\}\s*(\w+)\s*;', body, re.S)}
+    # A TAGGED typedef -- `typedef struct Item { ... } Item;` -- is neither of the two
+    # forms this used to look for, so the file's own struct was invisible: its members
+    # were never mapped onto a record, and its name collided with the header's typedef
+    # of the same name. The tag is optional here, and remembered, because dropping the
+    # typedef has to drop the tag with it.
+    TD = re.compile(r'typedef\s+struct\s*(\w+)?\s*\{(.*?)\}\s*(\w+)\s*;', re.S)
+    typedefs = {m.group(3): m.group(2) for m in TD.finditer(body)}
+    tag_of = {m.group(3): m.group(1) for m in TD.finditer(body) if m.group(1)}
+    tagged = set(tag_of.values())
     tags = {m.group(1): m.group(2) for m in
-            re.finditer(r'struct\s+(\w+)\s*\{(.*?)\}\s*;', body, re.S)}
+            re.finditer(r'struct\s+(\w+)\s*\{(.*?)\}\s*;', body, re.S)
+            if m.group(1) not in tagged}
     canon_of = {}
     for t in typedefs:
         if t in RECORDS:
@@ -730,6 +852,10 @@ def port(path, force=False):
     # A wrongly named receiver compiles identically, so this is refused rather than
     # guessed at.
     renames, casts, drop_typedefs, protos, near_callees = {}, {}, [], [], []
+    # Which record each by-name rule was derived from. A name that means one offset
+    # everywhere needs no receiver: the rule is the same whoever it is applied to. A
+    # name that means two needs this, to apply the rule only to ITS record's receivers.
+    rule_record = {}
     host_blind = None
     for t, tbody in typedefs.items():
         if t not in canon_of:
@@ -737,6 +863,21 @@ def port(path, force=False):
         lay = local_layout(blank_comments(tbody))
         if lay is None:
             return None, 'its own %s has a member this cannot lay out' % t
+        # If the file SUBSCRIPTS something of this type, its own size is the STRIDE, and
+        # the merged record has to agree with it. `Rec` is a placeholder name the model
+        # merged across unrelated structs: colonies_swap_words walks 202-byte records and
+        # the record called Rec is 1916 bytes, so `r[i]` stepped eight times too far and
+        # the port wrote nothing where the shipped code wrote. A name match is not
+        # evidence; a matching stride is.
+        own = max((o + w for o, _n, _t, w, _a, _p in lay), default=0)
+        want = RECORDS[canon_of[t]]['size']
+        if own and want and own != want:
+            for m3 in re.finditer(r'\b%s\b(?:\s+(?:far|near))*\s*\**\s*(\w+)'
+                                  % re.escape(t), blank):
+                if re.search(r'\b%s\s*\[' % re.escape(m3.group(1)), blank_rest):
+                    return None, 'its own %s is %d bytes and the record of that name is ' \
+                                 '%d, and the file indexes an array of them: the stride ' \
+                                 'would be wrong' % (t, own, want)
         canon = CANON[canon_of[t]]
         used = set(re.findall(r'(?:->|\.)\s*(\w+)', blank))
         for off, mname, ty, width, is_array, is_pointer in lay:
@@ -756,6 +897,7 @@ def port(path, force=False):
             if not is_array and cname and WIDTH.get(ctype) == width:
                 if cname != mname:
                     renames[mname] = cname
+                    rule_record[mname] = canon_of[t]
                 continue
             if is_pointer:
                 # Same as a pointer-valued global: the host cannot hold one at the shipped
@@ -766,7 +908,16 @@ def port(path, force=False):
                 # Cast it as a POINTER, not as a 32-bit integer: the site returns it,
                 # passes it on or dereferences it, and an integer there is a type error
                 # rather than a narrower reading.
-                casts[mname] = (off, 'void far *', False)
+                # As a pointer to WHAT the file says it points at, not `void *`.
+                # Borland rejects arithmetic on a void pointer -- "Size of the type is
+                # unknown or zero" -- where clang takes it as an extension, and
+                # MSLockGraf walks `p->rows[y] = p->rows[y-1] - p->width` down a
+                # `long far *`. The declared base is both compilable and the file's own
+                # reading; `void far *` stays for a pointee this cannot spell.
+                pointee = ('%s far *' % ty) if (ty in WIDTH or ty in RECORDS) \
+                    else 'void far *'
+                casts[mname] = (off, pointee, False)
+                rule_record[mname] = canon_of[t]
                 continue
             elem = ty if (ty in WIDTH or ty in RECORDS or ty in ('RECT', 'POINT')) \
                 else None
@@ -774,6 +925,7 @@ def port(path, force=False):
                 return None, '%s.%s is a %s at +0x%02x, which needs a cast this cannot ' \
                              'spell' % (t, mname, ty, off)
             casts[mname] = (off, elem, is_array)
+            rule_record[mname] = canon_of[t]
         drop_typedefs.append(t)
     in_play = {canon_of[t] for t in drop_typedefs}
     for _, gnames in dropped:
@@ -782,18 +934,29 @@ def port(path, force=False):
             if b in RECORDS:
                 in_play.add(b)
     used_names = set(re.findall(r'(?:->|\.)\s*(\w+)', blank_rest))
+    ambiguous = {}
     for rn in sorted(in_play):
         for m2 in RECORDS[rn]['members']:
             if m2['name'] not in used_names:
                 continue
+            # Only a name a REWRITE touches is ambiguous. If the file spells the
+            # member the way both records already spell it, nothing is keyed by that
+            # name: `p->name` on a Colony is Colony+0x02 and on a UnitType is +0x00,
+            # and the C compiler picks by the receiver's type exactly as the shipped
+            # code does. Refusing those cost 29 files over a collision that only
+            # exists for names this actually substitutes.
+            if m2['name'] not in renames and m2['name'] not in casts:
+                continue
             offs = {r2: o2 for r2 in in_play
                     for o2, (nm2, _t2) in CANON[r2].items() if nm2 == m2['name']}
             if len(set(offs.values())) > 1:
-                return None, 'the member name %s means %s in this file, and a rewrite ' \
-                             'by name cannot tell which receiver is which' \
-                             % (m2['name'],
-                                ' and '.join('%s+0x%02x' % (r2, o2)
-                                             for r2, o2 in sorted(offs.items())))
+                if m2['name'] not in rule_record:
+                    return None, 'the member name %s means %s in this file, and the ' \
+                                 'rule for it belongs to no record' \
+                                 % (m2['name'],
+                                    ' and '.join('%s+0x%02x' % (r2, o2)
+                                                 for r2, o2 in sorted(offs.items())))
+                ambiguous[m2['name']] = dict(offs)
 
     shipped = re.search(r'candidate for (\w{4}:\w{4})', head)
     if not shipped:
@@ -854,14 +1017,31 @@ def port(path, force=False):
     KEYWORDS = {'if', 'while', 'for', 'switch', 'return', 'sizeof', 'do', 'else',
                 'void', 'char', 'int', 'short', 'long', 'unsigned', 'signed', 'float',
                 'double', 'struct', 'union', 'const', 'volatile', 'far', 'near', 'huge'}
+    # `NATION(u)` is a #define in the file, and `Sprite();` inside `class Sprite {...}`
+    # is a constructor DECLARATION. Neither is a call, and demanding a port of them held
+    # up 46 files over callees that do not exist.
+    file_macros = set(re.findall(r'^\s*#\s*define\s+(\w+)\s*\(', body, re.M))
+    file_classes = set(re.findall(r'\bclass\s+(\w+)', blank))
     called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', blank_rest)
-              if c not in KEYWORDS and c != name}
+              if c not in KEYWORDS and c != name
+              and c not in file_macros and c not in file_classes
+              and c.lstrip('~') not in file_classes}
     runtime = sorted(c for c in called if c in RUNTIME)
     api = sorted(c for c in called if c.upper() in WINAPI and c not in RUNTIME)
     taint = tainted()
     missing = sorted(c for c in called
                      if c not in RUNTIME and c.upper() not in WINAPI
-                     and not glob.glob(os.path.join(REPO, 'src', '*', c + '.c')))
+                     and c not in WINMACRO
+                     and not ported_paths(c))
+    # A callee with no port of its own, but WITH a label in the shipped image, is not a
+    # hole: tests/emu_differential.py points the call at the shipped implementation, so
+    # the candidate and the shipped function reach the same code and the comparison is
+    # still the right experiment. tools/link.py stubs it for the playable build and
+    # --report counts it, so nothing is claimed that is not there. The host harness has
+    # no such implementation to call, so it does not own these -- hence host_blind.
+    from_shipped = [c for c in missing
+                    if SHIPPED_ALIAS.get(c, c) in SHIPPED or c in SHIPPED]
+    missing = [c for c in missing if c not in from_shipped]
     if missing:
         return None, 'calls %s, which is not ported' % ', '.join(missing[:3])
 
@@ -872,9 +1052,23 @@ def port(path, force=False):
     if params is None:
         return None, 'a parameter this cannot generate values for'
     conv = [c for c in CONV if re.search(r'\b%s\b' % c, d.group('head'))]
+    # `pascal` reverses the push order, and the emulator pushes right to left. That does
+    # NOT break the comparison: both the shipped function and the candidate are pascal,
+    # both read the same stack the same way, so the only consequence is that the sweep's
+    # first value lands in the last parameter -- a relabelling, and with every scalar
+    # swept over the same range not even a narrower sweep. What it does break is a
+    # POINTER argument, whose staged address would land in a slot the callee reads as an
+    # integer, so a mixed signature is still refused. The host compiles the port without
+    # `pascal` and would read the arguments the other way round, so it does not own these.
+    pascal_blind = None
     if conv and len(params) > 1:
-        return None, '%s with %d arguments: the emulator pushes the other way' \
-            % (conv[0], len(params))
+        if any(t.endswith('*') for t, _ in params):
+            return None, '%s with %d arguments and a pointer among them: the emulator ' \
+                         'pushes the other way, and the staged address would land in a ' \
+                         'slot the callee reads as an integer' % (conv[0], len(params))
+        pascal_blind = ('is %s: the emulator pushes the arguments the other way, which '
+                        'the shipped function and this port read alike and a host build '
+                        'does not' % conv[0])
     # A far pointer is four bytes in the game and eight on the host, so a global that
     # HOLDS one cannot be compared: the host store writes four bytes too many. Reading a
     # pointer global is fine; only writing one is not.
@@ -903,7 +1097,7 @@ def port(path, force=False):
     # region instead, and the host is handed the same address in its own coordinates.
     npoint = sum(1 for t, _ in params if t.endswith('*'))
     nscalar = len(params) - npoint
-    if nscalar > 3 or len(params) > 5:
+    if nscalar > 5 or len(params) > 7:
         return None, '%d arguments is more than a sweep should enumerate' % len(params)
     # A negative argument is worth sweeping -- it is where signedness shows -- but not
     # into a table. shift_table_down(-4) walks a loop from 14 down to -4 and indexes the
@@ -911,8 +1105,38 @@ def port(path, force=False):
     # runs off the front of the array. The index need not be the parameter itself, so the
     # only safe rule is: a function that indexes any global at all is swept from 0.
     lowest = 0 if re.search(r'\bg_\w+\s*\[', blank_rest) else -4
-    per = {0: [], 1: ['0=%d..24' % lowest], 2: ['0=0..7', '1=0..7'],
-           3: ['0=0..3', '1=0..3', '2=0..3']}[nscalar]
+    # And not past the END of what it indexes, either. rebuild_cell_row takes a row and
+    # subscripts a global with four rows in it; swept to 24 it read twenty rows past the
+    # array, where the game's memory and a host's hold different things -- the 16-bit
+    # harness agreed on all twelve sets and the host reported writes the shipped code
+    # never made. Reading off the end is not evidence about the port either way.
+    highest = 24
+    for gn in set(re.findall(r'\b(g_\w+)\s*\[', blank_rest)):
+        g = GLOBALS.get(gn)
+        if not g or not g.get('dims') or g.get('size') is None or g.get('stars'):
+            continue
+        stride = RECORDS[g['base']]['size'] if g['base'] in RECORDS \
+            else WIDTH.get(g['base'])
+        if not stride:
+            continue
+        for gd in g['dims'][1:]:     # not `d`: that is the definition match, and
+            v = dim(gd)                 # shadowing it cost a crash here already
+            if v is None:
+                stride = None
+                break
+            stride *= v
+        if stride:
+            # With a FLOOR. Most of these extents are inferred from the gap to the
+            # next global, and a gap smaller than one row says the extent is wrong, not
+            # that the array holds one element: thirty-eight cases collapsed to a single
+            # argument set on that reading, which is not a sweep at all.
+            highest = min(highest, max(3, g['size'] // stride - 1))
+    # Four and five scalars are worth sweeping, just over a narrower range: what has to
+    # stay bounded is the PRODUCT, not the count. 81 sets and 32, against 64 for two.
+    per = {0: [], 1: ['0=%d..%d' % (lowest, highest)], 2: ['0=0..7', '1=0..7'],
+           3: ['0=0..3', '1=0..3', '2=0..3'],
+           4: ['%d=0..2' % i for i in range(4)],
+           5: ['%d=0..1' % i for i in range(5)]}[nscalar]
     # Size the staged region to the POINTEE, not a flat 64 bytes. A record bigger than
     # the block meant the function read past the pattern into whatever followed, which is
     # how the MS*File family came to take an early exit the shipped code does not.
@@ -1023,16 +1247,152 @@ def port(path, force=False):
                                body_text)
         else:
             body_text = re.sub(
-                r'typedef\s+struct\s*\{.*?\}\s*%s\s*;\s*' % re.escape(t),
+                r'typedef\s+struct\s*\w*\s*\{.*?\}\s*%s\s*;\s*' % re.escape(t),
                 '', body_text, flags=re.S)
+            if t in tag_of:
+                # `struct Item far *next` inside another struct, and every later use of
+                # the tag, now means the record the typedef was mapped onto.
+                body_text = re.sub(r'\bstruct\s+%s\b' % re.escape(tag_of[t]),
+                                   canon_of[t], body_text)
+    # A file-local struct whose name is also a record's. It was not mapped onto that
+    # record -- nothing declared with it is a global -- so it stays, and it has to stop
+    # colliding with the header's typedef of the same name. Popup_item's own
+    # `struct Item` is a list node with next/prev pointers; the header's Item is not the
+    # same shape, and leaving both spellings made the file refuse to compile.
+    local_only = sorted({t for t in list(typedefs) + list(tags)
+                         if t not in canon_of and 'struct ' + t not in canon_of
+                         and t.replace('struct ', '') in RECORDS
+                         and t not in drop_typedefs})
+    for t in local_only:
+        bare = t.replace('struct ', '')
+        for nm in {bare, tag_of.get(t, bare)}:
+            body_text = re.sub(r'\b%s\b' % re.escape(nm), nm + '_local', body_text)
+            body_pre = re.sub(r'\b%s\b' % re.escape(nm), nm + '_local', body_pre)
+
+    # An OPAQUE class: `class Sprite { public: char body[0x20]; Sprite(); ~Sprite(); };`
+    # is not a class, it is a size. The header already defines the record it stands for,
+    # and where it does not, a struct of the same body is the same object to every use in
+    # the file. Only this one-line form is taken; a class with real members or a base
+    # list is a layout question, and guessing at it would put members at wrong offsets.
+    OPAQUE = re.compile(r'^[ \t]*class\s+(\w+)\s*(?::[^{]*)?\{\s*public\s*:\s*'
+                        r'char\s+(\w+)\s*\[([^\]]+)\]\s*;\s*'
+                        r'(?:\1\s*\(\s*\)\s*;\s*|~\s*\1\s*\(\s*\)\s*;\s*)*'
+                        r'\}\s*;[ \t]*\n?', re.M)
+
+    opaque_decls = []
+
+    def _opaque(mo):
+        cls, field, size = mo.group(1), mo.group(2), dim(mo.group(3))
+        # An INSTANCE of it is not an opaque size, it is a constructor and a destructor.
+        # `GRPort port;` on the stack calls GRPort::GRPort() on entry and ~GRPort() on
+        # exit, and a plain struct of the same bytes calls neither: seven ReportWin
+        # handlers agreed on every write and every returned value while calling no
+        # imports at all, because the destructor the port had dropped is what reaches
+        # InvalidateRect. Only a class used through a POINTER is a size.
+        if re.search(r'\b%s\s+(?!far\b|near\b)\w+\s*[;,\[=]' % re.escape(cls),
+                     blank_rest):
+            raise Opaque('declares an instance of %s, whose constructor and destructor '
+                         'the shipped code calls and a struct of the same bytes does '
+                         'not' % cls)
+        if cls in RECORDS:
+            if size is not None and size != RECORDS[cls]['size']:
+                raise Opaque('%s is %d bytes in this file and %d in the model'
+                             % (cls, size, RECORDS[cls]['size']))
+            return ''                      # col/records.h defines it
+        opaque_decls.append('typedef struct { char %s[%s]; } %s;'
+                            % (field, mo.group(3), cls))
+        return ''                          # hoisted above the stub prototypes, which
+                                           # take it as a parameter type
+
+    try:
+        body_text = OPAQUE.sub(_opaque, body_text)
+        body_pre = OPAQUE.sub(_opaque, body_pre)
+    except Opaque as e:
+        return None, str(e)
+    # And the same question for a class this did NOT rewrite. Whatever shape its
+    # declaration has, an instance of it is a constructor and a destructor the port has
+    # no way to call.
+    for cls in sorted(re.findall(r'\bclass\s+(\w+)', blank)):
+        if re.search(r'\b%s\s+(?!far\b|near\b)\w+\s*[;,\[=]' % re.escape(cls),
+                     blank_rest):
+            return None, 'declares an instance of %s, whose constructor and destructor ' \
+                         'the shipped code calls and a struct of the same bytes does ' \
+                         'not' % cls
+
+    # Which record each identifier in this file holds. Built AFTER the typedefs are
+    # dropped, when every declaration already spells the canonical record name. This is
+    # only consulted for a member name that means two different offsets in the records
+    # in play; everywhere else a name-keyed rewrite is unambiguous and cheaper.
+    var_record = {}
+    if ambiguous:
+        for rn in RECORDS:
+            for m in re.finditer(r'\b%s\b(?:\s+(?:far|near|const))*\s*\**\s*(\w+)'
+                                 % re.escape(rn), body_text):
+                var_record[m.group(1)] = rn
+        for _, gnames in dropped:
+            for n in gnames:
+                b2 = GLOBALS.get(n, {}).get('base')
+                if b2 in RECORDS:
+                    var_record[n] = b2
+
+    def recv_record(expr):
+        """The record `expr` points at, or None if this cannot say.
+
+        Deliberately narrow: one known identifier and no member chain. A chain would
+        need the member's own type, and a wrong answer here puts one record's offset on
+        another -- which compiles, and is exactly what the refusal exists to stop.
+        """
+        if expr is None or '->' in expr or '.' in expr:
+            return None
+        found = {var_record[i] for i in re.findall(r'\b\w+\b', expr)
+                 if i in var_record}
+        return found.pop() if len(found) == 1 else None
+
+    def site_wanted(name, text, start):
+        """Whether the rule for `name` applies to the receiver at this site."""
+        if name not in ambiguous:
+            return True
+        want = rule_record.get(name)
+        got = recv_record(receiver_before(text, start))
+        if got is None:
+            raise Ambiguous(name)
+        return got == want
+
     for old, new in renames.items():
-        body_text = re.sub(r'(->|\.)(\s*)%s\b' % re.escape(old),
-                           lambda m: m.group(1) + m.group(2) + new, body_text)
-    for cname_, (off, elem, was_array) in sorted(casts.items()):
+        pos = 0
         while True:
-            m = re.search(r'(->|\.)\s*%s\b' % re.escape(cname_), body_text)
+            m = re.compile(r'(->|\.)(\s*)%s\b' % re.escape(old)).search(body_text, pos)
             if not m:
                 break
+            try:
+                take = site_wanted(old, body_text, m.start())
+            except Ambiguous:
+                return None, 'the member name %s means %s in this file, and this ' \
+                             'receiver is not a plain variable this can type' \
+                             % (old, ' and '.join('%s+0x%02x' % kv
+                                                  for kv in sorted(ambiguous[old].items())))
+            if not take:
+                pos = m.end()
+                continue
+            body_text = body_text[:m.start()] + m.group(1) + m.group(2) + new \
+                + body_text[m.end():]
+            pos = m.start() + len(m.group(1)) + len(m.group(2)) + len(new)
+    for cname_, (off, elem, was_array) in sorted(casts.items()):
+        pos = 0
+        while True:
+            m = re.compile(r'(->|\.)\s*%s\b' % re.escape(cname_)).search(body_text, pos)
+            if not m:
+                break
+            try:
+                if not site_wanted(cname_, body_text, m.start()):
+                    pos = m.end()
+                    continue
+            except Ambiguous:
+                return None, 'the member name %s means %s in this file, and this ' \
+                             'receiver is not a plain variable this can type' \
+                             % (cname_,
+                                ' and '.join('%s+0x%02x' % kv
+                                             for kv in sorted(ambiguous[cname_].items())))
             recv = receiver_before(body_text, m.start())
             if recv is None:
                 return None, 'cannot see what %s is a member of' % cname_
@@ -1049,6 +1409,87 @@ def port(path, force=False):
             use = rep if (was_array or _indexed(body_text, m.end())) else '(*%s)' % rep
             body_text = (body_text[:m.start() - len(recv)] + use
                          + body_text[m.end():])
+            pos = m.start() - len(recv) + len(use)
+    def _bracket(text, i):
+        """The index just past the `[...]` that starts at `i`, or None."""
+        depth = 0
+        while i < len(text):
+            if text[i] == '[':
+                depth += 1
+            elif text[i] == ']':
+                depth -= 1
+                if depth == 0:
+                    return i + 1
+            i += 1
+        return None
+
+    # A global the file declares with one dimension MORE than the header gives it. The
+    # header names the row: `char far g_icon_sprites[][0x20]` is `Sprite far *`, and the
+    # 0x20 is the record. So one subscript, which in the file is the row's address, is a
+    # record VALUE here and has to have its address taken back; two subscripts index
+    # bytes within the row, which the record type no longer spells.
+    # The mirror of the rule further down: the file declares the global as an ARRAY and
+    # the header spells it as one record VALUE -- `char far g_map_window[]` against
+    # `(*(MapWin far *)...)`. A bare use in the file is the address of the first byte, so
+    # it has to have its address taken back here, and a subscript indexes bytes the
+    # record type no longer names.
+    for _, names in dropped:
+        for n in names:
+            g = GLOBALS.get(n, {})
+            if g.get('dims') or file_shape.get(n) != 'array' \
+                    or g.get('base') not in RECORDS:
+                continue
+            pos = 0
+            while True:
+                m = re.compile(r'(&\s*)?\b%s\b' % re.escape(n)).search(body_text, pos)
+                if not m:
+                    break
+                j = m.end()
+                while j < len(body_text) and body_text[j] in ' \t':
+                    j += 1
+                if j < len(body_text) and body_text[j] == '[':
+                    e = _bracket(body_text, j)
+                    if e is None:
+                        break
+                    rep = '((unsigned char far *)&%s)%s' % (n, body_text[j:e])
+                    end = e
+                else:
+                    rep = '(&%s)' % n
+                    end = m.end()
+                body_text = body_text[:m.start()] + rep + body_text[end:]
+                pos = m.start() + len(rep)
+
+    for _, names in dropped:
+        for n in names:
+            g = GLOBALS.get(n, {})
+            if not (file_dims.get(n) == 2 and len(g.get('dims') or []) == 1
+                    and g.get('base') in RECORDS):
+                continue
+            pos = 0
+            while True:
+                m = re.compile(r'\b%s\s*(?=\[)' % re.escape(n)).search(body_text, pos)
+                if not m:
+                    break
+                e1 = _bracket(body_text, body_text.index('[', m.end()))
+                if e1 is None:
+                    break
+                j = e1
+                while j < len(body_text) and body_text[j] in ' \t':
+                    j += 1
+                row = body_text[m.start():e1]
+                if j < len(body_text) and body_text[j] == '[':
+                    e2 = _bracket(body_text, j)
+                    if e2 is None:
+                        break
+                    inner = body_text[j:e2]
+                    rep = '((unsigned char far *)&%s)%s' % (row, inner)
+                    end = e2
+                else:
+                    rep = '(&%s)' % row
+                    end = e1
+                body_text = body_text[:m.start()] + rep + body_text[end:]
+                pos = m.start() + len(rep)
+
     for _, names in dropped:
         for n in names:
             if not GLOBALS.get(n, {}).get('dims'):
@@ -1083,6 +1524,13 @@ def port(path, force=False):
                        flags=re.M)
     for r in runtime:
         body_text = re.sub(r'\b%s\b' % r, RUNTIME[r][0], body_text)
+    # Spell a shipped-only callee the way the disassembly labels it, so the fixup
+    # the emulator resolves carries a name it can find. Both the extern and the
+    # call site are rewritten; the declaration is the source file's own.
+    for c in from_shipped:
+        if c in SHIPPED_ALIAS:
+            body_text = re.sub(r'\b%s\b' % re.escape(c), SHIPPED_ALIAS[c],
+                               body_text)
     ported = retype(strip_quals(body_text)).strip()
     sig = retype('%s %s%s(%s)'
                  % (strip_quals(d.group('head')).strip()
@@ -1116,9 +1564,49 @@ def port(path, force=False):
     note += [' * far/near dropped throughout: an addressing mode with no semantic here.',
              ' */']
     src = '\n'.join(note) + '\n'
+    # The game has functions of its own called GetPixel and SetPixel -- they take a
+    # GRPort, not an HDC -- and windows.h has already declared the GDI ones by the time
+    # the unit spells its own. Borland stops at "Type mismatch in redeclaration"; clang
+    # never sees it, having no windows.h, so the gate in this tool let those ports
+    # through. NOGDI drops the GDI half of windows.h, which these units do not use.
+    # tools/port.py --borland names any further collision the same way, in its error.
+    if re.search(r'\b(?:GetPixel|SetPixel)\b', ported + ''.join(protos)):
+        src += ('/* The game has its own GetPixel and SetPixel, on a GRPort rather than\n'
+                ' * an HDC. windows.h declares the GDI pair, which this unit does not\n'
+                ' * use, and Borland will not take both spellings of the name. */\n'
+                '#define NOGDI\n')
     for h in sorted({RUNTIME[r][1] for r in runtime}):
         src += '#include <%s>\n' % h
     src += '#include "col/globals.h"\n\n'
+    # `extern "C"` in front of the definition. Borland builds this unit with -P, where
+    # it is what keeps the shipped, unmangled name; the host builds it as C89, where it
+    # is a syntax error. Both are right, so the file says so rather than picking one.
+    # A unit Borland builds with -P is C++, and a C++ function's name is MANGLED. The
+    # shipped symbol is not: colony_end_of_turn is published as `_colony_end_of_turn`
+    # there, so the original had C linkage, and without it the 16-bit harness could not
+    # find the function at all -- "not in PUBDEFs", counted as a disagreement.
+    flags_p = '-P' in (re.search(r'flags:\s*([-\w \t]+)', head).group(1).split()
+                       if re.search(r'flags:\s*([-\w \t]+)', head) else [])
+    if flags_p and not re.search(r'extern\s*"C"', ported):
+        ds = definitions(blank_comments(ported))
+        if ds:
+            at = ds[0][2]
+            ported = ported[:at] + 'COL_EXTERN_C ' + ported[at:]
+    if re.search(r'extern\s*"C"', ported) or 'COL_EXTERN_C' in ported:
+        ported = re.sub(r'extern\s*"C"', 'COL_EXTERN_C', ported)
+        src += ('/* The reconstruction marks this function `extern "C"`: Borland builds\n'
+                ' * the unit as C++ and that is what keeps the shipped name unmangled.\n'
+                ' * A host build is C, where the same words do not parse. */\n'
+                '#ifdef __cplusplus\n'
+                '#define COL_EXTERN_C extern "C"\n'
+                '#else\n'
+                '#define COL_EXTERN_C\n'
+                '#endif\n\n')
+    if opaque_decls:
+        src += ('/* A class the file declares only to give its size a name. The record is\n'
+                ' * opaque here for the same reason it is there: nothing in this unit\n'
+                ' * reads a member of it. */\n'
+                + '\n'.join(sorted(set(opaque_decls))) + '\n\n')
     if protos:
         src += ('/* The callees whose in-file stub came out: declared here, defined in '
                 'their own\n * translation units, joined by the linker. */\n'
@@ -1186,6 +1674,12 @@ def port(path, force=False):
         # call makes, so it owns these rather than nobody owning them.
         host_blind = ('returns void and touches nothing the host can observe; the 16-bit '
                       'harness compares the stack and the writes its call makes')
+    if pascal_blind and not host_blind:
+        host_blind = pascal_blind
+    if from_shipped and not host_blind:
+        host_blind = ('calls %s, which this repo has not ported: the 16-bit harness '
+                      'points the call at the shipped implementation, and a host has '
+                      'none' % ', '.join(sorted(from_shipped)[:3]))
     if runtime and not host_blind:
         # The host links its OWN strcpy; the shipped code calls Borland's. Same contract,
         # different code, and on a staged buffer that does not terminate inside itself
@@ -1269,6 +1763,13 @@ def write(path, force=False):
                        name + ('.cpp' if case.get('source', '').endswith('.cpp') else '.c'))
     if os.path.exists(dst) and not force:
         return False, 'already ported'
+    # --force re-makes what THIS TOOL made. A port someone wrote or corrected by hand is
+    # not a stale generated file, and a sweep of --force over the corpus overwrote five
+    # of them -- including job_input_goods, whose whole point is that it departs from a
+    # reconstruction with two jump-table arms the wrong way round. The generated port put
+    # the defect back. --prune already draws this line; --force has to draw the same one.
+    if os.path.exists(dst) and 'Ported by tools/port.py' not in open(dst).read():
+        return False, 'a hand-written port: not this tool\'s to overwrite'
     open(dst, 'w').write(src)
     json.dump(case, open(os.path.join(REPO, 'tests', 'cases', name + '.json'), 'w'),
               indent=1)
@@ -1284,8 +1785,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('paths', nargs='*')
     ap.add_argument('--survey', action='store_true')
+    ap.add_argument('--roots', action='store_true',
+                    help='the refusals every other refusal rests on')
     ap.add_argument('--batch', type=int)
     ap.add_argument('--force', action='store_true')
+    ap.add_argument('--borland', action='store_true',
+                    help='drop ports the real toolchain rejects')
     ap.add_argument('--prune', action='store_true',
                     help='drop ports this tool would no longer make, and their cases')
     a = ap.parse_args()
@@ -1307,11 +1812,90 @@ def main():
             print('  %5d  %s' % (n, reason))
         return 0
 
+    if a.roots:
+        # A refusal that reads "calls X, which is not ported" is not a reason, it is a
+        # forwarding address. Follow every chain to the refusals that are NOT cascades,
+        # and rank those by how many files each one holds up. That is the worklist: one
+        # root here is worth twenty of the files that name it.
+        import collections
+        reason_of, calls = {}, {}
+        for path in corpus:
+            nm = os.path.splitext(os.path.basename(path))[0]
+            src, reason = port(path)
+            if src is not None:
+                continue
+            m = re.match(r'calls (.+), which is not ported$', reason)
+            if m:
+                calls[nm] = [c.strip() for c in m.group(1).split(',')]
+            reason_of[nm] = reason
+
+        def roots_of(nm, seen):
+            if nm in seen:
+                return set()
+            seen = seen | {nm}
+            if nm not in calls:
+                return {nm} if nm in reason_of else set()
+            out = set()
+            for c in calls[nm]:
+                out |= roots_of(c, seen)
+            return out or {nm}
+
+        blocked = collections.Counter()
+        for nm in reason_of:
+            for r in roots_of(nm, set()):
+                blocked[r] += 1
+        print('%d refusals, resting on %d roots' % (len(reason_of), len(blocked)))
+        for r, n in blocked.most_common(25):
+            print('  %4d  %-30s %s' % (n, r, reason_of.get(r, 'no reconstruction')))
+        return 0
+
+    if a.borland:
+        # The compile gate in port() is clang, which is a PROXY for the toolchain that
+        # matters. Borland rejects things clang accepts -- a unit whose function shares a
+        # name with a Windows API, so windows.h has already declared it with another
+        # signature; an incomplete type used by value -- and those ports reached src/ and
+        # the suite, where they read as disagreements rather than as what they are.
+        # Batched, because a DOSBox session costs seconds and a compile costs a fraction.
+        sys.path.insert(0, os.path.join(REPO, 'tools'))
+        import bcc
+        ports = sorted(glob.glob(os.path.join(REPO, 'src', '*', '*.c'))
+                       + glob.glob(os.path.join(REPO, 'src', '*', '*.cpp')))
+        ports = [x for x in ports
+                 if 'Ported by tools/port.py' in open(x).read()]
+        print('compiling %d ports with Borland C++ 4.52' % len(ports))
+        gone = 0
+        by_flags = {}
+        for x in ports:
+            nm = os.path.splitext(os.path.basename(x))[0]
+            cpath = os.path.join(REPO, 'tests', 'cases', nm + '.json')
+            fl = '-ml -WS -Od -Ot -3'
+            if os.path.exists(cpath):
+                fl = json.load(open(cpath)).get('flags', fl)
+            by_flags.setdefault(fl, []).append(x)
+        for fl, group in sorted(by_flags.items()):
+            for x, res in bcc.compile_all(group, fl).items():
+                obj, log = res[0], (res[1] if len(res) > 1 else '')
+                if obj is not None:
+                    continue
+                why = next((l.strip() for l in (log or '').splitlines()
+                            if l.strip().startswith('Error')), 'Borland rejected it')
+                nm = os.path.splitext(os.path.basename(x))[0]
+                for f in (x, os.path.join(REPO, 'tests', 'cases', nm + '.json')):
+                    if os.path.exists(f):
+                        os.remove(f)
+                print('%-28s dropped: %s' % (nm, why[:90]))
+                gone += 1
+        print('%d dropped' % gone)
+        return 0
+
     if a.prune:
         gone = 0
         for p in corpus:
             name = os.path.splitext(os.path.basename(p))[0]
-            here = glob.glob(os.path.join(REPO, 'src', '*', name + '.c'))
+            # .cpp TOO. Looking only for .c meant every C++ port was invisible to
+            # --prune: twenty-seven of them stopped being ports this tool would make and
+            # all twenty-seven stayed in src/ and in the suite.
+            here = ported_paths(name)
             if not here:
                 continue
             if 'Ported by tools/port.py' not in open(here[0]).read():
@@ -1331,7 +1915,7 @@ def main():
         paths = []
         for p in corpus:
             name = os.path.splitext(os.path.basename(p))[0]
-            if glob.glob(os.path.join(REPO, 'src', '*', name + '.c')):
+            if ported_paths(name):
                 continue
             if port(p)[0] is not None:
                 paths.append(p)

@@ -1,0 +1,34 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_gen_rivers",
+ "shipped": "1020:0563",
+ "source": "src/game/map_gen_rivers.c",
+ "prototype": "void map_gen_rivers(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "map_gen_rivers()",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_map_bytes",
+  "g_map_h",
+  "g_map_width",
+  "g_ortho_dx",
+  "g_ortho_dy",
+  "g_plane0",
+  "g_plane0_handle",
+  "g_plane3",
+  "g_plane3_handle",
+  "g_ring_dx",
+  "g_ring_dy",
+  "g_world_opt"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_plane0: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

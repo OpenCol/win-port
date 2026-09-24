@@ -1,0 +1,41 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "create_colony",
+ "shipped": "1018:af9d",
+ "source": "src/game/create_colony.c",
+ "prototype": "col_i16 create_colony(col_i16 nation, col_i16 x, col_i16 y, col_i16 unit);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "(long)create_colony((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_count",
+  "g_cur_colony_idx",
+  "g_cur_colony_rec",
+  "g_nation52",
+  "g_nation_colony_count",
+  "g_ocean_x",
+  "g_ocean_y"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colonist_specialty_set",
+  "colony_flag2_set",
+  "colony_flag_set",
+  "colony_native_claims",
+  "colony_refresh_screen",
+  "colony_set_job",
+  "set_current_colony",
+  "show_text_dialog_1018_b3d1",
+  "unit_colonist_index"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

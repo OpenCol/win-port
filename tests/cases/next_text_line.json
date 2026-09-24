@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "next_text_line",
+ "shipped": "1040:6e22",
+ "source": "src/game/next_text_line.c",
+ "prototype": "char * next_text_line(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)next_text_line()",
+ "globals_read": [
+  "g_text_buf",
+  "g_text_cursor_a",
+  "g_text_cursor_b"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "cut_at_newline",
+  "empty_1040_6ce6",
+  "trim_both"
+ ],
+ "host_blind": "uses the pointer global g_text_cursor_a: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

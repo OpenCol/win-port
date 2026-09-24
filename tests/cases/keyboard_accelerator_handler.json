@@ -1,0 +1,43 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "keyboard_accelerator_handler",
+ "shipped": "1048:d006",
+ "source": "src/game/keyboard_accelerator_handler.c",
+ "prototype": "void keyboard_accelerator_handler(col_i16 key);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "keyboard_accelerator_handler((col_i16)a0)",
+ "globals_read": [
+  "g_cheat_step",
+  "g_cursor_x",
+  "g_cursor_y",
+  "g_europe_win",
+  "g_game_flags",
+  "g_game_in_progress",
+  "g_game_record2",
+  "g_in_accel",
+  "g_map_window",
+  "g_menu_owner",
+  "g_pedia_ctx",
+  "g_player_nation",
+  "g_quit_flag",
+  "g_report_window",
+  "g_reveal_all",
+  "g_view_mode",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ask_text_resource",
+  "cheat_menu_toggle",
+  "european_status",
+  "get_w_6_1048_e56c",
+  "menu_enable_item_1048_e2dd"
+ ],
+ "host_blind": "calls MapWin_Recenter, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

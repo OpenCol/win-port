@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "show_text_dialog_1048_e3ae",
+ "shipped": "1048:e3ae",
+ "source": "src/game/show_text_dialog_1048_e3ae.c",
+ "prototype": "col_i16 show_text_dialog_1048_e3ae(col_i16 a, col_i16 b, col_i16 c);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)show_text_dialog_1048_e3ae((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_dialog_ctx",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "text_dialog_1048_e911"
+ ],
+ "unverifiable": "a forwarder to text_dialog_1048_e911, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_delete",
+ "shipped": "1028:d088",
+ "source": "src/game/route_delete.c",
+ "prototype": "void route_delete(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "route_delete()",
+ "globals_read": [
+  "g_cur_route_rec",
+  "g_routes",
+  "g_trade_route_count",
+  "g_unit_count",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "no_trade_routes_defined",
+  "set_current_route",
+  "set_name_slot_1028_e412",
+  "show_text_dialog_1028_e48e"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

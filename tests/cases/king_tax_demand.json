@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "king_tax_demand",
+ "shipped": "1048:694e",
+ "source": "src/game/king_tax_demand.c",
+ "prototype": "void king_tax_demand(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "king_tax_demand()",
+ "globals_read": [
+  "g_cur_nation",
+  "g_cur_nation_rec",
+  "g_difficulty",
+  "g_nation52",
+  "g_text_args"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "apply_tax_change",
+  "ask_text_resource",
+  "max_int_1048_dd61",
+  "sub_1048_4e81"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

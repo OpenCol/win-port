@@ -1,0 +1,18 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "rand_scaled_1070_ddfe",
+ "shipped": "1070:ddfe",
+ "source": "src/platform/rand_scaled_1070_ddfe.c",
+ "prototype": "col_i16 rand_scaled_1070_ddfe(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)rand_scaled_1070_ddfe((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls rand_rtl, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

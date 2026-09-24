@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "hwnd_is_ms_control",
+ "shipped": "1070:4f9e",
+ "source": "src/platform/hwnd_is_ms_control.c",
+ "prototype": "col_i16 hwnd_is_ms_control(col_u16 hwnd);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)hwnd_is_ms_control((col_u16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "object_from_hwnd"
+ ],
+ "host_blind": "calls GetClassName, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

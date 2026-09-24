@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "nation_treaty_step",
+ "shipped": "1030:50d4",
+ "source": "src/game/nation_treaty_step.c",
+ "prototype": "void nation_treaty_step(col_i16 a, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "nation_treaty_step((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_game_flags",
+  "g_turn_counter"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "nation_wants_war",
+  "wake_units_near"
+ ],
+ "host_blind": "calls wake_units_near, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

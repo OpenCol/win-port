@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "refresh_arrived_unit_1008_006f",
+ "shipped": "1008:006f",
+ "source": "src/game/refresh_arrived_unit_1008_006f.c",
+ "prototype": "void refresh_arrived_unit_1008_006f(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "refresh_arrived_unit_1008_006f()",
+ "globals_read": [
+  "g_selected_unit"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

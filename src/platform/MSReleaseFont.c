@@ -14,8 +14,8 @@
 extern col_i16 pascal DeleteObject(col_u16 hobj);
 #endif
 
-extern FontRec * MSHLock(col_u16 h);
-extern void MSHUnlock(col_u16 h);
+extern FontRec * MSHLock(col_i16 h);
+extern void MSHUnlock(col_i16 h);
 extern col_i16 MSDisposeHandle(col_u16 h);
 
 

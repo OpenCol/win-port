@@ -1,0 +1,9 @@
+{
+  "_why": "A width the shipped bytes settle, against what counting the reconstructions' spellings would pick. Only a WRITER goes in here: an instruction that stores to the address states the width of the object, and a read can be a narrow view of a wider one. Each entry names the instruction.",
+  "widths": {
+    "SEG20:0x7784": {
+      "spelling": "int far @",
+      "evidence": "XOR WORD [0x7784],0x2000 at 1048:a717 (cheat_menu_toggle) and again in its other arm: a word store, so the object is two bytes. The corpus also spells it `unsigned char far @[]`, which has more dimensions and won the pick; the port then truncated GAMEFLAG_CHEAT_MENU (0x2000) to a byte and flipped nothing."
+    }
+  }
+}

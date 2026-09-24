@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_set_mission",
+ "shipped": "1028:323f",
+ "source": "src/game/unit_set_mission.c",
+ "prototype": "void unit_set_mission(col_i16 u, unsigned char a, unsigned char b, unsigned char c);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "unit_set_mission((col_i16)a0, (unsigned char)a1, (unsigned char)a2, (unsigned char)a3)",
+ "globals_read": [
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

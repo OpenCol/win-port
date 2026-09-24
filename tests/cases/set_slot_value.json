@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_slot_value",
+ "shipped": "1018:48e9",
+ "source": "src/game/set_slot_value.c",
+ "prototype": "void set_slot_value(col_i16 idx, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "set_slot_value((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_prod",
+  "g_slot14_adjust"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "set_value_and_overflow"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

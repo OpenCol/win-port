@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "viceroy_do_message",
+ "shipped": "1038:b23a",
+ "source": "src/game/viceroy_do_message.c",
+ "prototype": "void viceroy_do_message(col_i16 idx, char kind);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "viceroy_do_message((col_i16)a0, (char)a1)",
+ "globals_read": [
+  "g_map_window",
+  "g_misc_words"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "viceroy_activate_message",
+  "viceroy_message"
+ ]
+}

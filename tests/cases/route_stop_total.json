@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_stop_total",
+ "shipped": "1028:0a15",
+ "source": "src/game/route_stop_total.c",
+ "prototype": "col_i16 route_stop_total(col_i16 a, col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)route_stop_total((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1028_e350",
+  "nation_score_base",
+  "status_bits",
+  "unit_score_penalty"
+ ],
+ "host_blind": "calls map_plane2_nibble_if_land, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

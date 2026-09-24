@@ -1,0 +1,42 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "CopyToScreen",
+ "shipped": "1068:54a3",
+ "source": "src/gfx/CopyToScreen.c",
+ "prototype": "void CopyToScreen(GRPort * p, POINT * src, POINT * dst, POINT * at);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=6468",
+  "1=4360",
+  "2=6532",
+  "3=4360",
+  "4=6596",
+  "5=4360",
+  "6=6660",
+  "7=4360"
+ ],
+ "stage": {
+  "SEG34:0x1944": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x1984": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+  "SEG34:0x19c4": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6",
+  "SEG34:0x1a04": "5a61686f767d848b9299a0a7aeb5bcc3cad1d8dfe6edf4fb020910171e252c333a41484f565d646b727980878e959ca3aab1b8bfc6cdd4dbe2e9f0f7fe050c13"
+ },
+ "call": "CopyToScreen((GRPort far *)(col_seg34 + 0x1944L), (POINT far *)(col_seg34 + 0x1984L), (POINT far *)(col_seg34 + 0x19c4L), (POINT far *)(col_seg34 + 0x1a04L))",
+ "globals_read": [
+  "g_error_ctx"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSLockGraf",
+  "MSUnlockGraf",
+  "empty_1068_963d",
+  "get_p_2_1068_966f",
+  "get_p_6_1068_96e8",
+  "rect_height_1068_96c8",
+  "rect_width_1068_96a9"
+ ],
+ "host_blind": "uses the pointer member GRPort.win: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

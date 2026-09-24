@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "say_number_1060_8947",
+ "shipped": "1060:8947",
+ "source": "src/game/say_number_1060_8947.c",
+ "prototype": "void say_number_1060_8947(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "say_number_1060_8947((col_i16)a0)",
+ "globals_read": [
+  "g_message_buf",
+  "g_number_buf"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls LTOA1, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

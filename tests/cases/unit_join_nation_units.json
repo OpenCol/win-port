@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_join_nation_units",
+ "shipped": "1038:2bc0",
+ "source": "src/game/unit_join_nation_units.c",
+ "prototype": "void unit_join_nation_units(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "unit_join_nation_units((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "nation_adjacent",
+  "unit_chain_set_nation"
+ ],
+ "host_blind": "calls nation_adjacent, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

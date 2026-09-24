@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "prompt_trade_route_name",
+ "shipped": "1058:8868",
+ "source": "src/game/prompt_trade_route_name.c",
+ "prototype": "void prompt_trade_route_name(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "prompt_trade_route_name((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_route_rec",
+  "g_font_small",
+  "g_game_record",
+  "g_seg31_a4",
+  "g_text_ctx",
+  "g_trade_name_busy"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1058_bc15",
+  "get_w_2_1058_be4f",
+  "route_strip_click"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

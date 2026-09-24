@@ -92,8 +92,8 @@
 #define g_cursors                            ((col_i16 (far *)[2])(col_seg20 + 0x7746L))  /* SEG20:0x7746; inferred: the gap to the next global; narrow_view: char */
 #define g_cursor_776e                        (*(col_i16 far *)(col_seg20 + 0x776eL))      /* SEG20:0x776e */
 #define g_tutorial_flags                     (*(col_i16 far *)(col_seg20 + 0x7782L))      /* SEG20:0x7782; narrow_view: char; signedness_unresolved: int, unsigned */
-#define g_flags_7784                         (*(col_i16 far *)(col_seg20 + 0x7784L))      /* SEG20:0x7784 */
-#define g_game_flags                         ((unsigned char far *)(col_seg20 + 0x7784L)) /* SEG20:0x7784; a view into g_flags_7784; signedness_unresolved: char, unsigned char */
+#define g_flags_7784                         (*(col_i16 far *)(col_seg20 + 0x7784L))      /* SEG20:0x7784; settled_by_a_writer: XOR WORD [0x7784],0x2000 at 1048:a717 (cheat_menu_toggle) and again in its other arm: a word store, so the object is two bytes. The corpus also spells it `unsigned char far @[]`, which has more dimensions and won the pick; the port then truncated GAMEFLAG_CHEAT_MENU (0x2000) to a byte and flipped nothing. */
+#define g_game_flags                         (*(col_i16 far *)(col_seg20 + 0x7784L))      /* SEG20:0x7784; a view into g_flags_7784; settled_by_a_writer: XOR WORD [0x7784],0x2000 at 1048:a717 (cheat_menu_toggle) and again in its other arm: a word store, so the object is two bytes. The corpus also spells it `unsigned char far @[]`, which has more dimensions and won the pick; the port then truncated GAMEFLAG_CHEAT_MENU (0x2000) to a byte and flipped nothing. */
 #define g_flag_7785                          (*(unsigned char far *)(col_seg20 + 0x7785L)) /* SEG20:0x7785; a view into g_flags_7784 */
 #define g_flags_7785                         (*(unsigned char far *)(col_seg20 + 0x7785L)) /* SEG20:0x7785; a view into g_flags_7784 */
 #define g_7786                               (*(col_i16 far *)(col_seg20 + 0x7786L))      /* SEG20:0x7786 */

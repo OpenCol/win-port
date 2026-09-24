@@ -1,0 +1,33 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tory_uprising",
+ "shipped": "1038:5086",
+ "source": "src/game/tory_uprising.c",
+ "prototype": "void tory_uprising(col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "tory_uprising((col_i16)a0)",
+ "globals_read": [
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_difficulty",
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_mother_country_idx",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "create_unit_1038_2246",
+  "set_name_slot_1038_8775",
+  "unit_at",
+  "unit_chain_next"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

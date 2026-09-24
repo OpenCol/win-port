@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_new_unit",
+ "shipped": "1048:4b3e",
+ "source": "src/game/europe_new_unit.c",
+ "prototype": "col_i16 europe_new_unit(col_i16 code);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)europe_new_unit((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation",
+  "g_difficulty",
+  "g_nation52",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls create_unit_1038_2246, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

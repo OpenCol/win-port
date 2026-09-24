@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "fortify_unit",
+ "shipped": "1008:0278",
+ "source": "src/game/fortify_unit.c",
+ "prototype": "void fortify_unit(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "fortify_unit()",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_selected_unit",
+  "g_str_havetreaty",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls play_sound_effect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

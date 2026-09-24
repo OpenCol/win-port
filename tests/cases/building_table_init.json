@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "building_table_init",
+ "shipped": "1008:81d4",
+ "source": "src/game/building_table_init.c",
+ "prototype": "void building_table_init(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "building_table_init()",
+ "globals_read": [
+  "g_map_pixels"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "building_table_set_fields",
+  "rec6_d83c_set"
+ ],
+ "host_blind": "calls building_table_set_fields, rec6_d83c_set, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

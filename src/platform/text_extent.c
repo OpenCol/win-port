@@ -21,8 +21,8 @@ extern col_u16 pascal GetDC(col_u16 hwnd);
 extern col_u16 pascal SelectObject(col_u16 hdc, col_u16 hobj);
 #endif
 
-extern FontRec * MSHLock(col_u16 h);
-extern void MSHUnlock(col_u16 h);
+extern FontRec * MSHLock(col_i16 h);
+extern void MSHUnlock(col_i16 h);
 
 
 

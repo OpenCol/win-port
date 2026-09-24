@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "native_trade_prices",
+ "shipped": "1030:ac7a",
+ "source": "src/game/native_trade_prices.c",
+ "prototype": "void native_trade_prices(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "native_trade_prices()",
+ "globals_read": [
+  "g_colony_count",
+  "g_cur_colony_rec",
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_cur_tribe_rec",
+  "g_debug_flags",
+  "g_goods_name_word",
+  "g_native_buy",
+  "g_native_sell",
+  "g_tribe_settlement_count"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1030_ead6"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

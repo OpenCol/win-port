@@ -1,0 +1,40 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_next_step_dir",
+ "shipped": "1020:c833",
+ "source": "src/game/unit_next_step_dir.c",
+ "prototype": "col_i16 unit_next_step_dir(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)unit_next_step_dir((col_i16)a0)",
+ "globals_read": [
+  "g_debug_flags",
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_far_start_x",
+  "g_far_start_y",
+  "g_grid_x",
+  "g_grid_y",
+  "g_nation52",
+  "g_path_debug",
+  "g_path_mode",
+  "g_path_shown",
+  "g_reveal_all",
+  "g_terrain_row_bytes",
+  "g_units",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "direction_of",
+  "far_path_waypoint",
+  "find_adjacent_tile",
+  "near_path_step"
+ ],
+ "host_blind": "calls find_adjacent_tile, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "label_map_regions",
+ "shipped": "1038:c2a9",
+ "source": "src/game/label_map_regions.c",
+ "prototype": "col_i16 label_map_regions(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)label_map_regions()",
+ "globals_read": [
+  "g_map_h",
+  "g_map_width",
+  "g_plane2",
+  "g_plane2_handle",
+  "g_plane3",
+  "g_plane3_handle",
+  "g_region_size"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1038_e46c",
+  "min_int_1038_e446"
+ ],
+ "host_blind": "uses the pointer global g_plane2: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

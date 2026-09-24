@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_set_stop",
+ "shipped": "1028:cb4f",
+ "source": "src/game/route_set_stop.c",
+ "prototype": "void route_set_stop(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "route_set_stop()",
+ "globals_read": [
+  "g_cur_route_rec",
+  "g_cur_route_stop",
+  "g_route_stop",
+  "g_route_unit"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "empty_1028_cb41",
+  "pick_trade_route_stop",
+  "route_delete_stop",
+  "route_entry_init",
+  "set_route"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

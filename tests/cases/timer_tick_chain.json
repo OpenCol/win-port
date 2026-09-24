@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "timer_tick_chain",
+ "shipped": "1068:3456",
+ "source": "src/gfx/timer_tick_chain.c",
+ "prototype": "void timer_tick_chain(col_i16 a, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "timer_tick_chain((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_anim",
+  "g_anim2"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "anim_start_chained",
+  "anim_stop",
+  "anim_tick"
+ ],
+ "host_blind": "uses the pointer global g_anim: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MapWin_LeftMouseClick",
+ "shipped": "1038:9371",
+ "source": "src/game/MapWin_LeftMouseClick.c",
+ "prototype": "void MapWin_LeftMouseClick(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "MapWin_LeftMouseClick((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_colonies",
+  "g_colony_window",
+  "g_game_record2",
+  "g_info_win",
+  "g_map_lclick_busy",
+  "g_reveal_all",
+  "g_view_mode",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1038_e2a2",
+  "close_dialog_1038_e279"
+ ],
+ "host_blind": "calls MSDoAllTasks_1038_e2a2, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

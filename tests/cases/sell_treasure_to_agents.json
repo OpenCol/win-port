@@ -1,0 +1,36 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "sell_treasure_to_agents",
+ "shipped": "1020:420d",
+ "source": "src/game/sell_treasure_to_agents.c",
+ "prototype": "void sell_treasure_to_agents(col_i16 u, col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "sell_treasure_to_agents((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_difficulty",
+  "g_difficulty_words",
+  "g_game_flags",
+  "g_nation_name_word",
+  "g_nation_text",
+  "g_nations",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1020_a887",
+  "min_int_1020_a8ad",
+  "set_name_slot_1020_a94a",
+  "set_text_arg_c",
+  "set_text_arg_i_1020_a926",
+  "set_text_arg_u_1020_a9de",
+  "show_text_dialog_1020_aa02"
+ ],
+ "host_blind": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+ "reaches_windows_api": true
+}

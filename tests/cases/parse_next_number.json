@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "parse_next_number",
+ "shipped": "1040:6f76",
+ "source": "src/game/parse_next_number.c",
+ "prototype": "col_i16 parse_next_number(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)parse_next_number()",
+ "globals_read": [
+  "g_stub_i",
+  "g_stub_s"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "next_csv_field",
+  "parse_number"
+ ],
+ "unverifiable": "a forwarder to next_csv_field, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+ "call_args": [
+  "0"
+ ]
+}

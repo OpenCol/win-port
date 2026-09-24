@@ -10,7 +10,7 @@
  */
 #include "col/globals.h"
 
-extern void * MSHUnlock(col_i16 handle);
+extern void * MSHUnlock(col_i16 h);
 
 void map_plane0_unlock(void)
 {

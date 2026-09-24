@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "create_unit_type23",
+ "shipped": "1020:8ca7",
+ "source": "src/game/create_unit_type23.c",
+ "prototype": "col_i16 create_unit_type23(col_i16 a, col_i16 x, col_i16 y, col_i16 owner, col_i16 b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "(long)create_unit_type23((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [
+  "g_unit_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "init_rec_7c0a"
+ ],
+ "host_blind": "calls unit_place_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

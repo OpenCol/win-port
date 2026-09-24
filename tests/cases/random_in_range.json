@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "random_in_range",
+ "shipped": "1068:b7e0",
+ "source": "src/gfx/random_in_range.c",
+ "prototype": "col_i16 random_in_range(col_i16 lo, col_i16 hi);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)random_in_range((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "random_below"
+ ],
+ "host_blind": "calls random_below, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

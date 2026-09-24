@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "select_slot",
+ "shipped": "1068:b70c",
+ "source": "src/gfx/select_slot.c",
+ "prototype": "void select_slot(col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "select_slot((col_i16)a0)",
+ "globals_read": [
+  "g_current_slot",
+  "g_slot_state"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "random_get_seed",
+  "random_set_seed"
+ ],
+ "host_blind": "calls random_get_seed, random_set_seed, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

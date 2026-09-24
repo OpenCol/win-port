@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mission_goto_step",
+ "shipped": "1028:ae3d",
+ "source": "src/game/mission_goto_step.c",
+ "prototype": "void mission_goto_step(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "mission_goto_step((col_i16)a0)",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_moving_nation",
+  "g_nation52",
+  "g_selected_unit",
+  "g_turn_nation",
+  "g_unit_count",
+  "g_units",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls terrain_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

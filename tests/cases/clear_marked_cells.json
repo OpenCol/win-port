@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "clear_marked_cells",
+ "shipped": "1018:72e4",
+ "source": "src/game/clear_marked_cells.c",
+ "prototype": "void clear_marked_cells(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "clear_marked_cells()",
+ "globals_read": [
+  "g_grid_marks",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_set_cell"
+ ],
+ "host_blind": "calls colony_set_cell, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

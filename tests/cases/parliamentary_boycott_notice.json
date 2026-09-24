@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "parliamentary_boycott_notice",
+ "shipped": "1048:573d",
+ "source": "src/game/parliamentary_boycott_notice.c",
+ "prototype": "col_i16 parliamentary_boycott_notice(col_i16 good);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)parliamentary_boycott_notice((col_i16)a0)",
+ "globals_read": [
+  "g_cur_nation",
+  "g_cur_nation_rec",
+  "g_goods_name_word",
+  "g_nation52",
+  "g_nation_name_word"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "dialog_set_option_value",
+  "goods_price_buy",
+  "set_text_arg_l_1048_db8e",
+  "sub_1048_4e81"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host"
+}

@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_move_dir",
+ "shipped": "1020:dfb7",
+ "source": "src/game/unit_move_dir.c",
+ "prototype": "void unit_move_dir(col_i16 u, col_i16 d);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "unit_move_dir((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_move_to_square"
+ ],
+ "host_blind": "calls unit_move_to_square, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

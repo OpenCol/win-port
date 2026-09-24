@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "port_crossfade",
+ "shipped": "1068:b351",
+ "source": "src/gfx/port_crossfade.c",
+ "prototype": "void port_crossfade(Screen * s, col_i16 first, col_i16 count, col_i16 steps);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..3",
+  "3=0..3",
+  "4=0..3"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "port_crossfade((Screen far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoTask_1068_d906",
+  "MSWaitTicks_1068_d93a",
+  "port_bits",
+  "port_copy_full"
+ ],
+ "host_blind": "uses the pointer member Port.bits: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

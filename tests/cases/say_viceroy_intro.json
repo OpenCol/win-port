@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "say_viceroy_intro",
+ "shipped": "1008:bcfb",
+ "source": "src/game/say_viceroy_intro.c",
+ "prototype": "void say_viceroy_intro(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "say_viceroy_intro()",
+ "globals_read": [
+  "g_player_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "show_endgame_speech"
+ ],
+ "host_blind": "calls show_endgame_speech, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

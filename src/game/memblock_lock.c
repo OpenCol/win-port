@@ -15,7 +15,7 @@
 void memblock_hook(void *ctx, char *fmt, col_i32 value);
 
 typedef struct { unsigned char kind; char flag; col_i16 handle; void *ptr; } MemBlock;
-extern void * MSHLock(col_i16 handle);
+extern void * MSHLock(col_i16 h);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 

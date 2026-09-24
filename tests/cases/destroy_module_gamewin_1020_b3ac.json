@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "destroy_module_gamewin_1020_b3ac",
+ "shipped": "1020:b3ac",
+ "source": "src/game/destroy_module_gamewin_1020_b3ac.c",
+ "prototype": "void destroy_module_gamewin_1020_b3ac(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "destroy_module_gamewin_1020_b3ac()",
+ "globals_read": [
+  "g_win"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "GameWin_dtor_1020_aac1"
+ ],
+ "unverifiable": "a forwarder to GameWin_dtor_1020_aac1, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+ "call_args": [
+  "0"
+ ]
+}

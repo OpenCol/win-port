@@ -1,0 +1,50 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "lost_city_rumour",
+ "shipped": "1038:7c74",
+ "source": "src/game/lost_city_rumour.c",
+ "prototype": "void lost_city_rumour(col_i16 unit, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "lost_city_rumour((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_cur_tribe_nation",
+  "g_difficulty",
+  "g_edit_bufs",
+  "g_game_flags",
+  "g_nation52",
+  "g_nation_colony_count",
+  "g_nation_name",
+  "g_nation_population",
+  "g_nations",
+  "g_nearest_dist",
+  "g_random_seed",
+  "g_rumours_seen",
+  "g_sound_music",
+  "g_text_value",
+  "g_treasures_found",
+  "g_turn_nation",
+  "g_units",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "create_unit_1038_2246",
+  "find_nearest_village",
+  "max_int_1038_86a6",
+  "set_text_arg_i_1038_86cc",
+  "tribe_hostile",
+  "unit_record_free",
+  "unit_replace_at_self"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

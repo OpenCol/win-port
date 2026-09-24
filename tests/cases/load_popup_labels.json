@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "load_popup_labels",
+ "shipped": "1050:002f",
+ "source": "src/game/load_popup_labels.c",
+ "prototype": "void load_popup_labels(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "load_popup_labels()",
+ "globals_read": [
+  "g_popup_label",
+  "g_popup_label_id"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_popup_label: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

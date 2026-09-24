@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "redraw_map_view",
+ "shipped": "1040:12d5",
+ "source": "src/game/redraw_map_view.c",
+ "prototype": "void redraw_map_view(col_i16 a);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "redraw_map_view((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_view_h",
+  "g_view_w",
+  "g_view_x0",
+  "g_view_y0"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_view_layout_1040_0597"
+ ],
+ "host_blind": "calls map_draw_region, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

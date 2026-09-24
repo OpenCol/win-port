@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_keyclick",
+ "shipped": "1048:3d21",
+ "source": "src/game/europe_keyclick.c",
+ "prototype": "void europe_keyclick(col_i16 key);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "europe_keyclick((col_i16)a0)",
+ "globals_read": [
+  "g_current_window",
+  "g_europe_win_rec"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_current_window: four bytes in the game, eight on a host"
+}

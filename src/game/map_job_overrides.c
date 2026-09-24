@@ -16,7 +16,7 @@ col_i16 map_job_overrides(col_i16 job)
 {
     col_i16 r = 0x15;
 
-    if (((*g_game_flags) & GAMEFLAG_INDEPENDENCE) && job == 0x15)
+    if ((g_game_flags & GAMEFLAG_INDEPENDENCE) && job == 0x15)
         r = -1;
     if (job == 0x1a)
         r = 0x19;

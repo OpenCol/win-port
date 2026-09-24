@@ -1,0 +1,38 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "route_create",
+ "shipped": "1028:cdf4",
+ "source": "src/game/route_create.c",
+ "prototype": "void route_create(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "route_create()",
+ "globals_read": [
+  "g_colonies",
+  "g_cur_route_rec",
+  "g_default_route_name",
+  "g_random_seed",
+  "g_routes",
+  "g_text_args",
+  "g_text_buf",
+  "g_text_ctx",
+  "g_trade_route_count"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ATOL_1028_e4e9",
+  "pick_trade_route_stop",
+  "route_edit",
+  "route_entry_init",
+  "set_current_route",
+  "set_route",
+  "set_text_arg_i_1028_e3ee",
+  "show_text_dialog_1028_e48e"
+ ],
+ "host_blind": "uses the pointer global g_cur_route_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

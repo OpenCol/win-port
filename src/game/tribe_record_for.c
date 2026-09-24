@@ -17,7 +17,7 @@
 #include "gameflag.h"
 NationRec * tribe_record_for(col_i16 n)
 {
-    if (((*g_game_flags) & GAMEFLAG_INDEPENDENCE) && g_mother_country_idx == n)
+    if ((g_game_flags & GAMEFLAG_INDEPENDENCE) && g_mother_country_idx == n)
         return &g_rec52[g_player_nation];
     return &g_rec52[n];
 }

@@ -1,0 +1,34 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_build_complete",
+ "shipped": "1018:8e3d",
+ "source": "src/game/colony_build_complete.c",
+ "prototype": "void colony_build_complete(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "colony_build_complete()",
+ "globals_read": [
+  "g_cur_colony_is_players",
+  "g_cur_colony_rec",
+  "g_msg_seen",
+  "g_nation52",
+  "g_nations",
+  "g_new_building"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "build_item_kind",
+  "build_item_name",
+  "colony_event_message",
+  "colony_flag_set",
+  "colony_site_layout",
+  "current_colony_flag_get",
+  "set_name_slot_1018_b3f6"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

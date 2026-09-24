@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tally_natives",
+ "shipped": "1030:2822",
+ "source": "src/game/tally_natives.c",
+ "prototype": "void tally_natives(col_i16 tribe);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7"
+ ],
+ "call": "tally_natives((col_i16)a0)",
+ "globals_read": [
+  "g_cur_settlement_rec",
+  "g_region_settlements",
+  "g_settlement_count",
+  "g_tribe_pop",
+  "g_tribe_region",
+  "g_tribe_settlement_count",
+  "g_tribe_strength",
+  "g_unit_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "add_clamped_255"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

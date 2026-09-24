@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_score_penalty",
+ "shipped": "1028:08d3",
+ "source": "src/game/unit_score_penalty.c",
+ "prototype": "col_i16 unit_score_penalty(col_i16 nation, col_i16 u, col_i16 land);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)unit_score_penalty((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_nation_colony_count",
+  "g_nations",
+  "g_nearest_dist",
+  "g_turn_counter",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "min_int_1028_e376",
+  "nation_score_base"
+ ],
+ "host_blind": "calls find_nearest_colony, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

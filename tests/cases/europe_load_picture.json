@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_load_picture",
+ "shipped": "1048:89dc",
+ "source": "src/game/europe_load_picture.c",
+ "prototype": "void europe_load_picture(char * w);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "europe_load_picture((char far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_game_palette"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls load_picture_resource, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

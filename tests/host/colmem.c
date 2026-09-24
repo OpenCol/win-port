@@ -81,3 +81,9 @@ int col_diff(int *segs, unsigned *offs, unsigned char *values, int max)
     }
     return n;
 }
+
+/* Set by any stub tests/differential.py generates for a callee this repo has not
+ * ported. It lives HERE, not in the generated stub file: an archive member is only
+ * pulled in when something already needs a symbol from it, so a case that reaches no
+ * stub would not link against a definition that sat there. */
+const char *col_stub_reached;

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_refresh_move_points",
+ "shipped": "1038:3bf5",
+ "source": "src/game/unit_refresh_move_points.c",
+ "prototype": "void unit_refresh_move_points(col_i16 unit);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "unit_refresh_move_points((col_i16)a0)",
+ "globals_read": [
+  "g_game_record2",
+  "g_selected_unit",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_move_points"
+ ]
+}

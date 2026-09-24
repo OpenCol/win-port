@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "opening_click_1010_1e79",
+ "shipped": "1010:1e79",
+ "source": "src/game/opening_click_1010_1e79.c",
+ "prototype": "void opening_click_1010_1e79(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "opening_click_1010_1e79()",
+ "globals_read": [
+  "g_opening",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "opening_title_draw"
+ ],
+ "host_blind": "uses the pointer global g_opening: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "seize_ship_on_high_seas",
+ "shipped": "1038:48fe",
+ "source": "src/game/seize_ship_on_high_seas.c",
+ "prototype": "void seize_ship_on_high_seas(col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "seize_ship_on_high_seas((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_unit_count",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_record_free"
+ ],
+ "host_blind": "calls unit_record_free, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

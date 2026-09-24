@@ -6,7 +6,7 @@
  */
 #include "col/globals.h"
 
-extern void * MSDisposeHandle(col_i16 a);
+extern void * MSDisposeHandle(col_u16 h);
 
 void * MSDisposeHandle_1068_9407(col_i16 a)
 {

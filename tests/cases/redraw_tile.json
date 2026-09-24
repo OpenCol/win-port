@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "redraw_tile",
+ "shipped": "1038:b1a0",
+ "source": "src/game/redraw_tile.c",
+ "prototype": "void redraw_tile(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "redraw_tile((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_scroll_to_show"
+ ],
+ "host_blind": "calls map_scroll_to_show, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_combat_strength",
+ "shipped": "1020:7e61",
+ "source": "src/game/unit_combat_strength.c",
+ "prototype": "col_i16 unit_combat_strength(col_i16 unit, col_i16 attacking);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)unit_combat_strength((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_combat_flags",
+  "g_combat_str",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

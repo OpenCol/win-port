@@ -1,0 +1,46 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "king_demand",
+ "shipped": "1048:7c13",
+ "source": "src/game/king_demand.c",
+ "prototype": "col_i16 king_demand(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)king_demand()",
+ "globals_read": [
+  "g_cur_nation",
+  "g_cur_nation_rec",
+  "g_difficulty",
+  "g_difficulty_words",
+  "g_nation_colony_count",
+  "g_nation_population",
+  "g_nation_text",
+  "g_rebel_sentiment",
+  "g_str_countries",
+  "g_str_countries2",
+  "g_str_kingnavact",
+  "g_str_kingstampact",
+  "g_str_kingvictory",
+  "g_str_kingwar",
+  "g_str_kingwife",
+  "g_str_ordinal",
+  "g_text_buf",
+  "g_text_ctx",
+  "g_turn_counter",
+  "g_year",
+  "g_year_hi",
+  "g_year_lo"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "apply_tax_change",
+  "dialog_set_option_text",
+  "min_int_1048_db44"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

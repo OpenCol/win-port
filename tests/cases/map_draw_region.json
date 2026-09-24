@@ -1,0 +1,49 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_draw_region",
+ "shipped": "1040:19da",
+ "source": "src/game/map_draw_region.c",
+ "prototype": "void map_draw_region(col_i16 x, col_i16 y, col_i16 w, col_i16 h, col_i16 layer);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "map_draw_region((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [
+  "g_draw_mask",
+  "g_draw_p1",
+  "g_draw_p3",
+  "g_draw_parity",
+  "g_draw_pix",
+  "g_draw_px",
+  "g_draw_py",
+  "g_draw_x",
+  "g_draw_y",
+  "g_map_h",
+  "g_map_pixels",
+  "g_map_tiles2",
+  "g_map_width",
+  "g_map_window",
+  "g_tile_h",
+  "g_tile_w",
+  "g_view_x0",
+  "g_view_x1",
+  "g_view_y0",
+  "g_view_y1"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_draw_square",
+  "map_view_layout_1040_0597",
+  "max_int_1040_445d",
+  "min_int_1040_4483"
+ ],
+ "host_blind": "uses the pointer global g_draw_p1: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "read_next_csv_value",
+ "shipped": "1040:6ff0",
+ "source": "src/game/read_next_csv_value.c",
+ "prototype": "col_i16 read_next_csv_value(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)read_next_csv_value()",
+ "globals_read": [
+  "g_field",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "next_csv_field"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

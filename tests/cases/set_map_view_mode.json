@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_map_view_mode",
+ "shipped": "1008:ccf6",
+ "source": "src/game/set_map_view_mode.c",
+ "prototype": "void set_map_view_mode(col_i16 mode);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "set_map_view_mode((col_i16)a0)",
+ "globals_read": [
+  "g_cursor_x",
+  "g_cursor_y",
+  "g_zoom"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1008_ce9c",
+  "min_int_1008_ce76"
+ ],
+ "host_blind": "calls map_scroll_to_show, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

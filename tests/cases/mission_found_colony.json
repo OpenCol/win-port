@@ -1,0 +1,37 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mission_found_colony",
+ "shipped": "1028:ab1f",
+ "source": "src/game/mission_found_colony.c",
+ "prototype": "void mission_found_colony(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "mission_found_colony((col_i16)a0)",
+ "globals_read": [
+  "g_colony_c24",
+  "g_colony_mode",
+  "g_colony_window",
+  "g_cur_colony_rec",
+  "g_game_flags",
+  "g_name_buf",
+  "g_nation52",
+  "g_nations",
+  "g_reveal_all",
+  "g_text_ctx",
+  "g_text_value",
+  "g_turn_counter",
+  "g_turn_nation",
+  "g_units",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "next_colony_name"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

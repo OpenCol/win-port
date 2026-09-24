@@ -12,9 +12,9 @@
 extern col_i16 pascal GlobalUnlock(col_i16 h);
 #endif
 
-col_i32 MSHUnlock(col_i16 h)
+void * MSHUnlock(col_i16 h)
 {
     if (h != 0)
         GlobalUnlock(h);
-    return 0L;
+    return 0;
 }

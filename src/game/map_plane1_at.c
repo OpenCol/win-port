@@ -11,7 +11,7 @@
  */
 #include "col/globals.h"
 
-extern void * MSHLock(col_i16 handle);
+extern void * MSHLock(col_i16 h);
 
 unsigned char map_plane1_at(col_i16 x, col_i16 y)
 {

@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_copy_tiles",
+ "shipped": "1040:070f",
+ "source": "src/game/map_copy_tiles.c",
+ "prototype": "void map_copy_tiles(col_i16 x, col_i16 y, col_i16 w, col_i16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "map_copy_tiles((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_map_overlay",
+  "g_map_window",
+  "g_tile_h",
+  "g_tile_w",
+  "g_view_x0",
+  "g_view_y0"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls map_copy_rect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

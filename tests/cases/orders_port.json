@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "orders_port",
+ "shipped": "1008:14bf",
+ "source": "src/game/orders_port.c",
+ "prototype": "void orders_port(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "orders_port()",
+ "globals_read": [
+  "g_colonies",
+  "g_game_flags",
+  "g_selected_unit",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "show_text_dialog_1008_cdf3"
+ ],
+ "host_blind": "calls pick_trade_route_stop, unit_head_for_sea_lane, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

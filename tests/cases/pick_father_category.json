@@ -8,7 +8,7 @@
  "ret_bits": 16,
  "ret_bits_emu": 16,
  "sweep": [
-  "0=0..21"
+  "0=0..3"
  ],
  "call": "(long)pick_father_category((col_i16)a0)",
  "globals_read": [

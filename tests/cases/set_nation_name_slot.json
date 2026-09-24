@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_nation_name_slot",
+ "shipped": "1050:5ef7",
+ "source": "src/game/set_nation_name_slot.c",
+ "prototype": "void set_nation_name_slot(col_i16 slot, col_i16 flag, col_i16 nation);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "set_nation_name_slot((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "say_nation_word",
+  "set_name_slot_1050_8e3a"
+ ],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_refresh_all",
+ "shipped": "1018:8c66",
+ "source": "src/game/colony_refresh_all.c",
+ "prototype": "void colony_refresh_all(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "colony_refresh_all()",
+ "globals_read": [
+  "g_stub_a",
+  "g_stub_b"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_production",
+  "count_tile_units"
+ ],
+ "host_blind": "calls colony_production, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

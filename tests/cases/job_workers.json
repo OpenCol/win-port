@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "job_workers",
+ "shipped": "1018:5e0d",
+ "source": "src/game/job_workers.c",
+ "prototype": "col_i16 job_workers(col_i16 job);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)job_workers((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_tile_first_unit",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "building_family_base",
+  "colony_count_job",
+  "job_goods",
+  "unit_is_colonist"
+ ],
+ "host_blind": "calls building_family_base, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

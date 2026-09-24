@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_selectable_or_in_europe",
+ "shipped": "1038:3996",
+ "source": "src/game/unit_selectable_or_in_europe.c",
+ "prototype": "col_i16 unit_selectable_or_in_europe(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "(long)unit_selectable_or_in_europe((col_i16)a0)",
+ "globals_read": [
+  "g_turn_nation",
+  "g_unit_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_move_points"
+ ]
+}

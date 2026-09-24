@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_defence_str",
+ "shipped": "1038:4fa7",
+ "source": "src/game/colony_defence_str.c",
+ "prototype": "col_i16 colony_defence_str(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)colony_defence_str()",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1038_86a6",
+  "unit_at",
+  "unit_chain_next"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

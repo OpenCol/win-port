@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_chain_set_nation",
+ "shipped": "1038:2795",
+ "source": "src/game/unit_chain_set_nation.c",
+ "prototype": "void unit_chain_set_nation(col_i16 u, col_i16 n);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "unit_chain_set_nation((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain_next",
+  "unit_chain_tail",
+  "unit_nation_flag_set"
+ ],
+ "host_blind": "calls unit_chain_tail, unit_nation_flag_set, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

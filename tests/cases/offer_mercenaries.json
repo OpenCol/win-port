@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "offer_mercenaries",
+ "shipped": "1038:774c",
+ "source": "src/game/offer_mercenaries.c",
+ "prototype": "void offer_mercenaries(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "offer_mercenaries()",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_difficulty",
+  "g_game_flags",
+  "g_merc",
+  "g_merc_nation",
+  "g_player_nation",
+  "g_word_artillery",
+  "g_word_cavalry",
+  "g_word_dragoons"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "intervention_force_arrives",
+  "set_name_slot_1038_8775",
+  "set_text_arg_i_1038_86cc"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

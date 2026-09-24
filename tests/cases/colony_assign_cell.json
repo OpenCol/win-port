@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_assign_cell",
+ "shipped": "1010:4354",
+ "source": "src/game/colony_assign_cell.c",
+ "prototype": "void colony_assign_cell(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "colony_assign_cell()",
+ "globals_read": [
+  "g_cell_col",
+  "g_cell_row",
+  "g_cur_colony_rec",
+  "g_grid_marks",
+  "g_selected_colonist"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "tutorial_colony_food"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

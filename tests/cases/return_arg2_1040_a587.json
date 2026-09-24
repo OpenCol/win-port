@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "return_arg2_1040_a587",
+ "shipped": "1040:a587",
+ "source": "src/game/return_arg2_1040_a587.c",
+ "prototype": "col_i16 return_arg2_1040_a587(void * a, col_i16 b, col_i16 c, col_i16 d, col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..2",
+  "3=0..2",
+  "4=0..2",
+  "5=0..2"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)return_arg2_1040_a587((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

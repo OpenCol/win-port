@@ -1,0 +1,33 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mapview_pointer_at",
+ "shipped": "1038:963d",
+ "source": "src/game/mapview_pointer_at.c",
+ "prototype": "void mapview_pointer_at(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "mapview_pointer_at((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cursor_state",
+  "g_cursors",
+  "g_hover_on_unit",
+  "g_map_hover_busy",
+  "g_selected_unit",
+  "g_units",
+  "g_view_mode"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1038_e2a2",
+  "MSWaitTicks_1038_e2f1",
+  "close_dialog_1038_e279",
+  "win_set_cursor_1038_e30a"
+ ],
+ "host_blind": "calls MSDoAllTasks_1038_e2a2, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

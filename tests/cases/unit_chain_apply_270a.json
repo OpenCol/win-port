@@ -19,5 +19,6 @@
   "unit_chain_next",
   "unit_chain_tail",
   "unit_clear_flags_high"
- ]
+ ],
+ "host_blind": "calls unit_chain_tail, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

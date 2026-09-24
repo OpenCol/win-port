@@ -1,0 +1,37 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "map_scroll_to_show",
+ "shipped": "1038:b07d",
+ "source": "src/game/map_scroll_to_show.c",
+ "prototype": "col_i16 map_scroll_to_show(col_i16 x1, col_i16 y1, col_i16 x2, col_i16 y2, col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "(long)map_scroll_to_show((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [
+  "g_map_h",
+  "g_map_width",
+  "g_map_window",
+  "g_stub_a",
+  "g_view_x0",
+  "g_view_x1",
+  "g_view_y0",
+  "g_view_y1"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MapWin_Recenter",
+  "map_goto",
+  "max_int_1038_e46c",
+  "min_int_1038_e446"
+ ],
+ "host_blind": "calls MapWin_Recenter, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

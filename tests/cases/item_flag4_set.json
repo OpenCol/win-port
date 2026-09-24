@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "item_flag4_set",
+ "shipped": "1050:0f66",
+ "source": "src/game/item_flag4_set.c",
+ "prototype": "void item_flag4_set(void * o, col_i16 key, col_i16 on);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..7",
+  "3=0..7"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "item_flag4_set((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "list_find_by_key"
+ ]
+}

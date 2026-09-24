@@ -17,9 +17,9 @@
 void control_hide_1010_e54d(DlgControl *c);
 void control_show_1010_e574(DlgControl *c);
 
-extern void hide_hwnd(col_u16 hwnd);
-extern void show_hwnd(col_u16 hwnd);
-extern void invalidate_hwnd(col_u16 hwnd);
+extern void hide_hwnd(col_i16 h);
+extern void show_hwnd(col_i16 h);
+extern void invalidate_hwnd(col_i16 h);
 
 
 

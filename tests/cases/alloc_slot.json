@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "alloc_slot",
+ "shipped": "1068:b75a",
+ "source": "src/gfx/alloc_slot.c",
+ "prototype": "col_i16 alloc_slot(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)alloc_slot()",
+ "globals_read": [
+  "g_slot_state",
+  "g_slot_used"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "select_slot"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

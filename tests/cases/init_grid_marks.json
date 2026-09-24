@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "init_grid_marks",
+ "shipped": "1018:70cd",
+ "source": "src/game/init_grid_marks.c",
+ "prototype": "void init_grid_marks(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "init_grid_marks()",
+ "globals_read": [
+  "g_grid_marks",
+  "g_grid_marks_done",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_tile_flags"
+ ],
+ "host_blind": "calls colony_tile_flags, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

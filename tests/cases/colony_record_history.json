@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_record_history",
+ "shipped": "1018:aef8",
+ "source": "src/game/colony_record_history.c",
+ "prototype": "void colony_record_history(col_i16 c, col_i16 k);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "colony_record_history((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_colonies",
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "colony_building_count"
+ ],
+ "host_blind": "calls colony_building_count, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

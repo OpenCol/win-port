@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_unload_carrier",
+ "shipped": "1038:1dfa",
+ "source": "src/game/unit_unload_carrier.c",
+ "prototype": "void unit_unload_carrier(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "unit_unload_carrier((col_i16)a0)",
+ "globals_read": [
+  "g_stub_a",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_chain26_tail",
+  "unit_chain_next",
+  "unit_chain_tail",
+  "unit_unlink"
+ ],
+ "host_blind": "calls unit_unlink, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

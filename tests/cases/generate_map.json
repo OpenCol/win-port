@@ -1,0 +1,45 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "generate_map",
+ "shipped": "1020:09ea",
+ "source": "src/game/generate_map.c",
+ "prototype": "void generate_map(col_i16 loaded);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "generate_map((col_i16)a0)",
+ "globals_read": [
+  "g_dir_dx",
+  "g_dir_dy",
+  "g_land_count",
+  "g_map_h",
+  "g_map_width",
+  "g_nations",
+  "g_plane0_handle",
+  "g_plane1_handle",
+  "g_plane3_handle",
+  "g_player_nation",
+  "g_region_size",
+  "g_ring_dx",
+  "g_ring_dy",
+  "g_scenery_seed",
+  "g_world_opt",
+  "g_x_hi",
+  "g_x_lo",
+  "g_y_hi",
+  "g_y_lo"
+ ],
+ "flags": "-ml -WS -Od -Ot -3 -a",
+ "near_callees": [
+  "grow_landmass",
+  "map_gen_rivers",
+  "max_int_1020_a887",
+  "min_int_1020_a8ad",
+  "set_water_unless_diag"
+ ],
+ "host_blind": "calls check_timer_tick, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

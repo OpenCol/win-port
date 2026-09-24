@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "colony_place_idle",
+ "shipped": "1018:7a42",
+ "source": "src/game/colony_place_idle.c",
+ "prototype": "void colony_place_idle(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "colony_place_idle()",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_stub_a",
+  "g_stub_b"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "best_colonist_job",
+  "colonist_job",
+  "colony_set_job"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

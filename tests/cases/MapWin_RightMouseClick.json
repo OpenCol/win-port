@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MapWin_RightMouseClick",
+ "shipped": "1038:950c",
+ "source": "src/game/MapWin_RightMouseClick.c",
+ "prototype": "void MapWin_RightMouseClick(col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "MapWin_RightMouseClick((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_map_click_busy",
+  "g_menu_owner",
+  "g_selected_unit",
+  "g_units",
+  "g_view_mode"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1038_e2a2",
+  "close_dialog_1038_e279",
+  "menu_add_item"
+ ],
+ "host_blind": "calls MSDoAllTasks_1038_e2a2, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

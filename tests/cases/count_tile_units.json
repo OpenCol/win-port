@@ -1,0 +1,32 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "count_tile_units",
+ "shipped": "1018:462f",
+ "source": "src/game/count_tile_units.c",
+ "prototype": "void count_tile_units(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "count_tile_units()",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_tile_colonists",
+  "g_tile_first_unit",
+  "g_tile_noncarriers",
+  "g_tile_sel",
+  "g_tile_units",
+  "g_unit_type_class",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "min_int_1018_b329",
+  "unit_is_colonist"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

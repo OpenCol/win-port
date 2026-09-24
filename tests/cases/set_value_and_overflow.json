@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_value_and_overflow",
+ "shipped": "1018:4869",
+ "source": "src/game/set_value_and_overflow.c",
+ "prototype": "void set_value_and_overflow(col_i16 i, col_i16 lo, col_i16 v, col_i16 span);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "set_value_and_overflow((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_over_band",
+  "g_over_lo",
+  "g_value"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

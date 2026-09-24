@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "recount_land_units_on_tile",
+ "shipped": "1048:4c27",
+ "source": "src/game/recount_land_units_on_tile.c",
+ "prototype": "void recount_land_units_on_tile(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "recount_land_units_on_tile()",
+ "globals_read": [
+  "g_cur_nation",
+  "g_land_unit_count",
+  "g_land_unit_index",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls unit_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

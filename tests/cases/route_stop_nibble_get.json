@@ -15,5 +15,6 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "route_stop_nibble_ptr"
- ]
+ ],
+ "host_blind": "calls route_stop_nibble_ptr, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

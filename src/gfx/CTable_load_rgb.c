@@ -8,8 +8,8 @@
  */
 #include "col/globals.h"
 
-extern void * MSHLock(col_i16 handle);
-extern void * MSHUnlock(col_i16 handle);
+extern void * MSHLock(col_i16 h);
+extern void * MSHUnlock(col_i16 h);
 extern void MSCopyMem(void *src, void *dst, col_i32 n);
 
 void CTable_load_rgb(CTable *t, col_i16 count, void *src)

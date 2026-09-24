@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "say_nation_gold",
+ "shipped": "1018:40e6",
+ "source": "src/game/say_nation_gold.c",
+ "prototype": "void say_nation_gold(col_i16 nation, char * buf);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24",
+  "1=3532",
+  "2=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "say_nation_gold((col_i16)a0, (char far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "nation_gold"
+ ],
+ "unverifiable": "a forwarder to nation_gold, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

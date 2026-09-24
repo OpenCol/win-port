@@ -1,0 +1,33 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_move_confirm",
+ "shipped": "1020:e460",
+ "source": "src/game/unit_move_confirm.c",
+ "prototype": "col_i16 unit_move_confirm(col_i16 dx, col_i16 dy);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)unit_move_confirm((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_game_flags",
+  "g_move_reason",
+  "g_move_reason_unit",
+  "g_nation52",
+  "g_selected_unit",
+  "g_turn_nation",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "move_reason",
+  "show_text_dialog_1020_e73b",
+  "unit_move_to_square"
+ ],
+ "host_blind": "calls move_reason, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

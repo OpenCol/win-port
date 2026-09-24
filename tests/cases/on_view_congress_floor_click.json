@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "on_view_congress_floor_click",
+ "shipped": "1058:6ff7",
+ "source": "src/game/on_view_congress_floor_click.c",
+ "prototype": "void on_view_congress_floor_click(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "on_view_congress_floor_click()",
+ "globals_read": [
+  "g_congress_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls show_congress, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

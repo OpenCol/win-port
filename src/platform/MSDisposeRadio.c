@@ -22,8 +22,8 @@ extern col_i16 pascal DestroyWindow(col_u16 hwnd);
 extern col_i16 pascal IsWindow(col_u16 hwnd);
 #endif
 
-extern RadioEntry * MSHLock(col_u16 h);
-extern void MSHUnlock(col_u16 h);
+extern RadioEntry * MSHLock(col_i16 h);
+extern void MSHUnlock(col_i16 h);
 extern col_i16 MSDisposeHandle(col_u16 h);
 
 

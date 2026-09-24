@@ -21,5 +21,6 @@
  "near_callees": [
   "message_append"
  ],
+ "host_blind": "calls message_append, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
  "unverifiable": "a forwarder to message_append, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
 }

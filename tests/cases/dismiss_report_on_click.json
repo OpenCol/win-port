@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "dismiss_report_on_click",
+ "shipped": "1058:0c36",
+ "source": "src/game/dismiss_report_on_click.c",
+ "prototype": "void dismiss_report_on_click(col_i16 unused1, col_i16 unused2);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "dismiss_report_on_click((col_i16)a0, (col_i16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "close_report_window"
+ ],
+ "host_blind": "calls desktop_fits_640, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

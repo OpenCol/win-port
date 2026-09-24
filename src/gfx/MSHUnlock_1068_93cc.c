@@ -6,7 +6,7 @@
  */
 #include "col/globals.h"
 
-extern void * MSHUnlock(col_i16 a);
+extern void * MSHUnlock(col_i16 h);
 
 void * MSHUnlock_1068_93cc(col_i16 a)
 {

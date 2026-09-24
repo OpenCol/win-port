@@ -8,7 +8,7 @@
  */
 #include "col/globals.h"
 
-extern char TextColor(char v);
+extern unsigned char TextColor(unsigned char v);
 
 void ctl_swap_state_byte(Ctl *c, col_i16 a, col_i16 b)
 {

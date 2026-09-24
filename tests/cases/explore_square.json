@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "explore_square",
+ "shipped": "1020:8b87",
+ "source": "src/game/explore_square.c",
+ "prototype": "void explore_square(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..24"
+ ],
+ "call": "explore_square((col_i16)a0)",
+ "globals_read": [
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "explore_area"
+ ],
+ "host_blind": "calls explore_area, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

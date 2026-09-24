@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "text_out",
+ "shipped": "1070:6426",
+ "source": "src/platform/text_out.c",
+ "prototype": "col_i32 pascal text_out(col_u16 hwnd, col_u16 msg, col_u16 wp, col_i32 lp);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2",
+  "4=0"
+ ],
+ "call": "(long)text_out((col_u16)a0, (col_u16)a1, (col_u16)a2, (col_i32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
+ "globals_read": [
+  "g_font_2ace"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "control_message_handler",
+  "draw_ctl_border",
+  "get_w_0_1070_9806",
+  "render_1070_05a9"
+ ],
+ "host_blind": "uses the pointer global g_font_2ace: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

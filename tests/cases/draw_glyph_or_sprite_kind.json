@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "draw_glyph_or_sprite_kind",
+ "shipped": "1040:1fcc",
+ "source": "src/game/draw_glyph_or_sprite_kind.c",
+ "prototype": "void draw_glyph_or_sprite_kind(void * dst, col_i16 kind, col_i16 x, col_i16 y, col_i16 flags);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=0..2",
+  "3=0..2",
+  "4=0..2",
+  "5=0..2"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "draw_glyph_or_sprite_kind((void far *)(col_seg34 + 0x0dccL), (col_i16)a2, (col_i16)a3, (col_i16)a4, (col_i16)a5)",
+ "globals_read": [
+  "g_draw_color",
+  "g_icon_sprites"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

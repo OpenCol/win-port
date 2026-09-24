@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "file_open_dialog_ex",
+ "shipped": "1070:8337",
+ "source": "src/platform/file_open_dialog_ex.c",
+ "prototype": "col_i16 file_open_dialog_ex(void * a, void * b, void * c, col_i16 d);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=3532",
+  "1=4360",
+  "2=3596",
+  "3=4360",
+  "4=3660",
+  "5=4360",
+  "6=-4..24"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc",
+  "SEG34:0x0e0c": "20272e353c434a51585f666d747b828990979ea5acb3bac1c8cfd6dde4ebf2f900070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+  "SEG34:0x0e4c": "3d444b525960676e757c838a91989fa6adb4bbc2c9d0d7dee5ecf3fa01080f161d242b323940474e555c636a71787f868d949ba2a9b0b7bec5ccd3dae1e8eff6"
+ },
+ "call": "(long)file_open_dialog_ex((void far *)(col_seg34 + 0x0dccL), (void far *)(col_seg34 + 0x0e0cL), (void far *)(col_seg34 + 0x0e4cL), (col_i16)a6)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls file_dialog, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

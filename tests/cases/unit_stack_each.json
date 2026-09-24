@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_stack_each",
+ "shipped": "1020:345a",
+ "source": "src/game/unit_stack_each.c",
+ "prototype": "void unit_stack_each(col_i16 u, col_i16 a, col_i16 b, col_i16 c, col_i16 d);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "unit_stack_each((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "resolve_combat_loss"
+ ],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

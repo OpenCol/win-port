@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "port_wndproc",
+ "shipped": "1070:a156",
+ "source": "src/platform/port_wndproc.c",
+ "prototype": "col_i32 pascal port_wndproc(col_u16 hwnd, col_u16 msg, col_u16 wparam, col_u32 lparam);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2",
+  "4=0"
+ ],
+ "call": "(long)port_wndproc((col_u16)a0, (col_u16)a1, (col_u16)a2, (col_u32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
+ "globals_read": [
+  "g_current_window"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "get_p_22_1070_dc44",
+  "get_w_2_1070_dbc7",
+  "get_w_4_1070_dbe6",
+  "rect_height",
+  "rect_width"
+ ],
+ "host_blind": "uses the pointer global g_current_window: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

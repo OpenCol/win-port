@@ -24,5 +24,6 @@
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [
   "unit_portrait"
- ]
+ ],
+ "host_blind": "calls unit_chain_tail, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
 }

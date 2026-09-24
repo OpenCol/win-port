@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "king_meeting",
+ "shipped": "1048:6bc1",
+ "source": "src/game/king_meeting.c",
+ "prototype": "void king_meeting(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "king_meeting()",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_text_king_again",
+  "g_text_king_prompt",
+  "g_text_king_reply1",
+  "g_text_king_reply5"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ask_text_resource",
+  "king_adjust_tax",
+  "king_tax_demand",
+  "king_welcome",
+  "recruit_at_university"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

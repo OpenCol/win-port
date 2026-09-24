@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "main_window_message_handler",
+ "shipped": "1070:b344",
+ "source": "src/platform/main_window_message_handler.c",
+ "prototype": "col_i32 pascal main_window_message_handler(col_u16 hwnd, col_u16 msg, col_u16 wp, col_u32 lp);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2",
+  "4=0"
+ ],
+ "call": "(long)main_window_message_handler((col_u16)a0, (col_u16)a1, (col_u16)a2, (col_u32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "get_p_6_1070_dd3f",
+  "get_w_2_1070_dd5c",
+  "get_w_4_1070_dd75",
+  "rect_height",
+  "rect_width",
+  "win_client_height_1070_ddb3",
+  "win_client_width_1070_dd8e"
+ ],
+ "host_blind": "uses the pointer member Win.pattern: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

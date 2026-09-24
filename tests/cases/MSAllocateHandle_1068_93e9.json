@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSAllocateHandle_1068_93e9",
+ "shipped": "1068:93e9",
+ "source": "src/gfx/MSAllocateHandle_1068_93e9.c",
+ "prototype": "col_i16 MSAllocateHandle_1068_93e9(col_i32 size);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=-4..24",
+  "1=0"
+ ],
+ "call": "(long)MSAllocateHandle_1068_93e9((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls MSAllocateHandle, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

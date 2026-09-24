@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "load_best_goods",
+ "shipped": "1028:ba03",
+ "source": "src/game/load_best_goods.c",
+ "prototype": "col_i16 load_best_goods(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)load_best_goods((col_i16)a0)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_goods_name_word",
+  "g_goods_value",
+  "g_map_window",
+  "g_player_nation",
+  "g_turn_nation",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "min_int_1028_e376"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

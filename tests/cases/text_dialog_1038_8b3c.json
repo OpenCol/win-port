@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "text_dialog_1038_8b3c",
+ "shipped": "1038:8b3c",
+ "source": "src/game/text_dialog_1038_8b3c.c",
+ "prototype": "col_i16 text_dialog_1038_8b3c(col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..1",
+  "1=0..1",
+  "2=0..1",
+  "3=0..1",
+  "4=0..1"
+ ],
+ "call": "(long)text_dialog_1038_8b3c((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3, (col_i16)a4)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "text_dialog_1038_8c3c"
+ ],
+ "host_blind": "calls text_dialog_1038_8c3c, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "unverifiable": "a forwarder to text_dialog_1038_8c3c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+}

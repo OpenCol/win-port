@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "octile_distance_xy",
+ "shipped": "1040:7b96",
+ "source": "src/game/octile_distance_xy.c",
+ "prototype": "col_i16 octile_distance_xy(col_i16 x1, col_i16 y1, col_i16 x2, col_i16 y2);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "(long)octile_distance_xy((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "octile_distance"
+ ]
+}

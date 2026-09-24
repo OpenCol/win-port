@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_move_points",
+ "shipped": "1038:21b1",
+ "source": "src/game/unit_move_points.c",
+ "prototype": "unsigned char unit_move_points(col_i16 i);",
+ "state": "shipped",
+ "ret_bits": 8,
+ "ret_bits_emu": 8,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)unit_move_points((col_i16)a0)",
+ "globals_read": [
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": []
+}

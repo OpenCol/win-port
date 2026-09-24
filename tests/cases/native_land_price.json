@@ -1,0 +1,35 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "native_land_price",
+ "shipped": "1038:0c18",
+ "source": "src/game/native_land_price.c",
+ "prototype": "col_i16 native_land_price(col_i16 settlement, col_i16 nation, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2"
+ ],
+ "call": "(long)native_land_price((col_i16)a0, (col_i16)a1, (col_i16)a2, (col_i16)a3)",
+ "globals_read": [
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_cur_tribe_rec",
+  "g_difficulty",
+  "g_nation52",
+  "g_nation_population",
+  "g_turn_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "max_int_1038_86a6",
+  "quarter_of_100",
+  "set_current_native_settlement",
+  "table_78_word"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -8,7 +8,7 @@
  "ret_bits": 0,
  "ret_bits_emu": 0,
  "sweep": [
-  "0=0..24"
+  "0=0..3"
  ],
  "call": "set_current_colony((col_i16)a0)",
  "globals_read": [

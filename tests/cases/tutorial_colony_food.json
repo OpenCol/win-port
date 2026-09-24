@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "tutorial_colony_food",
+ "shipped": "1010:4251",
+ "source": "src/game/tutorial_colony_food.c",
+ "prototype": "void tutorial_colony_food(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "tutorial_colony_food()",
+ "globals_read": [
+  "g_colony_win_rec",
+  "g_colony_window",
+  "g_game_flags",
+  "g_over_band",
+  "g_over_lo",
+  "g_panel_toggle",
+  "g_tutorial_flags"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "show_text_dialog_1010_e528",
+  "win_disable_1010_e459",
+  "win_enable_1010_e4d4"
+ ],
+ "host_blind": "calls colony_draw_buildings, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

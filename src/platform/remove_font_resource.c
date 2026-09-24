@@ -17,7 +17,7 @@ extern col_i16 pascal RemoveFontResource(char *name);
 
 extern FontRes * MSHLock(col_i16 h);
 extern void MSHUnlock(col_i16 h);
-extern void MSDisposeHandle(col_i16 h);
+extern void MSDisposeHandle(col_u16 h);
 
 
 

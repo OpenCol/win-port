@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "autosave_to_slot",
+ "shipped": "1008:0000",
+ "source": "src/game/autosave_to_slot.c",
+ "prototype": "void autosave_to_slot(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "autosave_to_slot()",
+ "globals_read": [
+  "g_season",
+  "g_turn_counter",
+  "g_year"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

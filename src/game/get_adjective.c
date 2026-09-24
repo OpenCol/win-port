@@ -39,7 +39,7 @@ col_i16 get_adjective(col_i16 n)
     if (n >= 4)
         return g_tribe_names[n].name;
     else {
-        if ((*g_game_flags) & GAMEFLAG_INDEPENDENCE) {
+        if (g_game_flags & GAMEFLAG_INDEPENDENCE) {
             if (g_player_nation == n)
                 return g_rebel_adjective;
             if (g_mother_country_idx == n)

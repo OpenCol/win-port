@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "check_ms_window_stack",
+ "shipped": "1078:1e6b",
+ "source": "src/platform/check_ms_window_stack.c",
+ "prototype": "void check_ms_window_stack(col_i16 h);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "check_ms_window_stack((col_i16)a0)",
+ "globals_read": [
+  "g_error_ctx",
+  "g_ms_window_count",
+  "g_ms_window_stack",
+  "g_msg_window_stack"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "stub_reporter"
+ ],
+ "host_blind": "calls stub_reporter, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

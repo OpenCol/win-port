@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "parse_number",
+ "shipped": "1040:5d9d",
+ "source": "src/game/parse_number.c",
+ "prototype": "col_i16 parse_number(char * s);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=3532",
+  "1=4360"
+ ],
+ "stage": {
+  "SEG34:0x0dcc": "030a11181f262d343b424950575e656c737a81888f969da4abb2b9c0c7ced5dce3eaf1f8ff060d141b222930373e454c535a61686f767d848b9299a0a7aeb5bc"
+ },
+ "call": "(long)parse_number((char far *)(col_seg34 + 0x0dccL))",
+ "globals_read": [
+  "g_stub_a"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ATOL_1040_a82d",
+  "parse_binary",
+  "parse_hex"
+ ],
+ "host_blind": "calls toupper_rtl, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

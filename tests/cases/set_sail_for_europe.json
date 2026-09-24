@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_sail_for_europe",
+ "shipped": "1030:2ede",
+ "source": "src/game/set_sail_for_europe.c",
+ "prototype": "void set_sail_for_europe(col_i16 unit);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "set_sail_for_europe((col_i16)a0)",
+ "globals_read": [
+  "g_land_units",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "arrive_counter_start"
+ ],
+ "host_blind": "calls ship_take_aboard, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_redraw_status",
+ "shipped": "1048:3c2b",
+ "source": "src/game/europe_redraw_status.c",
+ "prototype": "void europe_redraw_status(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "europe_redraw_status()",
+ "globals_read": [
+  "g_europe_win"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

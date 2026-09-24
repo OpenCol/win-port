@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "MSGetNewTimer",
+ "shipped": "1078:190c",
+ "source": "src/platform/MSGetNewTimer.c",
+ "prototype": "col_i16 MSGetNewTimer(col_u16 hwnd, col_u16 ms, col_u16 id);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)MSGetNewTimer((col_u16)a0, (col_u16)a1, (col_u16)a2)",
+ "globals_read": [
+  "g_error_ctx"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "stub_reporter"
+ ],
+ "host_blind": "calls SetTimer, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

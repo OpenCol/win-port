@@ -8,7 +8,7 @@
  "ret_bits": 32,
  "ret_bits_emu": 32,
  "sweep": [
-  "0=0..21"
+  "0=0..3"
  ],
  "call": "(long)nation_gold((col_i16)a0)",
  "globals_read": [

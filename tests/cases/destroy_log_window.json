@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "destroy_log_window",
+ "shipped": "1060:b13b",
+ "source": "src/game/destroy_log_window.c",
+ "prototype": "void destroy_log_window(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "destroy_log_window()",
+ "globals_read": [
+  "g_error_ctx",
+  "g_log_font"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "Font_dtor_1060_a8ed",
+  "LogWindow_dtor"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

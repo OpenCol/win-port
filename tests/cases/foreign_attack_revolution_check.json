@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "foreign_attack_revolution_check",
+ "shipped": "1020:969e",
+ "source": "src/game/foreign_attack_revolution_check.c",
+ "prototype": "col_i16 foreign_attack_revolution_check(col_i16 u, col_i16 colony);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)foreign_attack_revolution_check((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_colony_rec",
+  "g_game_flags",
+  "g_mother_country_idx",
+  "g_nation52",
+  "g_unit_count",
+  "g_unit_type_info",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "foreign_colony",
+  "scout_enters_colony",
+  "show_text_dialog_1020_aa02"
+ ],
+ "host_blind": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host"
+}

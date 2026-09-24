@@ -1,0 +1,31 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "europe_init_nations",
+ "shipped": "1048:81c1",
+ "source": "src/game/europe_init_nations.c",
+ "prototype": "void europe_init_nations(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "europe_init_nations()",
+ "globals_read": [
+  "g_cur_nation",
+  "g_cur_nation_rec",
+  "g_difficulty",
+  "g_goods",
+  "g_nation52",
+  "g_nations",
+  "g_random_seed"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "pick_recruit",
+  "set_current_nation",
+  "update_market_price"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

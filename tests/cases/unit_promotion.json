@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "unit_promotion",
+ "shipped": "1020:3f1e",
+ "source": "src/game/unit_promotion.c",
+ "prototype": "void unit_promotion(col_i16 unit, col_i16 base, col_i16 bonus);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "unit_promotion((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_difficulty",
+  "g_game_flags",
+  "g_nation_text",
+  "g_nations",
+  "g_player_nation",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "map_job_overrides"
+ ],
+ "host_blind": "calls set_name_slot_from_text, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

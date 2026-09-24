@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "same_control_owner",
+ "shipped": "1070:5090",
+ "source": "src/platform/same_control_owner.c",
+ "prototype": "col_i16 same_control_owner(col_u16 a, col_u16 b);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)same_control_owner((col_u16)a0, (col_u16)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "hwnd_is_ms_control",
+  "object_from_hwnd"
+ ],
+ "host_blind": "uses the pointer member Rec.owner: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

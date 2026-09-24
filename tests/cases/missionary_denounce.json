@@ -1,0 +1,30 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "missionary_denounce",
+ "shipped": "1030:a982",
+ "source": "src/game/missionary_denounce.c",
+ "prototype": "void missionary_denounce(col_i16 u, col_i16 nat, unsigned char tribe);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "missionary_denounce((col_i16)a0, (col_i16)a1, (unsigned char)a2)",
+ "globals_read": [
+  "g_cur_settlement",
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_cur_tribe_nation",
+  "g_settlement_count",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "lookup_with_two_overrides"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

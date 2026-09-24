@@ -23,7 +23,7 @@ col_i16 lookup_with_two_overrides(col_i16 n)
     if (n >= 4)
         return ((col_i16 *)((char *)&g_tribe[n] - 0x16))[0];
     else {
-        if ((*g_game_flags) & GAMEFLAG_INDEPENDENCE) {
+        if (g_game_flags & GAMEFLAG_INDEPENDENCE) {
             if (g_player_nation == n)
                 return g_override_a_val;
             if (g_mother_country_idx == n)

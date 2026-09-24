@@ -1,0 +1,27 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "recruit_unit",
+ "shipped": "1028:3402",
+ "source": "src/game/recruit_unit.c",
+ "prototype": "col_i16 recruit_unit(col_i16 kind, col_i16 a);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)recruit_unit((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_cur_nation_rec",
+  "g_recruit",
+  "g_turn_nation",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "return_one_1028_33e9"
+ ],
+ "host_blind": "uses the pointer global g_cur_nation_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "converts_lose_faith",
+ "shipped": "1038:3c3a",
+ "source": "src/game/converts_lose_faith.c",
+ "prototype": "col_i16 converts_lose_faith(col_i16 u);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3"
+ ],
+ "call": "(long)converts_lose_faith((col_i16)a0)",
+ "globals_read": [
+  "g_nation52",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "unit_record_free"
+ ],
+ "host_blind": "calls redraw_map_area, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cheat_menu_toggle",
+ "shipped": "1048:a717",
+ "source": "src/game/cheat_menu_toggle.c",
+ "prototype": "void cheat_menu_toggle(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "cheat_menu_toggle()",
+ "globals_read": [
+  "g_game_flags",
+  "g_game_record",
+  "g_menu_owner"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDeleteMenuItem_1048_e2bb",
+  "menu_insert_1048_e260",
+  "menu_insert_auto",
+  "win_redraw_menu_bar"
+ ],
+ "host_blind": "calls MSDeleteMenuItem_1048_e2bb, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

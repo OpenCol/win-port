@@ -1,0 +1,25 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "declare_independence",
+ "shipped": "1038:7bc2",
+ "source": "src/game/declare_independence.c",
+ "prototype": "void declare_independence(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "declare_independence()",
+ "globals_read": [
+  "g_game_flags",
+  "g_player_nation",
+  "g_rebel_sentiment"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "declaration_of_independence",
+  "set_text_arg_i_1038_86cc"
+ ],
+ "host_blind": "calls declaration_of_independence, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

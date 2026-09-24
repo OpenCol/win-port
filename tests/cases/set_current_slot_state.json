@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "set_current_slot_state",
+ "shipped": "1068:b7a9",
+ "source": "src/gfx/set_current_slot_state.c",
+ "prototype": "void set_current_slot_state(col_i32 state);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0"
+ ],
+ "call": "set_current_slot_state((col_i32)(((col_u32)(col_u16)a1 << 16) | (col_u16)a0))",
+ "globals_read": [
+  "g_current_slot",
+  "g_slot_state"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "select_slot"
+ ]
+}

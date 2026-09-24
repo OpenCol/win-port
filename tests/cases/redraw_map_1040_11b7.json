@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "redraw_map_1040_11b7",
+ "shipped": "1040:11b7",
+ "source": "src/game/redraw_map_1040_11b7.c",
+ "prototype": "void redraw_map_1040_11b7(col_i16 flag);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "redraw_map_1040_11b7((col_i16)a0)",
+ "globals_read": [
+  "g_reveal_all",
+  "g_stub_a",
+  "g_view_nation"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "copy_all_to_screen_1040_07d5",
+  "draw_colonies_view",
+  "draw_settlements_view",
+  "draw_units_view",
+  "map_copy_backdrop_1040_07b9"
+ ],
+ "host_blind": "calls copy_all_to_screen_1040_07d5, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

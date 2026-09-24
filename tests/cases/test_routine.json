@@ -1,0 +1,24 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "test_routine",
+ "shipped": "1048:b95a",
+ "source": "src/game/test_routine.c",
+ "prototype": "void test_routine(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "test_routine()",
+ "globals_read": [
+  "g_colony_count",
+  "g_game_flags",
+  "g_unit_count"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "ask_text_resource",
+  "dialog_set_option_value"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

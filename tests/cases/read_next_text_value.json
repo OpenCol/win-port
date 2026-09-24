@@ -1,0 +1,22 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "read_next_text_value",
+ "shipped": "1040:6fbd",
+ "source": "src/game/read_next_text_value.c",
+ "prototype": "col_i16 read_next_text_value(void);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "call": "(long)read_next_text_value()",
+ "globals_read": [
+  "g_stub_a",
+  "g_text_buf"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "next_text_line"
+ ],
+ "call_args": [
+  "0"
+ ]
+}

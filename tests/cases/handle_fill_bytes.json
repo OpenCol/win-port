@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "handle_fill_bytes",
+ "shipped": "1040:3ea6",
+ "source": "src/game/handle_fill_bytes.c",
+ "prototype": "void handle_fill_bytes(col_i16 handle, char c);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "handle_fill_bytes((col_i16)a0, (char)a1)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls MSBlockSize, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "open_colony_under_unit_1008_0e05",
+ "shipped": "1008:0e05",
+ "source": "src/game/open_colony_under_unit_1008_0e05.c",
+ "prototype": "void open_colony_under_unit_1008_0e05(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "open_colony_under_unit_1008_0e05()",
+ "globals_read": [
+  "g_info_win",
+  "g_selected_unit",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls colony_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

@@ -6,8 +6,8 @@
  */
 #include "col/globals.h"
 
-extern col_i32 MSHUnlock(col_i16 h);
-extern col_i16 MSDisposeHandle(col_i16 h);
+extern void * MSHUnlock(col_i16 h);
+extern col_i16 MSDisposeHandle(col_u16 h);
 
 void dispose_handle_ptr(col_i16 *p)
 {

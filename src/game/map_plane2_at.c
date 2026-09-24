@@ -17,7 +17,7 @@ col_i16 map_index_in_range(col_i16 x, col_i16 y);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void * MSHLock(col_i16 handle);
+extern void * MSHLock(col_i16 h);
 
 unsigned char map_plane2_at(col_i16 x, col_i16 y)
 {

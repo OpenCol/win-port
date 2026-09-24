@@ -1,0 +1,28 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "move_reason",
+ "shipped": "1020:e021",
+ "source": "src/game/move_reason.c",
+ "prototype": "col_i16 move_reason(col_i16 u, col_i16 x, col_i16 y);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)move_reason((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_map_h",
+  "g_map_width",
+  "g_move_reason",
+  "g_move_reason_unit",
+  "g_unit_types",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls map_plane0_at, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}
