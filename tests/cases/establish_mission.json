@@ -1,0 +1,39 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "establish_mission",
+ "shipped": "1030:a6bc",
+ "source": "src/game/establish_mission.c",
+ "prototype": "void establish_mission(col_i16 u, col_i16 nation, col_i16 named);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "establish_mission((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_colonies",
+  "g_cur_settlement",
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_mission_word",
+  "g_nation52",
+  "g_nation_name_word",
+  "g_season",
+  "g_season_word",
+  "g_settlement_count",
+  "g_text_args",
+  "g_units",
+  "g_year"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "lookup_with_two_overrides",
+  "max_int_1030_ead6",
+  "set_name_slot"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

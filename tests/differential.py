@@ -95,6 +95,13 @@ def archive():
     # result rests on a stub.
     if stale or not os.path.exists(lib):
         subprocess.run(['ar', 'rcs', lib] + objs, check=True)
+        # Take the OLD stubs out before asking what is missing. `ar rcs` keeps members
+        # it is not given, so a stale _stubs.o stayed in the archive, the probe then
+        # reported only what was NEWLY missing, and writing that shorter list back
+        # dropped every symbol stubbed on an earlier run. The archive stopped linking
+        # again and three cases came back as host disagreements over `_ATOL`.
+        subprocess.run(['ar', 'd', lib, '_stubs.o'],
+                       capture_output=True)
         need = undefined_in(lib, objdir)
         if need:
             stub = os.path.join(objdir, '_stubs.c')

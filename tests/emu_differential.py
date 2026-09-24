@@ -61,8 +61,15 @@ def _res():
         # lines with only the index, so keying on the word EXTDEF finds one of them.
         EXTDEF_RE = re.compile(r"^(?:\S+\s+EXTDEF\s+|\s+)(\d+)\s*:\s*'([^']+)'",
                                re.M)
+        # EI[n] is an external; SI[n] is the object's OWN segment, which is how a
+        # string literal is addressed when Borland puts it in the code segment. Matching
+        # only EI made those fixups invisible -- never applied, never reported missing --
+        # and the function was then sliced out without the literal's bytes, so the
+        # shipped callee copied whatever happened to be at that offset. Nine of the
+        # twelve remaining disagreements were a function passing a string.
         FIXUP_RE = re.compile(r"FixUp:\s*([0-9a-fA-F]+)\s+Mode:\s*(\w+)\s+"
-                              r"Loc:\s*(\w+)\s+Frame:\s*\S+\s+Target:\s*EI\[(\d+)\]")
+                              r"Loc:\s*(\w+)\s+Frame:\s*\S+\s+Target:\s*(EI|SI)"
+                              r"\[(\d+)\]")
         LEDATA_RE = re.compile(r"LEDATA\s+Segment:\s*(\S+)\s+Offset:\s*([0-9a-fA-F]+)")
     return EXTDEF_RE, FIXUP_RE, LEDATA_RE
 
@@ -197,14 +204,24 @@ def resolve(code, td, sym, syms, m=None, imps=None, fallback=()):
             continue
         mf = fix_re.search(ln)
         if mf and in_text:
-            fixes.append((base + int(mf.group(1), 16), mf.group(3), int(mf.group(4))))
-    whole = any(loc in ('Base', 'CodeOffset16') for _a, loc, _e in fixes)
+            fixes.append((base + int(mf.group(1), 16), mf.group(3),
+                          mf.group(4), int(mf.group(5))))
+    # A reference to this object's OWN segment means there is something in the segment
+    # besides the function -- a string literal, a jump table -- that the function reaches
+    # by offset. Slicing the function alone leaves that behind, so the whole segment is
+    # loaded and entered at the function's own offset, exactly as for Base.
+    whole = any(loc in ('Base', 'CodeOffset16') or kind == 'SI'
+                for _a, loc, kind, _e in fixes)
     lo, hi = (0, len(code)) if whole else (off, end)
     entry = off - lo
     out, missing, fb_i, resolved_by_site = bytearray(code[lo:hi]), [], [0], []
     off = lo
-    for at, loc, ei in fixes:
+    for at, loc, kind, ei in fixes:
         if not (off <= at < end):
+            continue
+        if kind == 'SI':
+            # Its own segment, already loaded whole and at the right base: the offset
+            # the compiler wrote is correct as it stands.
             continue
         target = extdefs.get(ei, '?').lstrip('_')
         if loc == 'Pointer16' and target not in syms and imps and \
@@ -343,6 +360,16 @@ def run_case(path, verbose=False):
         print('%-32s no source at %s' % (name, case['source']))
         return None
 
+    # tools/port.py says when NEITHER oracle can judge a case -- a forwarder whose whole
+    # body is one call the shipped code makes with rule 47's near form, which this
+    # harness cannot reproduce without placing the candidate in the callee's own segment.
+    # Nothing read the field, so those ran anyway and were counted as agreeing or
+    # disagreeing on a comparison that was never valid; one of them agreed for four runs
+    # on the strength of a single argument set.
+    if case.get('unverifiable'):
+        REASONS[key] = case['unverifiable']
+        print('%-32s UNVERIFIABLE: %s' % (name, case['unverifiable']))
+        return None
     if not SYMS:
         SYMS.update(symbols())
     stem = os.path.join(cache_dir(), os.path.splitext(os.path.basename(src))[0])

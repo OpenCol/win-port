@@ -15,7 +15,6 @@
   "arrived_unit_orders_1",
   "build_item_cost",
   "build_item_kind",
-  "building_class_if_own",
   "building_is_useful",
   "building_levels_built",
   "building_slot_of",
@@ -25,7 +24,6 @@
   "byte_at_98",
   "byte_swap_1068_97f1",
   "byte_swap_1068_dc4c",
-  "call_63b5_at_8",
   "cell_note_or_insert_1028_0290",
   "cell_note_or_insert_1028_03d1",
   "center_and_draw",
@@ -56,7 +54,6 @@
   "ctl_clear_20",
   "ctl_swap_state_byte",
   "cur_win_ret1",
-  "current_colony_flag_get",
   "decode_planar",
   "default_width",
   "deref_long",
@@ -107,65 +104,44 @@
   "get_w_26_1070_9a5d",
   "get_w_26_1070_9ada",
   "get_w_2_1008_d707",
-  "get_w_2_1008_daf2",
   "get_w_2_1010_2a67",
-  "get_w_2_1010_2ba0",
-  "get_w_2_1010_e3a8",
   "get_w_2_1010_e73d",
   "get_w_2_1010_ebd4",
-  "get_w_2_1030_e93a",
   "get_w_2_1030_eee8",
   "get_w_2_1038_8739",
   "get_w_2_1040_44cf",
   "get_w_2_1040_a8c4",
   "get_w_2_1040_abae",
-  "get_w_2_1048_d4f6",
   "get_w_2_1048_d853",
-  "get_w_2_1050_8b8a",
   "get_w_2_1050_9106",
   "get_w_2_1050_922e",
   "get_w_2_1058_bcfb",
   "get_w_2_1058_be4f",
-  "get_w_2_1058_be8e",
   "get_w_2_1060_65ca",
-  "get_w_2_1060_6886",
   "get_w_2_1060_695e",
   "get_w_2_1060_86c9",
   "get_w_2_1060_ab1f",
   "get_w_2_1060_abca",
-  "get_w_2_1060_aef6",
-  "get_w_2_1068_df51",
   "get_w_2_1068_e517",
   "get_w_2_1070_96c5",
   "get_w_2_1070_98a3",
-  "get_w_2_1070_dbc7",
   "get_w_2_1070_dd5c",
   "get_w_2a_1050_848f",
   "get_w_2a_1070_99ac",
   "get_w_406",
   "get_w_4_1008_d720",
-  "get_w_4_1008_db11",
   "get_w_4_1010_2a80",
-  "get_w_4_1010_e3c7",
   "get_w_4_1010_ebed",
-  "get_w_4_1030_e959",
   "get_w_4_1030_ef01",
   "get_w_4_1040_abc7",
-  "get_w_4_1048_d7c5",
   "get_w_4_1048_d86c",
-  "get_w_4_1050_8ba9",
   "get_w_4_1050_9247",
   "get_w_4_1058_bd14",
-  "get_w_4_1058_c045",
   "get_w_4_1060_65e3",
-  "get_w_4_1060_699d",
   "get_w_4_1060_86e2",
   "get_w_4_1060_ab38",
-  "get_w_4_1060_af15",
-  "get_w_4_1068_df70",
   "get_w_4_1068_e530",
   "get_w_4_1070_98bc",
-  "get_w_4_1070_dbe6",
   "get_w_4_1070_dd75",
   "get_w_6_1048_e56c",
   "get_w_6_1068_d7db",
@@ -186,7 +162,6 @@
   "hittest_region",
   "in_map_rect",
   "in_range_mode",
-  "indexed_difference",
   "init_rec_7c0a",
   "init_record",
   "is_adjacent_dir",
@@ -257,7 +232,6 @@
   "nation_pair_flags_get",
   "nation_pair_flags_or_both",
   "nation_pair_flags_set",
-  "nation_take_gold",
   "nation_text_field2",
   "nearest_unit",
   "next_selectable_unit",
@@ -281,26 +255,20 @@
   "rect_contains_1048_174f",
   "rect_contains_1068_62b8",
   "rect_height_1008_d5ee",
-  "rect_height_1010_2b81",
   "rect_height_1010_2ec7",
   "rect_height_1010_ed8b",
-  "rect_height_1020_ad08",
   "rect_height_1020_b03e",
   "rect_height_1030_e9b2",
   "rect_height_1038_8986",
   "rect_height_1038_dfdc",
   "rect_height_1040_aa80",
   "rect_height_1048_d6ba",
-  "rect_height_1048_dae9",
   "rect_height_1050_832b",
-  "rect_height_1050_83da",
   "rect_height_1058_bd4c",
   "rect_height_1060_63d4",
-  "rect_height_1060_8906",
   "rect_height_1060_8b0b",
   "rect_height_1060_aeaf",
   "rect_height_1068_96c8",
-  "rect_height_1068_99c8",
   "rect_height_1068_d7bb",
   "rect_height_1070_9649",
   "rect_height_1070_dc24",
@@ -308,33 +276,25 @@
   "rect_is_empty",
   "rect_right",
   "rect_width_1008_d5cf",
-  "rect_width_1010_2b62",
   "rect_width_1010_2ea8",
   "rect_width_1010_ed6c",
-  "rect_width_1020_ace9",
   "rect_width_1020_b01f",
   "rect_width_1030_e4e5",
-  "rect_width_1038_87fa",
   "rect_width_1038_8967",
   "rect_width_1038_dfbd",
   "rect_width_1040_44e8",
   "rect_width_1040_a903",
   "rect_width_1048_d69b",
-  "rect_width_1048_daca",
   "rect_width_1050_830c",
-  "rect_width_1050_841c",
   "rect_width_1058_bd2d",
   "rect_width_1060_63b5",
   "rect_width_1060_8865",
-  "rect_width_1060_88e7",
   "rect_width_1060_ae90",
   "rect_width_1068_96a9",
-  "rect_width_1068_99a9",
   "rect_width_1068_d79c",
   "rect_width_1070_962a",
   "rect_width_1070_dc05",
   "rect_width_1078_33f9",
-  "rect_width_at_8_1060_60c4",
   "refresh_arrived_unit_1008_006f",
   "refresh_three_indicators",
   "region_at",
@@ -472,7 +432,46 @@
   "win_set_word_20",
   "wrap_index"
  ],
- "host_only": [],
+ "host_only": [
+  "call_63b5_at_8",
+  "current_colony_flag_get",
+  "get_w_2_1008_daf2",
+  "get_w_2_1010_2ba0",
+  "get_w_2_1010_e3a8",
+  "get_w_2_1030_e93a",
+  "get_w_2_1048_d4f6",
+  "get_w_2_1050_8b8a",
+  "get_w_2_1058_be8e",
+  "get_w_2_1060_6886",
+  "get_w_2_1060_aef6",
+  "get_w_2_1068_df51",
+  "get_w_2_1070_dbc7",
+  "get_w_4_1008_db11",
+  "get_w_4_1010_e3c7",
+  "get_w_4_1030_e959",
+  "get_w_4_1048_d7c5",
+  "get_w_4_1050_8ba9",
+  "get_w_4_1058_c045",
+  "get_w_4_1060_699d",
+  "get_w_4_1060_af15",
+  "get_w_4_1068_df70",
+  "get_w_4_1070_dbe6",
+  "nation_take_gold",
+  "rect_height_1010_2b81",
+  "rect_height_1020_ad08",
+  "rect_height_1048_dae9",
+  "rect_height_1050_83da",
+  "rect_height_1060_8906",
+  "rect_height_1068_99c8",
+  "rect_width_1010_2b62",
+  "rect_width_1020_ace9",
+  "rect_width_1038_87fa",
+  "rect_width_1048_daca",
+  "rect_width_1050_841c",
+  "rect_width_1060_88e7",
+  "rect_width_1068_99a9",
+  "rect_width_at_8_1060_60c4"
+ ],
  "emu_only": [
   "ATOL_1008_d87e",
   "ATOL_1028_e4e9",
@@ -484,7 +483,6 @@
   "ColChild_AddBucksToMessage",
   "ColChild_AddLongToMessage",
   "ColChild_AddNumberToMessage",
-  "ColChild_AddToMessage",
   "ColChild_BackspaceMessage",
   "ColonyWin_Close",
   "CopyToPort",
@@ -527,7 +525,6 @@
   "Font_dtor_1068_dd73",
   "GRPort_ChangeColor",
   "GRPort_DrawLine",
-  "GRPort_FillColor_all",
   "GRPort_GetWin_1068_968c",
   "GRPort_GetWin_1068_d91d",
   "GRPort_GetWin_1070_960d",
@@ -593,7 +590,6 @@
   "MSCloseFile_1068_dcc4",
   "MSCloseSound",
   "MSCloseSound_1068_a672",
-  "MSCloseWindow",
   "MSCopyMem",
   "MSCopyMem_1068_9424",
   "MSCreateFile",
@@ -615,7 +611,6 @@
   "MSDisposeHandle_1068_9407",
   "MSDisposeRadio",
   "MSDisposeRegion",
-  "MSDoAllTasks",
   "MSDoAllTasks_1008_ce3f",
   "MSDoAllTasks_1010_2a54",
   "MSDoAllTasks_1010_e5bd",
@@ -745,7 +740,6 @@
   "MainWin_RightMouseClick",
   "MainWin_dtor",
   "MapWin_LeftMouseClick",
-  "MapWin_LeftMouseDown",
   "MapWin_Recenter",
   "MapWin_RevealHiddenTerrain",
   "MapWin_RightMouseClick",
@@ -756,19 +750,16 @@
   "MenuClass_ctor",
   "MiniWin_dtor",
   "MrTimer_ctor",
-  "PediaWin_DrawArticle",
   "PediaWin_Init_default",
   "PediaWin_dtor_1008_df80",
   "Popup_item",
   "RGBTree_ctor",
   "RGBTree_insert",
   "ReportWin_Close",
-  "ReportWin_ColonyReportTop",
   "ReportWin_DoReport",
   "ReportWin_Done",
   "ReportWin_Init_default",
   "ReportWin_KeyClick",
-  "ReportWin_ShipReportTop",
   "ReportWin_TradeRoute1",
   "ResetTimer",
   "ResourceFile_dtor_1008_cfa3",
@@ -801,7 +792,6 @@
   "VList_ctor_1008_e84f",
   "VList_dtor",
   "activate_and_draw_message",
-  "add_nation_money_to_message",
   "adjacent_enemy",
   "adjacent_foreign_owner",
   "ai_manage_colony_1028_353c",
@@ -827,13 +817,11 @@
   "append_rparen",
   "append_space",
   "arrived_unit_act",
-  "ask_text_resource",
   "atol",
   "autosave_to_slot",
   "beep",
   "beep_1068_a5b7",
   "begin_game",
-  "begin_nation_turn",
   "begin_trade_route",
   "best_defender",
   "best_move_dir",
@@ -845,41 +833,12 @@
   "build_colony",
   "build_item_name",
   "build_terrain_seams",
-  "building_class_value",
   "building_output",
   "building_table_init",
   "button_click",
   "call_0571",
   "call_057f",
-  "call_2ea8",
-  "call_2ec7",
-  "call_63d4_at_8",
-  "call_830c",
-  "call_830c_at_8",
-  "call_832b",
-  "call_8865",
-  "call_8865_at_8",
-  "call_8967",
-  "call_8967_at_8",
-  "call_8986_at_8",
-  "call_8b0b",
-  "call_8b0b_at_8",
-  "call_96a9",
-  "call_96a9_at_8",
-  "call_96c8",
-  "call_96c8_at_8",
-  "call_ae90_at_8",
-  "call_aeaf_at_8",
-  "call_b01f",
-  "call_b03e",
-  "call_bd2d_at_8",
-  "call_bd4c_at_8",
   "call_d214",
-  "call_d69b",
-  "call_d69b_at_8",
-  "call_d6ba",
-  "call_ed6c_at_8",
-  "call_ed8b_at_8",
   "call_handler_slot_12",
   "call_handler_slot_124_flag",
   "call_handler_slot_128_flag",
@@ -958,12 +917,6 @@
   "close_dialog_1050_94ab",
   "close_dialog_1060_6b25",
   "close_dialog_1060_8ae2",
-  "close_dialog_at_26_1038_885c",
-  "close_dialog_at_26_1040_a79d",
-  "close_dialog_at_26_1048_dd42",
-  "close_dialog_at_26_1050_8bc8",
-  "close_dialog_at_26_1060_612a",
-  "close_dialog_at_26_1060_87b1",
   "close_log_file",
   "close_mci_device",
   "close_resource_dll",
@@ -1014,17 +967,14 @@
   "colony_panels_reset",
   "colony_place_idle",
   "colony_production",
-  "colony_rebuild_screen",
   "colony_record_history",
   "colony_refresh_all",
   "colony_refresh_screen",
   "colony_ring_level",
   "colony_ring_tiles",
   "colony_show_message",
-  "colony_site_layout",
   "colony_sol_percent",
   "colony_sort_colonists",
-  "colony_tile_nibble",
   "colony_tile_plane1_bit4",
   "colony_trade_summary",
   "colony_warehouse_capacity",
@@ -1047,21 +997,7 @@
   "controls_invalidate",
   "controls_unlink_all",
   "converts_lose_faith",
-  "copy_all_to_screen_1008_db30",
-  "copy_all_to_screen_1010_2c4d",
-  "copy_all_to_screen_1010_e3e6",
-  "copy_all_to_screen_1020_abf0",
-  "copy_all_to_screen_1030_e504",
-  "copy_all_to_screen_1038_8819",
-  "copy_all_to_screen_1038_a6cf",
-  "copy_all_to_screen_1038_e428",
   "copy_all_to_screen_1040_07d5",
-  "copy_all_to_screen_1040_abe0",
-  "copy_all_to_screen_1048_dd24",
-  "copy_all_to_screen_1050_843b",
-  "copy_all_to_screen_1058_c1bf",
-  "copy_all_to_screen_1060_610c",
-  "copy_all_to_screen_1060_ae72",
   "copy_logpalette",
   "copy_rect_to_screen_1008_e5b8",
   "copy_rect_to_screen_1010_2f5a",
@@ -1126,7 +1062,6 @@
   "destroy_game_fonts",
   "destroy_log_window",
   "destroy_map_ports",
-  "destroy_module_gamewin_1020_b3ac",
   "destroy_window",
   "dialog_click_152",
   "dialog_click_15a",
@@ -1159,9 +1094,7 @@
   "draw_active_animations",
   "draw_bevel",
   "draw_colonies",
-  "draw_colonies_view",
   "draw_ctl_border",
-  "draw_econ_report_block",
   "draw_econ_report_paged",
   "draw_glyph_or_sprite",
   "draw_glyph_or_sprite_kind",
@@ -1172,7 +1105,6 @@
   "draw_next_icon_in_grid",
   "draw_number_label",
   "draw_palette_chart",
-  "draw_settlements_view",
   "draw_string_curfont",
   "draw_string_curfont_clipped",
   "draw_string_shadowed",
@@ -1181,9 +1113,7 @@
   "draw_text_curfont",
   "draw_unit_at",
   "draw_unit_marks",
-  "draw_units_view",
   "draw_window_frame",
-  "draw_window_title",
   "edit_set_rows",
   "empty_1008_1572",
   "empty_1008_4bec",
@@ -1308,6 +1238,7 @@
   "enable_window",
   "ensure_extension",
   "entry_display_name",
+  "establish_mission",
   "europe_buy_goods",
   "europe_draw_dock_1048_95c1",
   "europe_draw_left",
@@ -1323,8 +1254,8 @@
   "europe_redraw_main",
   "europe_redraw_status",
   "europe_release_focus",
+  "europe_transfer_cargo",
   "experts_at_work",
-  "explore_area",
   "explore_around_square",
   "explore_square",
   "file_MSCreateFile_1008_d89e",
@@ -1352,9 +1283,7 @@
   "find_entry",
   "find_entry_value",
   "find_nearest_colony",
-  "find_tile_of_kind",
   "flic_step_frame",
-  "focus_at_or_after",
   "focus_marked_ctl",
   "focus_walk_siblings",
   "font_line_height",
@@ -1385,8 +1314,6 @@
   "get_colony_name",
   "get_current_port",
   "get_entry_rect",
-  "get_mouse_pos_for",
-  "get_mouse_pos_for_1050_8f2b",
   "get_p_12_1060_abe3",
   "get_p_12_1070_a09a",
   "get_p_18_1068_989f",
@@ -1425,7 +1352,6 @@
   "goods_price_sell",
   "goods_toggle_msg",
   "grow_landmass",
-  "grport_init_1068_4eae",
   "gui_init",
   "gui_teardown",
   "handle_fill_bytes",
@@ -1591,9 +1517,7 @@
   "measure_wrapped_text",
   "memblock_hook",
   "memblock_lock",
-  "memory_check",
   "memory_is_low",
-  "menu_add_item",
   "menu_attach_1010_ef10",
   "menu_attach_1020_af04",
   "menu_attach_1040_b09c",
@@ -1668,6 +1592,7 @@
   "native_trade_prices",
   "neighbor_mask_1038_d4b9",
   "neighbor_mask_1040_013f",
+  "next_colony_name",
   "next_csv_field",
   "next_sibling_window",
   "next_text_line",
@@ -1697,6 +1622,7 @@
   "opening_click_1010_1e79",
   "opening_scroll_step",
   "opening_title_draw",
+  "orders_key_command",
   "orders_menu_context_variant",
   "orders_port",
   "overlay_window",
@@ -1711,13 +1637,11 @@
   "parse_binary_field",
   "parse_hex",
   "parse_hotkey_marker",
-  "parse_next_number",
   "parse_number",
   "pedia_click",
   "pedia_draw_list_page",
   "pedia_key",
   "pedia_mouse",
-  "pedia_prompt",
   "pedia_redraw",
   "pedia_set_page",
   "peek_message_only",
@@ -1732,7 +1656,6 @@
   "place_or_center",
   "play_sound_effect",
   "play_winflc_wav",
-  "player_turn_step",
   "point_to_current_window",
   "popup_add_item_marked",
   "popup_draw_text",
@@ -1740,7 +1663,6 @@
   "popup_image_item",
   "popup_layout_text",
   "popup_run",
-  "popup_run_default",
   "popup_run_thunk_1008_cd83",
   "popup_run_thunk_1010_e4b1",
   "popup_run_thunk_1018_b44f",
@@ -1753,24 +1675,15 @@
   "port_bits",
   "port_blit_and_select",
   "port_blit_or_copy",
-  "port_call_2d24",
-  "port_call_2d3e",
   "port_copy_full",
   "port_copy_rect",
   "port_crossfade",
-  "port_curtain_open_h",
-  "port_curtain_open_v",
   "port_draw_at",
-  "port_grab_from_window",
   "port_paint_wndproc",
   "port_remap_pixels",
   "port_reset_fill",
   "port_row_step",
   "port_row_step_rev",
-  "port_scroll_down",
-  "port_scroll_left",
-  "port_scroll_right",
-  "port_scroll_up",
   "port_select_if_changed",
   "port_set_clip",
   "port_unbind_anim",
@@ -1788,12 +1701,7 @@
   "port_validate_rect_1060_6b4e",
   "port_validate_rect_1060_b0a8",
   "port_validate_rect_1068_e34f",
-  "port_wipe_down",
-  "port_wipe_left",
-  "port_wipe_right",
-  "port_wipe_up",
   "port_wndproc",
-  "port_zoom_in",
   "prev_sibling_window",
   "production_info",
   "prompt_text_number",
@@ -1820,28 +1728,11 @@
   "read_next_text_value",
   "read_text_line_1040_a89b",
   "read_words",
-  "rec12_d422",
-  "rec202_7c18",
   "rec6_swap_words",
   "recenter_map_on_cursor",
   "records18_swap_words",
   "recount_land_units_on_tile",
   "recruit_unit",
-  "rect_height_at_8_1010_e681",
-  "rect_height_at_8_1038_8752",
-  "rect_height_at_8_1058_c24c",
-  "rect_height_at_8_1060_69bc",
-  "rect_height_at_8_1060_8842",
-  "rect_height_at_8_1060_aafc",
-  "rect_height_at_8_1068_9ae0",
-  "rect_width_at_8_1010_e60f",
-  "rect_width_at_8_1038_86f0",
-  "rect_width_at_8_1048_e0ee",
-  "rect_width_at_8_1050_83f9",
-  "rect_width_at_8_1058_c203",
-  "rect_width_at_8_1060_881f",
-  "rect_width_at_8_1060_aad9",
-  "rect_width_at_8_1068_9abd",
   "redraw_arrived_area",
   "redraw_map_1040_11b7",
   "redraw_map_1060_08dd",
@@ -1849,7 +1740,6 @@
   "redraw_map_rect",
   "redraw_map_view",
   "redraw_tile",
-  "refresh_arrived_unit_1040_0e2e",
   "refresh_unit_cursor",
   "register_control",
   "remap_pairs",
@@ -1876,7 +1766,6 @@
   "route_stop_flag_nibble_set",
   "route_stop_nibble_get",
   "route_stop_nibble_set",
-  "route_stop_total",
   "route_strip_click",
   "royal_expedition_lands",
   "run_modal",
@@ -1893,12 +1782,10 @@
   "say_bucks",
   "say_country",
   "say_long",
-  "say_nation_gold",
   "say_nation_word",
   "say_number",
   "say_number_1058_bede",
   "say_number_1060_8947",
-  "say_string",
   "say_unit_job",
   "say_viceroy_intro",
   "say_where",
@@ -1909,19 +1796,14 @@
   "scale_pair_by_4",
   "score_colony_sites",
   "scroll_get_range",
-  "scroll_get_range_ex_1060_adea",
-  "scroll_get_range_ex_1060_ae1d",
   "scroll_get_range_ex_1070_604d",
-  "scroll_set_pos",
   "scroll_set_pos_ex",
   "scroll_set_range",
   "scroll_set_range_ex",
   "scrollbar_init",
   "scrollbar_message",
   "seed_nonzero_random",
-  "seed_random",
   "seed_random_from_clock",
-  "seed_random_from_ticks",
   "seed_random_with",
   "seize_goods",
   "seize_ship_on_high_seas",
@@ -1988,7 +1870,6 @@
   "set_sail_for_europe",
   "set_slot_from_table",
   "set_slot_value",
-  "set_text_word",
   "set_water_unless_diag",
   "set_window_layout",
   "shift_key_down",
@@ -1998,25 +1879,6 @@
   "show_hall_of_fame",
   "show_hwnd",
   "show_nation_message",
-  "show_plain_dialog_1008_cd53",
-  "show_plain_dialog_1010_ec06",
-  "show_plain_dialog_1018_b41f",
-  "show_plain_dialog_1020_a8d3",
-  "show_plain_dialog_1028_e43b",
-  "show_plain_dialog_1030_ebb7",
-  "show_plain_dialog_1048_dde3",
-  "show_plain_step_1010_e484",
-  "show_plain_step_1048_e8e4",
-  "show_text_dialog_1008_cdf3",
-  "show_text_dialog_1010_e528",
-  "show_text_dialog_1018_b3d1",
-  "show_text_dialog_1020_aa02",
-  "show_text_dialog_1020_e73b",
-  "show_text_dialog_1028_e48e",
-  "show_text_dialog_1030_ec0a",
-  "show_text_dialog_1038_865b",
-  "show_text_dialog_1048_e35c",
-  "show_text_dialog_1048_e3ae",
   "skip_record",
   "skip_text_lines",
   "spec_nibble_tier",
@@ -2062,32 +1924,13 @@
   "text_buf_seek_end",
   "text_call_0859_1008_ce18",
   "text_call_0859_1048_e387",
-  "text_call_a93c",
-  "text_dialog_1008_db8c",
-  "text_dialog_1008_e651",
   "text_dialog_1008_ebd0",
-  "text_dialog_1010_ed45",
-  "text_dialog_1010_f0c1",
   "text_dialog_1010_f161",
-  "text_dialog_1018_b496",
-  "text_dialog_1018_b4fb",
   "text_dialog_1018_b525",
-  "text_dialog_1020_ad65",
-  "text_dialog_1020_b05e",
   "text_dialog_1020_b169",
-  "text_dialog_1020_e760",
-  "text_dialog_1020_e787",
   "text_dialog_1020_e7b1",
-  "text_dialog_1028_e547",
-  "text_dialog_1028_e56e",
   "text_dialog_1028_e598",
-  "text_dialog_1030_ef58",
-  "text_dialog_1030_f158",
   "text_dialog_1030_f2a8",
-  "text_dialog_1038_8940",
-  "text_dialog_1038_8b3c",
-  "text_dialog_1048_e6ed",
-  "text_dialog_1048_e911",
   "text_dialog_1048_ecef",
   "text_dialog_plain_1008_db4e",
   "text_dialog_plain_1010_ef3c",
@@ -2098,13 +1941,8 @@
   "text_dialog_plain_1048_e7f3",
   "text_extent",
   "text_line_append",
-  "text_line_count",
   "text_message_show",
-  "text_out",
-  "text_plain_step_1010_ed15",
-  "text_plain_step_1048_de5f",
   "text_store_string",
-  "text_widest_line",
   "tile_claim",
   "tile_decoration",
   "tile_is_river_mouth",
@@ -2123,7 +1961,7 @@
   "tory_uprising",
   "track_difficulty",
   "track_nation_choice",
-  "track_popup_submenu",
+  "trade_price_message",
   "translate_key",
   "tribe_record_for",
   "trim_both",
@@ -2151,13 +1989,11 @@
   "unit_prepare_tail",
   "unit_promotion",
   "unit_raid_or_rate",
-  "unit_reaches_colony",
   "unit_record_alloc",
   "unit_replace_at_self",
   "unit_score_penalty",
   "unit_settle_or_move",
   "unit_stack_each",
-  "unit_tile_nibble",
   "unit_transfer_cargo_1010_b882",
   "unit_unlink",
   "unit_unload_carrier",
@@ -2235,12 +2071,9 @@
   "win_move_to_1078_1ff8",
   "win_move_to_of",
   "win_move_to_rect_1048_d6da",
-  "win_move_to_rect_1078_221b",
   "win_point_in_parent",
   "win_rect_in_parent_1048_d674",
   "win_rect_in_parent_1078_2644",
-  "win_redraw_menu_bar",
-  "win_redraw_menu_bar_1008_d7b3",
   "win_release_capture",
   "win_screen_rect",
   "win_select_palette_1078_279f",
@@ -2281,13 +2114,6 @@
   "win_show_and_focus_1058_bc47",
   "win_show_and_focus_1058_c4df",
   "win_show_and_focus_1068_e4ee",
-  "win_show_focus_at_26_1008_d117",
-  "win_show_focus_at_26_1010_2af0",
-  "win_show_focus_at_26_1010_e404",
-  "win_show_focus_at_26_1020_ac0e",
-  "win_show_focus_at_26_1030_e611",
-  "win_show_focus_at_26_1058_bc28",
-  "win_show_focus_at_26_1068_db76",
   "win_take_focus",
   "window_of",
   "window_of_1048_e6d0",
@@ -2300,8 +2126,6 @@
   "wipe_rect",
   "with_mode",
   "wm_command",
-  "wm_command_dispatcher",
-  "wrap_text",
   "write_file_1040_aa36",
   "write_file_1050_919a",
   "write_gui_error_log"
@@ -2315,6 +2139,10 @@
    "host": "a C++ method: the host harness does not build C++, and a constructor's work is member construction and a vtable",
    "sixteen_bit": "cannot resolve SButton::~SButton() (Pointer16)"
   },
+  "ColChild_AddToMessage": {
+   "host": "calls message_append, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to message_append, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "ColChild_DrawAnyMessage": {
    "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
    "sixteen_bit": "cannot resolve message_timer_expired (Base), message_timer_expired (CodeOffset16)"
@@ -2327,9 +2155,17 @@
    "host": "a C++ method: the host harness does not build C++, and a constructor's work is member construction and a vtable",
    "sixteen_bit": "cannot resolve SButton::~SButton() (Base), SButton::~SButton() (CodeOffset16), SImageButton::~SImageButton() (Base)"
   },
+  "GRPort_FillColor_all": {
+   "host": "calls FillColor, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to FillColor, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "InfoCargo": {
    "host": "calls scale_map_select, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
    "sixteen_bit": "cannot resolve FIDRQQ (Offset16), FIERQQ (Offset16)"
+  },
+  "MSDoAllTasks": {
+   "host": "calls MSDoTask, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to MSDoTask, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "MSInitRegion": {
    "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
@@ -2339,37 +2175,357 @@
    "host": "a C++ method: the host harness does not build C++, and a constructor's work is member construction and a vtable",
    "sixteen_bit": "cannot resolve SButton::SButton() (Base), SButton::SButton() (CodeOffset16), SImageButton::SImageButton() (Base)"
   },
+  "add_nation_money_to_message": {
+   "host": "it reached message_append, a stub standing in for a callee this repo has not ported: the 16-bit harness calls the shipped one there, so only that harness can judge this",
+   "sixteen_bit": "a forwarder to ColChild_AddBucksToMessage, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "anim_start": {
    "host": "uses the pointer member Anim.port: four bytes in the game, eight on a host",
    "sixteen_bit": "cannot resolve timer_tick (Base), timer_tick (CodeOffset16)"
+  },
+  "ask_text_resource": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1048_e6ed, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "build_bordered_window": {
    "host": "calls SetRect, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "cannot resolve refresh_port_30_1020_665a (Base), refresh_port_30_1020_665a (CodeOffset16), refresh_port_30_1020_667c (Base)"
   },
+  "call_2ea8": {
+   "host": "a forwarder to rect_width_1010_2ea8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1010_2ea8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_2ec7": {
+   "host": "a forwarder to rect_height_1010_2ec7, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1010_2ec7, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_63d4_at_8": {
+   "host": "a forwarder to rect_height_1060_63d4, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1060_63d4, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_830c": {
+   "host": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_830c_at_8": {
+   "host": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_832b": {
+   "host": "a forwarder to rect_height_1050_832b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1050_832b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8865": {
+   "host": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8865_at_8": {
+   "host": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8967": {
+   "host": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8967_at_8": {
+   "host": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8986_at_8": {
+   "host": "a forwarder to rect_height_1038_8986, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1038_8986, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8b0b": {
+   "host": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_8b0b_at_8": {
+   "host": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_96a9": {
+   "host": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_96a9_at_8": {
+   "host": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_96c8": {
+   "host": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_96c8_at_8": {
+   "host": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_ae90_at_8": {
+   "host": "a forwarder to rect_width_1060_ae90, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1060_ae90, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_aeaf_at_8": {
+   "host": "a forwarder to rect_height_1060_aeaf, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1060_aeaf, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_b01f": {
+   "host": "a forwarder to rect_width_1020_b01f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1020_b01f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_b03e": {
+   "host": "a forwarder to rect_height_1020_b03e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1020_b03e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_bd2d_at_8": {
+   "host": "a forwarder to rect_width_1058_bd2d, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1058_bd2d, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_bd4c_at_8": {
+   "host": "a forwarder to rect_height_1058_bd4c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1058_bd4c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_d69b": {
+   "host": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_d69b_at_8": {
+   "host": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_d6ba": {
+   "host": "a forwarder to rect_height_1048_d6ba, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1048_d6ba, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_ed6c_at_8": {
+   "host": "a forwarder to rect_width_1010_ed6c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_width_1010_ed6c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "call_ed8b_at_8": {
+   "host": "a forwarder to rect_height_1010_ed8b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment",
+   "sixteen_bit": "a forwarder to rect_height_1010_ed8b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1038_885c": {
+   "host": "calls close_dialog_1038_8aec, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1038_8aec, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1040_a79d": {
+   "host": "calls close_dialog_1040_b052, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1040_b052, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1048_dd42": {
+   "host": "calls close_dialog_1048_e7ca, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1048_e7ca, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1050_8bc8": {
+   "host": "calls close_dialog_1050_94ab, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1050_94ab, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1060_612a": {
+   "host": "calls close_dialog_1060_6b25, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1060_6b25, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "close_dialog_at_26_1060_87b1": {
+   "host": "calls close_dialog_1060_8ae2, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to close_dialog_1060_8ae2, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "closing_play": {
    "host": "calls MSCloseSound, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "cannot resolve play_winflc_wav (Base), play_winflc_wav (CodeOffset16)"
   },
-  "colony_end_of_turn": {
-   "host": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
-   "sixteen_bit": "cannot resolve ColChild_AddNumberToMessage(void*,int) (Pointer16), ColChild_AddToMessage(void*,int) (Pointer16), ColChild_BackspaceMessage(void*) (Pointer16)"
+  "copy_all_to_screen_1008_db30": {
+   "host": "calls copy_rect_to_screen_1008_e5b8, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1008_e5b8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1010_2c4d": {
+   "host": "calls copy_rect_to_screen_1010_2f5a, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1010_2f5a, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1010_e3e6": {
+   "host": "calls copy_rect_to_screen_1010_e6a4, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1010_e6a4, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1020_abf0": {
+   "host": "calls copy_rect_to_screen_1020_ae42, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1020_ae42, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1030_e504": {
+   "host": "calls copy_rect_to_screen_1030_e699, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1030_e699, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1038_8819": {
+   "host": "calls copy_rect_to_screen_1038_888e, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1038_888e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1038_a6cf": {
+   "host": "calls copy_all_to_screen_1038_e428, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_all_to_screen_1038_e428, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1038_e428": {
+   "host": "calls copy_rect_to_screen_1038_e38f, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1038_e38f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1040_abe0": {
+   "host": "calls copy_rect_to_screen_1040_af03, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1040_af03, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1048_dd24": {
+   "host": "calls copy_rect_to_screen, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1050_843b": {
+   "host": "calls copy_rect_to_screen_1050_8bfa, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1050_8bfa, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1058_c1bf": {
+   "host": "calls copy_rect_to_screen_1058_c340, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1058_c340, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1060_610c": {
+   "host": "calls copy_rect_to_screen_1060_631c, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1060_631c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "copy_all_to_screen_1060_ae72": {
+   "host": "calls copy_rect_to_screen_1060_afe6, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to copy_rect_to_screen_1060_afe6, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "create_ctrl_win": {
    "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
    "sixteen_bit": "cannot resolve IMAGE_BUTTON_PROC (Base), IMAGE_BUTTON_PROC (CodeOffset16)"
   },
+  "destroy_module_gamewin_1020_b3ac": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to GameWin_dtor_1020_aac1, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "draw_colonies_view": {
+   "host": "calls draw_colonies_in_rect, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to draw_colonies_in_rect, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "draw_settlements_view": {
+   "host": "calls draw_settlements_in_rect, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to draw_settlements_in_rect, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "draw_units_view": {
+   "host": "calls draw_units_in_rect, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to draw_units_in_rect, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "explore_area": {
+   "host": "calls explore_around_square, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to explore_around_square, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "generate_map": {
    "host": "calls check_timer_tick, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "the emulator raised UcError: Unhandled CPU exception (UC_ERR_EXCEPTION)"
+  },
+  "get_mouse_pos_for": {
+   "host": "calls MSGetMousePos, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to get_p_6_1030_ed1f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "get_mouse_pos_for_1050_8f2b": {
+   "host": "calls MSGetMousePos, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to get_p_6_1050_94fb, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "grport_init_1068_4eae": {
+   "host": "calls GRPort_Init, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to GRPort_Init, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "low_memory_watch_start": {
    "host": "uses the pointer global g_lowmem_win: four bytes in the game, eight on a host",
    "sixteen_bit": "cannot resolve low_memory_timer (Base), low_memory_timer (CodeOffset16)"
   },
+  "memory_check": {
+   "host": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes",
+   "sixteen_bit": "a forwarder to ask_text_resource, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "menu_add_item": {
+   "host": "calls MSTrackPopupMenu, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to get_p_6_1038_e372, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
   "opening_run": {
    "host": "calls MSDoAllTasks_1010_2a54, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "cannot resolve intro_tick (Base), intro_tick (CodeOffset16)"
+  },
+  "parse_next_number": {
+   "host": "the port faulted on the host (exit -11): either a walk that wraps in 16 bits ran off the slab, or it reached a stub standing in for a callee this repo has not ported",
+   "sixteen_bit": "a forwarder to next_csv_field, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "popup_run_default": {
+   "host": "calls popup_run, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to popup_run, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "port_call_2d24": {
+   "host": "calls win_set_capture, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to window_of_1048_e6d0, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "port_call_2d3e": {
+   "host": "calls win_release_capture, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to window_of_1048_e6d0, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rec12_d422": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to colony_site_layout, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rec202_7c18": {
+   "host": "calls colony_choose_build, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to colony_choose_build, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1010_e681": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1010_ed8b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1038_8752": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1038_8986, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1058_c24c": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1058_bd4c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1060_69bc": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1060_63d4, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1060_8842": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1060_8b0b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1060_aafc": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1060_aeaf, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_height_at_8_1068_9ae0": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_height_1068_96c8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1010_e60f": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1010_ed6c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1038_86f0": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1038_8967, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1048_e0ee": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1048_d69b, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1050_83f9": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1050_830c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1058_c203": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1058_bd2d, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1060_881f": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1060_8865, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1060_aad9": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1060_ae90, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "rect_width_at_8_1068_9abd": {
+   "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
+   "sixteen_bit": "a forwarder to rect_width_1068_96a9, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "run_difficulty_dialog": {
    "host": "calls OffsetRect, a Windows API the host does not have; the emulator simulates it",
@@ -2382,6 +2538,114 @@
   "run_world_dialog": {
    "host": "calls OffsetRect, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "cannot resolve dialog_click_19e (Base), dialog_click_19e (CodeOffset16), dispatch_click_1030_1241 (Base)"
+  },
+  "say_nation_gold": {
+   "host": "it reached ltoa_rtl, a stub standing in for a callee this repo has not ported: the 16-bit harness calls the shipped one there, so only that harness can judge this",
+   "sixteen_bit": "a forwarder to nation_gold, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "say_string": {
+   "host": "calls strcat: the host links its own, the shipped code calls Borland's",
+   "sixteen_bit": "a forwarder to nth_text_string, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "scroll_get_range_ex_1060_adea": {
+   "host": "calls scroll_get_range_ex_1070_604d, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to window_of, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "scroll_get_range_ex_1060_ae1d": {
+   "host": "calls scroll_get_range_ex_1070_604d, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to window_of, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "scroll_set_pos": {
+   "host": "calls scrollbar_message, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to scrollbar_message, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "seed_random": {
+   "host": "calls seed_random_from_ticks, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to seed_random_from_ticks, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "seed_random_from_ticks": {
+   "host": "calls MSGetTicks_1040_aaa0, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to MSGetTicks_1040_aaa0, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "set_text_word": {
+   "host": "calls set_name_slot_from_text, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to set_name_slot_from_text, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1008_cd53": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1008_db4e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1010_ec06": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1010_ef3c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1018_b41f": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1018_b4bd, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1020_a8d3": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1020_ad27, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1028_e43b": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1028_e509, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1030_ebb7": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1030_ef1a, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_dialog_1048_dde3": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1048_e7f3, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_step_1010_e484": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_plain_step_1010_ed15, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_plain_step_1048_e8e4": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_plain_step_1048_de5f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1008_cdf3": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1008_db8c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1010_e528": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1010_ed45, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1018_b3d1": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1018_b496, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1020_aa02": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_ad65, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1020_e73b": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_e760, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1028_e48e": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1028_e547, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1030_ec0a": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1030_ef58, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1038_865b": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1038_8940, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1048_e35c": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to show_plain_step_1048_e8e4, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "show_text_dialog_1048_e3ae": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1048_e911, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "subclass_control_1070_67dd": {
    "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
@@ -2402,6 +2666,134 @@
   "super_win_init": {
    "host": "calls MSDoAllTasks_1050_8be7, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "cannot resolve mark_2520_no_super_1050_6bfb (Base), mark_2520_no_super_1050_6bfb (CodeOffset16), mark_2520_no_super_1050_6c16 (Base)"
+  },
+  "text_call_a93c": {
+   "host": "calls wing_set_dib_colours, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to wing_set_dib_colours, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1008_db8c": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1008_e651, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1008_e651": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1008_ebd0, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1010_ed45": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1010_f0c1, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1010_f0c1": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1010_f161, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1018_b496": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1018_b4fb, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1018_b4fb": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1018_b525, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1020_ad65": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_b05e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1020_b05e": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_b169, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1020_e760": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_e787, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1020_e787": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1020_e7b1, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1028_e547": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1028_e56e, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1028_e56e": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1028_e598, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1030_ef58": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1030_f158, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1030_f158": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1030_f2a8, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1038_8940": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1038_8b3c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1038_8b3c": {
+   "host": "calls text_dialog_1038_8c3c, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to text_dialog_1038_8c3c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1048_e6ed": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1048_e911, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_dialog_1048_e911": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_1048_ecef, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_plain_step_1010_ed15": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1010_ef3c, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "text_plain_step_1048_de5f": {
+   "host": "the shipped function returned from no argument set in this sweep",
+   "sixteen_bit": "a forwarder to text_dialog_plain_1048_e7f3, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "track_popup_submenu": {
+   "host": "calls MSTrackPopupMenu, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to submenu_of_1048_e8c1, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_move_to_rect_1078_221b": {
+   "host": "calls MoveWindow, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to rect_height_1078_3418, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_redraw_menu_bar": {
+   "host": "uses the pointer member Win.menu: four bytes in the game, eight on a host",
+   "sixteen_bit": "a forwarder to window_of_1048_e6d0, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_redraw_menu_bar_1008_d7b3": {
+   "host": "uses the pointer member Win.menu: four bytes in the game, eight on a host",
+   "sixteen_bit": "a forwarder to get_p_6_1008_e4e5, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1008_d117": {
+   "host": "calls win_show_and_focus_1008_dbda, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1008_dbda, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1010_2af0": {
+   "host": "calls win_show_and_focus_1010_2e7f, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1010_2e7f, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1010_e404": {
+   "host": "calls win_show_and_focus_1010_ecec, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1010_ecec, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1020_ac0e": {
+   "host": "calls win_show_and_focus_1020_aedb, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1020_aedb, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1030_e611": {
+   "host": "calls win_show_and_focus_1030_ecf6, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1030_ecf6, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1058_bc28": {
+   "host": "calls win_show_and_focus_1058_c4df, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1058_c4df, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "win_show_focus_at_26_1068_db76": {
+   "host": "calls win_show_and_focus_1068_e4ee, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "a forwarder to win_show_and_focus_1068_e4ee, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   }
  }
 }
