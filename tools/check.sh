@@ -24,6 +24,7 @@ if [ "${1:-}" != "fast" ]; then
   # discipline are native rather than approximated.
   [ -x "$UC" ] && run "$UC" tests/emu_differential.py --all
   # Is every ported function checked by SOMETHING? Each harness is blind in its own way.
+  run python3 tools/consistency.py
   [ -x "$UC" ] && run python3 tools/coverage.py
   run python3 tools/link.py
   [ -x "$UC" ] && run "$UC" tests/boot.py

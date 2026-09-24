@@ -128,16 +128,44 @@ def dosbox(lines, timeout=900):
 # several ports share a translation unit instead: see group_sources().
 
 
-DECL = re.compile(r'^\s*(?:extern\s+)?((?:[A-Za-z_]\w*\s+|\*)+)(\w+)\s*\(([^;{]*)\)\s*;',
+# A prototype, and not an `else (...)` or an `if (...)`: a declaration ends in `;` and
+# its head is types, so a control keyword in that position means the regex has wandered.
+NOT_A_TYPE = {'if', 'else', 'while', 'for', 'switch', 'return', 'do', 'sizeof', 'case'}
+DECL = re.compile(r'^\s*(?:extern\s+)?((?:[A-Za-z_]\w*[\s*]+)+?)(\w+)\s*\(([^;{]*)\)\s*;',
                   re.M)
 
 
+def arg_types(args):
+    """The TYPES an argument list declares, without the parameter names.
+
+    Two reconstructions naming the same parameter `w` and `c` do not disagree about
+    anything, and comparing the names made 305 callees look inconsistent when the number
+    that actually conflict is far smaller. What matters is the type: `POINT *` where
+    another file says `RECT *` is four bytes against eight.
+    """
+    out = []
+    for a in args.split(','):
+        a = ' '.join(a.replace('*', ' * ').split())
+        if not a or a == 'void':
+            out.append(a)
+            continue
+        toks = a.split()
+        # drop a trailing identifier that is not itself a type word
+        if len(toks) > 1 and re.fullmatch(r'\w+', toks[-1]) and toks[-1] != 'void':
+            toks = toks[:-1]
+        out.append(' '.join(toks))
+    return ', '.join(out)
+
+
 def declares(text):
-    """{name: its declared signature} for every prototype in a ported unit."""
+    """{name: its declared TYPES} for every prototype in a ported unit."""
     out = {}
     for m in DECL.finditer(text):
         ret, name, args = m.group(1), m.group(2), m.group(3)
-        out[name] = ' '.join((ret + '|' + args).split())
+        head = ret.replace('*', ' * ').split()
+        if not head or head[0] in NOT_A_TYPE or name in NOT_A_TYPE:
+            continue
+        out[name] = '%s (%s)' % (' '.join(head), arg_types(args))
     return out
 
 

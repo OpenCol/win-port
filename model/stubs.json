@@ -1,7 +1,7 @@
 {
  "what": "what the linker could not find: the remaining work, its own list",
  "ported_units": 2238,
- "translation_units": 738,
+ "translation_units": 710,
  "stubs": [
   "ATOL",
   "CTable_set_key_and_reinstall",
