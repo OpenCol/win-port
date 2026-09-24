@@ -8,7 +8,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void render_1070_05a9(PAINTSTRUCT *ps, col_u16 hwnd);
+void render_1070_05a9(void *ps, col_u16 hwnd);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */

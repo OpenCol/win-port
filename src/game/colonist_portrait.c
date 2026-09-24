@@ -51,7 +51,7 @@ col_i16 colonist_portrait(col_i16 c)
     } else {
         r = job + 0x52;
         match = spec == job;
-        if (spec == 0x15 && job == JOB_DRAGOON)
+        if (spec == JOB_SOLDIER && job == JOB_DRAGOON)
             match = 1;
         if (match == 0)
             r = job + 0x36;

@@ -8,7 +8,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i32 deref_long(col_i32 *p);
+col_i32 deref_long(void *p);
 
 typedef struct { char pad[4]; col_i32 *head; col_i32 *cur; } ListIter;
 /* same object: 4-byte `push cs; call ` */

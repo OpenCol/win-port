@@ -20,7 +20,7 @@
  * translation units, joined by the linker. */
 char * build_item_name(col_i16 b);
 char colony_event_message(char *msg, col_i16 a, col_i16 b, col_i16 c, col_i16 d, col_i16 e, col_i16 f);
-col_i16 build_item_kind(col_i16 b, col_i16 *out);
+col_i16 build_item_kind(col_i16 b, void *out);
 col_i16 current_colony_flag_get(col_i16 bit);
 void colony_flag_set(col_i16 bit, col_i16 v);
 void colony_site_layout(void);

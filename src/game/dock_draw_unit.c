@@ -14,8 +14,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void grid_cell_layout(col_i16 a, col_i16 b, col_i16 *band, col_i16 *pos,
-                                 col_i16 *width, col_i16 *p6, col_i16 *p7);
+void grid_cell_layout(col_i16 a, col_i16 b, void *band, void *pos,
+                                 void *width, void *p6, void *p7);
 void set_current_nation(col_i16 n);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the

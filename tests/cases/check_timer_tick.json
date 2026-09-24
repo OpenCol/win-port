@@ -12,7 +12,6 @@
  ],
  "call": "(long)check_timer_tick((col_i16)a0)",
  "globals_read": [
-  "g_dialog_1210",
   "g_flag_1d04",
   "g_opening_win",
   "g_stub_a",

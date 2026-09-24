@@ -8,7 +8,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 find_colony_grid_cell(col_i16 id, col_i16 *a, col_i16 *b);
+col_i16 find_colony_grid_cell(col_i16 id, void *a, void *b);
 void colony_set_cell(col_i16 a, col_i16 b, col_i16 v);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

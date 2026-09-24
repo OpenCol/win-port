@@ -13,7 +13,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void control_call_5fbf(void *o, col_i16 *pa, col_i16 *pb);
+void control_call_5fbf(void *o, void *pa, void *pb);
 
 void control_set_width_1060_90da(Rec *o, col_i16 v)
 {

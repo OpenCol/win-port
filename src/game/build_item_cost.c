@@ -15,7 +15,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 build_item_kind(col_i16 item, col_i16 *idx);
+col_i16 build_item_kind(col_i16 item, void *idx);
 
 /* 0x1c bytes, DGROUP- array at SEG20:0xa208 */
 

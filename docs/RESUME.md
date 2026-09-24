@@ -1,10 +1,21 @@
 # Where this stands
 
-**2,325 ported, all green.** 470 verified by both harnesses, 1,831 in 16 bits only, 24
-by neither with a reason from both, 0 uncovered, 0 disagreements, 940 mutations caught.
-It links (NE, 43 segments, 738 translation units, 353 stubs) and boots.
+Last green commit: **a696c45**, 2,377 ported. 476 verified by both harnesses, 59 on the
+host only, 1,675 in 16 bits only, 167 by neither with a reason from both, 0 uncovered,
+0 disagreements, 1,070 mutations caught. It links (NE, 42 segments, 789 translation
+units, 328 stubs) and boots.
 
-Resume with `bash tools/check.sh`; it takes about an hour at this size.
+## Uncommitted, and NOT verified
+
+The working tree has one more porter change on top of that: a stub prototype naming a
+type the unit keeps to itself came out ABOVE the typedef defining it, so those pointees
+are now spelt `void *` -- the same rule the staged arguments and the driver's prototype
+already follow. It took the refusals from 2,262 to 2,281 portable and the compile
+failures from 114 to 95, and the corpus was re-ported and gated against Borland, but the
+suite was stopped mid-run. Nothing here is claimed.
+
+Resume with `bash tools/check.sh > /tmp/check.txt 2>&1`; about an hour at this size.
+Commit only on ALL GREEN.
 
 ## The worklist
 

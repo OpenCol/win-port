@@ -1,0 +1,37 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "hover_button_wndproc",
+ "shipped": "1070:0cc0",
+ "source": "src/platform/hover_button_wndproc.c",
+ "prototype": "col_i32 pascal hover_button_wndproc(col_u16 hwnd, col_u16 msg, col_u16 wp, col_i32 lp);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2",
+  "4=0"
+ ],
+ "call": "(long)hover_button_wndproc((col_u16)a0, (col_u16)a1, (col_u16)a2, (col_i32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
+ "globals_read": [
+  "g_hover_active",
+  "g_hover_pressed"
+ ],
+ "flags": "-ml -WS -Od -Ot -3 -a",
+ "near_callees": [
+  "call_handler_slot_26_1070_96de",
+  "call_handler_slot_30_1070_971f",
+  "call_handler_slot_34_1070_976b",
+  "call_handler_slot_38",
+  "call_handler_slot_42",
+  "control_message_handler",
+  "ctl_id_1070_96c5",
+  "ctl_window_1070_96a8",
+  "object_from_hwnd",
+  "ptr_plus_8"
+ ],
+ "host_blind": "calls OffsetRect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -29,7 +29,7 @@
  * translation units, joined by the linker. */
 col_i16 direction_of(col_i16 dx, col_i16 dy);
 col_i16 far_path_waypoint(col_i16 sx, col_i16 sy, col_i16 tx, col_i16 ty);
-col_i16 find_adjacent_tile(col_i16 x, col_i16 y, col_i16 *px, col_i16 *py, col_i16 want);
+col_i16 find_adjacent_tile(col_i16 x, col_i16 y, void *px, void *py, col_i16 want);
 col_i16 near_path_step(col_i16 x, col_i16 y, col_i16 k);
 
 #include "control.h"

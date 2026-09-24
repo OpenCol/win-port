@@ -20,9 +20,10 @@
 col_i16 building_slot_of(col_i16 job);
 col_i16 colonist_specialty_get(col_i16 k);
 col_i16 current_colony_flag_get(col_i16 bit);
-col_i16 job_input_goods(col_i16 *goods, col_i16 job);
+col_i16 job_input_goods(void *goods, col_i16 job);
 
 #include "nations.h"
+#include "jobs.h"
 #include "control.h"
 #include "building.h"
 /* 8 bytes at SEG20:0xd61a */
@@ -55,9 +56,9 @@ col_i16 job_verdict(col_i16 job)
         slot = building_slot_of(job);
         if (slot >= 0 && current_colony_flag_get(slot) == 0)
             r = 0;
-        if (job == 0x12) {
+        if (job == JOB_TEACHER) {
             spec = colonist_specialty_get(g_selected_colonist);
-            if (spec == 0x1c)
+            if (spec == JOB_COLONIST_ALT)
                 spec = 0x19;
             kind = g_spec_recs[spec].school;
             if (kind == 4)
@@ -70,19 +71,19 @@ col_i16 job_verdict(col_i16 job)
     } else {
         n = job_input_goods(inputs, job);
         spec = colonist_specialty_get(g_selected_colonist);
-        if (job > 0x13 && spec == 0x1b) {
+        if (job > 0x13 && spec == JOB_CONVERT) {
             r = 0;
             goto out;
         }
         switch (job) {
         case 0x13:
-            if (spec == 0x18 && g_cur_colony_idx < NATION_EUROPEAN_COUNT && g_nation52[g_cur_colony_idx].control == CONTROL_HUMAN) {
+            if (spec == JOB_MISSIONARY && g_cur_colony_idx < NATION_EUROPEAN_COUNT && g_nation52[g_cur_colony_idx].control == CONTROL_HUMAN) {
                 r = 0;
                 goto out;
             }
             break;
         case 0x18:
-            if (current_colony_flag_get(BUILDING_CHURCH) == 0 && spec != 0x18) {
+            if (current_colony_flag_get(BUILDING_CHURCH) == 0 && spec != JOB_MISSIONARY) {
                 r = 0;
                 goto out;
             }

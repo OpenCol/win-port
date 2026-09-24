@@ -58,7 +58,7 @@ col_i16 job_warning(col_i16 k, col_i16 job)
             code = 0x15;
             goto out;
         }
-        if (job != 0x15 && job != 0x17
+        if (job != JOB_SOLDIER && job != JOB_DRAGOON
             && colony_trade_summary(0L, 0L, 0L) != 0) {
             code = 0x14;
             goto out;
@@ -72,11 +72,11 @@ col_i16 job_warning(col_i16 k, col_i16 job)
         code = 4;
         goto out;
     }
-    if (job == 8 && current_colony_flag_get(BUILDING_DOCKS) == 0) {
+    if (job == JOB_FISHERMAN && current_colony_flag_get(BUILDING_DOCKS) == 0) {
         code = 0xd;
         goto out;
     }
-    if (job == 0x12) {
+    if (job == JOB_TEACHER) {
         n = colony_count_job(0x12);
         if (current_colony_flag_get(BUILDING_UNIVERSITY) != 0) {
             if (n >= 3) {
@@ -94,7 +94,7 @@ col_i16 job_warning(col_i16 k, col_i16 job)
                 goto out;
             }
         }
-        if (spec == 0x1c)
+        if (spec == JOB_COLONIST_ALT)
             spec = 0x19;
         if (g_spec_recs[spec].school > SCHOOL_UNIVERSITY) {
             code = 0x10;

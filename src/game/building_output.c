@@ -27,6 +27,8 @@ col_i16 current_colony_flag_get(col_i16 b);
 col_i16 max_int_1018_b34f(col_i16 a, col_i16 b);
 
 #include "colflag.h"
+#include "goods.h"
+#include "jobs.h"
 #include "nations.h"
 #include "fathers.h"
 #include "control.h"
@@ -90,11 +92,11 @@ col_i16 building_output(col_i16 c, col_i16 *good)
     if ((col_i16)g_buildings[top].f9 > 0 && (g_nations[g_cur_colony_rec->nation].flags & 0x10))
         halve = 1;
     switch (spec) {
-    case 0x1a:
-    case 0x1b:
+    case JOB_CRIMINAL:
+    case JOB_CONVERT:
         rate = 1;
         break;
-    case 0x19:
+    case JOB_INDENTURED_SERVANT:
         rate = 2;
         break;
     default:
@@ -102,27 +104,27 @@ col_i16 building_output(col_i16 c, col_i16 *good)
         break;
     }
     switch (job) {
-    case 13:
+    case JOB_CARPENTER:
         out = 0x10;
         base = expert ? 6 : rate;
         base += pen;
         if (current_colony_flag_get(BUILDING_LUMBER_MILL))
             base = base * 2;
         break;
-    case 16:
+    case JOB_PREACHER:
         base = expert ? 6 : rate;
-        out = 0x11;
+        out = PROD_CROSSES;
         base += pen;
         if (current_colony_flag_get(BUILDING_CATHEDRAL))
             base = base * 2;
         if (nation_flag_test(g_cur_colony_rec->nation, FATHER_WILLIAM_PENN))
             base += base >> 1;
         break;
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 14:
+    case JOB_DISTILLER:
+    case JOB_TOBACCONIST:
+    case JOB_WEAVER:
+    case JOB_FUR_TRADER:
+    case JOB_BLACKSMITH:
         out = job;
         base = rate;
         base += pen;
@@ -134,7 +136,7 @@ col_i16 building_output(col_i16 c, col_i16 *good)
         if (expert)
             base = base * 2;
         break;
-    case 15:
+    case JOB_GUNSMITH:
         out = job;
         base = rate;
         base += pen;
@@ -146,10 +148,10 @@ col_i16 building_output(col_i16 c, col_i16 *good)
         if (expert)
             base = base * 2;
         break;
-    case 17:
+    case JOB_STATESMAN:
         base = rate;
         base += pen;
-        out = 0x12;
+        out = PROD_BELLS;
         if (expert)
             base = base * 2;
         break;

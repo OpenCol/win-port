@@ -1,0 +1,36 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "render_1070_1e81",
+ "shipped": "1070:1e81",
+ "source": "src/platform/render_1070_1e81.c",
+ "prototype": "col_i32 pascal render_1070_1e81(col_u16 hwnd, col_u16 msg, col_u16 wp, col_i32 lp);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=0..2",
+  "1=0..2",
+  "2=0..2",
+  "3=0..2",
+  "4=0"
+ ],
+ "call": "(long)render_1070_1e81((col_u16)a0, (col_u16)a1, (col_u16)a2, (col_i32)(((col_u32)(col_u16)a4 << 16) | (col_u16)a3))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1070_9837",
+  "byte_at_98",
+  "call_handler_slot_28_1070_9863",
+  "control_message_handler",
+  "ctl_id_1070_96c5",
+  "ctl_window_1070_96a8",
+  "get_w_1a_1070_981e",
+  "object_from_hwnd",
+  "ptr_plus_8",
+  "rect_height_1070_9649",
+  "rect_width_1070_962a",
+  "repaint_hwnd"
+ ],
+ "host_blind": "calls BeginPaint, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

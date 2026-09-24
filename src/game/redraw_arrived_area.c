@@ -15,7 +15,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void clip_xywh_to_map_rect(col_i16 *x, col_i16 *y, col_i16 *w, col_i16 *h);
+void clip_xywh_to_map_rect(void *x, void *y, void *w, void *h);
 void map_blit_tiles(col_i16 x, col_i16 y, col_i16 w, col_i16 h);
 void map_copy_tiles(col_i16 x, col_i16 y, col_i16 w, col_i16 h);
 void refresh_arrived_unit_1040_0e2e(col_i16 flag);

@@ -10,8 +10,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void get_pos_words_1060_af79(void *r, col_i16 *pa, col_i16 *pb);
-void get_size_words_1060_af51(void *r, col_i16 *pa, col_i16 *pb);
+void get_pos_words_1060_af79(void *r, void *pa, void *pb);
+void get_size_words_1060_af51(void *r, void *pa, void *pb);
 void win_set_client_size_1060_aecf(void *r, col_i16 w, col_i16 h);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

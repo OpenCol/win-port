@@ -104,6 +104,12 @@ def symbols():
         out.setdefault(nm, (int(seg, 10), int(off, 16)))
     for nm in list(out):
         out.setdefault(nm.lower(), out[nm])
+        # UPPERCASE too: a `pascal` callee's EXTDEF is uppercase, so a port calling
+        # control_message_handler emits CONTROL_MESSAGE_HANDLER and the lookup missed
+        # it -- the call then took the positional fallback and landed somewhere else,
+        # which showed up as the port reaching no import where the shipped code reaches
+        # DefWindowProc. Same omission as the PUBDEF side of this.
+        out.setdefault(nm.upper(), out[nm])
         out.setdefault(nm + '@', out[nm])
     # C++ methods, as TDUMP demangles them. The symbol map spells a constructor
     # `Class_ctor` and a destructor `Class_dtor`, with an address suffix when the image

@@ -8,8 +8,8 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 * skip_record(col_i16 *p);
 col_i16 swap_word_identity_1068_9518(col_i16 v);
+void * skip_record(void *p);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

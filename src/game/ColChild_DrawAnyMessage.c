@@ -15,7 +15,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void layout_origin(ColChild *w, col_i16 kind, col_i16 *a, col_i16 *b);
+void layout_origin(ColChild *w, col_i16 kind, void *a, void *b);
 void sub_1048_d48b(ColChild *w, char *s);
 
 extern col_i16 start_timer(void ( *fn)(void), col_i16 ms, col_i16 mode);

@@ -8,12 +8,12 @@
  "ret_bits": 16,
  "ret_bits_emu": 16,
  "sweep": [
-  "0=0..14"
+  "0=0..3"
  ],
  "call": "(long)goods_price_buy((col_i16)a0)",
  "globals_read": [
   "g_cur_nation_rec",
-  "g_goods_info"
+  "g_goods"
  ],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [

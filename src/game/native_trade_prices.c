@@ -15,6 +15,7 @@
  *   extern int far g_native_sell[];                      SEG25:0x0030
  *
  * The file's own Colony, Settlement, Tribe dropped for the merged record in col/records.h.
+ * Members renamed to the merged record's spelling, by OFFSET: silver_base -> fc
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

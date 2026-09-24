@@ -71,7 +71,7 @@ col_i16 crosses_required(col_i16 nation, col_i16 *rate)
     total = min_int_1048_db44(total, 0xfa0);
     if (g_cur_nation >= NATION_EUROPEAN_COUNT || g_nation52[g_cur_nation].control != CONTROL_HUMAN)
         total = (8 - g_difficulty) * total >> 3;
-    if (g_cur_nation == 0)
+    if (g_cur_nation == NATION_ENGLAND)
         total = total * 2 / 3;
     return total;
 }

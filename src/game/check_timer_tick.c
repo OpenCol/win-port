@@ -7,7 +7,6 @@
  *   extern int g_tick_done;                              DGROUP:0x1d06
  *   extern int g_tick_index;                             DGROUP:0x1d08
  *   extern long g_tick_last;                             DGROUP:0x1d0c
- *   extern char far g_dialog_1210[];                     SEG29:0x1210
  *   extern char far g_opening_win[];                     SEG29:0x11ea
  *   extern int g_stub_a;                                 
  *
@@ -44,7 +43,7 @@ skip:
     MSDoAllTasks_1040_ac99();
     if ((g_flag_1d04 == 1 && flag == 1) || g_tick_done == 1) {
         g_tick_done = 1;
-        MSHideWindow_of_1040_a80c(g_dialog_1210);
+        MSHideWindow_of_1040_a80c(g_opening_win + 0x26);
         MSDoAllTasks_1040_ac99();
         dialog_attach_menu_1040_acac(g_opening_win);
     }

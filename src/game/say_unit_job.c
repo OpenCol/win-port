@@ -14,6 +14,7 @@
 #include "col/globals.h"
 
 #include "units.h"
+#include "jobs.h"
 /* 0x1c bytes at SEG20:0xa208 */
 
 /* 8 bytes to the row at SEG20:0xd61a */
@@ -30,16 +31,16 @@ void say_unit_job(void *w, col_i16 u, col_i16 flag)
 
     job = g_units[u].spec;
     type = g_units[u].type;
-    if (job == 0x1c)
+    if (job == JOB_COLONIST_ALT)
         job = 0x13;
     id = g_spec_recs[job].name;
     if (type != UNIT_COLONISTS && flag == 0 && is_ordinary_job(job) == 0)
         id = -1;
-    if ((type == UNIT_SOLDIERS || type == UNIT_DRAGOONS) && job == 0x15)
+    if ((type == UNIT_SOLDIERS || type == UNIT_DRAGOONS) && job == JOB_SOLDIER)
         id = g_misc_words[65];
-    if (type == UNIT_SCOUTS && job == 0x16)
+    if (type == UNIT_SCOUTS && job == JOB_SCOUT)
         id = g_misc_words[4];
-    if (type == UNIT_MISSIONARIES && job == 0x18)
+    if (type == UNIT_MISSIONARIES && job == JOB_MISSIONARY)
         id = g_misc_words[4];
     if (id >= 0)
         say_string(w, id);

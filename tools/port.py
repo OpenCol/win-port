@@ -1645,6 +1645,19 @@ def port(path, force=False):
                 ' * opaque here for the same reason it is there: nothing in this unit\n'
                 ' * reads a member of it. */\n'
                 + '\n'.join(sorted(set(opaque_decls))) + '\n\n')
+    # A prototype that names a type this unit keeps to ITSELF comes out above the
+    # typedef that defines it, so the name is not known yet. The pointee's spelling buys
+    # nothing in a declaration -- the definition is in another unit and the linker joins
+    # them by name -- so it is spelt `void *`, as the staged arguments are.
+    def _proto_void(pr):
+        for pt in set(re.findall(r'\b([A-Za-z_]\w*)\s*\*', pr)):
+            if pt in RECORDS or pt in WIDTH or pt in ('RECT', 'POINT', 'void', 'char',
+                                                      'const', 'unsigned', 'signed'):
+                continue
+            pr = re.sub(r'\b%s\b(?=\s*\*)' % re.escape(pt), 'void', pr)
+        return pr
+
+    protos = [_proto_void(x) for x in protos]
     if protos:
         src += ('/* The callees whose in-file stub came out: declared here, defined in '
                 'their own\n * translation units, joined by the linker. */\n'

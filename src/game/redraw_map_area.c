@@ -13,7 +13,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void clip_xywh_to_map_rect(col_i16 *x, col_i16 *y, col_i16 *w, col_i16 *h);
+void clip_xywh_to_map_rect(void *x, void *y, void *w, void *h);
 void draw_colonies_view(void);
 void draw_settlements_view(void);
 void draw_units_in_rect(col_i16 x, col_i16 y, col_i16 w, col_i16 h);

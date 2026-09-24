@@ -18,6 +18,7 @@
  */
 #include "col/globals.h"
 
+/* DGROUP:0x1c72, 0x1c76, 0x1c7a, 0x1c7e */
 extern col_u16 MSAllocateHandle(col_u32 size);
 extern void * MSHLock(col_i16 h);
 

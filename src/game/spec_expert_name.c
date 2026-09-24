@@ -15,6 +15,7 @@
  * translation units, joined by the linker. */
 col_i16 fold_spec_1c(col_i16 spec);
 
+#include "jobs.h"
 /* 8 bytes at SEG20:0xd61a, see jobs.h */
 
 

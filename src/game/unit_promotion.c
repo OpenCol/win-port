@@ -62,9 +62,9 @@ void unit_promotion(col_i16 unit, col_i16 base, col_i16 bonus)
     else
         chance -= g_difficulty;
     spec = g_units[u].spec;
-    if (spec == 0x1a)
+    if (spec == JOB_CRIMINAL)
         chance -= 10;
-    if (spec == 0x19)
+    if (spec == JOB_INDENTURED_SERVANT)
         chance -= 5;
     if (nation_flag_test((unsigned char)(g_units[u].flags & 0xf), FATHER_GEORGE_WASHINGTON) == 0
         && rand_range(1, chance) > bonus)

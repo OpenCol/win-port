@@ -31,6 +31,7 @@
  * translation units, joined by the linker. */
 col_i16 font_text_extent_1058_be29(void *f, const char *s);
 
+#include "goods.h"
 #include "settle.h"
 #include "units.h"
 #define NATION(u) ((unsigned char)((u).flags & 0xf))
@@ -161,7 +162,7 @@ void ReportWin_ReportsIndian(ReportWin *w, col_i16 nation)
                     buf[0] = 0;
                     say_number(buf, braves);
                     append_space(buf);
-                    say_string(buf, g_goods_name_word[15]);
+                    say_string(buf, g_goods_name_word[GOODS_MUSKETS]);
                     TextColor(g_draw_color);
                     draw_string_shadowed(w, &g_report_font_small, buf, w->ox + x, w->oy + y, 5);
                 }

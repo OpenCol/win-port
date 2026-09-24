@@ -189,7 +189,7 @@ void royal_expedition_lands(col_i16 nation)
             cnt1 = min_int_1038_8680(g_royal_forces[ROYAL_CAVALRY], cap);
             cnt3 = min_int_1038_8680(g_royal_forces[ROYAL_ARTILLERY], cap);
             if (pass != 0)
-                troops = min_int_1038_8680(g_unit_types[0x12].holds, troops);
+                troops = min_int_1038_8680(g_unit_types[UNIT_MAN_O_WAR].holds, troops);
             if (pass < 2) {
                 if (g_royal_forces[ROYAL_REGULARS] + cnt1 + cnt3 < troops) {
                     skip++;
@@ -198,7 +198,7 @@ void royal_expedition_lands(col_i16 nation)
             }
         }
     }
-    troops = min_int_1038_8680(g_unit_types[0x12].holds, troops);
+    troops = min_int_1038_8680(g_unit_types[UNIT_MAN_O_WAR].holds, troops);
     if (skip >= n)
         goto done;
     region = square_region_if_land(g_cur_colony_rec->x, g_cur_colony_rec->y);

@@ -18,7 +18,7 @@
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
 char colony_cell_colonist(col_i16 col, col_i16 row);
-col_i16 colonist_at_cell(col_i16 x, col_i16 y, col_i16 *spec_out);
+col_i16 colonist_at_cell(col_i16 x, col_i16 y, void *spec_out);
 col_i16 colonist_specialty_get(col_i16 c);
 col_i16 colony_sol_percent(void);
 col_i16 count_terrain_around(col_i16 x, col_i16 y, col_i16 a, col_i16 b);

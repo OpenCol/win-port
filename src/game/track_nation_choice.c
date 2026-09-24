@@ -13,7 +13,7 @@
 col_i16 panel_at(Screen *s, col_i16 x, col_i16 y);
 void SetNations_DrawIt(Screen *s);
 void copy_rect_to_screen_1030_e699(Screen *s, RECT *r);
-void get_mouse_pos_for(void *w, col_i16 *px, col_i16 *py);
+void get_mouse_pos_for(void *w, void *px, void *py);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */

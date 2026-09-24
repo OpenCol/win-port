@@ -10,7 +10,7 @@
  *   extern int far g_map_width;                          DGROUP:0x4c40
  *   extern int far g_map_h;                              DGROUP:0x4c42
  *   extern int g_land_count;                             DGROUP:0x4bd4
- *   extern int far g_seg22_2;                            SEG22:0x0002
+ *   extern int far g_world_opt[];                        SEG22:0x0000
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -53,7 +53,7 @@ void grow_landmass(col_i16 pick_land)
         if (r >= 8)
             walk_orthogonal(x, y);
     } else {
-        if (g_seg22_2 >= 2)
+        if (g_world_opt[1] >= 2)
             random_walk_blob(x, y);
         else
             walk_diagonal(x, y);

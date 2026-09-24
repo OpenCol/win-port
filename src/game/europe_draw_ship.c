@@ -18,8 +18,8 @@
  * translation units, joined by the linker. */
 col_i16 rect_width_at_8_1048_e0ee(void *o);
 void classify_index_into_tier(col_i16 idx, col_i16 base_x, col_i16 tier3_count, col_i16 extra,
-                                  col_i16 *tier, col_i16 *x, col_i16 *y,
-                                  col_i16 *w, col_i16 *h);
+                                  void *tier, void *x, void *y,
+                                  void *w, void *h);
 void set_current_nation(col_i16 n);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the

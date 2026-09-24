@@ -24,5 +24,6 @@
  "near_callees": [
   "heap_get"
  ],
- "host_blind": "calls heap_get, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+ "host_blind": "calls heap_get, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
 }

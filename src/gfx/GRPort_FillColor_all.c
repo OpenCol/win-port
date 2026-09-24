@@ -10,7 +10,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void FillColor(GRPort *p, col_i16 *rect, col_i16 color);
+void FillColor(GRPort *p, void *rect, col_i16 color);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

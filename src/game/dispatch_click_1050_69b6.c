@@ -11,7 +11,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void drag_sprite(void *w, char *s, col_i16 x, col_i16 y, col_i16 *a, col_i16 *b);
+void drag_sprite(void *w, char *s, col_i16 x, col_i16 y, void *a, void *b);
 
 extern char * current_window(void);
 

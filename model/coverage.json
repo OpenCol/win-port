@@ -545,7 +545,6 @@
   "ATOL_1040_a82d",
   "CTable_ctor",
   "CTable_load_rgb",
-  "CTable_pack_with_source",
   "ClosingWin_dtor",
   "ColChild_AddBucksToMessage",
   "ColChild_AddLongToMessage",
@@ -807,6 +806,7 @@
   "MainWin_RightMouseClick",
   "MainWin_dtor",
   "MapWin_LeftMouseClick",
+  "MapWin_LeftMouseDown",
   "MapWin_Recenter",
   "MapWin_RevealHiddenTerrain",
   "MapWin_RightMouseClick",
@@ -885,6 +885,8 @@
   "append_space",
   "arrived_unit_act",
   "atol",
+  "audio_open_element",
+  "audio_play_element",
   "autosave_to_slot",
   "beep",
   "beep_1068_a5b7",
@@ -893,6 +895,7 @@
   "best_defender",
   "best_move_dir",
   "bitmap_test",
+  "blink_overview_unit",
   "blit_rle_mask",
   "blit_rle_mask_words",
   "blit_screen_to_memdc",
@@ -970,6 +973,7 @@
   "check_ms_window_stack",
   "check_timer_tick",
   "checkbox_click",
+  "checkbox_init",
   "clear_colonist_cell",
   "clear_high_nibbles",
   "clear_list_bit_1",
@@ -1135,6 +1139,9 @@
   "destroy_log_window",
   "destroy_tribe_settlements",
   "destroy_window",
+  "dialog_attach_menu_1040_acac",
+  "dialog_attach_menu_1048_e0a1",
+  "dialog_attach_menu_1060_659e",
   "dialog_click_152",
   "dialog_click_15a",
   "dialog_click_19e",
@@ -1431,7 +1438,9 @@
   "handle_fill_bytes",
   "handle_replace_with_copy",
   "handle_resize",
+  "heap_get",
   "hide_hwnd",
+  "hover_button_wndproc",
   "hwnd_is_ms_control",
   "identity_ptr_1008_d74e",
   "identity_ptr_1068_9625",
@@ -1487,6 +1496,7 @@
   "listbox_delete_string",
   "listbox_get_text_1050_8d5d",
   "listbox_get_text_1070_54b4",
+  "listbox_init",
   "listbox_release",
   "listbox_reset_content",
   "listbox_sel_text",
@@ -1563,6 +1573,7 @@
   "map_planes_free",
   "map_scroll_to_show",
   "map_view_layout_1040_0597",
+  "map_zoom_redraw",
   "mappos_to_winpos",
   "mapview_pointer_at",
   "mark_corner",
@@ -1588,6 +1599,7 @@
   "mci_stop",
   "measure_wrapped_text",
   "memblock_alloc",
+  "memblock_free",
   "memblock_hook",
   "memblock_lock",
   "memory_is_low",
@@ -1818,6 +1830,7 @@
   "register_control",
   "remap_pairs",
   "remove_font_resource",
+  "render_1070_1e81",
   "render_1070_8e7a",
   "repaint_hwnd",
   "repaint_info_window",
@@ -1967,6 +1980,10 @@
   "sprite_extract_lock",
   "sprite_extract_to_screen",
   "sprite_free",
+  "sprite_load_gif",
+  "sprite_load_lbm",
+  "sprite_load_pcx",
+  "sprite_load_picture",
   "sprite_merge",
   "sprite_remap_to_palette",
   "square_accepts_unit",
@@ -2257,9 +2274,17 @@
    "host": "casts between a pointer and an integer, which a host cannot represent: a far pointer is 4 bytes in the game and 8 here",
    "sixteen_bit": "cannot resolve HOVER_BUTTON_WNDPROC (Base), HOVER_BUTTON_WNDPROC (CodeOffset16)"
   },
+  "MainWin_Init": {
+   "host": "calls MSGetWinRect, a Windows API the host does not have; the emulator simulates it",
+   "sixteen_bit": "cannot resolve MainWin_CanClose (Base), MainWin_CanClose (CodeOffset16), MainWin_RightMouseClick (Base)"
+  },
   "PanelWin_ctor": {
    "host": "a C++ method: the host harness does not build C++, and a constructor's work is member construction and a vtable",
    "sixteen_bit": "cannot resolve SButton::SButton() (Base), SButton::SButton() (CodeOffset16), SImageButton::SImageButton() (Base)"
+  },
+  "ReportWin_ReportsLabor": {
+   "host": "uses the pointer global g_cur_colony_rec: four bytes in the game, eight on a host",
+   "sixteen_bit": "cannot resolve labor_report_hook (Base), labor_report_hook (CodeOffset16), on_labor_report_click (Base)"
   },
   "add_nation_money_to_message": {
    "host": "it reached message_append, a stub standing in for a callee this repo has not ported: the 16-bit harness calls the shipped one there, so only that harness can judge this",
@@ -2500,6 +2525,10 @@
   "explore_area": {
    "host": "calls explore_around_square, a Windows API the host does not have; the emulator simulates it",
    "sixteen_bit": "a forwarder to explore_around_square, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
+  },
+  "free_map_block": {
+   "host": "calls memblock_free, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+   "sixteen_bit": "a forwarder to memblock_free, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
   },
   "generate_map": {
    "host": "calls check_timer_tick, a Windows API the host does not have; the emulator simulates it",

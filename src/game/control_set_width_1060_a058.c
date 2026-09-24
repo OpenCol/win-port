@@ -14,7 +14,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void scroll_get_range_ex_1060_ae1d(void *o, col_i16 *pa, col_i16 *pb);
+void scroll_get_range_ex_1060_ae1d(void *o, void *pa, void *pb);
 
 void control_set_width_1060_a058(Rec *o, col_i16 v)
 {

@@ -18,7 +18,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-col_i16 build_item_kind(col_i16 item, col_i16 *idx);
+col_i16 build_item_kind(col_i16 item, void *idx);
 col_i16 colony_ring_level(void);
 col_i16 colony_warehouse_capacity(void);
 col_i16 current_colony_flag_get(col_i16 bit);
