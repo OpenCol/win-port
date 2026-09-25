@@ -1052,7 +1052,28 @@ def port(path, force=False):
     # up 46 files over callees that do not exist.
     file_macros = set(re.findall(r'^\s*#\s*define\s+(\w+)\s*\(', body, re.M))
     file_classes = set(re.findall(r'\bclass\s+(\w+)', blank))
-    called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', blank_rest)
+    # A class BODY declares methods -- `virtual void v0();` -- and none of them is a
+    # call. Blanked out before the callees are collected, or every vtable slot in the
+    # corpus reads as a function this repo has not ported.
+    called_in = blank_rest
+    for mc in re.finditer(r'\bclass\s+\w+[^{;]*\{', blank_rest):
+        depth, j = 0, mc.end() - 1
+        while j < len(called_in):
+            if called_in[j] == '{':
+                depth += 1
+            elif called_in[j] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+            j += 1
+        called_in = (called_in[:mc.end()] + ' ' * (j - mc.end()) + called_in[j:])
+    # `Popup p(0x800);` declares an OBJECT with a constructor argument. It reads exactly
+    # like a call to `p`, and the callee gate runs before the guard that refuses class
+    # instances, so the file was turned away for calling a function named `p`.
+    for cls in file_classes:
+        called_in = re.sub(r'\b%s\s+\w+\s*\(([^;()]*)\)\s*;' % re.escape(cls),
+                           lambda mm: ' ' * len(mm.group(0)), called_in)
+    called = {c for c in re.findall(r'\b([A-Za-z_]\w*)\s*\(', called_in)
               if c not in KEYWORDS and c != name
               and c not in file_macros and c not in file_classes
               and c.lstrip('~') not in file_classes}
@@ -1318,6 +1339,8 @@ def port(path, force=False):
                         r'\}\s*;[ \t]*\n?', re.M)
 
     opaque_decls = []
+    instances = []
+    opaque_classes = set()
 
     def _opaque(mo):
         cls, field, size = mo.group(1), mo.group(2), dim(mo.group(3))
@@ -1327,11 +1350,14 @@ def port(path, force=False):
         # handlers agreed on every write and every returned value while calling no
         # imports at all, because the destructor the port had dropped is what reaches
         # InvalidateRect. Only a class used through a POINTER is a size.
-        if re.search(r'\b%s\s+(?!far\b|near\b)\w+\s*[;,\[=]' % re.escape(cls),
-                     blank_rest):
-            raise Opaque('declares an instance of %s, whose constructor and destructor '
-                         'the shipped code calls and a struct of the same bytes does '
-                         'not' % cls)
+        opaque_classes.add(cls)
+        # OPAQUE.sub runs over body_text AND body_pre, so this is reached twice for one
+        # class: without the check the constructor and destructor were each emitted
+        # twice, which is not what the shipped code does either.
+        for mi in re.finditer(r'\b%s\s+(?!far\b|near\b)(\w+)\s*[;,\[=(]'
+                              % re.escape(cls), blank_rest):
+            if (cls, mi.group(1)) not in instances:
+                instances.append((cls, mi.group(1)))
         if cls in RECORDS:
             if size is not None and size != RECORDS[cls]['size']:
                 raise Opaque('%s is %d bytes in this file and %d in the model'
@@ -1351,11 +1377,35 @@ def port(path, force=False):
     # declaration has, an instance of it is a constructor and a destructor the port has
     # no way to call.
     for cls in sorted(re.findall(r'\bclass\s+(\w+)', blank)):
-        if re.search(r'\b%s\s+(?!far\b|near\b)\w+\s*[;,\[=]' % re.escape(cls),
+        if cls in opaque_classes:
+            continue
+        # A class this could not reduce to a struct -- it has real members, or a base
+        # list -- and an instance of it is a layout question as well as a constructor.
+        if re.search(r'\b%s\s+(?!far\b|near\b)\w+\s*[;,\[=(]' % re.escape(cls),
                      blank_rest):
-            return None, 'declares an instance of %s, whose constructor and destructor ' \
-                         'the shipped code calls and a struct of the same bytes does ' \
-                         'not' % cls
+            return None, 'declares an instance of %s, which is not the one-line form ' \
+                         'this can read as a size' % cls
+    # An INSTANCE of a class is not an opaque size, it is a constructor and a destructor.
+    # `GRPort port;` on the stack calls GRPort::GRPort() on entry and ~GRPort() on exit,
+    # and a struct of the same bytes calls neither: seven ReportWin handlers agreed on
+    # every write and every returned value while calling no imports at all, because the
+    # destructor they had lost is what reaches InvalidateRect.
+    #
+    # Both are in the shipped image, so the port can call them by hand -- but only where
+    # there is ONE way out of the function, because a destructor has to run on every
+    # path and this tool is not going to work out which those are.
+    if instances:
+        # TRIED AND MEASURED: the shipped image has GRPort_ctor, DiskFile_ctor and their
+        # destructors, and a port can declare the struct and call them by hand at the
+        # ends of a single-exit function. Fourteen files were built that way and NONE of
+        # them agreed -- eight disagreed on the imports they reached, five could not
+        # resolve the constructor at all because a C++ method's target is not the name
+        # the call site spells, and one would not compile. An object's lifetime is not
+        # two calls, and docs/findings/cpp-member-function-codegen.md said as much about
+        # the other direction. Refused, and not silently reduced to a struct.
+        return None, 'declares an instance of %s: its constructor and destructor are ' \
+                     'part of what the shipped function does, and calling them by hand ' \
+                     'was measured and does not reproduce it' % instances[0][0]
 
     # Which record each identifier in this file holds. Built AFTER the typedefs are
     # dropped, when every declaration already spells the canonical record name. This is
