@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Popup_set_heap removed: the header declares it from the definition (W1 step 3). */
 /* Popup_init: candidate for 1050:0859 (269 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -31,7 +32,6 @@
 
 /* same object: 4-byte `push cs; call ` */
 extern void Popup_close(Popup *popup);
-extern void Popup_set_heap(Popup *popup, int a);
 extern void Popup_clear(Popup *popup);
 
 /* 5-byte NOP form, so extern (rule 47) */

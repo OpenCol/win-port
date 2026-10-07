@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1050_8cd8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 119, 206 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, ReportWin_DoReport_parent, font_height_1050_9106, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
@@ -90,7 +91,6 @@ extern "C" int port_height_1050_9247(GRPort *port);
 
 void set_on_lbutton_down_1050_8eb9(void *slot, void (*fn)(void)) { }
 extern "C" void show_window_1050_8bc8(GameWin *w);
-extern "C" void MSHideWindow_of_1050_8cd8(void *w);
 extern "C" void win_release_1050_9148(GameWin *w);
 
 extern "C" int Fame(int show, int *rank_out)

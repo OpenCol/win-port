@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ask_port removed: the header declares it from the definition (W1 step 3). */
 /* orders_port: candidate for 1008:14bf (179 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -27,7 +28,6 @@
 #include "records.h"
 
 extern GameState g_game;   /* SEG20:0x7782 */
-extern int ask_port(int unit, int cur, int mark_here, int offer_extra);
 extern void set_course_for_europe(int unit);
 extern void set_colony(int colony);
 

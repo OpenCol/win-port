@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d77f, load_pcx_resource, port_bounds removed: the header declares them from the definition (W1 step 3). */
 /* MagicWin_load_pcx: candidate for 1068:ae60 (202 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MagicWin_load_pcx
@@ -45,14 +46,11 @@
 
 
 
-extern void load_pcx_resource(void *p, int res, int w, int h, void *pal);
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1068_d77f(void *p);
 extern "C" void MagicWin_remap_to_palette(MagicWin *sprite, short first, short count);
-extern "C" RECT *port_bounds(void *p);
 
 void MagicWin_load_pcx(MagicWin *o, int id, register int first, register int count, void *pal)
 {

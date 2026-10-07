@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_id_1070_96c5, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* radio_click: candidate for 1070:434d (304 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: radio_click
@@ -34,8 +35,6 @@ class DlgControl;
 extern "C" int get_cur_item_1070_99ac(SRadioSet *ctl);
 extern "C" RadioItem *get_items_1070_99c5(SRadioSet *radios);
 extern "C" void set_cur_item_1070_9994(SRadioSet *radios, int cur_item);
-extern "C" void *ctl_window_1070_96a8(SRadioSet *ctl);
-extern "C" int ctl_id_1070_96c5(SRadioSet *ctl);
 extern "C" void call_radio_changed(SRadioSet *ctl, int id, int item);
 
 void radio_click(register unsigned hwnd)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_bounds removed: the header declares it from the definition (W1 step 3). */
 /* port_copy_full: candidate for 1068:a926 (83 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_copy_full
@@ -24,7 +25,6 @@
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" RECT *port_bounds(void *p);
 
 void port_copy_full(MagicWin *o)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of tribe_village removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ColChild_ActivateAnyMessage, MapWin_SlideIcon, combat_fight removed: the header declares them from the definition (W1 step 3). */
 /* move_unit: candidate for 1020:cfb8 (4095 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
@@ -90,7 +91,6 @@ extern unsigned char map_get(int x, int y);
 extern int is_city(int x, int y);
 extern int top_unit_in_square(int x, int y);
 extern int is_village(int x, int y);
-extern int tribe_village(int u, int x, int y);
 
 extern unsigned char move_rate(int u);
 extern void end_unit_turn(int u);

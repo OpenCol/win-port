@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d77f removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, show_window_1068_db76, win_center_1068_dad3, win_disable_1068_db95 removed: the header declares them from the definition (W1 step 3). */
 /* PostLowMemReport: candidate for 1068:b96a (745 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -68,7 +69,6 @@ extern "C" void *MSGetResource_1068_da25(void *type, int id);
 extern "C" void *MSLockResource_1068_da48(void *p);
 extern "C" int font_handle_1068_da68(Font *font);
 
-extern "C" void *get_ctable_1068_d77f(void *p);
 extern "C" void set_button_action_1068_db5c(SButton *button, void *h);
 
 

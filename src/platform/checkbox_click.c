@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_id_1070_96c5, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* checkbox_click: candidate for 1070:3113 (206 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: checkbox_click
@@ -34,8 +35,6 @@ class DlgControl;
 
 extern "C" int get_checked_1070_9921(SCheckBox *ctl);
 extern "C" void set_checked_1070_993a(SCheckBox *check, int checked);
-extern "C" void *ctl_window_1070_96a8(SCheckBox *ctl);
-extern "C" int ctl_id_1070_96c5(SCheckBox *ctl);
 extern "C" void call_checkbox_changed(SCheckBox *ctl, int id, int checked);
 
 void checkbox_click(unsigned hwnd)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1050_8cd8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, file_MSOpenFile_1050_9096, font_height_1050_9106, text_search, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 189, 236 of the imported file. */
@@ -80,7 +81,6 @@ extern "C" int read_file_1050_90bc(MSFile *file, void *buf, long n);
 
 extern "C" void show_window_1050_8bc8(GameWin *w);
 void set_on_lbutton_down_1050_8eb9(void *slot, void (*fn)(void)) { }
-extern "C" void MSHideWindow_of_1050_8cd8(void *w);
 extern "C" void win_release_1050_9148(GameWin *w);
 
 extern "C" void HallOfFame(FameEntry *entry, char show)

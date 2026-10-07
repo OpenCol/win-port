@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 127, 132, 136, 141 of the imported file. */
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
 /* tribe_incite: candidate for 1030:d700 (1113 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -57,7 +59,6 @@ extern void set_village(int s);
 extern void popup_say(int slot, int word);
 extern char *strings(int n);
 extern void Popup_item(Popup *popup, char *s, int id);
-extern int popi(char *msg, int tribe);
 extern int popm(char *msg, int n);
 extern void piss_off(int tribe, int nation, int delta, int unused);
 /* same object: 4-byte `push cs; call ` (rule 47) */
@@ -124,21 +125,21 @@ extern "C" void tribe_incite(int u, register int nation, int tribe_nation)
         }
         if (!(get_treaty(tribe_nation, target) & 0x20)) {
             popup_say(0, get_name(target));
-            popi("NOCONTACT", g_cur_tribe);
+            popi((void*)("NOCONTACT"), g_cur_tribe);
             goto done;
         }
         popup_say(0, get_adjective(target));
         set_text_arg_l_1030_ec2f(0, cost);
-        answer = popi("INDIANWARPATH2", g_cur_tribe);
+        answer = popi((void*)("INDIANWARPATH2"), g_cur_tribe);
         if (answer != 1)
             goto done;
         if (g_nations[nation].gold < cost) {
-            popi("UNFORTUNATE", g_cur_tribe);
+            popi((void*)("UNFORTUNATE"), g_cur_tribe);
             goto done;
         }
         if (pissed(g_cur_tribe, target) >= TRIBE_ATTITUDE_WAR) {
             popup_say(0, get_name(target));
-            popi("ALREADYSMITE", g_cur_tribe);
+            popi((void*)("ALREADYSMITE"), g_cur_tribe);
             goto done;
         }
     } else {

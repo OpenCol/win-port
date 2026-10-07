@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Fill removed: the header declares it from the definition (W1 step 3). */
 /* sprite_read_file_pal: candidate for 1068:717e (675 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: sprite_read_file_pal
@@ -45,7 +46,6 @@ extern void Sprite_Unlock(Sprite *s);
 /* same object: 4-byte `push cs; call ` */
 extern "C" int file_MSOpenFile_1068_95d5(DiskFile *file, char *name);
 
-extern "C" void CTable_Fill(CTable *pal, int start, int count, void *rgb);
 
 void sprite_read_file_pal(Sprite *sprite, char *name, int first,
                                         register int count, void *pal)

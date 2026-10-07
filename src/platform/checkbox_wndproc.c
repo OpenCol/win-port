@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 169, 177 of the imported file. */
+/* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, get_keyboard_nav, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
 /* checkbox_wndproc: candidate for 1070:31e1 (1694 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: checkbox_wndproc
@@ -78,22 +80,14 @@ class DlgControl;
 
 #include "records.h"
 
-extern void SetEventWindow(void *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" int get_checked_1070_9921(SCheckBox *ctl);
 extern "C" void set_checked_1070_993a(SCheckBox *check, int checked);
 extern "C" int get_check_enabled_1070_997b(SCheckBox *check);
-extern "C" void *ctl_window_1070_96a8(SCheckBox *ctl);
-extern "C" void *get_ctable_1070_97b7(void *c);
-extern "C" void palette_get_entry_rgb(Palette *pal, int i, unsigned char *r, unsigned char *g, unsigned char *b);
 
-extern "C" void *ctl_rect(char *ctl);
-extern "C" int ctl_id_1070_96c5(SCheckBox *ctl);
-extern "C" int font_handle_1070_9806(void *ref);
 
-extern "C" char get_keyboard_nav(void *o);
 extern "C" void call_checkbox_changed(SCheckBox *ctl, int id, int checked);
 
 extern "C" long checkbox_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
@@ -173,7 +167,7 @@ extern "C" long checkbox_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long 
             if (g_check_color_enabled != 0) {
                 palette_get_entry_rgb(identity_ptr_1070_97ee(
                                           get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8(ctl)))),
-                                      g_check_color_enabled, &r, &green, &blue);
+                                      g_check_color_enabled, (char*)(&r), (char*)(&green), (char*)(&blue));
                 SetTextColor(hdc, RGB(r, green, blue));
             } else
                 SetTextColor(hdc, 0L);
@@ -181,7 +175,7 @@ extern "C" long checkbox_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long 
             if (g_check_color_disabled != 0) {
                 palette_get_entry_rgb(identity_ptr_1070_97ee(
                                           get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8(ctl)))),
-                                      g_check_color_disabled, &r, &green, &blue);
+                                      g_check_color_disabled, (char*)(&r), (char*)(&green), (char*)(&blue));
                 SetTextColor(hdc, RGB(r, green, blue));
             } else
                 SetTextColor(hdc, 0L);

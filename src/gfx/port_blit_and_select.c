@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d77f removed: the header declares it from the definition (W1 step 3). */
 /* port_blit_and_select: candidate for 1068:aa8f (108 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_blit_and_select
@@ -42,7 +43,6 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1068_d77f(void *p);
 
 void port_blit_and_select(MagicWin *o, void *src, RECT *sr, RECT *dr)
 {

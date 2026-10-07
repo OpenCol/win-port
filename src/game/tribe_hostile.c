@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* tribe_hostile: candidate for 1030:c850 (197 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -34,7 +35,6 @@ extern int pissed(int a, int tribe);
 
 extern void popup_say(int slot, int v);
 extern int popm(char *msg, int n);
-extern int popi(char *name, int x);
 extern void delete_unit(int u);
 
 /* Defined above the target for the compiler's own 4-byte PUSH CS / CALL NEAR. */

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d77f, port_bounds removed: the header declares them from the definition (W1 step 3). */
 /* MagicWin_load_picture: candidate for 1068:ac02 (202 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MagicWin_load_picture
@@ -49,9 +50,7 @@ extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *p
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1068_d77f(void *p);
 extern "C" void MagicWin_remap_to_palette(MagicWin *sprite, short first, short count);
-extern "C" RECT *port_bounds(void *p);
 
 void MagicWin_load_picture(MagicWin *o, int id, register int first, register int count, void *pal)
 {

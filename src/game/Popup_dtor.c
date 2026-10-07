@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_enable_1050_82e1 removed: the header declares it from the definition (W1 step 3). */
 /* Popup_dtor: candidate for 1050:07ac (173 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Popup::~Popup()
@@ -23,7 +24,6 @@ extern "C" void Popup_clear(Popup *popup);
 extern "C" void Popup_close(Popup *popup);
 extern void heap_destroy(MemBlock *block);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_enable_1050_82e1(void *w);
    /* EventWin : Screen, EventTable, flattened for C: 0x8c bytes */
    /* DialogWin : EventWin, flattened for C */
 

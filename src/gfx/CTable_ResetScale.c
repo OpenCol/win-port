@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Fill removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of CTable_ResetAnimate removed: the header declares it from the definition (W1 step 3). */
 /* CTable_ResetScale: candidate for 1068:09c3 (152 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -31,7 +32,6 @@
    struct logpal, which in C++ names the type already (W1). */
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void CTable_Fill(CTable *pal, int start, int count, void *rgb);
 
 void CTable_ResetScale(CTable *pal)
 {

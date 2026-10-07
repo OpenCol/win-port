@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Fill removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_GetWin_1068_968c, get_ctable_1068_966f, get_win_1068_96e8 removed: the header declares them from the definition (W1 step 3). */
 /* Flic_ShowFrame: candidate for 1068:2453 (315 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -44,7 +45,6 @@
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
    /* 0x41e bytes: the palette, its handle and the cycling state */
-extern "C" void CTable_Fill(CTable *pal, int start, int count, void *rgb);
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 extern void Flic_Reset(Flic *a);
 extern void Flic_NextFrame(Flic *flic);

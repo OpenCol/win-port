@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* tribe_extortion: candidate for 1030:d2aa (1081 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -50,7 +51,6 @@ extern int has_father(int nation, int bit);
 
 extern int find_close_colony(int x, int y, int nation, int land);
 extern void popup_say(int slot, int word);
-extern int popi(char *msg, int tribe);
 extern void sort_16x16(int n, int *payload, int *key);
 extern void set_colony(int colony);
 extern int get_warehouse(void);

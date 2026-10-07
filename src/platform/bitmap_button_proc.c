@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 93, 94, 127, 136, 137, 143 of the imported file. */
+/* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 96, 97, 130, 139, 140, 146 of the imported file. */
 /* PORT: this file's own declarations of call_button_action, get_button_enabled_1070_981e removed: the header declares them from the definition (W1 step 3). */
 /* bitmap_button_proc: candidate for 1070:1e81 (1251 bytes).  Verdict: RELOCATABLE.
@@ -26,16 +28,11 @@
 #include "classes.h"
 #include "records.h"
 
-extern void SetEventWindow(void *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void *ctl_rect(char *ctl);
-extern void *ctl_window_1070_96a8(char *ctl);
-extern int ctl_id_1070_96c5(char *ctl);
 
 
-extern char get_keyboard_nav(void *o);
 
 long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {
@@ -94,8 +91,8 @@ long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
             o->hot = 0;
             if (PtInRect(&r, pt)) {
                 bitmap_button_proc(hwnd_, 0xf, 0, 0L);
-                SetEventWindow(ctl_window_1070_96a8((char *)((DlgControl *)ctl)));
-                call_button_action((SButton *)ctl, ctl_id_1070_96c5((char *)((DlgControl *)ctl)));
+                SetEventWindow(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))));
+                call_button_action((SButton *)ctl, ctl_id_1070_96c5((DlgControl *)((char *)((DlgControl *)ctl))));
             }
         }
         break;
@@ -128,7 +125,7 @@ long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
         if (wp == VK_TAB) {
             SendMessage(GetParent(hwnd_), msg, wp, lp);
         } else if (wp == VK_SPACE && get_button_enabled_1070_981e((SButton *)ctl) != 0
-                   && get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))) != 0) {
+                   && get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))) != 0) {
             o->hot = 1;
             repaint_hwnd(hwnd_);
             o->hot = 0;
@@ -137,14 +134,14 @@ long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
             while ((char)(key >> 8) != 0)
                 key = GetAsyncKeyState(0x20);
             repaint_hwnd(hwnd_);
-            SetEventWindow(ctl_window_1070_96a8((char *)((DlgControl *)ctl)));
-            call_button_action((SButton *)ctl, ctl_id_1070_96c5((char *)((DlgControl *)ctl)));
+            SetEventWindow(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))));
+            call_button_action((SButton *)ctl, ctl_id_1070_96c5((DlgControl *)((char *)((DlgControl *)ctl))));
         } else {
             SendMessage(GetParent(hwnd_), msg, wp, lp);
         }
         break;
     case WM_SETFOCUS:
-        if (get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))) == 0)
+        if (get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))) == 0)
             return control_message_handler(hwnd_, msg, wp, lp);
         hdc = GetDC(hwnd_);
         brush = GetStockObject(3);

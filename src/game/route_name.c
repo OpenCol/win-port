@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ask_port removed: the header declares it from the definition (W1 step 3). */
 /* route_name: candidate for 1028:cb4f (199 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -31,7 +32,6 @@
 #include "records.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int ask_port(int unit, int cur, int mark_here, int offer_extra);
 /* same object: 4-byte `push cs; call ` */
 
 extern void new_dest(int colony);

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 164 of the imported file. */
+/* PORT: this file's own declarations of ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 125 of the imported file. */
 /* PORT: this file's own declarations of ctable_hpal, get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
 /* MSInitButton: candidate for 1070:0f45 (3663 bytes).  Verdict: RELOCATABLE.
@@ -84,12 +86,8 @@ class DlgControl;
 
 #include "records.h"
 
-extern "C" void *ctl_window_1070_96a8(void *ctl);
 extern "C" void report_error_1070_969a(void *ctx, char *msg);
-extern "C" void *get_ctable_1070_97b7(void *o);
 
-extern "C" void palette_get_entry_rgb(void *pal, int i, unsigned char *r, unsigned char *g, unsigned char *b);
-extern "C" int font_handle_1070_9806(void *ref);
 extern "C" CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj);
 
 extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
@@ -164,7 +162,7 @@ extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
         SelectPalette(memdc, ctable_hpal((CTable *)(get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8(button))))), 0);
         RealizePalette(memdc);
         palette_get_entry_rgb(identity_ptr_1070_97ee(get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8(button)))),
-                              button->colour, &red, &green, &blue);
+                              button->colour, (char*)(&red), (char*)(&green), (char*)(&blue));
         face = CreatePen(PS_SOLID, 1,
                          (unsigned long)(unsigned)(red | ((unsigned)green << 8))
                          | ((unsigned long)blue << 16));

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of call_region_click, call_region_dblclk, call_region_enter, call_region_leave, call_region_press removed: the header declares them from the definition (W1 step 3). */
 /* region_wndproc: candidate for 1070:0cc0 (645 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -a
@@ -45,13 +46,9 @@
 
 #include "records.h"
 
-extern void SetEventWindow(void *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void *ctl_window_1070_96a8(void *ctl);
-extern int ctl_id_1070_96c5(void *ctl);
-extern RECT *ctl_rect(void *ctl);
 
 long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {

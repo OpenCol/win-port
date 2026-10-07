@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 90 of the imported file. */
+/* PORT: this file's own declarations of show_text_dialog_a removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 69 of the imported file. */
 /* route_get: candidate for 1028:c83a (441 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -55,7 +57,6 @@ extern void period_string(char *buf);
 extern void Popup_item(Popup *popup, char *s, int id);
 extern void Popup_set_active(Popup *popup, int id);
 extern void popup_say(int slot, int word);
-extern "C" void show_text_dialog_a(char *msg, int kind);
 
 extern "C" int route_get(int kind, int route, char *title)
 {
@@ -87,7 +88,7 @@ extern "C" int route_get(int kind, int route, char *title)
     }
     if (count == 0) {
         popup_say(0, g_route_label[(g_cur_route_rec->sea == (kind == 2)) ? 3 : 4]);
-        show_text_dialog_a("TRADENONE2", 0);
+        show_text_dialog_a((void*)("TRADENONE2"), 0);
         goto done;
     }
     n = popup_run_thunk_1028_e46b(&popup) - 1;

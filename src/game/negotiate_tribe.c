@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MapWin_SlideIcon removed: the header declares it from the definition (W1 step 3). */
 /* negotiate_tribe: candidate for 1030:383d (4942 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
@@ -88,7 +89,6 @@ extern void force_mood(int mood);
 extern void set_mood(int mood);
 extern void force_map(int x, int y);
 
-extern int popi(char *name, int tribe);
 extern void piss_off(int tribe, int nation, int delta, int unused);
 extern int is_village(int x, int y);
 extern int top_unit_in_square(int x, int y);

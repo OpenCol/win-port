@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 134 of the imported file. */
+/* PORT: this file's own declarations of popi, tribe_incite removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 129 of the imported file. */
 /* PORT: this file's own declarations of treaty_on, tribe_extortion, tribe_heresy, tribe_live removed: the header declares them from the definition (W1 step 3). */
 /* tribe_village: candidate for 1030:db76 (2415 bytes).  Verdict: RELOCATABLE.
@@ -71,7 +73,6 @@ extern void set_village(int s);
 extern int pissed(int tribe, int nation);
 extern void force_mood(int mood);
 extern void popup_say(int slot, int word);
-extern int popi(char *id, int sel);
 
 extern char *strings(int n);
 
@@ -89,7 +90,6 @@ extern "C" int get_name(int nation);
 extern "C" void tribe_trade(int unit, int settlement, int nation, int tribe_nation);
 
 extern "C" void tribe_mission(int u, int nation, int tribe);
-extern "C" void tribe_incite(int u, int nation, int tribe);
 extern "C" int tribe_camp(int u, int nation, int tribe);
 
 int tribe_village(register int unit, int x, int y)
@@ -132,7 +132,7 @@ int tribe_village(register int unit, int x, int y)
         }
         if (attitude >= 0x4b || mood >= 0x40) {
             popup_say(0, get_adjective(tribe_nation));
-            popi("MADATSHIPS", g_cur_tribe);
+            popi((void*)("MADATSHIPS"), g_cur_tribe);
             goto out;
         }
     }

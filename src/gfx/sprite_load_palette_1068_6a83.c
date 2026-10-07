@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 17 of the imported file. */
+/* PORT: this file's own declarations of sprite_load_palette_1068_6aac removed: the header declares it from the definition (W1 step 3). */
 /* sprite_load_palette_1068_6a83: candidate for 1068:6a83 (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,12 +11,9 @@
 
 struct Sprite;
 struct logpal;
-extern void sprite_load_palette_1068_6aac(struct Sprite *s, int res,
-                                               int start, int count,
-                                               struct logpal *pal);
 
 void sprite_load_palette_1068_6a83(struct Sprite *s, int res_id,
                                        struct logpal *pal)
 {
-    sprite_load_palette_1068_6aac(s, res_id, -1, -1, pal);
+    sprite_load_palette_1068_6aac((Sprite *)(s), res_id, -1, -1, pal);
 }

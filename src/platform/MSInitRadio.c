@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_window_1070_96a8, set_cur_item_1070_9994 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* MSInitRadio: candidate for 1070:3dd1 (1241 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -31,8 +32,6 @@
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void *ctl_window_1070_96a8(void *ctl);
-extern void set_cur_item_1070_9994(void *radios, int cur_item);
 
 short MSInitRadio(int *out, RECT *area, int cols, void *owner,
                                        char *s, int visible)

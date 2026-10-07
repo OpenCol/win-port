@@ -18,10 +18,6 @@
   ],
   [
    2,
-   "conflicting types for 'X'; have 'X'"
-  ],
-  [
-   2,
    "lvalue required as left operand of assignment"
   ],
   [
@@ -31,10 +27,6 @@
   [
    1,
    "'X' has no member named 'X'"
-  ],
-  [
-   1,
-   "'X' was not declared in this scope"
   ],
   [
    1,
@@ -57,7 +49,7 @@
    "specializing member 'X' requires 'X' syntax"
   ]
  ],
- "ok": 3221,
+ "ok": 3224,
  "toolchain": "mingw-i686",
  "total": 3245
 }

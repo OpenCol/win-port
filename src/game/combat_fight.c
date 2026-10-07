@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 908 of the imported file. */
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_defense removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MapWin_SlideIcon, delete_colony, special_kill removed: the header declares them from the definition (W1 step 3). */
 /* combat_fight: candidate for 1020:4460 (8698 bytes).  Verdict: RELOCATABLE.
@@ -141,7 +143,6 @@ extern void force_music(int track);
 extern int get_treaty(int nation_a, int nation_b);
 extern void piss_off(int tribe, int nation, int delta, int f);
 extern int pissed(int tribe, int n);
-extern int popi(char *name, int sel);
 
 extern void feature_set(int x, int y, int bit, int on);
 extern void ShowMap(void);
@@ -905,7 +906,7 @@ slide_it:
             if (anation < NATION_EUROPEAN_COUNT && g_nation_text[anation].control == CONTROL_HUMAN) {
                 popup_say(0, get_adjective(dnation));
                 popup_say(1, get_adjective(anation));
-                popi("INDIANBOW", g_cur_tribe);
+                popi((void*)("INDIANBOW"), g_cur_tribe);
             }
         }
     }

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of possible_popup removed: the header declares it from the definition (W1 step 3). */
 /* colony_depletion: candidate for 1018:903e (217 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -38,7 +39,6 @@ extern void feature_set(int x, int y, int bits, int on);
 
 extern char get_field(int x, int y);
 extern int get_job(int colonist);
-extern char possible_popup(char *msg, int a, int b, int c, int d, int e, int f);
 
 void colony_depletion(void)
 {

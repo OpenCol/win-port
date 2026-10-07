@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Flic_ShowFrame, anim_unbind removed: the header declares them from the definition (W1 step 3). */
 /* timer_tick: candidate for 1068:3424 (50 bytes).  Verdict: RELOCATABLE.
  *
  * A timer callback. `anim_start` stores the object it is animating in the pointer at
@@ -21,8 +22,6 @@
 #include "classes.h"
 
 /* Defined above the target for the compiler's own 4-byte PUSH CS / CALL NEAR. */
-extern void Flic_ShowFrame(void *anim);
-extern void anim_unbind(void *anim);
 
 void timer_tick(int unused1, int count)
 {

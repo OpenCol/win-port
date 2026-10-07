@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1010_2b41, show_window_1010_2af0 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 90, 91, 92, 93, 94 of the imported file. */
 /* PORT: this file's own declarations of Sprite_Init, set_on_keydown_1010_2a1b, set_on_keydown_after_1010_2cdd, set_on_lbutton_down_1010_29e2, set_on_lclick_1010_2c6b, set_on_rclick_1010_2ca4, win_center_1010_299c removed: the header declares them from the definition (W1 step 3). */
 /* Opening_ctor: candidate for 1010:0f0e (3099 bytes).  Verdict: RELOCATABLE.
@@ -49,12 +50,10 @@ extern void CTable_ResetScale(CTable *);
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 
 
-extern "C" void show_window_1010_2af0(void *p);
 
 extern "C" void *MSGetResource_1010_2d16(void *out, int id);
 extern "C" void *MSLockResource_1010_2d39(void *h);
 
-extern "C" void MSHideWindow_of_1010_2b41(void *p);
 
 extern "C" void Opening_OpeningKeys(void);
 extern "C" void Opening_OpeningMouse(void);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Popup_check, Popup_edit, win_disable_1050_8c93 removed: the header declares them from the definition (W1 step 3). */
 /* Popup_start: candidate for 1050:54f1 (1807 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 1807, not the census 1798. The last nine bytes are a dead second epilogue.
@@ -73,7 +74,6 @@ extern unsigned char _ctype[257];   /* DGROUP:0x46c0, declared */
 extern void expand_text_template(char *src, char *dst);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void win_disable_1050_8c93(void *w);
 #include "w16types.h"
 
 extern void *MSLockResource_1050_8dc2(void *h);
@@ -90,8 +90,6 @@ extern void Popup_set_width(Popup *popup, int width);
 extern void Popup_set_font(Popup *popup, Font *new_font);
 extern void Popup_set_list(Popup *popup, int a, int b);
 extern void Popup_string(Popup *popup, char *s);
-extern void Popup_edit(Popup *popup, char *label, char *dflt, int maxlen);
-extern void *Popup_check(Popup *popup, char *s, int id, int m);
 extern void *Popup_item(Popup *popup, char *s, int id);
 
 int Popup_start(Popup *popup, void *unused, char *name, int sel,

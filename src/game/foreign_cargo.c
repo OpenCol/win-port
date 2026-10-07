@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 105, 109, 176, 184 of the imported file. */
+/* PORT: this file's own declarations of text_dialog_sel_b0 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 99, 113 of the imported file. */
 /* foreign_cargo: candidate for 1020:9126 (1400 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -68,7 +70,6 @@ extern void space_string(char *buf);
 extern int get_treaty(int nation_a, int nation_b);
 extern int has_father(int nation, int bit);
 extern void great(int slot, char *name, int n);
-extern int text_dialog_sel_b0(char *key, int nation);
 extern void popup_say(int slot, int v);
 
 int foreign_cargo(int u)
@@ -102,11 +103,11 @@ int foreign_cargo(int u)
     }
     if (has_father(nation, FATHER_JAN_DE_WITT) == 0) {
         great(0, "LEADER2", owner);
-        text_dialog_sel_b0("TRADEMERCANTILISM", owner);
+        text_dialog_sel_b0((void*)("TRADEMERCANTILISM"), owner);
         goto out;
     }
     if (g_units[u].cargo_count == 0) {
-        text_dialog_sel_b0("TRADENOCARGO", owner);
+        text_dialog_sel_b0((void*)("TRADENOCARGO"), owner);
         goto out;
     }
     slot = 0;
@@ -173,7 +174,7 @@ int foreign_cargo(int u)
     if (best < 0) {
         popup_say(0, g_goods_name_word[type]);
         set_text_arg_i_1020_a926(0, amount);
-        text_dialog_sel_b0("TRADENOWANT", owner);
+        text_dialog_sel_b0((void*)("TRADENOWANT"), owner);
         goto out;
     }
     popup_say(1, g_goods_name_word[type]);
@@ -181,7 +182,7 @@ int foreign_cargo(int u)
     popup_say(0, g_goods_name_word[best_goods]);
     set_text_arg_i_1020_a926(0, best_amount);
     set_text_arg_i_1020_a926(2, net);
-    choice = text_dialog_sel_b0("TRADEWITH", owner);
+    choice = text_dialog_sel_b0((void*)("TRADEWITH"), owner);
     if (choice > 2)
         goto out;
     if (choice == 1) {

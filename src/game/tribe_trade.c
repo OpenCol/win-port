@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 210, 215, 315, 364, 367, 372, 391, 453, 473 of the imported file. */
+/* PORT: this file's own declarations of get_treaty, popi removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 176 of the imported file. */
 /* tribe_trade: candidate for 1030:b61e (4658 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -96,12 +98,10 @@ extern void piss_off(int tribe, int nation, int delta, int unused);
 extern int stow_cargo(int u, int goods, int amount);
 
 extern int pissed(int tribe, int i);
-extern int popi(char *name, int tribe);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void indian_supply_and_demand(void);
 
-extern "C" unsigned char get_treaty(int nation_a, int nation_b);
 
 void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
 {
@@ -208,12 +208,12 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
                 popup_say(1, g_goods_name_word[buy_order[15]]);
                 popup_say(2, g_goods_name_word[buy_order[14]]);
                 popup_say(3, g_goods_name_word[buy_order[13]]);
-                popi("BADCARGO", g_cur_tribe);
+                popi((void*)("BADCARGO"), g_cur_tribe);
                 goto done;
             }
             if (g_cur_settlement_rec->refused == goods) {
                 popup_say(0, g_goods_name_word[goods]);
-                popi("BADHAGGLE1", g_cur_tribe);
+                popi((void*)("BADHAGGLE1"), g_cur_tribe);
                 goto done;
             }
         }
@@ -313,7 +313,7 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
                     g_cur_settlement_rec->refused = (char)goods;
                     piss_off(g_cur_tribe, nation, (discount >> 1) + 1, 0);
                     if ((get_treaty(nation, tribe_nation) & 0x40) != 0)
-                        popi("BADHAGGLE0", g_cur_tribe);
+                        popi((void*)("BADHAGGLE0"), g_cur_tribe);
                     ok = 0;
                 }
                 break;
@@ -362,15 +362,15 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
             popup_say(1, g_goods_name_word[buy_order[14]]);
             popup_say(2, g_goods_name_word[buy_order[13]]);
             if (human != 0)
-                popi("BRING", g_cur_tribe);
+                popi((void*)("BRING"), g_cur_tribe);
         }
         if (human != 0 && (int)g_cur_settlement_rec->refused == -2) {
-            popi("BADHAGGLE3", g_cur_tribe);
+            popi((void*)("BADHAGGLE3"), g_cur_tribe);
             goto done;
         }
         if (goods < 0) {
             if (human != 0)
-                popi("DEFICIT", g_cur_tribe);
+                popi((void*)("DEFICIT"), g_cur_tribe);
             goto done;
         }
         n = 0;
@@ -389,7 +389,7 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
             n++;
         }
         if (human != 0)
-            answer = popi("BUYWHICH", g_cur_tribe);
+            answer = popi((void*)("BUYWHICH"), g_cur_tribe);
         else {
             answer = 1;
             best = -9999;
@@ -451,7 +451,7 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
                 } else {
                     g_text_args[0] = g_nations[nation].gold;
                     if (human != 0)
-                        popi("NOTENOUGH", g_cur_tribe);
+                        popi((void*)("NOTENOUGH"), g_cur_tribe);
                     piss_off(g_cur_tribe, nation, 1, 0);
                 }
                 break;
@@ -471,7 +471,7 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
                     piss_off(g_cur_tribe, nation, 2, 0);
                     if ((get_treaty(nation, tribe_nation) & 0x40) != 0) {
                         g_cur_settlement_rec->refused = -2;
-                        popi("BADHAGGLE2", g_cur_tribe);
+                        popi((void*)("BADHAGGLE2"), g_cur_tribe);
                     }
                 }
                 break;

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 105, 145 of the imported file. */
+/* PORT: this file's own declarations of GRPort_PixelMap removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_ExtractSprite: candidate for 1068:7dd3 (1813 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Sprite_ExtractSprite
@@ -55,7 +57,6 @@ typedef unsigned char *Row;
 extern "C" char GRPort_IsLocked(GRPort *p);
 extern "C" void MSLockGraf(GRPort *port);
 extern "C" void MSUnlockGraf(GRPort *port);
-extern "C" unsigned char *GRPort_PixelMap(GRPort *port, int x, int y);
 extern "C" void Sprite_Unlock(Sprite *s);
 extern "C" unsigned char *GRPort_NextScanLine(GRPort *p, unsigned char *row);
 extern "C" unsigned char *GRPort_PrevScanLine(GRPort *port, unsigned char *row);
@@ -102,7 +103,7 @@ int Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src)
         locked = 0;
         MSLockGraf(port);
     }
-    p = GRPort_PixelMap(port, r.left, r.top);
+    p = (unsigned char*)(GRPort_PixelMap(port, r.left, r.top));
     if (p == 0) {
         report_error_1068_98bc(&g_error_log,
                         "Error: Sprite Extract Illegal Pixel Mapping (x,y)",
@@ -142,7 +143,7 @@ int Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src)
         s->bits = 0;
         return h;
     }
-    p2 = GRPort_PixelMap(port, r.left, ht + r.top - 1);
+    p2 = (unsigned char*)(GRPort_PixelMap(port, r.left, ht + r.top - 1));
     for (y = 0; y < ht; y++, p2 = GRPort_PrevScanLine(port, p2)) {
         for (x = 0, q = p2; x < w; x++) {
             if (*q++ != key_color || key == -2) {

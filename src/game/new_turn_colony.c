@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of possible_popup removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of delete_colony, net_cargo_change removed: the header declares them from the definition (W1 step 3). */
 /* new_turn_colony: candidate for 1018:9476 (6636 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -155,7 +156,6 @@ extern "C" int ai_sell(int goods);
 extern "C" void add_gold(int nation, long amount);
 extern "C" int colony_rebel(void);
 
-extern "C" char possible_popup(char *msg, int a, int b, int c, int d, int e, int f);
 extern "C" int get_progress(int u);
 extern "C" int get_job(int u);
 extern "C" int get_specialty(int u);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_check_enabled_1070_997b removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ctl_kind_1070_9669, get_button_enabled_1070_981e, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* focus_walk_siblings: candidate for 1070:9050 (570 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -53,7 +54,6 @@ class DlgControl;
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int get_check_enabled_1070_997b(void *check);
 
 void focus_walk_siblings(DialogWin *o, unsigned hwnd, int dir)
 {

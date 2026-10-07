@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* indian_make_peace: candidate for 1030:377d (192 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -25,7 +26,6 @@ extern int treaty_on(int nation, int other, int mask);
 extern int get_name(int nation);
 
 extern void popup_say(int slot, int word);
-extern int popi(char *msg, int tribe);
 extern int pissed(int tribe, int i);
 
 int indian_make_peace(int nation, int tribe)

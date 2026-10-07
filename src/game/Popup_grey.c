@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Popup_find_item removed: the header declares it from the definition (W1 step 3). */
 /* Popup_grey: candidate for 1050:0e0d (71 bytes).  Verdict: RELOCATABLE.
  * symbol: Popup_grey
  * name-source: sibling-build
@@ -18,7 +19,6 @@
 #include "classes.h"   /* the class, for C: the port, the two sprites and the arena (a MemBlock) as their bytes */
 #include "records.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern PopupItem * Popup_find_item(void *popup, int key);
 void Popup_grey(Popup *popup, int key, int on)
 {
     PopupItem *item;

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of piss_off removed: the header declares it from the definition (W1 step 3). */
 /* lost_city_exploration: candidate for 1038:7c74 (2535 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 2535, not the census 2517. The trailing 18 bytes are the nine-entry jump table of
@@ -92,7 +93,6 @@ extern void DrawMapRegion(int x, int y, int a, int b, int flag);
 
 extern int find_close_village(int x, int y, int nation, int owner);
 
-extern int piss_off(int tribe, int nation, int alarm, int a);
 extern void delete_unit(int u);
 extern void move_to_top(int u);
 

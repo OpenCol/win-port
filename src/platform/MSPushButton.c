@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_id_1070_96c5, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* MSPushButton: candidate for 1070:1dbb (198 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MSPushButton
@@ -38,8 +39,6 @@ class DlgControl;
 /* same object: 4-byte `push cs; call ` */
 
 extern "C" int get_button_enabled_1070_981e(SButton *button);
-extern "C" void *ctl_window_1070_96a8(SButton *ctl);
-extern "C" int ctl_id_1070_96c5(SButton *ctl);
 extern "C" void call_button_action(SButton *ctl, int id);
 
 void MSPushButton(unsigned hwnd)

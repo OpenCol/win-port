@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_cur_item_1070_99ac removed: the header declares it from the definition (W1 step 3). */
 /* control_is_current: candidate for 1070:502b (101 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 101, not the census 94. The trailing 7 bytes are the dead second epilogue.
@@ -25,7 +26,6 @@
 
 /* same object: 4-byte `push cs; call ` */
 
-extern int get_cur_item_1070_99ac(void *ctl);
 
 int control_is_current(unsigned hwnd)
 {

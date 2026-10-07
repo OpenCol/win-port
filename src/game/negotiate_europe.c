@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 605, 611, 629, 642, 684, 686, 701, 704, 715, 763, 769, 771, 801, 805, 817, 827, 831, 841 of the imported file. */
+/* PORT: this file's own declarations of text_dialog_sel_b0 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 773 of the imported file. */
 /* negotiate_europe: candidate for 1030:5240 (9035 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -135,7 +137,6 @@ extern void piss_off(int tribe, int nation, int delta, int f);
 extern int is_colony(int x, int y);
 
 extern void space_string(char *buf);
-extern int text_dialog_sel_b0(char *name, int sel);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
@@ -602,13 +603,13 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
         }
     }
     if (hostile != 0 && (get_treaty(nation, their_nation) & 0x40) && demand > 0x64) {
-        text_dialog_sel_b0("PROVOKE", their_nation);
+        text_dialog_sel_b0((void*)("PROVOKE"), their_nation);
         treaty_off(nation, their_nation, 0x40);
     } else if (hostile != 0 && demand == 0x3e7) {
         great(0, "LEADER2", their_nation);
         set_name_slot(1, g_nation_text[their_nation].country);
         force_mood(4);
-        text_dialog_sel_b0("WARMANLY", their_nation);
+        text_dialog_sel_b0((void*)("WARMANLY"), their_nation);
         treaty_off(nation, their_nation, 0x40);
     } else if (hostile != 0) {
         great(0, "LEADER2", their_nation);
@@ -626,7 +627,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
         if (f462 != 0)
             answer = 1;
         else
-            answer = text_dialog_sel_b0("WORTHY", their_nation);
+            answer = text_dialog_sel_b0((void*)("WORTHY"), their_nation);
         if (answer == 1) {
             treaty_on(nation, their_nation, 0x40);
             g_game.war_started[their_nation] = g_game.turn_counter + 0x10;
@@ -639,7 +640,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                     f408 = 0;
                     STRCPY(buf2, "MEEK");
                     set_text_arg_i_1030_eb46(0, amount);
-                    answer = text_dialog_sel_b0("GIVECASH", their_nation);
+                    answer = text_dialog_sel_b0((void*)("GIVECASH"), their_nation);
                     if (answer == 1) {
                         treaty_on(nation, their_nation, 0x40);
                         g_nations[their_nation].gold -= amount;
@@ -681,9 +682,9 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
         if (answer == 2) {
             f452 = 0;
             if (f458 == 0)
-                text_dialog_sel_b0("NOTHINGWITHDRAW", their_nation);
+                text_dialog_sel_b0((void*)("NOTHINGWITHDRAW"), their_nation);
             else if (owed != 0 && f40c == 0) {
-                text_dialog_sel_b0("WITHDRAW", their_nation);
+                text_dialog_sel_b0((void*)("WITHDRAW"), their_nation);
                 f452 = 1;
             } else {
                 price = (g_game.difficulty * 0x19 + 0x32) * hiscol;
@@ -698,10 +699,10 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                 price = max_int_1030_ead6(0x64, price);
                 popup_say(0, get_adjective(their_nation));
                 if (price > g_cur_nation_rec->gold || f40c != 0)
-                    text_dialog_sel_b0("NOTWITHDRAW", their_nation);
+                    text_dialog_sel_b0((void*)("NOTWITHDRAW"), their_nation);
                 else {
                     set_text_arg_i_1030_eb46(0, price);
-                    answer2 = text_dialog_sel_b0("MAYBEWITHDRAW", their_nation);
+                    answer2 = text_dialog_sel_b0((void*)("MAYBEWITHDRAW"), their_nation);
                     if (answer2 == 1) {
                         g_cur_nation_rec->gold -= price;
                         g_nations[their_nation].gold += price;
@@ -712,7 +713,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                         if (at_war != 0)
                             f45e = f45e * 2;
                         if (rand_range(0, f45e) <= g_nation_strength[nation]) {
-                            text_dialog_sel_b0("WITHDRAW", their_nation);
+                            text_dialog_sel_b0((void*)("WITHDRAW"), their_nation);
                             f452 = 1;
                         } else {
                             STRCPY(buf, "WAR");
@@ -760,15 +761,15 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
             amount = minimax(owed, 0, (int)(g_nations[their_nation].gold / 100)) * 0x64;
             if (amount > 0) {
                 set_text_arg_i_1030_eb46(0, amount);
-                text_dialog_sel_b0("GIFTS", their_nation);
+                text_dialog_sel_b0((void*)("GIFTS"), their_nation);
                 g_nations[their_nation].gold -= amount;
                 g_cur_nation_rec->gold += amount;
             } else if (f416 != 0) {
                 force_mood(4);
                 treaty_off(nation, their_nation, 0x40);
-                text_dialog_sel_b0("PROVOKE", their_nation);
+                text_dialog_sel_b0((void*)("PROVOKE"), their_nation);
             } else
-                text_dialog_sel_b0("THREATS", their_nation);
+                text_dialog_sel_b0((void*)("THREATS"), their_nation);
         }
         if (answer == 4) {
             show_plain_dialog_1030_ebb7(&p, (void*)("MILITARY"), 0);
@@ -798,11 +799,11 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                 other = answer - 1;
                 popup_say(0, get_name(other));
                 if (!(get_treaty(their_nation, other) & 0x20)) {
-                    text_dialog_sel_b0("NOCONTACT", their_nation);
+                    text_dialog_sel_b0((void*)("NOCONTACT"), their_nation);
                     goto done;
                 }
                 if (!(get_treaty(their_nation, other) & 0x40)) {
-                    text_dialog_sel_b0("ALREADYSMITE", their_nation);
+                    text_dialog_sel_b0((void*)("ALREADYSMITE"), their_nation);
                     goto done;
                 }
                 if (other >= NATION_EUROPEAN_COUNT) {
@@ -814,7 +815,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                         amount = amount >> 1;
                     popup_say(0, get_adjective(other));
                     set_text_arg_i_1030_eb46(0, amount);
-                    answer = text_dialog_sel_b0("SMITEINDIANS", their_nation);
+                    answer = text_dialog_sel_b0((void*)("SMITEINDIANS"), their_nation);
                 } else {
                     amount = minimax((int)((long)(unsigned)(g_military_power[other]
                                                             + g_nation_strength[other])
@@ -824,11 +825,11 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                         amount = amount >> 1;
                     popup_say(0, get_adjective(other));
                     set_text_arg_i_1030_eb46(0, amount);
-                    answer = text_dialog_sel_b0("SMITEEUROPE", their_nation);
+                    answer = text_dialog_sel_b0((void*)("SMITEEUROPE"), their_nation);
                 }
                 if (answer == 1) {
                     if (amount > g_cur_nation_rec->gold)
-                        text_dialog_sel_b0("UNFORTUNATE", their_nation);
+                        text_dialog_sel_b0((void*)("UNFORTUNATE"), their_nation);
                     else {
                         treaty_off(their_nation, other, 0x40);
                         if (other < NATION_EUROPEAN_COUNT)
@@ -838,7 +839,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                         popup_say(0, get_name(their_nation));
                         popup_say(1, get_name(other));
                         force_mood(4);
-                        text_dialog_sel_b0("MERCENARY", their_nation);
+                        text_dialog_sel_b0((void*)("MERCENARY"), their_nation);
                         g_cur_nation_rec->gold -= amount;
                         g_nations[their_nation].gold += amount;
                     }

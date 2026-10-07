@@ -50,9 +50,8 @@ extern void bordered_win_dismiss_1020_667c(void);
 extern void bordered_win_dismiss_1020_665a(void);
 
 /* same object: 4-byte `push cs; call ` */
-void set_on_lbutton_down_1020_ab20(void *p, void (*fn)()) { }
-void set_on_rbutton_down_1020_ab59(void *p, void (*fn)()) { }
-void set_on_keydown_1020_ab92(void *p, void (*fn)()) { }
+/* PORT: the in-file stubs of set_on_lbutton_down_1020_ab20, set_on_rbutton_down_1020_ab59, set_on_keydown_1020_ab92 removed: they shaped the call for the byte match, and
+   src/ defines each function (W1). */
 
 void PopupBoxDraw(char *win, int x, int y, int w, int h)
 {

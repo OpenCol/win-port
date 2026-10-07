@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_window_1070_96a8, get_ctable_1070_97b7 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0, load_picture_reinit, port_height_1070_98bc, port_width_1070_98a3 removed: the header declares them from the definition (W1 step 3). */
 /* MSInitImageButton: candidate for 1070:2364 (804 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -49,8 +50,6 @@ extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" void *ctl_window_1070_96a8(void *ctl);
-extern "C" void *get_ctable_1070_97b7(void *c);
 
 
 unsigned MSInitImageButton(register int x, register int y, SImageButton *obj, int res_down,

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_bounds removed: the header declares it from the definition (W1 step 3). */
 /* port_reset_fill: candidate for 1068:aa47 (72 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_reset_fill
@@ -26,7 +27,6 @@
 extern void GRPort_FillColor_all(GRPort *p, int colour);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" RECT *port_bounds(void *p);
 
 void port_reset_fill(MagicWin *o, unsigned char colour)
 {

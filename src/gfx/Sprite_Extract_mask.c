@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_ExtractSprite removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_Extract_mask: candidate for 1068:782a (106 bytes).  Verdict: RELOCATABLE.
  *
  * Extracts a w x h sprite at (x, y) from the source port with an explicit transparent
@@ -10,7 +11,6 @@
 #include "w16types.h"
 #include "classes.h"
 
-extern short Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src);
 extern void Sprite_Lock(Sprite *s);
 
 void Sprite_Extract_mask(Sprite *s, void *src, unsigned char transparent, int x, int y, int w, int h)

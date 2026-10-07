@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 230 of the imported file. */
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 122, 125, 218 of the imported file. */
 /* try_to_set_job: candidate for 1010:c182 (1917 bytes).  Verdict: RELOCATABLE.
@@ -78,7 +80,6 @@ extern long check_gold(int nation);
 extern void Popup_grey(Popup *p, int id, int on);
 extern void subtract_gold(int nation, long amount);
 extern void set_indian(int x, int y, int bits);
-extern int popi(char *msg, int tribe);
 extern void pick_up_colonist(int id);
 extern int set_job(int colonist, int job);
 extern void sound_play(int n);
@@ -227,7 +228,7 @@ extern "C" int try_to_set_job(register int colonist, register int job)
                 g_cur_tribe_rec->count++;
                 g_tile_tribe[g_pending_col][g_pending_row] = -1;
                 set_indian(g_pending_col, g_pending_row, 1);
-                popi("INDIANBRIBE", g_cur_tribe);
+                popi((void*)("INDIANBRIBE"), g_cur_tribe);
             }
         }
     }

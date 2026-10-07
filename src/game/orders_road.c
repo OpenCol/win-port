@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 102 of the imported file. */
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 87 of the imported file. */
 /* orders_road: candidate for 1008:06bc (663 bytes).  Verdict: RELOCATABLE.
@@ -46,7 +48,6 @@ extern void Popup_grey(Popup *p, int key, int on);
 extern void end_unit_turn(int u);
 extern void subtract_gold(int nation, long amount);
 extern void feature_set(int x, int y, int mask, int on);
-extern int popi(char *msg, int tribe);
 extern void perform_orders_road(int u);
 
 /* The module's one-line wrappers are defined here because the shipped calls to them are
@@ -99,7 +100,7 @@ extern "C" void orders_road(void)
                     g_cur_tribe_rec->count++;
                     subtract_gold(g_game.turn_nation, price);
                     feature_set(x, y, MAP1_CLAIM_SETTLED, 1);
-                    popi("INDIANBRIBE", g_cur_tribe);
+                    popi((void*)("INDIANBRIBE"), g_cur_tribe);
                 }
             }
         }

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d77f removed: the header declares it from the definition (W1 step 3). */
 /* MagicWin_remap_to_palette: candidate for 1068:ab60 (162 bytes, 5 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MagicWin_remap_to_palette
@@ -22,7 +23,6 @@
 struct logpal;
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *get_ctable_1068_d77f(void *port);
 extern void palette_remap_table(struct logpal *a, unsigned char *out, struct logpal *b, short first, short n);
 #include "records.h"
 extern void port_remap_pixels(Port *port, unsigned char *table, short base, short count);

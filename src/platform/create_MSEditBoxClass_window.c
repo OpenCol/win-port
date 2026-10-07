@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_window_1070_96a8, font_handle_1070_9806 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_MSEditBoxClass_window: candidate for 1070:5550 (638 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -43,9 +44,7 @@ typedef struct { unsigned style; WNDPROC lpfnWndProc; int cbClsExtra, cbWndExtra
 
 extern "C" unsigned RegisterClass(WNDCLASS *wc);
 
-extern "C" void *ctl_window_1070_96a8(void *ctl);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" unsigned font_handle_1070_9806(void *ref);
 
 extern "C" long editbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
 

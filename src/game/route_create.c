@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ask_port removed: the header declares it from the definition (W1 step 3). */
 /* route_create: candidate for 1028:cdf4 (660 bytes).  Verdict: RELOCATABLE.
  *
  * Creates a trade route: refuses a 13th (TRADEMANY, count 12 in the message number), asks
@@ -14,7 +15,6 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern int ask_port(int a, int b, int c, int d);
 extern int water_access(int x, int y);
 
 extern int text_open(void *ctx, char *name);

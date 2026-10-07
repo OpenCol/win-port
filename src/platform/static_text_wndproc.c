@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of font_handle_1070_9806 removed: the header declares it from the definition (W1 step 3). */
 /* static_text_wndproc: candidate for 1070:6426 (315 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -44,7 +45,6 @@
 
 /* same object: 4-byte `push cs; call ` */
 
-extern int font_handle_1070_9806(void *ref);
 
 long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {

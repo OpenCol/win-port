@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 95, 96, 112, 113, 128, 131, 139, 152, 160, 161, 167 of the imported file. */
+/* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, get_ctable_1070_97b7, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 99, 100, 116, 117, 132, 135, 143, 156, 164, 165, 171 of the imported file. */
 /* PORT: this file's own declarations of GRPort_GetWin_1070_960d, call_image_button_click, call_image_button_rclick, ctable_hpal, port_height_1070_98bc, port_width_1070_98a3 removed: the header declares them from the definition (W1 step 3). */
 /* image_button_proc: candidate for 1070:2782 (1579 bytes).  Verdict: RELOCATABLE.
@@ -39,15 +41,9 @@
 extern void MSLockGraf(GRPort *port);
 extern void MSUnlockGraf(GRPort *port);
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
-extern void SetEventWindow(void *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void *ctl_rect(char *ctl);
-extern void *ctl_window_1070_96a8(char *ctl);
-extern void *get_ctable_1070_97b7(void *c);
-extern int ctl_id_1070_96c5(char *ctl);
-extern char get_keyboard_nav(void *o);
 
 long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {
@@ -97,8 +93,8 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
             o->hot = 0;
             if (PtInRect(&r, pt)) {
                 image_button_proc(hwnd, 0xf, 0, 0L);
-                SetEventWindow(ctl_window_1070_96a8((char *)((DlgControl *)ctl)));
-                call_image_button_click((SImageButton *)ctl, ctl_id_1070_96c5((char *)((DlgControl *)ctl)));
+                SetEventWindow(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))));
+                call_image_button_click((SImageButton *)ctl, ctl_id_1070_96c5((DlgControl *)((char *)((DlgControl *)ctl))));
             }
         }
         break;
@@ -114,8 +110,8 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
             o->hot = 0;
             if (PtInRect(&r, pt)) {
                 image_button_proc(hwnd, 0xf, 0, 0L);
-                SetEventWindow(ctl_window_1070_96a8((char *)((DlgControl *)ctl)));
-                call_image_button_rclick((SImageButton *)ctl, ctl_id_1070_96c5((char *)((DlgControl *)ctl)));
+                SetEventWindow(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))));
+                call_image_button_rclick((SImageButton *)ctl, ctl_id_1070_96c5((DlgControl *)((char *)((DlgControl *)ctl))));
             }
         }
         break;
@@ -130,10 +126,10 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
         ValidateRect(GetParent(hwnd), &r);
         OffsetRect(&r, -r.left, -r.top);
         ValidateRect(hwnd, &r);
-        SelectPalette(hdc, ctable_hpal((CTable *)(get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))))), 0);
+        SelectPalette(hdc, ctable_hpal((CTable *)(get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))))), 0);
         if (o->hot == 0) {
             MSLockGraf((GRPort *)(ctl + 0x22));
-            GRPort_ColorSync((GRPort *)(ctl + 0x22), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))));
+            GRPort_ColorSync((GRPort *)(ctl + 0x22), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
             RealizePalette(hdc);
             WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)(ctl + 0x22)), port_height_1070_98bc((GRPort *)(ctl + 0x22)),
                        GRPort_GetWin_1070_960d((GRPort *)(ctl + 0x22))->hdc, 0, 0);
@@ -141,7 +137,7 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
         }
         if (o->hot == 1) {
             MSLockGraf((GRPort *)(ctl + 0x48));
-            GRPort_ColorSync((GRPort *)(ctl + 0x48), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))));
+            GRPort_ColorSync((GRPort *)(ctl + 0x48), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
             RealizePalette(hdc);
             WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)(ctl + 0x48)), port_width_1070_98a3((GRPort *)(ctl + 0x48)),
                        GRPort_GetWin_1070_960d((GRPort *)(ctl + 0x48))->hdc, 0, 0);
@@ -154,7 +150,7 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
     case WM_KEYDOWN:
         if (wp == VK_TAB) {
             SendMessage(GetParent(hwnd), msg, wp, lp);
-        } else if (wp == VK_SPACE && get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))) != 0) {
+        } else if (wp == VK_SPACE && get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))) != 0) {
             o->hot = 1;
             repaint_hwnd(hwnd);
             o->hot = 0;
@@ -162,14 +158,14 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
             while ((char)(key >> 8) != 0)
                 key = GetAsyncKeyState(0x20);
             repaint_hwnd(hwnd);
-            SetEventWindow(ctl_window_1070_96a8((char *)((DlgControl *)ctl)));
-            call_image_button_click((SImageButton *)ctl, ctl_id_1070_96c5((char *)((DlgControl *)ctl)));
+            SetEventWindow(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))));
+            call_image_button_click((SImageButton *)ctl, ctl_id_1070_96c5((DlgControl *)((char *)((DlgControl *)ctl))));
         } else {
             SendMessage(GetParent(hwnd), msg, wp, lp);
         }
         break;
     case WM_SETFOCUS:
-        if (get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((char *)((DlgControl *)ctl)))) == 0)
+        if (get_keyboard_nav((DialogWin *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))) == 0)
             return 0L;
         return control_message_handler(hwnd, msg, wp, lp);
     case WM_KILLFOCUS:

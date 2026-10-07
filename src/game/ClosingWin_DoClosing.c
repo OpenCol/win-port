@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Flic_Loop, MSHideWindow_of_1010_2b41, set_handler_574, show_window_1010_2af0 removed: the header declares them from the definition (W1 step 3). */
 /* ClosingWin_DoClosing: candidate for 1010:032c (195 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ClosingWin_DoClosing
@@ -42,17 +43,13 @@ public:
 extern int g_stub_a;
 extern void sound_play(int n);
 extern void DoFireworks(void);
-extern void Flic_Loop(Flic *anim, void *port);
 
 extern void Flic_Reset(Flic *anim);
 struct logpal { char pad[1]; };
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
-extern "C" void show_window_1010_2af0(void *w);
 
-extern "C" void set_handler_574(void *anim, void *fn);
 
-extern "C" void MSHideWindow_of_1010_2b41(void *port);
 
 void ClosingWin_DoClosing(ClosingWin *w)
 {

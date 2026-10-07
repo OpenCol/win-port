@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Flic_Loop, Flic_Reset, Flic_ShowFrame removed: the header declares them from the definition (W1 step 3). */
 /* timer_tick_chain: candidate for 1068:3456 (73 bytes).  Verdict: RELOCATABLE.
  *
  * `timer_tick`'s looping sibling, and the loop is the point: this callback is
@@ -20,9 +21,6 @@
 extern void *g_anim_port;   /* DGROUP:0x5690 */
 
 /* Defined above the target for the compiler's own 4-byte PUSH CS / CALL NEAR. */
-extern void Flic_ShowFrame(void *anim);
-extern void Flic_Reset(void *p);
-extern void Flic_Loop(void *anim, void *port);
 
 void timer_tick_chain(int unused1, int count)
 {

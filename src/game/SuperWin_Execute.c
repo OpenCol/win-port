@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 25 of the imported file. */
+/* PORT: this file's own declarations of show_window_1050_8bc8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
 /* SuperWin_Execute: candidate for 1050:6c4c (84 bytes, 4 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -16,13 +18,12 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern void win_center_1050_851f(DialogWin *port);
-extern void show_window_1050_8bc8(SuperWin *w);
 
 void SuperWin_Execute(SuperWin *w)
 {
     copy_all_to_screen_1050_843b((GameWin *)(w));
     win_center_1050_851f((DialogWin *)((char *)w + 0x26));
-    show_window_1050_8bc8(w);
+    show_window_1050_8bc8((GameWin *)(w));
     MSDoAllTasks_1050_8be7();
     while (g_modal_done == 0)
         MSDoTask_1050_8d23();

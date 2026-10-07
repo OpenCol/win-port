@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of possible_popup removed: the header declares it from the definition (W1 step 3). */
 /* produce_something: candidate for 1018:8e3d (513 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -52,7 +53,6 @@ extern char *get_production_name(int item);
 
 extern void set_building(int bit, int on);
 extern int has_building(int bit);
-extern char possible_popup(char *msg, int a, int b, int c, int d, int e, int f);
 extern void make_building_table(void);
 
 void produce_something(void)

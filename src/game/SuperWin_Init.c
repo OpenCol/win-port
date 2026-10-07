@@ -39,11 +39,10 @@ extern void SuperWin_RightMouseDown(void);
 extern void SuperWin_KeyDown(void);
 
 /* same object: 4-byte `push cs; call ` */
+/* PORT: the in-file stubs of set_on_lclick_1050_8f80, set_on_rclick_1050_8fb9, set_on_keydown_after_1050_8544 removed: they shaped the call for the byte match, and
+   src/ defines each function (W1). */
 
 extern void win_set_back_color_1050_8f5c(DialogWin *w, int index);
-void *set_on_lclick_1050_8f80(EventTable *h, void (*fn)()) { return 0; }
-void *set_on_rclick_1050_8fb9(EventTable *h, void (*fn)()) { return 0; }
-void *set_on_keydown_after_1050_8544(EventTable *h, void (*fn)()) { return 0; }
 extern void MSShowWindow_of_1050_8ff2(DialogWin *w);
 
 void SuperWin_Init(SuperWin *o)

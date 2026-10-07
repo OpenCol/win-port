@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_MSScrollBarClass_window: candidate for 1070:5b29 (507 bytes).  Verdict: RELOCATABLE.
  *
@@ -24,7 +25,6 @@ typedef struct { unsigned style; WNDPROC lpfnWndProc; int cbClsExtra, cbWndExtra
 
 extern unsigned RegisterClass(WNDCLASS *wc);
 
-extern void *ctl_window_1070_96a8(void *ctl);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 unsigned create_MSScrollBarClass_window(RECT *r, void *ctl, unsigned long style_in, int visible)

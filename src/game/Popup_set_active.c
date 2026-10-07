@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Popup_find_item removed: the header declares it from the definition (W1 step 3). */
 /* Popup_set_active: candidate for 1050:0fad (43 bytes).  Verdict: RELOCATABLE.
  * symbol: Popup_set_active
  * name-source: sibling-build
@@ -14,7 +15,6 @@
 #include "classes.h"   /* the class, for C: the port, the two sprites and the arena (a MemBlock) as their bytes */
 extern char g_stub_s[];
 
-extern void *Popup_find_item(Popup *popup, int key);
 
 void Popup_set_active(Popup *popup, int key)
 {

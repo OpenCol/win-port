@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of font_handle_1070_9806 removed: the header declares it from the definition (W1 step 3). */
 /* font_row_rect: candidate for 1070:2ea3 (192 bytes).  Verdict: RELOCATABLE.
  * symbol: font_row_rect
  *
@@ -16,7 +17,6 @@ typedef struct { int tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExterna
 
 extern int GetTextMetrics(unsigned hdc, TEXTMETRIC *tm);
 
-extern unsigned font_handle_1070_9806(void *ref);
 
 void font_row_rect(int x, int y, int w, RECT *r)
 {

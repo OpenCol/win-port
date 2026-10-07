@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Fill removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 80 of the imported file. */
 /* flic_seek_frame: candidate for 1068:268c (137 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -34,7 +35,6 @@
 
 /* PORT: this file's own Flic removed: include/gen/classes.h define it once (W1 step 2). */
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void CTable_Fill(CTable *pal, int start, int count, void *rgb);
 /* same object: 4-byte `push cs; call ` */
 extern "C" void Flic_NextFrame(Flic *flic);
 

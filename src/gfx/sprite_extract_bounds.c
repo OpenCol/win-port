@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 50 of the imported file. */
+/* PORT: this file's own declarations of GRPort_PixelMap, Sprite_ExtractSprite removed: the header declares them from the definition (W1 step 3). */
 /* sprite_extract_bounds: candidate for 1068:76e2 (328 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: sprite_extract_bounds
@@ -33,11 +35,9 @@
 /* PORT: this file's own GRPort, Sprite removed: include/gen/classes.h define them once (W1 step 2). */
 #include "classes.h"
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
-extern short Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src);
 extern void Sprite_Lock(Sprite *s);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" unsigned char *GRPort_PixelMap(GRPort *port, int x, int y);
 extern "C" int port_stride_1068_986d(GRPort *p);
 
 void sprite_extract_bounds(Sprite *sprite, GRPort *p, unsigned char transparent,
@@ -48,7 +48,7 @@ void sprite_extract_bounds(Sprite *sprite, GRPort *p, unsigned char transparent,
     unsigned char *start;
     register int i;
 
-    start = GRPort_PixelMap(p, x, y);
+    start = (unsigned char*)(GRPort_PixelMap(p, x, y));
     q = start;
     i = x;
     while (*q != key) {

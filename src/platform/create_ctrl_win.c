@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_ctrl_win: candidate for 1070:2688 (236 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -36,7 +37,6 @@
 
 /* same object: 4-byte `push cs; call ` */
 
-extern void *ctl_window_1070_96a8(void *ctl);
 extern CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj);
 
 unsigned create_ctrl_win(int x, int y, int w, int h, void *obj, int visible)

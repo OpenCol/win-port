@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popup_setup_plain_1048_e387 removed: the header declares it from the definition (W1 step 3). */
 /* CheatMenuBlow: candidate for 1048:b9da (249 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -35,7 +36,6 @@ extern char *strings(int n);
 extern void kill_tribe(int tribe);
 extern void DrawMap(int mode);
 
-extern "C" void popup_setup_plain_1048_e387(Popup *p);
 
 void CheatMenuBlow(void)
 {

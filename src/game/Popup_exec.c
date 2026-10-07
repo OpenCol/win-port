@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawKingo, MSHideWindow_of_1050_8cd8, Popup_draw, ctl_get_text, ctl_sel_text, get_checked_1050_8d83, get_w_77a, listbox_get_text_1050_8d5d, win_disable_1050_8c93, win_enable_1050_82e1 removed: the header declares them from the definition (W1 step 3). */
 /* Popup_exec: candidate for 1050:50c4 (901 bytes).  Verdict: RELOCATABLE.
  * size-source: 901, not the census 892. The trailing 9 bytes are the dead second epilogue.
  * name-source: sibling-build
@@ -42,21 +43,11 @@ extern void EventWin_Modal(EventWin *w);
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void win_disable_1050_8c93(void *o);
-extern int get_w_77a(void *r);
-extern void MSHideWindow_of_1050_8cd8(void *o);
 
-extern void Popup_draw(void *p);
 
-extern void DrawKingo(void *w, int n);
 extern void MSFlushInput_1050_8d10(void);
 
-extern void ctl_get_text(SEditBox *control, char *buf);
-extern void ctl_sel_text(void *c, char *buf);
-extern void listbox_get_text_1050_8d5d(void *control, int i, char *buf);
-extern int get_checked_1050_8d83(Check *check);
 extern void Popup_close(Popup *popup);
-extern void win_enable_1050_82e1(void *w);
 extern void show_window_1050_8bc8(GameWin *o);
 
 int Popup_exec(Popup *popup, char *text)

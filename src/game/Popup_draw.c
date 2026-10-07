@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of show_window_1050_8bc8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_String_curfont, Sprite_GetHotSpot removed: the header declares them from the definition (W1 step 3). */
 /* Popup_draw: candidate for 1050:4829 (2018 bytes).  Verdict: RELOCATABLE.
@@ -66,7 +67,6 @@ extern int sprite_width_1050_83f9(Sprite *sprite);
 extern int Popup_edit_y_size(Popup *popup);
 extern void DrawSpriteSquare(void);
 extern void Popup_DrawDude(Popup *w);
-extern void show_window_1050_8bc8(void *port);
 
 extern void MSShowControl_1050_8459(DlgControl *control);
 

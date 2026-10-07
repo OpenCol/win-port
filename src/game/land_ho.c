@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popup_ask_nocancel removed: the header declares it from the definition (W1 step 3). */
 /* land_ho: candidate for 1008:cc71 (133 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -17,7 +18,6 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void popup_ask_nocancel(void *ctx, char *name, int max_len, char *out);
 extern int popm(char *msg, int n);
 
 void land_ho(void)

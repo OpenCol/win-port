@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_ExtractSprite removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_Extract_key_rect: candidate for 1068:769f (67 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: Sprite_Extract_key_rect
@@ -19,7 +20,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern short Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src);
 extern void Sprite_Lock(Sprite *s);
 void Sprite_Extract_key_rect(Sprite *sprite, void *src, unsigned char transparent, RECT *r)
 {

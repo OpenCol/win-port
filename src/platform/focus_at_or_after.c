@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_items_1070_99c5, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ctl_hwnd_1070_9681, ctl_kind_1070_9669, focus_walk_siblings removed: the header declares them from the definition (W1 step 3). */
 /* focus_at_or_after: candidate for 1070:928c (165 bytes).  Verdict: RELOCATABLE.
  * symbol: focus_at_or_after
@@ -25,8 +26,6 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern char get_keyboard_nav(void *o);
-extern int *get_items_1070_99c5(void *radios);
 
 
 void focus_at_or_after(void *o, void *w)

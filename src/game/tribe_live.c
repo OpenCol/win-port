@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* tribe_live: candidate for 1030:c915 (1229 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 1229, not the census 1220: a dead second epilogue and two bytes of padding before 1030:cde2.
@@ -56,7 +57,6 @@ extern int pissed(int tribe, int i);
 extern int piss_factor(int tension);
 
 extern void piss_off(int tribe, int nation, int delta, int unused);
-extern int popi(char *msg, int tribe);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void indian_supply_and_demand(void);
 extern int get_name(int nation);

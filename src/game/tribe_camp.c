@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popi removed: the header declares it from the definition (W1 step 3). */
 /* tribe_camp: candidate for 1030:cde2 (1224 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 1224, not the census 1215: a dead second epilogue and two bytes of padding before 1030:d2aa.
@@ -57,7 +58,6 @@ extern int pissed(int tribe, int i);
 
 extern void sort_16x16(int n, int *payload, int *key);
 extern void popup_say(int slot, int word);
-extern int popi(char *msg, int tribe);
 extern void DrawMap(int full);
 extern int popm(char *msg, int n);
 extern void set_center(int x, int y, int flag);

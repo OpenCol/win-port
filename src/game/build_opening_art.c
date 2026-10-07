@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_extract_bounds removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of load_gif_file removed: the header declares it from the definition (W1 step 3). */
 /* build_opening_art: candidate for 1060:7fb2 (1111 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -39,9 +40,6 @@ extern void port_remap_pixels(Port *p, unsigned char *table, short base, short c
 extern char *GRPort_PixelMap(GRPort *port, int x, int y);
 extern void Sprite_Extract_key_rect(Sprite *sprite, void *src, unsigned char transparent, RECT *r);
 extern void Sprite_SetHotSpot(Sprite *s, int x, int y);
-extern void sprite_extract_bounds(Sprite *s, GRPort *p,
-                                                unsigned char transparent, unsigned char key,
-                                                int x, int y);
 extern void Sprite_ChangeColor_1068_7c97(Sprite *s, unsigned char *map, int first,
                                              int count);
 extern void sprite_write_file(Sprite *spr, char *name);
