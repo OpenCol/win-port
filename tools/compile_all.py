@@ -33,6 +33,7 @@ TOOLCHAINS = {
     "host": ("cc", "c++", []),
 }
 FLAGS = re.compile(r"^\s*\*?\s*flags:\s*(.+?)\s*$", re.M)
+TIMEOUT = 120   # seconds per file
 ERROR = re.compile(r"(?:error|fatal error): (.*)$")
 
 
@@ -51,7 +52,12 @@ def compile_one(tc, path):
     cmd = ([cxx, "-x", "c++", "-std=gnu++03"] if cpp else [cc, "-x", "c", "-std=gnu99"]) + extra + [
         "-fsyntax-only", "-Wall", "-I", os.path.join(ROOT, "include", "gen"),
         "-I", os.path.join(ROOT, "include"), path]
-    r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+    try:
+        # stdin closed and a time limit: a compiler that waits or hangs fails this file only
+        r = subprocess.run(cmd, capture_output=True, text=True, errors="replace",
+                           stdin=subprocess.DEVNULL, timeout=TIMEOUT)
+    except subprocess.TimeoutExpired:
+        r = subprocess.CompletedProcess(cmd, 124, "", "%s: error: no result in %ds (timed out)\n" % (path, TIMEOUT))
     first = None
     for line in r.stderr.splitlines():
         m = ERROR.search(line)
