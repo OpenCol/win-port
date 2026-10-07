@@ -1,3 +1,4 @@
+/* PORT: `&g_flag_art[art]` takes the address: the corpus's char g_flag_art[][0x20] row decayed to its address; the header's element is a Sprite (W1). */
 /* PieceDraw_noport: candidate for 1040:282d (1658 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -188,7 +189,7 @@ void PieceDraw_noport(int u, int flags, int x, int y, int w, int h)
     case '6': art = 17; break;
     default: art = 0; break;
     }
-    Sprite_CopyTo((Sprite *)g_flag_art[art], &g_flag_sprite);
+    Sprite_CopyTo(&g_flag_art[art], &g_flag_sprite);
     Sprite_ChangeColor(&g_flag_sprite, 0x51, colour2);
     text[0] = letter;
     text[1] = 0;

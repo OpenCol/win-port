@@ -87,6 +87,8 @@ public:
     LinkedList();
 };
 
+/* PORT: `template <>`: an explicit specialisation's member needs it in standard C++ (W1). */
+template <>
 LinkedList<PediaEntry>::LinkedList()
 {
 }

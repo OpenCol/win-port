@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 160 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1060_6977, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoTerrainArticle: candidate for 1060:44f6 (3491 bytes).  Verdict: RELOCATABLE.
@@ -63,6 +64,8 @@ class DlgControl;/* PORT: this file's own DialogWin removed: include/gen/classes
 
 
 template <class T> class LinkedList : public VList { public: LinkedList(); };
+/* PORT: PediaWin restored: classes.h has only its C view, and C++ files view it three ways (W1). */
+class PediaWin : public ColChild { public: short category; SImageButton button; SScrollBar bar; GRPort port; LinkedList<PediaEntry> list; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; PediaWin(); ~PediaWin(); };
 #include "records.h"
 
 
@@ -155,7 +158,7 @@ void PediaWin_DoTerrainArticle(PediaWin *w)
     }
     STRCAT(buf, name);
     colon_string(buf);
-    text_search("PEDIA", "PEDIA", 2);
+    text_search((void*)("PEDIA"), "PEDIA", 2);
     STRCAT(buf, g_text_buf);
     close_string(buf);
     TextColor(0xc);

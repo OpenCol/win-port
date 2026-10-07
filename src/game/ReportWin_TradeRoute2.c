@@ -1,3 +1,4 @@
+/* PORT: `&((ReportWinBase *)o)->win, 0xca` takes the address: the corpus's char win[1] decayed to its address; the header's member is the window's first byte (W1). */
 /* PORT: this file's own declarations of DialogWin_AddControl, MSInitButton, dlg_control_init_1058_c3f6, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSShowControl_1058_c26f, sprite_height_1058_c24c removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_TradeRoute2: candidate for 1058:7df4 (441 bytes).  Verdict: RELOCATABLE.
@@ -42,7 +43,7 @@ extern "C" void ReportWin_TradeRoute2(ReportWin *o)
         SetRect(&rc, 0, 0, 200, 50);
         OffsetRect(&rc, o->rect.right - 210, o->rect.top + 10);
         o->extra_btn = new SButton;
-        sbutton_init_1058_c11b(o->extra_btn, ((ReportWinBase *)o)->win, 0xca, &rc, "Close");
+        sbutton_init_1058_c11b(o->extra_btn, &((ReportWinBase *)o)->win, 0xca, &rc, "Close");
         set_button_action_1058_c17f(o->extra_btn, (void *)ReportWin_OnTradeRouteExtraClick);
         MSShowControl_1058_c26f(o->extra_btn);
     }

@@ -283,7 +283,7 @@ outer_top:
                 l.pages = 2;
                 l.per_page = 0x10;
             }
-            asm db 0xeb, 0x00;
+            ; /* PORT: `asm db 0xeb, 0x00` (jmp $+2, a no-op) removed (W1) */
         }
         do {
             if (l.popup != 0)
@@ -371,7 +371,7 @@ outer_top:
                         Popup_grey(l.popup, i, 1);
                     else if (i == l.selected_specialty || (i == 0x17 && l.selected_specialty == JOB_SOLDIER)) {
                         Popup_hilite(l.popup, i, 1);
-                        asm db 0xeb, 0x00;
+                        ; /* PORT: `asm db 0xeb, 0x00` (jmp $+2, a no-op) removed (W1) */
                     }
                     if (i == l.specialty && l.verdict != -1)
                         Popup_set_active(l.popup, i);
@@ -391,10 +391,14 @@ outer_top:
                 l.choice = 0x62;
         } while (l.choice == 0x62);
 
-        Popup_help_me(l.popup);
-        asm db 0x0b, 0xc0, 0x74, 0x58;
+        /* PORT: the two exits were `asm db` bytes -- 0b c0 74 58 (or ax,ax; jz) and
+           83 7e d0 00 7c 48 (cmp [bp-0x30],0; jl), both to 1010:d57b, the first instruction
+           after this for (;;), read from the shipped code. In C they are breaks (W1). */
+        if (Popup_help_me(l.popup) == 0)
+            break;
         l.popup->flags &= 0xff7f;
-        asm db 0x83, 0x7e, 0xd0, 0x00, 0x7c, 0x48;
+        if (l.choice < 0)
+            break;
         for (i = 0; i < 0x10; i++)
             g_cur_colony_rec->stock[i] -= l.stock_delta[i];
         PediaWin_ShowModal((PediaWin *)&g_pedia_win, 3, l.choice, &g_colony_win_rec);

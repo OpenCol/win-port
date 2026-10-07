@@ -336,7 +336,7 @@ typedef struct {
     int16_t w4;
 } Panel;   /* 0x6 bytes */
 typedef struct {
-    uint8_t _tail[9];
+    uint8_t b[9];   /* PORT: the corpus's name for the 3x3 forest pattern's cells (PediaWin_DoTerrainArticle) */
 } Pattern;   /* 0x9 bytes */
 typedef struct {
     int8_t manufacturer;
@@ -1246,7 +1246,7 @@ extern int8_t g_save_prefix_spa[];
 extern int16_t g_save_version;
 extern int g_scale_den;   /* PORT: the corpus's type */
 extern float g_scale_denom;
-extern int *g_scale_map;   /* PORT: the corpus's type */
+extern i16 *g_scale_map;   /* PORT: it points at a ScaleSlot's map, i16[0x400] (SetGlobalSpriteScale) */
 extern int g_scale_num;   /* PORT: the corpus's type */
 extern int16_t g_hint_flags;
 extern int8_t g_hint_flags_hi;

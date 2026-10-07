@@ -71,6 +71,8 @@
 
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;              /* SEG20:0x5ca */
+extern "C" void MainWin_Init(MainWin *o);   /* PORT: the header declares it for C only (C++ files view MainWin
+                                               opaquely, as here); the definition's signature (W1) */
    /* MapWin : ColChild, the base as its bytes: 0x788 */
 
 extern char g_mini_win;              /* SEG20:0xde0 */

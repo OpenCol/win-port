@@ -256,6 +256,16 @@ MODEL_FIXES = [
      "the font handles run on past the record: enum_font_family_proc appends to them"),
     ("Table", "int16_t entries;", "int16_t entries[1];",
      "the entries run on past the record: table_entry_handle indexes them"),
+    ("Pattern", "uint8_t _tail[9];", "uint8_t b[9];",
+     "the corpus's name for the 3x3 forest pattern's cells (PediaWin_DoTerrainArticle)"),
+]
+
+
+# Globals whose corpus type was Borland's int where it now names an i16 cell: (name, the port's
+# declaration, why). Applied after every other rule.
+GLOBAL_TYPES = [
+    ("g_scale_map", "extern i16 *g_scale_map;",
+     "it points at a ScaleSlot's map, i16[0x400] (SetGlobalSpriteScale)"),
 ]
 
 
@@ -461,6 +471,11 @@ def gen_colonization():
             g = guarded(cg[name], name, known_c, known_cpp)
             if g:
                 extra.append(g)
+    for name, decl, why in GLOBAL_TYPES:
+        out, n = re.subn(r"^extern [^;\n]*\b%s\b[^;\n]*;.*$" % re.escape(name),
+                         lambda m: "%s   /* PORT: %s */" % (decl, why), out, flags=re.M)
+        if n < 1:
+            sys.exit("gen_headers: GLOBAL_TYPES: no declaration of %s" % name)
     known = known_cpp
     for name, why in SIZE_FROM_CORPUS.items():
         out, n = re.subn(r"_Static_assert\(sizeof\(%s\) == \d+, \"[^\"]*\"\);" % re.escape(name),

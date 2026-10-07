@@ -49,13 +49,14 @@ void LinkedList_PediaEntry_dtor(VList *p, unsigned flag)
 
     f = flag;
     if (p != 0) {
-        (*(long _ss *)0x10)--;
+        /* PORT: `(*(long _ss *)0x10)--` removed: Borland's exception-handling count of live
+           objects at SS:0x10, which nothing on Win32 keeps (W1). */
         VList_dtor(p, 0);
         if (f & 1)
             __bdele_qnv_rtl(p);
         else
             ;
-    } else
-        _AX = 0;
+    }
+    /* PORT: `else _AX = 0;` removed: it set the return register of a void function (W1). */
 }
 

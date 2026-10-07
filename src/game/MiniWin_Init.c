@@ -1,3 +1,4 @@
+/* PORT: `(int *)&g_cursors[10]` takes the address: the corpus's char g_cursors[][4] row decayed to its address; the header's element is a CursorClass (W1). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 53, 55 of the imported file. */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 53, 58 of the imported file. */
 /* PORT: this file's own declarations of ColChild_InitCWin_style, MiniWin_LeftMouseClick, get_window_rect_1060_61dd, set_keyboard_nav_1060_615c, set_max_track_size_1060_6197, set_min_track_size_1060_6175, set_on_keydown_1060_629f, set_on_rbutton_down_1060_623c, set_repaint_handler_1060_62d8, win_set_cursor_1060_6275 removed: the header declares them from the definition (W1 step 3). */
@@ -55,7 +56,7 @@ void MiniWin_Init(MiniWin *w)
     get_window_rect_1060_61dd((ColChild *)((MiniWin *)((ColChild *)w)), &w->clip);
     set_on_lbutton_down_1060_6203((char *)((EventTable *)((char *)w + 0x33)), (void *)MiniWin_LeftMouseClick);
     set_on_rbutton_down_1060_623c((EventTable *)((char *)w + 0x33), (void *)MiniWin_RightMouseClick);
-    win_set_cursor_1060_6275((DialogWin *)((char *)w + 0x26), (int *)(int *)g_cursors[10], 0);
+    win_set_cursor_1060_6275((DialogWin *)((char *)w + 0x26), (int *)&g_cursors[10], 0);
     set_on_keydown_1060_629f((EventTable *)((char *)w + 0x33), (void *)KeyEvents);
     set_repaint_handler_1060_62d8((ColChild *)((MiniWin *)((ColChild *)w)), (void *)MiniWin_MiniUpdate);
 }

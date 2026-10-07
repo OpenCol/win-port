@@ -20,7 +20,8 @@ void MSDecodeColor256(unsigned char *src, unsigned char *dst)
     short i;
     short run;
 
-    ((unsigned char *)src) += 2;
+    src += 2;   /* PORT: was `((unsigned char *)src) += 2`, a cast as an lvalue (a Borland
+                   extension); src is unsigned char * already (W1) */
     min = 32000;
     max = -1;
     while (--count >= 0) {

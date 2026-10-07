@@ -1,39 +1,6 @@
 {
- "first_errors": [
-  [
-   2,
-   "'X' was not declared in this scope; did you mean 'X'?"
-  ],
-  [
-   2,
-   "cannot convert to a pointer type"
-  ],
-  [
-   2,
-   "lvalue required as left operand of assignment"
-  ],
-  [
-   1,
-   "assignment to 'X' from incompatible pointer type 'X' {aka 'X'} [-Wincompatible-pointer-types]"
-  ],
-  [
-   1,
-   "expected 'X' before 'X'"
-  ],
-  [
-   1,
-   "expected primary-expression before 'X'"
-  ],
-  [
-   1,
-   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
-  ],
-  [
-   1,
-   "specializing member 'X' requires 'X' syntax"
-  ]
- ],
- "ok": 3234,
+ "first_errors": [],
+ "ok": 3245,
  "toolchain": "mingw-i686",
  "total": 3245
 }
