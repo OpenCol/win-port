@@ -11,7 +11,7 @@
 
 #include "labels.h"
 #include "w16types.h"
-typedef struct { char pad[1]; } ColonyWin;
+/* PORT: this file's own ColonyWin removed: include/gen/classes.h define it once (W1 step 2). */
 
 #include "classes.h"
 

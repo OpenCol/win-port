@@ -45,7 +45,8 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-typedef struct { char pad[1]; } EuropeWin;
+/* PORT: this file's own EuropeWin removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"
 
 extern void bottom_box(int colour);
 

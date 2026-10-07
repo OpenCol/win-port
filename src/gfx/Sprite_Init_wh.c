@@ -23,8 +23,9 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; char pad_19; short handle; unsigned char *bits; } Sprite;   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own Sprite, GRPort removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
+
 
 /* Defined here, not merely declared: rule 47 covers the calls the compiler writes,
  * so the base constructor is reached through the four-byte `PUSH CS / CALL NEAR` the

@@ -56,14 +56,15 @@
 #include "sounds.h"
 #include "gameflag.h"
 #include "w16types.h"
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl *first_ctl; struct DlgControl *ok_btn; struct DlgControl *cancel_btn; char keyboard_nav; char f99; } DialogWin;   /* DialogWin : EventWin, flattened for C */
+/* PORT: this file's own DialogWin, DiskFile, MenuClass removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* DialogWin : EventWin, flattened for C */
 #include "records.h"
-class DiskFile { public: MSFile msfile; DiskFile(); DiskFile(char *name, int mode); ~DiskFile(); };
+
 
 typedef struct { char pad[1]; } MainWin;
 
 extern MainWin g_main_win;                 /* SEG20:0x5ca */
-typedef struct { short hmenu; } MenuClass;
+
 
 extern GameState g_game;   /* SEG20:0x7782 */
 

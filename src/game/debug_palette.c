@@ -15,13 +15,14 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own CTable, GRPort, Sprite, GameWin, EventTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* 0x41e bytes: the palette, its handle and the cycling state */
+
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 
-typedef struct { char port[0x26]; char dialog[0x9a]; void *relayout; } GameWin;   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
+   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 extern void build_window_with_port(GameWin *o, char *name, int style, int x, int y,
                                        int w, int h, void *pal);
 extern void GRPort_FillColor_all(GRPort *p, int color);
@@ -31,7 +32,7 @@ extern void MSLockGraf(GRPort *port);
 extern void dispatch_click(int x, int y);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-typedef struct { void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; } EventTable;
+
 extern "C" void *set_on_lbutton_down_1050_8eb9(EventTable *table, void *h);
 extern "C" void *set_on_close_1050_8ef2(EventTable *table, void *h);
 extern "C" void copy_rect_to_screen_1050_8bfa(GameWin *w, RECT *r);

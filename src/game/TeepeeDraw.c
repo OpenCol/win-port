@@ -40,16 +40,17 @@
 #include "dbgopt.h"
 #include "settle.h"
 #include "tribes.h"
-typedef struct { short hfont, height; } Font;
-typedef struct { short vptr; int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; } GRPort;
+/* PORT: this file's own Font, GRPort, Sprite, MapWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 #include "records.h"
 
 #include "icons.h"
 
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;   /* MapWin : ColChild, the base as its bytes: 0x788 */
+   /* MapWin : ColChild, the base as its bytes: 0x788 */
 
 extern GameState g_game;   /* SEG20:0x7782 */
 

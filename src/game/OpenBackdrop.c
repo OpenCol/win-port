@@ -19,12 +19,13 @@
 
 #include "w16types.h"
 #pragma option -a
-class Screen { public: short style; void *ctable; void *win; short fa; char disabled; Screen(); ~Screen(); };
+/* PORT: this file's own Screen, EventTable, EventWin, CTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #pragma option -a-
-class EventTable { public: void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; EventTable(); ~EventTable(); };
-class EventWin : public Screen, public EventTable { public: char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
+
+
 extern EventWin *g_backdrop_win;            /* DGROUP:0xc6 */
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 
 extern void MSHideMenuBar(void);
 

@@ -107,9 +107,10 @@
 #include "w16types.h"
 #include "records.h"
 
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;   /* MapWin : ColChild, the base as its bytes: 0x788 */
+/* PORT: this file's own MapWin, ColonyWin, ColChild removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* MapWin : ColChild, the base as its bytes: 0x788 */
 
-typedef struct { char pad[1]; } ColonyWin;
+
 
 extern GameState g_game;   /* SEG20:0x7782 */
 extern Nation g_nations[];                /* SEG20:0xc2f4, 0x13c bytes each */
@@ -122,7 +123,7 @@ extern void set_europe(int n);
 
 extern int europe_bid_price(int good);
 extern void traffic_to_europe(int good, int amount);
-typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char kind; int dropped; void *repaint; void *resize; RECT rect; int which; char noclose; char pad_775; int msg_timer; int queued; } ColChild;   /* ColChild : GameWin, the base and the SImageButton as their bytes: 0x77a */
+   /* ColChild : GameWin, the base and the SImageButton as their bytes: 0x77a */
 extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddStringToMessage(ColChild *message, char *s);
 extern void ColChild_AddToMessage(ColChild *child, int word);

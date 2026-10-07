@@ -5,7 +5,8 @@
 
 #include "colonization.h"
 
-typedef struct { char pad[1]; } ColonyWin;
+/* PORT: this file's own ColonyWin removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"
 
 extern void ColChild_ActivateMessage(void *child, int kind, long arg);
 extern void ColChild_DrawAnyMessage(void *w, int mode, long msg);

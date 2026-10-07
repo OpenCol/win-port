@@ -25,14 +25,15 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
-class CTable { public: char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; CTable(); ~CTable(); };
+/* PORT: this file's own GRPort, CTable, GameWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 #include "records.h"
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-typedef struct { char port[0x26]; char dialog[0x9a]; void *relayout; } GameWin;   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
+   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 extern void GameWin_ResizePort(GameWin *w, void *rect);
 extern void MSLockGraf(GRPort *port);
 

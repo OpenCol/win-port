@@ -18,7 +18,8 @@
 
 #include "colonization.h"
 
-class Font { public: short hfont; short height; Font(); Font(int kind, int height); ~Font(); };
+/* PORT: this file's own Font, Screen, GRPort, Sprite, DialogWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 /* colony_select_profession: candidate for 1010:c98c (3568 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -60,10 +61,10 @@ class Font { public: short hfont; short height; Font(); Font(int kind, int heigh
 #include "misc.h"
 #include "w16types.h"
 typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; int dropped; void *repaint; void *resize; RECT rect; int which; char noclose; char pad_775; int msg_timer; int queued; short category; char button[0x74]; char bar[0x28]; char port[0x26]; char list[0xc]; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; } PediaWin;   /* PediaWin : ColChild, flattened for C (ColChild's kind, which PediaWin's hides, as colchild_kind): 0x85a */   /* PediaWin : ColChild, flattened for C (ColChild's kind, which PediaWin's hides, as colchild_kind): 0x85a */
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; } Screen;
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+
+
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 #include "records.h"
 class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;
@@ -71,7 +72,7 @@ class Popup { public: GameWin *win; GRPort *dest_port; GRPort port; Sprite portr
 
 extern Nation g_nations[];   /* SEG20:0xc2f4 */
 
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl *first_ctl; struct DlgControl *ok_btn; struct DlgControl *cancel_btn; char keyboard_nav; char f99; } DialogWin;   /* DialogWin : EventWin, flattened for C */
+   /* DialogWin : EventWin, flattened for C */
 
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;      /* SEG20:0x05ca */

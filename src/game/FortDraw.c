@@ -38,10 +38,11 @@
 #include "w16types.h"
 #include "colflag.h"
 #include "gameflag.h"
-typedef struct { short hfont, height; } Font;
-typedef struct { short vptr; int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; } GRPort;
+/* PORT: this file's own Font, GRPort, Sprite removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 #include "records.h"
 

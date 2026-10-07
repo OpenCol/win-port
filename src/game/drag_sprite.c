@@ -27,15 +27,16 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own GRPort, Sprite, Screen, GameWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-typedef struct { RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; char pad_19; short handle; unsigned char *bits; } Sprite;   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
+   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; } Screen;
+
 extern int Screen_LButtonPressed(Screen *w, char own, char remove, char wait);
 
-typedef struct { char port[0x26]; char dialog[0x9a]; void *relayout; } GameWin;   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
+   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" void copy_rect_to_screen_1050_8bfa(GameWin *w, RECT *r);

@@ -57,7 +57,8 @@ extern Nation g_nations[];             /* SEG20:0xc2f4 */
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-typedef struct { char pad[1]; } ColonyWin;
+/* PORT: this file's own ColonyWin removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"
 
 extern unsigned char *map_loc(int x, int y);
 

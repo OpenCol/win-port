@@ -33,10 +33,11 @@
 
 #include "w16types.h"
 #include "records.h"
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; } Screen;
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own Screen, GRPort, CTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 extern void wing_stretch(GrafRec *src, int sx, int sy, int sw, int sh,
                                        void *dst, int dx, int dy, int dw, int dh);

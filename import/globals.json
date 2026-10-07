@@ -1,0 +1,1939 @@
+{
+ "_ctype": {
+  "extern unsigned char _ctype[257];": 2
+ },
+ "g_1fbe": {
+  "extern int g_1fbe;": 1
+ },
+ "g_4bec": {
+  "extern int g_4bec;": 3
+ },
+ "g_4bee": {
+  "extern int g_4bee;": 1
+ },
+ "g_4c24": {
+  "extern char g_4c24;": 1
+ },
+ "g_4cd8": {
+  "extern int g_4cd8;": 2
+ },
+ "g_4cea": {
+  "extern int g_4cea;": 1
+ },
+ "g_4cf4": {
+  "extern int g_4cf4;": 1
+ },
+ "g_84": {
+  "extern int g_84;": 1
+ },
+ "g_9dd": {
+  "extern char g_9dd;": 3
+ },
+ "g_9e2": {
+  "extern int g_9e2;": 3
+ },
+ "g_abandon_flag": {
+  "extern int g_abandon_flag;": 2
+ },
+ "g_about_done": {
+  "extern int g_about_done;": 3
+ },
+ "g_about_step": {
+  "extern int g_about_step;": 2
+ },
+ "g_action_word": {
+  "extern int g_action_word[];": 1
+ },
+ "g_adjacent_colony_nation": {
+  "extern int g_adjacent_colony_nation;": 1
+ },
+ "g_ai_managing_colony": {
+  "extern int g_ai_managing_colony;": 1
+ },
+ "g_ai_military_target": {
+  "extern unsigned char g_ai_military_target[];": 1
+ },
+ "g_ai_repeat_count": {
+  "extern int g_ai_repeat_count;": 1
+ },
+ "g_ai_repeat_unit": {
+  "extern int g_ai_repeat_unit;": 1
+ },
+ "g_anim": {
+  "extern void *g_anim;": 4
+ },
+ "g_anim_port": {
+  "extern void *g_anim_port;": 3
+ },
+ "g_area_map_str": {
+  "extern char g_area_map_str[];": 1
+ },
+ "g_art_base": {
+  "extern Sprite g_art_base[];": 5
+ },
+ "g_attitude_word": {
+  "extern int g_attitude_word[];": 1
+ },
+ "g_attitudinal_word": {
+  "extern int g_attitudinal_word[];": 1
+ },
+ "g_autoplay": {
+  "extern int g_autoplay;": 4
+ },
+ "g_avg_colony_size": {
+  "extern int g_avg_colony_size[];": 5
+ },
+ "g_backdrop_win": {
+  "extern EventWin * g_backdrop_win;": 1,
+  "extern EventWin *g_backdrop_win;": 3,
+  "extern void * g_backdrop_win;": 3
+ },
+ "g_background_tile": {
+  "extern Sprite g_background_tile;": 6
+ },
+ "g_bells_extra": {
+  "extern unsigned char g_bells_extra;": 2
+ },
+ "g_best_job_amount": {
+  "extern int g_best_job_amount;": 2
+ },
+ "g_best_job_score": {
+  "extern int g_best_job_score;": 1
+ },
+ "g_blink": {
+  "extern int g_blink;": 1
+ },
+ "g_boarding_in_progress": {
+  "extern int g_boarding_in_progress;": 1
+ },
+ "g_build_needs": {
+  "extern BuildNeed g_build_needs[];": 1
+ },
+ "g_building_of_job": {
+  "extern signed char g_building_of_job[];": 1
+ },
+ "g_buildings": {
+  "extern BuildingRec g_buildings[];": 23
+ },
+ "g_button_font": {
+  "extern void * g_button_font;": 4
+ },
+ "g_buy_busy": {
+  "extern char g_buy_busy;": 1
+ },
+ "g_c12": {
+  "extern unsigned char g_c12;": 1
+ },
+ "g_cargo_amount": {
+  "extern int g_cargo_amount;": 16
+ },
+ "g_cargo_captured": {
+  "extern int g_cargo_captured;": 2
+ },
+ "g_cargo_pickups": {
+  "extern Pickup g_cargo_pickups[];": 3
+ },
+ "g_carrier_count": {
+  "extern int g_carrier_count;": 6
+ },
+ "g_carrier_highlight": {
+  "extern int g_carrier_highlight;": 4
+ },
+ "g_cd_device": {
+  "extern unsigned g_cd_device;": 10
+ },
+ "g_cd_is_game_disc": {
+  "extern int g_cd_is_game_disc;": 8
+ },
+ "g_cd_notify_hwnd": {
+  "extern unsigned g_cd_notify_hwnd;": 6
+ },
+ "g_cd_tray_device": {
+  "extern unsigned g_cd_tray_device;": 2
+ },
+ "g_cd_wrong_disc": {
+  "extern int g_cd_wrong_disc;": 4
+ },
+ "g_cell_claim": {
+  "extern signed char g_cell_claim[5][5];": 1
+ },
+ "g_cell_class": {
+  "extern unsigned char g_cell_class;": 2
+ },
+ "g_cell_col": {
+  "extern int g_cell_col;": 3
+ },
+ "g_cell_row": {
+  "extern int g_cell_row;": 3
+ },
+ "g_cell_terrain": {
+  "extern unsigned char g_cell_terrain;": 2
+ },
+ "g_center_amount": {
+  "extern signed char g_center_amount;": 2
+ },
+ "g_center_food": {
+  "extern unsigned char g_center_food;": 2
+ },
+ "g_center_kind": {
+  "extern signed char g_center_kind;": 2
+ },
+ "g_cheat_step": {
+  "extern int g_cheat_step;": 1
+ },
+ "g_check_color_disabled": {
+  "extern unsigned char g_check_color_disabled;": 3
+ },
+ "g_check_color_enabled": {
+  "extern unsigned char g_check_color_enabled;": 3
+ },
+ "g_check_mask": {
+  "extern int g_check_mask;": 3
+ },
+ "g_checkbox_capture": {
+  "extern int g_checkbox_capture;": 1
+ },
+ "g_chosen_colony_mode": {
+  "extern unsigned char g_chosen_colony_mode;": 1
+ },
+ "g_class": {
+  "extern ClassRec g_class[];": 1
+ },
+ "g_closing_flag": {
+  "extern int g_closing_flag;": 3
+ },
+ "g_cmisc_word": {
+  "extern int g_cmisc_word[];": 1
+ },
+ "g_coarse_grid_land": {
+  "extern unsigned char g_coarse_grid_land[15][18];": 7
+ },
+ "g_coarse_grid_sea": {
+  "extern unsigned char g_coarse_grid_sea[15][18];": 7
+ },
+ "g_coast_edges": {
+  "extern unsigned char g_coast_edges[4];": 1
+ },
+ "g_colonies": {
+  "extern Colony g_colonies[];": 55
+ },
+ "g_colonies_besieged": {
+  "extern unsigned char g_colonies_besieged;": 3
+ },
+ "g_colonies_blockaded": {
+  "extern unsigned char g_colonies_blockaded;": 3
+ },
+ "g_colonies_with_room": {
+  "extern signed char g_colonies_with_room[];": 3
+ },
+ "g_colony_c24": {
+  "extern int g_colony_c24;": 2
+ },
+ "g_colony_clicked": {
+  "extern int g_colony_clicked;": 6
+ },
+ "g_colony_ctl_visible": {
+  "extern int g_colony_ctl_visible;": 1
+ },
+ "g_colony_drag_armed": {
+  "extern int g_colony_drag_armed;": 7
+ },
+ "g_colony_drop_active": {
+  "extern int g_colony_drop_active;": 4
+ },
+ "g_colony_key_busy": {
+  "extern int g_colony_key_busy;": 1
+ },
+ "g_colony_lclick_busy": {
+  "extern char g_colony_lclick_busy;": 1
+ },
+ "g_colony_message_words": {
+  "extern int g_colony_message_words[];": 6
+ },
+ "g_colony_mode": {
+  "extern unsigned char g_colony_mode;": 9
+ },
+ "g_colony_popup": {
+  "extern GameWin *g_colony_popup;": 4
+ },
+ "g_colony_rclick_busy": {
+  "extern char g_colony_rclick_busy;": 1
+ },
+ "g_colony_slot28_busy": {
+  "extern char g_colony_slot28_busy;": 1
+ },
+ "g_colony_tally": {
+  "extern int g_colony_tally[];": 1
+ },
+ "g_colony_timer": {
+  "extern int g_colony_timer;": 1
+ },
+ "g_colony_win_rec": {
+  "extern DialogWin g_colony_win_rec;": 8
+ },
+ "g_colony_window": {
+  "extern ColonyWin g_colony_window;": 19
+ },
+ "g_colony_window_open": {
+  "extern int g_colony_window_open;": 6
+ },
+ "g_colony_window_ptr": {
+  "extern ColonyWin *g_colony_window_ptr;": 2
+ },
+ "g_color_resource_type": {
+  "extern void *g_color_resource_type;": 1
+ },
+ "g_colour_table": {
+  "extern unsigned char g_colour_table[];": 2
+ },
+ "g_combat_flags": {
+  "extern int g_combat_flags[2];": 4
+ },
+ "g_combat_flags2": {
+  "extern int g_combat_flags2[2];": 2
+ },
+ "g_combat_str": {
+  "extern int g_combat_str[2];": 2
+ },
+ "g_congress_nation": {
+  "extern int g_congress_nation;": 1
+ },
+ "g_consumption": {
+  "extern int g_consumption[];": 6
+ },
+ "g_control_font": {
+  "extern void * g_control_font;": 4
+ },
+ "g_ctitle_word": {
+  "extern int g_ctitle_word[];": 8
+ },
+ "g_cur_cell": {
+  "extern unsigned char *g_cur_cell;": 2
+ },
+ "g_cur_colony_idx": {
+  "extern int g_cur_colony_idx;": 9
+ },
+ "g_cur_colony_is_players": {
+  "extern char g_cur_colony_is_players;": 3
+ },
+ "g_cur_colony_rec": {
+  "extern Colony * g_cur_colony_rec;": 47,
+  "extern Colony *g_cur_colony_rec;": 56
+ },
+ "g_cur_data": {
+  "extern char *g_cur_data;": 1
+ },
+ "g_cur_dialog": {
+  "extern Popup *g_cur_dialog;": 9
+ },
+ "g_cur_nation": {
+  "extern int g_cur_nation;": 31
+ },
+ "g_cur_nation_rec": {
+  "extern Nation * g_cur_nation_rec;": 16,
+  "extern Nation *g_cur_nation_rec;": 25
+ },
+ "g_cur_res": {
+  "extern void *g_cur_res;": 1
+ },
+ "g_cur_route": {
+  "extern int g_cur_route;": 2
+ },
+ "g_cur_route_rec": {
+  "extern RouteRec * g_cur_route_rec;": 6,
+  "extern RouteRec *g_cur_route_rec;": 9
+ },
+ "g_cur_route_stop": {
+  "extern Stop * g_cur_route_stop;": 2,
+  "extern Stop *g_cur_route_stop;": 7
+ },
+ "g_cur_settlement": {
+  "extern int g_cur_settlement;": 6
+ },
+ "g_cur_settlement_rec": {
+  "extern Settlement * g_cur_settlement_rec;": 14,
+  "extern Settlement *g_cur_settlement_rec;": 9
+ },
+ "g_cur_track": {
+  "extern int g_cur_track;": 3
+ },
+ "g_cur_tribe": {
+  "extern int g_cur_tribe;": 21
+ },
+ "g_cur_tribe_nation": {
+  "extern int g_cur_tribe_nation;": 12
+ },
+ "g_cur_tribe_rec": {
+  "extern Tribe * g_cur_tribe_rec;": 11,
+  "extern Tribe *g_cur_tribe_rec;": 7
+ },
+ "g_current_font": {
+  "extern FontRec * g_current_font;": 3
+ },
+ "g_current_port": {
+  "extern GRPort * g_current_port;": 3
+ },
+ "g_current_slot": {
+  "extern int g_current_slot;": 2
+ },
+ "g_current_window": {
+  "extern void * g_current_window;": 8,
+  "extern void *g_current_window;": 3
+ },
+ "g_cursor": {
+  "extern char *g_cursor;": 1
+ },
+ "g_cursor_state": {
+  "extern int g_cursor_state;": 3
+ },
+ "g_cursor_x": {
+  "extern int g_cursor_x;": 15
+ },
+ "g_cursor_y": {
+  "extern int g_cursor_y;": 15
+ },
+ "g_cursors": {
+  "extern CursorClass g_cursors[];": 2,
+  "extern char g_cursors[][4];": 1
+ },
+ "g_cycle_flag": {
+  "extern int g_cycle_flag;": 3
+ },
+ "g_damaged_in_port": {
+  "extern int g_damaged_in_port;": 1
+ },
+ "g_data_dir": {
+  "extern char g_data_dir[];": 1
+ },
+ "g_debug_flags": {
+  "extern int g_debug_flags;": 8
+ },
+ "g_debug_mode": {
+  "extern char g_debug_mode;": 6
+ },
+ "g_default_font_ref": {
+  "extern void * g_default_font_ref;": 5
+ },
+ "g_default_map_file": {
+  "extern char g_default_map_file[];": 1
+ },
+ "g_defence_colony": {
+  "extern int g_defence_colony;": 2
+ },
+ "g_defence_village": {
+  "extern int g_defence_village;": 2
+ },
+ "g_deficit": {
+  "extern int g_deficit[];": 5
+ },
+ "g_depletion_rolls": {
+  "extern unsigned char g_depletion_rolls;": 2
+ },
+ "g_desk_x": {
+  "extern int g_desk_x;": 3
+ },
+ "g_desk_y": {
+  "extern int g_desk_y;": 3
+ },
+ "g_dialog_owner": {
+  "extern char *g_dialog_owner;": 2
+ },
+ "g_dialog_result": {
+  "extern int g_dialog_result;": 3
+ },
+ "g_difficulty_words": {
+  "extern int g_difficulty_words[];": 13
+ },
+ "g_dir_dx": {
+  "extern signed char g_dir_dx[];": 46
+ },
+ "g_dir_dy": {
+  "extern signed char g_dir_dy[];": 46
+ },
+ "g_display_name_buf": {
+  "extern char g_display_name_buf[];": 1
+ },
+ "g_dock_prev_carrier": {
+  "extern int g_dock_prev_carrier;": 1
+ },
+ "g_done_flag": {
+  "extern int g_done_flag;": 3
+ },
+ "g_drag_active": {
+  "extern unsigned char g_drag_active;": 1
+ },
+ "g_drag_amount": {
+  "extern unsigned char g_drag_amount;": 2
+ },
+ "g_drag_from": {
+  "extern int g_drag_from;": 1
+ },
+ "g_drag_goods": {
+  "extern unsigned char g_drag_goods;": 2
+ },
+ "g_drag_mode": {
+  "extern int g_drag_mode;": 10
+ },
+ "g_drag_port": {
+  "extern GRPort *g_drag_port;": 2
+ },
+ "g_drag_rect_dst": {
+  "extern RECT g_drag_rect_dst[];": 2
+ },
+ "g_drag_rect_src": {
+  "extern RECT g_drag_rect_src;": 2
+ },
+ "g_drag_slot": {
+  "extern unsigned char g_drag_slot;": 2
+ },
+ "g_drag_sprite": {
+  "extern Sprite *g_drag_sprite;": 1
+ },
+ "g_drag_unit": {
+  "extern int g_drag_unit;": 1
+ },
+ "g_drag_x": {
+  "extern int g_drag_x;": 1
+ },
+ "g_drag_y": {
+  "extern int g_drag_y;": 1
+ },
+ "g_draw_color": {
+  "extern unsigned char g_draw_color;": 24
+ },
+ "g_draw_feature_loc": {
+  "extern unsigned char *g_draw_feature_loc;": 2
+ },
+ "g_draw_labels": {
+  "extern int g_draw_labels;": 6
+ },
+ "g_draw_map_loc": {
+  "extern unsigned char *g_draw_map_loc;": 5
+ },
+ "g_draw_mask": {
+  "extern unsigned char g_draw_mask;": 2
+ },
+ "g_draw_parity": {
+  "extern int g_draw_parity;": 1
+ },
+ "g_draw_pix": {
+  "extern unsigned char *g_draw_pix;": 2
+ },
+ "g_draw_px": {
+  "extern int g_draw_px;": 4
+ },
+ "g_draw_py": {
+  "extern int g_draw_py;": 4
+ },
+ "g_draw_site_loc": {
+  "extern unsigned char *g_draw_site_loc;": 2
+ },
+ "g_draw_x": {
+  "extern int g_draw_x;": 1
+ },
+ "g_draw_y": {
+  "extern int g_draw_y;": 1
+ },
+ "g_edge_sprites": {
+  "extern Sprite g_edge_sprites[];": 2
+ },
+ "g_editbox_extra": {
+  "extern int g_editbox_extra;": 1
+ },
+ "g_editbox_font": {
+  "extern void * g_editbox_font;": 3
+ },
+ "g_editbox_proc": {
+  "extern WNDPROC g_editbox_proc;": 1
+ },
+ "g_editbox_registered": {
+  "extern int g_editbox_registered;": 1
+ },
+ "g_error_log": {
+  "extern char g_error_log;": 53
+ },
+ "g_europe_arrival_unit": {
+  "extern int g_europe_arrival_unit;": 2
+ },
+ "g_europe_hover": {
+  "extern int g_europe_hover;": 4
+ },
+ "g_europe_hover_busy": {
+  "extern int g_europe_hover_busy;": 1
+ },
+ "g_europe_land_units": {
+  "extern unsigned char g_europe_land_units[];": 3
+ },
+ "g_europe_lclick_busy": {
+  "extern int g_europe_lclick_busy;": 1
+ },
+ "g_europe_popup": {
+  "extern GameWin *g_europe_popup;": 2
+ },
+ "g_europe_popup_id": {
+  "extern int g_europe_popup_id;": 3
+ },
+ "g_europe_rclick_busy": {
+  "extern int g_europe_rclick_busy;": 1
+ },
+ "g_europe_screen_open": {
+  "extern int g_europe_screen_open;": 4
+ },
+ "g_europe_selected_ship": {
+  "extern int g_europe_selected_ship;": 8
+ },
+ "g_europe_ship_highlight": {
+  "extern int g_europe_ship_highlight;": 4
+ },
+ "g_europe_timer": {
+  "extern int g_europe_timer;": 1
+ },
+ "g_europe_win": {
+  "extern EuropeWin g_europe_win;": 12
+ },
+ "g_europe_win_dlg": {
+  "extern char g_europe_win_dlg;": 4
+ },
+ "g_europe_x0": {
+  "extern int g_europe_x0;": 1
+ },
+ "g_event_seed": {
+  "extern int g_event_seed;": 2
+ },
+ "g_far_start_x": {
+  "extern int g_far_start_x;": 2
+ },
+ "g_far_start_y": {
+  "extern int g_far_start_y;": 2
+ },
+ "g_father_order": {
+  "extern unsigned char g_father_order[];": 1
+ },
+ "g_father_x": {
+  "extern int g_father_x[];": 1
+ },
+ "g_father_y": {
+  "extern int g_father_y[];": 1
+ },
+ "g_fathers": {
+  "extern Father g_fathers[];": 8
+ },
+ "g_feature_words": {
+  "extern int g_feature_words[];": 6
+ },
+ "g_field": {
+  "extern char g_field[];": 3
+ },
+ "g_fish_food": {
+  "extern unsigned char g_fish_food;": 2
+ },
+ "g_flag_art": {
+  "extern char g_flag_art[][0x20];": 2
+ },
+ "g_flag_sprite": {
+  "extern Sprite g_flag_sprite;": 3
+ },
+ "g_flat_step_cost": {
+  "extern int g_flat_step_cost;": 3
+ },
+ "g_font16": {
+  "extern Font g_font16;": 1
+ },
+ "g_font_small": {
+  "extern Font g_font_small;": 17
+ },
+ "g_font_tiny": {
+  "extern Font g_font_tiny;": 2
+ },
+ "g_foreign_owner": {
+  "extern int g_foreign_owner;": 4
+ },
+ "g_founding_word": {
+  "extern int g_founding_word[];": 3
+ },
+ "g_game": {
+  "extern GameState g_game;": 246
+ },
+ "g_game_brains": {
+  "extern GameBrains g_game_brains;": 12
+ },
+ "g_game_over": {
+  "extern int g_game_over;": 2
+ },
+ "g_game_palette": {
+  "extern CTable g_game_palette;": 30
+ },
+ "g_game_txt": {
+  "extern char g_game_txt[];": 31
+ },
+ "g_garrisoned_regions": {
+  "extern unsigned char g_garrisoned_regions;": 1
+ },
+ "g_goods": {
+  "extern GoodsRec g_goods[];": 6
+ },
+ "g_goods_drag_amount": {
+  "extern int g_goods_drag_amount;": 2
+ },
+ "g_goods_drag_from_market": {
+  "extern int g_goods_drag_from_market;": 4
+ },
+ "g_goods_drag_slot": {
+  "extern int g_goods_drag_slot;": 2
+ },
+ "g_goods_input": {
+  "extern signed char g_goods_input[];": 2
+ },
+ "g_goods_name_word": {
+  "extern int g_goods_name_word[];": 42
+ },
+ "g_goods_value": {
+  "extern unsigned char g_goods_value[][16];": 11
+ },
+ "g_goods_wanted": {
+  "extern signed char g_goods_wanted[];": 2
+ },
+ "g_goods_wanted_prev": {
+  "extern unsigned char g_goods_wanted_prev[];": 1
+ },
+ "g_gr_error": {
+  "extern int g_gr_error;": 2
+ },
+ "g_grid_depth": {
+  "extern unsigned char g_grid_depth[15][18];": 1
+ },
+ "g_grid_marks": {
+  "extern signed char g_grid_marks[5][5];": 8
+ },
+ "g_grid_marks_done": {
+  "extern char g_grid_marks_done;": 2
+ },
+ "g_grid_x": {
+  "extern int g_grid_x;": 6
+ },
+ "g_grid_y": {
+  "extern int g_grid_y;": 6
+ },
+ "g_group_members": {
+  "extern int g_group_members[][8];": 1
+ },
+ "g_heading_font": {
+  "extern Font g_heading_font;": 18
+ },
+ "g_hinstance": {
+  "extern unsigned g_hinstance;": 23
+ },
+ "g_hint6_shown": {
+  "extern int g_hint6_shown;": 1
+ },
+ "g_hit_panel": {
+  "extern int g_hit_panel;": 4
+ },
+ "g_hover_active": {
+  "extern int g_hover_active;": 1
+ },
+ "g_hover_mode": {
+  "extern int g_hover_mode;": 7
+ },
+ "g_hover_pressed": {
+  "extern int g_hover_pressed;": 1
+ },
+ "g_hprev": {
+  "extern int g_hprev;": 2
+ },
+ "g_icon_dx": {
+  "extern unsigned char g_icon_dx;": 3
+ },
+ "g_icon_dy": {
+  "extern unsigned char g_icon_dy;": 3
+ },
+ "g_icon_h": {
+  "extern int g_icon_h;": 1
+ },
+ "g_icon_port": {
+  "extern GRPort g_icon_port;": 3
+ },
+ "g_icon_sprite": {
+  "extern Sprite g_icon_sprite;": 2
+ },
+ "g_icon_sprites": {
+  "extern Sprite g_icon_sprites[];": 48
+ },
+ "g_info_font_large": {
+  "extern Font g_info_font_large;": 7
+ },
+ "g_info_font_small": {
+  "extern Font g_info_font_small;": 2
+ },
+ "g_info_label": {
+  "extern int g_info_label[];": 1
+ },
+ "g_info_win_dlg": {
+  "extern char g_info_win_dlg;": 2
+ },
+ "g_job_of_building": {
+  "extern signed char g_job_of_building[];": 1
+ },
+ "g_job_popup_active": {
+  "extern int g_job_popup_active;": 2
+ },
+ "g_job_unit_type": {
+  "extern signed char g_job_unit_type[];": 1
+ },
+ "g_key_accepted": {
+  "extern char g_key_accepted;": 1
+ },
+ "g_key_down_seen": {
+  "extern char g_key_down_seen;": 1
+ },
+ "g_keymap": {
+  "extern int g_keymap[];": 1
+ },
+ "g_kind_base": {
+  "extern unsigned char g_kind_base[];": 1
+ },
+ "g_kind_count": {
+  "extern unsigned char g_kind_count[];": 1
+ },
+ "g_kind_h": {
+  "extern int g_kind_h[];": 2
+ },
+ "g_kind_row_x": {
+  "extern int g_kind_row_x[];": 1
+ },
+ "g_kind_row_y": {
+  "extern int g_kind_row_y[];": 1
+ },
+ "g_kind_w": {
+  "extern int g_kind_w[];": 2
+ },
+ "g_labelled_building": {
+  "extern int g_labelled_building;": 3
+ },
+ "g_labelled_cell": {
+  "extern int g_labelled_cell;": 3
+ },
+ "g_labelled_goods": {
+  "extern int g_labelled_goods;": 3
+ },
+ "g_labels_txt": {
+  "extern char g_labels_txt[];": 1
+ },
+ "g_land_claim": {
+  "extern int g_land_claim;": 1
+ },
+ "g_land_count": {
+  "extern int g_land_count;": 2
+ },
+ "g_land_unit_count": {
+  "extern int g_land_unit_count;": 2
+ },
+ "g_land_unit_index": {
+  "extern int g_land_unit_index;": 4
+ },
+ "g_last_blink": {
+  "extern long g_last_blink;": 1
+ },
+ "g_last_key": {
+  "extern unsigned g_last_key;": 1
+ },
+ "g_last_route": {
+  "extern char g_last_route;": 1
+ },
+ "g_layout_x": {
+  "extern int g_layout_x;": 2
+ },
+ "g_layout_y": {
+  "extern int g_layout_y;": 2
+ },
+ "g_leader_traits": {
+  "extern LeaderFace g_leader_traits[];": 3,
+  "extern signed char g_leader_traits[][4];": 2
+ },
+ "g_level": {
+  "extern LevelRec g_level[];": 6
+ },
+ "g_line": {
+  "extern char g_line[256];": 1
+ },
+ "g_line_color_index": {
+  "extern unsigned char g_line_color_index;": 7
+ },
+ "g_line_text": {
+  "extern char *g_line_text;": 1
+ },
+ "g_listbox_extra": {
+  "extern int g_listbox_extra;": 1
+ },
+ "g_listbox_proc": {
+  "extern WNDPROC g_listbox_proc;": 1
+ },
+ "g_listbox_registered": {
+  "extern int g_listbox_registered;": 1
+ },
+ "g_loaded_flag": {
+  "extern char g_loaded_flag;": 6
+ },
+ "g_log_font": {
+  "extern Font g_log_font;": 2
+ },
+ "g_log_name": {
+  "extern char g_log_name[];": 2
+ },
+ "g_lowmem_box": {
+  "extern GameWin *g_lowmem_box;": 2
+ },
+ "g_lowmem_busy": {
+  "extern int g_lowmem_busy;": 2
+ },
+ "g_lowmem_count": {
+  "extern int g_lowmem_count;": 2
+ },
+ "g_lowmem_deadline": {
+  "extern long g_lowmem_deadline;": 1
+ },
+ "g_lowmem_flag": {
+  "extern int g_lowmem_flag;": 2
+ },
+ "g_lowmem_kb": {
+  "extern int g_lowmem_kb;": 2
+ },
+ "g_lowmem_ok": {
+  "extern SButton *g_lowmem_ok;": 2
+ },
+ "g_lowmem_res": {
+  "extern int g_lowmem_res;": 2
+ },
+ "g_lowmem_timer": {
+  "extern int g_lowmem_timer;": 2
+ },
+ "g_lowmem_win": {
+  "extern void *g_lowmem_win;": 2
+ },
+ "g_main_win": {
+  "extern MainWin g_main_win;": 28
+ },
+ "g_map_bytes": {
+  "extern unsigned long g_map_bytes;": 4
+ },
+ "g_map_cells": {
+  "extern long g_map_cells;": 2
+ },
+ "g_map_center_x": {
+  "extern int g_map_center_x;": 8
+ },
+ "g_map_center_y": {
+  "extern int g_map_center_y;": 8
+ },
+ "g_map_click_busy": {
+  "extern int g_map_click_busy;": 1
+ },
+ "g_map_file_name": {
+  "extern char g_map_file_name[];": 3
+ },
+ "g_map_lclick_busy": {
+  "extern int g_map_lclick_busy;": 1
+ },
+ "g_map_ldown_busy": {
+  "extern char g_map_ldown_busy;": 1
+ },
+ "g_map_load_error": {
+  "extern int g_map_load_error;": 2
+ },
+ "g_map_mode": {
+  "extern int g_map_mode;": 2
+ },
+ "g_map_port": {
+  "extern GRPort g_map_port;": 10
+ },
+ "g_map_size": {
+  "extern MapSize g_map_size;": 57
+ },
+ "g_map_timer": {
+  "extern int g_map_timer;": 1
+ },
+ "g_map_window": {
+  "extern MapWin g_map_window;": 33
+ },
+ "g_map_window_dlg": {
+  "extern char g_map_window_dlg;": 2
+ },
+ "g_market_col": {
+  "extern char g_market_col;": 1
+ },
+ "g_mci_device": {
+  "extern unsigned g_mci_device;": 3
+ },
+ "g_menu_active": {
+  "extern int g_menu_active;": 1
+ },
+ "g_menu_depth": {
+  "extern int g_menu_depth;": 2
+ },
+ "g_menu_owner": {
+  "extern MenuClass g_menu_owner;": 6
+ },
+ "g_merc": {
+  "extern int g_merc[4];": 3
+ },
+ "g_message_buf": {
+  "extern char g_message_buf[];": 15
+ },
+ "g_military_power": {
+  "extern unsigned g_military_power[];": 10
+ },
+ "g_mini_win": {
+  "extern char g_mini_win;": 5
+ },
+ "g_mini_win_dlg": {
+  "extern char g_mini_win_dlg;": 2
+ },
+ "g_misc_words": {
+  "extern int g_misc_words[];": 53
+ },
+ "g_mission_word": {
+  "extern int g_mission_word[];": 2
+ },
+ "g_modal_active": {
+  "extern int g_modal_active;": 4
+ },
+ "g_modal_done": {
+  "extern int g_modal_done;": 5
+ },
+ "g_modal_win": {
+  "extern EventWin *g_modal_win;": 2
+ },
+ "g_mood": {
+  "extern int g_mood;": 2
+ },
+ "g_mouse_up_busy": {
+  "extern char g_mouse_up_busy;": 1
+ },
+ "g_move_reason": {
+  "extern int g_move_reason;": 2
+ },
+ "g_move_reason_unit": {
+  "extern int g_move_reason_unit;": 2
+ },
+ "g_moving_nation": {
+  "extern int g_moving_nation;": 5
+ },
+ "g_ms_window_count": {
+  "extern int g_ms_window_count;": 3
+ },
+ "g_ms_window_stack": {
+  "extern int g_ms_window_stack[];": 2
+ },
+ "g_msg_seen": {
+  "extern char g_msg_seen;": 2
+ },
+ "g_music_change": {
+  "extern int g_music_change;": 3
+ },
+ "g_music_seed": {
+  "extern int g_music_seed;": 1
+ },
+ "g_name_slots": {
+  "extern char g_name_slots[][0x50];": 22
+ },
+ "g_names_txt": {
+  "extern char g_names_txt[];": 1
+ },
+ "g_nation_abbrev": {
+  "extern int g_nation_abbrev[];": 1
+ },
+ "g_nation_adjective": {
+  "extern int g_nation_adjective[];": 10
+ },
+ "g_nation_armed_ships": {
+  "extern unsigned char g_nation_armed_ships[];": 3
+ },
+ "g_nation_cargo_capacity": {
+  "extern unsigned char g_nation_cargo_capacity[];": 5
+ },
+ "g_nation_colony_count": {
+  "extern unsigned char g_nation_colony_count[4];": 17
+ },
+ "g_nation_colour": {
+  "extern unsigned char g_nation_colour[];": 10
+ },
+ "g_nation_free_colonists": {
+  "extern unsigned char g_nation_free_colonists[];": 3
+ },
+ "g_nation_land_strength": {
+  "extern unsigned char g_nation_land_strength[];": 2
+ },
+ "g_nation_name": {
+  "extern int g_nation_name[];": 11
+ },
+ "g_nation_name_word": {
+  "extern int g_nation_name_word[];": 22
+ },
+ "g_nation_population": {
+  "extern unsigned char g_nation_population[];": 16
+ },
+ "g_nation_region": {
+  "extern unsigned char g_nation_region[];": 1,
+  "extern unsigned char g_nation_region[][0x10];": 1,
+  "extern unsigned char g_nation_region[][16];": 3
+ },
+ "g_nation_region_strength": {
+  "extern unsigned char g_nation_region_strength[][16];": 4
+ },
+ "g_nation_ship_count": {
+  "extern unsigned char g_nation_ship_count[];": 6
+ },
+ "g_nation_ships_in_transit": {
+  "extern unsigned char g_nation_ships_in_transit[];": 3
+ },
+ "g_nation_strength": {
+  "extern unsigned char g_nation_strength[];": 3
+ },
+ "g_nation_text": {
+  "extern NationText g_nation_text[];": 107
+ },
+ "g_nation_unit_count": {
+  "extern unsigned char g_nation_unit_count[4];": 4
+ },
+ "g_nations": {
+  "extern Nation g_nations[];": 49
+ },
+ "g_native_buy": {
+  "extern int g_native_buy[];": 3
+ },
+ "g_native_sell": {
+  "extern int g_native_sell[];": 4
+ },
+ "g_near_depth": {
+  "extern unsigned char g_near_depth[16][16];": 1
+ },
+ "g_near_last_x": {
+  "extern int g_near_last_x;": 1
+ },
+ "g_near_last_y": {
+  "extern int g_near_last_y;": 1
+ },
+ "g_nearest_dist": {
+  "extern int g_nearest_dist;": 13
+ },
+ "g_nearest_unit_dist": {
+  "extern int g_nearest_unit_dist;": 1
+ },
+ "g_new_building": {
+  "extern int g_new_building;": 3
+ },
+ "g_next_menu_id": {
+  "extern unsigned g_next_menu_id;": 3
+ },
+ "g_next_mood": {
+  "extern int g_next_mood;": 2
+ },
+ "g_no_map_file": {
+  "extern int g_no_map_file;": 1
+ },
+ "g_number_buf": {
+  "extern char g_number_buf[];": 3
+ },
+ "g_number_font": {
+  "extern Font g_number_font;": 11
+ },
+ "g_ocean_x": {
+  "extern int g_ocean_x;": 6
+ },
+ "g_ocean_y": {
+  "extern int g_ocean_y;": 6
+ },
+ "g_open_flag": {
+  "extern int g_open_flag;": 2
+ },
+ "g_opening": {
+  "extern Opening *g_opening;": 3
+ },
+ "g_opening_dismissed": {
+  "extern int g_opening_dismissed;": 3
+ },
+ "g_opening_win": {
+  "extern GameWin g_opening_win;": 2
+ },
+ "g_order_flags": {
+  "extern unsigned char g_order_flags[];": 3
+ },
+ "g_order_letter": {
+  "extern char g_order_letter[];": 3
+ },
+ "g_order_word": {
+  "extern int g_order_word[];": 1
+ },
+ "g_ortho_dx": {
+  "extern signed char g_ortho_dx[];": 2
+ },
+ "g_ortho_dy": {
+  "extern signed char g_ortho_dy[];": 2
+ },
+ "g_overlay_plane": {
+  "extern signed char *g_overlay_plane;": 1
+ },
+ "g_overlay_sprites": {
+  "extern Sprite g_overlay_sprites[];": 2
+ },
+ "g_paired_job": {
+  "extern signed char g_paired_job[];": 1
+ },
+ "g_palette_mode": {
+  "extern int g_palette_mode;": 25
+ },
+ "g_palette_template": {
+  "extern unsigned char g_palette_template[];": 1
+ },
+ "g_panel_click_busy": {
+  "extern char g_panel_click_busy;": 1
+ },
+ "g_panel_mode": {
+  "extern int g_panel_mode;": 7
+ },
+ "g_panel_shown_mask": {
+  "extern char g_panel_shown_mask;": 1
+ },
+ "g_panel_toggle": {
+  "extern int g_panel_toggle;": 4
+ },
+ "g_path_debug": {
+  "extern int g_path_debug;": 2
+ },
+ "g_path_result": {
+  "extern int g_path_result;": 2
+ },
+ "g_path_shown": {
+  "extern int g_path_shown;": 3
+ },
+ "g_path_unit_type": {
+  "extern int g_path_unit_type;": 5
+ },
+ "g_pedia_count": {
+  "extern int g_pedia_count;": 1
+ },
+ "g_pedia_mode": {
+  "extern char g_pedia_mode;": 7,
+  "extern int g_pedia_mode;": 8
+ },
+ "g_pedia_page": {
+  "extern int g_pedia_page;": 1
+ },
+ "g_pedia_win": {
+  "extern char g_pedia_win;": 16
+ },
+ "g_pedia_word": {
+  "extern int g_pedia_word[];": 2
+ },
+ "g_pending_col": {
+  "extern int g_pending_col;": 1
+ },
+ "g_pending_flag": {
+  "extern int g_pending_flag;": 1
+ },
+ "g_pending_row": {
+  "extern int g_pending_row;": 1
+ },
+ "g_pending_track": {
+  "extern int g_pending_track;": 2
+ },
+ "g_plane0": {
+  "extern unsigned char *g_plane0;": 8
+ },
+ "g_plane0_handle": {
+  "extern short g_plane0_handle;": 10
+ },
+ "g_plane1": {
+  "extern unsigned char *g_plane1;": 8
+ },
+ "g_plane1_handle": {
+  "extern short g_plane1_handle;": 8
+ },
+ "g_plane2": {
+  "extern unsigned char *g_plane2;": 8
+ },
+ "g_plane2_handle": {
+  "extern short g_plane2_handle;": 7
+ },
+ "g_plane3": {
+  "extern unsigned char *g_plane3;": 10
+ },
+ "g_plane3_handle": {
+  "extern short g_plane3_handle;": 12
+ },
+ "g_plans": {
+  "extern Plan g_plans[][0x40];": 2,
+  "extern Plan g_plans[][64];": 3
+ },
+ "g_player_took_control": {
+  "extern int g_player_took_control;": 3
+ },
+ "g_pop_besieged": {
+  "extern int g_pop_besieged;": 2
+ },
+ "g_pop_blockaded": {
+  "extern int g_pop_blockaded;": 2
+ },
+ "g_pop_by_nation": {
+  "extern unsigned char g_pop_by_nation[];": 5
+ },
+ "g_popup_dude": {
+  "extern int g_popup_dude;": 13
+ },
+ "g_popup_font": {
+  "extern Font *g_popup_font;": 3
+ },
+ "g_popup_font_small": {
+  "extern Font *g_popup_font_small;": 1
+ },
+ "g_popup_game_txt": {
+  "extern char g_popup_game_txt[];": 20
+ },
+ "g_popup_hilite_color": {
+  "extern unsigned char g_popup_hilite_color;": 1
+ },
+ "g_popup_label_id": {
+  "extern int g_popup_label_id[];": 1
+ },
+ "g_popup_m2": {
+  "extern unsigned char g_popup_m2;": 1
+ },
+ "g_popup_m3": {
+  "extern unsigned char g_popup_m3;": 1
+ },
+ "g_popup_nation": {
+  "extern int g_popup_nation;": 4
+ },
+ "g_popup_owner": {
+  "extern EventWin *g_popup_owner;": 5
+ },
+ "g_popup_text_color": {
+  "extern unsigned char g_popup_text_color;": 1
+ },
+ "g_popup_tribe": {
+  "extern int g_popup_tribe;": 8
+ },
+ "g_portrait_gap": {
+  "extern signed char g_portrait_gap;": 2
+ },
+ "g_prefs_root": {
+  "extern GamePrefs g_prefs_root;": 8
+ },
+ "g_press_on_unit": {
+  "extern int g_press_on_unit;": 2
+ },
+ "g_prev_group": {
+  "extern int g_prev_group;": 2
+ },
+ "g_prod": {
+  "extern int g_prod[];": 12
+ },
+ "g_ptr_2504": {
+  "extern char *g_ptr_2504;": 1
+ },
+ "g_queue_head": {
+  "extern int g_queue_head;": 2
+ },
+ "g_queue_tail": {
+  "extern int g_queue_tail;": 2
+ },
+ "g_queue_x": {
+  "extern unsigned char g_queue_x[];": 3
+ },
+ "g_queue_y": {
+  "extern unsigned char g_queue_y[];": 3
+ },
+ "g_quit_flag": {
+  "extern int g_quit_flag;": 7
+ },
+ "g_radio_capture": {
+  "extern int g_radio_capture;": 1
+ },
+ "g_radio_color_disabled": {
+  "extern unsigned char g_radio_color_disabled;": 2
+ },
+ "g_radio_color_enabled": {
+  "extern unsigned char g_radio_color_enabled;": 2
+ },
+ "g_radio_rcapture": {
+  "extern int g_radio_rcapture;": 1
+ },
+ "g_random_seed": {
+  "extern int g_random_seed;": 15
+ },
+ "g_rank": {
+  "extern unsigned int g_rank[4];": 2
+ },
+ "g_rank_ids": {
+  "extern int g_rank_ids[4];": 2
+ },
+ "g_rec6_78e0": {
+  "extern Rec6 g_rec6_78e0;": 2
+ },
+ "g_recruit": {
+  "extern Recruit g_recruit[];": 5
+ },
+ "g_redraw_mode": {
+  "extern int g_redraw_mode;": 1
+ },
+ "g_region_attack": {
+  "extern unsigned char g_region_attack[][16];": 4
+ },
+ "g_region_colony_count": {
+  "extern unsigned char g_region_colony_count[][16];": 8
+ },
+ "g_region_farmland": {
+  "extern unsigned char g_region_farmland[16];": 6
+ },
+ "g_region_flags": {
+  "extern unsigned char g_region_flags[];": 4
+ },
+ "g_region_pop": {
+  "extern unsigned char g_region_pop[];": 1
+ },
+ "g_region_population": {
+  "extern unsigned char g_region_population[][16];": 4
+ },
+ "g_region_settlements": {
+  "extern unsigned char g_region_settlements[];": 4
+ },
+ "g_region_size": {
+  "extern int g_region_size[16];": 8
+ },
+ "g_region_state": {
+  "extern unsigned char g_region_state[][16];": 2
+ },
+ "g_region_unit_count": {
+  "extern unsigned char g_region_unit_count[][16];": 5
+ },
+ "g_region_unit_tally": {
+  "extern unsigned char g_region_unit_tally[];": 1
+ },
+ "g_report_font": {
+  "extern Font g_report_font;": 12
+ },
+ "g_report_font_small": {
+  "extern Font g_report_font_small;": 10
+ },
+ "g_report_rect": {
+  "extern RECT *g_report_rect;": 1
+ },
+ "g_report_window": {
+  "extern ReportWin g_report_window;": 6
+ },
+ "g_report_window_dlg": {
+  "extern DialogWin g_report_window_dlg;": 1
+ },
+ "g_reselect_unit": {
+  "extern int g_reselect_unit;": 3
+ },
+ "g_reserved_count": {
+  "extern int g_reserved_count;": 2
+ },
+ "g_resource_lib_count": {
+  "extern unsigned g_resource_lib_count;": 4
+ },
+ "g_resource_libs": {
+  "extern unsigned g_resource_libs[];": 4
+ },
+ "g_resource_name": {
+  "extern int g_resource_name[];": 2
+ },
+ "g_resource_value": {
+  "extern unsigned char g_resource_value[];": 2
+ },
+ "g_restype_strn": {
+  "extern char g_restype_strn[4];": 1
+ },
+ "g_restype_text_copy": {
+  "extern char g_restype_text_copy[4];": 1
+ },
+ "g_restype_text_draw": {
+  "extern char g_restype_text_draw[4];": 1
+ },
+ "g_restype_text_open": {
+  "extern char g_restype_text_open[4];": 1
+ },
+ "g_restype_text_popup": {
+  "extern void *g_restype_text_popup;": 1
+ },
+ "g_ring_dx": {
+  "extern signed char g_ring_dx[];": 10
+ },
+ "g_ring_dy": {
+  "extern signed char g_ring_dy[];": 10
+ },
+ "g_ring_tile_count": {
+  "extern unsigned char g_ring_tile_count[];": 3
+ },
+ "g_route_label": {
+  "extern int g_route_label[];": 3
+ },
+ "g_route_panel_sprite": {
+  "extern Sprite g_route_panel_sprite;": 1
+ },
+ "g_route_stop": {
+  "extern int g_route_stop;": 3
+ },
+ "g_route_unit": {
+  "extern int g_route_unit;": 2
+ },
+ "g_routes": {
+  "extern RouteRec g_routes[];": 7
+ },
+ "g_row": {
+  "extern GoodsRow g_row;": 2
+ },
+ "g_row_colonist": {
+  "extern int g_row_colonist;": 3
+ },
+ "g_row_count": {
+  "extern int g_row_count;": 3
+ },
+ "g_rumours_seen": {
+  "extern unsigned char g_rumours_seen;": 1
+ },
+ "g_save_magic": {
+  "extern char g_save_magic[9];": 2
+ },
+ "g_scale_cache": {
+  "extern ScaleSlot g_scale_cache[];": 2
+ },
+ "g_scale_den": {
+  "extern int g_scale_den;": 5
+ },
+ "g_scale_map": {
+  "extern int *g_scale_map;": 4
+ },
+ "g_scale_num": {
+  "extern int g_scale_num;": 5
+ },
+ "g_scenery_seed": {
+  "extern int g_scenery_seed;": 5
+ },
+ "g_score_total": {
+  "extern int g_score_total;": 2
+ },
+ "g_scout_visit": {
+  "extern int g_scout_visit;": 9
+ },
+ "g_scrollbar_extra": {
+  "extern int g_scrollbar_extra;": 1
+ },
+ "g_scrollbar_registered": {
+  "extern int g_scrollbar_registered;": 1
+ },
+ "g_sea_claim": {
+  "extern int g_sea_claim;": 1
+ },
+ "g_seam_handle": {
+  "extern int g_seam_handle;": 5
+ },
+ "g_season_word": {
+  "extern int g_season_word[];": 4
+ },
+ "g_seed_base": {
+  "extern long g_seed_base;": 4
+ },
+ "g_selected_carrier": {
+  "extern int g_selected_carrier;": 7
+ },
+ "g_selected_colonist": {
+  "extern int g_selected_colonist;": 12
+ },
+ "g_selected_goods": {
+  "extern int g_selected_goods;": 4
+ },
+ "g_selection_kind": {
+  "extern int g_selection_kind;": 5
+ },
+ "g_settlements": {
+  "extern Settlement g_settlements[];": 24
+ },
+ "g_ships_in_port": {
+  "extern int g_ships_in_port;": 5
+ },
+ "g_shortfall": {
+  "extern int g_shortfall[];": 7
+ },
+ "g_show_europe": {
+  "extern int g_show_europe;": 3
+ },
+ "g_show_icon_counts": {
+  "extern unsigned char g_show_icon_counts;": 6
+ },
+ "g_site_building": {
+  "extern signed char g_site_building[];": 4
+ },
+ "g_site_kind": {
+  "extern unsigned char g_site_kind[];": 4
+ },
+ "g_site_pos": {
+  "extern Pos g_site_pos[];": 2
+ },
+ "g_site_slot": {
+  "extern signed char g_site_slot[];": 3
+ },
+ "g_sketch": {
+  "extern signed char g_sketch[];": 1,
+  "extern signed char g_sketch[][0x12];": 1
+ },
+ "g_slot_span": {
+  "extern int g_slot_span[];": 3
+ },
+ "g_slot_state": {
+  "extern long g_slot_state[];": 3
+ },
+ "g_slot_used": {
+  "extern unsigned char g_slot_used[];": 1
+ },
+ "g_sound_effects": {
+  "extern int g_sound_effects;": 3
+ },
+ "g_sound_event_music": {
+  "extern int g_sound_event_music;": 7
+ },
+ "g_sound_music": {
+  "extern int g_sound_music;": 11
+ },
+ "g_spec_recs": {
+  "extern SpecRec g_spec_recs[];": 19
+ },
+ "g_specialty_tally": {
+  "extern unsigned char g_specialty_tally[0x1d];": 1
+ },
+ "g_sprite_sheet": {
+  "extern GRPort g_sprite_sheet;": 2
+ },
+ "g_sprt_palette_type": {
+  "extern long g_sprt_palette_type;": 1
+ },
+ "g_sprt_type": {
+  "extern long g_sprt_type;": 1
+ },
+ "g_sq_class": {
+  "extern unsigned char g_sq_class;": 1
+ },
+ "g_sq_corner_bits": {
+  "extern unsigned char g_sq_corner_bits[];": 1
+ },
+ "g_sq_land_mask": {
+  "extern unsigned char g_sq_land_mask;": 1
+ },
+ "g_sq_land_neighbours": {
+  "extern unsigned char g_sq_land_neighbours;": 1
+ },
+ "g_sq_terrain": {
+  "extern unsigned char g_sq_terrain;": 1
+ },
+ "g_st_a": {
+  "extern unsigned char g_st_a;": 1
+ },
+ "g_st_b": {
+  "extern unsigned char g_st_b;": 2
+ },
+ "g_st_c": {
+  "extern unsigned char g_st_c;": 2
+ },
+ "g_stat_win": {
+  "extern StatWin g_stat_win;": 14
+ },
+ "g_static_proc": {
+  "extern WNDPROC g_static_proc;": 1
+ },
+ "g_static_registered": {
+  "extern int g_static_registered;": 1
+ },
+ "g_step_banner": {
+  "extern int g_step_banner[];": 1
+ },
+ "g_step_footer": {
+  "extern int g_step_footer[];": 1
+ },
+ "g_step_group": {
+  "extern int g_step_group[];": 1
+ },
+ "g_str_null": {
+  "extern char g_str_null[];": 1
+ },
+ "g_strategies": {
+  "extern Plan g_strategies[][0x10];": 1,
+  "extern Plan g_strategies[][16];": 4
+ },
+ "g_strbuf": {
+  "extern char g_strbuf[];": 1
+ },
+ "g_stub_a": {
+  "extern int g_stub_a;": 221
+ },
+ "g_stub_i": {
+  "extern int g_stub_i;": 3
+ },
+ "g_stub_l": {
+  "extern long g_stub_l;": 2
+ },
+ "g_stub_s": {
+  "extern char g_stub_s[];": 16
+ },
+ "g_super_win_open": {
+  "extern int g_super_win_open;": 5
+ },
+ "g_terrain_bonus": {
+  "extern int g_terrain_bonus[];": 2
+ },
+ "g_terrain_colour": {
+  "extern unsigned char g_terrain_colour[];": 2
+ },
+ "g_terrain_defence": {
+  "extern int g_terrain_defence;": 2
+ },
+ "g_terrain_rows": {
+  "extern TerrainRec g_terrain_rows[];": 20
+ },
+ "g_terrain_sprites": {
+  "extern Sprite g_terrain_sprites[];": 3
+ },
+ "g_text": {
+  "extern char g_text[];": 1
+ },
+ "g_text_args": {
+  "extern long g_text_args[];": 37
+ },
+ "g_text_buf": {
+  "extern char g_text_buf[];": 16
+ },
+ "g_text_colour": {
+  "extern unsigned char g_text_colour;": 11
+ },
+ "g_text_count": {
+  "extern int g_text_count;": 3
+ },
+ "g_text_cursor": {
+  "extern char *g_text_cursor;": 4
+ },
+ "g_text_pool": {
+  "extern MemBlock g_text_pool;": 4
+ },
+ "g_text_read_ptr": {
+  "extern char *g_text_read_ptr;": 2
+ },
+ "g_tick_done": {
+  "extern int g_tick_done;": 1
+ },
+ "g_tick_index": {
+  "extern int g_tick_index;": 1
+ },
+ "g_tick_last": {
+  "extern long g_tick_last;": 1
+ },
+ "g_tile_colonists": {
+  "extern int g_tile_colonists;": 4
+ },
+ "g_tile_corner_bits": {
+  "extern unsigned char g_tile_corner_bits[];": 1
+ },
+ "g_tile_feature_loc": {
+  "extern unsigned char *g_tile_feature_loc;": 1
+ },
+ "g_tile_first_unit": {
+  "extern int g_tile_first_unit;": 5
+ },
+ "g_tile_h": {
+  "extern int g_tile_h;": 10
+ },
+ "g_tile_land_mask": {
+  "extern unsigned char g_tile_land_mask;": 1
+ },
+ "g_tile_land_neighbours": {
+  "extern unsigned char g_tile_land_neighbours;": 1
+ },
+ "g_tile_map_loc": {
+  "extern unsigned char *g_tile_map_loc;": 4
+ },
+ "g_tile_noncarriers": {
+  "extern int g_tile_noncarriers;": 1
+ },
+ "g_tile_sel": {
+  "extern int g_tile_sel;": 2
+ },
+ "g_tile_terrain": {
+  "extern unsigned char g_tile_terrain;": 1
+ },
+ "g_tile_terrain_class": {
+  "extern unsigned char g_tile_terrain_class;": 1
+ },
+ "g_tile_tribe": {
+  "extern signed char g_tile_tribe[5][5];": 4
+ },
+ "g_tile_units": {
+  "extern int g_tile_units;": 1
+ },
+ "g_tile_w": {
+  "extern int g_tile_w;": 12
+ },
+ "g_timer": {
+  "extern MrTimer * g_timer;": 1,
+  "extern MrTimer *g_timer;": 1
+ },
+ "g_title_area_map": {
+  "extern char g_title_area_map[];": 1
+ },
+ "g_title_font": {
+  "extern Font g_title_font;": 2
+ },
+ "g_trade_click_busy": {
+  "extern int g_trade_click_busy;": 1
+ },
+ "g_treasures_found": {
+  "extern unsigned char g_treasures_found;": 1
+ },
+ "g_trial_placement": {
+  "extern char g_trial_placement;": 2
+ },
+ "g_tribe": {
+  "extern TribeName g_tribe[];": 6
+ },
+ "g_tribe_colour": {
+  "extern unsigned char g_tribe_colour[];": 6
+ },
+ "g_tribe_colour_by_nation": {
+  "extern unsigned char g_tribe_colour_by_nation[];": 1
+ },
+ "g_tribe_pop": {
+  "extern unsigned char g_tribe_pop[];": 4
+ },
+ "g_tribe_region": {
+  "extern unsigned char g_tribe_region[][0x10];": 3,
+  "extern unsigned char g_tribe_region[][16];": 3
+ },
+ "g_tribe_settlement_count": {
+  "extern unsigned char g_tribe_settlement_count[];": 8
+ },
+ "g_tribe_strength": {
+  "extern unsigned char g_tribe_strength[];": 5
+ },
+ "g_tribes": {
+  "extern Tribe g_tribes[8];": 1,
+  "extern Tribe g_tribes[];": 16
+ },
+ "g_unclaimed_regions": {
+  "extern int g_unclaimed_regions;": 1
+ },
+ "g_unit_blinking": {
+  "extern int g_unit_blinking;": 3
+ },
+ "g_unit_tally": {
+  "extern unsigned char g_unit_tally[][0x13];": 11
+ },
+ "g_unit_type_class": {
+  "extern signed char g_unit_type_class[];": 4
+ },
+ "g_unit_types": {
+  "extern UnitType g_unit_types[];": 97
+ },
+ "g_units": {
+  "extern Unit g_units[];": 245
+ },
+ "g_units_expelled": {
+  "extern int g_units_expelled;": 1
+ },
+ "g_use_data_dir": {
+  "extern unsigned char g_use_data_dir;": 1
+ },
+ "g_val_a": {
+  "extern unsigned char g_val_a;": 1
+ },
+ "g_val_b": {
+  "extern unsigned char g_val_b;": 1
+ },
+ "g_val_c": {
+  "extern unsigned char g_val_c;": 1
+ },
+ "g_value_word": {
+  "extern int g_value_word[];": 1
+ },
+ "g_view_h": {
+  "extern int g_view_h;": 7
+ },
+ "g_view_org_x": {
+  "extern int g_view_org_x;": 5
+ },
+ "g_view_org_y": {
+  "extern int g_view_org_y;": 5
+ },
+ "g_view_px_h": {
+  "extern int g_view_px_h;": 1
+ },
+ "g_view_px_w": {
+  "extern int g_view_px_w;": 1
+ },
+ "g_view_tile_h": {
+  "extern int g_view_tile_h;": 5
+ },
+ "g_view_tile_w": {
+  "extern int g_view_tile_w;": 5
+ },
+ "g_view_w": {
+  "extern int g_view_w;": 7
+ },
+ "g_view_x0": {
+  "extern int g_view_x0;": 23
+ },
+ "g_view_x1": {
+  "extern int g_view_x1;": 9
+ },
+ "g_view_y0": {
+  "extern int g_view_y0;": 23
+ },
+ "g_view_y1": {
+  "extern int g_view_y1;": 9
+ },
+ "g_viewer_dismissed": {
+  "extern int g_viewer_dismissed;": 1
+ },
+ "g_want_muskets": {
+  "extern signed char g_want_muskets;": 1
+ },
+ "g_want_tools": {
+  "extern signed char g_want_tools;": 1
+ },
+ "g_win": {
+  "extern GameWin g_win;": 3
+ },
+ "g_window_count": {
+  "extern int g_window_count;": 2
+ },
+ "g_wing_library": {
+  "extern unsigned g_wing_library;": 2
+ },
+ "g_wing_orientation": {
+  "extern int g_wing_orientation;": 2
+ },
+ "g_wing_warned": {
+  "extern int g_wing_warned;": 1
+ },
+ "g_work_buffer_dismissed": {
+  "extern int g_work_buffer_dismissed;": 1
+ },
+ "g_world_opt": {
+  "extern int g_world_opt[4];": 5
+ },
+ "g_wrap_font": {
+  "extern void *g_wrap_font;": 2
+ },
+ "g_x_hi": {
+  "extern signed char g_x_hi;": 4
+ },
+ "g_x_lo": {
+  "extern signed char g_x_lo;": 4
+ },
+ "g_y_hi": {
+  "extern signed char g_y_hi;": 4
+ },
+ "g_y_lo": {
+  "extern signed char g_y_lo;": 4
+ },
+ "g_zoom": {
+  "extern int g_zoom;": 5
+ }
+}

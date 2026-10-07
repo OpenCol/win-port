@@ -24,22 +24,23 @@
 
 #include "w16types.h"
 #pragma option -a
-class Screen { public: short style; void *ctable; void *win; short fa; char disabled; Screen(); ~Screen(); };
+/* PORT: this file's own Screen, EventTable, EventWin, MenuClass, MapWin, MiniWin, StatWin, ReportWin, ColonyWin, EuropeWin, CTable, GamePrefs removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #pragma option -a-
-class EventTable { public: void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; EventTable(); ~EventTable(); };
-class EventWin : public Screen, public EventTable { public: char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
-class MenuClass { public: short hmenu; MenuClass(); ~MenuClass(); };
-class MapWin { public: char body[0x816 - 0x8e]; MapWin(); ~MapWin(); };
-class MiniWin { public: char body[0xf9c - 0x816]; MiniWin(); ~MiniWin(); };
-class StatWin { public: char body[0x173c - 0xf9c]; StatWin(); ~StatWin(); };
-class ReportWin { public: char body[0x1ff4 - 0x173c]; ReportWin(); ~ReportWin(); };
-class ColonyWin { public: char body[0x2a08 - 0x1ff4]; ColonyWin(); ~ColonyWin(); };
-class EuropeWin { public: char body[0x32b2 - 0x2a08]; EuropeWin(); ~EuropeWin(); };
+
+
+
+
+
+
+
+
+
 class PediaWin { public: char body[0x3b0c - 0x32b2]; PediaWin(); ~PediaWin(); };
 class MainWin : public EventWin { public: MenuClass menu; MapWin map; MiniWin mini; StatWin stat; ReportWin report; ColonyWin colony; EuropeWin europe; PediaWin pedia; MainWin(); ~MainWin(); };
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 #include "records.h"
-typedef struct { long f0; short w; short h; short count; short use_default_layout; PlacementRec windows[32]; short slots[8]; } GamePrefs;
+
 
 extern void MSSetBackground(void *win, int cursor);
 extern void win_set_icon_1078_2832(void *win, int icon);

@@ -12,9 +12,10 @@
 
 #include "grerror.h"
 #include "w16types.h"
-typedef struct DlgControl { short kind; short id; void *win; RECT rect; short hwnd; struct DlgControl *next; char initial_focus; char hotkey; short hotkey_pos; } DlgControl;
+/* PORT: this file's own DlgControl, GRPort removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #include "records.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" char GRPort_IsLocked(GRPort *p);
 extern void MSUnlockGraf(GRPort *port);

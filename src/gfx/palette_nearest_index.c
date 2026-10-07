@@ -8,26 +8,11 @@
 
 #include "colonization.h"
 
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+/* PORT: this file's own CTable, RGBTree removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* 0x41e bytes: the palette, its handle and the cycling state */
 #include "records.h"
 
-class RGBTree {
-public:
-    short handle;
-    RGBTreeNode *nodes;
-    short nil;
-    short count;
-    short base;
-    short stack[(0x606 - 0xc) / 2];
-    short sp;
-    short built;
-    short visited;
-    RGBTree();
-    ~RGBTree();
-    void build(unsigned char *pal, short base, short count);
-    void insert(RGBTreeNode *key, short n);
-    short lookup(unsigned char r, unsigned char g, unsigned char b, short tol);
-};
+
 
 struct logpal;
 

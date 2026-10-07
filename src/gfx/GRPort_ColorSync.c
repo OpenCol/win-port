@@ -13,8 +13,9 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+/* PORT: this file's own GRPort, CTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int ctable_seed(void *obj);
 extern void set_all_dib_colours(void *hdc, void *obj);

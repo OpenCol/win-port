@@ -37,7 +37,8 @@
 #include "terrain.h"
 #include "units.h"
 
-typedef struct { char pad[0x76a]; RECT rect; char pad_772[8]; short f77a; short menu; RECT clip; } MiniWin;
+/* PORT: this file's own MiniWin, GRPort removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #include "records.h"
 
 extern MapSize g_map_size;   /* DGROUP:0x4c40, declared */
@@ -48,7 +49,7 @@ extern unsigned char * feature_loc(int x, int y);
 extern unsigned char * continent_loc(int x, int y);
 extern unsigned char * site_loc(int x, int y);
 extern int top_unit_in_square(int x, int y);
-typedef struct { short vptr; int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; } GRPort;
+
 extern void GRPort_FillColor(GRPort *w, RECT *r, int color);
 
 extern void GRPort_DrawLine(GRPort *p, short x1, short y1, short x2, short y2);

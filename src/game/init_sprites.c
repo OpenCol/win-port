@@ -49,10 +49,11 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own CTable, GRPort, Sprite removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* 0x41e bytes: the palette, its handle and the cycling state */
+
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 
 struct logpal;

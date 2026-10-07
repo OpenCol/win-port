@@ -11,7 +11,8 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own GRPort, Screen, CTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 
 extern "C" void report_error_1068_963d(void *ctx, char *msg);
 extern "C" char GRPort_IsLocked(GRPort *p);
@@ -19,8 +20,8 @@ extern "C" char GRPort_IsLocked(GRPort *p);
 extern "C" void MSLockGraf(GRPort *port);
 extern "C" void MSUnlockGraf(GRPort *port);
 extern "C" void *get_ctable_1068_966f(void *r);
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; } Screen;
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 extern "C" void *get_win_1068_96e8(void *r);

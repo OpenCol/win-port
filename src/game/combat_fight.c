@@ -88,7 +88,8 @@ extern Nation g_nations[];               /* SEG20:0xc2f4, 0x13c bytes each */
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;   /* MapWin : ColChild, the base as its bytes: 0x788 */
+/* PORT: this file's own MapWin removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"   /* MapWin : ColChild, the base as its bytes: 0x788 */
 
 extern unsigned char move_rate(int u);
 extern void end_unit_turn(int u);

@@ -13,8 +13,9 @@
 
 #include "w16const.h"
 #include "w16types.h"
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; } Screen;
-typedef struct DlgControl { short kind; short id; void *win; RECT rect; short hwnd; struct DlgControl *next; char initial_focus; char hotkey; short hotkey_pos; } DlgControl;
+/* PORT: this file's own Screen, DlgControl removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 #include "records.h"
 
 extern "C" void *ctl_window_1070_96a8(void *ctl);

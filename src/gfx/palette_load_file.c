@@ -20,9 +20,10 @@
 
 #include "colonization.h"
 
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+/* PORT: this file's own CTable, DiskFile removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* 0x41e bytes: the palette, its handle and the cycling state */
 #include "records.h"
-class DiskFile { public: MSFile msfile; DiskFile(); DiskFile(char *name, int mode); ~DiskFile(); };
+
 
 extern "C" int file_MSOpenFile_1068_95d5(DiskFile *file, const char *name);
 

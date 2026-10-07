@@ -13,13 +13,14 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char port[0x26]; char dialog[0x9a]; void *relayout; } GameWin;   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
+/* PORT: this file's own GameWin, Sprite, GRPort removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+
 #pragma option -a-
 
 extern void Sprite_Init(Sprite *s, int res);
-typedef struct { short vptr; int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; } GRPort;
+
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

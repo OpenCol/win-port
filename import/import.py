@@ -14,6 +14,8 @@ What an import writes (everything else in the tree is this repository's own):
     include/colonization.h analysis/port-header.h at SOURCE (the generated header)
     include/<name>.h       include/<name>.h at SOURCE (records, classes, constants)
     import/REFUSED         the files port_transform.py would not transform, and why
+    import/globals.json    every file-scope extern the corpus writes for a variable, by name
+                           (port_transform.py removes them; gen_headers.py takes their types)
 
 --check compares a fresh import with the tree, file by file:
     identical   the same bytes
@@ -26,6 +28,7 @@ and writes status/import.json for tools/status.py. It exits 0 when nothing fails
 A plain import refuses to run over files with `PORT:` edits: once the port has diverged, a
 re-import from a newer SOURCE is a three-way merge (roadmap section 2), never an overwrite.
 """
+import glob
 import json
 import os
 import re
@@ -79,7 +82,43 @@ def produce(cwr, source, tmp):
     text = ("# Files col-win-re's tools/port_transform.py refused at SOURCE; they are not in src/.\n"
             + "".join(l + "\n" for l in refused))
     files["import/REFUSED"] = text.encode()
+    files["import/globals.json"] = corpus_globals(os.path.join(tree, "matched")).encode()
     return files
+
+
+QUALIFIERS = re.compile(r"(?<![\w])(?:far|near|huge|_far|_near|_huge)(?![\w])\s*")
+
+
+def corpus_globals(matched):
+    """{global name: {declaration: number of files}} -- every file-scope `extern` the corpus's
+    files write for a variable, with Borland's addressing qualifiers removed. port_transform.py
+    takes these declarations out of the sources (the header replaces them), and the model's
+    header types many of those globals as raw bytes; tools/gen_headers.py reads the types the
+    corpus actually uses from here."""
+    out = {}
+    for p in sorted(glob.glob(os.path.join(matched, "*", "*.c"))):
+        t = open(p, errors="replace").read()
+        t = re.sub(r"/\*.*?\*/", " ", t, flags=re.S)
+        t = re.sub(r"//[^\n]*", "", t)
+        depth, buf = 0, []
+        for ch in t:                     # file scope only: a block-scope extern is a function's own view
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+            elif depth == 0:
+                buf.append(ch)
+        for m in re.finditer(r"(?:^|;|\n)\s*(extern\s+(?!\"C\")[^;(){}=]+;)", "".join(buf)):
+            d = re.sub(r"\s+", " ", QUALIFIERS.sub("", m.group(1))).strip()
+            head, _, names = d[len("extern "):-1].rpartition(" ")
+            if "," in d or not head:
+                continue
+            n = re.match(r"\**(\w+)", names)
+            if not n:
+                continue
+            out.setdefault(n.group(1), {})
+            out[n.group(1)][d] = out[n.group(1)].get(d, 0) + 1
+    return json.dumps(out, indent=1, sort_keys=True) + "\n"
 
 
 def managed(path):

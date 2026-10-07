@@ -56,27 +56,23 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char port[0x26]; char dialog[0x9a]; void *relayout; } GameWin;   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
-typedef struct { short hfont, height; } Font;
-class ResourceFile {
-public:
-    short h;
-    ResourceFile(char *name);
-    ~ResourceFile();
-};
+/* PORT: this file's own GameWin, CTable, Font, ResourceFile, GamePrefs, DialogWin, MapWin, StatWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"   /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
+   /* 0x41e bytes: the palette, its handle and the cycling state */
+
+
 
 #include "records.h"
-typedef struct { long f0; short w; short h; short count; short use_default_layout; PlacementRec windows[32]; short slots[8]; } GamePrefs;
-typedef struct { short style; void *ctable; void *win; short fa; char disabled; void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl *first_ctl; struct DlgControl *ok_btn; struct DlgControl *cancel_btn; char keyboard_nav; char f99; } DialogWin;   /* DialogWin : EventWin, flattened for C */
+
+   /* DialogWin : EventWin, flattened for C */
 
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;              /* SEG20:0x5ca */
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;   /* MapWin : ColChild, the base as its bytes: 0x788 */
+   /* MapWin : ColChild, the base as its bytes: 0x788 */
 
 extern char g_mini_win;              /* SEG20:0xde0 */
 
-typedef struct { char pad[1]; } StatWin;
+
 extern StatWin g_stat_win;            /* SEG20:0x1566 */
 
 extern GameBrains g_game_brains;                 /* SEG20:0x40d6 */

@@ -46,8 +46,9 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
-typedef struct { RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; char pad_19; short handle; unsigned char *bits; } Sprite;   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
+/* PORT: this file's own GRPort, Sprite removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 typedef unsigned char *Row;
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

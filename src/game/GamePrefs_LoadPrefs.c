@@ -29,8 +29,9 @@
 
 #include "w16types.h"
 #include "records.h"
-class DiskFile { public: MSFile msfile; DiskFile(); DiskFile(char *name, int mode); ~DiskFile(); };
-typedef struct { long f0; short w; short h; short count; short use_default_layout; PlacementRec windows[32]; short slots[8]; } GamePrefs;
+/* PORT: this file's own DiskFile, GamePrefs removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 
 extern void GamePrefs_Default(GamePrefs *prefs);
 

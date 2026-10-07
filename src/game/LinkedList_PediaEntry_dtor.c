@@ -39,7 +39,8 @@
 
 #include "colonization.h"
 
-typedef struct { long first; long last; long cur; } VList;
+/* PORT: this file's own VList removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"
 extern void VList_dtor(VList *p, int flag);
 
 void LinkedList_PediaEntry_dtor(VList *p, unsigned flag)

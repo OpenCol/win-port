@@ -28,9 +28,10 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own GRPort, SImageButton removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 class DialogWin;
-typedef struct { short kind; short id; void *win; RECT rect; short hwnd; struct DlgControl *next; char initial_focus; char hotkey; short hotkey_pos; long on_click; long on_rclick; char up[0x26]; char down[0x26]; void *ctable; char reinit_faces; char pad_73; } SImageButton;   /* SImageButton : DlgControl, flattened for C */
+   /* SImageButton : DlgControl, flattened for C */
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *port, int a, int b, int c, struct logpal *pic);

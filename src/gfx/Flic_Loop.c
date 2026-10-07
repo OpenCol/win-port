@@ -25,9 +25,10 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own GRPort, DiskFile, MagicWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #include "records.h"
-class DiskFile { public: MSFile msfile; DiskFile(); DiskFile(char *name, int mode); ~DiskFile(); };
+
 class Flic : public GRPort {
 public:
     char header[4];                     /* +0x26 */
@@ -68,7 +69,7 @@ public:
     Flic();
     ~Flic();
 };
-typedef struct { char pad[1]; } MagicWin;
+
 
 extern void *g_anim_port;   /* DGROUP:0x5690 */
 extern void MagicWin_LoadFlic(void *port, Flic *anim);

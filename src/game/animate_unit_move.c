@@ -26,9 +26,10 @@
 #include "colonization.h"
 
 #include "w16types.h"
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own GRPort, MapWin removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #include "records.h"
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;   /* MapWin : ColChild, the base as its bytes: 0x788 */
+   /* MapWin : ColChild, the base as its bytes: 0x788 */
 
 /* Both are added to a map coordinate AFTER the view origin is taken off and BEFORE the
  * multiply by the tile size, so they are in tiles, not pixels: the viewport's top-left

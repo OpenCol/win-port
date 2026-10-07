@@ -38,7 +38,8 @@
 #include "w16types.h"
 #include "terrain.h"
 #pragma option -a
-class Sprite { public: RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; short handle; unsigned char *bits; Sprite(); ~Sprite(); };
+/* PORT: this file's own Sprite, GRPort removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
 #pragma option -a-
 
 extern unsigned char *g_draw_feature_loc;       /* DGROUP:0x4c7e, plane 1 at the square */
@@ -52,7 +53,7 @@ extern unsigned char g_sq_terrain;               /* DGROUP:0x4c9c */
 #include "records.h"
 extern MapSize g_map_size;   /* DGROUP:0x4c40, declared */
 
-typedef struct { short vptr; int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; } GRPort;
+
 
 #include "icons.h"
 

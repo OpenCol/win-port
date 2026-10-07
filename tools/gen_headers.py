@@ -113,6 +113,33 @@ def defined_types(text):
             | set(re.findall(r"\bstruct\s+(\w+)\s*\{", t)))
 
 
+_LOCAL_TYPEDEFS = None
+
+
+def local_typedef_names():
+    """Names some file in src/ defines for itself as a typedef or struct (a local view)."""
+    global _LOCAL_TYPEDEFS
+    if _LOCAL_TYPEDEFS is None:
+        names = set()
+        for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+            names |= defined_types(open(p, errors="replace").read())
+        _LOCAL_TYPEDEFS = names
+    return _LOCAL_TYPEDEFS
+
+
+def file_declarations():
+    """(variables, functions) some file in src/ declares itself: an `extern` variable, or a
+    prototype (not a definition)."""
+    vars_, funcs = set(), set()
+    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+        t = strip_comments(open(p, errors="replace").read())
+        for m in re.finditer(r"^[ \t]*(?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;", t, re.M):
+            funcs.add(m.group(1))
+        for m in re.finditer(r"^[ \t]*extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;", t, re.M):
+            vars_.add(m.group(1))
+    return vars_, funcs
+
+
 def definition_heads():
     """{function name: its definition's head} over src/ (the ported corpus)."""
     heads = {}
@@ -173,10 +200,88 @@ def drop_records(text, names):
     return "".join(out)
 
 
+def known_types(src):
+    """(types a C file sees, types a C++ file sees) once colonization.h has included w16types.h,
+    records.h and classes.h."""
+    cls = strip_comments(open(os.path.join(INC, "classes.h")).read())
+    split = cls.index("#else")
+    common = (defined_types(src) | defined_types(open(os.path.join(INC, "w16types.h")).read())
+              | defined_types(open(os.path.join(INC, "records.h")).read()) | set(ALIASES)
+              | {"i16", "u16", "i32", "u32"})
+    classes = set(re.findall(r"\bclass\s+(\w+)", cls[:split])) - local_typedef_names()
+    # C files may define their own views of the classes, so the C side gets no class types
+    # at all; C++ gets each class forward-declared, which a file's own definition can follow --
+    # except a class some file still views as `typedef struct {...} Name;`, which a forward
+    # `class Name;` would contradict
+    return common, common | classes
+
+
+def type_names(decl, name):
+    return {w for w in re.findall(r"\b([A-Za-z_]\w*)\b", decl)
+            if w != name and w[0].isupper() or w in ("logpal",)} - {"extern"}
+
+
+def guarded(decl, name, known_c, known_cpp):
+    """The declaration as it may appear in the header: plain, C++-only, or None."""
+    types = type_names(decl, name)
+    if types <= known_c and types <= known_cpp:
+        return decl
+    if types <= known_cpp:
+        return "#ifdef __cplusplus\n%s\n#endif" % decl
+    if types <= known_c:
+        return "#ifndef __cplusplus\n%s\n#endif" % decl
+    return None
+
+
+def corpus_globals():
+    p = os.path.join(ROOT, "import", "globals.json")
+    if not os.path.exists(p):
+        return {}
+    import json
+    out = {}
+    for name, spellings in json.load(open(p)).items():
+        best = sorted(spellings.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+        out[name] = widen_member(best)
+    return out
+
+
 def gen_colonization():
     src = open(os.path.join(INC, "colonization.h")).read()
+    known_c, known_cpp = known_types(src)
     out = drop_records(src, corpus_records() | set(ALIASES))
-    out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"', 1)
+    cls_names = sorted(set(re.findall(r"\bclass\s+(\w+)", strip_comments(open(os.path.join(INC, "classes.h")).read())))
+                       - local_typedef_names())
+    fwd = "#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) + "#endif\n"
+    out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd, 1)
+    # globals: the type the corpus's own files declare, where the header's differs
+    own_vars, own_funcs = file_declarations()
+    cg = {n: d for n, d in corpus_globals().items() if n not in own_vars}
+    gfix = []
+
+    def glob_decl(m):
+        name = m.group(2)
+        want = cg.get(name)
+        if not want or re.sub(r"\s+", " ", m.group(0)).strip() == want:
+            return m.group(0)
+        g = guarded(want, name, known_c, known_cpp)
+        if g is None:
+            return m.group(0)
+        gfix.append(name)
+        if g.startswith("#ifdef"):
+            return "#ifdef __cplusplus\n%s\n#else\n%s\n#endif" % (want, m.group(0))
+        if g.startswith("#ifndef"):
+            return "#ifndef __cplusplus\n%s\n#else\n%s\n#endif" % (want, m.group(0))
+        return want + "   /* PORT: the corpus's type */"
+    out = re.sub(r"^extern\s+([^;(){}=]*?)\b(g_\w+)\s*((?:\[[^\]]*\]\s*)*);", glob_decl, out, flags=re.M)
+    declared = set(re.findall(r"^extern\s+[^;]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;", out, re.M)) | \
+        set(re.findall(r"\b(\w+)\s*\([^;{}]*\)\s*;", out))
+    extra = []
+    for name in sorted(cg):
+        if name not in declared:
+            g = guarded(cg[name], name, known_c, known_cpp)
+            if g:
+                extra.append(g)
+    known = known_cpp
     for name, why in SIZE_FROM_CORPUS.items():
         out, n = re.subn(r"_Static_assert\(sizeof\(%s\) == \d+, \"[^\"]*\"\);" % re.escape(name),
                          "/* PORT: no size check for %s: %s */" % (name, why), out)
@@ -193,23 +298,36 @@ def gen_colonization():
     # prototypes the corpus has moved on from: a function src/ defines gets its definition's head
     heads = definition_heads()
     fixed, dropped = [], []
-    # the types a prototype here may name: colonization.h's own and w16types.h's (it is
-    # included before records.h and classes.h, so their types are not known yet)
-    known = defined_types(src) | defined_types(open(os.path.join(INC, "w16types.h")).read())
 
     def proto(m):
         name = m.group(2)
         want = heads.get(name)
         if want and re.sub(r"\s+", " ", m.group(1)).strip() != want:
-            types = {w for w in re.findall(r"\b([A-Z]\w*)\b", want) if w != name}
-            if types <= known:
+            g = guarded("extern %s;" % want, name, known_c, known_cpp)
+            if g:
                 fixed.append(name)
-                return "extern %s;" % want
+                return g
             dropped.append(name)
-            return "/* PORT: %s's prototype here was stale, and its definition names types declared later */" % name
+            return "/* PORT: %s's prototype here was stale, and its definition names a type no header has */" % name
         return m.group(0)
     out = re.sub(r"^extern\s+([^;{}()]*?\b([A-Za-z_]\w*)\s*\([^;{}()]*\))\s*;", proto, out, flags=re.M)
-    return BANNER % "colonization.h" + out, (fixed, dropped)
+    # every function src/ defines that nothing here declares yet, from its definition
+    declared |= set(re.findall(r"\b(\w+)\s*\([^;{}]*\)\s*;", out))
+    # a function some source file declares itself keeps that file's declaration: a second one
+    # here, spelled from the definition, would conflict with it
+    own = own_funcs
+    protos = []
+    for name, head in sorted(heads.items()):
+        if name in declared or name in own or "::" in head or re.match(r"\s*(static|inline)\b", head) or "operator" in head:
+            continue
+        g = guarded("extern %s;" % head, name, known_c, known_cpp)
+        if g:
+            protos.append(g)
+    tail = ["", "/* PORT: globals the corpus declares that the model's header does not */"] + extra + \
+        ["", "/* PORT: functions src/ defines that the model's header does not declare */"] + protos + [""]
+    i = out.rindex("#ifdef __cplusplus\n}")
+    out = out[:i] + "\n".join(tail) + "\n" + out[i:]
+    return BANNER % "colonization.h" + out, (fixed, dropped, gfix, extra, protos)
 
 
 def gen_records(col_types):
@@ -286,10 +404,11 @@ def main(argv):
     os.makedirs(GEN, exist_ok=True)
     for n, t in files.items():
         open(os.path.join(GEN, n), "w").write(t)
+    f, d, g, x, p = info["prototypes_fixed"]
     print("include/gen: %s; colonization.h: %d prototypes take their definition's head, %d stale ones "
-          "dropped; records.h keeps %d, leaves %d to colonization.h" % (
-              ", ".join(sorted(files)), len(info["prototypes_fixed"][0]), len(info["prototypes_fixed"][1]),
-              len(info["records_kept"]), len(info["records_dropped"])))
+          "dropped; %d globals take the corpus's type, %d more declared; %d prototypes added; "
+          "records.h keeps %d" % (", ".join(sorted(files)), len(f), len(d), len(g), len(x), len(p),
+                                  len(info["records_kept"])))
     return 0
 
 

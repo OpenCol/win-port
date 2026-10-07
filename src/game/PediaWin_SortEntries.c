@@ -26,8 +26,9 @@
 
 #include "w16types.h"
 #include "records.h"
-class VListItem { public: void *value; VListItem *next; VListItem *prev; VListItem(); ~VListItem(); };
-class VList { public: VListItem *first; VListItem *last; VListItem *cur; VList(); ~VList(); };
+/* PORT: this file's own VListItem, VList removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; int dropped; void *repaint; void *resize; RECT rect; int which; char noclose; char pad_775; int msg_timer; int queued; short category; char button[0x74]; char bar[0x28]; char port[0x26]; char list[0xc]; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; } PediaWin;   /* PediaWin : ColChild, flattened for C (ColChild's kind, which PediaWin's hides, as colchild_kind): 0x85a */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

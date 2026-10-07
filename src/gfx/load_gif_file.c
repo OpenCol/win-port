@@ -35,12 +35,13 @@
 #include "w16types.h"
 #include "grerror.h"
 #include "records.h"
-class DiskFile { public: MSFile msfile; DiskFile(); DiskFile(char *name, int mode); ~DiskFile(); };
-class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+/* PORT: this file's own DiskFile, GRPort, CTable removed: include/gen/classes.h define them once (W1 step 2). */
+#include "classes.h"
+
 struct logpal;
 
 extern void error_code_set(int code);
-typedef struct { char pal[0x404]; unsigned hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;   /* 0x41e bytes: the palette, its handle and the cycling state */
+   /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *p, CTable *pal);
 extern int MSGrafOrient(GrafRec *graf);
 extern void wing_dib_flip(void *win);
