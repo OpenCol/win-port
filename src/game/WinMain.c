@@ -12,7 +12,9 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void run_game(void);
 
-int WinMain(unsigned hinst, unsigned hprev, char *cmdline, int show)
+/* PORT: __stdcall -- Win16's WinMain was PASCAL, Win32's is WINAPI, and the C runtime's
+   startup calls WinMain@16 (W2). */
+int __stdcall WinMain(unsigned hinst, unsigned hprev, char *cmdline, int show)
 {
     if (hprev == 0) {
         gui_init(hinst, hprev);

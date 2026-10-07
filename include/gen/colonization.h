@@ -4723,7 +4723,7 @@ extern void VList_Remove(VList *list);
 extern void VList_dtor(VList *p, int flag);
 extern void VList_insert(VList *list, void *item);
 extern int WhichColonist(int px, int unused1);
-extern int WinMain(unsigned hinst, unsigned hprev, char *cmdline, int show);
+extern int __stdcall WinMain(unsigned hinst, unsigned hprev, char *cmdline, int show);
 extern void add_gold(int n, long amount);
 extern void add_pickup(int colony, int value, int loads, int troops);
 extern void add_plan(int nation, int x, int y, int kind, int priority);

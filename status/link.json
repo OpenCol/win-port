@@ -184,13 +184,11 @@
    "sndPlaySound"
   ]
  },
- "gate": false,
- "links": false,
+ "gate": true,
+ "links": true,
  "objects": 3249,
- "outside_backlog": [
-  "_WinMain@16"
- ],
+ "outside_backlog": [],
  "sources": 3249,
  "twice": 0,
- "undefined": 180
+ "undefined": 179
 }
