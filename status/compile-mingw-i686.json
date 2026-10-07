@@ -1,27 +1,23 @@
 {
  "first_errors": [
   [
-   141,
-   "'X' has no member named 'X'"
-  ],
-  [
-   59,
+   60,
    "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
-   55,
+   58,
    "cannot convert 'X' {aka 'X'} to 'X'"
   ],
   [
-   32,
+   37,
    "invalid conversion from 'X' to 'X' [-fpermissive]"
   ],
   [
-   30,
+   32,
    "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
-   29,
+   30,
    "'X' was not declared in this scope"
   ],
   [
@@ -33,24 +29,20 @@
    "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
   ],
   [
-   18,
-   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
-  ],
-  [
    16,
    "conflicting declaration 'X'"
   ],
   [
    15,
-   "'X' has no member named 'X'; did you mean 'X'?"
+   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
+  ],
+  [
+   12,
+   "passing argument 2 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
    11,
    "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
-   10,
-   "passing argument 2 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
    8,
@@ -61,6 +53,14 @@
    "conflicting types for 'X'; have 'X'"
   ],
   [
+   7,
+   "'X' has no member named 'X'"
+  ],
+  [
+   6,
+   "passing argument 3 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
    6,
    "redefinition of typedef 'X' with different type"
   ],
@@ -69,19 +69,19 @@
    "'X' undeclared (first use in this function); did you mean 'X'?"
   ],
   [
-   4,
-   "returning 'X' from a function with return type 'X' makes integer from pointer without a cast [-Wint-conversion]"
+   5,
+   "expected 'X', 'X', 'X', 'X' or 'X' before 'X' token"
   ],
   [
-   2,
+   4,
    "cannot convert 'X' to 'X' in assignment"
   ],
   [
-   2,
-   "expected 'X', 'X', 'X', 'X' or 'X' before 'X' token"
+   4,
+   "returning 'X' from a function with return type 'X' makes integer from pointer without a cast [-Wint-conversion]"
   ]
  ],
- "ok": 2723,
+ "ok": 2844,
  "toolchain": "mingw-i686",
  "total": 3245
 }

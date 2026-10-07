@@ -126,14 +126,68 @@ def definition_heads():
     return {n: next(iter(h)) for n, h in heads.items() if len(h) == 1}
 
 
+# The model's names for records the corpus has since unified under another name (same size,
+# same bytes): colonization.h's definition becomes a typedef of the corpus's record.
+ALIASES = {"Nation34": "NationText"}
+
+# Records whose size the model and the corpus disagree on. The corpus's definition compiled to
+# the shipped bytes, so the port takes it, and the model's size check for it is left out.
+# Each is reported upstream (UPSTREAM.md).
+SIZE_FROM_CORPUS = {
+    "MemBlock": "the model sized it from its first member (2); the corpus record is 14 bytes",
+    "Settlement": "the model's 32-byte record is not the 18-byte settlement the corpus indexes",
+    "WinGRec": "the model has 8 bytes; the corpus record has five words",
+}
+
+
+def corpus_records():
+    t = strip_comments(open(os.path.join(INC, "records.h")).read())
+    return set(re.findall(r"\}\s*(\w+)\s*;", t))
+
+
+def drop_records(text, names):
+    """colonization.h without its `typedef struct {...} Name;` for each name in `names`
+    (an alias keeps a typedef to the corpus's record)."""
+    out, i = [], 0
+    for m in re.finditer(r"typedef struct\s*\w*\s*\{", text):
+        if m.start() < i:
+            continue
+        d = 0
+        for j in range(m.end() - 1, len(text)):
+            if text[j] == "{":
+                d += 1
+            elif text[j] == "}":
+                d -= 1
+                if d == 0:
+                    break
+        e = text.index(";", j) + 1
+        name = re.match(r"\}\s*(\w+)", text[j:]).group(1)
+        if name in names:
+            out.append(text[i:m.start()])
+            if name in ALIASES:
+                out.append("typedef %s %s;   /* PORT: the corpus's name for this record */" % (ALIASES[name], name))
+            else:
+                out.append("/* PORT: %s is records.h's (the corpus's member names, the model's size) */" % name)
+            i = e
+    out.append(text[i:])
+    return "".join(out)
+
+
 def gen_colonization():
     src = open(os.path.join(INC, "colonization.h")).read()
-    out = src.replace("_Static_assert(", "PORT_SIZE_ASSERT(")
+    out = drop_records(src, corpus_records() | set(ALIASES))
+    out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"', 1)
+    for name, why in SIZE_FROM_CORPUS.items():
+        out, n = re.subn(r"_Static_assert\(sizeof\(%s\) == \d+, \"[^\"]*\"\);" % re.escape(name),
+                         "/* PORT: no size check for %s: %s */" % (name, why), out)
+        if n != 1:
+            sys.exit("gen_headers: no size check for %s in colonization.h" % name)
+    out = out.replace("_Static_assert(", "PORT_SIZE_ASSERT(")
     macro = ("/* PORT: _Static_assert is C11; the C++ reconstructions compile as C++03. */\n"
-             "#ifdef __cplusplus\n"
+             "#ifndef PORT_SIZE_ASSERT\n#ifdef __cplusplus\n"
              "#define PORT_SIZE_ASSERT(cond, msg) typedef char PORT_SA_CAT(port_size_assert_, __LINE__)[(cond) ? 1 : -1]\n"
              "#define PORT_SA_CAT(a, b) PORT_SA_CAT2(a, b)\n#define PORT_SA_CAT2(a, b) a##b\n"
-             "#else\n#define PORT_SIZE_ASSERT(cond, msg) _Static_assert(cond, msg)\n#endif\n\n")
+             "#else\n#define PORT_SIZE_ASSERT(cond, msg) _Static_assert(cond, msg)\n#endif\n#endif\n\n")
     first = out.index("#include <stdint.h>")
     out = out[:first] + macro + out[first:]
     # prototypes the corpus has moved on from: a function src/ defines gets its definition's head
@@ -183,12 +237,10 @@ def gen_records(col_types):
     out, last = [], 0
     for s, e, name in pieces:
         out.append(t[last:s])
+        out.append(t[s:e])
+        keep.append(name)
         if name in col_types:
-            out.append("/* %s: defined by colonization.h (the model's layout) */" % name)
-            dropped.append(name)
-        else:
-            out.append(t[s:e])
-            keep.append(name)
+            dropped.append(name)       # colonization.h's own definition of it goes
         last = e
     out.append(t[last:])
     text = widen_records("".join(out))

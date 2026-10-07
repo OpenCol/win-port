@@ -5,12 +5,14 @@
  * modern compiler agrees; far/near are deleted, being an addressing mode.
  */
 /* PORT: _Static_assert is C11; the C++ reconstructions compile as C++03. */
+#ifndef PORT_SIZE_ASSERT
 #ifdef __cplusplus
 #define PORT_SIZE_ASSERT(cond, msg) typedef char PORT_SA_CAT(port_size_assert_, __LINE__)[(cond) ? 1 : -1]
 #define PORT_SA_CAT(a, b) PORT_SA_CAT2(a, b)
 #define PORT_SA_CAT2(a, b) a##b
 #else
 #define PORT_SIZE_ASSERT(cond, msg) _Static_assert(cond, msg)
+#endif
 #endif
 
 #include <stdint.h>
@@ -41,6 +43,7 @@
 #endif
 
 #include "w16types.h"
+#include "records.h"
 
 /* C LINKAGE, because 436 of the reconstructions are C++ and the rest are C.
  * A C++ file that calls `MSCloseWindow` through a plain declaration emits a
@@ -65,11 +68,7 @@ typedef struct {
     int16_t f24e;
     int16_t f250;
 } Anim;   /* 0x252 bytes */
-typedef struct {
-    int16_t time;
-    int16_t count;
-    int16_t kind;
-} AnimEvent;   /* 0x6 bytes */
+/* PORT: AnimEvent is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     uint16_t handle;
     uint8_t _pad_2[2];
@@ -99,47 +98,14 @@ typedef struct {
     uint8_t _pad_0[38];
     int16_t pos;
 } Bar;   /* 0x28 bytes */
-typedef struct {
-    uint16_t w;
-    uint16_t h;
-    int16_t x;
-    int16_t y;
-    uint8_t nplanes;
-    int8_t masking;
-    uint8_t compression;
-    uint8_t _pad_b[1];
-    int16_t transparent;
-    int8_t xasp;
-    int8_t yasp;
-    int16_t pagew;
-    int16_t pageh;
-} Bmhd;   /* 0x14 bytes */
+/* PORT: Bmhd is records.h's (the corpus's member names, the model's size) */   /* 0x14 bytes */
 typedef struct {
     int16_t lo;
     int16_t hi;
 } Bounds;   /* 0x4 bytes */
-typedef struct {
-    uint8_t building;
-    uint8_t b1;
-    uint8_t goods;
-    uint8_t b3;
-} BuildNeed;   /* 0x4 bytes */
-typedef struct {
-    int16_t name;
-    int8_t f2;
-    int8_t prev_level;
-    int8_t next_level;
-    int8_t kind;
-    int8_t family;
-    int8_t tools;
-    int8_t min_pop;
-    int8_t f9;
-    int16_t hammers;
-} BuildingRec;   /* 0xc bytes */
-typedef struct {
-    int16_t cmd;
-    int16_t x;
-} ButtonSlot;   /* 0x4 bytes */
+/* PORT: BuildNeed is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
+/* PORT: BuildingRec is records.h's (the corpus's member names, the model's size) */   /* 0xc bytes */
+/* PORT: ButtonSlot is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
 typedef struct {
     int16_t a;
     int16_t b;
@@ -178,42 +144,7 @@ typedef struct {
     int16_t w0;
     int16_t w2;
 } ClassRec;   /* 0x4 bytes */
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    int8_t name[24];
-    uint8_t nation;
-    int8_t ai_flags;
-    uint8_t status;
-    uint8_t f1d;
-    uint8_t f1e;
-    int8_t pop;
-    uint8_t jobs[32];
-    uint8_t spec[32];
-    uint8_t specnib[16];
-    int8_t slots[20];
-    uint8_t flags[6];
-    uint8_t flags2[2];
-    int8_t f8c;
-    int8_t export_goods;
-    int8_t f8e;
-    int8_t f8f;
-    int16_t changed;
-    int16_t hammers;
-    int8_t item;
-    uint8_t warehouses;
-    uint8_t fort;
-    uint8_t mine;
-    int16_t f98;
-    int16_t stock[8];
-    int16_t waa;
-    uint8_t _pad_ac[12];
-    int16_t strength;
-    uint8_t hist_pop[4];
-    uint8_t hist_bld[4];
-    int32_t bells;
-    int32_t bells_cap;
-} Colony;   /* 0xca bytes */
+/* PORT: Colony is records.h's (the corpus's member names, the model's size) */   /* 0xca bytes */
 typedef struct {
     uint8_t _pad_0[16];
     int16_t hwnd;
@@ -233,25 +164,10 @@ typedef struct {
 typedef struct {
     uint8_t _tail[1];
 } ErrCtx;   /* 0x1 bytes */
-typedef struct {
-    int16_t name;
-    uint8_t cat;
-    uint8_t weight[3];
-} Father;   /* 0x6 bytes */
-typedef struct {
-    int32_t size;
-    int16_t type;
-    int16_t chunks;
-    uint8_t _tail[8];
-} FlicFrame;   /* 0x10 bytes */
-typedef struct {
-    uint8_t _pad_0[256];
-    int16_t count;
-} FontFile;   /* 0x102 bytes */
-typedef struct {
-    uint16_t hfont;
-    int16_t owned;
-} FontRec;   /* 0x4 bytes */
+/* PORT: Father is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
+/* PORT: FlicFrame is records.h's (the corpus's member names, the model's size) */   /* 0x10 bytes */
+/* PORT: FontFile is records.h's (the corpus's member names, the model's size) */   /* 0x102 bytes */
+/* PORT: FontRec is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
 typedef struct {
     int8_t name[256];
     int16_t count;
@@ -270,44 +186,11 @@ typedef struct {
     uint8_t _pad_4[2];
     int16_t f6;
 } GameCursor;   /* 0x8 bytes */
-typedef struct {
-    int8_t start_lo;
-    int8_t start_hi;
-    int8_t price_min;
-    int8_t price_max;
-    int8_t spread;
-    int8_t up;
-    int8_t down;
-    int8_t drift;
-    uint8_t shift;
-    uint8_t _tail[1];
-} GoodsRec;   /* 0xa bytes */
-typedef struct {
-    uint16_t kind[9];
-    int16_t count[9];
-    int16_t part[9];
-} GoodsRow;   /* 0x36 bytes */
-typedef struct {
-    uint16_t handle;
-    uint16_t hdc;
-    int16_t f4;
-    uint16_t hbm;
-    uint16_t old;
-    int16_t topdown;
-    int16_t w;
-    int16_t h;
-    int16_t stride;
-} GrafRec;   /* 0x12 bytes */
-typedef struct {
-    uint16_t handle;
-} Handle;   /* 0x2 bytes */
-typedef struct {
-    int16_t left;
-    int16_t top;
-    int16_t w;
-    int16_t h;
-    uint8_t flags;
-} ImgDesc;   /* 0x9 bytes */
+/* PORT: GoodsRec is records.h's (the corpus's member names, the model's size) */   /* 0xa bytes */
+/* PORT: GoodsRow is records.h's (the corpus's member names, the model's size) */   /* 0x36 bytes */
+/* PORT: GrafRec is records.h's (the corpus's member names, the model's size) */   /* 0x12 bytes */
+/* PORT: Handle is records.h's (the corpus's member names, the model's size) */   /* 0x2 bytes */
+/* PORT: ImgDesc is records.h's (the corpus's member names, the model's size) */   /* 0x9 bytes */
 typedef struct {
     uint8_t _pad_0[1898];
     int16_t left;
@@ -323,17 +206,8 @@ typedef struct {
     int16_t rowy[29];
     int16_t rowspec[29];
 } LaborWin;   /* 0x8ac bytes */
-typedef struct {
-    uint8_t a;
-    uint8_t b;
-    uint8_t c;
-    uint8_t _tail[1];
-} LeaderFace;   /* 0x4 bytes */
-typedef struct {
-    int16_t name;
-    int16_t settlement;
-    int16_t settlements;
-} LevelRec;   /* 0x6 bytes */
+/* PORT: LeaderFace is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
+/* PORT: LevelRec is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     uint32_t dwCallback;
     uint32_t dwReturn;
@@ -342,22 +216,9 @@ typedef struct {
     uint32_t dwReference;
     uint32_t dwExtra;
 } MCI_DGV_STATUS_PARMS;   /* 0x18 bytes */
-typedef struct {
-    int16_t left;
-    int16_t top;
-    int16_t right;
-    int16_t bottom;
-} MapRect;   /* 0x8 bytes */
-typedef struct {
-    uint8_t _pad_0[4];
-    uint16_t devid;
-    uint8_t _pad_6[2];
-    uint32_t parm;
-} Mci;   /* 0xc bytes */
-typedef struct {
-    uint8_t _pad_0[4];
-    uint16_t id;
-} MciDev;   /* 0x6 bytes */
+/* PORT: MapRect is records.h's (the corpus's member names, the model's size) */   /* 0x8 bytes */
+/* PORT: Mci is records.h's (the corpus's member names, the model's size) */   /* 0xc bytes */
+/* PORT: MciDev is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     uint32_t dwCallback;
 } MciParms;   /* 0x4 bytes */
@@ -365,9 +226,7 @@ typedef struct {
     uint8_t _pad_0[8];
     int32_t fmt;
 } MciRec;   /* 0xc bytes */
-typedef struct {
-    uint8_t _tail[2];
-} MemBlock;   /* 0x2 bytes */
+/* PORT: MemBlock is records.h's (the corpus's member names, the model's size) */   /* 0x2 bytes */
 typedef struct {
     uint16_t handle;
     uint16_t hwnd;
@@ -391,62 +250,13 @@ typedef struct {
     int16_t sel;
     int16_t enabled;
 } Model;   /* 0xe bytes */
-typedef struct {
-    uint8_t flags;
-    int8_t tax;
-    uint8_t recruit[3];
-    uint8_t demands;
-    uint8_t f6;
-    uint8_t f7[4];
-    uint8_t _pad_b[1];
-    int16_t bells;
-    int16_t bells_total;
-    int16_t f10;
-    int16_t next_father;
-    uint8_t fathers[2];
-    int16_t f16;
-    uint8_t tories;
-    uint8_t support;
-    uint8_t shown;
-    uint8_t f1b[2];
-    uint8_t _pad_1d[1];
-    int16_t artillery;
-    int16_t boycott;
-    int32_t royal_gold;
-    int32_t f26;
-    int32_t gold;
-    int16_t crosses;
-    int16_t need;
-    uint8_t start_x;
-    uint8_t start_y;
-    uint8_t rel[4];
-    uint8_t _pad_38[8];
-    uint8_t timer[4];
-    uint8_t seed;
-    uint8_t seed_add;
-    int16_t founded;
-    uint8_t muskets_stock;
-    uint8_t muskets;
-    int16_t horses;
-    int8_t price[14];
-    int8_t f5a;
-    uint8_t _pad_5b[1];
-    int16_t f5c[16];
-    int32_t traded[16];
-    int32_t tax_paid[16];
-    int32_t sold[16];
-} Nation;   /* 0x13c bytes */
+/* PORT: Nation is records.h's (the corpus's member names, the model's size) */   /* 0x13c bytes */
 typedef struct {
     uint8_t _pad_0[73];
     uint8_t rebel;
     uint8_t _tail[242];
 } Nation2;   /* 0x13c bytes */
-typedef struct {
-    int8_t leader[24];
-    int8_t country[25];
-    uint8_t met;
-    uint8_t _tail[2];
-} Nation34;   /* 0x34 bytes */
+typedef NationText Nation34;   /* PORT: the corpus's name for this record */   /* 0x34 bytes */
 typedef struct {
     int8_t name[25];
     int8_t flag;
@@ -465,10 +275,7 @@ typedef struct {
     uint8_t peBlue;
     uint8_t peFlags;
 } PalEntry;   /* 0x4 bytes */
-typedef struct {
-    uint8_t _pad_0[1028];
-    uint16_t hpal;
-} Palette;   /* 0x406 bytes */
+/* PORT: Palette is records.h's (the corpus's member names, the model's size) */   /* 0x406 bytes */
 typedef struct {
     uint8_t _pad_0[4];
     int16_t w4;
@@ -502,18 +309,12 @@ typedef struct {
     uint8_t kind;
     uint8_t colors;
 } PicHeader;   /* 0x6 bytes */
-typedef struct {
-    int16_t x;
-    int16_t y;
-} Point;   /* 0x4 bytes */
+/* PORT: Point is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
 typedef struct {
     uint8_t _pad_0[2];
     uint16_t hdc;
 } PortInfo;   /* 0x4 bytes */
-typedef struct {
-    int16_t x;
-    int16_t y;
-} Pos;   /* 0x4 bytes */
+/* PORT: Pos is records.h's (the corpus's member names, the model's size) */   /* 0x4 bytes */
 typedef struct {
     int16_t l;
     int16_t t;
@@ -545,12 +346,7 @@ typedef struct {
     uint8_t _pad_0[50];
     int16_t f32;
 } Rec52;   /* 0x34 bytes */
-typedef struct {
-    int16_t colony;
-    int16_t amount;
-    int8_t count;
-    uint8_t f5;
-} Rec6;   /* 0x6 bytes */
+/* PORT: Rec6 is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     int16_t f0;
     uint8_t f2;
@@ -568,13 +364,7 @@ typedef struct {
     int32_t size;
     int16_t kind;
 } RecHdr;   /* 0x6 bytes */
-typedef struct {
-    int8_t f0;
-    uint8_t type;
-    int8_t amount;
-    int8_t f3;
-    int16_t price;
-} Recruit;   /* 0x6 bytes */
+/* PORT: Recruit is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     int32_t size;
     uint8_t _pad_4[2];
@@ -584,10 +374,7 @@ typedef struct {
     uint8_t _pad_0[38];
     int8_t win;
 } ReportWinBase;   /* 0x27 bytes */
-typedef struct {
-    uint8_t _pad_0[6];
-    int16_t count;
-} Resource;   /* 0x8 bytes */
+/* PORT: Resource is records.h's (the corpus's member names, the model's size) */   /* 0x8 bytes */
 typedef struct {
     uint8_t count;
 } RingRec;   /* 0x1 bytes */
@@ -595,13 +382,7 @@ typedef struct {
     int16_t stop;
     uint8_t f2;
 } Route;   /* 0x3 bytes */
-typedef struct {
-    int8_t name[32];
-    uint8_t sea;
-    uint8_t stops;
-    int16_t first_stop;
-    uint8_t _tail[38];
-} RouteRec;   /* 0x4a bytes */
+/* PORT: RouteRec is records.h's (the corpus's member names, the model's size) */   /* 0x4a bytes */
 typedef struct {
     uint8_t _pad_0[10];
     int16_t score;
@@ -610,12 +391,7 @@ typedef struct {
     uint8_t level;
     uint8_t _tail[103];
 } SaveHeader;   /* 0x8e bytes */
-typedef struct {
-    int16_t w;
-    int16_t h;
-    int32_t stamp;
-    int16_t map[1024];
-} ScaleSlot;   /* 0x808 bytes */
+/* PORT: ScaleSlot is records.h's (the corpus's member names, the model's size) */   /* 0x808 bytes */
 typedef struct {
     uint8_t _pad_0[36];
     int16_t style;
@@ -626,20 +402,7 @@ typedef struct {
     uint8_t _pad_12[18];
     int16_t f24;
 } ScrollBar;   /* 0x26 bytes */
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    uint8_t owner;
-    uint8_t flags;
-    uint8_t size;
-    int8_t mission;
-    uint8_t growth;
-    int8_t refused;
-    int8_t sold;
-    int8_t bought;
-    int16_t anger[4];
-    uint8_t _tail[14];
-} Settlement;   /* 0x20 bytes */
+/* PORT: Settlement is records.h's (the corpus's member names, the model's size) */   /* 0x20 bytes */
 typedef struct {
     uint8_t owner;
     uint8_t f1;
@@ -652,12 +415,7 @@ typedef struct {
     int16_t cx;
     int16_t cy;
 } Size;   /* 0x4 bytes */
-typedef struct {
-    int16_t name;
-    int16_t expert;
-    int16_t school;
-    int16_t price;
-} SpecRec;   /* 0x8 bytes */
+/* PORT: SpecRec is records.h's (the corpus's member names, the model's size) */   /* 0x8 bytes */
 typedef struct {
     int16_t x;
     int16_t y;
@@ -676,36 +434,8 @@ typedef struct {
     uint8_t _pad_102[4];
     int16_t entries;
 } Table;   /* 0x108 bytes */
-typedef struct {
-    uint16_t name;
-    uint8_t f2;
-    uint8_t f3;
-    uint8_t work_turns;
-    uint8_t f5;
-    int8_t f6;
-    uint8_t yield[5];
-    uint8_t lumber;
-    uint8_t _tail[3];
-} TerrainRec;   /* 0x10 bytes */
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    uint8_t level;
-    uint8_t flags;
-    uint8_t f4;
-    int8_t count;
-    uint8_t f6;
-    int8_t muskets;
-    int8_t horse_taken;
-    int8_t f9;
-    int16_t horses;
-    int16_t silver_base;
-    int16_t goods_drift[16];
-    int16_t mood[4];
-    uint8_t calm[4];
-    uint8_t b3a[12];
-    int16_t anger[4];
-} Tribe;   /* 0x4e bytes */
+/* PORT: TerrainRec is records.h's (the corpus's member names, the model's size) */   /* 0x10 bytes */
+/* PORT: Tribe is records.h's (the corpus's member names, the model's size) */   /* 0x4e bytes */
 typedef struct {
     uint8_t _pad_0[2];
     uint8_t level;
@@ -716,61 +446,16 @@ typedef struct {
     int16_t horses;
     uint8_t _tail[66];
 } TribeByNation;   /* 0x4e bytes */
-typedef struct {
-    int16_t name;
-    int16_t adjective;
-    int16_t treasure;
-} TribeName;   /* 0x6 bytes */
+/* PORT: TribeName is records.h's (the corpus's member names, the model's size) */   /* 0x6 bytes */
 typedef struct {
     uint8_t _pad_0[2];
     int16_t w2;
     int16_t w4;
     int16_t w6;
 } TurnCtx;   /* 0x8 bytes */
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    uint8_t type;
-    uint8_t flags;
-    uint8_t f4;
-    uint8_t moves;
-    uint8_t home;
-    uint8_t mission;
-    uint8_t orders;
-    uint8_t dest_x;
-    uint8_t dest_y;
-    int8_t last_dir;
-    uint8_t cargo_count;
-    uint8_t cargo[3];
-    uint8_t amount;
-    uint8_t f11;
-    int8_t f12[2];
-    uint8_t f14;
-    uint8_t tools;
-    uint8_t counter;
-    int8_t spec;
-    int16_t link;
-    int16_t link2;
-} Unit;   /* 0x1c bytes */
-typedef struct {
-    int16_t name;
-    uint8_t icon;
-    uint8_t b3;
-    uint8_t moves;
-    uint8_t defence;
-    uint8_t attack;
-    uint8_t holds;
-    uint8_t size;
-    uint8_t hammers;
-    uint8_t tools;
-    uint8_t bb;
-    uint8_t bc;
-    uint8_t bits;
-} UnitType;   /* 0xe bytes */
-typedef struct {
-    uint8_t _pad_0[6];
-    int16_t hbitmap;
-} WinGRec;   /* 0x8 bytes */
+/* PORT: Unit is records.h's (the corpus's member names, the model's size) */   /* 0x1c bytes */
+/* PORT: UnitType is records.h's (the corpus's member names, the model's size) */   /* 0xe bytes */
+/* PORT: WinGRec is records.h's (the corpus's member names, the model's size) */   /* 0x8 bytes */
 typedef struct {
     uint8_t _pad_0[2];
     uint16_t hwnd;
@@ -780,11 +465,7 @@ typedef struct {
 typedef struct {
     uint8_t _tail[2];
 } WinRec;   /* 0x2 bytes */
-typedef struct {
-    uint8_t _pad_0[14];
-    int16_t height;
-    int16_t rowbytes;
-} Wing;   /* 0x12 bytes */
+/* PORT: Wing is records.h's (the corpus's member names, the model's size) */   /* 0x12 bytes */
 typedef struct {
     int16_t f0;
     int16_t f2;
@@ -838,7 +519,7 @@ PORT_SIZE_ASSERT(sizeof(Mci) == 12, "Mci is not 0xc bytes");
 PORT_SIZE_ASSERT(sizeof(MciDev) == 6, "MciDev is not 0x6 bytes");
 PORT_SIZE_ASSERT(sizeof(MciParms) == 4, "MciParms is not 0x4 bytes");
 PORT_SIZE_ASSERT(sizeof(MciRec) == 12, "MciRec is not 0xc bytes");
-PORT_SIZE_ASSERT(sizeof(MemBlock) == 2, "MemBlock is not 0x2 bytes");
+/* PORT: no size check for MemBlock: the model sized it from its first member (2); the corpus record is 14 bytes */
 PORT_SIZE_ASSERT(sizeof(Menu) == 36, "Menu is not 0x24 bytes");
 PORT_SIZE_ASSERT(sizeof(MenuObj) == 2, "MenuObj is not 0x2 bytes");
 PORT_SIZE_ASSERT(sizeof(MenuRec) == 2, "MenuRec is not 0x2 bytes");
@@ -879,7 +560,7 @@ PORT_SIZE_ASSERT(sizeof(SaveHeader) == 142, "SaveHeader is not 0x8e bytes");
 PORT_SIZE_ASSERT(sizeof(ScaleSlot) == 2056, "ScaleSlot is not 0x808 bytes");
 PORT_SIZE_ASSERT(sizeof(Scroll) == 38, "Scroll is not 0x26 bytes");
 PORT_SIZE_ASSERT(sizeof(ScrollBar) == 38, "ScrollBar is not 0x26 bytes");
-PORT_SIZE_ASSERT(sizeof(Settlement) == 32, "Settlement is not 0x20 bytes");
+/* PORT: no size check for Settlement: the model's 32-byte record is not the 18-byte settlement the corpus indexes */
 PORT_SIZE_ASSERT(sizeof(Settlement2) == 18, "Settlement2 is not 0x12 bytes");
 PORT_SIZE_ASSERT(sizeof(Size) == 4, "Size is not 0x4 bytes");
 PORT_SIZE_ASSERT(sizeof(SpecRec) == 8, "SpecRec is not 0x8 bytes");
@@ -894,7 +575,7 @@ PORT_SIZE_ASSERT(sizeof(TribeName) == 6, "TribeName is not 0x6 bytes");
 PORT_SIZE_ASSERT(sizeof(TurnCtx) == 8, "TurnCtx is not 0x8 bytes");
 PORT_SIZE_ASSERT(sizeof(Unit) == 28, "Unit is not 0x1c bytes");
 PORT_SIZE_ASSERT(sizeof(UnitType) == 14, "UnitType is not 0xe bytes");
-PORT_SIZE_ASSERT(sizeof(WinGRec) == 8, "WinGRec is not 0x8 bytes");
+/* PORT: no size check for WinGRec: the model has 8 bytes; the corpus record has five words */
 PORT_SIZE_ASSERT(sizeof(WinPal) == 12, "WinPal is not 0xc bytes");
 PORT_SIZE_ASSERT(sizeof(WinRec) == 2, "WinRec is not 0x2 bytes");
 PORT_SIZE_ASSERT(sizeof(Wing) == 18, "Wing is not 0x12 bytes");
