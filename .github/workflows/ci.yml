@@ -46,11 +46,13 @@ jobs:
             sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
           else
             sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib
-            # the package may keep winegcc/wineg++ off PATH (/usr/lib/wine): link them onto it
-            for t in winegcc wineg++; do
-              command -v $t || sudo ln -sf "$(dpkg -L wine64-tools | grep -E "/$t\$" | head -1)" /usr/local/bin/$t
-            done
-            winegcc --version | head -1
+            # the package keeps winegcc off PATH and ships no wineg++: winegcc picks C or C++ by the
+            # name it runs under, so both names link to it
+            w=$(command -v winegcc || dpkg -L wine64-tools | grep -E '/winegcc$' | head -1)
+            test -n "$w"
+            sudo ln -sf "$w" /usr/local/bin/winegcc
+            sudo ln -sf "$w" /usr/local/bin/wineg++
+            winegcc --version | head -1; wineg++ --version | head -1
           fi
       - name: Every file compiles (W1)
         run: python3 tools/compile_all.py --toolchain ${{ matrix.toolchain }} --record
