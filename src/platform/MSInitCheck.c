@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* PORT: this file's own declarations of get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
 /* MSInitCheck: candidate for 1070:2f63 (393 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -35,7 +36,7 @@ extern "C" unsigned MSInitCheck(RECT *r, void *ctl, const char *text, int visibl
     unsigned hwnd;
 
     copy = new char[STRLEN(text) + 1];
-    STRCPY(copy, text);
+    STRCPY(copy, (char*)(text));
     style = 0x40010000L;
     if (visible)
         style |= WS_VISIBLE;

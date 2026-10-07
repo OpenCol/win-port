@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 101, 104, 113 of the imported file. */
 /* build_region_rects: candidate for 1068:2f3d (616 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: build_region_rects
@@ -98,10 +99,10 @@ void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr)
             p += rec->size;
             switch (rec->type) {
             case 7:
-                blit_rle_mask_words(region->bits, rec->data, region->stride);
+                blit_rle_mask_words(region->bits, (unsigned char*)(rec->data), region->stride);
                 break;
             case 15:
-                mask_runs_fill(region->bits, rec->data, region->w, region->h, region->stride);
+                mask_runs_fill(region->bits, (unsigned char*)(rec->data), region->w, region->h, region->stride);
                 break;
             case 13:
                 GRPort_FillColor_all(region, 0xff);
@@ -110,7 +111,7 @@ void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr)
                 GRPort_FillColor_all(region, 0xff);
                 break;
             case 12:
-                blit_rle_mask(region->bits, rec->data, region->stride);
+                blit_rle_mask(region->bits, (unsigned char*)(rec->data), region->stride);
                 break;
             default:
                 break;

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 96, 98 of the imported file. */
 /* flic_load_resource: candidate for 1068:210c (467 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: flic_load_resource
@@ -93,9 +94,9 @@ void flic_load_resource(Flic *flic, int id)
     } else if (flic->magic == 0xaf12)
         ;
     flic->buf += flic->frame_offset;
-    flic->pos = flic->buf;
+    flic->pos = (unsigned char*)(flic->buf);
     flic->frame_no = flic->rect_index = 0;
-    flic->pos = flic->buf;
+    flic->pos = (unsigned char*)(flic->buf);
     Flic_NextFrame(flic);
     flic->frame2 = flic->pos;
 }

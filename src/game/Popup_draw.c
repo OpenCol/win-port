@@ -44,52 +44,7 @@
 #include "classes.h"
 typedef struct PopupSprite { int id; int f2; char *text; RECT rect; Sprite *sprite; struct PopupSprite *next; struct PopupSprite *prev; } PopupSprite;
 #include "records.h"
-typedef struct {
-    void *win;                    /* +0x000 */
-    char pad4[0x6e - 4];
-    Font *font;                    /* +0x06e */
-    char pad72[0x7a - 0x72];
-    int n_edits;                         /* +0x07a */
-    int n_items;                          /* +0x07c */
-    int n_sprites;                       /* +0x07e */
-    int n_buttons, n_extra;                      /* +0x080 */
-    char pad84[0x86 - 0x84];
-    int flags;                         /* +0x086 */
-    int box_w, box_h;                      /* +0x088 */
-    char pad8c[0x92 - 0x8c];
-    unsigned char text_color;               /* +0x092 */
-    char pad93[0x96 - 0x93];
-    unsigned char hilite_color;               /* +0x096 */
-    char pad97[0xa0 - 0x97];
-    int pad_y;                           /* +0x0a0 */
-    char pada2[0xa4 - 0xa2];
-    int gap_y, gap_x, result;                 /* +0x0a4, +0x0a6, +0x0a8 */
-    char padaa[0x330 - 0xaa];
-    int org_x, org_y;                    /* +0x330 */
-    char pad334[0x33c - 0x334];
-    int box_x, box_y;                        /* +0x33c */
-    int framed;                          /* +0x340 */
-    char pad342[0x34a - 0x342];
-    int sprite_x, sprite_y, edit_x, edit_y;        /* +0x34a */
-    char pad352[0x354 - 0x352];
-    int button_y;                          /* +0x354 */
-    char pad356[0x358 - 0x356];
-    int width;                          /* +0x358 */
-    char pad35a[0x37a - 0x35a];
-    PopupSprite *sprites;                   /* +0x37a */
-    PopupSprite *cur_sprite;                 /* +0x37e */
-    char pad382[0x386 - 0x382];
-    PopupEdit *edit_items;                     /* +0x386 */
-    char pad38a[0x38e - 0x38a];
-    long draw_sprite;
-    char pad392[0x3a0 - 0x392];        /* +0x38e */
-    char *radios;                    /* +0x3a0 */
-    SCheckBox *checks;                    /* +0x3a4 */
-    SEditBox *edit_boxes;                    /* +0x3a8 */
-    SButton *buttons;                    /* +0x3ac */
-    char pad3b0[0x3b4 - 0x3b0];
-    SRegion *regions;                    /* +0x3b4 */
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 extern int g_popup_tribe;                 /* DGROUP:0x2518, declared */
 

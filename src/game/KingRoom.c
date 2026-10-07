@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 109, 259 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, IsBackdrop, set_on_keydown_after_1008_da94, set_on_lclick_1008_da22, set_on_rclick_1008_da5b, show_window_1008_d117, win_center_1008_dacd, win_hide_1008_d0bc removed: the header declares them from the definition (W1 step 3). */
 /* KingRoom: candidate for 1008:b3d0 (2347 bytes).  Verdict: RELOCATABLE.
@@ -106,7 +107,7 @@ extern "C" void KingRoom(int scene, int mode, void *unused1)
 
     TextColor(g_draw_color);
     g_done_flag = 0;
-    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), pal, 0xa, 0xec);
+    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), (unsigned char*)(pal), 0xa, 0xec);
     switch (g_game.player_nation) {
     case 0:
         STRCPY(name, "ENGLND");
@@ -256,5 +257,5 @@ extern "C" void KingRoom(int scene, int mode, void *unused1)
         call_message_pump();
     win_hide_1008_d0bc(&(DialogWin &)win);
     MSDoAllTasks_1008_ce3f();
-    CTable_Fill(&g_game_palette, 0xa, 0xec, pal);
+    CTable_Fill(&g_game_palette, 0xa, 0xec, (unsigned char*)(pal));
 }

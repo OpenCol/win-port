@@ -69,61 +69,7 @@ class DlgControl;
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 typedef struct PopupSprite { int id; int f2; char *text; RECT rect; Sprite *sprite; struct PopupSprite *next; struct PopupSprite *prev; } PopupSprite;
 
-typedef struct {
-    GameWin *win;
-    char pad4[0x6e - 4];
-    Font *font;
-    char pad72[0x7a - 0x72];
-    int n_edits;
-    int n_items;
-    int n_sprites;
-    int n_buttons;
-    int n_extra;
-    int cols;
-    int flags;
-    char pad88[0x8c - 0x88];
-    int list_w;
-    int list_h;
-    char pad90[0x9e - 0x90];
-    int row_h;
-    char pada0[0xa4 - 0xa0];
-    int gap_y;
-    char pada6[0x33c - 0xa6];
-    int box_x;
-    int box_y;
-    char pad340[0x342 - 0x340];
-    int item_x;
-    int item_y;
-    char pad346[0x34a - 0x346];
-    int sprite_x;
-    int sprite_y;
-    int edit_x;
-    int edit_y;
-    int label_w;
-    int button_y;
-    int item_w;
-    char pad358[0x35a - 0x358];
-    int sprite_w;
-    char pad35c[0x360 - 0x35c];
-    int button_w;
-    char pad362[0x366 - 0x362];
-    PopupItem *sel_item;
-    char pad36a[0x36e - 0x36a];
-    PopupItem *items;
-    char pad372[0x37a - 0x372];
-    PopupSprite *sprites;
-    char pad37e[0x386 - 0x37e];
-    PopupEdit *edit_items;
-    char pad38a[0x3a0 - 0x38a];
-    SRadioSet *radios;
-    SCheckBox *checks;
-    SEditBox *edit_boxes;
-    SButton *buttons;
-    SListBox *listbox;
-    SRegion *regions;
-    char *extra_labels[3];
-    ButtonSlot btn[1];
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 extern Popup *g_cur_dialog;                   /* DGROUP:0x2500 */
 
@@ -162,7 +108,7 @@ extern "C" void Popup_make_controls(Popup *p)
     int rows;
     char c[2];
     char *label;
-    int one;
+    i16 one;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
     char *labels[0x29];
     char buf[0x80];
 

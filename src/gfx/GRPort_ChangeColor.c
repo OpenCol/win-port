@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81 of the imported file. */
 /* GRPort_ChangeColor: candidate for 1068:51a8 (296 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_ChangeColor
@@ -78,7 +79,7 @@ void GRPort_ChangeColor(GRPort *p, RECT *clip,
     }
     IntersectRect(&r, clip, &p->rect);
     w = rect_width_1068_96a9(&r);
-    q = GRPort_PixelMap(p, r.left, r.top);
+    q = (unsigned char*)(GRPort_PixelMap(p, r.left, r.top));
     for (y = 0; rect_height_1068_96c8(&r) > y; y++) {
         for (x = 0; rect_width_1068_96a9(&r) > x; x++) {
             if (*q == from)

@@ -33,10 +33,9 @@
 #include "w16types.h"
 #include "classes.h"
 #include "records.h"
-struct Popup;
 
 extern char *strings(int n);
-typedef struct Popup Popup;
+/* PORT: `typedef struct Popup Popup;` removed: include/gen/classes.h defines Popup (W1). */
 extern void Popup_item(Popup *popup, char *s, int id);
 extern int get_production_class(int item, int *idx);
 extern int get_production_cost(int item, int *tools);

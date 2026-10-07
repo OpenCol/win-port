@@ -27,18 +27,7 @@
 #include "w16types.h"
 #include "classes.h"
 #include "records.h"
-typedef struct {
-    GameWin *win;
-    GRPort *dest_port;
-    char pad8[0x86 - 8];
-    unsigned flags;                  /* +0x86 */
-    char pad88[0xa8 - 0x88];
-    int result;                        /* +0xa8 */
-    char padaa[0x330 - 0xaa];
-    int org_x, org_y;                       /* +0x330, +0x332 */
-    char pad334[0x392 - 0x334];
-    MemBlock arena;                 /* +0x392: the popup's heap; .size (+0x39c) is what Popup_set_heap re-allocates it at */
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 /* same object: 4-byte `push cs; call ` */
 extern void Popup_close(Popup *popup);

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 119, 206 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, ReportWin_DoReport_parent, font_height_1050_9106, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* Fame: candidate for 1050:7882 (1642 bytes).  Verdict: RELOCATABLE.
@@ -116,7 +117,7 @@ extern "C" int Fame(int show, int *rank_out)
     g_score_total = score = ReportWin_DoReport_parent((ReportWin *)&g_report_window, 9, 1, g_backdrop_win);
     if (score <= 0)
         return pts;
-    CTable_CopyRawColors((CTable *)&g_game_palette, pal, 10, 0xec);
+    CTable_CopyRawColors((CTable *)&g_game_palette, (unsigned char*)(pal), 10, 0xec);
     mult = g_game.difficulty + 4;
     if (g_game.difficulty >= DIFFICULTY_GOVERNOR)
         mult++;
@@ -203,6 +204,6 @@ extern "C" int Fame(int show, int *rank_out)
     MSHideWindow_of_1050_8cd8((DialogWin *)&w);
     win_release_1050_9148(&w);
     MSDoAllTasks_1050_8be7();
-    CTable_Fill(&g_game_palette, 10, 0xec, pal);
+    CTable_Fill(&g_game_palette, 10, 0xec, (unsigned char*)(pal));
     return pts;
 }

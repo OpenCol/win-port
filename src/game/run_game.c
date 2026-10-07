@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 127, 129, 130, 131 of the imported file. */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 133, 136, 147, 148 of the imported file. */
 /* PORT: this file's own declarations of GameBrains_Init, GameBrains_TurnControlLoop, MSSetFocus_of_1008_d136, MainWin_Init, SetPopupParent, game_font_set_1008_cfe5, get_w_a, show_window_1008_d117, win_hide_1008_d0bc, win_show removed: the header declares them from the definition (W1 step 3). */
 /* run_game: candidate for 1008:46ae (863 bytes).  Verdict: RELOCATABLE.
@@ -124,11 +125,11 @@ extern "C" void run_game(void)
     sound_init();
     g_4b2a = 1;
     game_init();
-    CTable_Fill(&g_game_palette, 0xa, 5, g_palette_head_rgb);
+    CTable_Fill(&g_game_palette, 0xa, 5, (unsigned char*)(g_palette_head_rgb));
     MainWin_Init(&g_main_win);
-    win_hide_1008_d0bc(&g_map_window_dlg);
-    win_hide_1008_d0bc(&g_mini_win_dlg);
-    win_hide_1008_d0bc(&g_info_win_dlg);
+    win_hide_1008_d0bc((Screen*)(&g_map_window_dlg));
+    win_hide_1008_d0bc((Screen*)(&g_mini_win_dlg));
+    win_hide_1008_d0bc((Screen*)(&g_info_win_dlg));
     if (begin_game()) {
         MSShowMenuBar();
         SetPopupParent((EventWin*)(&g_main_win));

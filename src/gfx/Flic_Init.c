@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 92 of the imported file. */
 /* PORT: this file's own declarations of MSOpenFile removed: the header declares it from the definition (W1 step 3). */
 /* Flic_Init: candidate for 1068:1f42 (458 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -89,7 +90,7 @@ void Flic_Init(Flic *flic, char *name)
         MSSeekFile_1068_964b(&flic->file, flic->frame_offset - 128);
     flic->hbuf = MSAllocateHandle(310000L);
     flic->buf = (char *)MSHLock(flic->hbuf);
-    flic->pos = flic->buf;
+    flic->pos = (unsigned char*)(flic->buf);
     flic->frame_no = flic->rect_index = 0;
     flic->timer = -1;
     Flic_NextFrame(flic);

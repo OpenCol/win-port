@@ -69,6 +69,7 @@ class MenuClass;
 class MiniWin;
 class MrTimer;
 class Opening;
+class Popup;
 class RGBTree;
 class ReportWin;
 class ResourceFile;
@@ -1501,7 +1502,7 @@ extern int8_t text_lobotomize[];
 
 /* named only in a prototype, and only ever as a pointer */
 typedef struct FILE_s FILE;
-typedef struct Handler_s Handler;
+typedef void (*Handler)(int a, int b);   /* PORT: the files' typedef */
 typedef const char *LPCSTR;   /* PORT: the files' typedef */
 
 /* one prototype per callee: the signature the most files agree on */
@@ -2885,7 +2886,7 @@ extern int * max_ptr_1030_f4a6(int *a, int *b);
 extern int * max_ptr_1038_8d92(int *a, int *b);
 extern int * max_ptr_1040_b582(int *a, int *b);
 extern int * max_ptr_1048_efef(int *a, int *b);
-extern int * max_ptr_1050_97d1(int *a, int *b);
+extern i16 *max_ptr_1050_97d1(i16 *a, i16 *b);
 extern unsigned mciGetDeviceID(const char *name);
 extern unsigned long mciSendCommand(unsigned dev, unsigned msg, unsigned long flags, unsigned long parms);
 extern int mci_can_open(void);
@@ -3484,7 +3485,7 @@ extern int show_text_dialog_1020_e73b(void *name);
 extern int show_text_dialog_1028_e48e(void *name);
 extern int show_text_dialog_1030_ec0a(void *name);
 extern int show_text_dialog_1038_865b(void *name);
-/* PORT: show_text_dialog_1048_e35c's prototype here was stale, and its definition names a type no header has */
+extern int show_text_dialog_1048_e35c(Popup *w, char *name);
 extern int show_text_dialog_1048_e3ae(char *name, int kind);
 extern void show_tutorial_hint(void);
 extern void show_work_buffer_dialog(void);
@@ -3802,6 +3803,7 @@ extern GameWin *g_colony_popup;
 extern ColonyWin *g_colony_window_ptr;
 #endif
 extern int g_consumption[];
+extern Popup *g_cur_dialog;
 extern GRPort * g_current_port;
 extern int g_damaged_in_port;
 extern char g_data_dir[];
@@ -4539,6 +4541,40 @@ extern void PlayRandomTrack(void);
 extern void PlaySnd(void *name);
 extern void PopGuy(GRPort *dst, int kind);
 extern void PopupBoxDraw(char *win, int x, int y, int w, int h);
+extern void Popup_DrawDude(Popup *w);
+extern int Popup_StringPourCalculate(Popup *w);
+extern void Popup_StringPourDraw(Popup *p);
+extern void Popup_button(Popup *popup, char *s);
+extern int Popup_button_x_size(Popup *ctl, char *s);
+extern int Popup_button_y_size(Popup *popup);
+extern void Popup_clear(Popup *popup);
+extern void Popup_close(Popup *popup);
+extern int Popup_compute_size(Popup *p);
+extern void Popup_do_colors(Popup *popup, int a, int b);
+extern int Popup_edit_y_size(Popup *popup);
+extern int Popup_exec(Popup *popup, char *text);
+extern void Popup_fill_area(Popup *popup, int unused1, int unused2, int unused3, int unused4);
+extern int Popup_get_check(Popup *popup, int key);
+extern void Popup_grey(Popup *popup, int key, int on);
+extern int Popup_help_me(Popup *popup);
+extern void Popup_hilite(Popup *popup, int key, int on);
+extern void Popup_init(Popup *popup, GameWin *win, GRPort *port, RECT *r, int kind);
+extern int Popup_item_x_size(Popup *popup);
+extern int Popup_item_y_size(Popup *popup);
+extern void Popup_make_controls(Popup *p);
+extern int Popup_make_window(Popup *popup);
+extern void Popup_set_active(Popup *popup, int key);
+extern void Popup_set_check(Popup *popup, int key, int on);
+extern void Popup_set_columns(Popup *popup, int columns);
+extern void Popup_set_draw_sprite(Popup *popup, void *h);
+extern void Popup_set_font(Popup *popup, Font *new_font);
+extern void Popup_set_height(Popup *popup, int height);
+extern void Popup_set_list(Popup *popup, int n, int w);
+extern void Popup_set_on_click(Popup *popup, void *h);
+extern void Popup_set_result(Popup *popup, int v);
+extern void Popup_set_title(Popup *popup, char *s);
+extern void Popup_set_width(Popup *popup, int width);
+extern int Popup_start(Popup *popup, void *unused, char *name, int sel, char *dflt, GameWin *win, GRPort *port, RECT *rect, int kind);
 extern void PostLowMemReport(int res_id, EventWin *win, int flag);
 extern void PutLabel(GRPort *port, Font *font, int n, int x, int y, int color, int fill);
 extern void RGBTree_insert(RGBTree *tree, RGBTreeNode *key, short n);
@@ -4743,6 +4779,7 @@ extern short build_radio_buttons(int *out, RECT *area, int cols, void *owner, in
 #ifndef __cplusplus
 extern void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr);
 #endif
+extern Popup build_slot_menu(char *title, int count);
 extern void build_window_owned(Screen *o, char *title, register int style, int x, int y, int w, int h, void *target, void *owner);
 #ifdef __cplusplus
 extern void build_window_sized(MagicWin *o, char *name, int style, int x, int y, register int w, register int h, void *pal);
@@ -4813,6 +4850,8 @@ extern void checkbox_disable(SCheckBox *checkbox);
 extern void checkbox_init(SCheckBox *checkbox, DialogWin *win, int id, int rx, int ry, char *text);
 extern void choose_freedom(int nation);
 extern void clean_up(void);
+extern void clear_list_bit_1(Popup *popup);
+extern void clear_list_bit_2(Popup *popup);
 extern void clear_pickup(void);
 extern void clear_plan(int nation);
 extern void clear_selected_orders(void);
@@ -5238,6 +5277,7 @@ extern void land_ho(void);
 extern int land_region_at(int x, int y);
 extern void liberty_declared(void);
 extern long list_current_value(ListIter *it);
+extern PopupEdit *list_find_by_field6(Popup *dialog, int key);
 extern long list_first_value(ListIter *it);
 extern int list_has_item(ListWin *o, int key);
 extern void list_hide_items(ListWin *o);
@@ -5375,7 +5415,10 @@ extern int popk(void *name);
 extern int popup_ask_number(char *ctx, char *name, int n);
 extern void popup_country(int slot, int flag, int nation);
 extern void popup_done(void);
+extern void popup_get_edit_text(Popup *control, int i, void *p);
+extern void popup_get_first_edit_text(Popup *ctl, void *p);
 extern void *popup_owner_get(void);
+extern int popup_run_default(Popup *popup);
 extern void popup_say(int slot, int n);
 #ifdef __cplusplus
 extern void port_blit_and_select(MagicWin *o, void *src, RECT *sr, RECT *dr);
@@ -5920,6 +5963,7 @@ extern int win_client_width_1078_23db(MSWin *win);
 extern void win_close(MSWin *win);
 extern void win_disable_1008_d766(Screen *o);
 extern void win_disable_1068_db95(DialogWin *o);
+extern void win_draw_text_default(Popup *popup, char *name, int sel, int unused);
 extern void win_enable_1008_d809(Screen *o);
 extern void win_enable_1060_6798(DialogWin *o);
 extern void win_enable_1068_d96a(DialogWin *o);

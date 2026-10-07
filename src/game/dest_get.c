@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 66, 71 of the imported file. */
 /* PORT: this file's own declarations of dest_name removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 59, 61 of the imported file. */
 /* dest_get: candidate for 1028:ca10 (305 bytes).  Verdict: RELOCATABLE.
@@ -41,7 +42,7 @@
 #include "w16types.h"
 #include "classes.h"
 #include "records.h"
-class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion; class Popup { public: GameWin *win; GRPort *dest_port; GRPort port; Sprite portrait; Sprite tile; Font *font; int req_x, req_y, min_height, n_lines, n_edits, n_items, n_sprites, n_buttons, n_extra, cols, flags, box_w, box_h, list_w, list_h, list_rows, text_color, f94, hilite_color, f98, item_margin, f9c, row_h, pad_y, pad_x, gap_y, gap_x, result, extra_button; char *line[64]; int len[64]; int line_x[64]; int line_y[64]; int pos_x, pos_y, org_x, org_y, win_x, win_y, win_w, win_h, box_x, box_y, framed, item_x, item_y, text_x, text_y, sprite_x, sprite_y, edit_x, edit_y, label_w, button_y, item_w, width, sprite_w, f35c, edit_w, button_w; char *title; struct PopupItem *sel_item; struct PopupSprite *first_sprite; struct PopupItem *items; struct PopupItem *last_item; struct PopupLine *lines; struct PopupSprite *sprites; struct PopupSprite *cur_sprite; int sprite_wraps, sprites_h; struct PopupEdit *edit_items; long on_click, draw_sprite; MemBlock arena; SRadioSet *radios; SCheckBox *checks; SEditBox *edit_boxes; SButton *buttons; SListBox *listbox; SRegion *regions; char *extra_labels[3]; ButtonSlot btn[6]; Popup(int n); ~Popup(); };
+class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 extern void Popup_item(Popup *popup, char *s, int id);
 extern void Popup_set_active(Popup *popup, int id);
@@ -63,12 +64,12 @@ int dest_get(int cur)
     p.flags |= 1;
     for (i = 0; i < g_cur_route_rec->count; i++) {
         Popup_item(&p, dest_name(i), i + 1);
-        report_error_1028_e4db(&g_error_log, "item set", (long)(i + 1));
+        report_error_1028_e4db((char*)(&g_error_log), "item set", (long)(i + 1));
         if (i == cur)
             Popup_set_active(&p, i + 1);
     }
     ev = popup_run_thunk_1028_e46b(&p);
-    report_error_1028_e4db(&g_error_log, "event returned", (long)ev);
+    report_error_1028_e4db((char*)(&g_error_log), "event returned", (long)ev);
     if (ev > 0)
         result = ev - 1;
     return result;

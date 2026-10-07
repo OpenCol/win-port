@@ -9,7 +9,7 @@
 
 #include "w16types.h"
 #include "classes.h"
-typedef struct { char pad[0x3a8]; SEditBox *edit_boxes; } Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void ctl_get_text(SEditBox *it, void *buf);
 void popup_get_edit_text(Popup *control, int i, void *p)

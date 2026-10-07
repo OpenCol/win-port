@@ -12,7 +12,9 @@ so the port spells the conversion out: the expression GCC points at becomes `(T)
 with T the type it wanted.
 
 Only pointer-to-pointer conversions are written (a type with `*` or a function pointer on
-both sides); an integer made from a pointer, or the reverse, is left for a person. Positions
+both sides); an integer made from a pointer, or the reverse, is left for a person, and so is a
+conversion between pointers to integers of different widths (`i16 *` to `int *`): a cast there
+would compile and read the wrong bytes. Positions
 come from GCC's JSON diagnostics in bytes. The file gets one `PORT:` note listing the lines.
 An edit is kept when the file compiles after it, or has no error it did not have before.
 """
@@ -33,10 +35,29 @@ INCOMPAT = re.compile(r"(?:passing argument \d+ of '[^']+'|assignment to '[^']+'
 EXPECTED = re.compile(r"expected '([^']+)'(?: \{aka '[^']+'\})? but argument is of type '([^']+)'")
 
 
+WIDTH = {"char": 1, "signed char": 1, "unsigned char": 1, "int8_t": 1, "uint8_t": 1, "BYTE": 1,
+         "short": 2, "short int": 2, "unsigned short": 2, "short unsigned int": 2, "i16": 2, "u16": 2,
+         "int16_t": 2, "uint16_t": 2, "int": 4, "unsigned": 4, "unsigned int": 4, "long": 4,
+         "long int": 4, "unsigned long": 4, "long unsigned int": 4, "i32": 4, "u32": 4}
+
+
+def int_width(t):
+    """The width of the integer a pointer type points at, or None."""
+    t = re.sub(r"\{aka [^}]*\}", "", t).replace("const", "").replace("volatile", "")
+    m = re.match(r"^\s*([\w ]+?)\s*\*\s*$", t)
+    return WIDTH.get(re.sub(r"\s+", " ", m.group(1)).strip()) if m else None
+
+
+def changes_width(a, b):
+    """True when a and b point at integers of different widths: a cast would read the wrong
+    number of bytes (an i16 cell through an int *), so it is not a spelling to write."""
+    wa, wb = int_width(a), int_width(b)
+    return wa is not None and wb is not None and wa != wb
+
+
 def is_pointer(t):
     t = re.sub(r"\{aka [^}]*\}", "", t)
-    return "*" in t and not re.search(r"\b(int|long|short|char|unsigned)\s*$", t.replace("*", "").strip()) \
-        or "(*)" in t
+    return "*" in t
 
 
 def diagnostics(path):
@@ -61,17 +82,17 @@ def casts(path):
         msg = d.get("message", "")
         target = None
         m = CONV.search(msg)
-        if m and is_pointer(m.group(1)) and is_pointer(m.group(2)):
+        if m and is_pointer(m.group(1)) and is_pointer(m.group(2)) and not changes_width(m.group(1), m.group(2)):
             target = m.group(2)
         elif INCOMPAT.search(msg):
             for ch in d.get("children", []):
                 e = EXPECTED.search(ch.get("message", ""))
-                if e and is_pointer(e.group(1)) and is_pointer(e.group(2)):
+                if e and is_pointer(e.group(1)) and is_pointer(e.group(2)) and not changes_width(e.group(1), e.group(2)):
                     target = e.group(1)
             if target is None:
                 m2 = re.search(r"from incompatible pointer type '([^']+)'", msg)
                 t2 = re.search(r"assignment to '([^']+)'|initialization of '([^']+)'", msg)
-                if t2:
+                if t2 and not (m2 and changes_width(m2.group(1), t2.group(1) or t2.group(2))):
                     target = t2.group(1) or t2.group(2)
         if not target:
             continue

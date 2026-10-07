@@ -33,13 +33,7 @@
 class DlgControl;
 
 
-typedef struct {
-    GameWin *win;                  /* +0     */
-    char pad4[0x334 - 4];
-    int win_x, win_y, win_w, win_h;            /* +0x334 */
-    char pad33c[0x362 - 0x33c];
-    char *title;                   /* +0x362 */
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
    /* 0x41e bytes: the palette, its handle and the cycling state */
 

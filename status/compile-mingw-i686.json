@@ -1,28 +1,12 @@
 {
  "first_errors": [
   [
-   12,
-   "invalid conversion from 'X' to 'X' [-fpermissive]"
-  ],
-  [
-   7,
-   "'X' was not declared in this scope; did you mean 'X'?"
-  ],
-  [
    5,
    "subscripted value is neither array nor pointer nor vector"
   ],
   [
-   3,
-   "conflicting declaration 'X'"
-  ],
-  [
-   3,
-   "conflicting types for 'X'; have 'X'"
-  ],
-  [
-   3,
-   "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+   4,
+   "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
    2,
@@ -30,11 +14,15 @@
   ],
   [
    2,
-   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
+   "cannot convert to a pointer type"
   ],
   [
    2,
-   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
+   "conflicting types for 'X'; have 'X'"
+  ],
+  [
+   2,
+   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
   ],
   [
    2,
@@ -50,15 +38,11 @@
   ],
   [
    1,
+   "'X' was not declared in this scope"
+  ],
+  [
+   1,
    "assignment to 'X' from incompatible pointer type 'X' {aka 'X'} [-Wincompatible-pointer-types]"
-  ],
-  [
-   1,
-   "cannot convert 'X' to 'X'"
-  ],
-  [
-   1,
-   "cannot convert to a pointer type"
   ],
   [
    1,
@@ -70,10 +54,14 @@
   ],
   [
    1,
+   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
+  ],
+  [
+   1,
    "specializing member 'X' requires 'X' syntax"
   ]
  ],
- "ok": 3195,
+ "ok": 3217,
  "toolchain": "mingw-i686",
  "total": 3245
 }

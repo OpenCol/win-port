@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 98, 490 of the imported file. */
 /* PORT: this file's own declarations of MSHideWindow_of_1040_a80c removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, Sprite_Init, set_on_close_1040_a7bc, win_center_1040_a778 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 487 of the imported file. */
@@ -95,7 +96,7 @@ extern "C" void art_cheat(void)
     register int unknown;
 
     unknown = 0;
-    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), pal, 0xa, 0xec);
+    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), (unsigned char*)(pal), 0xa, 0xec);
     if (popup_ask_number("DEBUG", "ARTISTS", 1) == 0) {
         GameWin_Init(&win, "Close Window to Reset Palette", 0x69, 0, 0,
                                          0x280, 0x1e0, &g_game_palette, (Screen *)&g_main_win);
@@ -487,5 +488,5 @@ extern "C" void art_cheat(void)
             MSHideWindow_of_1040_a80c((DialogWin *)((char *)&win + 0x26));
         }
     }
-    CTable_Fill(&g_game_palette, 0xa, 0xec, pal);
+    CTable_Fill(&g_game_palette, 0xa, 0xec, (unsigned char*)(pal));
 }

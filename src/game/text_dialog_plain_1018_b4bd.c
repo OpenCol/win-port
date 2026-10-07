@@ -12,7 +12,7 @@
 
 #include "colonization.h"
 
-typedef struct Popup Popup;
+/* PORT: `typedef struct Popup Popup;` removed: include/gen/classes.h defines Popup (W1). */
 #include "w16types.h"
 #include "classes.h"
 extern int Popup_start(Popup *p, void *ctx, char *name, int sel, char *dflt, GameWin *win, GRPort *port, RECT *rect, int kind);

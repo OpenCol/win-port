@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 80 of the imported file. */
 /* flic_seek_frame: candidate for 1068:268c (137 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: flic_seek_frame
@@ -77,7 +78,7 @@ extern "C" void Flic_NextFrame(Flic *flic);
 
 void flic_seek_frame(Flic *flic, int n, void *pal)
 {
-    flic->pos = flic->buf;
+    flic->pos = (unsigned char*)(flic->buf);
     flic->frame_no = 0;
     while (flic->frame_no != n) {
         Flic_NextFrame(flic);

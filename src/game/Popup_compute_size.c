@@ -91,7 +91,7 @@
 #include "records.h"
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 typedef struct PopupSprite { int id; int f2; char *text; RECT rect; Sprite *sprite; struct PopupSprite *next; struct PopupSprite *prev; } PopupSprite;
-typedef struct { void *win; void *dest_port; GRPort port; Sprite portrait; Sprite tile; void *font; int req_x, req_y, min_height, n_lines, n_edits, n_items, n_sprites, n_buttons, n_extra, cols, flags, box_w, box_h, list_w, list_h, list_rows, text_color, f94, hilite_color, f98, item_margin, f9c, row_h, pad_y, pad_x, gap_y, gap_x, result, extra_button; char *line[64]; int len[64]; int line_x[64]; int line_y[64]; int pos_x, pos_y, org_x, org_y, win_x, win_y, win_w, win_h, box_x, box_y, framed, item_x, item_y, text_x, text_y, sprite_x, sprite_y, edit_x, edit_y, label_w, button_y, item_w, width, sprite_w, f35c, edit_w, button_w; char *title; struct PopupItem *sel_item; struct PopupSprite *first_sprite; struct PopupItem *items; struct PopupItem *last_item; struct PopupLine *lines; struct PopupSprite *sprites; struct PopupSprite *cur_sprite; int sprite_wraps, sprites_h; struct PopupEdit *edit_items; long on_click, draw_sprite; char arena[14]; void *radios; void *checks; void *edit_boxes; void *buttons; void *listbox; void *regions; char *extra_labels[3]; struct { int cmd; int x; } btn[6]; } Popup;   /* the class, for C: the arena (a MemBlock) as its 14 bytes */
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */   /* the class, for C: the arena (a MemBlock) as its 14 bytes */
 
 extern int g_frame_top_text[];                 /* SEG31:0xc */
 extern int g_frame_top_sel[];                 /* SEG31:0x38 */
@@ -120,20 +120,20 @@ int Popup_compute_size(Popup *p)
     int text_h = 0;
     int radio_h = 0;
     int edits_h = 0;
-    int right_h;
-    int regions_h;
+    i16 right_h;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 regions_h;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
     int anger;
     int rows;
     RECT desk;
     PopupSprite *r;
     char stuck;
-    int one;
-    int label_w;
-    int extra_w;
-    int popup_h;
-    int top_h;
-    int popup_h2;
-    int top_h2;
+    i16 one;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 label_w;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 extra_w;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 popup_h;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 top_h;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 popup_h2;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
+    i16 top_h2;   /* PORT: i16, max_ptr_1050_97d1 takes its address */
     int run_w;
     register int i;
     register int bx;

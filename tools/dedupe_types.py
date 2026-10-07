@@ -28,7 +28,7 @@ import gen_headers as gh      # noqa: E402
 
 
 def shared_names():
-    cls = gh.strip_comments(open(os.path.join(ROOT, "include", "classes.h")).read())
+    cls = gh.strip_comments(open(os.path.join(ROOT, "include", "gen", "classes.h")).read())
     split = cls.index("#else")
     classes = set(re.findall(r"\bclass\s+(\w+)\s*(?::[^{;]*)?\{", cls[:split]))
     views = gh.defined_types(cls[split:])

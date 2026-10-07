@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 125 of the imported file. */
 /* PORT: this file's own declarations of ctable_hpal, get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
 /* MSInitButton: candidate for 1070:0f45 (3663 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -122,7 +123,7 @@ extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
     char part[0x100];
     char label[0x100];
 
-    STRCPY(label, text);
+    STRCPY(label, (char*)(text));
     button = obj;
     style = 0x40810000L;
     if (visible)

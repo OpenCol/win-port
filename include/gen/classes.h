@@ -71,6 +71,54 @@ class SuperWin : public GameWin { public: EventWin win; char palette[0x414 - 0x1
 class VListItem { public: void far *value; VListItem far *next; VListItem far *prev; VListItem(); ~VListItem(); };
 class VList { public: VListItem far *first; VListItem far *last; VListItem far *cur; VList(); ~VList(); };
 
+/* PORT: Popup from include/port/corpus_classes.h: every file using it defined it for itself (W1) */
+struct PopupItem;
+struct PopupSprite;
+struct PopupEdit;
+struct PopupLine;
+class SRadioSet;
+class SCheckBox;
+class SEditBox;
+class SButton;
+class SListBox;
+class SRegion;
+class Popup {
+public:
+    GameWin *win;
+    GRPort *dest_port;
+    GRPort port;
+    Sprite portrait;
+    Sprite tile;
+    Font *font;
+    i16 req_x, req_y, min_height, n_lines, n_edits, n_items, n_sprites, n_buttons, n_extra, cols, flags, box_w, box_h, list_w, list_h, list_rows, text_color, f94, hilite_color, f98, item_margin, f9c, row_h, pad_y, pad_x, gap_y, gap_x, result, extra_button;
+    char *line[64];
+    i16 len[64];
+    i16 line_x[64];
+    i16 line_y[64];
+    i16 pos_x, pos_y, org_x, org_y, win_x, win_y, win_w, win_h, box_x, box_y, framed, item_x, item_y, text_x, text_y, sprite_x, sprite_y, edit_x, edit_y, label_w, button_y, item_w, width, sprite_w, f35c, edit_w, button_w;
+    char *title;
+    struct PopupItem *sel_item;
+    struct PopupSprite *first_sprite;
+    struct PopupItem *items;
+    struct PopupItem *last_item;
+    struct PopupLine *lines;
+    struct PopupSprite *sprites;
+    struct PopupSprite *cur_sprite;
+    i16 sprite_wraps, sprites_h;
+    struct PopupEdit *edit_items;
+    long on_click, draw_sprite;
+    MemBlock arena;
+    SRadioSet *radios;
+    SCheckBox *checks;
+    SEditBox *edit_boxes;
+    SButton *buttons;
+    SListBox *listbox;
+    SRegion *regions;
+    char *extra_labels[3];
+    ButtonSlot btn[6];
+    Popup(int n);
+    ~Popup();
+};
 #else
 
 typedef struct { char pad0[0xc4]; char win[0x8c]; char table[0x41e]; char pic[0x26]; char page[0x26]; char overlay[0x26]; unsigned char palette[0x8a4 - 0x5e0]; RECT full; RECT top_strip; RECT bottom_strip; char logo[0x20]; char letters[0x15][0x20]; char tile[0x20]; long start; long last; i16 shown[0x19]; } AboutWin;
@@ -108,6 +156,42 @@ typedef struct { RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsig
 typedef struct { char gamewin[0xc4]; char win[0x8c]; char palette[0x414 - 0x150]; } SuperWin;
 typedef struct { long first; long last; long cur; } VList;
 
+/* PORT: Popup from include/port/corpus_classes.h: every file using it defined it for itself (W1) */
+/* the class, for C: the same members and types, so both languages lay it out alike */
+typedef struct {
+    void *win;
+    void *dest_port;
+    GRPort port;
+    Sprite portrait;
+    Sprite tile;
+    void *font;
+    i16 req_x, req_y, min_height, n_lines, n_edits, n_items, n_sprites, n_buttons, n_extra, cols, flags, box_w, box_h, list_w, list_h, list_rows, text_color, f94, hilite_color, f98, item_margin, f9c, row_h, pad_y, pad_x, gap_y, gap_x, result, extra_button;
+    char *line[64];
+    i16 len[64];
+    i16 line_x[64];
+    i16 line_y[64];
+    i16 pos_x, pos_y, org_x, org_y, win_x, win_y, win_w, win_h, box_x, box_y, framed, item_x, item_y, text_x, text_y, sprite_x, sprite_y, edit_x, edit_y, label_w, button_y, item_w, width, sprite_w, f35c, edit_w, button_w;
+    char *title;
+    struct PopupItem *sel_item;
+    struct PopupSprite *first_sprite;
+    struct PopupItem *items;
+    struct PopupItem *last_item;
+    struct PopupLine *lines;
+    struct PopupSprite *sprites;
+    struct PopupSprite *cur_sprite;
+    i16 sprite_wraps, sprites_h;
+    struct PopupEdit *edit_items;
+    long on_click, draw_sprite;
+    MemBlock arena;
+    void *radios;
+    void *checks;
+    void *edit_boxes;
+    void *buttons;
+    void *listbox;
+    void *regions;
+    char *extra_labels[3];
+    ButtonSlot btn[6];
+} Popup;
 #endif
 
 #pragma pack(pop)

@@ -35,18 +35,7 @@
 #pragma option -a-
 class DlgControl;
 
-typedef struct {
-    GameWin *win;
-    char pad0[0x86 - 4];
-    int flags;
-    char pad1[0x3a0 - 0x88];
-    SRadioSet *radios;
-    SCheckBox *checks;
-    SEditBox *edit_boxes;
-    SButton *buttons;
-    SListBox *listbox;
-    SRegion *regions;
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 extern Popup *g_cur_dialog;               /* DGROUP:0x2500 */
 

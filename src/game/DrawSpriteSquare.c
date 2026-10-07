@@ -18,18 +18,7 @@
 #include "w16types.h"
 #include "classes.h"
 typedef struct PopupSprite { int id; int f2; char *text; RECT rect; Sprite *sprite; struct PopupSprite *next; struct PopupSprite *prev; } PopupSprite;
-typedef struct {
-    void *win;                    /* +0     */
-    char pad4[0x7c - 4];
-    int n_items;                          /* +0x7c  */
-    char pad7e[0xa8 - 0x7e];
-    int result;                           /* +0xa8  */
-    char padaa[0x37a - 0xaa];
-    PopupSprite *sprites;                   /* +0x37a */
-    PopupSprite *cur_sprite;                 /* +0x37e */
-    char pad382[0x3b4 - 0x382];
-    SRegion *regions;              /* +0x3b4 */
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 extern Popup *g_cur_dialog;                 /* DGROUP:0x2500 */
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);

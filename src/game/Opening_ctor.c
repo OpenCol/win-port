@@ -32,7 +32,8 @@
 class DlgControl;
 #include "records.h"
 
-typedef void (*Handler)(void);
+/* PORT: an unused `typedef void (*Handler)(void);` removed: the header's Handler is the
+   message-handler slot type the other files use (W1). */
 
 extern Opening *g_opening;   /* DGROUP:0x964 */
 extern EventWin * g_backdrop_win;   /* DGROUP:0xc6: the backdrop; its EventTable part sits at +0xd */

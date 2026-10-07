@@ -25,6 +25,7 @@ writes there:
   w16types.h      the Win16 records (RECT, POINT, PAINTSTRUCT...) with Win16 widths, packed.
 Parameters of methods keep the source's spelling: they must match their definitions in src/.
 """
+import collections
 import glob
 import os
 import re
@@ -284,8 +285,8 @@ def known_types(src):
     common = (defined_types(src) | defined_types(open(os.path.join(INC, "w16types.h")).read())
               | defined_types(open(os.path.join(INC, "records.h")).read()) | set(ALIASES)
               | {"i16", "u16", "i32", "u32"})
-    classes = set(re.findall(r"\bclass\s+(\w+)", cls[:split])) - local_typedef_names(True)
-    views = defined_types(cls[split:]) - local_typedef_names(False)
+    classes = (set(re.findall(r"\bclass\s+(\w+)", cls[:split])) | set(CORPUS_CLASSES)) - local_typedef_names(True)
+    views = (defined_types(cls[split:]) | set(CORPUS_CLASSES)) - local_typedef_names(False)
     # C++ gets each class forward-declared, which a file's own definition can follow -- except
     # a class some C++ file still views as `typedef struct {...} Name;`, which a forward
     # `class Name;` would contradict. C gets classes.h's views, included from the header --
@@ -359,8 +360,8 @@ def gen_colonization():
     src = open(os.path.join(INC, "colonization.h")).read()
     known_c, known_cpp = known_types(src)
     out = drop_records(src, corpus_records() | set(ALIASES))
-    cls_names = sorted(set(re.findall(r"\bclass\s+(\w+)", strip_comments(open(os.path.join(INC, "classes.h")).read())))
-                       - local_typedef_names(True))
+    cls_names = sorted((set(re.findall(r"\bclass\s+(\w+)", strip_comments(open(os.path.join(INC, "classes.h")).read())))
+                        | set(CORPUS_CLASSES)) - local_typedef_names(True))
     fwd = ("#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) +
            "#else\n#include \"classes.h\"   /* PORT: the C views */\n#endif\n")
     out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd, 1)
@@ -542,8 +543,30 @@ def gen_records(col_types):
     return BANNER % "records.h" + text, keep, dropped
 
 
+# classes the corpus never put in classes.h (every file that used one defined it for itself):
+# include/port/corpus_classes.h holds them once, C++ class and C view
+CORPUS_CLASSES_H = os.path.join(ROOT, "include", "port", "corpus_classes.h")
+
+
+def corpus_classes():
+    """(C++ definitions, C views, names) from include/port/corpus_classes.h."""
+    t = open(CORPUS_CLASSES_H).read()
+    body = t[t.index("#ifdef __cplusplus") + len("#ifdef __cplusplus"):t.rindex("#endif", 0, t.rindex("#endif"))]
+    cpp, c = body.split("#else", 1)
+    return cpp.strip() + "\n", c.strip() + "\n", re.findall(r"\bclass\s+(\w+)\s*\{", cpp)
+
+
+CORPUS_CLASSES = corpus_classes()[2]
+
+
 def gen_classes():
     src = open(os.path.join(INC, "classes.h")).read()
+    cpp, c, names = corpus_classes()
+    note = "/* PORT: %s from include/port/corpus_classes.h: every file using it defined it for itself (W1) */\n" % ", ".join(names)
+    i = src.index("#else")
+    src = src[:i] + note + cpp + src[i:]
+    j = src.rindex("#endif", 0, src.rindex("#endif"))
+    src = src[:j] + note + c + src[j:]
     text = borland_pragmas(widen_records(src))
     text = text.replace('#include "records.h"', '#include "records.h"\n#include "port/types.h"\n' + PACK_OPEN, 1)
     i = text.rindex("#endif")

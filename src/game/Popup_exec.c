@@ -27,24 +27,7 @@
 #include "classes.h"
 #include "records.h"
 
-typedef struct {
-    char *win;                         /* +0 */
-    char pad4[0x4e - 4];
-    Sprite tile;                     /* +0x4e */
-    char pad6e[0x7a - 0x6e];
-    int n_edits;                             /* +0x7a */
-    char pad7c[0x86 - 0x7c];
-    int flags;                             /* +0x86 */
-    char pad88[0xa8 - 0x88];
-    int result;                            /* +0xa8 */
-    char padaa[0x36e - 0xaa];
-    PopupItem *items;                       /* +0x36e */
-    char pad372[0x3a4 - 0x372];
-    Check *checks;                     /* +0x3a4 */
-    SEditBox *edit_boxes;                       /* +0x3a8 */
-    char pad3ac[0x3b0 - 0x3ac];
-    void *listbox;                     /* +0x3b0 */
-} Popup;
+/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 extern Popup *g_cur_dialog;                    /* DGROUP:0x2500 */
 
 extern int g_popup_tribe;                     /* DGROUP:0x2518, declared */

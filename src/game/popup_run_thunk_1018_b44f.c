@@ -14,7 +14,7 @@
 
 #include "colonization.h"
 
-typedef struct Popup Popup;
+/* PORT: `typedef struct Popup Popup;` removed: include/gen/classes.h defines Popup (W1). */
 extern int Popup_exec(Popup *popup, char *text);
 
 int popup_run_thunk_1018_b44f(void *p)

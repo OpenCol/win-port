@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 68 of the imported file. */
 /* PORT: this file's own declarations of MSShowWindow_of_1010_29c1, MagicWin_Init, port_height_1010_2a80, port_width_1010_2a67, set_on_keydown_1010_2a1b, set_on_lbutton_down_1010_29e2, win_center_1010_299c, win_set_back_color_1010_2978 removed: the header declares them from the definition (W1 step 3). */
 /* ClosingWin_ctor: candidate for 1010:00a8 (503 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -65,7 +66,7 @@ ClosingWin::ClosingWin()
     RECT desk;
 
     MSGetDesktopSize(&desk);
-    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), palette, 10, 0xec);
+    CTable_CopyRawColors((CTable *)((struct logpal *)&g_game_palette), (unsigned char*)(palette), 10, 0xec);
     set_wing_orientation(1);
     EventWin_Init((char *)&win, "", 0x801, 0, 0, desk.right, desk.bottom, &g_game_palette);
     win_set_back_color_1010_2978(&win, 0);
