@@ -1,5 +1,5 @@
 /* The classes the byte-matching corpus never put in a shared header: every file that used one
- * defined it for itself, identically (42 of 43 C++ copies, 61 of 63 C views). The port defines
+ * defined it for itself (Popup: 42 of 43 C++ copies, 61 of 63 C views). The port defines
  * each once, the C view with the class's own member types (the corpus's spelled the port, the
  * sprites and the arena as bytes, which are not their sizes here); tools/gen_headers.py widens the members and writes them into include/gen/classes.h.
  * Written by the W1 import of the per-file copies; edit here, not in the files.
@@ -56,6 +56,48 @@ public:
     ~Popup();
 };
 
+
+/* Flic: 20 of 25 C++ copies; the others are padded views of the same offsets */
+class Flic : public GRPort {
+public:
+    char header[4];
+    unsigned magic;
+    unsigned short frames;
+    short width, height;
+    char pad_32[4];
+    long speed;
+    char pad_3a[2];
+    long created;
+    char pad_40[0x76 - 0x40];
+    long frame_offset;
+    char pad_7a[0xa6 - 0x7a];
+    DiskFile file;
+    char name[0x232 - 0x132];
+    void *res;
+    short res_id;
+    short hbuf;
+    char *buf;
+    unsigned char *pos;
+    void *frame2;
+    char pad_246[4];
+    long left;
+    short f24e, f250;
+    unsigned char rgb[0x300];
+    short pal_first;
+    short pal_count;
+    unsigned char dirty;
+    char f557;
+    short hrects, hrect_frames;
+    RECT *rects;
+    int *rect_frames;
+    short frame_no, rect_index;
+    unsigned count, least, most;
+    short timer;
+    void *port;
+    void (*loop_hook)(void);
+    Flic();
+    ~Flic();
+};
 #else
 
 /* the class, for C: the same members and types, so both languages lay it out alike */
@@ -94,5 +136,17 @@ typedef struct {
     ButtonSlot btn[6];
 } Popup;
 
+
+/* MagicWin, for C: the class's members after its GameWin base (classes.h has the class only) */
+typedef struct {
+    GameWin gamewin;
+    GRPort port;
+    void far *pal;
+    RECT rect;
+    int first, count;
+    char bound;
+    char fb;
+    void far *anim;
+} MagicWin;
 #endif
 #endif

@@ -32,7 +32,8 @@
 /* PORT: this file's own CTable, DiskFile, Sprite removed: include/gen/classes.h define them once (W1 step 2). */
 #include "classes.h"   /* 0x41e bytes: the palette, its handle and the cycling state */
 #include "records.h"
-typedef struct { char pad[1]; } logpal;
+/* PORT: an opaque `typedef struct { char pad[1]; } logpal;` removed: the header declares
+   struct logpal, which in C++ names the type already (W1). */
 
 #pragma option -a
 

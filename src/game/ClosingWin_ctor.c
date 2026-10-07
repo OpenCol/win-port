@@ -28,15 +28,7 @@ class DlgControl;
 
 #include "records.h"
 
-class Flic : public GRPort {
-public:
-    char pad_26[0xa6 - 0x26];
-    DiskFile file;
-    char pad_132[0x574 - 0x132];
-    void *loop_hook;              /* +0x574, set_handler_574 */
-    Flic();
-    ~Flic();
-};
+/* PORT: this file's own Flic removed: include/gen/classes.h define it once (W1 step 2). */
 class ClosingWin : public MagicWin {
 public:
     Flic flic;

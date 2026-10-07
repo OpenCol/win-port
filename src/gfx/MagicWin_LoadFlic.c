@@ -29,7 +29,7 @@
 
 
 
-typedef struct { char pad[0x574]; void *loop_hook; } Flic;
+/* PORT: this file's own Flic removed: include/gen/classes.h define it once (W1 step 2). */
 
 void MagicWin_LoadFlic(MagicWin *p, Flic *anim)
 {

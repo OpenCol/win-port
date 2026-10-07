@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 57 of the imported file. */
 /* PORT: this file's own declarations of port_blit_or_copy removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 55 of the imported file. */
 /* port_paint_wndproc: candidate for 1070:bb97 (224 bytes).  Verdict: RELOCATABLE.
@@ -29,7 +30,8 @@
 
 #include "w16types.h"
 #include "w16const.h"
-typedef struct { char pad[1]; } MagicWin;
+/* PORT: this file's own MagicWin removed: include/gen/classes.h define it once (W1 step 2). */
+#include "classes.h"
 #include "records.h"
 
 
@@ -53,7 +55,7 @@ long port_paint_wndproc(unsigned hwnd, unsigned msg, unsigned wp,
             r.top = ps.rcPaint.top;
             r.right = ps.rcPaint.right;
             r.bottom = ps.rcPaint.bottom;
-            port_blit_or_copy((Port *)((MagicWin *)p), &r);
+            port_blit_or_copy((MagicWin *)((Port *)((MagicWin *)p)), &r);
             EndPaint(hwnd, &ps);
         }
         break;

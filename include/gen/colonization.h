@@ -58,6 +58,7 @@ class DlgControl;
 class EuropeWin;
 class EventTable;
 class EventWin;
+class Flic;
 class Font;
 class GRPort;
 class GamePrefs;
@@ -92,6 +93,11 @@ class VListItem;
 #else
 #include "classes.h"   /* PORT: the C views */
 #endif
+struct PopupItem;
+struct PopupLine;
+struct PopupSprite;
+struct PopupEdit;
+struct logpal;
 
 
 /* C LINKAGE, because 436 of the reconstructions are C++ and the rest are C.
@@ -1619,7 +1625,7 @@ extern int DrawText(unsigned hdc, const char *s, int n, RECT *r, unsigned fmt);
 extern int EnableMenuItem(unsigned, unsigned, unsigned);
 extern int EnableWindow(unsigned, int);
 extern void EndPaint(unsigned hwnd, PAINTSTRUCT *ps);
-/* PORT: EnumFontFamilies's prototype here was stale, and its definition names a type no header has */
+extern int EnumFontFamilies(unsigned hdc, const char *family, FARPROC proc, void *lparam);
 extern int EuropeWin_Close(void);
 extern void EuropeWin_LeftMouseClick(int x, int y);
 extern void EuropeWin_MouseMove(int x, int y);
@@ -4137,18 +4143,10 @@ extern void EventWin_Init(char *o, char *name, int style, int x, int y, int w, i
 extern void EventWin_Modal(EventWin *o);
 extern int Fame(int show, int *rank_out);
 extern void FinalScore(void);
-#ifndef __cplusplus
 extern void Flic_DecodeFrame(Flic *flic, unsigned char *data, FlicFrame *frame);
-#endif
-#ifndef __cplusplus
 extern void Flic_Init(Flic *flic, char *name);
-#endif
-#ifndef __cplusplus
 extern void Flic_Init2(Flic *flic, char *name, int first, int count);
-#endif
-#ifndef __cplusplus
 extern void Flic_NextFrame(Flic *flic);
-#endif
 extern void FortDraw(GRPort *port, register int colony, int x, int y, register int zoom, int show_pop, int show_name);
 extern void FrameInfoRect(GRPort *port, RECT *r, int depth, int light, int dark);
 extern void FreezeMenus(void);
@@ -4171,6 +4169,7 @@ extern GrafRec *GRPort_GetWin_1070_dc44(GRPort *r);
 extern int GRPort_Init(GRPort *p, void *r);
 extern void GRPort_InitStruct(GRPort *p, RECT *rect);
 extern char GRPort_IsLocked(GRPort *p);
+extern int GRPort_LoadPicture(GRPort *port, int id, int first, int count, struct logpal *pal);
 extern unsigned char * GRPort_NextScanLine(GRPort *p, unsigned char *row);
 extern unsigned char * GRPort_PrevScanLine(GRPort *port, unsigned char *row);
 extern void GRPort_ResetClip(GRPort *port);
@@ -4229,6 +4228,7 @@ extern void LowMemTimerProc(void);
 extern void MSAnimatePal(Palette *pal, unsigned hpal, int start, int count);
 extern void MSCenterWindow(MSWin *win, int dx, int dy);
 extern int MSCloseFile(MSFile *file);
+extern void MSCopyRawColors(struct logpal *pal, unsigned char *dst, int first, int count);
 extern int MSCreateFile(const char *name, MSFile *file);
 extern void MSDecodeByteRun(unsigned char *body, unsigned char *bits, int x, int y, int stride, unsigned char add);
 extern void MSDecodeColor256(unsigned char *src, unsigned char *dst);
@@ -4326,6 +4326,7 @@ extern void MSRestoreWindow(MSWin *win);
 extern void MSRestoreWindow_of(DialogWin *o);
 extern int MSSeekFile(MSFile *file, long off);
 extern void MSSetBackground(MSWin *win, char index);
+extern void MSSetCTEntry(struct logpal *pal, int i, unsigned char r, unsigned char green, unsigned char blue);
 extern void MSSetClip(void *w, void *r);
 extern void MSSetCursor(MSWin *win, int cur, int now);
 extern void MSSetCursor_id(MSWin *win, int id);
@@ -4361,6 +4362,7 @@ extern void MSShowWindow_of_1060_6ce9(DialogWin *o);
 extern void MSShowWindow_of_1060_8623(DialogWin *o);
 extern void MSShowWindow_of_1068_e66f(DialogWin *o);
 extern void MSTagAnimate(Palette *pal, int start, int count);
+extern void MSTagNonAnimate(struct logpal *pal, int first, int count);
 extern void MSTrackPopupMenu(unsigned hmenu, MSWin *win, int x, int y);
 extern void MSUnlockGraf(GRPort *port);
 extern void MSUnlockResource(void *p);
@@ -4373,27 +4375,15 @@ extern void MSValidRect(MSWin *win, RECT *rect);
 extern int MSWriteFile(MSFile *file, void *buf, long n);
 extern int MSWriteFile_1068_dc9a(void *out, void *buf, long n);
 extern int MSWriteLine(MSFile *file, char *s);
-#ifdef __cplusplus
 extern void MagicWin_Init(MagicWin *o, char *name, int style, int x, int y, register int w, register int h, void *pal, void *parent);
-#endif
-#ifdef __cplusplus
 extern void MagicWin_InitWithMenu(MagicWin *o, char *name, int style, int x, int y, register int w, register int h, void *pal, void *parent);
-#endif
-#ifdef __cplusplus
+extern void MagicWin_LoadFlic(MagicWin *p, Flic *anim);
 extern void MagicWin_load_gif(MagicWin *o, int id, register int first, register int count, void *pal);
-#endif
-#ifdef __cplusplus
 extern void MagicWin_load_lbm(MagicWin *o, int res_id, register int first, register int count, void *pal);
-#endif
-#ifdef __cplusplus
 extern void MagicWin_load_pcx(MagicWin *o, int id, register int first, register int count, void *pal);
-#endif
-#ifdef __cplusplus
 extern void MagicWin_load_picture(MagicWin *o, int id, register int first, register int count, void *pal);
-#endif
-#ifdef __cplusplus
 extern void MagicWin_remap_to_palette(MagicWin *w, short first, short count);
-#endif
+extern void MagicWin_remap_using_palette(MagicWin *w, short first, short count, struct logpal *pal);
 #ifndef __cplusplus
 extern void MainWin_CheckMenuItems(MainWin *w);
 #endif
@@ -4725,12 +4715,8 @@ extern int ai_sell(int goods);
 extern void allied_invasion(int mercs);
 extern int allocate_map_memory(int big);
 extern void analyze_cash_flow(int good, int prod, int use, int stock);
-#ifndef __cplusplus
 extern void anim_start(Flic *anim, void *port);
-#endif
-#ifndef __cplusplus
 extern void anim_start_ex(Flic *anim, void *port, int a4, int a5);
-#endif
 extern void anti_revolution(void);
 extern int any_ship_in_stack(int u);
 extern int any_spec(int job);
@@ -4776,14 +4762,10 @@ extern void build_movie_window_1060_a56b(Screen *o, char *title, register int st
 extern void build_movie_window_1060_a5ef(Screen *o, char *title, register int style, int x, int y, int w, int h, void *owner);
 extern void build_opening_art(AboutWin *o);
 extern short build_radio_buttons(int *out, RECT *area, int cols, void *owner, int count, char * *names, int visible);
-#ifndef __cplusplus
 extern void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr);
-#endif
 extern Popup build_slot_menu(char *title, int count);
 extern void build_window_owned(Screen *o, char *title, register int style, int x, int y, int w, int h, void *target, void *owner);
-#ifdef __cplusplus
 extern void build_window_sized(MagicWin *o, char *name, int style, int x, int y, register int w, register int h, void *pal);
-#endif
 extern void build_window_with_port(GameWin *o, char *name, int style, int x, int y, register int w, register int h, void *pal);
 extern int building_level(int bit);
 extern int building_of_job(int job);
@@ -4984,9 +4966,7 @@ extern int dialog_mnemonic(DialogWin *w, char key);
 extern void disable_parent(MSWin *win);
 extern void dispatch_click(int x, int y);
 extern void *dispose_wing_surface(WinGRec *r);
-#ifdef __cplusplus
 extern void dissolve_transition(MagicWin *w);
-#endif
 extern void dlg_control_init_1010_edf9(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 extern void dlg_control_init_1030_ec80(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 extern void dlg_control_init_1040_b207(DlgControl *ctl, void *win, int kind, int id, RECT *r);
@@ -5074,15 +5054,9 @@ extern int find_my_close_unit(unsigned char nation, int skip, int x, int y);
 extern int find_orphan_cargo_units(int u);
 extern int find_village(int x, int y);
 extern void flag_4bee_set(void);
-#ifndef __cplusplus
 extern void flic_load_resource(Flic *flic, int id);
-#endif
-#ifndef __cplusplus
 extern void flic_load_resource2(Flic *flic, int id, int first, int count);
-#endif
-#ifndef __cplusplus
 extern void flic_seek_frame(Flic *flic, int n, void *pal);
-#endif
 extern void focus_walk_siblings(DialogWin *o, unsigned hwnd, int dir);
 extern int font_handle_1068_da68(Font *font);
 extern int font_handle_1068_dd1e(Font *font);
@@ -5191,9 +5165,7 @@ extern void get_window_rect_1060_61dd(ColChild *w, RECT *r);
 extern int get_yield_type(int x, int y, int *spec_out);
 extern void give_me_liberty(int nation, int father, int unused1);
 extern void great(int slot, char *name, int n);
-#ifndef __cplusplus
 extern RECT grow_region_rect(Flic *grid, int x0, int y0);
-#endif
 extern void grport_init_wh0(GRPort *port);
 extern int guy_number_of_unit(int target);
 extern int guys_at_building(int building);
@@ -5287,9 +5259,7 @@ extern void listbox_init(SListBox *listbox, DialogWin *win, int id, RECT *r);
 extern void listbox_set_cursel(unsigned hwnd, int index);
 extern long listbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
 extern void load_data(void);
-#ifndef __cplusplus
 extern char load_frr_file(Flic *flic);
-#endif
 extern int load_game_file(char *name);
 extern int load_gif_file(GRPort *port, char *name, register int first, int count, CTable *pal);
 extern int load_map_file(void);
@@ -5385,6 +5355,8 @@ extern void palette_cross_fade(CTable *table, int step);
 extern void palette_delete(unsigned hpal);
 extern void palette_init(Palette *pal);
 extern void palette_load_file_entry(void *pal, char *name);
+extern short palette_nearest_index(struct logpal *pal, unsigned char r, unsigned char g, unsigned char b);
+extern void palette_remap_table(struct logpal *pal_a, unsigned char *out, struct logpal *pal_b, short first, short n);
 extern void palette_rotate(Palette *pal, int start, int count, int n);
 extern void palette_save_file_all(void *pal, char *name);
 extern void panel_clear_4(GameBrains *p, int n);
@@ -5420,39 +5392,17 @@ extern void popup_get_first_edit_text(Popup *ctl, void *p);
 extern void *popup_owner_get(void);
 extern int popup_run_default(Popup *popup);
 extern void popup_say(int slot, int n);
-#ifdef __cplusplus
 extern void port_blit_and_select(MagicWin *o, void *src, RECT *sr, RECT *dr);
-#endif
-#ifdef __cplusplus
 extern void port_blit_or_copy(MagicWin *p, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_copy_both(MagicWin *o, void *src, RECT *sr, RECT *dr);
-#endif
-#ifdef __cplusplus
 extern void port_copy_full(MagicWin *o);
-#endif
-#ifdef __cplusplus
 extern void port_copy_rect(MagicWin *o);
-#endif
-#ifdef __cplusplus
 extern void port_curtain_open_h(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_curtain_open_v(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_draw_at(MagicWin *o);
-#endif
-#ifdef __cplusplus
 extern void port_draw_sprite(MagicWin *o, void *rec, int x, int y);
-#endif
-#ifdef __cplusplus
 extern void port_fade_through_black(MagicWin *s, short first, short count, register short steps);
-#endif
-#ifdef __cplusplus
 extern void port_grab_from_window(MagicWin *p);
-#endif
 extern int port_height_1008_d720(GRPort *port);
 extern int port_height_1010_2a80(GRPort *port);
 extern int port_height_1010_ebed(GRPort *port);
@@ -5469,30 +5419,18 @@ extern int port_height_1070_98bc(GRPort *port);
 extern int port_height_1070_dd75(GRPort *port);
 extern void port_release_capture(Screen *w);
 extern void port_remap_pixels(Port *p, unsigned char *table, short base, short count);
-#ifdef __cplusplus
 extern void port_reset_fill(MagicWin *o, unsigned char colour);
-#endif
 extern void *port_row_offsets(GRPort *port);
-#ifdef __cplusplus
 extern void port_scroll_down(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_scroll_left(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_scroll_right(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_scroll_up(MagicWin *s, int step, RECT *r);
-#endif
 extern void port_set_capture(Screen *w);
 extern int port_stride(GRPort *port);
 extern int port_stride_1068_986d(GRPort *p);
 extern void *port_surface_1068_989f(GRPort *port);
 extern void *port_surface_1068_dd01(GRPort *port);
-#ifdef __cplusplus
 extern void port_unbind_anim(MagicWin *p);
-#endif
 extern void port_update(void);
 extern void port_validate_rect(DialogWin *p, void *rect);
 extern void port_validate_rect_1008_eba9(DialogWin *p, void *rect);
@@ -5521,21 +5459,11 @@ extern int port_width_1060_ab1f(GRPort *port);
 extern int port_width_1068_e517(GRPort *port);
 extern int port_width_1070_98a3(GRPort *port);
 extern int port_width_1070_dd5c(GRPort *port);
-#ifdef __cplusplus
 extern void port_wipe_down(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_wipe_left(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_wipe_right(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_wipe_up(MagicWin *s, int step, RECT *r);
-#endif
-#ifdef __cplusplus
 extern void port_zoom_in(MagicWin *s, int step, RECT *r);
-#endif
 extern void possibly_spot_stack(int u);
 extern int preassign_colonist_to_field(int colonist, int want);
 extern void preassign_colonists_to_fields(void);
@@ -5576,9 +5504,7 @@ extern int rect_width(RECT *r);
 extern void redraw_active_unit_tile(int flag);
 extern void redraw_map_in_mode(int nation, int mode);
 extern int region_build_factor(int nation, int region);
-#ifndef __cplusplus
 extern void region_init(Flic *flic);
-#endif
 extern long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp);
 extern void relocate_stacked_units(int u, int x, int y);
 extern void relocate_unit(int u, int x, int y);
@@ -5617,9 +5543,7 @@ extern void route_name(void);
 extern void route_order(int side, int x, int y);
 extern void royal_edicts(int nation);
 extern void run_game(void);
-#ifndef __cplusplus
 extern char save_frr_file(Flic *flic);
-#endif
 extern int save_game(char *name);
 extern void save_game_dialog(void);
 extern void save_slot_file_name(char *out, int unused1);

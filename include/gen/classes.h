@@ -71,7 +71,7 @@ class SuperWin : public GameWin { public: EventWin win; char palette[0x414 - 0x1
 class VListItem { public: void far *value; VListItem far *next; VListItem far *prev; VListItem(); ~VListItem(); };
 class VList { public: VListItem far *first; VListItem far *last; VListItem far *cur; VList(); ~VList(); };
 
-/* PORT: Popup from include/port/corpus_classes.h: every file using it defined it for itself (W1) */
+/* PORT: Popup, Flic from include/port/corpus_classes.h: the corpus defined these in each file (W1) */
 struct PopupItem;
 struct PopupSprite;
 struct PopupEdit;
@@ -119,6 +119,49 @@ public:
     Popup(int n);
     ~Popup();
 };
+
+
+                                                                                
+class Flic : public GRPort {
+public:
+    char header[4];
+    u16 magic;
+    unsigned short frames;
+    short width, height;
+    char pad_32[4];
+    long speed;
+    char pad_3a[2];
+    long created;
+    char pad_40[0x76 - 0x40];
+    long frame_offset;
+    char pad_7a[0xa6 - 0x7a];
+    DiskFile file;
+    char name[0x232 - 0x132];
+    void *res;
+    short res_id;
+    short hbuf;
+    char *buf;
+    unsigned char *pos;
+    void *frame2;
+    char pad_246[4];
+    long left;
+    short f24e, f250;
+    unsigned char rgb[0x300];
+    short pal_first;
+    short pal_count;
+    unsigned char dirty;
+    char f557;
+    short hrects, hrect_frames;
+    RECT *rects;
+    i16 *rect_frames;
+    short frame_no, rect_index;
+    u16 count, least, most;
+    short timer;
+    void *port;
+    void (*loop_hook)(void);
+    Flic();
+    ~Flic();
+};
 #else
 
 typedef struct { char pad0[0xc4]; char win[0x8c]; char table[0x41e]; char pic[0x26]; char page[0x26]; char overlay[0x26]; unsigned char palette[0x8a4 - 0x5e0]; RECT full; RECT top_strip; RECT bottom_strip; char logo[0x20]; char letters[0x15][0x20]; char tile[0x20]; long start; long last; i16 shown[0x19]; } AboutWin;
@@ -156,8 +199,7 @@ typedef struct { RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsig
 typedef struct { char gamewin[0xc4]; char win[0x8c]; char palette[0x414 - 0x150]; } SuperWin;
 typedef struct { long first; long last; long cur; } VList;
 
-/* PORT: Popup from include/port/corpus_classes.h: every file using it defined it for itself (W1) */
-/* the class, for C: the same members and types, so both languages lay it out alike */
+/* PORT: Popup, MagicWin from include/port/corpus_classes.h: the corpus defined these in each file (W1) */
 typedef struct {
     void *win;
     void *dest_port;
@@ -192,6 +234,19 @@ typedef struct {
     char *extra_labels[3];
     ButtonSlot btn[6];
 } Popup;
+
+
+                                                                                                
+typedef struct {
+    GameWin gamewin;
+    GRPort port;
+    void far *pal;
+    RECT rect;
+    i16 first, count;
+    char bound;
+    char fb;
+    void far *anim;
+} MagicWin;
 #endif
 
 #pragma pack(pop)

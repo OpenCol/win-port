@@ -111,6 +111,7 @@ def borland_pragmas(text):
 def defined_types(text):
     t = strip_comments(text)
     return (set(re.findall(r"\}\s*(\w+)\s*;", t)) | set(re.findall(r"typedef[^;{}()]*?\b(\w+)\s*;", t))
+            | set(re.findall(r"typedef[^;{}()]*\(\s*(?:far\s+|__far\s+)?\*\s*(\w+)\s*\)\s*\([^;{}]*\)\s*;", t))
             | set(re.findall(r"\bstruct\s+(\w+)\s*\{", t)))
 
 
@@ -286,7 +287,7 @@ def known_types(src):
               | defined_types(open(os.path.join(INC, "records.h")).read()) | set(ALIASES)
               | {"i16", "u16", "i32", "u32"})
     classes = (set(re.findall(r"\bclass\s+(\w+)", cls[:split])) | set(CORPUS_CLASSES)) - local_typedef_names(True)
-    views = (defined_types(cls[split:]) | set(CORPUS_CLASSES)) - local_typedef_names(False)
+    views = (defined_types(cls[split:]) | set(CORPUS_VIEWS)) - local_typedef_names(False)
     # C++ gets each class forward-declared, which a file's own definition can follow -- except
     # a class some C++ file still views as `typedef struct {...} Name;`, which a forward
     # `class Name;` would contradict. C gets classes.h's views, included from the header --
@@ -296,8 +297,9 @@ def known_types(src):
 
 def type_names(decl, name):
     decl = re.sub(r'"[^"]*"', "", decl)
+    decl = re.sub(r"\b(?:struct|union)\s+\w+", "", decl)     # tags: guarded() checks those
     return {w for w in re.findall(r"\b([A-Za-z_]\w*)\b", decl)
-            if w != name and w[0].isupper() or w in ("logpal",)} - {"extern"}
+            if w != name and w[0].isupper()} - {"extern"}
 
 
 def guarded(decl, name, known_c, known_cpp):
@@ -364,7 +366,10 @@ def gen_colonization():
                         | set(CORPUS_CLASSES)) - local_typedef_names(True))
     fwd = ("#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) +
            "#else\n#include \"classes.h\"   /* PORT: the C views */\n#endif\n")
-    out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd, 1)
+    # the tags prototypes may name, declared at file scope so each is one type, not a new one
+    # per prototype (C) -- C++ files complete them as classes or structs
+    tags = "".join("struct %s;\n" % t for t in TAGS_KNOWN if t != "DlgControl")
+    out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd + tags, 1)
     # typedefs the header and the files both define: when every file spells it one way, that
     # spelling (an identical typedef may be repeated, a different one may not)
     ftd = file_typedefs()
@@ -549,24 +554,25 @@ CORPUS_CLASSES_H = os.path.join(ROOT, "include", "port", "corpus_classes.h")
 
 
 def corpus_classes():
-    """(C++ definitions, C views, names) from include/port/corpus_classes.h."""
+    """(C++ definitions, C views, class names, view names) from include/port/corpus_classes.h."""
     t = open(CORPUS_CLASSES_H).read()
     body = t[t.index("#ifdef __cplusplus") + len("#ifdef __cplusplus"):t.rindex("#endif", 0, t.rindex("#endif"))]
     cpp, c = body.split("#else", 1)
-    return cpp.strip() + "\n", c.strip() + "\n", re.findall(r"\bclass\s+(\w+)\s*\{", cpp)
+    cpp, c = strip_comments(cpp).strip() + "\n", strip_comments(c).strip() + "\n"
+    return cpp, c, re.findall(r"\bclass\s+(\w+)\s*(?::[^{;]*)?\{", cpp), re.findall(r"\}\s*(\w+)\s*;", c)
 
 
-CORPUS_CLASSES = corpus_classes()[2]
+CORPUS_CLASSES, CORPUS_VIEWS = corpus_classes()[2:]
 
 
 def gen_classes():
     src = open(os.path.join(INC, "classes.h")).read()
-    cpp, c, names = corpus_classes()
-    note = "/* PORT: %s from include/port/corpus_classes.h: every file using it defined it for itself (W1) */\n" % ", ".join(names)
+    cpp, c, names, views = corpus_classes()
+    note = "/* PORT: %s from include/port/corpus_classes.h: the corpus defined %s in each file (W1) */\n"
     i = src.index("#else")
-    src = src[:i] + note + cpp + src[i:]
+    src = src[:i] + note % (", ".join(names), "these") + cpp + src[i:]
     j = src.rindex("#endif", 0, src.rindex("#endif"))
-    src = src[:j] + note + c + src[j:]
+    src = src[:j] + note % (", ".join(views), "these") + c + src[j:]
     text = borland_pragmas(widen_records(src))
     text = text.replace('#include "records.h"', '#include "records.h"\n#include "port/types.h"\n' + PACK_OPEN, 1)
     i = text.rindex("#endif")

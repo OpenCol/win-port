@@ -27,7 +27,8 @@
 
 #include "w16types.h"
 #include "classes.h"
-typedef struct { char pad[1]; } logpal;
+/* PORT: an opaque `typedef struct { char pad[1]; } logpal;` removed: the header declares
+   struct logpal, which in C++ names the type already (W1). */
 
 /* same object: 4-byte `push cs; call ` */
 extern "C" void CTable_Fill(CTable *pal, int start, int count, void *rgb);

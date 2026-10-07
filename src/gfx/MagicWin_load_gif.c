@@ -28,7 +28,8 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char pad[1]; } logpal;
+/* PORT: an opaque `typedef struct { char pad[1]; } logpal;` removed: the header declares
+   struct logpal, which in C++ names the type already (W1). */
 /* PORT: this file's own DlgControl, SButton, Screen, EventTable, EventWin, DialogWin, GRPort, GameWin, SImageButton, ColChild, MagicWin, CTable removed: include/gen/classes.h define them once (W1 step 2). */
 #include "classes.h"
 

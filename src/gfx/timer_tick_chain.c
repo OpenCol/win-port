@@ -14,7 +14,7 @@
 #include "colonization.h"
 
 #include "w16types.h"
-typedef struct { char pad[1]; } MagicWin;
+/* PORT: this file's own MagicWin removed: include/gen/classes.h define it once (W1 step 2). */
 #include "classes.h"
 
 extern void *g_anim_port;   /* DGROUP:0x5690 */
