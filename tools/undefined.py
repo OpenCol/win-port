@@ -147,7 +147,7 @@ def trap_link(objs, names):
         return True, ""
     why = ["undefined " + n for n in sorted(undefined)[:10]] + ["twice " + n for n in sorted(twice)[:10]]
     if not why:
-        why = [l for l in link.stderr.splitlines() if "error" in l or "ld:" in l][:10]
+        why = [l for l in link.stderr.splitlines() if "warning: resolving" not in l][-12:]
     return False, "; ".join(why)
 
 
