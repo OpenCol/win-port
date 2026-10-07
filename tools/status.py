@@ -9,6 +9,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/import.json   python3 import/import.py --check
     status/ci.json       python3 tools/ci_record.py        (the latest CI run on GitHub)
     status/compile-<toolchain>.json   python3 tools/compile_all.py --record
+    status/link.json     python3 tools/undefined.py --record
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -56,10 +57,24 @@ def w1():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w2():
+    r = rec("link")
+    if r is None:
+        return "--", "not measured"
+    bl = r["backlog"]
+    parts = ["objects %d/%d" % (r["objects"], r["sources"]),
+             "executable %s" % ("links (backlog trapped)" if r["links"] else "does not link"),
+             "undefined %d: %s" % (r["undefined"], ", ".join("%d %s" % (len(v), k.split(" (")[0]) for k, v in bl.items())),
+             "twice defined %d" % r["twice"]]
+    if r["outside_backlog"]:
+        parts.append("%d undefined outside the backlogs" % len(r["outside_backlog"]))
+    return ("DONE" if r["gate"] else "open"), "; ".join(parts)
+
+
 ROWS = [
     ("W0", "bootstrap", w0, "import/import.py --check, tools/ci_record.py"),
     ("W1", "compile", w1, "tools/compile_all.py --record [--toolchain winegcc]"),
-    ("W2", "link", None, "tools/undefined.py (not written yet)"),
+    ("W2", "link", w2, "tools/undefined.py --record"),
     ("W3", "oracle", None, "tests/oracle --selftest, state.py --roundtrip, differential (not written yet)"),
     ("W4", "platform", None, "checklist + MS* trace prefix (not written yet)"),
     ("W5", "asm", None, "differential on segments 17-19 (not written yet)"),

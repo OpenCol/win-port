@@ -77,6 +77,9 @@ jobs:
       - name: Every file compiles (W1)
         timeout-minutes: 30
         run: python3 tools/compile_all.py --toolchain ${{ matrix.toolchain }} --record
+      - name: It links, only the W4/W5 backlog trapped (W2)
+        if: matrix.toolchain == 'mingw-i686'
+        run: python3 tools/undefined.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
