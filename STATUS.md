@@ -5,8 +5,8 @@ then `python3 tools/status.py`.
 
 | | Milestone | State | Measured | Gate |
 | --- | --- | --- | --- | --- |
-| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3281 files, 3245 sources; 928 edited by PORT:); CI success at 910bf70 (run 37690568974) | `import/import.py --check, tools/ci_record.py` |
-| W1 | compile | open | mingw-i686 3245/3245 | `tools/compile_all.py --record [--toolchain winegcc]` |
+| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3281 files, 3245 sources; 928 edited by PORT:); CI success at dfcf357 (run 37705959306) | `import/import.py --check, tools/ci_record.py` |
+| W1 | compile | DONE | mingw-i686 3245/3245; winegcc 3245/3245 | `tools/compile_all.py --record [--toolchain winegcc]` |
 | W2 | link | -- | not measured | `tools/undefined.py (not written yet)` |
 | W3 | oracle | -- | not measured | `tests/oracle --selftest, state.py --roundtrip, differential (not written yet)` |
 | W4 | platform | -- | not measured | `checklist + MS* trace prefix (not written yet)` |
@@ -17,4 +17,4 @@ then `python3 tools/status.py`.
 | W9 | 64-bit | -- | not measured | `W6 and W7 on x64, x86_64, macOS` |
 | W10 | release | -- | not measured | `a clean machine per OS reaches the map` |
 
-Current milestone: **W1** (roadmap rule 1: one at a time, in order).
+Current milestone: **W2** (roadmap rule 1: one at a time, in order).
