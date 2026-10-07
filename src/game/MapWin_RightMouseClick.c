@@ -10,6 +10,7 @@
  *   extern char far g_menu_owner;                        SEG20:0x0656
  *
  * The file's own Unit, MapWin dropped for the merged record in col/records.h.
+ * Members renamed to the merged record's spelling, by OFFSET: left -> ox, top -> oy
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

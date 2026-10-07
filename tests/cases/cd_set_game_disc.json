@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "cd_set_game_disc",
+ "shipped": "1040:8513",
+ "source": "src/game/cd_set_game_disc.c",
+ "prototype": "void cd_set_game_disc(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "cd_set_game_disc()",
+ "globals_read": [
+  "g_cd_is_game_disc"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

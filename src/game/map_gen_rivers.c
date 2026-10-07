@@ -5,8 +5,8 @@
  * Dropped, because col/globals.h declares them and the addresses agree:
  *   extern int far g_plane0_handle;                      DGROUP:0x1c6a
  *   extern int far g_plane3_handle;                      DGROUP:0x1c70
- *   extern char far * far g_plane0;                      DGROUP:0x1c72
- *   extern char far * far g_plane3;                      DGROUP:0x1c7e
+ *   extern unsigned char huge *far g_plane0;             DGROUP:0x1c72
+ *   extern unsigned char huge *far g_plane3;             DGROUP:0x1c7e
  *   extern unsigned far g_map_bytes;                     DGROUP:0x1c96
  *   extern int far g_map_width;                          DGROUP:0x4c40
  *   extern int far g_map_h;                              DGROUP:0x4c42

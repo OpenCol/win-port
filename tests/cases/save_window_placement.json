@@ -1,0 +1,26 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "save_window_placement",
+ "shipped": "1048:0b88",
+ "source": "src/game/save_window_placement.c",
+ "prototype": "void save_window_placement(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "save_window_placement()",
+ "globals_read": [
+  "g_prefs_root"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "close_dialog_1048_d8f7",
+  "win_is_iconic_1048_d8ad",
+  "win_is_zoomed_1048_d8d2",
+  "win_rect_in_parent_1048_d674"
+ ],
+ "host_blind": "calls MSSetFocus_of_1048_e0cd, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

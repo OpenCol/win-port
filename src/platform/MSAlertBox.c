@@ -36,11 +36,11 @@ col_i16 MSAlertBox(const char *text, col_i16 icon, col_i16 buttons)
     switch (r) {
     case 1: code = 0; break;
     case 2: code = 1; break;
-    case 3: code = 4; break;
-    case 4: code = 5; break;
-    case 5: code = 6; break;
     case 6: code = 2; break;
     case 7: code = 3; break;
+    case 4: code = 5; break;
+    case 3: code = 4; break;
+    case 5: code = 6; break;
     }
     return code;
 }

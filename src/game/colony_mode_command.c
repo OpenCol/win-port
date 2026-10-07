@@ -7,7 +7,7 @@
  *   extern int g_stub_a;                                 
  *
  * The file's own ColChild dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: f_a08 -> mode_a, f_a09 -> mode_b
+ * Members renamed to the merged record's spelling, by OFFSET: buy_shown -> mode_a, change_shown -> mode_b
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

@@ -12,7 +12,7 @@
  *   extern short g_plane1_handle;                        DGROUP:0x1c6c
  *   extern short g_plane2_handle;                        DGROUP:0x1c6e
  *   extern short g_plane3_handle;                        DGROUP:0x1c70
- *   extern void far *g_plane0, far *g_plane1, far *g_plane2, far *g_plane3; DGROUP:0x1c72, DGROUP:0x1c76, DGROUP:0x1c7a, DGROUP:0x1c7e
+ *   extern unsigned char huge *g_plane0, huge *g_plane1, huge *g_plane2, huge *g_plane3; DGROUP:0x1c72, DGROUP:0x1c76, DGROUP:0x1c7a, DGROUP:0x1c7e
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

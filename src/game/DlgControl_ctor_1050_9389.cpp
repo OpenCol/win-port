@@ -16,7 +16,7 @@ extern "C" void list_unlink_by_id(void *list, col_i16 id);
 extern "C" void MSCloseWindow(void *w);
 class DlgControl {
 public:
-    col_i16 f0;
+    col_i16 kind;
     col_i16 id;
     void *parent;
     RECT rect;

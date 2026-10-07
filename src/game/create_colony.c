@@ -32,6 +32,7 @@ void set_current_colony(col_i16 c);
 void show_text_dialog_1018_b3d1(char *name);
 
 #include "fathers.h"
+#include "building.h"
 #include "nations.h"
 #include "control.h"
 #include "jobs.h"
@@ -113,8 +114,8 @@ col_i16 create_colony(col_i16 nation, col_i16 x, col_i16 y, col_i16 unit)
     colony_flag2_set(0xb, 1);
     colony_flag2_set(0xc, 1);
     memset_rtl(((unsigned char *)((unsigned char *)(g_cur_colony_rec) + 0x84)), 0, 6);
-    colony_flag_set(0x23, 1);
-    colony_flag_set(9, 1);
+    colony_flag_set(BUILDING_CARPENTERS_SHOP, 1);
+    colony_flag_set(BUILDING_TOWN_HALL, 1);
     colony_refresh_screen();
     memset_rtl(((unsigned char *)((unsigned char *)(g_cur_colony_rec) + 0x9a)), 0, 0x20);
     memset_rtl(((unsigned char *)((unsigned char *)(g_cur_colony_rec) + 0x70)), -1, 0x14);

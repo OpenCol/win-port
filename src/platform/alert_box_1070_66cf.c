@@ -60,19 +60,19 @@ col_i16 alert_box_1070_66cf(char *caption, char *text, col_i16 icon, col_i16 but
     case 2:
         r = 1;
         break;
-    case 3:
+    case 6:
         r = 2;
         break;
-    case 4:
+    case 7:
         r = 3;
         break;
-    case 5:
+    case 4:
         r = 5;
         break;
-    case 6:
+    case 3:
         r = 4;
         break;
-    case 7:
+    case 5:
         r = 6;
         break;
     }

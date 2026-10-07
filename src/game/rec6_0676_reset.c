@@ -6,7 +6,7 @@
  *   extern Rec6 far g_table6[];                          SEG24:0x0676
  *
  * The file's own Rec6 dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: f0 -> a
+ * Members renamed to the merged record's spelling, by OFFSET: colony -> a
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

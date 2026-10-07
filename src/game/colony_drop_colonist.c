@@ -18,6 +18,7 @@
 col_i16 colonist_spec_nibble(col_i16 c);
 void colonist_set_spec_nib(col_i16 c, col_i16 v);
 
+#include "building.h"
 /* 0xca bytes */
 
 
@@ -46,5 +47,5 @@ void colony_drop_colonist(col_i16 c)
     g_cur_colony_rec->pop--;
     g_cur_colony_rec->bells_cap -= 100;
     if (g_colony_screen_open != 0 && (col_i16)g_cur_colony_rec->pop < 3)
-        colony_flag_set(0, 0);
+        colony_flag_set(BUILDING_STOCKADE, 0);
 }

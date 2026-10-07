@@ -12,6 +12,7 @@
  */
 #include "col/globals.h"
 
+#include "units.h"
 /* SEG20:0xa208 */
 
 
@@ -26,14 +27,14 @@ void arrived_unit_act(Rec *r)
 {
     r->handled = 2;
     switch (g_units[g_selected_unit].orders) {
-    case 2: clear_forest(g_selected_unit); break;
-    case 3: mission_work_step(g_selected_unit); break;
-    case 4: mission_goto_step(g_selected_unit); break;
-    case 5: mission_found_colony(g_selected_unit); break;
-    case 6: trade_route_single_port_check(g_selected_unit, 0); break;
-    case 7: unit_set_orders_6(g_selected_unit); break;
-    case 8:
-    case 9:
+    case ORDERS_PLOW: clear_forest(g_selected_unit); break;
+    case ORDERS_BUILD_ROAD: mission_work_step(g_selected_unit); break;
+    case 3: mission_goto_step(g_selected_unit); break;
+    case ORDERS_BUILD_COLONY: mission_found_colony(g_selected_unit); break;
+    case ORDERS_TRADE_ROUTE: trade_route_single_port_check(g_selected_unit, 0); break;
+    case ORDERS_FORTIFY: unit_set_orders_6(g_selected_unit); break;
+    case 4:
+    case ORDERS_FORTIFIED:
     default: r->handled = 1; break;
     }
 }

@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "check_mask_reset",
+ "shipped": "1050:63b6",
+ "source": "src/game/check_mask_reset.c",
+ "prototype": "void check_mask_reset(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "check_mask_reset()",
+ "globals_read": [
+  "g_check_mask"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

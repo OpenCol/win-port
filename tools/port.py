@@ -287,6 +287,39 @@ def _shipped_labels():
 SHIPPED = _shipped_labels()
 
 
+def _forward_declared():
+    """Names col/win16.h declares as `typedef struct X X;` and leaves incomplete.
+
+    A port that defines its own `typedef struct { ... } Dlg;` collides with that: two
+    typedefs of one name, one anonymous and one tagged. Completing the tag instead --
+    `struct Dlg { ... };` -- is the same object and satisfies both.
+    """
+    try:
+        return set(re.findall(r'^typedef\s+struct\s+(\w+)\s+\1\s*;',
+                              open(os.path.join(REPO, 'include', 'col',
+                                                'win16.h')).read(), re.M))
+    except Exception:
+        return set()
+
+
+FORWARD = _forward_declared()
+
+
+def _platform_types():
+    """Every type col/win16.h defines. A file that declares its OWN RGBQUAD -- with
+    `reserved` where the header says `rgbReserved` -- is not describing the same struct,
+    and the two definitions cannot both stand in one translation unit."""
+    try:
+        t = open(os.path.join(REPO, 'include', 'col', 'win16.h')).read()
+    except Exception:
+        return set()
+    return set(re.findall(r'\}\s*(\w+)\s*;', t)) | set(
+        re.findall(r'^typedef\s+\w[\w\s]*?(\w+)\s*;', t, re.M))
+
+
+PLATFORM_TYPES = _platform_types()
+
+
 def driver_sig(sig, params):
     """`sig` with any pointee the shared header does not define replaced by `void`.
 
@@ -1320,7 +1353,8 @@ def port(path, force=False):
     # same shape, and leaving both spellings made the file refuse to compile.
     local_only = sorted({t for t in list(typedefs) + list(tags)
                          if t not in canon_of and 'struct ' + t not in canon_of
-                         and t.replace('struct ', '') in RECORDS
+                         and (t.replace('struct ', '') in RECORDS
+                              or t.replace('struct ', '') in PLATFORM_TYPES)
                          and t not in drop_typedefs})
     for t in local_only:
         bare = t.replace('struct ', '')
@@ -1619,6 +1653,10 @@ def port(path, force=False):
         if c in SHIPPED_ALIAS:
             body_text = re.sub(r'\b%s\b' % re.escape(c), SHIPPED_ALIAS[c],
                                body_text)
+    for fw in sorted(FORWARD):
+        body_text = re.sub(r'typedef\s+struct\s*\{(.*?)\}\s*%s\s*;' % re.escape(fw),
+                           lambda mm: 'struct %s {%s};' % (fw, mm.group(1)),
+                           body_text, flags=re.S)
     ported = retype(strip_quals(body_text)).strip()
     sig = retype('%s %s%s(%s)'
                  % (strip_quals(d.group('head')).strip()

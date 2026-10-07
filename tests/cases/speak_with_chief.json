@@ -1,0 +1,39 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "speak_with_chief",
+ "shipped": "1030:cde2",
+ "source": "src/game/speak_with_chief.c",
+ "prototype": "col_i16 speak_with_chief(col_i16 u, col_i16 nation_arg, col_i16 named);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..3",
+  "1=0..3",
+  "2=0..3"
+ ],
+ "call": "(long)speak_with_chief((col_i16)a0, (col_i16)a1, (col_i16)a2)",
+ "globals_read": [
+  "g_cur_settlement",
+  "g_cur_settlement_rec",
+  "g_cur_tribe",
+  "g_cur_tribe_rec",
+  "g_difficulty",
+  "g_goods_name_word",
+  "g_level",
+  "g_nation52",
+  "g_nations",
+  "g_native_buy",
+  "g_spec_recs",
+  "g_units"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "learn_from_natives",
+  "lookup_with_two_overrides",
+  "native_village_trade",
+  "set_text_arg_i_1030_eb46"
+ ],
+ "host_blind": "uses the pointer global g_cur_settlement_rec: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
+}

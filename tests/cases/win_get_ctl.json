@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_get_ctl",
+ "shipped": "1070:65aa",
+ "source": "src/platform/win_get_ctl.c",
+ "prototype": "col_i32 win_get_ctl(col_u16 hwnd);",
+ "state": "shipped",
+ "ret_bits": 32,
+ "ret_bits_emu": 32,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "(long)win_get_ctl((col_u16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls GetWindowLong, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

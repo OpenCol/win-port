@@ -21,5 +21,6 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
- "host_blind": "uses the pointer member Ctl.str: four bytes in the game, eight on a host"
+ "host_blind": "uses the pointer member Ctl.str: four bytes in the game, eight on a host",
+ "reaches_windows_api": true
 }

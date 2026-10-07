@@ -1,0 +1,19 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "goods_row_reset",
+ "shipped": "1038:44a9",
+ "source": "src/game/goods_row_reset.c",
+ "prototype": "void goods_row_reset(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "goods_row_reset()",
+ "globals_read": [
+  "g_row_count"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "call_args": [
+  "0"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "popup_owner_get",
+ "shipped": "1050:0016",
+ "source": "src/game/popup_owner_get.c",
+ "prototype": "void * popup_owner_get(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 32,
+ "call": "(void)popup_owner_get()",
+ "globals_read": [
+  "g_popup_owner"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "uses the pointer global g_popup_owner: four bytes in the game, eight on a host",
+ "call_args": [
+  "0"
+ ]
+}

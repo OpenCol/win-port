@@ -16,6 +16,8 @@
  "near_callees": [
   "next_csv_field"
  ],
+ "host_blind": "calls text_store_string, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
  "call_args": [
   "0"
  ]

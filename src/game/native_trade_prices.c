@@ -26,6 +26,7 @@
 col_i16 max_int_1030_ead6(col_i16 a, col_i16 b);
 
 #include "dbgopt.h"
+#include "tribes.h"
 #include "goods.h"
 #include "settle.h"
 #include "terrain.h"
@@ -185,17 +186,17 @@ void native_trade_prices(void)
         g_native_sell[i] = g_native_buy[i] = 0;
     g_native_sell[GOODS_FOOD] += (g_cur_tribe_rec->level + size1) * lumber
                         / (7 - g_cur_tribe_rec->level);
-    g_native_buy[GOODS_FOOD] = (size2 << 2) >> (g_cur_tribe_rec->level > 1 ? (char)1 : (char)0);
-    if (g_cur_tribe_rec->level >= 1) {
-        if (g_cur_tribe_rec->level >= 2) {
+    g_native_buy[GOODS_FOOD] = (size2 << 2) >> (g_cur_tribe_rec->level > LEVEL_AGRARIAN ? (char)1 : (char)0);
+    if (g_cur_tribe_rec->level >= LEVEL_AGRARIAN) {
+        if (g_cur_tribe_rec->level >= LEVEL_ADVANCED) {
             level = max_int_1030_ead6(1, g_tribe_settlement_count[g_cur_tribe]);
             g_native_sell[GOODS_SILVER] = g_cur_tribe_rec->fc / level;
             bonus = mountains << 2;
-            if (g_cur_tribe_rec->level > 2)
+            if (g_cur_tribe_rec->level > LEVEL_ADVANCED)
                 bonus = bonus * 2;
             g_native_sell[GOODS_SILVER] += bonus;
         }
-        if (g_cur_tribe_rec->level >= 1)
+        if (g_cur_tribe_rec->level >= LEVEL_AGRARIAN)
             g_native_sell[GOODS_ORE] += hills * 2 + mountains + ore;
     }
     g_native_sell[GOODS_FURS] += (open * 2 + (deep >> 1)) / (g_cur_tribe_rec->level + 1);

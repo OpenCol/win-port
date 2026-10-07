@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "refresh_port_30_1020_665a",
+ "shipped": "1020:665a",
+ "source": "src/game/refresh_port_30_1020_665a.c",
+ "prototype": "void refresh_port_30_1020_665a(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "refresh_port_30_1020_665a()",
+ "globals_read": [
+  "g_4bec",
+  "g_win"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls end_modal_1060_9fad, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "call_args": [
+  "0"
+ ]
+}

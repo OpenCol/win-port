@@ -1,21 +1,34 @@
 # Where this stands
 
-Last green commit: **a696c45**, 2,377 ported. 476 verified by both harnesses, 59 on the
-host only, 1,675 in 16 bits only, 167 by neither with a reason from both, 0 uncovered,
-0 disagreements, 1,070 mutations caught. It links (NE, 42 segments, 789 translation
-units, 328 stubs) and boots.
+Last green commit: **f239ea0**, 2,388 ported. 476 verified by both harnesses, 59 on the
+host only, 1,683 in 16 bits only, 170 by neither with a reason from both, 0 uncovered,
+0 disagreements, 1,070 mutations caught. Links (NE, 43 segments, 807 translation units,
+346 stubs) and boots.
 
 ## Uncommitted, and NOT verified
 
-The working tree has one more porter change on top of that: a stub prototype naming a
-type the unit keeps to itself came out ABOVE the typedef defining it, so those pointees
-are now spelt `void *` -- the same rule the staged arguments and the driver's prototype
-already follow. It took the refusals from 2,262 to 2,281 portable and the compile
-failures from 114 to 95, and the corpus was re-ported and gated against Borland, but the
-suite was stopped mid-run. Nothing here is claimed.
+The working tree is at **2,406 cases** with two porter changes on top of that commit:
 
-Resume with `bash tools/check.sh > /tmp/check.txt 2>&1`; about an hour at this size.
-Commit only on ALL GREEN.
+  col/win16.h forward-declares Dlg, GameWin, MrTimer and Rec4c28 as `typedef struct X X;`
+  and a port defining its own anonymous `typedef struct { ... } Dlg;` collided with it.
+  The tag is COMPLETED now -- `struct Dlg { ... };` -- which is the same object and
+  satisfies both. 13 files.
+
+  A file-local type whose name collides with one col/win16.h defines is renamed, the way
+  a collision with a record's name already was. RGBQUAD with `reserved` where the header
+  says `rgbReserved` is not the same struct.
+
+The source corpus has also grown from 3,173 to 3,188 reconstructions and those are
+ported here.
+
+A full run on this reached 2,408 ported with TWO disagreements -- map_planes_free and
+text_message_show, both functions that only became portable once the type collisions
+were gone. Both are withdrawn in model/withdrawn.json with what the harness observed,
+and the confirming run after that withdrawal was stopped partway. So: the withdrawals
+are in, the re-run is not done, and nothing here is claimed.
+
+Resume with `bash tools/check.sh > /tmp/check.txt 2>&1`; about an hour. Commit only on
+ALL GREEN.
 
 ## The worklist
 

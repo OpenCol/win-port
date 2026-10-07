@@ -79,7 +79,7 @@ void missionary_denounce(col_i16 u, col_i16 nat, unsigned char tribe)
             v += g_cur_settlement_rec->size;
             if (jes)
                 v = v * 2;
-            if (g_cur_settlement_rec->flags & 4)
+            if (g_cur_settlement_rec->flags & SETTLEMENT_CAPITAL)
                 v = v * 2;
             if (nat == owner)
                 total_b += v;
@@ -94,7 +94,7 @@ void missionary_denounce(col_i16 u, col_i16 nat, unsigned char tribe)
     set_current_native_settlement(saved);
     jesuit = (col_i16)g_units[u].spec == JOB_COTTON_PLANTER;
     jesuit_there = g_cur_settlement_rec->mission & MISSION_EXPERT;
-    capital = g_cur_settlement_rec->flags & 4;
+    capital = g_cur_settlement_rec->flags & SETTLEMENT_CAPITAL;
     total_a += table_78_word(g_cur_tribe, owner) << capital;
     total_b += table_78_word(g_cur_tribe, me) >> (1 - capital);
     alarm_b += quarter_of_100(total_b) + 1;

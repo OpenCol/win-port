@@ -59,13 +59,13 @@ col_i16 job_verdict(col_i16 job)
         if (job == JOB_TEACHER) {
             spec = colonist_specialty_get(g_selected_colonist);
             if (spec == JOB_COLONIST_ALT)
-                spec = 0x19;
+                spec = JOB_INDENTURED_SERVANT;
             kind = g_spec_recs[spec].school;
-            if (kind == 4)
+            if (kind == SCHOOL_NONE)
                 r = 0;
-            if (kind == 3 && current_colony_flag_get(BUILDING_UNIVERSITY) == 0)
+            if (kind == SCHOOL_UNIVERSITY && current_colony_flag_get(BUILDING_UNIVERSITY) == 0)
                 r = 0;
-            if (kind == 2 && current_colony_flag_get(BUILDING_COLLEGE) == 0)
+            if (kind == SCHOOL_COLLEGE && current_colony_flag_get(BUILDING_COLLEGE) == 0)
                 r = 0;
         }
     } else {

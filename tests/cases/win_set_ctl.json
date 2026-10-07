@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "win_set_ctl",
+ "shipped": "1070:65c6",
+ "source": "src/platform/win_set_ctl.c",
+ "prototype": "void win_set_ctl(col_u16 hwnd, col_i32 ctl);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=0..7",
+  "1=0..7",
+  "2=0"
+ ],
+ "call": "win_set_ctl((col_u16)a0, (col_i32)(((col_u32)(col_u16)a2 << 16) | (col_u16)a1))",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls SetWindowLong, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

@@ -9,19 +9,19 @@
 void layout_origin(void *unused, col_i16 sel, col_i16 *a, col_i16 *b)
 {
     switch (sel) {
-    case 0:
-        *a = 0x95;
-        *b = 0x22;
-        break;
     case 1:
         *a = 0x95;
         *b = 0x22;
         break;
     case 2:
-        *a = 0xc;
+        *a = 0x95;
         *b = 0x22;
         break;
     case 3:
+        *a = 0xc;
+        *b = 0x22;
+        break;
+    case 0:
     default:
         *a = 0x44;
         *b = 0x22;

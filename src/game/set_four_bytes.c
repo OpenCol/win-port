@@ -3,10 +3,10 @@
  * Ported by tools/port.py from matched/game/set_four_bytes.c.
  *
  * Dropped, because col/globals.h declares them and the addresses agree:
- *   extern char g_popup_m0;                              DGROUP:0x24f8
- *   extern char g_popup_m1;                              DGROUP:0x24f9
- *   extern char g_popup_m2;                              DGROUP:0x24fa
- *   extern char g_popup_m3;                              DGROUP:0x24fb
+ *   extern unsigned char g_popup_m0;                     DGROUP:0x24f8
+ *   extern unsigned char g_popup_m1;                     DGROUP:0x24f9
+ *   extern unsigned char g_popup_m2;                     DGROUP:0x24fa
+ *   extern unsigned char g_popup_m3;                     DGROUP:0x24fb
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

@@ -26,6 +26,7 @@ col_i16 colony_fort_level(void);
 col_i16 unit_combat_strength(col_i16 u, col_i16 attacking);
 
 #include "nations.h"
+#include "tribes.h"
 #include "control.h"
 #include "settle.h"
 #include "gameflag.h"
@@ -75,7 +76,7 @@ col_i16 defence_bonus(register col_i16 u, col_i16 attacker)
         bonus = 2;
         g_defence_village = village = village_at(x, y);
         tribe = g_settlements[village].owner - 4;
-        if (g_tribes[tribe].level >= 2) {
+        if (g_tribes[tribe].level >= LEVEL_ADVANCED) {
             bonus += 2;
             g_combat_flags[1] |= 0x10;
         }

@@ -1,0 +1,23 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "mark_placement",
+ "shipped": "1048:0c8f",
+ "source": "src/game/mark_placement.c",
+ "prototype": "void mark_placement(void);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "call": "mark_placement()",
+ "globals_read": [
+  "g_prefs_root"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "win_minimize_of"
+ ],
+ "host_blind": "calls win_minimize, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
+ "call_args": [
+  "0"
+ ]
+}

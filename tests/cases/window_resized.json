@@ -1,0 +1,29 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "window_resized",
+ "shipped": "1048:0a3b",
+ "source": "src/game/window_resized.c",
+ "prototype": "void window_resized(col_i16 a);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "window_resized((col_i16)a0)",
+ "globals_read": [
+  "g_prefs_root"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "MSDoAllTasks_1048_d701",
+  "call_handler_slot_1894",
+  "port_height_1048_d86c",
+  "port_width_1048_d853",
+  "win_is_iconic_1048_d8ad",
+  "win_is_zoomed_1048_d8d2",
+  "win_rect_in_parent_1048_d674"
+ ],
+ "host_blind": "calls SetRect, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
+}

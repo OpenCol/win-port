@@ -11,6 +11,7 @@
  *   extern Unit far g_units[];                           SEG20:0xa208
  *
  * The file's own MapWin, Unit dropped for the merged record in col/records.h.
+ * Members renamed to the merged record's spelling, by OFFSET: left -> ox, top -> oy
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

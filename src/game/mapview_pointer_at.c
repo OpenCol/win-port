@@ -12,6 +12,7 @@
  *   extern char far g_cursors[];                         SEG20:0x7746
  *
  * The file's own Unit, MapWin dropped for the merged record in col/records.h.
+ * Members renamed to the merged record's spelling, by OFFSET: left -> ox, top -> oy
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

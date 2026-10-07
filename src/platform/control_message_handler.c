@@ -8,7 +8,7 @@
 
 /* The callees whose in-file stub came out: declared here, defined in their own
  * translation units, joined by the linker. */
-void render_1070_05a9(void *ps, col_u16 hwnd);
+void wing_child_paint(void *ps, col_u16 hwnd);
 
 /* Windows APIs. windows.h declares these when Borland builds this; the
  * host has no windows.h and still has to compile the unit. */
@@ -42,7 +42,7 @@ col_i32 pascal control_message_handler(col_u16 hwnd, col_u16 msg, col_u16 wparam
         break;
     case WM_PAINT:
         BeginPaint(hwnd, &ps);
-        render_1070_05a9(&ps, hwnd);
+        wing_child_paint(&ps, hwnd);
         EndPaint(hwnd, &ps);
         break;
     case WM_DESTROY:

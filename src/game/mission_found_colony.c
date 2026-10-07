@@ -34,6 +34,7 @@
 void next_colony_name(col_i16 nation, char *out);
 
 #include "control.h"
+#include "building.h"
 #include "units.h"
 #include "woodcut.h"
 #include "nations.h"
@@ -91,11 +92,11 @@ void mission_found_colony(register col_i16 u)
         goto done;
     if (g_turn_nation >= NATION_EUROPEAN_COUNT || g_nation52[g_turn_nation].control != CONTROL_HUMAN)
         strcpy(((char *)((unsigned char *)(g_cur_colony_rec) + 0x2)), name);
-    colony_flag_set(0x20, 1);
-    colony_flag_set(0x18, 1);
-    colony_flag_set(0x15, 1);
-    colony_flag_set(0x1b, 1);
-    colony_flag_set(0x27, 1);
+    colony_flag_set(BUILDING_FUR_TRADERS_HOUSE, 1);
+    colony_flag_set(BUILDING_TOBACCONISTS_HOUSE, 1);
+    colony_flag_set(BUILDING_WEAVERS_HOUSE, 1);
+    colony_flag_set(BUILDING_RUM_DISTILLERS_HOUSE, 1);
+    colony_flag_set(BUILDING_BLACKSMITHS_HOUSE, 1);
     if (g_turn_nation < NATION_EUROPEAN_COUNT && g_nation52[g_turn_nation].control == CONTROL_HUMAN)
         strcpy(((char *)((unsigned char *)(g_cur_colony_rec) + 0x2)), g_name_slots[0]);
     if (g_turn_nation == g_view_nation

@@ -3,7 +3,6 @@
  * Ported by tools/port.py from matched/game/pedia_mouse.c.
  *
  * The file's own PediaWin dropped for the merged record in col/records.h.
- * Members renamed to the merged record's spelling, by OFFSET: oy -> top
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

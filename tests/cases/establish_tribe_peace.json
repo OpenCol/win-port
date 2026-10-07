@@ -1,0 +1,21 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "establish_tribe_peace",
+ "shipped": "1030:377d",
+ "source": "src/game/establish_tribe_peace.c",
+ "prototype": "col_i16 establish_tribe_peace(col_i16 nation, col_i16 tribe);",
+ "state": "shipped",
+ "ret_bits": 16,
+ "ret_bits_emu": 16,
+ "sweep": [
+  "0=0..7",
+  "1=0..7"
+ ],
+ "call": "(long)establish_tribe_peace((col_i16)a0, (col_i16)a1)",
+ "globals_read": [
+  "g_nation52"
+ ],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [],
+ "host_blind": "calls set_name_slot_from_text, tribe_message_show_1050_6443, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+}

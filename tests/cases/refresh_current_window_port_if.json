@@ -1,0 +1,20 @@
+{
+ "what": "ported by tools/port.py; compared against the shipped bytes",
+ "symbol": "refresh_current_window_port_if",
+ "shipped": "1010:ae63",
+ "source": "src/game/refresh_current_window_port_if.c",
+ "prototype": "void refresh_current_window_port_if(col_i16 unused1);",
+ "state": "shipped",
+ "ret_bits": 0,
+ "ret_bits_emu": 0,
+ "sweep": [
+  "0=-4..24"
+ ],
+ "call": "refresh_current_window_port_if((col_i16)a0)",
+ "globals_read": [],
+ "flags": "-ml -WS -Od -Ot -3",
+ "near_callees": [
+  "return_one_1010_ae40"
+ ],
+ "host_blind": "returns void and touches nothing the host can observe; the 16-bit harness compares the stack and the writes its call makes"
+}

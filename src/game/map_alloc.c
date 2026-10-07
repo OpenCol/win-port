@@ -6,7 +6,7 @@
  *   extern int g_map_width;                              DGROUP:0x4c40
  *   extern int g_map_h;                                  DGROUP:0x4c42
  *   extern long g_map_cells;                             DGROUP:0x4c3c
- *   extern void far *g_plane0, far *g_plane1, far *g_plane2; DGROUP:0x1c72, DGROUP:0x1c76, DGROUP:0x1c7a
+ *   extern unsigned char huge *g_plane0, huge *g_plane1, huge *g_plane2; DGROUP:0x1c72, DGROUP:0x1c76, DGROUP:0x1c7a
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */

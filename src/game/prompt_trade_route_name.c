@@ -14,6 +14,7 @@
  *   extern char far g_game_record;                       SEG20:0x05ca
  *
  * The file's own ReportWin, WordPair dropped for the merged record in col/records.h.
+ * Members renamed to the merged record's spelling, by OFFSET: left -> ox, top -> oy
  *
  * far/near dropped throughout: an addressing mode with no semantic here.
  */
@@ -34,7 +35,7 @@ extern char * current_window(void);
 
 
 
-extern void set_long_24fc(void *w);
+extern void popup_owner_set(void *w);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern void window_relayout(void *o);
@@ -65,7 +66,7 @@ void prompt_trade_route_name(col_i16 x, col_i16 y)
         goto done;
     x = x - o->ox;
     y = y - o->oy;
-    set_long_24fc(o != 0 ? (char *)o + 0x26 : (char *)o);
+    popup_owner_set(o != 0 ? (char *)o + 0x26 : (char *)o);
     if (y >= 0x69 && y < 0x195) {
         route_strip_click(x, y);
         window_relayout(o);
@@ -84,5 +85,5 @@ void prompt_trade_route_name(col_i16 x, col_i16 y)
 done:
     g_trade_name_busy = 0;
     MSDoAllTasks_1058_bc15();
-    set_long_24fc(&g_game_record);
+    popup_owner_set(&g_game_record);
 }

@@ -16,7 +16,8 @@
  "near_callees": [
   "next_text_line"
  ],
- "host_blind": "calls next_text_line, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "host_blind": "calls text_store_string, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
  "call_args": [
   "0"
  ]

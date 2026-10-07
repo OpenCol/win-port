@@ -25,6 +25,7 @@
  "near_callees": [
   "GRPort_Init"
  ],
- "host_blind": "calls GRPort_Init, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none",
+ "host_blind": "calls GRPort_Init, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true,
  "unverifiable": "a forwarder to GRPort_Init, which the shipped code reaches with a near call: the host sees no effect of its own and the 16-bit harness cannot place the candidate in that segment"
 }

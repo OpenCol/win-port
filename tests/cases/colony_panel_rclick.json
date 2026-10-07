@@ -21,5 +21,6 @@
  "globals_read": [],
  "flags": "-ml -WS -Od -Ot -3",
  "near_callees": [],
- "host_blind": "calls colony_building_click, colony_cargo_click, colony_dock_click, which this repo has not ported: the 16-bit harness points the call at the shipped implementation, and a host has none"
+ "host_blind": "calls colony_cargo_click, a Windows API the host does not have; the emulator simulates it",
+ "reaches_windows_api": true
 }
