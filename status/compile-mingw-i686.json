@@ -1,7 +1,7 @@
 {
  "first_errors": [
   [
-   13,
+   12,
    "invalid conversion from 'X' to 'X' [-fpermissive]"
   ],
   [
@@ -9,20 +9,8 @@
    "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
-   7,
-   "conflicting types for 'X'; have 'X'"
-  ],
-  [
-   6,
+   5,
    "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
-   4,
-   "passing argument 3 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
-  ],
-  [
-   4,
-   "returning 'X' from a function with return type 'X' makes integer from pointer without a cast [-Wint-conversion]"
   ],
   [
    3,
@@ -30,7 +18,19 @@
   ],
   [
    3,
+   "conflicting types for 'X'; have 'X'"
+  ],
+  [
+   3,
    "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
+   2,
+   "assignment to expression with array type"
+  ],
+  [
+   2,
+   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
   ],
   [
    2,
@@ -50,15 +50,11 @@
   ],
   [
    1,
-   "assignment to expression with array type"
+   "assignment to 'X' from incompatible pointer type 'X' {aka 'X'} [-Wincompatible-pointer-types]"
   ],
   [
    1,
    "cannot convert 'X' to 'X'"
-  ],
-  [
-   1,
-   "cannot convert 'X' {aka 'X'} to 'X'"
   ],
   [
    1,
@@ -74,14 +70,10 @@
   ],
   [
    1,
-   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
-  ],
-  [
-   1,
-   "invalid types 'X' for array subscript"
+   "specializing member 'X' requires 'X' syntax"
   ]
  ],
- "ok": 3181,
+ "ok": 3195,
  "toolchain": "mingw-i686",
  "total": 3245
 }

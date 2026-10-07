@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of dest_name removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 59, 61 of the imported file. */
 /* dest_get: candidate for 1028:ca10 (305 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -47,7 +48,6 @@ extern void Popup_set_active(Popup *popup, int id);
 
 extern "C" void report_error_1028_e4db(char *ctx, char *s, long v);
 
-extern "C" char *dest_name(int i);
 
 int dest_get(int cur)
 {

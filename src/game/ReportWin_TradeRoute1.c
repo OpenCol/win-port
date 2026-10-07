@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of dest_name removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_String, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_TradeRoute1: candidate for 1058:7baa (549 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_TradeRoute1
@@ -20,7 +21,6 @@
 
 #include "icons.h"
 
-extern char *dest_name(int stop);
 extern int get_num_orders(int dir);
 extern int get_order(int slot);
 

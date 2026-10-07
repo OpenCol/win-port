@@ -207,6 +207,9 @@ def file_declarations():
             funcs.setdefault(m.group(2), set()).add(signature(m.group(1)))
         for m in re.finditer(r"^[ \t]*(extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;)", t, re.M):
             vars_.setdefault(m.group(2), set()).add(re.sub(r"\s+", " ", m.group(1)).strip())
+        # a pointer to a function: `extern void (*g_cd_done_cb)(void);`
+        for m in re.finditer(r"^[ \t]*(extern\s+(?!\"C\")[^;(){}=]*\(\s*\*\s*(g_\w+)\s*\)\s*\([^;{}]*\)\s*;)", t, re.M):
+            vars_.setdefault(m.group(2), set()).add(re.sub(r"\s+", " ", m.group(1)).strip())
     return vars_, funcs
 
 
@@ -332,9 +335,23 @@ def corpus_globals():
         return {}
     import json
     out = {}
+
+    def norm(d):            # 0x10 and 16 are one dimension
+        return re.sub(r"\[(0x[0-9a-fA-F]+)\]", lambda m: "[%d]" % int(m.group(1), 16), d)
     for name, spellings in json.load(open(p)).items():
-        best = sorted(spellings.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
-        out[name] = widen_member(best)
+        votes = {}
+        for d, n in spellings.items():
+            votes[norm(d)] = votes.get(norm(d), 0) + n
+        # the spelling with the most dimensions where one only flattens another (`T x[]` against
+        # `T x[][16]`, same element type); else the most files'
+        bases = {re.sub(r"(\[[^\]]*\])+", "", d) for d in votes}
+        if len(bases) == 1:
+            best = sorted(votes, key=lambda d: (-d.count("["), -votes[d], d))[0]
+        else:
+            best = sorted(votes.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+        # as the corpus writes it: the sources' `int` is widened together with the functions
+        # that take these globals, not here alone
+        out[name] = best
     return out
 
 
@@ -374,6 +391,11 @@ def gen_colonization():
         if len(spells) == 1 and n.startswith("g_"):
             cg[n] = next(iter(spells))          # as the files in src/ write it
     users = corpus_globals()
+    # a function-pointer global the files declare one way, where the header says something else
+    for n, spells in own_vars.items():
+        if len(spells) == 1 and "(*" in next(iter(spells)).replace(" ", ""):
+            out = re.sub(r"^extern [^;\n]*\b%s\b[^;\n]*;.*$" % re.escape(n),
+                         next(iter(spells)) + "   /* PORT: the files' type */", out, count=1, flags=re.M)
     for n, d in defs.items():
         u = users.get(n)
         # the definition's `T x[1]` against its users' `T x`: the users' (one object, as every
@@ -427,9 +449,17 @@ def gen_colonization():
     heads = definition_heads()
     fixed, dropped = [], []
 
+    cf_all = corpus_functions()
+
     def proto(m):
         name = m.group(2)
         want = heads.get(name)
+        if want is None and name in cf_all:
+            # not defined in src/ (the runtime's, the assembly's): the corpus's one signature
+            sigs = {signature(d) for d in cf_all[name]}
+            if len(sigs) == 1 and None not in sigs and sigs != {signature(m.group(0))}:
+                best = sorted(cf_all[name].items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+                want = re.sub(r'^extern\s+(?:"C"\s+)?', "", best).rstrip(";").strip()
         if want and re.sub(r"\s+", " ", m.group(1)).strip() != want:
             g = guarded("extern %s;" % want, name, known_c, known_cpp)
             if g:
