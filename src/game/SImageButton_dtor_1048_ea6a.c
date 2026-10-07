@@ -15,8 +15,4 @@
 
 #include "classes.h"
 
-SImageButton::~SImageButton()
-{
-    if (hwnd != 0)
-        image_button_release(hwnd);
-}
+/* PORT: this copy of SImageButton::~SImageButton removed: src/game/SImageButton_dtor_1008_e8ee.c defines it once (W2). */

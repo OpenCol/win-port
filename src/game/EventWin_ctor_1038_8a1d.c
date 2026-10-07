@@ -17,18 +17,4 @@
  * so the base constructor is reached through the four-byte `PUSH CS / CALL NEAR` the
  * shipped has rather than a five-byte call the comparator has to collapse. */
 
-EventWin::EventWin()
-{
-    menu = 0;
-    menu_handler = 0;
-    command_handler = 0;
-    min_track_w = 0;
-    min_track_h = 0;
-    max_track_w = 0x4000;
-    max_track_h = 0x4000;
-    ldown = 0;
-    rdown = 0;
-    running = 0;
-    hpage = 1;
-    vpage = 1;
-}
+/* PORT: this copy of EventWin::EventWin removed: src/game/EventWin_ctor_1008_d500.c defines it once (W2). */

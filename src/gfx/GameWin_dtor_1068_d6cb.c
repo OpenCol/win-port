@@ -17,6 +17,4 @@ class DlgControl;
  * compiler's own `push cs / call `, which it only emits for a callee defined in the
  * translation unit; each is the compiler-generated body (see the module's matched copies). */
 
-GameWin::~GameWin()
-{
-}
+/* PORT: this copy of GameWin::~GameWin removed: src/game/GameWin_dtor_1008_d965.c defines it once (W2). */

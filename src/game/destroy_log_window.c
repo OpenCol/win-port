@@ -27,13 +27,9 @@
 
 #include "classes.h"
 
-Font::Font()
-{
-}
+/* PORT: an in-file stub of Font::Font removed: src/game/Font_ctor_1008_d478.c defines it (W2). */
 
-Font::~Font()
-{
-}
+/* PORT: an in-file stub of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it (W2). */
 
 LogWindow g_error_log(g_log_name);        /* DGROUP:0x2ac0 */
 Font g_log_font;                        /* DGROUP:0x4e68 */

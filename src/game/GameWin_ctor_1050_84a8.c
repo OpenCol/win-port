@@ -15,8 +15,4 @@
 #pragma option -a-
 class DlgControl;
 
-GameWin::GameWin()
-{
-    first_ctl = 0;
-    relayout = 0;
-}
+/* PORT: this copy of GameWin::GameWin removed: src/game/GameWin_ctor_1008_d8ee.c defines it once (W2). */

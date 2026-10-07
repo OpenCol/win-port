@@ -15,6 +15,4 @@ class DlgControl;
  * compiler's own `push cs / call `, which it only emits for a callee defined in the
  * translation unit; each is the compiler-generated body (see the module's matched copies). */
 
-DialogWin::~DialogWin()
-{
-}
+/* PORT: this copy of DialogWin::~DialogWin removed: src/game/DialogWin_dtor_1008_e575.c defines it once (W2). */

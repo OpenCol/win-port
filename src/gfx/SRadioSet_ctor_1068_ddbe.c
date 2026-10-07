@@ -14,7 +14,4 @@
 
 #include "classes.h"
 
-SRadioSet::SRadioSet()
-{
-    hmem = 0;
-}
+/* PORT: this copy of SRadioSet::SRadioSet removed: src/game/SRadioSet_ctor_1050_87d1.c defines it once (W2). */

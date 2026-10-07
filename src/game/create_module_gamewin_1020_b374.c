@@ -31,6 +31,6 @@ class DlgControl;
 /* Defined here, not merely declared: rule 47 covers the calls the compiler writes,
  * so the base constructor is reached through the four-byte `PUSH CS / CALL NEAR` the
  * shipped has rather than a five-byte call the comparator has to collapse. */
-GameWin::GameWin() { }
-GameWin::~GameWin() { }
+/* PORT: an in-file stub of GameWin::GameWin removed: src/game/GameWin_ctor_1008_d8ee.c defines it (W2). */
+/* PORT: this copy of GameWin::~GameWin removed: src/game/GameWin_dtor_1008_d965.c defines it once (W2). */
 GameWin g_win;      /* SEG22:0x0a */

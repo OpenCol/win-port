@@ -10,7 +10,4 @@
 
 #include "classes.h"
 
-ResourceFile::~ResourceFile()
-{
-    close_resource_dll(h);
-}
+/* PORT: this copy of ResourceFile::~ResourceFile removed: src/game/ResourceFile_dtor_1008_cfa3.c defines it once (W2). */

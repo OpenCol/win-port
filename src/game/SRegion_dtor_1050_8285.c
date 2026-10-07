@@ -16,8 +16,4 @@
 
 #include "classes.h"
 
-SRegion::~SRegion()
-{
-    if (hwnd != 0)
-        MSDisposeRegion(hwnd);
-}
+/* PORT: this copy of SRegion::~SRegion removed: src/game/SRegion_dtor_1008_ea2c.c defines it once (W2). */

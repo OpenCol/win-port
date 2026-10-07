@@ -10,7 +10,4 @@
 
 #include "classes.h"
 
-ResourceFile::ResourceFile(char *name)
-{
-    h = MSOpenResFile(name);
-}
+/* PORT: this copy of ResourceFile::ResourceFile removed: src/game/ResourceFile_ctor_1008_cf5a.c defines it once (W2). */

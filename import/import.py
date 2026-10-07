@@ -17,6 +17,9 @@ What an import writes (everything else in the tree is this repository's own):
     import/globals.json    every file-scope extern the corpus writes for a variable, by name
                            (port_transform.py removes them; gen_headers.py takes their types)
     import/functions.json  every file-scope prototype the corpus writes, by name
+    import/layout.json     each modelled global's segment and offset, each segment's size,
+                           each record's size (model.json, the NE table): globals' extents
+    import/win16-imports.json  the Win16 functions the shipped executable imports, by module
 
 --check compares a fresh import with the tree, file by file:
     identical   the same bytes
@@ -61,7 +64,9 @@ def produce(cwr, source, tmp):
     arc = os.path.join(tmp, "src.tar")
     with open(arc, "wb") as f:
         subprocess.run(["git", "-C", cwr, "archive", source, "--", "tools/port_transform.py",
-                        "analysis/port-header.h", "matched", "include"], stdout=f, check=True)
+                        "analysis/port-header.h", "matched", "include", "analysis/model.json",
+                        "analysis/ne/COLONIZE.EXE.json", "analysis/colonize-imports-resolved.json"],
+                       stdout=f, check=True)
     tree = os.path.join(tmp, "tree")
     with tarfile.open(arc) as t:
         t.extractall(tree)
@@ -87,7 +92,25 @@ def produce(cwr, source, tmp):
     files["import/REFUSED"] = text.encode()
     files["import/globals.json"] = corpus_globals(os.path.join(tree, "matched")).encode()
     files["import/functions.json"] = corpus_functions(os.path.join(tree, "matched")).encode()
+    files["import/layout.json"] = layout(tree).encode()
+    imports = json.load(open(os.path.join(tree, "analysis", "colonize-imports-resolved.json")))
+    files["import/win16-imports.json"] = (json.dumps(imports, indent=1, sort_keys=True) + "\n").encode()
     return files
+
+
+def layout(tree):
+    """Where the model puts each global (segment, offset), how big each segment of the shipped
+    image is (the NE table's min_alloc), and each modelled record's size: what
+    tools/gen_globals.py needs to give every global its extent. Numbers about the image, no
+    bytes of it."""
+    model = json.load(open(os.path.join(tree, "analysis", "model.json")))
+    ne = json.load(open(os.path.join(tree, "analysis", "ne", "COLONIZE.EXE.json")))
+    out = {
+        "globals": {n: [g["segment"], g["offset"]] for n, g in model["globals"].items()},
+        "segments": {str(s["index"]): (s["min_alloc"] or 0x10000) for s in ne["segments"]},
+        "records": {n: r["size"] for n, r in model["records"].items() if r.get("size")},
+    }
+    return json.dumps(out, indent=1, sort_keys=True) + "\n"
 
 
 QUALIFIERS = re.compile(r"(?<![\w])(?:far|near|huge|_far|_near|_huge)(?![\w])\s*")

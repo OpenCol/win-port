@@ -16,7 +16,4 @@
 
 #include "classes.h"
 
-Font::Font()
-{
-    hfont = 0;
-}
+/* PORT: this copy of Font::Font removed: src/game/Font_ctor_1008_d478.c defines it once (W2). */

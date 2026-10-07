@@ -11,7 +11,4 @@
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ClearEventTable_1048_ee9c(EventTable *table);
-EventTable::EventTable()
-{
-    ClearEventTable_1048_ee9c(this);
-}
+/* PORT: this copy of EventTable::EventTable removed: src/game/EventTable_ctor_1008_e46f.c defines it once (W2). */

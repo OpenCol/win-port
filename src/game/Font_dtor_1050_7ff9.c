@@ -10,8 +10,4 @@
 
 #include "classes.h"
 
-Font::~Font()
-{
-    if (hfont != 0)
-        MSReleaseFont(hfont);
-}
+/* PORT: this copy of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it once (W2). */

@@ -16,8 +16,4 @@
 
 #include "classes.h"
 
-SButton::~SButton()
-{
-    if (hwnd != 0)
-        MSDisposeButton(hwnd);
-}
+/* PORT: this copy of SButton::~SButton removed: src/game/SButton_dtor_1008_e9d0.c defines it once (W2). */

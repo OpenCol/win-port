@@ -108,6 +108,13 @@ def borland_pragmas(text):
 
 # ---------------------------------------------------------------- the four headers
 
+def src_files():
+    """The imported sources (src/<layer>/*.c), not src/gen: what is generated from them is
+    not evidence about them."""
+    return sorted(p for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c"))
+                  if os.path.basename(os.path.dirname(p)) != "gen")
+
+
 def defined_types(text):
     t = strip_comments(text)
     return (set(re.findall(r"\}\s*(\w+)\s*;", t)) | set(re.findall(r"typedef[^;{}()]*?\b(\w+)\s*;", t))
@@ -124,7 +131,7 @@ def local_typedef_names(cpp=None):
     global _LOCAL_TYPEDEFS
     if _LOCAL_TYPEDEFS is None:
         names = {True: set(), False: set()}
-        for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+        for p in src_files():
             t = open(p, errors="replace").read()
             names[bool(re.search(r"flags:.*-P\b", t[:4000]))] |= defined_types(t)
         _LOCAL_TYPEDEFS = names
@@ -171,7 +178,7 @@ def file_scope(text):
 def file_typedefs():
     """{name: {typedef statement}} of the one-line typedefs files in src/ write at file scope."""
     out = {}
-    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+    for p in src_files():
         for m in re.finditer(r"^[ \t]*(typedef [^;{}]*;)", file_scope(open(p, errors="replace").read()), re.M):
             s = re.sub(r"\s+", " ", m.group(1)).strip()
             n = re.search(r"\(\s*\*\s*(\w+)\s*\)\s*\(|(\w+)\s*;$", s)
@@ -185,7 +192,7 @@ def global_definitions():
     static, not extern): the type its definition gives it, widened. Constructor arguments and
     initialisers are dropped."""
     out = {}
-    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+    for p in src_files():
         scope = file_scope(open(p, errors="replace").read())
         for m in re.finditer(r"(?:^|;|\})[ \t\n]*((?!extern\b|static\b|typedef\b|return\b)[A-Za-z_][\w \t*]*?)\b(g_\w+)"
                              r"\s*((?:\[[^\]]*\]\s*)*)(?:\([^;{}]*\))?\s*(?:=[^;]*)?;", scope, re.M):
@@ -203,7 +210,7 @@ def file_declarations():
     variable, or a prototype (not a definition). Functions map to the set of signatures the
     files give them."""
     vars_, funcs = {}, {}
-    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+    for p in src_files():
         t = file_scope(open(p, errors="replace").read())
         for m in re.finditer(r"^[ \t]*((?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;)", t, re.M):
             funcs.setdefault(m.group(2), set()).add(signature(m.group(1)))
@@ -218,7 +225,7 @@ def file_declarations():
 def definition_heads():
     """{function name: its definition's head} over src/ (the ported corpus)."""
     heads = {}
-    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+    for p in src_files():
         t = strip_comments(open(p, errors="replace").read())
         for m in re.finditer(r"^([A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}()]*\))\s*\{", t, re.M):
             name = m.group(2)

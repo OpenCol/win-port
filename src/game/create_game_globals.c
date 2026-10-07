@@ -65,9 +65,9 @@ public:
 
 /* same object: 4-byte `push cs; call ` (rule 47), from here or from the _STDES_ */
 
-Font::Font() { }
+/* PORT: an in-file stub of Font::Font removed: src/game/Font_ctor_1008_d478.c defines it (W2). */
 
-Font::~Font() { }
+/* PORT: an in-file stub of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it (W2). */
 
 GamePrefs g_prefs_root;            /* SEG20:0x10 */
 CTable g_game_palette;             /* SEG20:0x1ac */

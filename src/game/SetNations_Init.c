@@ -57,8 +57,8 @@ extern void FrameInfoRect(GRPort *s, RECT *r, int depth, int light, int dark);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void SetNations_DrawIt(SetNations *s);
-void set_on_lbutton_down_1030_e522(void *o, void (*fn)()) { }
-void set_button_action_1030_e5bf(void *c, void (*fn)()) { }
+/* PORT: an in-file stub of set_on_lbutton_down_1030_e522 removed: src/game/set_on_lbutton_down_1030_e522.c defines it (W2). */
+/* PORT: an in-file stub of set_button_action_1030_e5bf removed: src/game/set_button_action_1030_e5bf.c defines it (W2). */
 
 
 

@@ -10,6 +10,4 @@
 
 #include "classes.h"
 
-EventTable::~EventTable()
-{
-}
+/* PORT: this copy of EventTable::~EventTable removed: src/game/EventTable_dtor_1008_e4b1.c defines it once (W2). */

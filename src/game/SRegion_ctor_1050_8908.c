@@ -14,6 +14,4 @@
 
 #include "classes.h"
 
-SRegion::SRegion()
-{
-}
+/* PORT: this copy of SRegion::SRegion removed: src/game/SRegion_ctor_1008_e757.c defines it once (W2). */

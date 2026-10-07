@@ -20,8 +20,4 @@
 
 #include "classes.h"
 
-SButton::SButton()
-{
-    hotkey = 0;
-    colour = -1;
-}
+/* PORT: this copy of SButton::SButton removed: src/game/SButton_ctor_1008_e799.c defines it once (W2). */

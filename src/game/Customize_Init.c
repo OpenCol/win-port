@@ -50,9 +50,9 @@ struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void Customize_DrawIt(Customize *s);
-void set_on_lbutton_down_1030_e522(void *o, void (*fn)()) { }
+/* PORT: an in-file stub of set_on_lbutton_down_1030_e522 removed: src/game/set_on_lbutton_down_1030_e522.c defines it (W2). */
 
-void set_button_action_1030_e5bf(void *c, void (*fn)()) { }
+/* PORT: an in-file stub of set_button_action_1030_e5bf removed: src/game/set_button_action_1030_e5bf.c defines it (W2). */
 
 
 

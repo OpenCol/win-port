@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 163 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 108, 113, 118, 123 of the imported file. */
 /* PORT: this file's own declarations of CDControlWin_ButtonProc, ColChild_InitCWin_nc, disable_parent, enable_parent, get_win_1040_aee6, image_button_init_1040_ada4, show_window_1040_a79d removed: the header declares them from the definition (W1 step 3). */
@@ -77,7 +78,7 @@ extern void CDControlWin_DrawTrack(CDControlWin *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-void set_control_action_1040_aecc(void *p, void (*fn)(void)) { }
+/* PORT: an in-file stub of set_control_action_1040_aecc removed: src/game/set_control_action_1040_aecc.c defines it (W2). */
 
 extern "C" void CDControlWin_Init(CDControlWin *w)
 {
@@ -160,7 +161,7 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     GRPort_String(w, (unsigned *)&g_font_small, "Time", w->rect.left + 0x96, w->rect.top + 0x3c, 4);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x9e2), (DialogWin *)((char *)w + 0x26), 0xc8,
                                 0, 0, 0xce, 0xce, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x9e2), CDControlWin_OnOkClick);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x9e2), (void*)(CDControlWin_OnOkClick));
     w->done = 0;
     w->tray_open = 1;
     w->stopped = 0;

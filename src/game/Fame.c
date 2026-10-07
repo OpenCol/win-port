@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 199 of the imported file. */
 /* PORT: this file's own declarations of MSHideWindow_of_1050_8cd8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 119, 206 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
@@ -89,7 +90,7 @@ extern "C" void set_text_arg(int slot, int v);
 extern "C" int port_width_1050_922e(GRPort *port);
 extern "C" int port_height_1050_9247(GRPort *port);
 
-void set_on_lbutton_down_1050_8eb9(void *slot, void (*fn)(void)) { }
+/* PORT: an in-file stub of set_on_lbutton_down_1050_8eb9 removed: src/game/set_on_lbutton_down_1050_8eb9.c defines it (W2). */
 extern "C" void show_window_1050_8bc8(GameWin *w);
 extern "C" void win_release_1050_9148(GameWin *w);
 
@@ -196,7 +197,7 @@ extern "C" int Fame(int show, int *rank_out)
     else
         sound_play(SOUND_MUSIC_SMOKY_TUNE);
     copy_all_to_screen_1050_843b(&w);
-    set_on_lbutton_down_1050_8eb9((EventTable *)&w, fame_OnLMouseDown);
+    set_on_lbutton_down_1050_8eb9((EventTable *)&w, (void*)(fame_OnLMouseDown));
     show_window_1050_8bc8(&w);
     win_show_and_focus_1050_911f((DialogWin *)&w);
     MSDoAllTasks_1050_8be7();

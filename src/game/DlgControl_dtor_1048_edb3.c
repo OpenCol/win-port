@@ -14,10 +14,4 @@
 
 
 
-DlgControl::~DlgControl()
-{
-    if (win != 0)
-        DialogWin_RemoveControl((DialogWin *)win, id);
-    next = 0;
-    MSCloseWindow(this);
-}
+/* PORT: this copy of DlgControl::~DlgControl removed: src/game/DlgControl_dtor_1008_ec94.c defines it once (W2). */

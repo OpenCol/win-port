@@ -16,10 +16,4 @@ class DlgControl;
  * so the base constructor is reached through the four-byte `PUSH CS / CALL NEAR` the
  * shipped has rather than a five-byte call the comparator has to collapse. */
 
-DialogWin::DialogWin()
-{
-    first_ctl = 0;
-    ok_btn = 0;
-    cancel_btn = 0;
-    keyboard_nav = 1;
-}
+/* PORT: this copy of DialogWin::DialogWin removed: src/game/DialogWin_ctor_1008_e502.c defines it once (W2). */

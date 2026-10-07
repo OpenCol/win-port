@@ -1,0 +1,2833 @@
+{
+ "globals": {
+  "_ctype": [
+   34,
+   18112
+  ],
+  "g_1fbe": [
+   34,
+   8126
+  ],
+  "g_266a": [
+   34,
+   9834
+  ],
+  "g_4b2a": [
+   34,
+   19242
+  ],
+  "g_4bec": [
+   34,
+   19436
+  ],
+  "g_4bee": [
+   34,
+   19438
+  ],
+  "g_4c24": [
+   34,
+   19492
+  ],
+  "g_4cd8": [
+   34,
+   19672
+  ],
+  "g_4cea": [
+   34,
+   19690
+  ],
+  "g_4cf4": [
+   34,
+   19700
+  ],
+  "g_84": [
+   34,
+   132
+  ],
+  "g_9dd": [
+   34,
+   2525
+  ],
+  "g_9e2": [
+   34,
+   2530
+  ],
+  "g_abandon_flag": [
+   34,
+   3102
+  ],
+  "g_about_done": [
+   34,
+   20068
+  ],
+  "g_about_step": [
+   34,
+   20070
+  ],
+  "g_action_word": [
+   20,
+   55560
+  ],
+  "g_adjacent_colony_nation": [
+   34,
+   19474
+  ],
+  "g_ai_managing_colony": [
+   34,
+   3112
+  ],
+  "g_ai_military_target": [
+   34,
+   19304
+  ],
+  "g_ai_repeat_count": [
+   34,
+   19478
+  ],
+  "g_ai_repeat_unit": [
+   34,
+   19476
+  ],
+  "g_anim": [
+   34,
+   22156
+  ],
+  "g_anim_port": [
+   34,
+   22160
+  ],
+  "g_area_map_str": [
+   34,
+   7340
+  ],
+  "g_art_base": [
+   20,
+   16806
+  ],
+  "g_attitude_word": [
+   20,
+   55588
+  ],
+  "g_attitudinal_word": [
+   20,
+   55598
+  ],
+  "g_autoplay": [
+   34,
+   136
+  ],
+  "g_avg_colony_size": [
+   20,
+   55880
+  ],
+  "g_backdrop_win": [
+   34,
+   198
+  ],
+  "g_background_tile": [
+   20,
+   29958
+  ],
+  "g_bells_extra": [
+   34,
+   19365
+  ],
+  "g_best_job_amount": [
+   34,
+   19404
+  ],
+  "g_best_job_score": [
+   34,
+   19406
+  ],
+  "g_blink": [
+   34,
+   120
+  ],
+  "g_boarding_in_progress": [
+   34,
+   6462
+  ],
+  "g_build_needs": [
+   20,
+   56488
+  ],
+  "g_building_of_job": [
+   21,
+   247
+  ],
+  "g_buildings": [
+   20,
+   54306
+  ],
+  "g_button_font": [
+   34,
+   10954
+  ],
+  "g_buy_busy": [
+   34,
+   2565
+  ],
+  "g_c12": [
+   34,
+   3090
+  ],
+  "g_cargo_amount": [
+   34,
+   19410
+  ],
+  "g_cargo_captured": [
+   34,
+   19434
+  ],
+  "g_cargo_pickups": [
+   24,
+   1654
+  ],
+  "g_carrier_count": [
+   34,
+   3092
+  ],
+  "g_carrier_highlight": [
+   34,
+   3096
+  ],
+  "g_cd_device": [
+   34,
+   15482
+  ],
+  "g_cd_is_game_disc": [
+   34,
+   7452
+  ],
+  "g_cd_notify_hwnd": [
+   34,
+   22310
+  ],
+  "g_cd_tray_device": [
+   34,
+   15484
+  ],
+  "g_cd_wrong_disc": [
+   34,
+   7454
+  ],
+  "g_cell_claim": [
+   21,
+   506
+  ],
+  "g_cell_class": [
+   34,
+   19342
+  ],
+  "g_cell_col": [
+   34,
+   3080
+  ],
+  "g_cell_row": [
+   34,
+   3082
+  ],
+  "g_cell_terrain": [
+   34,
+   19343
+  ],
+  "g_center_amount": [
+   34,
+   19367
+  ],
+  "g_center_food": [
+   34,
+   19364
+  ],
+  "g_center_kind": [
+   34,
+   19366
+  ],
+  "g_cheat_step": [
+   34,
+   19702
+  ],
+  "g_check_color_disabled": [
+   34,
+   10974
+  ],
+  "g_check_color_enabled": [
+   34,
+   10973
+  ],
+  "g_check_mask": [
+   34,
+   9492
+  ],
+  "g_checkbox_capture": [
+   34,
+   13252
+  ],
+  "g_choose_busy": [
+   34,
+   2564
+  ],
+  "g_chosen_colony_mode": [
+   34,
+   3088
+  ],
+  "g_chosen_item": [
+   34,
+   9494
+  ],
+  "g_class": [
+   20,
+   51172
+  ],
+  "g_closing_flag": [
+   34,
+   19352
+  ],
+  "g_cmisc_word": [
+   34,
+   19256
+  ],
+  "g_coarse_grid_land": [
+   27,
+   174
+  ],
+  "g_coarse_grid_sea": [
+   27,
+   444
+  ],
+  "g_coast_edges": [
+   34,
+   19344
+  ],
+  "g_colonies": [
+   20,
+   31784
+  ],
+  "g_colonies_besieged": [
+   34,
+   19468
+  ],
+  "g_colonies_blockaded": [
+   34,
+   19467
+  ],
+  "g_colonies_with_room": [
+   34,
+   19462
+  ],
+  "g_colony_c24": [
+   34,
+   3108
+  ],
+  "g_colony_clicked": [
+   34,
+   2532
+  ],
+  "g_colony_ctl_visible": [
+   34,
+   2566
+  ],
+  "g_colony_drag_armed": [
+   34,
+   2536
+  ],
+  "g_colony_drop_active": [
+   34,
+   2528
+  ],
+  "g_colony_key_busy": [
+   34,
+   2554
+  ],
+  "g_colony_lclick_busy": [
+   34,
+   2550
+  ],
+  "g_colony_message_words": [
+   20,
+   55702
+  ],
+  "g_colony_mode": [
+   34,
+   3087
+  ],
+  "g_colony_popup": [
+   34,
+   2540
+  ],
+  "g_colony_rclick_busy": [
+   34,
+   2551
+  ],
+  "g_colony_slot28_busy": [
+   34,
+   2552
+  ],
+  "g_colony_tally": [
+   24,
+   1646
+  ],
+  "g_colony_timer": [
+   20,
+   11572
+  ],
+  "g_colony_win_rec": [
+   20,
+   9700
+  ],
+  "g_colony_window": [
+   20,
+   9662
+  ],
+  "g_colony_window_open": [
+   34,
+   178
+  ],
+  "g_colony_window_ptr": [
+   34,
+   2560
+  ],
+  "g_color_resource_type": [
+   34,
+   10994
+  ],
+  "g_colour_table": [
+   34,
+   142
+  ],
+  "g_combat_flags": [
+   34,
+   19418
+  ],
+  "g_combat_flags2": [
+   34,
+   19422
+  ],
+  "g_combat_str": [
+   34,
+   19426
+  ],
+  "g_congress_nation": [
+   34,
+   19974
+  ],
+  "g_consumption": [
+   21,
+   356
+  ],
+  "g_control_font": [
+   34,
+   10958
+  ],
+  "g_ctitle_word": [
+   20,
+   55682
+  ],
+  "g_cur_cell": [
+   34,
+   19348
+  ],
+  "g_cur_colony_idx": [
+   34,
+   19362
+  ],
+  "g_cur_colony_is_players": [
+   34,
+   19370
+  ],
+  "g_cur_colony_rec": [
+   34,
+   19358
+  ],
+  "g_cur_data": [
+   34,
+   19632
+  ],
+  "g_cur_dialog": [
+   34,
+   9472
+  ],
+  "g_cur_nation": [
+   34,
+   19656
+  ],
+  "g_cur_nation_rec": [
+   34,
+   19652
+  ],
+  "g_cur_res": [
+   34,
+   19636
+  ],
+  "g_cur_route": [
+   34,
+   19488
+  ],
+  "g_cur_route_rec": [
+   34,
+   19480
+  ],
+  "g_cur_route_stop": [
+   34,
+   19484
+  ],
+  "g_cur_settlement": [
+   34,
+   19508
+  ],
+  "g_cur_settlement_rec": [
+   34,
+   19500
+  ],
+  "g_cur_track": [
+   34,
+   7442
+  ],
+  "g_cur_tribe": [
+   34,
+   19504
+  ],
+  "g_cur_tribe_nation": [
+   34,
+   19506
+  ],
+  "g_cur_tribe_rec": [
+   34,
+   19496
+  ],
+  "g_current_font": [
+   34,
+   10950
+  ],
+  "g_current_port": [
+   34,
+   10946
+  ],
+  "g_current_slot": [
+   34,
+   12870
+  ],
+  "g_current_window": [
+   34,
+   10976
+  ],
+  "g_cursor": [
+   34,
+   9480
+  ],
+  "g_cursor_state": [
+   34,
+   7252
+  ],
+  "g_cursor_x": [
+   34,
+   19248
+  ],
+  "g_cursor_y": [
+   34,
+   19250
+  ],
+  "g_cursors": [
+   20,
+   30534
+  ],
+  "g_custom_house_colony": [
+   20,
+   12240
+  ],
+  "g_cycle_flag": [
+   34,
+   118
+  ],
+  "g_damaged_in_port": [
+   34,
+   8140
+  ],
+  "g_data_dir": [
+   29,
+   0
+  ],
+  "g_debug_flags": [
+   34,
+   182
+  ],
+  "g_debug_mode": [
+   34,
+   138
+  ],
+  "g_default_font_ref": [
+   34,
+   10962
+  ],
+  "g_default_map_file": [
+   20,
+   57030
+  ],
+  "g_defence_colony": [
+   34,
+   3522
+  ],
+  "g_defence_village": [
+   34,
+   3520
+  ],
+  "g_deficit": [
+   21,
+   396
+  ],
+  "g_depletion_rolls": [
+   34,
+   19369
+  ],
+  "g_desk_x": [
+   20,
+   11560
+  ],
+  "g_desk_y": [
+   20,
+   11562
+  ],
+  "g_dialog_help_used": [
+   34,
+   19966
+  ],
+  "g_dialog_owner": [
+   34,
+   22198
+  ],
+  "g_dialog_result": [
+   34,
+   22196
+  ],
+  "g_difficulty_words": [
+   20,
+   55550
+  ],
+  "g_dir_dx": [
+   27,
+   0
+  ],
+  "g_dir_dy": [
+   27,
+   9
+  ],
+  "g_display_name_buf": [
+   34,
+   19988
+  ],
+  "g_dock_prev_carrier": [
+   34,
+   2558
+  ],
+  "g_done_flag": [
+   34,
+   19340
+  ],
+  "g_drag_active": [
+   34,
+   19374
+  ],
+  "g_drag_amount": [
+   34,
+   19376
+  ],
+  "g_drag_from": [
+   34,
+   19676
+  ],
+  "g_drag_goods": [
+   34,
+   19375
+  ],
+  "g_drag_mode": [
+   34,
+   8132
+  ],
+  "g_drag_port": [
+   34,
+   19644
+  ],
+  "g_drag_rect_dst": [
+   30,
+   8
+  ],
+  "g_drag_rect_src": [
+   30,
+   0
+  ],
+  "g_drag_slot": [
+   34,
+   19377
+  ],
+  "g_drag_sprite": [
+   34,
+   19640
+  ],
+  "g_drag_unit": [
+   34,
+   19674
+  ],
+  "g_drag_x": [
+   34,
+   19648
+  ],
+  "g_drag_y": [
+   34,
+   19650
+  ],
+  "g_draw_color": [
+   34,
+   13182
+  ],
+  "g_draw_feature_loc": [
+   34,
+   19582
+  ],
+  "g_draw_labels": [
+   34,
+   6464
+  ],
+  "g_draw_map_loc": [
+   34,
+   19586
+  ],
+  "g_draw_mask": [
+   34,
+   19602
+  ],
+  "g_draw_parity": [
+   34,
+   19608
+  ],
+  "g_draw_pix": [
+   34,
+   19594
+  ],
+  "g_draw_px": [
+   34,
+   19604
+  ],
+  "g_draw_py": [
+   34,
+   19606
+  ],
+  "g_draw_site_loc": [
+   34,
+   19590
+  ],
+  "g_draw_x": [
+   34,
+   19598
+  ],
+  "g_draw_y": [
+   34,
+   19600
+  ],
+  "g_edge_sprites": [
+   20,
+   30022
+  ],
+  "g_editbox_extra": [
+   34,
+   22226
+  ],
+  "g_editbox_font": [
+   34,
+   10966
+  ],
+  "g_editbox_proc": [
+   34,
+   22222
+  ],
+  "g_editbox_registered": [
+   34,
+   13260
+  ],
+  "g_error_log": [
+   34,
+   10944
+  ],
+  "g_eurolabel_word": [
+   34,
+   19262
+  ],
+  "g_europe_arrival_unit": [
+   34,
+   3528
+  ],
+  "g_europe_hover": [
+   34,
+   19698
+  ],
+  "g_europe_hover_busy": [
+   34,
+   8154
+  ],
+  "g_europe_land_units": [
+   34,
+   19316
+  ],
+  "g_europe_lclick_busy": [
+   34,
+   8152
+  ],
+  "g_europe_popup": [
+   34,
+   8144
+  ],
+  "g_europe_popup_id": [
+   34,
+   8148
+  ],
+  "g_europe_rclick_busy": [
+   34,
+   8150
+  ],
+  "g_europe_screen_open": [
+   34,
+   180
+  ],
+  "g_europe_selected_ship": [
+   34,
+   19678
+  ],
+  "g_europe_ship_highlight": [
+   34,
+   19682
+  ],
+  "g_europe_timer": [
+   20,
+   14152
+  ],
+  "g_europe_win": [
+   20,
+   12242
+  ],
+  "g_europe_win_dlg": [
+   20,
+   12280
+  ],
+  "g_europe_x0": [
+   20,
+   14140
+  ],
+  "g_event_seed": [
+   34,
+   19336
+  ],
+  "g_far_start_x": [
+   34,
+   19454
+  ],
+  "g_far_start_y": [
+   34,
+   19456
+  ],
+  "g_father_order": [
+   22,
+   206
+  ],
+  "g_father_x": [
+   22,
+   232
+  ],
+  "g_father_y": [
+   22,
+   282
+  ],
+  "g_fathers": [
+   20,
+   55034
+  ],
+  "g_feature_words": [
+   20,
+   55512
+  ],
+  "g_field": [
+   29,
+   140
+  ],
+  "g_fish_food": [
+   34,
+   19368
+  ],
+  "g_flag_art": [
+   20,
+   29382
+  ],
+  "g_flag_sprite": [
+   28,
+   70
+  ],
+  "g_flat_step_cost": [
+   34,
+   4258
+  ],
+  "g_flic_resource_type": [
+   34,
+   10998
+  ],
+  "g_font16": [
+   34,
+   9448
+  ],
+  "g_font_small": [
+   34,
+   19230
+  ],
+  "g_font_tiny": [
+   34,
+   19214
+  ],
+  "g_foreign_owner": [
+   34,
+   19510
+  ],
+  "g_forest_pattern": [
+   34,
+   10408
+  ],
+  "g_founding_word": [
+   20,
+   55184
+  ],
+  "g_frame_top_sel": [
+   31,
+   56
+  ],
+  "g_frame_top_text": [
+   31,
+   12
+  ],
+  "g_frr_resource_type": [
+   34,
+   11002
+  ],
+  "g_game": [
+   20,
+   30594
+  ],
+  "g_game_brains": [
+   20,
+   16598
+  ],
+  "g_game_over": [
+   34,
+   3524
+  ],
+  "g_game_palette": [
+   20,
+   428
+  ],
+  "g_game_txt": [
+   34,
+   158
+  ],
+  "g_garrisoned_regions": [
+   34,
+   19466
+  ],
+  "g_gif_resource_type": [
+   34,
+   11014
+  ],
+  "g_goods": [
+   20,
+   55196
+  ],
+  "g_goods_drag_amount": [
+   34,
+   19688
+  ],
+  "g_goods_drag_from_market": [
+   34,
+   19684
+  ],
+  "g_goods_drag_slot": [
+   34,
+   19680
+  ],
+  "g_goods_input": [
+   21,
+   166
+  ],
+  "g_goods_name_word": [
+   20,
+   55406
+  ],
+  "g_goods_value": [
+   30,
+   16
+  ],
+  "g_goods_wanted": [
+   24,
+   1630
+  ],
+  "g_goods_wanted_prev": [
+   24,
+   1614
+  ],
+  "g_gr_error": [
+   34,
+   11034
+  ],
+  "g_grid_depth": [
+   23,
+   0
+  ],
+  "g_grid_marks": [
+   21,
+   330
+  ],
+  "g_grid_marks_done": [
+   34,
+   3106
+  ],
+  "g_grid_x": [
+   34,
+   19440
+  ],
+  "g_grid_y": [
+   34,
+   19442
+  ],
+  "g_group_members": [
+   32,
+   0
+  ],
+  "g_heading_font": [
+   34,
+   19234
+  ],
+  "g_hinstance": [
+   34,
+   22242
+  ],
+  "g_hint6_shown": [
+   34,
+   3530
+  ],
+  "g_hit_panel": [
+   34,
+   2534
+  ],
+  "g_hover_active": [
+   34,
+   13248
+  ],
+  "g_hover_mode": [
+   34,
+   2538
+  ],
+  "g_hover_pressed": [
+   34,
+   13250
+  ],
+  "g_hprev": [
+   34,
+   22244
+  ],
+  "g_icon_dx": [
+   34,
+   7370
+  ],
+  "g_icon_dy": [
+   34,
+   7371
+  ],
+  "g_icon_h": [
+   34,
+   7324
+  ],
+  "g_icon_port": [
+   28,
+   102
+  ],
+  "g_icon_sprite": [
+   28,
+   38
+  ],
+  "g_icon_sprites": [
+   20,
+   25158
+  ],
+  "g_info_font_large": [
+   34,
+   19222
+  ],
+  "g_info_font_small": [
+   34,
+   19218
+  ],
+  "g_info_label": [
+   20,
+   56512
+  ],
+  "g_info_win_dlg": [
+   20,
+   5516
+  ],
+  "g_job_of_building": [
+   21,
+   205
+  ],
+  "g_job_popup_active": [
+   34,
+   2578
+  ],
+  "g_job_unit_type": [
+   34,
+   3064
+  ],
+  "g_key_accepted": [
+   34,
+   13262
+  ],
+  "g_key_down_seen": [
+   34,
+   13263
+  ],
+  "g_keymap": [
+   34,
+   13266
+  ],
+  "g_kind_base": [
+   34,
+   3059
+  ],
+  "g_kind_count": [
+   34,
+   3054
+  ],
+  "g_kind_h": [
+   21,
+   26
+  ],
+  "g_kind_out_w": [
+   21,
+   86
+  ],
+  "g_kind_out_x": [
+   21,
+   66
+  ],
+  "g_kind_out_y": [
+   21,
+   76
+  ],
+  "g_kind_row_x": [
+   21,
+   36
+  ],
+  "g_kind_row_y": [
+   21,
+   46
+  ],
+  "g_kind_w": [
+   21,
+   16
+  ],
+  "g_labelled_building": [
+   34,
+   2544
+  ],
+  "g_labelled_cell": [
+   34,
+   2548
+  ],
+  "g_labelled_goods": [
+   34,
+   2546
+  ],
+  "g_labels_txt": [
+   34,
+   170
+  ],
+  "g_land_claim": [
+   34,
+   4478
+  ],
+  "g_land_count": [
+   34,
+   19412
+  ],
+  "g_land_unit_count": [
+   34,
+   19692
+  ],
+  "g_land_unit_index": [
+   34,
+   19694
+  ],
+  "g_last_blink": [
+   34,
+   122
+  ],
+  "g_last_key": [
+   34,
+   22228
+  ],
+  "g_last_route": [
+   34,
+   4484
+  ],
+  "g_layout_x": [
+   34,
+   19970
+  ],
+  "g_layout_y": [
+   34,
+   19972
+  ],
+  "g_lbm_resource_type": [
+   34,
+   11006
+  ],
+  "g_leader_traits": [
+   20,
+   31768
+  ],
+  "g_level": [
+   20,
+   52092
+  ],
+  "g_line": [
+   34,
+   19710
+  ],
+  "g_line_color_index": [
+   34,
+   10970
+  ],
+  "g_line_text": [
+   34,
+   9484
+  ],
+  "g_listbox_extra": [
+   34,
+   22220
+  ],
+  "g_listbox_proc": [
+   34,
+   22216
+  ],
+  "g_listbox_registered": [
+   34,
+   13258
+  ],
+  "g_loaded_flag": [
+   34,
+   139
+  ],
+  "g_log_font": [
+   34,
+   20072
+  ],
+  "g_log_name": [
+   34,
+   10988
+  ],
+  "g_lowmem_box": [
+   34,
+   22202
+  ],
+  "g_lowmem_busy": [
+   34,
+   12884
+  ],
+  "g_lowmem_count": [
+   34,
+   12886
+  ],
+  "g_lowmem_deadline": [
+   34,
+   12888
+  ],
+  "g_lowmem_flag": [
+   34,
+   12880
+  ],
+  "g_lowmem_kb": [
+   34,
+   12876
+  ],
+  "g_lowmem_ok": [
+   34,
+   22206
+  ],
+  "g_lowmem_res": [
+   34,
+   12878
+  ],
+  "g_lowmem_timer": [
+   34,
+   12882
+  ],
+  "g_lowmem_win": [
+   34,
+   12872
+  ],
+  "g_main_win": [
+   20,
+   1482
+  ],
+  "g_map_bytes": [
+   34,
+   7318
+  ],
+  "g_map_cells": [
+   34,
+   19516
+  ],
+  "g_map_center_x": [
+   34,
+   7314
+  ],
+  "g_map_center_y": [
+   34,
+   7316
+  ],
+  "g_map_click_busy": [
+   34,
+   7250
+  ],
+  "g_map_file_name": [
+   27,
+   60
+  ],
+  "g_map_lclick_busy": [
+   34,
+   7248
+  ],
+  "g_map_ldown_busy": [
+   34,
+   7254
+  ],
+  "g_map_load_error": [
+   34,
+   7272
+  ],
+  "g_map_mode": [
+   34,
+   7332
+  ],
+  "g_map_port": [
+   28,
+   0
+  ],
+  "g_map_size": [
+   34,
+   19520
+  ],
+  "g_map_timer": [
+   20,
+   3534
+  ],
+  "g_map_version": [
+   34,
+   7266
+  ],
+  "g_map_window": [
+   20,
+   1624
+  ],
+  "g_map_window_dlg": [
+   20,
+   1662
+  ],
+  "g_market_col": [
+   34,
+   8134
+  ],
+  "g_mci_device": [
+   34,
+   15480
+  ],
+  "g_menu_active": [
+   34,
+   3110
+  ],
+  "g_menu_depth": [
+   34,
+   22238
+  ],
+  "g_menu_owner": [
+   20,
+   1622
+  ],
+  "g_merc": [
+   26,
+   54
+  ],
+  "g_message_buf": [
+   34,
+   20076
+  ],
+  "g_military_power": [
+   20,
+   55766
+  ],
+  "g_mini_win": [
+   20,
+   3552
+  ],
+  "g_mini_win_dlg": [
+   20,
+   3590
+  ],
+  "g_misc_words": [
+   20,
+   56520
+  ],
+  "g_mission_word": [
+   20,
+   55478
+  ],
+  "g_modal_active": [
+   34,
+   19666
+  ],
+  "g_modal_done": [
+   34,
+   9504
+  ],
+  "g_modal_win": [
+   34,
+   10980
+  ],
+  "g_mood": [
+   34,
+   7446
+  ],
+  "g_mouse_up_busy": [
+   34,
+   7255
+  ],
+  "g_move_reason": [
+   34,
+   19458
+  ],
+  "g_move_reason_unit": [
+   34,
+   19460
+  ],
+  "g_moving_nation": [
+   34,
+   4260
+  ],
+  "g_ms_window_count": [
+   34,
+   15488
+  ],
+  "g_ms_window_stack": [
+   34,
+   22312
+  ],
+  "g_msg_seen": [
+   34,
+   19371
+  ],
+  "g_music_change": [
+   34,
+   7450
+  ],
+  "g_music_seed": [
+   34,
+   19338
+  ],
+  "g_name_slots": [
+   31,
+   164
+  ],
+  "g_names_txt": [
+   34,
+   164
+  ],
+  "g_nation_abbrev": [
+   20,
+   55462
+  ],
+  "g_nation_adjective": [
+   20,
+   55454
+  ],
+  "g_nation_armed_ships": [
+   34,
+   19300
+  ],
+  "g_nation_cargo_capacity": [
+   34,
+   19292
+  ],
+  "g_nation_colony_count": [
+   34,
+   19272
+  ],
+  "g_nation_colour": [
+   34,
+   154
+  ],
+  "g_nation_free_colonists": [
+   34,
+   19276
+  ],
+  "g_nation_land_strength": [
+   34,
+   19288
+  ],
+  "g_nation_name": [
+   20,
+   55446
+  ],
+  "g_nation_name_word": [
+   20,
+   55470
+  ],
+  "g_nation_population": [
+   34,
+   19284
+  ],
+  "g_nation_region": [
+   20,
+   56112
+  ],
+  "g_nation_region_strength": [
+   20,
+   56240
+  ],
+  "g_nation_ship_count": [
+   34,
+   19296
+  ],
+  "g_nation_ships_in_transit": [
+   34,
+   19312
+  ],
+  "g_nation_strength": [
+   34,
+   19308
+  ],
+  "g_nation_text": [
+   20,
+   30736
+  ],
+  "g_nation_unit_count": [
+   34,
+   19268
+  ],
+  "g_nations": [
+   20,
+   49908
+  ],
+  "g_native_buy": [
+   25,
+   16
+  ],
+  "g_native_sell": [
+   25,
+   48
+  ],
+  "g_near_depth": [
+   23,
+   270
+  ],
+  "g_near_last_x": [
+   34,
+   19450
+  ],
+  "g_near_last_y": [
+   34,
+   19452
+  ],
+  "g_nearest_dist": [
+   34,
+   19398
+  ],
+  "g_nearest_unit_dist": [
+   34,
+   19512
+  ],
+  "g_new_building": [
+   34,
+   3104
+  ],
+  "g_next_menu_id": [
+   34,
+   14776
+  ],
+  "g_next_mood": [
+   34,
+   7444
+  ],
+  "g_no_map_file": [
+   34,
+   7330
+  ],
+  "g_number_buf": [
+   34,
+   22124
+  ],
+  "g_number_font": [
+   34,
+   19226
+  ],
+  "g_ocean_x": [
+   34,
+   19400
+  ],
+  "g_ocean_y": [
+   34,
+   19402
+  ],
+  "g_open_flag": [
+   34,
+   3100
+  ],
+  "g_opening": [
+   34,
+   2404
+  ],
+  "g_opening_dismissed": [
+   34,
+   7428
+  ],
+  "g_opening_restypes": [
+   34,
+   2408
+  ],
+  "g_opening_win": [
+   29,
+   4586
+  ],
+  "g_order_flags": [
+   30,
+   80
+  ],
+  "g_order_letter": [
+   20,
+   55668
+  ],
+  "g_order_word": [
+   20,
+   55486
+  ],
+  "g_ortho_dx": [
+   34,
+   7256
+  ],
+  "g_ortho_dy": [
+   34,
+   7261
+  ],
+  "g_overlay_plane": [
+   34,
+   19556
+  ],
+  "g_overlay_sprites": [
+   20,
+   23750
+  ],
+  "g_paired_job": [
+   21,
+   186
+  ],
+  "g_palette_head_rgb": [
+   20,
+   0
+  ],
+  "g_palette_mode": [
+   34,
+   13184
+  ],
+  "g_palette_template": [
+   34,
+   13186
+  ],
+  "g_panel_click_busy": [
+   34,
+   2556
+  ],
+  "g_panel_mode": [
+   34,
+   3078
+  ],
+  "g_panel_shown_mask": [
+   34,
+   19244
+  ],
+  "g_panel_toggle": [
+   34,
+   3084
+  ],
+  "g_path_debug": [
+   34,
+   4264
+  ],
+  "g_path_result": [
+   34,
+   19444
+  ],
+  "g_path_shown": [
+   34,
+   4262
+  ],
+  "g_path_unit_type": [
+   34,
+   4256
+  ],
+  "g_pcx_resource_type": [
+   34,
+   11010
+  ],
+  "g_pedia_count": [
+   34,
+   152
+  ],
+  "g_pedia_mode": [
+   34,
+   2524
+  ],
+  "g_pedia_page": [
+   34,
+   10406
+  ],
+  "g_pedia_win": [
+   20,
+   14460
+  ],
+  "g_pedia_word": [
+   20,
+   55608
+  ],
+  "g_pending_col": [
+   34,
+   19354
+  ],
+  "g_pending_flag": [
+   34,
+   2576
+  ],
+  "g_pending_row": [
+   34,
+   19356
+  ],
+  "g_pending_track": [
+   34,
+   7440
+  ],
+  "g_picture_resource_type": [
+   34,
+   11018
+  ],
+  "g_plane0": [
+   34,
+   7282
+  ],
+  "g_plane0_handle": [
+   34,
+   7274
+  ],
+  "g_plane1": [
+   34,
+   7286
+  ],
+  "g_plane1_handle": [
+   34,
+   7276
+  ],
+  "g_plane2": [
+   34,
+   7290
+  ],
+  "g_plane2_handle": [
+   34,
+   7278
+  ],
+  "g_plane3": [
+   34,
+   7294
+  ],
+  "g_plane3_handle": [
+   34,
+   7280
+  ],
+  "g_plans": [
+   24,
+   0
+  ],
+  "g_player_took_control": [
+   34,
+   19200
+  ],
+  "g_pop_besieged": [
+   34,
+   19472
+  ],
+  "g_pop_blockaded": [
+   34,
+   19470
+  ],
+  "g_pop_by_nation": [
+   34,
+   19280
+  ],
+  "g_popup_dude": [
+   34,
+   9498
+  ],
+  "g_popup_font": [
+   34,
+   9456
+  ],
+  "g_popup_font_small": [
+   34,
+   9460
+  ],
+  "g_popup_game_txt": [
+   34,
+   9436
+  ],
+  "g_popup_hilite_color": [
+   34,
+   9464
+  ],
+  "g_popup_label": [
+   31,
+   152
+  ],
+  "g_popup_label_id": [
+   34,
+   19704
+  ],
+  "g_popup_m2": [
+   34,
+   9466
+  ],
+  "g_popup_m3": [
+   34,
+   9467
+  ],
+  "g_popup_nation": [
+   34,
+   9500
+  ],
+  "g_popup_owner": [
+   34,
+   9468
+  ],
+  "g_popup_text_color": [
+   34,
+   9465
+  ],
+  "g_popup_tribe": [
+   34,
+   9496
+  ],
+  "g_portrait_gap": [
+   34,
+   19392
+  ],
+  "g_prefs_root": [
+   20,
+   16
+  ],
+  "g_press_on_unit": [
+   34,
+   7246
+  ],
+  "g_prev_group": [
+   34,
+   7448
+  ],
+  "g_prod": [
+   21,
+   290
+  ],
+  "g_ptr_2504": [
+   34,
+   9476
+  ],
+  "g_queue_head": [
+   34,
+   19448
+  ],
+  "g_queue_tail": [
+   34,
+   19446
+  ],
+  "g_queue_x": [
+   23,
+   526
+  ],
+  "g_queue_y": [
+   23,
+   782
+  ],
+  "g_quit_flag": [
+   34,
+   19204
+  ],
+  "g_radio_capture": [
+   34,
+   13254
+  ],
+  "g_radio_color_disabled": [
+   34,
+   10972
+  ],
+  "g_radio_color_enabled": [
+   34,
+   10971
+  ],
+  "g_radio_rcapture": [
+   34,
+   13256
+  ],
+  "g_random_seed": [
+   34,
+   19334
+  ],
+  "g_rank": [
+   25,
+   8
+  ],
+  "g_rank_ids": [
+   25,
+   0
+  ],
+  "g_rec6_78e0": [
+   20,
+   30944
+  ],
+  "g_recruit": [
+   20,
+   55356
+  ],
+  "g_redraw_mode": [
+   34,
+   7328
+  ],
+  "g_region_attack": [
+   20,
+   56176
+  ],
+  "g_region_colony_count": [
+   20,
+   55984
+  ],
+  "g_region_farmland": [
+   20,
+   55888
+  ],
+  "g_region_flags": [
+   20,
+   56304
+  ],
+  "g_region_pop": [
+   24,
+   1766
+  ],
+  "g_region_population": [
+   20,
+   56048
+  ],
+  "g_region_settlements": [
+   20,
+   55904
+  ],
+  "g_region_size": [
+   27,
+   140
+  ],
+  "g_region_state": [
+   24,
+   1280
+  ],
+  "g_region_unit_count": [
+   20,
+   55920
+  ],
+  "g_region_unit_tally": [
+   24,
+   1750
+  ],
+  "g_report_font": [
+   34,
+   19238
+  ],
+  "g_report_font_small": [
+   34,
+   19210
+  ],
+  "g_report_rect": [
+   34,
+   9828
+  ],
+  "g_report_window": [
+   20,
+   7430
+  ],
+  "g_report_window_dlg": [
+   20,
+   7468
+  ],
+  "g_reselect_unit": [
+   34,
+   19202
+  ],
+  "g_reserved_count": [
+   34,
+   22210
+  ],
+  "g_resource_lib_count": [
+   34,
+   15478
+  ],
+  "g_resource_libs": [
+   34,
+   22246
+  ],
+  "g_resource_name": [
+   20,
+   55522
+  ],
+  "g_resource_value": [
+   20,
+   55392
+  ],
+  "g_restype_crds": [
+   34,
+   10696
+  ],
+  "g_restype_cred": [
+   34,
+   10692
+  ],
+  "g_restype_strn": [
+   34,
+   7419
+  ],
+  "g_restype_text": [
+   34,
+   12892
+  ],
+  "g_restype_text_copy": [
+   34,
+   7423
+  ],
+  "g_restype_text_draw": [
+   34,
+   7400
+  ],
+  "g_restype_text_open": [
+   34,
+   7408
+  ],
+  "g_restype_text_popup": [
+   34,
+   9488
+  ],
+  "g_ring_dx": [
+   27,
+   18
+  ],
+  "g_ring_dy": [
+   27,
+   39
+  ],
+  "g_ring_tile_count": [
+   34,
+   3073
+  ],
+  "g_route_label": [
+   20,
+   55740
+  ],
+  "g_route_panel_sprite": [
+   20,
+   29990
+  ],
+  "g_route_stop": [
+   34,
+   19490
+  ],
+  "g_route_unit": [
+   34,
+   19494
+  ],
+  "g_routes": [
+   20,
+   51204
+  ],
+  "g_row": [
+   26,
+   0
+  ],
+  "g_row_colonist": [
+   34,
+   19390
+  ],
+  "g_row_count": [
+   34,
+   19514
+  ],
+  "g_rumours_seen": [
+   34,
+   6466
+  ],
+  "g_save_magic": [
+   20,
+   57044
+  ],
+  "g_save_version": [
+   34,
+   126
+  ],
+  "g_scale_cache": [
+   33,
+   0
+  ],
+  "g_scale_den": [
+   34,
+   11024
+  ],
+  "g_scale_map": [
+   34,
+   22164
+  ],
+  "g_scale_num": [
+   34,
+   11022
+  ],
+  "g_scenery_seed": [
+   34,
+   7334
+  ],
+  "g_score_total": [
+   34,
+   19968
+  ],
+  "g_scout_visit": [
+   34,
+   2568
+  ],
+  "g_scrollbar_extra": [
+   34,
+   22232
+  ],
+  "g_scrollbar_registered": [
+   34,
+   22230
+  ],
+  "g_sea_claim": [
+   34,
+   4480
+  ],
+  "g_seam_handle": [
+   34,
+   19246
+  ],
+  "g_season_word": [
+   34,
+   19252
+  ],
+  "g_seed_base": [
+   34,
+   19394
+  ],
+  "g_selected_carrier": [
+   34,
+   3094
+  ],
+  "g_selected_colonist": [
+   34,
+   19388
+  ],
+  "g_selected_goods": [
+   34,
+   19686
+  ],
+  "g_selection_kind": [
+   34,
+   8128
+  ],
+  "g_settlements": [
+   20,
+   52122
+  ],
+  "g_ships_in_port": [
+   34,
+   8138
+  ],
+  "g_shortfall": [
+   21,
+   436
+  ],
+  "g_show_europe": [
+   34,
+   3526
+  ],
+  "g_show_icon_counts": [
+   34,
+   3086
+  ],
+  "g_site_building": [
+   21,
+   476
+  ],
+  "g_site_ground": [
+   21,
+   96
+  ],
+  "g_site_kind": [
+   21,
+   0
+  ],
+  "g_site_pos": [
+   21,
+   106
+  ],
+  "g_site_slot": [
+   21,
+   491
+  ],
+  "g_sketch": [
+   24,
+   1344
+  ],
+  "g_slot_ok": [
+   24,
+   1782
+  ],
+  "g_slot_span": [
+   21,
+   56
+  ],
+  "g_slot_state": [
+   34,
+   22180
+  ],
+  "g_slot_used": [
+   34,
+   22176
+  ],
+  "g_sound_effects": [
+   34,
+   188
+  ],
+  "g_sound_event_music": [
+   34,
+   184
+  ],
+  "g_sound_music": [
+   34,
+   186
+  ],
+  "g_spec_recs": [
+   20,
+   54810
+  ],
+  "g_specialty_tally": [
+   20,
+   55850
+  ],
+  "g_sprite_sheet": [
+   20,
+   56992
+  ],
+  "g_sprt_palette_type": [
+   34,
+   11030
+  ],
+  "g_sprt_type": [
+   34,
+   11026
+  ],
+  "g_sq_class": [
+   34,
+   19613
+  ],
+  "g_sq_corner_bits": [
+   34,
+   19618
+  ],
+  "g_sq_feature": [
+   34,
+   19610
+  ],
+  "g_sq_land_mask": [
+   34,
+   19617
+  ],
+  "g_sq_land_neighbours": [
+   34,
+   19614
+  ],
+  "g_sq_site": [
+   34,
+   19611
+  ],
+  "g_sq_terrain": [
+   34,
+   19612
+  ],
+  "g_st_a": [
+   34,
+   2571
+  ],
+  "g_st_b": [
+   34,
+   2573
+  ],
+  "g_st_c": [
+   34,
+   2575
+  ],
+  "g_stat_win": [
+   20,
+   5478
+  ],
+  "g_static_proc": [
+   34,
+   22234
+  ],
+  "g_static_registered": [
+   34,
+   13264
+  ],
+  "g_step_banner": [
+   32,
+   140
+  ],
+  "g_step_footer": [
+   32,
+   168
+  ],
+  "g_step_group": [
+   32,
+   112
+  ],
+  "g_str_null": [
+   34,
+   7414
+  ],
+  "g_strategies": [
+   24,
+   1024
+  ],
+  "g_strbuf": [
+   29,
+   4330
+  ],
+  "g_super_win_open": [
+   34,
+   9502
+  ],
+  "g_terrain_bonus": [
+   27,
+   714
+  ],
+  "g_terrain_colour": [
+   20,
+   56962
+  ],
+  "g_terrain_defence": [
+   34,
+   19430
+  ],
+  "g_terrain_rows": [
+   20,
+   30968
+  ],
+  "g_terrain_sprites": [
+   20,
+   17670
+  ],
+  "g_text": [
+   29,
+   220
+  ],
+  "g_text_args": [
+   31,
+   724
+  ],
+  "g_text_buf": [
+   29,
+   60
+  ],
+  "g_text_colour": [
+   34,
+   13183
+  ],
+  "g_text_count": [
+   34,
+   7412
+  ],
+  "g_text_cursor": [
+   34,
+   19624
+  ],
+  "g_text_pool": [
+   29,
+   4316
+  ],
+  "g_text_read_ptr": [
+   34,
+   19628
+  ],
+  "g_tick_done": [
+   34,
+   7430
+  ],
+  "g_tick_index": [
+   34,
+   7432
+  ],
+  "g_tick_last": [
+   34,
+   7436
+  ],
+  "g_tile_colonists": [
+   34,
+   19378
+  ],
+  "g_tile_corner_bits": [
+   34,
+   19566
+  ],
+  "g_tile_feature_loc": [
+   34,
+   19574
+  ],
+  "g_tile_first_unit": [
+   34,
+   19384
+  ],
+  "g_tile_h": [
+   34,
+   19534
+  ],
+  "g_tile_land_mask": [
+   34,
+   19563
+  ],
+  "g_tile_land_neighbours": [
+   34,
+   19560
+  ],
+  "g_tile_map_loc": [
+   34,
+   19570
+  ],
+  "g_tile_noncarriers": [
+   34,
+   19382
+  ],
+  "g_tile_sel": [
+   34,
+   19386
+  ],
+  "g_tile_terrain": [
+   34,
+   19565
+  ],
+  "g_tile_terrain_class": [
+   34,
+   19564
+  ],
+  "g_tile_tribe": [
+   21,
+   531
+  ],
+  "g_tile_units": [
+   34,
+   19380
+  ],
+  "g_tile_w": [
+   34,
+   19532
+  ],
+  "g_timer": [
+   34,
+   10984
+  ],
+  "g_title_area_map": [
+   34,
+   7349
+  ],
+  "g_title_font": [
+   34,
+   19206
+  ],
+  "g_trade_click_busy": [
+   34,
+   9832
+  ],
+  "g_treasures_found": [
+   34,
+   6467
+  ],
+  "g_trial_placement": [
+   34,
+   3107
+  ],
+  "g_tribe": [
+   20,
+   54258
+  ],
+  "g_tribe_colour": [
+   20,
+   55758
+  ],
+  "g_tribe_colour_by_nation": [
+   20,
+   55754
+  ],
+  "g_tribe_pop": [
+   20,
+   56328
+  ],
+  "g_tribe_region": [
+   20,
+   56344
+  ],
+  "g_tribe_settlement_count": [
+   20,
+   56336
+  ],
+  "g_tribe_strength": [
+   20,
+   56320
+  ],
+  "g_tribes": [
+   20,
+   53634
+  ],
+  "g_unclaimed_regions": [
+   34,
+   19320
+  ],
+  "g_unit_blinking": [
+   34,
+   7372
+  ],
+  "g_unit_tally": [
+   20,
+   55774
+  ],
+  "g_unit_type_class": [
+   21,
+   266
+  ],
+  "g_unit_types": [
+   20,
+   31432
+  ],
+  "g_units": [
+   20,
+   41480
+  ],
+  "g_units_expelled": [
+   34,
+   4482
+  ],
+  "g_use_data_dir": [
+   34,
+   7394
+  ],
+  "g_val_a": [
+   34,
+   2570
+  ],
+  "g_val_b": [
+   34,
+   2572
+  ],
+  "g_val_c": [
+   34,
+   2574
+  ],
+  "g_value_word": [
+   20,
+   55580
+  ],
+  "g_view_h": [
+   34,
+   19538
+  ],
+  "g_view_offset_tx": [
+   34,
+   19552
+  ],
+  "g_view_offset_ty": [
+   34,
+   19554
+  ],
+  "g_view_org_x": [
+   34,
+   19984
+  ],
+  "g_view_org_y": [
+   34,
+   19986
+  ],
+  "g_view_px_h": [
+   34,
+   19550
+  ],
+  "g_view_px_w": [
+   34,
+   19548
+  ],
+  "g_view_tile_h": [
+   34,
+   19982
+  ],
+  "g_view_tile_w": [
+   34,
+   19980
+  ],
+  "g_view_w": [
+   34,
+   19536
+  ],
+  "g_view_x0": [
+   34,
+   19524
+  ],
+  "g_view_x1": [
+   34,
+   19528
+  ],
+  "g_view_y0": [
+   34,
+   19526
+  ],
+  "g_view_y1": [
+   34,
+   19530
+  ],
+  "g_viewer_dismissed": [
+   34,
+   19622
+  ],
+  "g_want_muskets": [
+   24,
+   1645
+  ],
+  "g_want_tools": [
+   24,
+   1644
+  ],
+  "g_wanted_specialty": [
+   34,
+   19408
+  ],
+  "g_win": [
+   22,
+   10
+  ],
+  "g_window_count": [
+   34,
+   15486
+  ],
+  "g_wing_library": [
+   34,
+   22240
+  ],
+  "g_wing_orientation": [
+   34,
+   14772
+  ],
+  "g_wing_warned": [
+   34,
+   14774
+  ],
+  "g_work_buffer_dismissed": [
+   34,
+   8156
+  ],
+  "g_world_opt": [
+   22,
+   0
+  ],
+  "g_wrap_font": [
+   34,
+   7396
+  ],
+  "g_x_hi": [
+   34,
+   19416
+  ],
+  "g_x_lo": [
+   34,
+   19414
+  ],
+  "g_y_hi": [
+   34,
+   19417
+  ],
+  "g_y_lo": [
+   34,
+   19415
+  ],
+  "g_zoom": [
+   34,
+   7322
+  ]
+ },
+ "records": {
+  "AnimEvent": 6,
+  "AnimRec": 12,
+  "BITMAPINFO": 1064,
+  "BackdropWin": 198,
+  "Bmhd": 20,
+  "Bounds": 4,
+  "BuildNeed": 4,
+  "BuildingRec": 12,
+  "ButtonSlot": 4,
+  "CTable": 1054,
+  "Check": 34,
+  "ClassRec": 4,
+  "Colony": 202,
+  "ColonyWin": 1,
+  "CreditCue": 4,
+  "CursorClass": 4,
+  "EditHandlers": 1,
+  "Entry": 4,
+  "EuropeWin": 1,
+  "FILE": 1,
+  "FameEntry": 42,
+  "Father": 6,
+  "FlicChunk": 7,
+  "FlicFrame": 16,
+  "Font": 4,
+  "FontFile": 258,
+  "FontRec": 4,
+  "FontRes": 264,
+  "FontTable": 264,
+  "GameBrains": 12,
+  "GamePrefs": 412,
+  "GameState": 142,
+  "GoodsRec": 10,
+  "GoodsRow": 54,
+  "GrafRec": 18,
+  "Handle": 2,
+  "IffChunk": 8,
+  "ImgDesc": 9,
+  "LOGFONT": 50,
+  "LeaderFace": 4,
+  "LevelRec": 6,
+  "ListItem": 146,
+  "MCI_DGV_STATUS_PARMS": 24,
+  "MCI_GENERIC_PARMS": 4,
+  "MCI_PLAY_PARMS": 12,
+  "MCI_SEEK_PARMS": 8,
+  "MCI_SET_PARMS": 12,
+  "MCI_STATUS_PARMS": 16,
+  "MINMAXINFO": 20,
+  "MSFile": 140,
+  "MSG": 18,
+  "MagicWin": 1,
+  "MainWin": 142,
+  "MapSize": 4,
+  "MapWin": 1928,
+  "Mci": 12,
+  "MciDev": 6,
+  "MciParms": 4,
+  "MciRec": 12,
+  "MciRectParms": 12,
+  "MenuClass": 2,
+  "MenuItem": 146,
+  "MiniWin": 1926,
+  "Model": 14,
+  "MonsterSlot": 6,
+  "Nation": 316,
+  "NationText": 52,
+  "PAINTSTRUCT": 32,
+  "PALETTEENTRY": 4,
+  "POINT": 4,
+  "Palette": 1030,
+  "Pattern": 9,
+  "PcxHeader": 128,
+  "PediaEntry": 6,
+  "PicHead": 8,
+  "PicHeader": 6,
+  "Pickup": 6,
+  "PlacementRec": 12,
+  "Plan": 4,
+  "Point": 4,
+  "Pos": 4,
+  "RECT": 8,
+  "RGBQUAD": 4,
+  "RGBTreeNode": 10,
+  "RadioEntry": 146,
+  "RadioItem": 146,
+  "Rec": 5,
+  "Rec6": 6,
+  "RecHdr": 6,
+  "Recruit": 6,
+  "ReportWinBase": 39,
+  "RouteRec": 74,
+  "SIZE": 4,
+  "SaveHeader": 142,
+  "ScaleSlot": 2056,
+  "Scroll": 38,
+  "Settlement": 18,
+  "Size": 4,
+  "SpecRec": 8,
+  "Spot": 6,
+  "StatWin": 1,
+  "Stop": 10,
+  "SuperWin": 1044,
+  "Surface": 4,
+  "TEXTMETRIC": 31,
+  "Table": 264,
+  "TerrainRec": 16,
+  "Tribe": 78,
+  "TribeName": 6,
+  "Unit": 28,
+  "UnitType": 14,
+  "VList": 12,
+  "WinGRec": 10,
+  "Wing": 18,
+  "logpal": 1
+ },
+ "segments": {
+  "1": 25228,
+  "10": 62492,
+  "11": 40580,
+  "12": 52198,
+  "13": 45528,
+  "14": 60172,
+  "15": 56921,
+  "16": 13368,
+  "17": 518,
+  "18": 1004,
+  "19": 18406,
+  "2": 64596,
+  "20": 57053,
+  "21": 556,
+  "22": 332,
+  "23": 1038,
+  "24": 1792,
+  "25": 80,
+  "26": 62,
+  "27": 772,
+  "28": 140,
+  "29": 4782,
+  "3": 62752,
+  "30": 97,
+  "31": 748,
+  "32": 196,
+  "33": 32896,
+  "34": 22620,
+  "4": 46666,
+  "5": 59466,
+  "6": 59138,
+  "7": 63700,
+  "8": 58970,
+  "9": 47272
+ }
+}

@@ -14,7 +14,4 @@
 #include "classes.h"
 
 
-SImageButton::SImageButton()
-{
-    reinit_faces = 0;
-}
+/* PORT: this copy of SImageButton::SImageButton removed: src/game/SImageButton_ctor_1008_e6e9.c defines it once (W2). */

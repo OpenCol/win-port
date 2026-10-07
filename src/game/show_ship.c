@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 105, 107, 128, 130 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of CTable_Set, GameWin_Init, IsBackdrop, show_window_1040_a79d, win_center_1040_a778, win_show_and_focus_1040_ac70 removed: the header declares them from the definition (W1 step 3). */
 /* show_ship: candidate for 1040:7dc4 (1656 bytes).  Verdict: RELOCATABLE.
@@ -72,11 +73,11 @@ extern void opening_dismiss_1040_7d94(void);
 extern void opening_dismiss_1040_7d80(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-void set_on_lclick_1040_ab03(void *o, void (*fn)(void)) { }
-void set_on_rclick_1040_ab3c(void *o, void (*fn)(void)) { }
-void set_on_keydown_after_1040_ab75(void *o, void (*fn)(void)) { }
-void set_on_keydown_1040_abfe(void *o, void (*fn)(void)) { }
-void set_on_lbutton_down_1040_ac37(void *o, void (*fn)(void)) { }
+/* PORT: an in-file stub of set_on_lclick_1040_ab03 removed: src/game/set_on_lclick_1040_ab03.c defines it (W2). */
+/* PORT: an in-file stub of set_on_rclick_1040_ab3c removed: src/game/set_on_rclick_1040_ab3c.c defines it (W2). */
+/* PORT: an in-file stub of set_on_keydown_after_1040_ab75 removed: src/game/set_on_keydown_after_1040_ab75.c defines it (W2). */
+/* PORT: an in-file stub of set_on_keydown_1040_abfe removed: src/game/set_on_keydown_1040_abfe.c defines it (W2). */
+/* PORT: an in-file stub of set_on_lbutton_down_1040_ac37 removed: src/game/set_on_lbutton_down_1040_ac37.c defines it (W2). */
 extern "C" void text_open(void *a, char *id);
 extern "C" char *text_get(void);
 extern "C" void text_close(void);
@@ -100,11 +101,11 @@ extern "C" void show_ship(register int n)
             GameWin_Init(&g_opening_win, "", 0x801, 0, 0, 0x280,
                                              0x1e0, &g_game_palette, (Screen *)parent);
             set_on_lclick_1040_ab03((EventTable *)((char *)g_backdrop_win + 0xd),
-                                          opening_dismiss_1040_7d94);
+                                          (void*)(opening_dismiss_1040_7d94));
             set_on_rclick_1040_ab3c((EventTable *)((char *)g_backdrop_win + 0xd),
-                                          opening_dismiss_1040_7d94);
+                                          (void*)(opening_dismiss_1040_7d94));
             set_on_keydown_after_1040_ab75((EventTable *)((char *)g_backdrop_win + 0xd),
-                                          opening_dismiss_1040_7d80);
+                                          (void*)(opening_dismiss_1040_7d80));
         } else
             GameWin_Init(&g_opening_win, "", 0x801, 0, 0, 0x280,
                                              0x1e0, &g_game_palette, (Screen *)&g_main_win);
@@ -125,9 +126,9 @@ extern "C" void show_ship(register int n)
         copy_all_to_screen_1040_abe0(&g_opening_win);
         win_center_1040_a778((DialogWin *)((char *)&g_opening_win + 0x26));
         set_on_keydown_1040_abfe((EventTable *)((char *)&g_opening_win + 0x33),
-                                      opening_dismiss_1040_7d80);
+                                      (void*)(opening_dismiss_1040_7d80));
         set_on_lbutton_down_1040_ac37((EventTable *)((char *)&g_opening_win + 0x33),
-                                     opening_dismiss_1040_7d94);
+                                     (void*)(opening_dismiss_1040_7d94));
         win_show_and_focus_1040_ac70((DialogWin *)((char *)&g_opening_win + 0x26));
         show_window_1040_a79d(&g_opening_win);
         MSDoAllTasks_1040_ac99();

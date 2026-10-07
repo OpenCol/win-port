@@ -27,8 +27,4 @@
 
 extern "C" int MSGetTextHeight(unsigned hfont);
 
-Font::Font(int kind, int height)
-{
-    hfont = MSGetTypeFont(kind, height);
-    this->height = MSGetTextHeight(hfont);
-}
+/* PORT: this copy of Font::Font removed: src/game/Font_ctor_1008_d9c4.c defines it once (W2). */

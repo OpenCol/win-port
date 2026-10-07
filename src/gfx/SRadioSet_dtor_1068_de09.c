@@ -14,10 +14,4 @@
 
 #include "classes.h"
 
-SRadioSet::~SRadioSet()
-{
-    if (hmem != 0) {
-        MSHUnlock(hmem);
-        MSDisposeRadio(count, hmem);
-    }
-}
+/* PORT: this copy of SRadioSet::~SRadioSet removed: src/game/SRadioSet_dtor_1050_80a3.c defines it once (W2). */

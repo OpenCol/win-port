@@ -15,8 +15,4 @@
 
 #include "classes.h"
 
-SEditBox::~SEditBox()
-{
-    if (hwnd != 0)
-        empty_1070_5a82(hwnd);
-}
+/* PORT: this copy of SEditBox::~SEditBox removed: src/game/SEditBox_dtor_1050_8171.c defines it once (W2). */

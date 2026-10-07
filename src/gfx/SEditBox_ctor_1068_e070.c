@@ -15,10 +15,4 @@
 
 #include "classes.h"
 
-SEditBox::SEditBox()
-{
-    on_change = 0;
-    f24 = 0;
-    key_filter = 0;
-    multiline = 0;
-}
+/* PORT: this copy of SEditBox::SEditBox removed: src/game/SEditBox_ctor_1050_89e7.c defines it once (W2). */

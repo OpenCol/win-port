@@ -24,6 +24,4 @@
 #pragma option -a-
 class DlgControl;
 
-SuperWin::SuperWin()
-{
-}
+/* PORT: this copy of SuperWin::SuperWin removed: src/game/SuperWin_ctor_1020_ac8d.c defines it once (W2). */

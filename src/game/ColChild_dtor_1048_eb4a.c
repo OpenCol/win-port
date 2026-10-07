@@ -21,6 +21,4 @@ class DlgControl;
  * compiler's own `push cs / call `, which it only emits for a callee defined in the
  * translation unit; each is the compiler-generated body (see the module's matched copies). */
 
-ColChild::~ColChild()
-{
-}
+/* PORT: this copy of ColChild::~ColChild removed: src/game/ColChild_dtor_1008_e972.c defines it once (W2). */

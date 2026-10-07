@@ -14,14 +14,4 @@
 
 
 #include "classes.h"
-DlgControl::DlgControl()
-{
-    id = 0;
-    win = 0;
-    SetRect(&rect, 0, 0, 0, 0);
-    hwnd = 0;
-    next = 0;
-    initial_focus = 0;
-    hotkey = 0;
-    hotkey_pos = -1;
-}
+/* PORT: this copy of DlgControl::DlgControl removed: src/game/DlgControl_ctor_1008_ec05.c defines it once (W2). */

@@ -19,8 +19,4 @@ class DlgControl;
 /* The bases' and members' constructors are defined in this file because the shipped calls to
  * them are the compiler's own `push cs / call ` (GRPort's and MenuClass's are calls). */
 
-ColChild::ColChild()
-{
-    active = 0;
-    kind = 0;
-}
+/* PORT: this copy of ColChild::ColChild removed: src/game/ColChild_ctor_1008_e67b.c defines it once (W2). */
