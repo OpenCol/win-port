@@ -62,7 +62,9 @@ def build(src, hdr):
     return o, None
 
 
-LIBS = ["-mwindows", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+# --disable-stdcall-fixup: an older ld links a cdecl call to `_FreeLibrary` against the
+# stdcall `_FreeLibrary@4`, which would unbalance the stack; the call stays undefined (W4)
+LIBS = ["-mwindows", "-Wl,--disable-stdcall-fixup", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 
@@ -194,7 +196,7 @@ def main(argv):
     linked = False
     if gate:
         linked, err = trap_link(measure.objs, [n for g in BACKLOGS for n in groups.get(g, [])])
-        print("with the backlog trapped: %s" % ("build/colonize.exe links" if linked else "still fails " + err[:200]))
+        print("with the backlog trapped: %s" % ("build/colonize.exe links" if linked else "still fails: " + err))
     ok = gate and linked
     if "--record" in argv:
         out = {"objects": len(srcs) - len(failed), "sources": len(srcs), "links": linked, "gate": ok,
