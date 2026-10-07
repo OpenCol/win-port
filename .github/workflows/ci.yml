@@ -56,12 +56,24 @@ jobs:
           fi
       - name: One file, with the commands the driver runs
         run: |
-          cc=$(python3 -c "import sys; sys.path.insert(0,'tools'); import compile_all as c; print(c.TOOLCHAINS['${{ matrix.toolchain }}'][0])")
-          timeout 120 $cc -v -x c -std=gnu99 -fsyntax-only -Wall -I include/gen -I include \
-            src/game/max_ptr_1050_97d1.c < /dev/null 2>&1 | tail -25
-          cxx=$(python3 -c "import sys; sys.path.insert(0,'tools'); import compile_all as c; print(c.TOOLCHAINS['${{ matrix.toolchain }}'][1])")
-          time timeout 60 $cxx -v -x c++ -std=gnu++03 -fsyntax-only -Wall -I include/gen -I include \
-            src/game/Popup_ctor.c < /dev/null 2>&1 | tail -25 || echo "C++ probe: exit $?"
+          python3 - <<'PY'
+          import subprocess, sys, time
+          sys.path.insert(0, "tools")
+          import compile_all as c
+          cc, cxx, extra = c.TOOLCHAINS["${{ matrix.toolchain }}"]
+          for drv, lang, std, f in ((cc, "c", "gnu99", "src/game/max_ptr_1050_97d1.c"),
+                                    (cxx, "c++", "gnu++03", "src/game/Popup_ctor.c")):
+              cmd = [drv, "-v", "-x", lang, "-std=" + std] + extra + ["-fsyntax-only", "-Wall",
+                     "-I", "include/gen", "-I", "include", f]
+              t = time.time()
+              try:
+                  r = subprocess.run(cmd, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=60)
+                  print("%s: exit %d in %.1fs" % (f, r.returncode, time.time() - t))
+                  print("\n".join(r.stderr.splitlines()[-15:]))
+              except subprocess.TimeoutExpired as e:
+                  print("%s: TIMED OUT after 60s" % f)
+                  print((e.stderr or b"")[-3000:].decode(errors="replace"))
+          PY
       - name: Every file compiles (W1)
         timeout-minutes: 30
         run: python3 tools/compile_all.py --toolchain ${{ matrix.toolchain }} --record
