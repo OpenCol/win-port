@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, show_window_1068_db76, win_center_1068_dad3, win_disable_1068_db95 removed: the header declares them from the definition (W1 step 3). */
 /* PostLowMemReport: candidate for 1068:b96a (745 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -55,7 +56,6 @@ extern SButton *g_lowmem_ok;           /* DGROUP:0x56be */
 extern RECT *measure_wrapped_text(RECT *out, unsigned font,
                                                     char *s, int width);
    /* 0x41e bytes: the palette, its handle and the cycling state */
-extern void GameWin_Init(GameWin *o, char *name, int style, int x, int y, int w, int h, CTable *bits, Screen *parent);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
 extern void GRPort_Text(GRPort *p, unsigned *hf, const char *s, RECT *r, int flags);
@@ -69,11 +69,8 @@ extern "C" void *MSLockResource_1068_da48(void *p);
 extern "C" int font_handle_1068_da68(Font *font);
 
 extern "C" void *get_ctable_1068_d77f(void *p);
-extern "C" void win_center_1068_dad3(void *o);
 extern "C" void set_button_action_1068_db5c(SButton *button, void *h);
-extern "C" void show_window_1068_db76(void *o);
 
-extern "C" void win_disable_1068_db95(void *o);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ctl_init_button_1068_daf8(SButton *button, DialogWin *win, int y, RECT *r, char *title);

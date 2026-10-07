@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
+/* PORT: this file's own declarations of get_w_0, get_win_1060_ab6e, win_set_menu removed: the header declares them from the definition (W1 step 3). */
 /* eventwin_set_menu: candidate for 1060:ab8b (63 bytes).  Verdict: RELOCATABLE.
  * symbol: eventwin_set_menu
  *
@@ -14,13 +16,10 @@
 #include "classes.h"
 extern char g_stub_s[];
 extern int g_stub_a;
-extern void win_set_menu(void *win, int u);
 
-extern int get_w_0(void *p);
-extern void *get_win_1060_ab6e(void *o);
 
 void eventwin_set_menu(EventWin *o, void *p)
 {
-    win_set_menu((MSWin *)(get_win_1060_ab6e(o)), get_w_0((MenuClass *)p));
+    win_set_menu((MSWin *)(get_win_1060_ab6e((Screen *)(o))), get_w_0((MenuClass *)p));
     o->menu = p;
 }

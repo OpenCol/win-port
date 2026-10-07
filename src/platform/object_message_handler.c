@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* object_message_handler: candidate for 1070:69ba (2587 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: object_message_handler
@@ -66,7 +67,6 @@ extern int nonclient_width(MSWin *win);
 /* 5-byte form, so extern (rule 47) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" MSWin *get_win_1070_95f0(EventWin *o);
 extern "C" void get_min_track_size_1070_9c10(EventWin *obj, int *pa, int *pb);
 extern "C" void get_max_track_size_1070_9c38(EventWin *obj, int *x, int *y);
 extern "C" int get_hpos(EventWin *obj);

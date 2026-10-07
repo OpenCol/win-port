@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_window_with_port, get_win_1068_d72a, subclass_control_1070_bb63 removed: the header declares them from the definition (W1 step 3). */
 /* build_window_sized: candidate for 1068:a76a (144 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: build_window_sized
@@ -24,12 +25,7 @@
 #include "records.h"
 #include "classes.h"
 
-extern "C" void build_window_with_port(GameWin *o, char *name, int style,
-                                           int x, int y, int w, int h,
-                                           void *pal);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *get_win_1068_d72a(void *o);
-extern "C" void subclass_control_1070_bb63(MagicWin *obj, void *hwnd);
 
 extern "C" void build_window_sized(MagicWin *o, char *name, int style,
                                                  int x, int y, register int w,

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_MSStaticClass_window: candidate for 1070:60ae (399 bytes).  Verdict: RELOCATABLE.
  *
  * Creates a static-text control. The first call registers "MSStaticClass" (guard at
@@ -21,7 +22,6 @@ extern unsigned RegisterClass(WNDCLASS *wc);
 
 extern void *ctl_window_1070_96a8(void *ctl);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern MSWin *get_win_1070_95f0(void *o);
 extern long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
 
 unsigned create_MSStaticClass_window(RECT *r, void *ctl, const char *text, long param)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetBackground removed: the header declares it from the definition (W1 step 3). */
 /* win_set_back_color_1008_d60e: candidate for 1008:d60e (36 bytes).  Verdict: RELOCATABLE.
  *
  * Sets the background of the window the object holds at +6: `MSSetBackground` replaces the window's brush (+8) with a solid one of palette entry `index` and invalidates it.
@@ -11,7 +12,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSSetBackground(void *win, int index);
 
 void win_set_back_color_1008_d60e(Screen *o, int index)
 {

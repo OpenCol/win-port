@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSInitRegion removed: the header declares it from the definition (W1 step 3). */
 /* sregion_init_1010_e8bc: candidate for 1010:e8bc (131 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: sregion_init_1010_e8bc
@@ -12,7 +13,6 @@
 #include "w16types.h"
 #include "classes.h"
 extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern short MSInitRegion(RECT *r, DlgControl *ctl);
 
 extern "C" void dlg_control_init_1010_edf9(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 

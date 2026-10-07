@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of delete_colony, net_cargo_change removed: the header declares them from the definition (W1 step 3). */
 /* new_turn_colony: candidate for 1018:9476 (6636 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: new_turn_colony
@@ -146,7 +147,6 @@ extern "C" void set_colony(int colony);
 extern "C" void colony_fortress(void);
 extern "C" void colony_indian_table(void);
 extern "C" void compute_colony_parameters(void);
-extern "C" int net_cargo_change(int idx, long out);
 extern "C" int get_warehouse(void);
 
 extern "C" int has_building(int bit);
@@ -165,7 +165,6 @@ extern "C" void set_specialty(int u, int spec);
 extern "C" int any_spec(int job);
 extern "C" int food_box_size(int *pa, int *pb);
 extern "C" void delete_colonist(int u);
-extern "C" void delete_colony(int c);
 extern "C" int get_production_cost(int item, int *out);
 extern "C" int get_production_class(int item, int *idx);
 extern "C" char *get_production_name(int item);

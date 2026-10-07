@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of eventwin_set_menu removed: the header declares it from the definition (W1 step 3). */
 /* init_and_set_1060_9931: candidate for 1060:9931 (79 bytes).  Verdict: RELOCATABLE.
  * symbol: init_and_set_1060_9931
  *
@@ -15,7 +16,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern void eventwin_set_menu(void *o, void *p);
 
 void init_and_set_1060_9931(void *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent, void *p)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Set removed: the header declares it from the definition (W1 step 3). */
 /* copy_dib_colours: candidate for 1070:a8c0 (124 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -24,8 +25,6 @@ typedef struct { unsigned char rgbBlue, rgbGreen, rgbRed, rgbReserved; } RGBQUAD
 #include "records.h"
 extern unsigned WinGGetDIBColorTable(unsigned hdc, unsigned first, unsigned n,
                                             RGBQUAD *tbl);
-extern void CTable_Set(void *pal, int i, unsigned char r, unsigned char g,
-                              unsigned char b);
 
 void copy_dib_colours(GrafRec *graf, void *pal, int first, int n)
 {

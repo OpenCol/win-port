@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init, win_center_1060_60e7 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 102 of the imported file. */
 /* woodcut_show: candidate for 1060:003a (1077 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -50,7 +51,6 @@ class DlgControl;
 
 
 
-extern void Sprite_Init(Sprite *s, int res);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern int text_open(void *ctx, char *name);
@@ -65,7 +65,6 @@ extern void SuperWin_Execute(SuperWin *w);
 extern void SuperWin_GoAway(SuperWin *w);
 
 extern "C" int sprite_width_1060_60c4(Sprite *sprite);
-extern "C" void win_center_1060_60e7(void *w);
 
 extern "C" void show_window_1060_612a(SuperWin *w);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ResizeCWin removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 92, 110, 111, 112 of the imported file. */
 /* PediaWin_Show: candidate for 1060:1be8 (998 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -33,7 +34,6 @@ class PediaWin : public ColChild { public: short category; SImageButton button; 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern void ColChild_ResizeCWin(PediaWin *o, int w, int h);
 extern void PediaWin_FillStringList(PediaWin *w);
 extern void PediaWin_DrawListArea(PediaWin *w);
 extern void PediaWin_LeftMouseClick(int x, int y);

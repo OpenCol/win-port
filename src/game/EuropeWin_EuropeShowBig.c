@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_EuropeShowBig: candidate for 1048:1c15 (100 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_EuropeShowBig
@@ -25,7 +26,6 @@
 /* 5-byte NOP form, so extern (rule 47) */
 extern void set_europe(int n);
 /* same object: 4-byte `push cs; call ` */
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 void EuropeWin_EuropeShowBig(EuropeWin *w)
 {

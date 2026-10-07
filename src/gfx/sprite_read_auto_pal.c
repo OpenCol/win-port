@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_read_file_pal removed: the header declares it from the definition (W1 step 3). */
 /* sprite_read_auto_pal: candidate for 1068:7136 (44 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: sprite_read_auto_pal
@@ -11,8 +12,6 @@
 
 class Sprite;
 
-extern void sprite_read_file_pal(Sprite *s, char *name, int first,
-                                               int count, void *pal);
 
 void sprite_read_auto_pal(Sprite *sprite, char *name, void *pal)
 {

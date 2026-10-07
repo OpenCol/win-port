@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MrTimer_Reset removed: the header declares it from the definition (W1 step 3). */
 /* ResetTimer: candidate for 1068:90ba (75 bytes).  Verdict: RELOCATABLE.
  *
  * Reports "Error: MrTimer not initialized in ResetTimer" when the timer object at
@@ -11,7 +12,6 @@ extern void report_error_1068_963d(void *ctx, char *msg);
 #include "records.h"
 #include "classes.h"
 extern MrTimer * g_timer;   /* DGROUP:0x2ae8, declared */
-extern void MrTimer_Reset(MrTimer *timer, int t);
 
 void ResetTimer(int slot)
 {

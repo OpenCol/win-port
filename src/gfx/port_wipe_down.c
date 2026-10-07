@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1068_d72a, wing_wipe_down removed: the header declares them from the definition (W1 step 3). */
 /* port_wipe_down: candidate for 1068:b50b (84 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_wipe_down
@@ -25,10 +26,8 @@
 #include "w16types.h"
 #include "records.h"
 #include "classes.h"
-extern void wing_wipe_down(GrafRec *old_graf, GrafRec *new_graf, void *win, RECT *r, int step);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_win_1068_d72a(DialogWin *o);
 extern "C" GrafRec *GRPort_GetWin_1068_d91d(GRPort *p);
 
 void port_wipe_down(MagicWin *s, int step, RECT *r)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_SlideIcon removed: the header declares it from the definition (W1 step 3). */
 /* negotiate_tribe: candidate for 1030:383d (4942 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: negotiate_tribe
@@ -95,7 +96,6 @@ extern int top_unit_in_square(int x, int y);
 extern void set_village(int s);
 
 extern void set_center(int x, int y, int mode);
-extern void MapWin_SlideIcon(void *w, int u, int speed, int a, int x0, int y0, int x1, int y1);
 extern void DrawMapRegion(int x, int y, int w, int h, int flag);
 extern void set_colony(int colony);
 extern int get_warehouse(void);

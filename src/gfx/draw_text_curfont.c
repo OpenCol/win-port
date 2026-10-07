@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDrawText removed: the header declares it from the definition (W1 step 3). */
 /* draw_text_curfont: candidate for 1068:5b30 (96 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: draw_text_curfont
@@ -19,8 +20,6 @@
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void report_error_1068_963d(void *ctx, char *msg);
-extern void MSDrawText(GrafRec *graf, unsigned hfont, const char *s, RECT *r,
-                           int flags);
 
 void draw_text_curfont(GRPort *port, const char *s, RECT *r, int flags)
 {

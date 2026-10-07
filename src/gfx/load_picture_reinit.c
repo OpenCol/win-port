@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of grport_init_wh0 removed: the header declares it from the definition (W1 step 3). */
 /* load_picture_reinit: candidate for 1068:363f (60 bytes).  Verdict: RELOCATABLE.
  *
  * `GRPort_LoadPicture` with 1068:974e run on the port first -- the variant
@@ -15,7 +16,6 @@ struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *port, int id, int first, int count, struct logpal *pal);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void grport_init_wh0(void *port);
 
 int load_picture_reinit(void *p, int id, int first, int count, void *pal)
 {

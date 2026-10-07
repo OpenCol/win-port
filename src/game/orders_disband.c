@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of delete_colony removed: the header declares it from the definition (W1 step 3). */
 /* orders_disband: candidate for 1008:0e8d (672 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -37,7 +38,6 @@ extern void set_center(int x, int y, int flag);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void delete_colony(int c);
 extern int find_village(int x, int y);
 extern void delete_village(int s);
 

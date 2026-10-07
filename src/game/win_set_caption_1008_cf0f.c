@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle_of_1008_dbb3 removed: the header declares it from the definition (W1 step 3). */
 /* win_set_caption_1008_cf0f: candidate for 1008:cf0f (75 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -18,7 +19,6 @@
 extern void ColChild_DrawTitleBar(ColChild *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void MSSetWinTitle_of_1008_dbb3(DialogWin *o, void *p);
 
 void win_set_caption_1008_cf0f(char *w, char *s)
 {

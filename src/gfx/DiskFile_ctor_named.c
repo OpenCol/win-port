@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSCreateFile, MSOpenFile removed: the header declares them from the definition (W1 step 3). */
 /* DiskFile_ctor_named: candidate for 1068:92ce (100 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: DiskFile::DiskFile(char*,int)
@@ -11,8 +12,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern int MSOpenFile(char *name, MSFile *file);
-extern "C" int MSCreateFile(char *name, MSFile *file);
 
 extern "C" extern "C" int file_MSOpenFile_1068_95d5(DiskFile *file, char *name);
 

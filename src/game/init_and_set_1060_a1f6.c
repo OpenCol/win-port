@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, eventwin_set_menu removed: the header declares them from the definition (W1 step 3). */
 /* init_and_set_1060_a1f6: candidate for 1060:a1f6 (83 bytes).  Verdict: RELOCATABLE.
  * symbol: init_and_set_1060_a1f6
  *
@@ -19,8 +20,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern void GameWin_Init(void *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent);
-extern void eventwin_set_menu(void *o, void *p);
 
 void init_and_set_1060_a1f6(char *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent, void *p)
 {

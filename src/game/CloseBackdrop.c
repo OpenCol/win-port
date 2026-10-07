@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 50 of the imported file. */
+/* PORT: this file's own declarations of SetPopupParent removed: the header declares it from the definition (W1 step 3). */
 /* CloseBackdrop: candidate for 1008:4b58 (123 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CloseBackdrop
@@ -39,7 +41,6 @@
 extern EventWin *g_backdrop_win;         /* DGROUP:0xc6 */
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;        /* SEG20:0x5ca */
-extern void SetPopupParent(void *parent);
 extern void MSShowMenuBar(void);
 
 extern "C" void CloseBackdrop(void)
@@ -47,7 +48,7 @@ extern "C" void CloseBackdrop(void)
     if (g_backdrop_win != 0) {
         delete g_backdrop_win;
         g_backdrop_win = 0;
-        SetPopupParent(&g_main_win);
+        SetPopupParent((EventWin*)(&g_main_win));
         MSShowMenuBar();
     }
 }

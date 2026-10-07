@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MrTimer_Reset removed: the header declares it from the definition (W1 step 3). */
 /* timer_tick_slot: candidate for 1078:3367 (146 bytes).  Verdict: RELOCATABLE.
  *
  * One tick of timer slot i of the MrTimer table: with a handler set and a
@@ -10,7 +11,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MrTimer_Reset(MrTimer *t, int slot);
 
 void timer_tick_slot(MrTimer *timer, int i)
 {

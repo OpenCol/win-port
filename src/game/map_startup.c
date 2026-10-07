@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of file_MSOpenFile_1038_e492 removed: the header declares it from the definition (W1 step 3). */
 /* map_startup: candidate for 1038:d272 (276 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -42,7 +43,6 @@
 extern MapSize g_map_size;   /* DGROUP:0x4c40 */
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" int file_MSOpenFile_1038_e492(MSFile *file, char *name);
 extern "C" int read_file_1038_e4b8(MSFile *file, void *buf, long n);
 
 extern "C" int map_check(void);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSIsWindowMaximized removed: the header declares it from the definition (W1 step 3). */
 /* MSIsWindowMaximized_of: candidate for 1048:d8d2 (37 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -10,7 +11,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern int MSIsWindowMaximized(void *win);
 
 int MSIsWindowMaximized_of(Screen *o)
 {

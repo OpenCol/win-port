@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of panel_clear_4 removed: the header declares it from the definition (W1 step 3). */
 /* end_unit_turn: candidate for 1038:3bf5 (69 bytes, 42 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -15,7 +16,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern GameBrains g_game_brains;   /* SEG20:0x40d6 */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern unsigned char move_rate(int u);
-extern void panel_clear_4(void *panel, int unit);
 
 void end_unit_turn(int unit)
 {

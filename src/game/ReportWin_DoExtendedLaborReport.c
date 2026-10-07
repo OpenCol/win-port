@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_DrawInsetRect, GameWin_Init, show_window_1058_bc28 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_DoExtendedLaborReport: candidate for 1058:3236 (2270 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_DoExtendedLaborReport
@@ -71,15 +72,11 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern void set_colony(int colony);
 extern void SetGlobalSpriteScale(int num, int den);
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *bits, Screen *parent);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void FrameInfoRect(GRPort *port, RECT *r, int depth, int light, int dark);
-extern void GRPort_DrawInsetRect(void *p, RECT *r);
 extern void GRPort_DrawRaisedRect(GRPort *p, RECT *r);
 
 extern int get_specialty(int u);
@@ -96,7 +93,6 @@ extern int Screen_LButtonPressed(Screen *o, char own, char remove, char wait);
 extern "C" int font_height_1058_be4f(void *font);
 extern "C" void win_center_1058_c020(DialogWin *w);
 
-extern "C" void show_window_1058_bc28(void *w);
 
 extern "C" void ReportWin_DoExtendedLaborReport(ReportWin *o, int mx, int my)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSIsWindowMinimized removed: the header declares it from the definition (W1 step 3). */
 /* MSIsWindowMinimized_of_1060_67e4: candidate for 1060:67e4 (37 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -10,7 +11,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern int MSIsWindowMinimized(void *win);
 
 int MSIsWindowMinimized_of_1060_67e4(DialogWin *o)
 {

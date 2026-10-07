@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of VList_Head removed: the header declares it from the definition (W1 step 3). */
 /* VList_Head_1060_68db: candidate for 1060:68db (32 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 32, not the census 28. The trailing 4 bytes are the SECOND epilogue that
@@ -13,7 +14,6 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern void *VList_Head(void *l);
 
 void *VList_Head_1060_68db(VList *list)
 {

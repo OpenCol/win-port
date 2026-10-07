@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_move, win_clamp_client_size removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_ResizeCWin: candidate for 1048:06e0 (125 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_ResizeCWin
@@ -32,10 +33,8 @@
 #include "w16types.h"
 #include "classes.h"
 
-extern void win_clamp_client_size(ColChild *w, int cx, int cy);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void ctl_move(void *control, int x, int y);
 
 void ColChild_ResizeCWin(ColChild *w, register int cx, register int cy)
 {

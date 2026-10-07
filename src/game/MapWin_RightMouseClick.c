@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_show_and_focus_1038_e279 removed: the header declares it from the definition (W1 step 3). */
 /* MapWin_RightMouseClick: candidate for 1038:950c (305 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_RightMouseClick
@@ -33,7 +34,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_show_and_focus_1038_e279(void *w);
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 extern "C" void track_popup_submenu_1038_e2b5(void *w, void *menu, int kind, int x, int y);
 

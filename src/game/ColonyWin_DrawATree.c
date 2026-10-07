@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawATree: candidate for 1010:8d3e (174 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawATree
@@ -27,7 +28,6 @@
 class DlgControl;
 
 extern void set_colony(int colony);
-extern void Sprite_Init(Sprite *s, int res);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 void ColonyWin_DrawATree(ColonyWin *w, int x, int y, int kind)

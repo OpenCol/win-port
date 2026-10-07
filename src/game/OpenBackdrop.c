@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetPopupParent removed: the header declares it from the definition (W1 step 3). */
 /* OpenBackdrop: candidate for 1008:4a32 (257 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -31,7 +32,6 @@ extern void MSHideMenuBar(void);
 
 extern void EventWin_Init(char *w, char *name, int style, int x, int y,
                                        int width, int height, CTable *pal);
-extern void SetPopupParent(void *parent);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of map_find_continents removed: the header declares it from the definition (W1 step 3). */
 /* build_map: candidate for 1020:09ea (5538 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -a
  * symbol: build_map
@@ -77,7 +78,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern MapSize g_map_size;   /* DGROUP:0x4c40, declared */
 
 extern void buffer_fill(short handle, char fill_byte);
-extern void map_find_continents(void);
 extern unsigned char buffer_get(short handle, int x, int y);
 extern void buffer_put(short handle, int x, int y, char v);
 extern int build_check(int flag);

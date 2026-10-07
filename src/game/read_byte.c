@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of read_file_1040_a84d removed: the header declares it from the definition (W1 step 3). */
 /* read_byte: candidate for 1040:60fb (70 bytes).  Verdict: RELOCATABLE.
  * symbol: read_byte
  *
@@ -10,7 +11,6 @@
 #include "records.h"
 extern int g_stub_a;
 
-extern int read_file_1040_a84d(void *file, void *buf, long n);
 
 char read_byte(void *file)
 {

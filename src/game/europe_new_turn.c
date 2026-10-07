@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of fill_docks removed: the header declares it from the definition (W1 step 3). */
 /* europe_new_turn: candidate for 1048:7f7c (581 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -74,7 +75,6 @@ extern void set_europe(int n);
 extern void europe_adjust_prices(int reset, int only);
 extern int europe_religious_threshold(int nation, int *gained);
 
-extern char fill_docks(int from_pool);
 extern int europe_new_taxes(void);
 extern void europe_new_wars(void);
 

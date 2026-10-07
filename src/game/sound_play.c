@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PlaySnd removed: the header declares it from the definition (W1 step 3). */
 /* sound_play: candidate for 1040:89f2 (2914 bytes, 64 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -19,7 +20,6 @@
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void PlayRandomTrack(void);
-extern void PlaySnd(char *name);
 
 void sound_play(unsigned id)
 {

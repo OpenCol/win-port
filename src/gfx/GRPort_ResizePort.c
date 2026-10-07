@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_Init removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_ResizePort: candidate for 1068:4eae (37 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort::ResizePort(RECT*)
@@ -20,7 +21,6 @@
 extern int g_stub_a;
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int GRPort_Init(GRPort *p, RECT *r);
 
 int GRPort::ResizePort(RECT *r)
 {

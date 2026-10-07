@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 46, 50, 58, 59 of the imported file. */
+/* PORT: this file's own declarations of get_button_enabled_1060_ac31, get_check_enabled_1060_ac63, get_items_1060_ac7c, radio_count_1060_ac99 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 48, 52, 60, 61 of the imported file. */
 /* dialog_mnemonic: candidate for 1060:9c4c (412 bytes).  Verdict: RELOCATABLE.
  *
@@ -20,11 +22,7 @@ extern void MSPushButton(unsigned hwnd);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern int ctl_kind_1060_ac19(DlgControl *ctl);
-extern int get_button_enabled_1060_ac31(DlgControl *button);
 extern int ctl_hwnd_1060_ac4a(DlgControl *ctl);
-extern int get_check_enabled_1060_ac63(DlgControl *check);
-extern RadioItem *get_items_1060_ac7c(DlgControl *radios);
-extern int radio_count_1060_ac99(DlgControl *radios);
 
 int dialog_mnemonic(DialogWin *w, char key)
 {
@@ -46,11 +44,11 @@ int dialog_mnemonic(DialogWin *w, char key)
     for (c = w->first_ctl; c != 0 && found == 0; c = c->next) {
         if (c->hotkey_pos >= 0) {
             if (c->hotkey == key) {
-                if (ctl_kind_1060_ac19(c) == 6 && get_button_enabled_1060_ac31((DlgControl *)((SButton *)c)) != 0) {
+                if (ctl_kind_1060_ac19(c) == 6 && get_button_enabled_1060_ac31((SButton *)((DlgControl *)((SButton *)c))) != 0) {
                     MSPushButton(ctl_hwnd_1060_ac4a(c));
                     r = 1;
                     break;
-                } else if (ctl_kind_1060_ac19(c) == 2 && get_check_enabled_1060_ac63((DlgControl *)((SCheckBox *)c)) != 0) {
+                } else if (ctl_kind_1060_ac19(c) == 2 && get_check_enabled_1060_ac63((SCheckBox *)((DlgControl *)((SCheckBox *)c))) != 0) {
                     checkbox_click(ctl_hwnd_1060_ac4a(c));
                     r = 1;
                     break;
@@ -58,8 +56,8 @@ int dialog_mnemonic(DialogWin *w, char key)
             }
         } else if (ctl_kind_1060_ac19(c) == 3) {
             grp = c;
-            items = (RadioItem *)get_items_1060_ac7c((DlgControl *)((SRadioSet *)grp));
-            n = radio_count_1060_ac99((DlgControl *)((SRadioSet *)grp));
+            items = (RadioItem *)get_items_1060_ac7c((SRadioSet *)((DlgControl *)((SRadioSet *)grp)));
+            n = radio_count_1060_ac99((SRadioSet *)((DlgControl *)((SRadioSet *)grp)));
             for (i = 0; i < n; i++) {
                 if (items[i].accel >= 0 && items[i].key == key) {
                     radio_click(items[i].hwnd);

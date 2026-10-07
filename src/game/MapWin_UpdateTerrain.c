@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_ConformToViewWindow removed: the header declares it from the definition (W1 step 3). */
 /* MapWin_UpdateTerrain: candidate for 1038:a620 (175 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_UpdateTerrain
@@ -20,7 +21,6 @@ extern int g_stub_a;
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
-extern "C" void MapWin_ConformToViewWindow(void *w, RECT *r);
 
 void MapWin_UpdateTerrain(MapWin *w, int x, int y, int wd, int ht)
 {

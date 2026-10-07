@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 60 of the imported file. */
+/* PORT: this file's own declarations of copy_rect_to_screen_1040_af03 removed: the header declares it from the definition (W1 step 3). */
 /* CDControlWin_DrawTime: candidate for 1040:9eab (335 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -30,7 +32,6 @@ extern void GRPort_String(GRPort *port, unsigned *font, char *s,
                                      int x, int y, int align);
 
 /* same object: 4-byte `push cs; call ` */
-extern void copy_rect_to_screen_1040_af03(CDControlWin *w, RECT *r);
 
 void CDControlWin_DrawTime(CDControlWin *w)
 {
@@ -57,5 +58,5 @@ void CDControlWin_DrawTime(CDControlWin *w)
         STRCPY(out, "00:00");
     }
     GRPort_String((GRPort *)w, (unsigned *)&g_font_small, out, w->rect.left + 0x96, w->rect.top + 0x23, 0);
-    copy_rect_to_screen_1040_af03(w, &r);
+    copy_rect_to_screen_1040_af03((GameWin *)(w), &r);
 }

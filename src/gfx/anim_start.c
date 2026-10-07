@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MagicWin_LoadFlic removed: the header declares it from the definition (W1 step 3). */
 /* anim_start: candidate for 1068:234a (95 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: anim_start
@@ -69,7 +70,6 @@ public:
 };
 
 extern void *g_anim_port;   /* DGROUP:0x5690 */
-extern void MagicWin_LoadFlic(void *port, Flic *anim);
 
 /* same object: 5-byte NOP form, so extern (rule 47) */
 

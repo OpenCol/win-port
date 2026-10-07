@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_command_handler, call_menu_handler removed: the header declares them from the definition (W1 step 3). */
 /* wm_command: candidate for 1070:692d (141 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -24,8 +25,6 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern char call_command_handler(void *table, long command);
-extern char call_menu_handler(void *win, int item_lo, int item_hi);
 
 void wm_command(register unsigned hwnd, register unsigned id)
 {

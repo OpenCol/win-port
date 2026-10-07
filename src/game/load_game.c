@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameBrains_Reset, MainWin_ResetWindows removed: the header declares them from the definition (W1 step 3). */
 /* load_game: candidate for 1008:8543 (179 bytes).  Verdict: RELOCATABLE.
  *
  * The Load Game command: with a game in progress (SEG20:0x77c4) the report window is closed
@@ -18,9 +19,7 @@ extern MainWin g_main_win;       /* SEG20:0x5ca */
 extern GameBrains g_game_brains;      /* SEG20:0x40d6 */
 
 extern int load_game_file(char *path);
-extern void MainWin_ResetWindows(void *rec);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void GameBrains_Reset(void *rec);
 int load_game(void)
 {
     char path[0x100];

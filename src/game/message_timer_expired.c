@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* message_timer_expired: candidate for 1048:0000 (217 bytes).  Verdict: RELOCATABLE.
  * symbol: message_timer_expired
@@ -21,7 +22,6 @@ typedef struct { char pad[1]; } EuropeWin;
 typedef struct { char pad[1]; } ColonyWin;
 
 #include "records.h"
-extern void MSSetWinTitle(MSWin *win, char *s);
 
 extern void ColChild_DrawTitleBar(ColChild *w);
 extern void EuropeWin_DrawTitle(EuropeWin *w);

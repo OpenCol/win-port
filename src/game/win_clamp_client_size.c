@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_max_track_size_1060_af79, get_min_track_size_1060_af51, win_set_client_size_1060_aecf removed: the header declares them from the definition (W1 step 3). */
 /* win_clamp_client_size: candidate for 1060:a395 (135 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -17,10 +18,7 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern void get_min_track_size_1060_af51(void *r, int *pa, int *pb);
-extern void get_max_track_size_1060_af79(void *r, int *pa, int *pb);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void win_set_client_size_1060_aecf(void *r, int cw, int ch);
 void win_clamp_client_size(GameWin *o, register int w, register int h)
 {
     int minw, minh;

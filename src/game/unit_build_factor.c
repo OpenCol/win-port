@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_another_colony removed: the header declares it from the definition (W1 step 3). */
 /* unit_build_factor: candidate for 1028:08d3 (322 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -42,7 +43,6 @@ extern int find_close_colony(int x, int y, int nation, int land);
 extern int any_spec(int job);
 
 /* same object: 4-byte `push cs; call ` */
-extern int build_another_colony(int nation);
 
 int unit_build_factor(int nation, register int u, int land)
 {

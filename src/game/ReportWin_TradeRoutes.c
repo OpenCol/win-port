@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_height_1058_c24c removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_TradeRoutes: candidate for 1058:7fca (1643 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_TradeRoutes
@@ -71,7 +72,6 @@ extern void ReportWin_OnTradeRouteClick(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" int sprite_width_1058_c203(void *sprite);
-extern "C" int sprite_height_1058_c24c(void *sprite);
 extern "C" int MSGetTextLength_1058_be29(void *font, const char *s);
 extern "C" int font_height_1058_be4f(void *font);
 

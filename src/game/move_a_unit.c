@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of move_unit removed: the header declares it from the definition (W1 step 3). */
 /* move_a_unit: candidate for 1020:dfb7 (106 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -12,7 +13,6 @@
 #include "records.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern void move_unit(int u, int x, int y);
 
 void move_a_unit(int u, int dir)
 {

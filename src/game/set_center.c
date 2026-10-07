@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameBrains_CursorUpdate removed: the header declares it from the definition (W1 step 3). */
 /* set_center: candidate for 1038:afe2 (155 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: set_center
@@ -20,7 +21,6 @@ extern GameBrains g_game_brains;          /* SEG20:0x40d6 */
 
 extern int g_stub_a;
 
-extern void GameBrains_CursorUpdate(void *rec);
 extern void DrawMap(int flag);
 
 void set_center(int x, int y, int flag)

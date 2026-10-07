@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Init, Sprite_Init removed: the header declares them from the definition (W1 step 3). */
 /* Popup_compute_size: candidate for 1050:1d16 (3868 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Popup_compute_size
@@ -100,8 +101,6 @@ extern int g_popup_tribe;                       /* DGROUP:0x2518, declared */
 
 extern int g_popup_nation;                       /* DGROUP:0x251c, declared */
 
-extern void Sprite_Init(Sprite *s, int res);
-extern void CTable_Init(void *pal, int id);
 
 extern int pissed(int tribe, int i);
 extern int piss_factor(int tension);

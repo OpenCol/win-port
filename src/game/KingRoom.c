@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, IsBackdrop, set_on_keydown_after_1008_da94, set_on_lclick_1008_da22, set_on_rclick_1008_da5b, show_window_1008_d117, win_center_1008_dacd, win_hide_1008_d0bc removed: the header declares them from the definition (W1 step 3). */
 /* KingRoom: candidate for 1008:b3d0 (2347 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: KingRoom
@@ -70,9 +71,6 @@ struct logpal;
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *bits, Screen *parent);
 extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pal);
 extern void Sprite_Extract(Sprite *spr, GRPort *src, int x, int y, int w, int h);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
@@ -84,13 +82,6 @@ extern void sound_play(int id);
 extern void text_close(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *IsBackdrop(void);
-extern "C" void set_on_lclick_1008_da22(void *table, void *h);
-extern "C" void set_on_rclick_1008_da5b(void *table, void *h);
-extern "C" void set_on_keydown_after_1008_da94(void *table, void *h);
-extern "C" void win_center_1008_dacd(void *o);
-extern "C" void win_hide_1008_d0bc(void *o);
-extern "C" void show_window_1008_d117(void *o);
 
 extern "C" void MSFlushInput_1008_cefc(void);
 

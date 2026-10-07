@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 108, 113, 118, 123 of the imported file. */
+/* PORT: this file's own declarations of CDControlWin_ButtonProc, ColChild_InitCWin_nc, disable_parent, enable_parent, get_win_1040_aee6, image_button_init_1040_ada4, show_window_1040_a79d removed: the header declares them from the definition (W1 step 3). */
 /* CDControlWin_Init: candidate for 1040:961c (1923 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CDControlWin_Init
@@ -59,8 +61,6 @@ public:
 
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 
-extern void ColChild_InitCWin_nc(void *o, char *title, int which, int x, int y,
-                              int w, int h, int save, int noclose);
 extern void ColChild_DrawNonClient(ColChild *w);
 extern void ColChild_Center(ColChild *w);
 
@@ -72,19 +72,13 @@ extern void GRPort_FillColor(GRPort *p, RECT *r, int colour);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 extern void GRPort_String(GRPort *port, unsigned *font, char *s,
                                      int x, int y, int size);
-extern void disable_parent(void *win);
-extern void enable_parent(void *win);
-extern void CDControlWin_ButtonProc(void);
 extern void CDControlWin_OnOkClick(void);
 extern void CDControlWin_DrawTime(CDControlWin *w);
 extern void CDControlWin_DrawTrack(CDControlWin *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" void image_button_init_1040_ada4(void *btn, void *parent, int id, int x, int y, int pic1, int pic2, int cx, int cy);
 void set_control_action_1040_aecc(void *p, void (*fn)(void)) { }
-extern "C" void *get_win_1040_aee6(void *p);
-extern "C" void show_window_1040_a79d(CDControlWin *w);
 
 extern "C" void CDControlWin_Init(CDControlWin *w)
 {
@@ -107,27 +101,27 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     OffsetRect(&rc, w->rect.left, w->rect.top);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x7ee), (DialogWin *)((char *)w + 0x26), 0x64,
                                 rc.left, rc.top, 0x30c, 0x30c, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x7ee), CDControlWin_ButtonProc);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x7ee), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x5a, 0x50, 0xaa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x94a), (DialogWin *)((char *)w + 0x26), 0x65,
                                 rc.left, rc.top, 0x30e, 0x30e, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x94a), CDControlWin_ButtonProc);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x94a), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xaa, 0x50, 0xfa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x77a), (DialogWin *)((char *)w + 0x26), 0x66,
                                 rc.left, rc.top, 0x30d, 0x30d, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x77a), CDControlWin_ButtonProc);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x77a), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xfa, 0x50, 0x14a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x862), (DialogWin *)((char *)w + 0x26), 0x67,
                                 rc.left, rc.top, 0x30f, 0x30f, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x862), CDControlWin_ButtonProc);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x862), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x14a, 0x50, 0x19a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
     image_button_init_1040_ada4((SImageButton *)((char *)w + 0x8d6), (DialogWin *)((char *)w + 0x26), 0x68,
                                 rc.left, rc.top, 0x310, 0x310, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x8d6), CDControlWin_ButtonProc);
+    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x8d6), (void*)(CDControlWin_ButtonProc));
     w->paused = 0;
     if (MSGetCDInfo(0, 0, (int *)((char *)w + 0xa58)) == 0)
         w->track = 0;

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctable_seed removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_ColorSync: candidate for 1068:5761 (81 bytes, 32 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_ColorSync
@@ -17,7 +18,6 @@
 #include "classes.h"
    /* 0x41e bytes: the palette, its handle and the cycling state */
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int ctable_seed(void *obj);
 extern void set_all_dib_colours(void *hdc, void *obj);
 
 void GRPort_ColorSync(GRPort *port, CTable *table)

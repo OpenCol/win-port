@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1060_6977, Sprite_Init, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 109 of the imported file. */
 /* PediaWin_DoBuildingsArticle: candidate for 1060:58cc (1533 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -52,13 +53,11 @@ class PediaWin : public ColChild { public: short category; SImageButton button; 
 
 #include "icons.h"
 
-extern void Sprite_Init(Sprite *s, int res);
 extern void SetGlobalSpriteScale(int num, int den);
 extern void open_string(char *s);
 extern void close_string(char *s);
 extern void colon_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
@@ -73,7 +72,6 @@ extern "C" int font_height_1060_695e(Font *font);
 extern "C" int sprite_width_1060_60c4(Sprite *sprite);
 extern "C" int sprite_height_1060_69bc(Sprite *sprite);
 
-extern "C" int MSGetTextLength_1060_6977(void *font, char *buf);
 
 void PediaWin_DoBuildingsArticle(PediaWin *o)
 {

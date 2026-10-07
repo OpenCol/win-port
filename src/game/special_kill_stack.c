@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of special_kill removed: the header declares it from the definition (W1 step 3). */
 /* special_kill_stack: candidate for 1020:345a (90 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -15,7 +16,6 @@ extern int top_unit(int u);
 extern int next_unit(int u);
 
 /* same object: 4-byte `push cs; call ` */
-extern int special_kill(int u, int a, int b, int c, int d);
 
 void special_kill_stack(int u, int winner, int show, int x, int y)
 {

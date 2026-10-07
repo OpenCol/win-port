@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1060_af34 removed: the header declares it from the definition (W1 step 3). */
 /* GameWin_Resize: candidate for 1060:a2e4 (177 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GameWin_Resize
@@ -41,7 +42,6 @@ extern void GRPort_ColorSync(GRPort *port, CTable *page);
 
 /* same object: 4-byte `push cs; call ` */
 
-extern "C" void *get_ctable_1060_af34(void *p);
 extern "C" void call_relayout_handler(GameWin *table);
 
 void GameWin_Resize(GameWin *w, register int width, register int height)

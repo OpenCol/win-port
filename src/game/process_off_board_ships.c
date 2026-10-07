@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of transit_class removed: the header declares it from the definition (W1 step 3). */
 /* process_off_board_ships: candidate for 1030:3397 (770 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: process_off_board_ships
@@ -66,7 +67,6 @@ extern void force_music(int what);
 extern int popm(char *msg, int n);
 extern void delete_unit(int u);
 
-extern void transit_class(int a, int b);
 
 extern void arrivals_to_mapboard(void);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1038_e355, copy_rect_to_screen_1038_e38f, get_win_1038_e372, wing_curtain_open_h_at removed: the header declares them from the definition (W1 step 3). */
 /* MapWin_RevealHiddenTerrain: candidate for 1038:a441 (306 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_RevealHiddenTerrain
@@ -21,13 +22,9 @@ extern int g_stub_a;
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 
 extern void GenerateTerrainMap(int nation);
-extern void wing_curtain_open_h_at(void *old_graf, void *new_graf, void *win, RECT *r, int x, int y, int step);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void GRPort_ResetClip(GRPort *port);
 
-extern "C" void *GRPort_GetWin_1038_e355(void *w);
-extern "C" void *get_win_1038_e372(void *w);
-extern "C" void copy_rect_to_screen_1038_e38f(void *w, RECT *r);
 
 void MapWin_RevealHiddenTerrain(MapWin *w)
 {

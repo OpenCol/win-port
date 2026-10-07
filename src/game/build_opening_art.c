@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of load_gif_file removed: the header declares it from the definition (W1 step 3). */
 /* build_opening_art: candidate for 1060:7fb2 (1111 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: build_opening_art
@@ -31,8 +32,6 @@
 
 struct logpal;
 
-extern void load_gif_file(GRPort *p, char *name, int first, int count,
-                                        CTable *pal);
 extern void MSLockGraf(GRPort *port);
 extern void palette_remap_table(struct logpal *pal, unsigned char *out, struct logpal *ct, short first, short n);
 #include "records.h"

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 55 of the imported file. */
+/* PORT: this file's own declarations of Sprite_GetHotSpot, ctl_window_1060_ab51, dlg_control_init_1060_aa64, get_ctable_1060_aa47, port_height_1060_ab38, port_width_1060_ab1f, sprite_height_1060_aafc, sprite_width_1060_aad9 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61 of the imported file. */
 /* sprite_button_init_1060_91e5: candidate for 1060:91e5 (810 bytes).  Verdict: RELOCATABLE.
  *
@@ -24,20 +26,12 @@ extern void GetGlobalSpriteScale(int *num, int *den);
 extern void SetGlobalSpriteScale(int num, int den);
 
 extern void GRPort_FillColor_all(GRPort *p, int color);
-extern void Sprite_GetHotSpot(void *s, int *x, int *y);
 extern void Sprite_SetHotSpot(Sprite *s, int x, int y);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void *get_ctable_1060_aa47(void *r);
-extern void dlg_control_init_1060_aa64(SImageButton *ctl, void *win, int kind, int id, RECT *r);
-extern int sprite_width_1060_aad9(void *sprite);
-extern int sprite_height_1060_aafc(void *sprite);
-extern int port_width_1060_ab1f(void *port);
-extern int port_height_1060_ab38(void *port);
-extern void *ctl_window_1060_ab51(void *ctl);
 
 void sprite_button_init_1060_91e5(SImageButton *button, void *win, int id, register int x, register int y,
                                       int w, int h, void *sprite, unsigned char color)
@@ -59,7 +53,7 @@ void sprite_button_init_1060_91e5(SImageButton *button, void *win, int id, regis
     button->reinit_faces = 0;
     button->ctable = get_ctable_1060_aa47((Screen *)win);
     SetRect(&r, x, y, x + w, y + h);
-    dlg_control_init_1060_aa64((SImageButton *)((DlgControl *)button), win, 6, id, &r);
+    dlg_control_init_1060_aa64((DlgControl *)((SImageButton *)((DlgControl *)button)), win, 6, id, &r);
     button->on_click = 0L;
     GetGlobalSpriteScale(&sx, &sy);
     SetGlobalSpriteScale(1, 1);

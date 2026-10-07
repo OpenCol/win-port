@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1070_960d, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* wing_child_paint: candidate for 1070:05a9 (336 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -27,8 +28,6 @@
 #include "records.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern MSWin *get_win_1070_95f0(void *r);
-extern GrafRec *GRPort_GetWin_1070_960d(void *p);
 
 void wing_child_paint(PAINTSTRUCT *ps, register unsigned hwnd)
 {

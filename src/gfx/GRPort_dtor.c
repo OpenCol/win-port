@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_InitStruct, dispose_wing_surface removed: the header declares them from the definition (W1 step 3). */
 /* GRPort_dtor: candidate for 1068:3767 (170 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort::~GRPort()
@@ -14,9 +15,7 @@
 #include "classes.h"
 extern "C" char GRPort_IsLocked(GRPort *p);
 extern "C" void MSUnlockGraf(GRPort *port);
-extern void *dispose_wing_surface(void *h);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void GRPort_InitStruct(GRPort *p, void *rect);
 extern GRPort * g_current_port;   /* DGROUP:0x2ac2, declared */
 
 GRPort::~GRPort()

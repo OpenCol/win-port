@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_unbind_anim removed: the header declares it from the definition (W1 step 3). */
 /* anim_unbind: candidate for 1068:3401 (35 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: anim_unbind
@@ -57,7 +58,6 @@ public:
     Flic();
     ~Flic();
 };
-extern void port_unbind_anim(void *p);
 
 void anim_unbind(Flic *anim)
 {

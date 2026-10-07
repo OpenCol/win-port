@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_InitStruct removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_ctor: candidate for 1068:349f (78 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort::GRPort()
@@ -10,7 +11,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void GRPort_InitStruct(GRPort *p, void *rect);
 
 GRPort::GRPort()
 {

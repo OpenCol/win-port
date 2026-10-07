@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of check_for_colonist removed: the header declares it from the definition (W1 step 3). */
 /* MainWin_CheckMenuItems: candidate for 1048:aa10 (995 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -33,7 +34,6 @@
 extern GameState g_game;   /* SEG20:0x7782 */
 
 extern int job_of_unit(int u);
-extern void check_for_colonist(int u, int *is_colonist, int *is_type2);
 
 extern int is_colony(int x, int y);
 

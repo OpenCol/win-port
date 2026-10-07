@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of read_text_line_1040_a89b removed: the header declares it from the definition (W1 step 3). */
 /* read_text_paragraph: candidate for 1040:620d (169 bytes, 1 caller).  Verdict: RELOCATABLE.
  *
  * Reads lines (read_text_line) from a source into dst, each followed by a space, until the
@@ -11,7 +12,6 @@
 #include "colonization.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern char read_text_line_1040_a89b(void *src, char *word, int max);
 
 void read_text_paragraph(char *dst, void *src)
 {

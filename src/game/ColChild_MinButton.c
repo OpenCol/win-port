@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow, win_minimize removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_MinButton: candidate for 1048:0c8f (133 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_MinButton
@@ -31,8 +32,6 @@
 
 
 extern void *GetEventWindow(void);
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
-extern void win_minimize(void *win);
 
 extern "C" void win_minimize_of(DialogWin *w);
 

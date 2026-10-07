@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_dtor_1008_e972: candidate for 1008:e972 (94 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild::~ColChild()
@@ -15,7 +16,6 @@
 #pragma option -a-
 class DlgControl;
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 /* The bases' destructors are defined in this file because the shipped calls to them are the
  * compiler's own `push cs / call `, which it only emits for a callee defined in the

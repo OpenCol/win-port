@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1030_e699 removed: the header declares it from the definition (W1 step 3). */
 /* SetDifficulty_DoMessage: candidate for 1030:0f4c (514 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetDifficulty_DoMessage
@@ -26,7 +27,6 @@ extern int Screen_LButtonPressed(Screen *w, char own, char remove, char wait);
 /* same object: 4-byte `push cs; call ` */
 
 extern "C" int SetDifficulty_TrackMouse(SetDifficulty *s, int x, int y);
-extern "C" void copy_rect_to_screen_1030_e699(SetDifficulty *s, RECT *r);
 extern "C" void SetDifficulty_DrawIt(SetDifficulty *s);
 
 void SetDifficulty_DoMessage(SetDifficulty *s, register int n)

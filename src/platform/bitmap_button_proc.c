@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_button_action, get_button_enabled_1070_981e removed: the header declares them from the definition (W1 step 3). */
 /* bitmap_button_proc: candidate for 1070:1e81 (1251 bytes).  Verdict: RELOCATABLE.
  * name-source: kept from the symbol map
  *
@@ -32,10 +33,8 @@ extern void *ctl_rect(char *ctl);
 extern void *ctl_window_1070_96a8(char *ctl);
 extern int ctl_id_1070_96c5(char *ctl);
 
-extern int get_button_enabled_1070_981e(char *button);
 
 extern char get_keyboard_nav(void *o);
-extern void call_button_action(char *ctl, int id);
 
 long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {

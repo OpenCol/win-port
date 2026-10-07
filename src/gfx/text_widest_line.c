@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength, font_handle_1068_dd1e removed: the header declares them from the definition (W1 step 3). */
 /* text_widest_line: candidate for 1068:cbf3 (158 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 158, not the census 149. The trailing 9 bytes are the dead second epilogue.
@@ -28,10 +29,8 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern int MSGetTextLength(unsigned font_handle, char *s);
 
 /* same object: 4-byte `push cs; call ` */
-extern int font_handle_1068_dd1e(void *font);
 
 int text_widest_line(char *s, int *pw, void *font)
 {

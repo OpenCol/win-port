@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of file_MSOpenFile_1040_a922, read_text_line_1040_a89b, read_text_paragraph removed: the header declares them from the definition (W1 step 3). */
 /* DoFancyText: candidate for 1040:6592 (334 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: DoFancyText
@@ -13,11 +14,8 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int file_MSOpenFile_1040_a922(MSFile *file, char *name);
 extern "C" void report_error_1040_a948(void *ctx, char *msg, char *name);
 
-extern "C" int read_text_line_1040_a89b(MSFile *file, char *buf, int max);
-extern "C" void read_text_paragraph(char *line, DiskFile *src);
 extern "C" void draw_wrapped_text(void *port, void *rect, char *line);
 
 extern "C" void DoFancyText(void *w, char *name, char *tag, void *rect)

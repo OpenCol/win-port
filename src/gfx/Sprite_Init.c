@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of swap_sprite_row_words removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_Init: candidate for 1068:6859 (554 bytes).  Verdict: RELOCATABLE.
  * name-source: 37 callers over 63 sites, all passing one word; the error message names the resource kind
  *
@@ -33,7 +34,6 @@ extern void *MSLockResource_1068_94f8(void *h);
 extern void MSUnlockResource_1068_952d(void *res);
 extern void MSReleaseResource_1068_9549(void *res);
 
-extern void swap_sprite_row_words(void *p, int n);
 
 void Sprite_Init(Sprite *s, register int res_id)
 {

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 59, 64, 70, 82, 91 of the imported file. */
+/* PORT: this file's own declarations of MSWriteFile_1068_dc9a, file_MSOpenFile_1068_dbc0, report_error_1068_dc30, report_error_1068_dc3e removed: the header declares them from the definition (W1 step 3). */
 /* gif_to_pic: candidate for 1068:bd72 (1143 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: gif_to_pic
@@ -27,12 +29,8 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int file_MSOpenFile_1068_dbc0(DiskFile *file, char *name);
 
-extern "C" void report_error_1068_dc30(void *ctx, char *msg, char *name);
-extern "C" void report_error_1068_dc3e(void *ctx, char *msg);
 
-extern "C" void MSWriteFile_1068_dc9a(DiskFile *out, void *buf, long n);
 
 void gif_to_pic(char *inname, char *outname)
 {
@@ -59,18 +57,18 @@ void gif_to_pic(char *inname, char *outname)
     end = (unsigned char *)tmp + MSFileSize_1068_dbe6(&in);
     tmp = (unsigned char *)MSHUnlock(h);
     if (h == 0) {
-        report_error_1068_dc30(&g_error_log, "Error: GIF resource not found - ", inname);
+        report_error_1068_dc30(&g_error_log, (void*)("Error: GIF resource not found - "), inname);
         return;
     }
     data = (unsigned char *)MSHLock(h);
     if (STRNCMP((char *)data, "GIF", 3) != 0) {
-        report_error_1068_dc30(&g_error_log, "Error: Resource is not a GIF - ", inname);
+        report_error_1068_dc30(&g_error_log, (void*)("Error: Resource is not a GIF - "), inname);
         MSHUnlock(h);
         MSDisposeHandle_1068_9407(h);
         return;
     }
     if (!(data[0xa] & 0x80)) {
-        report_error_1068_dc30(&g_error_log, "Error: GIF contains no global color map - ", inname);
+        report_error_1068_dc30(&g_error_log, (void*)("Error: GIF contains no global color map - "), inname);
         MSHUnlock(h);
         MSDisposeHandle_1068_9407(h);
         return;
@@ -82,7 +80,7 @@ void gif_to_pic(char *inname, char *outname)
     while (*q == 0)
         q++;
     if (*q != 0x2c && *q != 0x21) {
-        report_error_1068_dc30(&g_error_log, "Error: GIF Image Block not found - ", inname);
+        report_error_1068_dc30(&g_error_log, (void*)("Error: GIF Image Block not found - "), inname);
         MSHUnlock(h);
         MSDisposeHandle_1068_9407(h);
         return;
@@ -91,7 +89,7 @@ void gif_to_pic(char *inname, char *outname)
     w_raw = img->w;
     h_raw = img->h;
     if (img->flags & 0x80)
-        report_error_1068_dc3e(&g_error_log, "Warning: Skipping local color table");
+        report_error_1068_dc3e(&g_error_log, (void*)("Warning: Skipping local color table"));
     r = (unsigned char *)((unsigned char *)img + 9);
     code = *r;
     r++;

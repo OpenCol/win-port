@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ActivateMessage, ColChild_DrawAnyMessage removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_AttemptCargoToColony: candidate for 1010:b508 (890 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_AttemptCargoToColony
@@ -31,8 +32,6 @@ extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int idx);
 
 extern void ColChild_AddStringToMessage(ColChild *message, char *s);
-extern void ColChild_ActivateMessage(void *child, int kind, long ms);
-extern void ColChild_DrawAnyMessage(void *w, int mode, long msg);
 extern void popup_say(int slot, int word);
 extern int popup_ask_number(char *ctx, char *name, int n);
 

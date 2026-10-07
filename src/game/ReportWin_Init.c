@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_InitCWin_nc_parent, MSInitImageButton, get_ctable_1058_c3d9, image_button_init_1058_ba40, win_set_drag_height_1078_2aef, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_Init: candidate for 1058:0021 (507 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_Init
@@ -35,15 +36,11 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;   /* SEG20:0x5ca */
 
 extern int ColChild_IsSmallDesktop(void *w);
-extern void win_set_icon_1078_2832(void *win, int icon);
-extern void win_set_drag_height_1078_2aef(void *win, int drag_height);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *ctable);
 
 extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern unsigned MSInitImageButton(int x, int y, SImageButton *b, int res, int res2, int w, int h, int a);
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
-extern void ColChild_InitCWin_nc_parent(void *o, char *title, int style, int x, int y, int w, int h, int save, int noclose, void *rec);
 
 extern void ReportWin_DrawReport(void);
 extern void ReportWin_OnOKClick(void);
@@ -52,7 +49,6 @@ extern "C" int port_width_1058_bcfb(GRPort *port);
 
 extern "C" int port_height_1058_bd14(GRPort *port);
 
-extern "C" void *get_ctable_1058_c3d9(DialogWin *w);
 
 extern "C" void set_keyboard_nav_1058_b992(DialogWin *w, char keyboard_nav);
 
@@ -60,7 +56,6 @@ extern "C" void win_set_icon_1058_b9ab(DialogWin *w, int icon);
 
 extern "C" void dlg_control_init_1058_c3f6(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 
-extern "C" void image_button_init_1058_ba40(SImageButton *b, DialogWin *win, int id, int x, int y, int res, int res2, int w, int h);
 
 extern "C" void set_control_action_1058_bb68(SImageButton *button, void *h);
 

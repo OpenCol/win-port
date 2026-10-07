@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popk, text_search removed: the header declares them from the definition (W1 step 3). */
 /* end_of_game_check: candidate for 1008:1e2c (2811 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 2811, not the census 2809. The compiled function is exactly 2811 bytes and the shipped
@@ -68,7 +69,6 @@ struct logpal { char pad[1]; };
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 extern void collect_stats(int nation);
-extern void popk(char *msg);
 extern void set_colony(int colony);
 extern void set_europe(int n);
 extern void popup_say(int slot, int word);
@@ -76,7 +76,6 @@ extern void popup_country(int slot, int flag, int nation);
 extern int popm(char *msg, int n);
 extern void FinalScore(void);
 extern void force_mood(int mood);
-extern void text_search(void *ctx, char *name, int n);
 
 extern int treaty_on(int nation, int other, int mask);
 extern int treaty_off(int nation, int other, int mask);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of colony_field_status removed: the header declares it from the definition (W1 step 3). */
 /* colony_field_table: candidate for 1018:70cd (76 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: colony_field_table
@@ -13,7 +14,6 @@
 
 extern int g_stub_a;
 
-extern char colony_field_status(int cx, int cy);
 
 void colony_field_table(void)
 {

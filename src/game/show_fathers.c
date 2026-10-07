@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init, win_center_1020_abcb removed: the header declares them from the definition (W1 step 3). */
 /* show_fathers: candidate for 1020:9a90 (770 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -48,7 +49,6 @@ extern void SuperWin_Init(SuperWin *w);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern int has_father(int nation, int bit);
-extern void Sprite_Init(Sprite *s, int res);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
@@ -59,7 +59,6 @@ extern void SuperWin_GoAway(SuperWin *w);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_father(int nation, int father, int on);
 
-extern "C" void win_center_1020_abcb(void *p);
 extern "C" void show_window_1020_ac0e(SuperWin *w);
 
 void show_fathers(int nation, int father)

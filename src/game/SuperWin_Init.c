@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init removed: the header declares it from the definition (W1 step 3). */
 /* SuperWin_Init: candidate for 1050:6a16 (359 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -33,9 +34,6 @@ extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int
 
 extern void EventWin_Init(char *w, char *name, int style,
                                        int x, int y, int cx, int cy, CTable *pal);
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int cx, int cy,
-                                                 CTable *pal, Screen *parent);
 extern void SuperWin_LeftMouseDown(void);
 extern void SuperWin_RightMouseDown(void);
 extern void SuperWin_KeyDown(void);

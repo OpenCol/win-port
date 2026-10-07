@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 95, 99, 103 of the imported file. */
+/* PORT: this file's own declarations of Customize_LeftMouseClick, Customize_OkButtonClick, GameWin_Init, IsBackdrop, MSHideWindow_of_1030_e647, show_window_1030_e611, win_center_1030_e5d9 removed: the header declares them from the definition (W1 step 3). */
 /* Customize_Init: candidate for 1030:1397 (1158 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Customize_Init
@@ -43,25 +45,16 @@
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;              /* SEG20:0x5ca */
 
-extern void *IsBackdrop(void);
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *pal, Screen *parent);
 struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
-extern void Customize_LeftMouseClick(void);
-extern void Customize_OkButtonClick(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void Customize_DrawIt(Customize *s);
 void set_on_lbutton_down_1030_e522(void *o, void (*fn)()) { }
 
 extern "C" void ctl_init_button_1030_e55b(void *button, void *win, int id, RECT *r, char *title);
 void set_button_action_1030_e5bf(void *c, void (*fn)()) { }
-extern "C" void win_center_1030_e5d9(void *w);
 
-extern "C" void show_window_1030_e611(Customize *s);
 
-extern "C" void MSHideWindow_of_1030_e647(void *w);
 
 int Customize_Init(Customize *s)
 {
@@ -100,15 +93,15 @@ int Customize_Init(Customize *s)
     SetRect(&r, 0, 0, 0x280, 0x1e0);
     GRPort_LoadPicture(&s->port, 0x44e, 0x28, 0xc0, (struct logpal *)&g_game_palette);
     Customize_DrawIt(s);
-    set_on_lbutton_down_1030_e522(&(EventTable &)*s, Customize_LeftMouseClick);
+    set_on_lbutton_down_1030_e522(&(EventTable &)*s, (void*)(Customize_LeftMouseClick));
     SetRect(&r, 0, 0, port_width_1030_e93a(s) / 3, 0x19);
     OffsetRect(&r, port_width_1030_e93a(s) / 3 / 2, port_height_1030_e959(s) - 0x1e);
     ctl_init_button_1030_e55b(&s->ok, &(DialogWin &)*s, 0x64, &r, "~Ok");
-    set_button_action_1030_e5bf(&s->ok, Customize_OkButtonClick);
+    set_button_action_1030_e5bf(&s->ok, (void*)(Customize_OkButtonClick));
     SetRect(&r, port_width_1030_e93a(s) / 2, 0, port_width_1030_e93a(s) / 2 + port_width_1030_e93a(s) / 3, 0x19);
     OffsetRect(&r, 0, port_height_1030_e959(s) - 0x1e);
     ctl_init_button_1030_e55b(&s->cancel, &(DialogWin &)*s, 0x65, &r, "~Cancel");
-    set_button_action_1030_e5bf(&s->cancel, Customize_OkButtonClick);
+    set_button_action_1030_e5bf(&s->cancel, (void*)(Customize_OkButtonClick));
     win_center_1030_e5d9(&(DialogWin &)*s);
     MSDoAllTasks_1030_e5fe();
     show_window_1030_e611(s);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1060_6ce9 removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1060_6b25: candidate for 1060:6b25 (41 bytes).  Verdict: RELOCATABLE.
  * symbol: win_show_and_focus_1060_6b25
  *
@@ -13,7 +14,6 @@ extern int g_stub_a;
 #include "classes.h"
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
-extern void MSShowWindow_of_1060_6ce9(void *w);
 
 void win_show_and_focus_1060_6b25(DialogWin *w)
 {

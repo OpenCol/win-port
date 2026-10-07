@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow removed: the header declares it from the definition (W1 step 3). */
 /* MSShowWindow_of_1048_ecce: candidate for 1048:ecce (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSShowWindow(void *win);
 
 void MSShowWindow_of_1048_ecce(DialogWin *o)
 {

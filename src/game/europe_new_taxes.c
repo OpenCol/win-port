@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of text_search removed: the header declares it from the definition (W1 step 3). */
 /* europe_new_taxes: candidate for 1048:7c13 (873 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -39,7 +40,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern void popup_say(int slot, int word);
 
-extern void text_search(void *rec, char *key, int n);
 
 /* same object: 4-byte `push cs; call ` */
 extern void set_name_slot_1048_de36(int slot, void *s);

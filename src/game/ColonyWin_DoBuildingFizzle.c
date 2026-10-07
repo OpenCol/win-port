@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DoBuildingFizzle: candidate for 1010:a28a (571 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DoBuildingFizzle
@@ -37,7 +38,6 @@
 
 extern void set_colony(int colony);
 extern int has_building(int bit);
-extern void Sprite_Init(Sprite *s, int res);
 
 extern int GRPort_Init(GRPort *p, void *r);
 extern void GRPort_FillColor(GRPort *p, RECT *r, int colour);

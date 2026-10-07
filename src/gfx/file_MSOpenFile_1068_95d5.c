@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSOpenFile removed: the header declares it from the definition (W1 step 3). */
 /* file_MSOpenFile_1068_95d5: candidate for 1068:95d5 (38 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: file_MSOpenFile_1068_95d5
@@ -16,7 +17,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern int MSOpenFile(char *name, MSFile *file);
 
 int file_MSOpenFile_1068_95d5(DiskFile *file, char *name)
 {

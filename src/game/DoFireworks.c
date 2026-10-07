@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PlaySnd removed: the header declares it from the definition (W1 step 3). */
 /* DoFireworks: candidate for 1010:0312 (26 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -8,7 +9,6 @@
 
 #include "colonization.h"
 
-extern void PlaySnd(char *name);
 
 void DoFireworks(void)
 {

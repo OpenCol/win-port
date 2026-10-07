@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_ChangeColor removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_ChangeColor_all: candidate for 1068:517c (44 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_ChangeColor_all
@@ -18,7 +19,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void GRPort_ChangeColor(GRPort *p, RECT *clip, int from, int to);
 
 void GRPort_ChangeColor_all(GRPort *p, int from, int to)
 {

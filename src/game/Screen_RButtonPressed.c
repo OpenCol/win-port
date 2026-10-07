@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1060_ab6e, wait_mouse_button removed: the header declares them from the definition (W1 step 3). */
 /* Screen_RButtonPressed: candidate for 1060:a772 (80 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -r-
  * symbol: Screen_RButtonPressed
@@ -12,8 +13,6 @@
 #include "classes.h"
 #include "records.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern MSWin * get_win_1060_ab6e(void *o);
-extern void wait_mouse_button(MSWin *win, char left, char remove, char wait);
 void Screen_RButtonPressed(void *o, char own, int remove, int wait)
 {
     if (own) {

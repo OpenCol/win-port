@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of VList_Add removed: the header declares it from the definition (W1 step 3). */
 /* VList_Add_1060_693c: candidate for 1060:693c (34 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -14,7 +15,6 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern void VList_Add(void *list, void *item);
 
 void VList_Add_1060_693c(VList *list, void *item)
 {

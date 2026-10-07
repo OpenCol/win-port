@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_edit_changed, ctl_hwnd_1070_9681, dialog_mnemonic, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* dialog_wndproc: candidate for 1070:9331 (699 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: dialog_wndproc
@@ -32,18 +33,14 @@
 #pragma option -a-
 class DlgControl;
 
-extern void dialog_mnemonic(DialogWin *w, char key);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" void *get_win_1070_95f0(DialogWin *r);
 
 extern "C" char get_keyboard_nav(DialogWin *r);
 extern "C" void focus_walk_siblings(DialogWin *o, unsigned hwnd, int dir);
-extern "C" int ctl_hwnd_1070_9681(void *ctl);
 extern "C" void MSPushButton(unsigned hwnd);
 
-extern "C" void call_edit_changed(void *edit);
 
 extern "C" long dialog_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
                                          unsigned long lparam)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1030_e699 removed: the header declares it from the definition (W1 step 3). */
 /* Customize_DoMessage: candidate for 1030:1a29 (504 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Customize_DoMessage
@@ -42,7 +43,6 @@ extern int Screen_LButtonPressed(Screen *w, char own, char remove, char wait);
 /* same object: 4-byte `push cs; call ` */
 
 extern "C" int Customize_TrackMouse(Customize *s, int x, int y);
-extern "C" void copy_rect_to_screen_1030_e699(Customize *s, RECT *r);
 extern "C" void Customize_DrawIt(Customize *s);
 
 void Customize_DoMessage(Customize *s, register int n)

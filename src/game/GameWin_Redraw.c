@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_relayout_handler removed: the header declares it from the definition (W1 step 3). */
 /* GameWin_Redraw: candidate for 1060:a249 (56 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: GameWin_Redraw
@@ -15,7 +16,6 @@
 
 extern int g_stub_a;
 
-extern void call_relayout_handler(void *table);
 
 void GameWin_Redraw(GameWin *w)
 {

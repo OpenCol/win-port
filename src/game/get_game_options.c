@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_Set, GameWin_Init, IsBackdrop, set_on_keydown_after_1008_da94, set_on_lclick_1008_da22, set_on_rclick_1008_da5b, show_window_1008_d117, win_center_1008_dacd, win_hide_1008_d0bc removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 127, 128, 129, 133, 134, 135, 137 of the imported file. */
 /* get_game_options: candidate for 1008:bd72 (1752 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -66,11 +67,6 @@ extern Nation g_nations[];              /* SEG20:0xc2f4 */
 extern int set_difficulty(void);
 extern int set_nation(void);
 
-extern void CTable_Set(void *pal, int i, unsigned char r, unsigned char g,
-                              unsigned char b);
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int a, int b, int width, int height,
-                                                 CTable *pal, Screen *parent);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *port, int res, int a, int b, struct logpal *pal);
 extern int popup_ask(void *ctx, void *name, int max_len, void *dflt);
@@ -81,15 +77,8 @@ extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, i
 extern void draw_text_resource(void *target, char *name, void *rect);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *IsBackdrop(void);
-extern "C" void *set_on_lclick_1008_da22(void *table, void *h);
-extern "C" void *set_on_rclick_1008_da5b(void *table, void *h);
-extern "C" void *set_on_keydown_after_1008_da94(void *table, void *h);
 
-extern "C" void win_center_1008_dacd(void *w);
-extern "C" void show_window_1008_d117(void *w);
 
-extern "C" void win_hide_1008_d0bc(void *w);
 
 extern "C" int get_game_options(void)
 {

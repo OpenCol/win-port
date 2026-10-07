@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ClearEventTable_1060_acb2, Screen_Init, get_win_1060_ab6e, subclass_control_1070_67dd removed: the header declares them from the definition (W1 step 3). */
 /* EventWin_Init: candidate for 1060:9de8 (101 bytes).  Verdict: RELOCATABLE.
  * symbol: EventWin_Init
  * name-source: sibling-build
@@ -23,11 +24,7 @@
 #include "classes.h"
 extern char g_stub_s[];
 extern int g_stub_a;
-extern void Screen_Init(char *o, char *name, int style, int x, int y, int w, int h, void *pal);
-extern void subclass_control_1070_67dd(void *obj, void *control);
 
-extern void *get_win_1060_ab6e(void *o);
-extern void ClearEventTable_1060_acb2(void *table);
 
 void EventWin_Init(char *o, char *name, int style, int x, int y, int w, int h, CTable *pal)
 {

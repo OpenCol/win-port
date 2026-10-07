@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1070_dc44, GameWin_Resize removed: the header declares them from the definition (W1 step 3). */
 /* port_wndproc: candidate for 1070:a156 (770 bytes).  Verdict: RELOCATABLE.
  *
  * The window procedure of a window that shows a graphics port, the port kept in window long 12.
@@ -26,7 +27,6 @@
 #include "records.h"
 
 extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
-extern void GameWin_Resize(void *port, int w, int h);
 
 /* 5-byte NOP form, so extern (rule 47) */
 
@@ -34,7 +34,6 @@ extern void GameWin_Resize(void *port, int w, int h);
 
 extern int rect_width(RECT *r);
 extern int rect_height(RECT *r);
-extern GrafRec *GRPort_GetWin_1070_dc44(void *p);
 
 long port_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
                                        unsigned long lparam)

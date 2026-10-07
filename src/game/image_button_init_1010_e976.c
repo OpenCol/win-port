@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSInitImageButton, get_ctable_1010_ee6f removed: the header declares them from the definition (W1 step 3). */
 /* image_button_init_1010_e976: candidate for 1010:e976 (296 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: image_button_init_1010_e976
@@ -35,10 +36,8 @@ class DialogWin;
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *port, int a, int b, int c, struct logpal *pic);
-extern unsigned MSInitImageButton(int x, int y, SImageButton *c, int a, int b, int d, int e, int f);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1010_ee6f(void *p);
 extern "C" int port_width_1010_ebd4(GRPort *port);
 extern "C" int port_height_1010_ebed(GRPort *port);
 

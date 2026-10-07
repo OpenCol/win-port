@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1010_e2d2 removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawColonists: candidate for 1010:962d (2009 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawColonists
@@ -98,7 +99,6 @@ extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y,
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int sprite_width_1010_e60f(Sprite *sprite);
 
-extern "C" int MSGetTextLength_1010_e2d2(void *font, const char *s);
 extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawColonists(ColonyWin *w, int redraw)

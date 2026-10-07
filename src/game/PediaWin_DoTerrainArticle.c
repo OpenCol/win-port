@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1060_6977, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoTerrainArticle: candidate for 1060:44f6 (3491 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_DoTerrainArticle
@@ -77,7 +78,6 @@ extern void plus_string(char *buf);
 extern void times_string(char *buf);
 extern void percent_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
@@ -93,7 +93,6 @@ extern "C" PediaEntry *PediaWin_CurrentEntry(PediaWin *o);
 
 extern "C" int font_height_1060_695e(Font *font);
 
-extern "C" int MSGetTextLength_1060_6977(void *font, char *buf);
 
 void PediaWin_DoTerrainArticle(PediaWin *w)
 {

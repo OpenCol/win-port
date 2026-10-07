@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of handle_replace_with_copy removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_CopySprite: candidate for 1068:8a75 (1282 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 1282, not the census 1274. The last 8 bytes are the four-entry jump table, and
@@ -36,7 +37,6 @@
 #include "records.h"
 #include "classes.h"
 
-extern void handle_replace_with_copy(void *p);
 
 /* same object: 4-byte `push cs; call ` */
 extern void Sprite_Lock(Sprite *s);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ActivateAnyMessage, MapWin_SlideIcon, combat_fight removed: the header declares them from the definition (W1 step 3). */
 /* move_unit: candidate for 1020:cfb8 (4095 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: move_unit
@@ -113,10 +114,8 @@ extern char owner_of(int x, int y);
 extern int get_spotting(int x, int y, int nation);
 extern void additional_spotting(int u, int bits);
 extern int in_view(int x, int y, int nation);
-extern int combat_fight(int u, int x, int y, int seen, int f);
 extern void spot_stack(int u, int nation);
 extern void stack_units(int u);
-extern void MapWin_SlideIcon(void *w, int u, int speed, int a, int x0, int y0, int x1, int y1);
 extern int master_unit_in_stack(int u);
 extern int next_unit(int u);
 extern int any_ship_in_stack(int u);
@@ -128,7 +127,6 @@ extern int top_unit(int u);
 extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int word);
 extern void ColChild_AddStringToMessage(ColChild *message, char *s);
-extern void ColChild_ActivateAnyMessage(char *w, int kind, long ms);
 extern int lost_city_at(int x, int y);
 extern void unspot_stack(int u);
 extern void relocate_stacked_units(int u, int x, int y);

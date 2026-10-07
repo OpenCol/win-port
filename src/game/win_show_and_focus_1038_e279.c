@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetFocus_of_1038_e53e removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1038_e279: candidate for 1038:e279 (41 bytes).  Verdict: RELOCATABLE.
  * symbol: win_show_and_focus_1038_e279
  *
@@ -13,7 +14,6 @@ extern int g_stub_a;
 #include "classes.h"
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
-extern void MSSetFocus_of_1038_e53e(void *w);
 
 void win_show_and_focus_1038_e279(DialogWin *w)
 {

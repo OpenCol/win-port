@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of draw_wrapped_text removed: the header declares it from the definition (W1 step 3). */
 /* draw_text_resource: candidate for 1040:66e0 (147 bytes, 8 callers).  Verdict: RELOCATABLE.
  *
  * Opens the resource named `name` in the global resource context, loads it, hands the
@@ -14,7 +15,6 @@
 
 extern void *MSLockResource_1040_a99c(void *res);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void draw_wrapped_text(void *target, void *rect, void *data);
 extern void MSUnlockResource_1040_a9bc(void *res);
 extern void MSReleaseResource_1040_a9d8(void *res);
 void draw_text_resource(void *target, char *name, void *rect)

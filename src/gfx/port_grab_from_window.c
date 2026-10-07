@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_grab_from_window removed: the header declares it from the definition (W1 step 3). */
 /* port_grab_from_window: candidate for 1068:b65b (71 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_grab_from_window
@@ -23,7 +24,6 @@
 #include "w16types.h"
 #include "records.h"
 #include "classes.h"
-extern void wing_grab_from_window(GrafRec *dst, void *win, RECT *r);
 
 /* same object: 4-byte `push cs; call ` */
 extern "C" RECT *port_bounds(GRPort *p);

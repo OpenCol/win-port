@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_another_colony, unit_build_factor removed: the header declares them from the definition (W1 step 3). */
 /* unit_build_another: candidate for 1028:0a15 (146 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 146, not the census 137. The trailing 9 bytes are the dead second epilogue.
@@ -33,9 +34,7 @@
 extern int land_region_at(int x, int y);
 
 /* same object: 4-byte `push cs; call ` */
-extern int build_another_colony(int a);
 extern int region_build_factor(int nation, int region);
-extern int unit_build_factor(int a, int u, int t);
 
 int unit_build_another(register int nation, register int u)
 {

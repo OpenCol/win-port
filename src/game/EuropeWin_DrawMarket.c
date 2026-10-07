@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawMarket: candidate for 1048:8fa0 (524 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawMarket
@@ -62,7 +63,6 @@ extern "C" void set_europe(int n);
 extern "C" int europe_bid_price(int g);
 extern "C" int europe_ask_price(int g);
 extern "C" int boycott(int bit);
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 void EuropeWin_DrawMarket(EuropeWin *w, int refresh)
 {

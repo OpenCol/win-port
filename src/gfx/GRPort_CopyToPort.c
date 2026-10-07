@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1068_968c removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_CopyToPort: candidate for 1068:52d0 (467 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_CopyToPort
@@ -23,7 +24,6 @@ extern "C" void MSUnlockGraf(GRPort *port);
 
 extern "C" int port_height_1068_9886(GRPort *p);
 extern "C" int port_stride_1068_986d(GRPort *p);
-extern "C" void *GRPort_GetWin_1068_968c(GRPort *p);
 #include "records.h"
 extern int MSGrafOrient(GrafRec *graf);
 extern "C" void *port_surface_1068_989f(GRPort *port);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1048_e0ee removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawTransitUnit: candidate for 1048:993a (706 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawTransitUnit
@@ -59,7 +60,6 @@ extern void GRPort_DrawRect(GRPort *w, RECT *r);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_europe(int n);
 extern "C" void get_transit_loc(int idx, int base_x, int tier3_count, int extra, int *tier, int *x, int *sprite, int *w, int *size);
-extern "C" int sprite_width_1048_e0ee(void *sprite);
 
 void EuropeWin_DrawTransitUnit(EuropeWin *w, int u, int base_x, int count3, int extra,
                                   int *n, int colour)

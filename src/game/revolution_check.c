@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of revolution_mobilize removed: the header declares it from the definition (W1 step 3). */
 /* revolution_check: candidate for 1038:7451 (763 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -50,7 +51,6 @@ extern int popm(char *msg, int n);
 extern void royal_edicts(int nation);
 extern void king_invasion(int nation);
 extern void tory_unrest(int nation);
-extern void revolution_mobilize(int nation);
 extern void allied_invasion(int mercs);
 
 void revolution_check(int nation)

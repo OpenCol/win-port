@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* set_field: candidate for 1018:4280 (613 bytes).  Verdict: RELOCATABLE.
  * symbol: set_field
  * name-source: sibling-build
@@ -51,7 +52,6 @@ extern int is_unit(int x, int y);
 extern int is_city(int x, int y);
 extern void owner_set(int x, int y, int n);
 extern int find_close_village(int x, int y, int nation, int region);
-extern int village_bribe(int settlement, int nation, int x, int y);
 extern int resource_at(int x, int y);
 extern void piss_off(int tribe, int nation, int delta, int unused);
 /* same object: 4-byte `push cs; call ` (rule 47) */

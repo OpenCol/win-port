@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, ReportWin_DoReport_parent, font_height_1050_9106, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* Fame: candidate for 1050:7882 (1642 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Fame
@@ -60,13 +61,9 @@ extern void * g_backdrop_win;           /* DGROUP:0xc6, declared */
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern int ReportWin_DoReport_parent(ReportWin *a, int b, char flag, void *d);
 struct logpal;
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int x, int y, int cx, int cy,
-                                                 CTable *pal, Screen *parent);
 extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern int text_open(void *a, char *id);
@@ -87,15 +84,12 @@ extern "C" void expand_text_template(char *src, char *dst);
 
 extern "C" void set_text_arg(int slot, int v);
 
-extern "C" void win_center_1050_851f(void *w);
 
-extern "C" int font_height_1050_9106(void *font);
 extern "C" int port_width_1050_922e(GRPort *port);
 extern "C" int port_height_1050_9247(GRPort *port);
 
 void set_on_lbutton_down_1050_8eb9(void *slot, void (*fn)(void)) { }
 extern "C" void show_window_1050_8bc8(GameWin *w);
-extern "C" void win_show_and_focus_1050_911f(void *w);
 extern "C" void MSHideWindow_of_1050_8cd8(void *w);
 extern "C" void win_release_1050_9148(GameWin *w);
 

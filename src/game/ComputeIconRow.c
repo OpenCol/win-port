@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1038_86f0 removed: the header declares it from the definition (W1 step 3). */
 /* ComputeIconRow: candidate for 1038:3d92 (267 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: ComputeIconRow
@@ -27,7 +28,6 @@
 
 extern int g_stub_a;
 
-extern int sprite_width_1038_86f0(void *sprite);
 
 int ComputeIconRow(int pic, int n, int m, int *px, int y, int span, int span2, int *out, int *shift, int style)
 {

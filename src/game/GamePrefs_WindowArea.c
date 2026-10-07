@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow removed: the header declares it from the definition (W1 step 3). */
 /* GamePrefs_WindowArea: candidate for 1040:7420 (80 bytes).  Verdict: RELOCATABLE.
  * symbol: GamePrefs_WindowArea
  * name-source: sibling-build
@@ -16,7 +17,6 @@
 #include "classes.h"
 extern char g_stub_s[];
 
-extern char *GamePrefs_GetWindow(void *root, int which);
 
 void GamePrefs_WindowArea(GamePrefs *root, int which, RECT *r)
 {

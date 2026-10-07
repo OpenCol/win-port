@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init, copy_rect_to_screen_1050_8bfa removed: the header declares them from the definition (W1 step 3). */
 /* DrawKingo: candidate for 1050:5028 (156 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -19,12 +20,10 @@
 
 #pragma option -a-
 
-extern void Sprite_Init(Sprite *s, int res);
 
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void copy_rect_to_screen_1050_8bfa(void *w, RECT *r);
 
 void DrawKingo(GameWin *win, int n)
 {

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 49, 53 of the imported file. */
+/* PORT: this file's own declarations of win_redraw_menu_bar removed: the header declares it from the definition (W1 step 3). */
 /* StartCheat: candidate for 1048:a717 (383 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -28,7 +30,6 @@ extern MainWin g_main_win;             /* SEG20:0x5ca */
 /* same object: 4-byte `push cs; call ` */
 extern void menu_insert_auto(MenuClass *m, int pos, int item, const char *text);
 extern void menu_insert_1048_e260(MenuClass *m, int pos, int item, const char *text, unsigned id);
-extern void win_redraw_menu_bar(void *w);
 extern void MSDeleteMenuItem_1048_e2bb(MenuClass *m, int menu, int item);
 
 void StartCheat(void)
@@ -46,11 +47,11 @@ void StartCheat(void)
         menu_insert_1048_e260(&g_menu_owner, 7, 9, "Show Strategy", 0x328);
         menu_insert_1048_e260(&g_menu_owner, 7, 10, "Show Colony Sites", 0x329);
         menu_insert_1048_e260(&g_menu_owner, 7, 11, "Test Routine", 0x32a);
-        win_redraw_menu_bar(&g_main_win);
+        win_redraw_menu_bar((EventWin *)(&g_main_win));
         g_game.game_flags ^= GAMEFLAG_CHEAT_MENU;
     } else {
         MSDeleteMenuItem_1048_e2bb(&g_menu_owner, 7, -1);
-        win_redraw_menu_bar(&g_main_win);
+        win_redraw_menu_bar((EventWin *)(&g_main_win));
         g_game.game_flags ^= GAMEFLAG_CHEAT_MENU;
     }
 }

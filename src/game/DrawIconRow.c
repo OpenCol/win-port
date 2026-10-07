@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PutLabel removed: the header declares it from the definition (W1 step 3). */
 /* DrawIconRow: candidate for 1038:4517 (492 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -35,7 +36,6 @@ extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 /* same object: 4-byte `push cs; call ` */
 extern int ComputeIconRow(int pic, int n, int m, int *px, int y, int span, int span2, int *out, int *shift, int style);
-extern void PutLabel(void *w, void *font, int n, int x, int y, int color, int fill);
 
 void DrawIconRow(GRPort *port, int pic, int n, int count, int px, register int y,
                                  int span, int span2, int marked, int style)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MainWin_ResetWindows removed: the header declares it from the definition (W1 step 3). */
 /* load_game_from_dialog: candidate for 1028:e2f8 (88 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -19,7 +20,6 @@
 extern MainWin g_main_win;   /* SEG20:0x5ca */
 
 extern int load_game_file(char *path);
-extern void MainWin_ResetWindows(void *rec);
 
 int load_game_from_dialog(void)
 {

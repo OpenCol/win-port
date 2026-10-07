@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_CopyOnto removed: the header declares it from the definition (W1 step 3). */
 /* FortDraw: candidate for 1040:3546 (1255 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: FortDraw
@@ -52,7 +53,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void Sprite_Init_wh(Sprite *s, int w, int h, unsigned char colour);
 extern int colony_has_building(int colony, int bit);
 extern void Sprite_CopyTo(Sprite *art, Sprite *dest);
-extern void Sprite_CopyOnto(void *art, Sprite *dest, int x, int y);
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 

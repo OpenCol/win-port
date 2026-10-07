@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* SRegion_dtor_1050_8285: candidate for 1050:8285 (92 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SRegion::~SRegion()
@@ -12,7 +13,6 @@
 
 #include "w16types.h"
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 #include "classes.h"
 

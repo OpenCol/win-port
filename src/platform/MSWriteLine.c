@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSWriteFile removed: the header declares it from the definition (W1 step 3). */
 /* MSWriteLine: candidate for 1070:814d (136 bytes).  Verdict: RELOCATABLE.
  *
  * Writes a string and a CR/LF to an MSFile; 0 when the file has no handle or is not open
@@ -9,7 +10,6 @@
 #include "records.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int MSWriteFile(MSFile *file, char *buf, unsigned long n);
 extern void report_error_1070_969a(void *ctx, char *msg);
 
 int MSWriteLine(MSFile *file, char *s)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1010_e2d2, font_height_1010_e73d removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawMarket: candidate for 1010:8ef4 (972 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawMarket
@@ -63,8 +64,6 @@ extern int get_warehouse(void);
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int MSGetTextLength_1010_e2d2(void *font, const char *s);
-extern "C" int font_height_1010_e73d(void *font);
 extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawMarket(ColonyWin *w, int redraw)

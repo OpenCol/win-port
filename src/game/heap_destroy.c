@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 21 of the imported file. */
+/* PORT: this file's own declarations of heap_release removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 20 of the imported file. */
 /* heap_destroy: candidate for 1040:6c03 (79 bytes, 3 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -13,12 +15,11 @@
 #include "w16types.h"
 #include "records.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void heap_release(MemBlock *b);
 
 void heap_destroy(MemBlock *block)
 {
     if (block->owns_handle != 0) {
-        heap_release((MemBlock *)((Resource *)block));
+        heap_release((Resource *)((MemBlock *)((Resource *)block)));
         MSDisposeHandle(block->handle);
     }
     block->used = 0;

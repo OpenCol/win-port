@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_DoExit, EventWin_EndModal removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_OnOKClick: candidate for 1010:ae63 (115 bytes, 2 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_OnOKClick
@@ -16,8 +17,6 @@
 extern void *GetEventWindow(void);
 extern void MSShowMenuBar(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int ColonyWin_DoExit(void *obj);
-extern void EventWin_EndModal(void *port);
 
 void ColonyWin_OnOKClick(int unused1)
 {

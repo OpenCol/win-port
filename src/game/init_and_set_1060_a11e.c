@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_window_with_port, eventwin_set_menu removed: the header declares them from the definition (W1 step 3). */
 /* init_and_set_1060_a11e: candidate for 1060:a11e (77 bytes).  Verdict: RELOCATABLE.
  * symbol: init_and_set_1060_a11e
  *
@@ -23,8 +24,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern void build_window_with_port(void *o, char *name, int style, int x, int y, int w, int h, void *pal);
-extern void eventwin_set_menu(void *o, void *parent);
 
 void init_and_set_1060_a11e(char *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent)
 {

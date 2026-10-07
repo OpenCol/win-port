@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* build_radio_buttons: candidate for 1070:3976 (1115 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 1115, not the census 1104: the dead second epilogue and two bytes of padding reach the
@@ -40,8 +41,6 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern void *ctl_window_1070_96a8(void *ctl);
-extern void *get_win_1070_95f0(void *c);
-extern void *InitCtrlBlock(unsigned hwnd, void *obj);
 extern void set_cur_item_1070_9994(void *radios, int cur_item);
 
 short build_radio_buttons(int *out, RECT *area, int cols, void *owner,

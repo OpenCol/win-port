@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, key_click removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 76, 77 of the imported file. */
 /* Popup_make_window: candidate for 1050:3364 (395 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -42,10 +43,6 @@ typedef struct {
 
    /* 0x41e bytes: the palette, its handle and the cycling state */
 
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int a, int b, int width, int height,
-                                                 CTable *pal, Screen *parent);
-extern void key_click(void);
 extern void port_update(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

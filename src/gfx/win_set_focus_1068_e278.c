@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetFocus removed: the header declares it from the definition (W1 step 3). */
 /* win_set_focus_1068_e278: candidate for 1068:e278 (33 bytes).  Verdict: RELOCATABLE.
  *
  * Gives the window's handle (pointer at +6) the input focus -- module 1068's copy of
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSSetFocus(void *hwnd);
 
 void win_set_focus_1068_e278(DialogWin *w)
 {

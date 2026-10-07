@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle_of_1038_e517 removed: the header declares it from the definition (W1 step 3). */
 /* game_win_set_text_1038_dffc: candidate for 1038:dffc (75 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: game_win_set_text_1038_dffc
@@ -15,7 +16,6 @@ extern int g_stub_a;
 
 extern void ColChild_DrawTitleBar(ColChild *w);
 
-extern "C" void MSSetWinTitle_of_1038_e517(void *d, char *s);
 
 void game_win_set_text_1038_dffc(ColChild *o, char *s)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of bloop removed: the header declares it from the definition (W1 step 3). */
 /* blob: candidate for 1020:00a8 (161 bytes).  Verdict: RELOCATABLE.
  * symbol: blob
  * name-source: sibling-build
@@ -18,7 +19,6 @@
 extern int build_check(int flag);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void bloop(int x, int y);
 
 void blob(register int x, register int y)
 {

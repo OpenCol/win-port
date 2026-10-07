@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_height_1070_dd75, port_width_1070_dd5c, win_client_height_1070_ddb3, win_client_width_1070_dd8e removed: the header declares them from the definition (W1 step 3). */
 /* main_window_message_handler: candidate for 1070:b344 (2066 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: main_window_message_handler
@@ -49,10 +50,6 @@ extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" MSWin *get_win_1070_dd3f(Screen *o);
-extern "C" int port_width_1070_dd5c(void *port);
-extern "C" int port_height_1070_dd75(void *port);
-extern "C" int win_client_width_1070_dd8e(Screen *o);
-extern "C" int win_client_height_1070_ddb3(Screen *o);
 extern "C" int rect_width(RECT *r);
 extern "C" int rect_height(RECT *r);
 

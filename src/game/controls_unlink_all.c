@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* controls_unlink_all: candidate for 1060:9aa9 (81 bytes).  Verdict: RELOCATABLE.
  * symbol: controls_unlink_all
  *
@@ -13,7 +14,6 @@
 extern int g_stub_a;
 
 extern int ctl_id_1060_abca(DlgControl *ctl);
-extern void DialogWin_RemoveControl(void *l, int id);
 
 void controls_unlink_all(DialogWin *w)
 {

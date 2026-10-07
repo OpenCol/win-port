@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawIconRow, PieceIconDraw removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawColonyMap: candidate for 1010:82cc (1331 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawColonyMap
@@ -63,13 +64,10 @@ extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern int top_unit_in_square(int x, int y);
 extern int next_unit(int u);
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y, int span, int mode);
-extern void DrawIconRow(GRPort *w, int pic, int n, int m, int px, int y,
-                                        int span, int span2, int marked, int style);
 extern int compute_yield(int col, int row, int *goods, int flag);
 extern char get_field(int col, int row);
 extern int get_job(int colonist);
 extern int get_icon(int colonist);
-extern void PieceIconDraw(void *dst, int icon, int x, int y, int flags);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 

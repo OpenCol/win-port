@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of setup_building removed: the header declares it from the definition (W1 step 3). */
 /* init_data: candidate for 1008:81d4 (879 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -27,7 +28,6 @@
 #include "colonization.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern int setup_building(int a, int prev_level, int prereq2, int next_level, int family);
 extern int setup_purchase(int a, int type, int price, int amount, int e, int i);
 
 void init_data(void)

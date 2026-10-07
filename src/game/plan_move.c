@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_another_colony, combat_fight, find_my_close_unit, passenger, unit_build_another, unit_build_factor removed: the header declares them from the definition (W1 step 3). */
 /* plan_move: candidate for 1028:5329 (19764 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: plan_move
@@ -185,13 +186,11 @@ extern void delete_unit(int u);
 
 extern void popup_say(int slot, int t);
 extern int popm(char *msg, int k);
-extern int find_my_close_unit(int nation, int skip, int x, int y);
 extern int get_treaty(int nation_a, int nation_b);
 extern int village_anger(int v, int *strength);
 extern int tribe_radius(int tribe);
 extern char owner_of(int x, int y);
 extern int is_colony(int x, int y);
-extern int combat_fight(int a, int b, int c, int d, int e);
 extern int is_village(int x, int y);
 extern int is_unit(int x, int y);
 
@@ -203,15 +202,11 @@ extern int bottom_unit(int u);
 extern "C" int menaced(int x, int y, int nation, int flag);
 extern "C" int find_beach(int nation, int x, int y, int use_status, int artillery);
 extern "C" void add_strategy(int nation, int x, int y, int kind, int priority);
-extern "C" int passenger(int u);
 extern "C" void kill_strategy(int nation, int kind, int x, int y, int rad);
 
-extern "C" int build_another_colony(int n);
-extern "C" int unit_build_another(int n, int u);
 
 extern "C" int region_build_factor(int nation, int region);
 extern "C" int at_plan(int nation, int x, int y, int kind);
-extern "C" int unit_build_factor(int n, int u, int l);
 extern "C" void order_to(int u, int m, int x, int y);
 
 #define ABS(v) ((v) > 0 ? (v) : ~(v) + 1)

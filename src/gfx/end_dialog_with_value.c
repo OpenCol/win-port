@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* end_dialog_with_value: candidate for 1068:cbcc (39 bytes).  Verdict: RELOCATABLE.
  *
  * Stores its second argument at DGROUP:0x56b4 and calls EventWin_EndModal on the
@@ -13,7 +14,6 @@
 
 #include "classes.h"
 
-extern void EventWin_EndModal(void *win);
 
 void end_dialog_with_value(int unused, int value)
 {

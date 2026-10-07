@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1068_e66f removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1068_e4ee: candidate for 1068:e4ee (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,7 +16,6 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSShowWindow_of_1068_e66f(void *o);
 
 void win_show_and_focus_1068_e4ee(DialogWin *o)
 {

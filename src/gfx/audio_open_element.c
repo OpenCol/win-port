@@ -1,4 +1,6 @@
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 29 of the imported file. */
+/* PORT: this file's own declarations of get_win_1068_d72a, mci_open_element removed: the header declares them from the definition (W1 step 3). */
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 29 of the imported file. */
 /* audio_open_element: candidate for 1068:d560 (83 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 83, not the census 77. The trailing 6 bytes are the dead second epilogue.
@@ -22,12 +24,10 @@
 #include "records.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void *get_win_1068_d72a(Audio *o);
-extern void *mci_open_element(void *win, char *name);
 
 int audio_open_element(Audio *o, char *name)
 {
-    o->mci = mci_open_element((MSWin *)(get_win_1068_d72a((Audio *)((Screen *)o))), name);
+    o->mci = mci_open_element((MSWin *)(get_win_1068_d72a((Screen *)((Audio *)((Screen *)o)))), name);
     if (o->mci != 0)
         return 1;
     else

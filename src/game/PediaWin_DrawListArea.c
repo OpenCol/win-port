@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 68 of the imported file. */
+/* PORT: this file's own declarations of MSShowControl_1060_68a5 removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_DrawListArea: candidate for 1060:2116 (717 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -33,7 +35,6 @@ extern int port_width_1060_65ca(void *port);
 extern int port_height_1060_65e3(void *port);
 extern void PediaWin_DrawTitle(PediaWin *o);
 
-extern void MSShowControl_1060_68a5(void *control);
 extern void MSHideControl_1060_669f(void *control);
 
 void PediaWin_DrawListArea(PediaWin *w)
@@ -65,7 +66,7 @@ void PediaWin_DrawListArea(PediaWin *w)
         FrameInfoRect((GRPort *)w, &r, 2, 0xff, 0xf8);
     }
     if (w->pages != 1)
-        MSShowControl_1060_68a5(&w->bar);
+        MSShowControl_1060_68a5((DlgControl *)(&w->bar));
     else
         MSHideControl_1060_669f(&w->bar);
     PediaWin_FillListArea(w);

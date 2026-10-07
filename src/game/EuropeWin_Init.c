@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_InitCWin_nc_parent, EuropeWin_EuropeButtonClick, EuropeWin_MotherFuckinAsciiParse, MSInitImageButton, MSInitRegion, ctl_init_button_1048_e04d, get_ctable_1048_e5f6, image_button_init_1048_d532, sregion_init_1048_dfb0 removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_Init: candidate for 1048:863f (706 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_Init
@@ -36,45 +37,36 @@ extern MainWin g_main_win;   /* SEG20:0x5ca */
 extern int ColChild_IsSmallDesktop(void *w);
 
 extern void GRPort_FillColor_all(GRPort *p, int color);
-extern short MSInitRegion(RECT *r, DlgControl *ctl);
 extern short MSInitButton(RECT *rgn, SButton *obj, char *title, int visible);
 extern void ColChild_InitCWin_style_nc(ColChild *o, char *title, int which, int x, int y, int w, int h, int style, char save, char noclose);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *ctable);
 
 extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern unsigned MSInitImageButton(int x, int y, SImageButton *b, int res, int res2, int w, int h, int a);
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
-extern void ColChild_InitCWin_nc_parent(void *o, char *title, int style, int x, int y, int w, int h, int save, int noclose, void *rec);
 
 extern "C" int port_width_1048_d853(GRPort *port);
 
 extern "C" int port_height_1048_d86c(GRPort *port);
 
-extern "C" void *get_ctable_1048_e5f6(DialogWin *w);
 
 extern "C" void set_keyboard_nav_1048_deb3(DialogWin *w, char keyboard_nav);
 
 extern "C" void dlg_control_init_1048_e633(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 
-extern "C" void image_button_init_1048_d532(SImageButton *b, DialogWin *win, int id, int x, int y, int res, int res2, int w, int h);
 
 extern "C" void set_control_action_1048_d65a(SImageButton *button, void *h);
 
-extern void EuropeWin_MotherFuckinAsciiParse(void);
 extern void EuropeWin_EuropeKeyParse(int key);
 extern void EuropeWin_OnOKClick(int unused1);
-extern void EuropeWin_EuropeButtonClick(void);
 
 extern "C" void ColChild_InitCWin_nc(ColChild *o, char *title, int which, int x, int y, int w, int h, int save, int noclose);
 
-extern "C" void sregion_init_1048_dfb0(SRegion *b, DialogWin *win, int id, RECT *r);
 
 extern "C" void set_region_click_1048_e033(SRegion *b, void *h);
 
 extern "C" void ctl_init_button_1048_e831(SButton *button, DialogWin *win, int id, RECT *r, char *title);
 
-extern "C" void ctl_init_button_1048_e04d(SButton *button, DialogWin *win, int id, RECT *r, int colour, char *title);
 
 extern "C" void set_button_action_1048_e087(SButton *button, void *h);
 

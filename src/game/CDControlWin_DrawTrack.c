@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 37 of the imported file. */
+/* PORT: this file's own declarations of copy_rect_to_screen_1040_af03 removed: the header declares it from the definition (W1 step 3). */
 /* CDControlWin_DrawTrack: candidate for 1040:9de6 (197 bytes).  Verdict: RELOCATABLE.
  * symbol: CDControlWin_DrawTrack
  * name-source: sibling-build
@@ -21,7 +23,6 @@ extern void GRPort_FillColor(GRPort *w, RECT *r, int color);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int align);
 
-extern void copy_rect_to_screen_1040_af03(void *w, RECT *r);
 
 void CDControlWin_DrawTrack(CDControlWin *w)
 {
@@ -34,5 +35,5 @@ void CDControlWin_DrawTrack(CDControlWin *w)
     TextColor(12);
     LTOA1(w->track, buf, 10);
     GRPort_String((GRPort *)w, (unsigned *)&g_font_small, buf, w->rect.left + 0x23, w->rect.top + 0x23, 0);
-    copy_rect_to_screen_1040_af03(w, &r);
+    copy_rect_to_screen_1040_af03((GameWin *)(w), &r);
 }

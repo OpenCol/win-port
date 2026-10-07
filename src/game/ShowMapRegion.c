@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_ShowMap removed: the header declares it from the definition (W1 step 3). */
 /* ShowMapRegion: candidate for 1040:07f1 (134 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -12,7 +13,6 @@
 
 #include "classes.h"
 
-extern void MapWin_ShowMap(void *w, int x, int y, int wd, int ht);
 
 void ShowMapRegion(int x, int y, int w, int h)
 {

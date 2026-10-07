@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSValidRect removed: the header declares it from the definition (W1 step 3). */
 /* port_validate_rect_1010_3157: candidate for 1010:3157 (39 bytes).  Verdict: RELOCATABLE.
  *
  * The copy in segment 1010 of port_validate_rect (1048:e6a9). Validates a rectangle of the window a port belongs to. The 32-bit field at +6
@@ -12,7 +13,6 @@
 #include "records.h"
 #include "classes.h"
 
-extern void MSValidRect(void *win, void *rect);
 
 void port_validate_rect_1010_3157(DialogWin *p, void *rect)
 {

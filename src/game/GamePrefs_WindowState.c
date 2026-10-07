@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow removed: the header declares it from the definition (W1 step 3). */
 /* GamePrefs_WindowState: candidate for 1040:7470 (73 bytes).  Verdict: RELOCATABLE.
  * symbol: GamePrefs_WindowState
  * name-source: sibling-build
@@ -15,7 +16,6 @@
 #include "classes.h"
 extern char g_stub_s[];
 
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
 
 int GamePrefs_WindowState(GamePrefs *root, int which)
 {

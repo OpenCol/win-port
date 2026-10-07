@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, port_height_1048_d86c, port_width_1048_d853, set_on_close_1048_df3e, win_center_1048_d80b removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 65 of the imported file. */
 /* show_work_buffer_dialog: candidate for 1048:ae68 (278 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -42,15 +43,8 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;         /* SEG20:0x5ca */
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int a, int b, int width, int height,
-                                                 CTable *pal, Screen *parent);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" int port_width_1048_d853(void *port);
-extern "C" int port_height_1048_d86c(void *port);
-extern "C" void win_center_1048_d80b(void *w);
-extern "C" void *set_on_close_1048_df3e(void *slot, void *h);
 extern "C" void show_window_1048_dd42(GameWin *w);
 
 void show_work_buffer_dialog(void)

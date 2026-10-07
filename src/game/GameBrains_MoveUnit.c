@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MainWin_CheckMenuItems removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_MoveUnit: candidate for 1008:35f0 (198 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -35,7 +36,6 @@ extern int execute_move_unit(int dx, int dy);
 extern int possibly_center(int x1, int y1, int x2, int y2, int mode);
 extern void move_cursor(int dir);
 extern int unit_is_active(int u);
-extern void MainWin_CheckMenuItems(void *w);
 extern void GameWin_Redraw(GameWin *w);
 
 void GameBrains_MoveUnit(GameBrains *r, register int dir)

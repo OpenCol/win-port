@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_id_1060_abca removed: the header declares it from the definition (W1 step 3). */
 /* DialogWin_RemoveControl: candidate for 1060:99dc (205 bytes, 8 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -12,7 +13,6 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int ctl_id_1060_abca(void *item);
 extern DlgControl *ctl_next_1060_abe3(DlgControl *item);
 
 void DialogWin_RemoveControl(DialogWin *list, int id)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHLock_1068_93af removed: the header declares it from the definition (W1 step 3). */
 /* measure_wrapped_text: candidate for 1078:173f (219 bytes).  Verdict: RELOCATABLE.
  *
  * Measures word-wrapped text: the font record is locked (MSHLock_1068_93af), the text laid out
@@ -10,7 +11,6 @@
 
 #include "w16types.h"
 #include "records.h"
-extern FontRec *MSHLock_1068_93af(unsigned handlhandlhandlhandlhandlhandlhandlhandlhandlhandle);
 
 RECT *measure_wrapped_text(RECT *out, unsigned font, char *s, int width)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetNations_DoMessage removed: the header declares it from the definition (W1 step 3). */
 /* SetNations_LeftMouseClick: candidate for 1030:0057 (96 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetNations_LeftMouseClick
@@ -16,7 +17,6 @@
 #include "classes.h"
 extern void *GetEventWindow(void);
 extern int SetNations_TrackMouse(SetNations *w, int x, int y);
-extern void SetNations_DoMessage(SetNations *w, int panel);
 void SetNations_LeftMouseClick(int x, int y)
 {
     SetNations *c;

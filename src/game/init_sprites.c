@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_height_1008_d720, port_width_1008_d707 removed: the header declares them from the definition (W1 step 3). */
 /* init_sprites: candidate for 1008:51d4 (10584 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: init_sprites
@@ -69,8 +70,6 @@ extern void Sprite_SetHotSpot(Sprite *s, int x, int y);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void sprite_extract_from_sheet(void *s, int mode, int x, int y, int w, int h);
-extern "C" int port_width_1008_d707(void *port);
-extern "C" int port_height_1008_d720(void *port);
 
 extern "C" void init_cloak_sprites(void);
 extern "C" void init_water_sprites(void);

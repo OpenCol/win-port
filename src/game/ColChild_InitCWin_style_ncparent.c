@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_OnSize, GamePrefs_GetWindow, GamePrefs_RegisterWindow, GamePrefs_WindowArea, GameWin_Init, image_button_init_1048_d532, set_control_action_1048_d65a, set_on_move, set_on_size, set_relayout_handler_1048_d738, win_set_drag_height_1048_d714 removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_InitCWin_style_ncparent: candidate for 1048:01ff (801 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_InitCWin_style_ncparent
@@ -51,16 +52,10 @@
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;             /* SEG20:0x5ca */
 
-extern void GameWin_Init(GameWin *o, char *name, int style, int x, int y,
-                                                 int w, int h, CTable *pal, Screen *parent);
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
-extern void GamePrefs_WindowArea(void *root, int which, RECT *r);
-extern void GamePrefs_RegisterWindow(void *root, int which, RECT *rc, int code);
 
 extern void ColChild_MinButton(void);
 extern void ColChild_DrawAll(void);
 extern void ColChild_OnMove(void);
-extern void ColChild_OnSize(void);
 
 /* 5-byte NOP form, so extern (rule 47) */
 extern void ColChild_ExtractSprite(ColChild *o);
@@ -68,16 +63,10 @@ extern void ColChild_ExtractSprite(ColChild *o);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void MSHideWindow_of_1048_d4d5(Screen *o);
 
-extern "C" void image_button_init_1048_d532(void *c, void *o, int a, int x, int y, int res, int p1, int p2, int p3);
-extern "C" void set_control_action_1048_d65a(void *button, void *h);
 extern "C" void MSGetSizeParent_of(Screen *o, RECT *r);
 
 extern "C" void win_move_to_rect(Screen *o, RECT *r);
 
-extern "C" void win_set_drag_height_1048_d714(void *o, int drag_height);
-extern "C" void set_relayout_handler_1048_d738(ColChild *r, void *h);
-extern "C" void *set_on_move(void *table, void *h);
-extern "C" void *set_on_size(void *table, void *h);
 
 void ColChild_InitCWin_style_ncparent(ColChild *o, char *title, int which, int x, int y,
                                     register int w, register int h, int style, char save,

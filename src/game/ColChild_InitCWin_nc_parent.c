@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_InitCWin_style_ncparent removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_InitCWin_nc_parent: candidate for 1048:014a (63 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_InitCWin_nc_parent
@@ -23,7 +24,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void ColChild_InitCWin_style_ncparent(ColChild *o, char *title, int which, int x, int y, int w, int h, int style, char save, char noclose, void *parent);
 
 void ColChild_InitCWin_nc_parent(ColChild *o, char *title, int which, int x, int y,
                                  int w, int h, int save, int noclose, void *parent)

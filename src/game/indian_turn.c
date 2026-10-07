@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of collect_indian_stats removed: the header declares it from the definition (W1 step 3). */
 /* indian_turn: candidate for 1030:a0a5 (1180 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -55,7 +56,6 @@ extern int enemy_is_active(int u);
 extern int get_name(int nation);
 
 extern void indian_village(int s);
-extern void collect_indian_stats(int tribe);
 
 extern void indian_unit(int u);
 

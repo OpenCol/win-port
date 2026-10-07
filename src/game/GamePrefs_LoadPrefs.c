@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of file_MSOpenFile_1040_a922, read_file_1040_a84d removed: the header declares them from the definition (W1 step 3). */
 /* GamePrefs_LoadPrefs: candidate for 1040:719a (326 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GamePrefs_LoadPrefs
@@ -35,9 +36,7 @@
 
 extern void GamePrefs_Default(GamePrefs *prefs);
 
-extern "C" int file_MSOpenFile_1040_a922(MSFile *file, char *name);
 
-extern "C" void read_file_1040_a84d(MSFile *file, void *buf, long n);
 
 void GamePrefs_LoadPrefs(GamePrefs *p)
 {

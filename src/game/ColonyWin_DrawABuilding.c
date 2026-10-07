@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawIconRow, Sprite_Init removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawABuilding: candidate for 1010:9e22 (1090 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawABuilding
@@ -54,13 +55,10 @@ class DlgControl;
 
 extern void set_colony(int colony);
 extern int has_building(int bit);
-extern void Sprite_Init(Sprite *s, int res);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern int job_of_building(int building);
 extern int guys_at_building(int building);
 extern int output_of_building(int building, int *kind_out, int *pic_out, int *extra_out);
-extern void DrawIconRow(GRPort *w, int pic, int n, int m, int px, int y,
-                                        int span, int span2, int marked, int style);
 extern int base_building(int building);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);

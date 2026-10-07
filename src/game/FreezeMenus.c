@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSEnableItem_1008_cec2 removed: the header declares it from the definition (W1 step 3). */
 /* FreezeMenus: candidate for 1008:2cdc (49 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -19,7 +20,6 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSEnableItem_1008_cec2(void *menu_owner, long id, int enable);
 
 void FreezeMenus(void)
 {

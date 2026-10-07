@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_unit_region removed: the header declares it from the definition (W1 step 3). */
 /* collect_indian_stats: candidate for 1030:2822 (356 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -33,7 +34,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void set_village(int s);
 extern int land_region_at(int x, int y);
 extern int get_combat(int u, int attacking);
-extern int get_unit_region(int u);
 
 /* same object: 4-byte `push cs; call ` */
 extern void plus(unsigned char *p, int delta);

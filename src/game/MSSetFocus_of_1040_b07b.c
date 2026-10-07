@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetFocus removed: the header declares it from the definition (W1 step 3). */
 /* MSSetFocus_of_1040_b07b: candidate for 1040:b07b (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSSetFocus(void *win);
 
 void MSSetFocus_of_1040_b07b(DialogWin *o)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ActivateMessage, ColChild_DrawAnyMessage removed: the header declares them from the definition (W1 step 3). */
 /* colony_error: candidate for 1010:c0b0 (53 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: colony_error
@@ -17,8 +18,6 @@
 #include "classes.h"
 extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int idx);
-extern void ColChild_ActivateMessage(void *child, int kind, long arg);
-extern void ColChild_DrawAnyMessage(void *w, int mode, long msg);
 
 void colony_error(int idx, long ms)
 {

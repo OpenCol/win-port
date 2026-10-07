@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_DrawAnyMessage removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_EuropeActivateMessage: candidate for 1048:1c79 (68 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_EuropeActivateMessage
@@ -15,7 +16,6 @@
 extern void set_europe(int n);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ColChild_ActivateMessage(ColChild *child, int kind, long arg);
-extern "C" void ColChild_DrawAnyMessage(ColChild *c, int which, long msg);
 void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long ms)
 {
     set_europe(win->nation);

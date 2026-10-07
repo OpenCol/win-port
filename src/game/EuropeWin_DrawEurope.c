@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EuropeWin_DrawTransit removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawEurope: candidate for 1048:8cc9 (148 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawEurope
@@ -21,7 +22,6 @@ extern void EuropeWin_UpdateEurope(EuropeWin *w, int x, int y, int cx, int cy);
 extern void EuropeWin_DrawMarket(EuropeWin *w, int refresh);
 extern void EuropeWin_DrawTitle(EuropeWin *w);
 extern void EuropeWin_DrawEuropeShips(EuropeWin *w, int redraw);
-extern void EuropeWin_DrawTransit(EuropeWin *w, int a);
 extern void EuropeWin_DrawUnits(EuropeWin *w, int blit);
 
 /* same object: 4-byte `push cs; call ` */

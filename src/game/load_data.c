@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of strings_init, text_item_binary removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 290 of the imported file. */
 /* load_data: candidate for 1008:9c64 (2934 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -53,14 +54,12 @@ extern char g_labels_txt[];              /* DGROUP:0xaa, "LABELS" */
 extern Nation g_nations[];             /* SEG20:0xc2f4; 0xc326 is +0x32,
                                               .start_x and .start_y */
 
-extern void strings_init(int n);
 extern int text_open(void *unused, char *name);
 extern char *text_get(void);
 extern char *text_item_get(void);
 extern int text_item_string(void);
 extern int text_string(void);
 extern int text_item_number(void);
-extern int text_item_binary(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void load_terrain(int row);

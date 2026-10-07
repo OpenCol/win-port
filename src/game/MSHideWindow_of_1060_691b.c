@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow removed: the header declares it from the definition (W1 step 3). */
 /* MSHideWindow_of_1060_691b: candidate for 1060:691b (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSHideWindow(void *win);
 
 void MSHideWindow_of_1060_691b(DialogWin *o)
 {

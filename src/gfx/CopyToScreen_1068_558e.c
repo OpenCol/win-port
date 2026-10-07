@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_966f, get_win_1068_96e8, wing_stretch removed: the header declares them from the definition (W1 step 3). */
 /* CopyToScreen_1068_558e: candidate for 1068:558e (230 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CopyToScreen_1068_558e
@@ -39,18 +40,14 @@
 
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
-extern void wing_stretch(GrafRec *src, int sx, int sy, int sw, int sh,
-                                       void *dst, int dx, int dy, int dw, int dh);
 
 /* Defined above the target for the compiler's own 4-byte PUSH CS / CALL NEAR. */
 extern "C" char GRPort_IsLocked(GRPort *p);
 extern "C" void report_error_1068_963d(void *ctx, char *msg);
 extern "C" void MSLockGraf(GRPort *port);
 extern "C" void MSUnlockGraf(GRPort *port);
-extern "C" void *get_ctable_1068_966f(void *r);
     /* the rectangle's width */
     /* the rectangle's height */
-extern "C" void *get_win_1068_96e8(void *r);
 
 void CopyToScreen_1068_558e(GRPort *port, POINT *dst_win, POINT *src_rect, POINT *at)
 {

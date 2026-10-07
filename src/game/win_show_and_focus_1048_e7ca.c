@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1048_ecce removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1048_e7ca: candidate for 1048:e7ca (41 bytes).  Verdict: RELOCATABLE.
  * symbol: win_show_and_focus_1048_e7ca
  *
@@ -13,7 +14,6 @@ extern int g_stub_a;
 #include "classes.h"
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
-extern void MSShowWindow_of_1048_ecce(void *w);
 
 void win_show_and_focus_1048_e7ca(DialogWin *w)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of report_error_1068_dc3e removed: the header declares it from the definition (W1 step 3). */
 /* rll_decode: candidate for 1068:c53b (758 bytes).  Verdict: RELOCATABLE.
  * size-source: 758, not the census 749. The trailing 9 bytes are the dead second epilogue.
  *
@@ -24,7 +25,6 @@ typedef unsigned char *hp;
 extern void handle_resize(short *hp, long size);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void report_error_1068_dc3e(void *ctx, char *msg);
 
 long rll_decode(short *h)
 {

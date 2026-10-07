@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PutLabel, sprite_width_1038_86f0 removed: the header declares them from the definition (W1 step 3). */
 /* DrawMultiIconRow: candidate for 1038:4084 (1061 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -43,9 +44,7 @@
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern RECT *Sprite_DrawMono(RECT *out, Sprite *rec, GRPort *port, int x, int y, unsigned char flag);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int sprite_width_1038_86f0(void *spr);
 
-extern void PutLabel(void *w, void *font, int n, int x, int y, int colour, int fill);
 
 void DrawMultiIconRow(GRPort *port, int x, int y, int avail, int gap)
 {

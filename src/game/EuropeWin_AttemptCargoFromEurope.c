@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_BackspaceMessage, copy_rect_to_screen removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_AttemptCargoFromEurope: candidate for 1048:1cbd (1428 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_AttemptCargoFromEurope
@@ -77,7 +78,6 @@ extern void europe_change_mode(void);
 extern "C" void ColChild_CancelMessage(EuropeWin *child, int a);
 extern "C" void EuropeWin_EuropeMessage(EuropeWin *win, int i);
 extern "C" void ColChild_AddToMessage(EuropeWin *child, int word);
-extern "C" void ColChild_BackspaceMessage(EuropeWin *w);
 extern "C" void ColChild_AddStringToMessage(EuropeWin *message, char *s);
 extern "C" void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long ms);
 
@@ -85,7 +85,6 @@ extern "C" void set_text_arg_i_1048_db6a(int slot, int v);
 
 extern "C" void EuropeWin_EuropeClearBig(EuropeWin *w);
 extern "C" void EuropeWin_EuropeShowBig(EuropeWin *w);
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 int EuropeWin_AttemptCargoFromEurope(EuropeWin *w, int u, int goods_arg, int allowed, int ask)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* DlgControl_dtor_1048_edb3: candidate for 1048:edb3 (115 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: DlgControl::~DlgControl()
@@ -10,7 +11,6 @@
 #include "w16types.h"
 /* PORT: this file's own DialogWin, DlgControl removed: include/gen/classes.h define them once (W1 step 2). */
 #include "classes.h"   /* DialogWin : EventWin, flattened for C */
-extern void DialogWin_RemoveControl(void *list, int id);
 
 
 

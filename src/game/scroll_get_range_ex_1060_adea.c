@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1060_ab6e, scroll_get_range_ex_1070_604d removed: the header declares them from the definition (W1 step 3). */
 /* scroll_get_range_ex_1060_adea: candidate for 1060:adea (51 bytes).  Verdict: RELOCATABLE.
  * symbol: scroll_get_range_ex_1060_adea
  *
@@ -9,9 +10,7 @@
 #include "records.h"
 #include "classes.h"
 extern char g_stub_s[];
-extern void scroll_get_range_ex_1070_604d(void *win, int *lo, int *hi, int flag);
 
-extern void *get_win_1060_ab6e(void *o);
 
 void scroll_get_range_ex_1060_adea(void *o, int *lo, int *hi)
 {

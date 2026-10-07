@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ScanOcean removed: the header declares it from the definition (W1 step 3). */
 /* SetupDitherMap: candidate for 1008:7ec9 (555 bytes).  Verdict: RELOCATABLE.
  * symbol: SetupDitherMap
  * name-source: sibling-build
@@ -39,7 +40,6 @@ extern MapSize g_map_size;   /* DGROUP:0x4c40, declared */
 extern unsigned char map_get(int x, int y);
 
 /* same object: 4-byte `push cs; call ` */
-extern signed char ScanOcean(int x, int y);
 
 void SetupDitherMap(void)
 {

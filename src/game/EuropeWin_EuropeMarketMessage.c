@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_AddMyBucksToMessage, ColChild_BackspaceMessage removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_EuropeMarketMessage: candidate for 1048:1add (258 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_EuropeMarketMessage
@@ -43,8 +44,6 @@ extern "C" void EuropeWin_EuropeMessage(EuropeWin *m, int i);
 extern "C" void ColChild_AddToMessage(EuropeWin *m, int idx);
 
 extern "C" void ColChild_AddStringToMessage(EuropeWin *m, char *s);
-extern "C" void ColChild_AddMyBucksToMessage(EuropeWin *m, int n);
-extern "C" void ColChild_BackspaceMessage(EuropeWin *m);
 
 void EuropeWin_EuropeMarketMessage(EuropeWin *win, int goods, int price, int buy, int qty)
 {

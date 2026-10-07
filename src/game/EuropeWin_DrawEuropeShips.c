@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawEuropeShips: candidate for 1048:91ac (1045 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawEuropeShips
@@ -91,7 +92,6 @@ extern int get_cargo_amount(int u, int slot);
 extern "C" void set_europe(int n);
 extern "C" void compute_europe_cargo_box(int i, int *x, int *y, int *a, int *b);
 extern "C" int nth_europe_vessel(int n);
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 void EuropeWin_DrawEuropeShips(EuropeWin *w, int redraw)
 {

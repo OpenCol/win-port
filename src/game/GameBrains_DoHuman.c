@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MiniWin_HighlightActiveUnit removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_DoHuman: candidate for 1008:3145 (796 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -49,7 +50,6 @@ extern void check_music(void);
 extern int on_screen(int x, int y);
 extern void UpdateTerrainRegion(int x, int y, int w, int h);
 extern void ShowMapRegion(int x, int y, int w, int h);
-extern void MiniWin_HighlightActiveUnit(void *rec, char on);
 
 /* 5-byte NOP form, so extern (rule 47) */
 extern void GameBrains_ProcessActiveUnit(GameBrains *c);

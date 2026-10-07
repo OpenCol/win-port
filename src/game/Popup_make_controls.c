@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SEditBox_Init, obj_forward_and_count, radio_double_click, radioset_init, set_initial_focus, sprite_click removed: the header declares them from the definition (W1 step 3). */
 /* Popup_make_controls: candidate for 1050:35aa (3075 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Popup_make_controls
@@ -126,20 +127,14 @@ typedef struct {
 
 extern Popup *g_cur_dialog;                   /* DGROUP:0x2500 */
 
-extern void SEditBox_Init(SEditBox *edit, DialogWin *win, int id,
-                                          int x, int y, int w, char *text);
-extern void radio_double_click(void);
-extern void sprite_click(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" void listbox_init(SListBox *listbox, DialogWin *win, int id, RECT *r);
-extern "C" void obj_forward_and_count(SListBox *listbox, char *text);
 extern "C" void checkbox_init(SCheckBox *checkbox, DialogWin *win, int id, int x, int y, char *text);
 extern "C" void set_checked_1050_87a2(SCheckBox *check, int checked);
 extern "C" void checkbox_disable(SCheckBox *checkbox);
 
-extern "C" void radioset_init(SRadioSet *g, DialogWin *win, int id, RECT *r, int w, int n, char * *labels);
 extern "C" void set_radio_dblclk_1050_88d6(SRadioSet *g, void *h);
 extern "C" void set_cur_item_1050_88f0(SRadioSet *g, int cur_item);
 
@@ -151,7 +146,6 @@ extern "C" void MSSetEBLimit(SEditBox *edit, int max_chars);
 extern "C" int Popup_button_y_size(Popup *popup);
 extern "C" void ctl_init_button_1050_8ac8(SButton *button, DialogWin *win, int id, RECT *r, char *title);
 extern "C" void set_button_action_1050_8b2c(SButton *button, void *h);
-extern "C" void set_initial_focus(void *control);
 
 extern "C" void Popup_make_controls(Popup *p)
 {

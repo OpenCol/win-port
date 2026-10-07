@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 44, 47, 55, 63 of the imported file. */
+/* PORT: this file's own declarations of PediaWin_PediaName, VList_Head_1060_68db, VList_Next_1060_68fb removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_FillListArea: candidate for 1060:282e (537 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -33,20 +35,17 @@ extern void GRPort_String(GRPort *port, unsigned *font, const char *s,
 
 #include "records.h"
 /* same object: 4-byte `push cs; call ` */
-extern void *VList_Head_1060_68db(void *list);
-extern void *VList_Next_1060_68fb(void *list);
 
-extern char *PediaWin_PediaName(void *w, void *entry);
 
 void PediaWin_FillListArea(PediaWin *w)
 {
     PediaEntry *e;
     register int i;
 
-    e = (PediaEntry *)VList_Head_1060_68db(&w->list);
+    e = (PediaEntry *)VList_Head_1060_68db((VList *)(&w->list));
     if (w->page != 1)
         for (i = 0; w->page * 16 - 16 > i; i++)
-            e = (PediaEntry *)VList_Next_1060_68fb(&w->list);
+            e = (PediaEntry *)VList_Next_1060_68fb((VList *)(&w->list));
     for (i = 0; i < 8 && e != 0; i++) {
         TextColor(0xff);
         GRPort_String((GRPort *)w, (unsigned *)&g_heading_font, PediaWin_PediaName(w, e),
@@ -54,7 +53,7 @@ void PediaWin_FillListArea(PediaWin *w)
             (rect_height_1060_63d4(&w->rect) - 0x50) / 8 * i + w->rect.top
                 + (rect_height_1060_63d4(&w->rect) - 0x50) / 8 / 2 + 0x28,
             0);
-        e = (PediaEntry *)VList_Next_1060_68fb(&w->list);
+        e = (PediaEntry *)VList_Next_1060_68fb((VList *)(&w->list));
         if (e != 0) {
             GRPort_String((GRPort *)w, (unsigned *)&g_heading_font, PediaWin_PediaName(w, e),
                 (rect_width_1060_63b5(&w->rect) - 0x55) / 2 + w->rect.left
@@ -62,7 +61,7 @@ void PediaWin_FillListArea(PediaWin *w)
                 (rect_height_1060_63d4(&w->rect) - 0x50) / 8 * i + w->rect.top
                     + (rect_height_1060_63d4(&w->rect) - 0x50) / 8 / 2 + 0x28,
                 0);
-            e = (PediaEntry *)VList_Next_1060_68fb(&w->list);
+            e = (PediaEntry *)VList_Next_1060_68fb((VList *)(&w->list));
         }
     }
 }

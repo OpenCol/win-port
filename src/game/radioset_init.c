@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_radio_buttons removed: the header declares it from the definition (W1 step 3). */
 /* radioset_init: candidate for 1050:881c (186 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -28,9 +29,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern unsigned build_radio_buttons(int *out, RECT *area,
-                                  int cols, void *owner, int count,
-                                  char * *names, int visible);
 
 /* same object: 4-byte `push cs; call ` */
 extern void dlg_control_init_1050_9418(SRadioSet *ctl, void *win, int kind, int id, RECT *r);

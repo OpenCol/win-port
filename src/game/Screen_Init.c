@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDisposeWindow, create_MSWindowClass_window, set_hwnd_object removed: the header declares them from the definition (W1 step 3). */
 /* Screen_Init: candidate for 1060:a4d4 (151 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -30,10 +31,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void *MSDisposeWindow(void *win);
-extern void *create_MSWindowClass_window(char *name, int style, int x, int y,
-                                                 int w, int h, void *parent);
-extern void set_hwnd_object(Screen *obj, void *win);
 
 /* same object: 4-byte `push cs; call ` */
 extern void screen_set_ctable(Screen *o, void *t);

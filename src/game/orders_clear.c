@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 91 of the imported file. */
 /* orders_clear: candidate for 1008:03d4 (715 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -39,7 +40,6 @@ extern int tribe_radius(int tribe);
 extern int get_treaty(int nation_a, int nation_b);
 
 extern void popup_say(int slot, int word);
-extern int village_bribe(int kind, int nation, int x, int y);
 
 extern int Popup_exec(Popup *popup, char *text);
 extern long check_gold(int nation);

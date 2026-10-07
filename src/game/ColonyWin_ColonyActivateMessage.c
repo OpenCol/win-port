@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ActivateMessage, ColChild_DrawAnyMessage removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_ColonyActivateMessage: candidate for 1010:b048 (70 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_ColonyActivateMessage
@@ -14,8 +15,6 @@
 #include "w16types.h"
 #include "classes.h"
 extern void set_colony(int colony);
-extern void ColChild_ActivateMessage(void *child, int kind, long ms);
-extern void ColChild_DrawAnyMessage(void *w, int mode, long msg);
 
 void ColonyWin_ColonyActivateMessage(ColonyWin *w, int kind, long ms)
 {

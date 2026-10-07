@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* mci_message_handler: candidate for 1070:73d5 (2669 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: mci_message_handler
@@ -52,7 +53,6 @@ extern int nonclient_width(MSWin *win);
 /* 5-byte form, so extern (rule 47) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" MSWin *get_win_1070_95f0(EventWin *o);
 extern "C" Mci *get_mci(Audio *o);
 extern "C" void call_on_mci_done(Audio *table);
 extern "C" void get_min_track_size_1070_9c10(EventWin *obj, int *pa, int *pb);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_InitStruct, MSInitGraf, control_hwnd, dispose_wing_surface removed: the header declares them from the definition (W1 step 3). */
 /* GRPort_Init: candidate for 1068:352f (272 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_Init
@@ -20,12 +21,8 @@
 extern "C" char GRPort_IsLocked(GRPort *p);
 extern void MSUnlockGraf(GRPort *port);
 extern void MSLockGraf(GRPort *port);
-extern void *dispose_wing_surface(void *surface);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void GRPort_InitStruct(GRPort *p, void *rect);
-extern void *MSInitGraf(void *graf);
-extern short control_hwnd(void *surface);
 extern void error_code_set(int code);
 
 int GRPort_Init(GRPort *p, void *r)

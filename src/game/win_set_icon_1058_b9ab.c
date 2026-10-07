@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_set_icon_1078_2832 removed: the header declares it from the definition (W1 step 3). */
 /* win_set_icon_1058_b9ab: candidate for 1058:b9ab (36 bytes).  Verdict: RELOCATABLE.
  *
  * Sets the window-class icon of the window the object holds at +6: win_set_icon_1078_2832 loads
@@ -12,7 +13,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void win_set_icon_1078_2832(void *win, int icon);
 
 void win_set_icon_1058_b9ab(DialogWin *o, int icon)
 {

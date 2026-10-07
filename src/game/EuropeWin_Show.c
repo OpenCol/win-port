@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 129 of the imported file. */
+/* PORT: this file's own declarations of SetPopupParent, port_height_1048_d86c, port_width_1048_d853, win_release_1048_e0a1, win_show_and_focus_1048_d8f7 removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_Show: candidate for 1048:8a09 (704 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_Show
@@ -57,7 +59,6 @@ extern MainWin g_main_win;             /* SEG20:0x5ca */
 
 extern StatWin g_stat_win;           /* SEG20:0x1566 */
 extern int popm(char *msg, int n);
-extern void SetPopupParent(void *parent);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void popup_country(int slot, int flag, int nation);
 extern void popup_say(int slot, int v);
@@ -73,17 +74,13 @@ extern "C" void ColChild_AddToMessage(void *child, int idx);
 extern "C" void EuropeWin_Init(EuropeWin *o);
 extern "C" void ColChild_DrawNonClient(EuropeWin *w);
 extern "C" void EuropeWin_LoadEurope(EuropeWin *w);
-extern "C" int port_width_1048_d853(void *port);
-extern "C" int port_height_1048_d86c(void *port);
 
 extern "C" void show_window_1048_dd42(void *o);
-extern "C" void win_show_and_focus_1048_d8f7(void *w);
 extern "C" void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long ms);
 
 extern "C" void set_name_slot_1048_de36(int slot, char *s);
 
 extern "C" void europe_remove_label(void);
-extern "C" void win_release_1048_e0a1(EuropeWin *w);
 
 void EuropeWin_Show(EuropeWin *w, int nation, int unit)
 {
@@ -130,7 +127,7 @@ void EuropeWin_Show(EuropeWin *w, int nation, int unit)
     EventWin_Modal((EventWin *)&(DialogWin &)*w);
     europe_remove_label();
     win_release_1048_e0a1(w);
-    SetPopupParent(&g_main_win);
+    SetPopupParent((EventWin*)(&g_main_win));
     GameWin_Redraw((GameWin *)&g_stat_win);
     MSDoAllTasks_1048_d701();
 }

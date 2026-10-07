@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength, font_handle_1068_dd1e removed: the header declares them from the definition (W1 step 3). */
 /* text_line_count: candidate for 1068:cc91 (66 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 66, not the census 59. The trailing 7 bytes are the dead second epilogue.
@@ -16,10 +17,8 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern int MSGetTextLength(unsigned font_handle, char *s);
 
 /* same object: 4-byte `push cs; call ` */
-extern int font_handle_1068_dd1e(void *font);
 
 int text_line_count(char *s, int width, void *font)
 {

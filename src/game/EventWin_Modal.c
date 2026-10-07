@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 27, 30 of the imported file. */
+/* PORT: this file's own declarations of disable_parent, enable_parent, get_win_1060_ab6e removed: the header declares them from the definition (W1 step 3). */
 /* EventWin_Modal: candidate for 1060:9f50 (93 bytes).  Verdict: RELOCATABLE.
  * symbol: EventWin_Modal
  * name-source: sibling-build
@@ -17,17 +19,14 @@
 
 extern char g_stub_s[];
 extern int g_stub_a;
-extern void disable_parent(void *win);
-extern void enable_parent(void *win);
 
-extern void *get_win_1060_ab6e(void *o);
 
 void EventWin_Modal(EventWin *o)
 {
     o->running = 1;
     g_modal_win = o;
-    disable_parent((MSWin *)(get_win_1060_ab6e(o)));
+    disable_parent((MSWin *)(get_win_1060_ab6e((Screen *)(o))));
     while (o->running != 0)
         MSDoTask_1060_add3();
-    enable_parent((MSWin *)(get_win_1060_ab6e(o)));
+    enable_parent((MSWin *)(get_win_1060_ab6e((Screen *)(o))));
 }

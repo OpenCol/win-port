@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* fame_OnLMouseDown: candidate for 1050:780d (79 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -14,7 +15,6 @@
 
 #include "classes.h"
 extern void *GetEventWindow(void);
-extern void EventWin_EndModal(void *win);
 
 void fame_OnLMouseDown(void)
 {

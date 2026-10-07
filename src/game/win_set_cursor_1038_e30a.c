@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_set_cursor_1078_2986 removed: the header declares it from the definition (W1 step 3). */
 /* win_set_cursor_1038_e30a: candidate for 1038:e30a (27 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -20,7 +21,6 @@
 #include "w16types.h"
 #include "records.h"
 #include "classes.h"
-extern void win_set_cursor_1078_2986(void *win, int cursor);
 
 void win_set_cursor_1038_e30a(DialogWin *w, CursorClass *cursor_obj)
 {

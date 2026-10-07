@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_bar_changed, call_bar_tracking, get_bar_page, get_bar_pos removed: the header declares them from the definition (W1 step 3). */
 /* scrollbar_message: candidate for 1070:5d32 (580 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: scrollbar_message
@@ -43,11 +44,7 @@ class DlgControl;
 
 extern void SetEventWindow(void *w);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int get_bar_pos(void *bar);
 extern "C" void *ctl_window_1070_96a8(void *ctl);
-extern "C" void call_bar_changed(void *bar, int pos);
-extern "C" void call_bar_tracking(void *bar, int a);
-extern "C" int get_bar_page(void *bar);
 
 void scrollbar_message(unsigned hwnd, unsigned msg, unsigned code, long value)
 {

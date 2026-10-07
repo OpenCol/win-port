@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_CopySprite removed: the header declares it from the definition (W1 step 3). */
 /* sprite_merge_at: candidate for 1068:79f2 (48 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -20,8 +21,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void Sprite_CopySprite(void *unused, Sprite *sprite, Sprite *dest, int unused2,
-                             int dx, int dy);
 
 void sprite_merge_at(Sprite *sprite, Sprite *dst, int dx, int dy)
 {

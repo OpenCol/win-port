@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_window_with_port removed: the header declares it from the definition (W1 step 3). */
 /* debug_palette: candidate for 1050:65e0 (389 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: debug_palette
@@ -23,8 +24,6 @@
 #pragma option -a-
 
    /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
-extern void build_window_with_port(GameWin *o, char *name, int style, int x, int y,
-                                       int w, int h, void *pal);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
 extern void MSLockGraf(GRPort *port);

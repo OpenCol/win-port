@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_DblMouseClick, ColonyWin_MiscButtonClick, image_button_init_1010_e976, sbutton_init_f20, set_button_action_1010_eaf5, set_control_action_1010_eb0f, set_keyboard_nav_1010_eb29, set_on_close_1010_e883, set_on_keydown_1010_e36f, set_on_lbutton_down_1010_e7d8, set_on_ldblclk, set_on_mousemove_1010_e7a1, set_on_rbutton_down_1010_e811, set_region_click_1010_e93f, sregion_init_1010_e8bc removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81, 82, 83, 84, 86, 87, 91, 104, 105, 106, 107, 108, 112 of the imported file. */
 /* ColonyWin_Init: candidate for 1010:a7c7 (1025 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -48,27 +49,12 @@ extern void ColChild_InitCWin_style_nc(ColChild *o, char *title, int which, int 
 extern void ColChild_Center(ColChild *w);
 extern void GRPort_FillColor_all(GRPort *p, int colour);
 
-extern void ColonyWin_DblMouseClick(void);
 
 extern void ColonyWin_OnOKClick(int unused1);
 extern void ColonyHammerBuy(void);
 extern void ColonyHammerChange(void);
-extern void ColonyWin_MiscButtonClick(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void set_on_mousemove_1010_e7a1(void *o, void *fn);
-extern "C" void set_on_lbutton_down_1010_e7d8(void *o, void *fn);
-extern "C" void set_on_rbutton_down_1010_e811(void *o, void *fn);
-extern "C" void set_on_ldblclk(void *o, void *fn);
-extern "C" void set_on_keydown_1010_e36f(void *o, void *fn);
-extern "C" void set_on_close_1010_e883(void *o, void *fn);
-extern "C" void sregion_init_1010_e8bc(void *b, void *win, int id, RECT *r);
-extern "C" void set_region_click_1010_e93f(void *region, void *fn);
-extern "C" void image_button_init_1010_e976(void *b, void *win, int id, int x, int y, int res, int res2, int w, int h);
 
-extern "C" void sbutton_init_f20(void *button, void *win, int id, RECT *r, int w20, char *title);
-extern "C" void set_button_action_1010_eaf5(void *b, void *fn);
-extern "C" void set_control_action_1010_eb0f(void *b, void *fn);
-extern "C" void set_keyboard_nav_1010_eb29(void *win, int keyboard_nav);
 
 void ColonyWin_Init(ColonyWin *w)
 {

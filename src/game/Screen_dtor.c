@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDisposeWindow removed: the header declares it from the definition (W1 step 3). */
 /* Screen_dtor: candidate for 1060:a482 (82 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Screen::~Screen()
@@ -11,7 +12,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void *MSDisposeWindow(void *win);
 
 Screen::~Screen()
 {

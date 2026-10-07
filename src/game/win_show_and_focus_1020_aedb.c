@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1020_b106 removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1020_aedb: candidate for 1020:aedb (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,7 +16,6 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSShowWindow_of_1020_b106(void *o);
 
 void win_show_and_focus_1020_aedb(DialogWin *o)
 {

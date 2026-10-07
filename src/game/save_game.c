@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words removed: the header declares them from the definition (W1 step 3). */
 /* save_game: candidate for 1008:a7f6 (2627 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: save_game
@@ -50,13 +51,6 @@ extern void random_activate(int seed);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" void nation52_swap_word_at_32(void *nation_text);
-extern "C" void rec6_swap_words(void *p);
-extern "C" void colonies_swap_words(void *colony, int colony_count);
-extern "C" void units_swap_words(void *u, int unit_count);
-extern "C" void nations_swap_words(void *nations);
-extern "C" void records18_swap_words(void *settlements, int settlement_count);
-extern "C" void records_swap_words(void *tribes);
 
 int save_game(char *name)
 {

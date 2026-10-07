@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1060_6977, Sprite_Init, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 118 of the imported file. */
 /* PediaWin_DoJobArticle: candidate for 1060:52b6 (1529 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -64,10 +65,8 @@ extern void open_string(char *s);
 extern void close_string(char *s);
 extern void colon_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 
 extern void SetGlobalSpriteScale(int num, int den);
-extern void Sprite_Init(Sprite *s, int n);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void GRPort_String(GRPort *port, unsigned *font, char *s,
                                      int x, int y, int size);
@@ -79,7 +78,6 @@ extern int building_of_job(int job);
 extern "C" PediaEntry *PediaWin_CurrentEntry(PediaWin *o);
 
 extern "C" int font_height_1060_695e(Font *font);
-extern "C" int MSGetTextLength_1060_6977(void *font, char *buf);
 extern "C" int sprite_height_1060_69bc(Sprite *sprite);
 extern "C" int sprite_width_1060_60c4(Sprite *sprite);
 

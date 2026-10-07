@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_show_and_focus_1048_d8f7 removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_RightMouseClick: candidate for 1048:9f1b (266 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_RightMouseClick
@@ -17,7 +18,6 @@ extern "C" void set_europe(int n);
 extern "C" int EuropeMouseArea(int dx, int dy);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void EuropeWin_EuropeMouseParse(EuropeWin *o, int slot, int dx, int dy);
-extern "C" void win_show_and_focus_1048_d8f7(void *w);
 
 void EuropeWin_RightMouseClick(int x, int y)
 {

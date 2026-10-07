@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSFileSize removed: the header declares it from the definition (W1 step 3). */
 /* MSFileSize_1068_dbe6: candidate for 1068:dbe6 (32 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 32, not the census 28. The trailing 4 bytes are the SECOND epilogue that
@@ -11,7 +12,6 @@
 #include "colonization.h"
 
 #include "records.h"
-extern long MSFileSize(void *file);
 
 long MSFileSize_1068_dbe6(void *p)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ComputeIconRow, sprite_height_1038_8752, sprite_width_1038_86f0 removed: the header declares them from the definition (W1 step 3). */
 /* InIconRow: candidate for 1038:3f9c (232 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: InIconRow
@@ -18,9 +19,6 @@
 
 extern int g_stub_a;
 
-extern int ComputeIconRow(int pic, int a, int m, int *px, int y, int w1, int w2, long l, int *pd, int style);
-extern int sprite_width_1038_86f0(void *sprite);
-extern int sprite_height_1038_8752(void *sprite);
 
 int InIconRow(int pic, int a, int n, int x, int y, int span, int span2, int style, int px, int py)
 {

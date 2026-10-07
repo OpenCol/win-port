@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1068_968c, get_ctable_1068_966f, get_win_1068_96e8 removed: the header declares them from the definition (W1 step 3). */
 /* Flic_ShowFrame: candidate for 1068:2453 (315 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Flic_ShowFrame
@@ -88,9 +89,6 @@ extern void Flic_NextFrame(Flic *flic);
 extern void wing_blit(GrafRec *src, int sx, int sy, int w, int h, MSWin *dst, int dx, int dy);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1068_966f(void *r);
-extern "C" void *get_win_1068_96e8(void *r);
-extern "C" MSWin *GRPort_GetWin_1068_968c(Flic *a);
 
 char Flic_ShowFrame(Flic *anim)
 {

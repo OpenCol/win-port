@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 30, 33, 34 of the imported file. */
+/* PORT: this file's own declarations of VList_Head_1060_68db, VList_Remove removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_EmptyStringList: candidate for 1060:326b (117 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -19,20 +21,18 @@
 #include "w16types.h"
 #include "classes.h"
 
-extern void VList_Remove(void *list);
 
 /* same object: 4-byte `push cs; call ` */
-extern void *VList_Head_1060_68db(void *list);
 
 void PediaWin_EmptyStringList(PediaWin *o)
 {
     void *p;
 
-    p = VList_Head_1060_68db(&o->list);
+    p = VList_Head_1060_68db((VList *)(&o->list));
     while (p != 0) {
         __bdele_qnv_rtl(p);
-        VList_Remove(&o->list);
-        p = VList_Head_1060_68db(&o->list);
+        VList_Remove((VList *)(&o->list));
+        p = VList_Head_1060_68db((VList *)(&o->list));
     }
     o->count = 0;
 }

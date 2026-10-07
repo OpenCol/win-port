@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_dib_flip removed: the header declares it from the definition (W1 step 3). */
 /* load_gif_resource: candidate for 1068:48a4 (865 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: load_gif_resource
@@ -35,7 +36,6 @@ extern void error_code_set(int code);
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *p, CTable *pal);
 extern int MSGrafOrient(GrafRec *graf);
-extern void wing_dib_flip(void *win);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void *MSGetResource_1068_94c7(void *type, int id);

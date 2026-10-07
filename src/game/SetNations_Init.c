@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 87, 93, 96 of the imported file. */
+/* PORT: this file's own declarations of GameWin_Init, IsBackdrop, MSHideWindow_of_1030_e647, SetNations_LeftMouseClick, SetNations_OkButtonClick, show_window_1030_e611, win_center_1030_e5d9 removed: the header declares them from the definition (W1 step 3). */
 /* SetNations_Init: candidate for 1030:030a (701 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetNations_Init
@@ -48,26 +50,17 @@
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;             /* SEG20:0x5ca */
 
-extern void *IsBackdrop(void);
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *pal, Screen *parent);
 struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void FrameInfoRect(GRPort *s, RECT *r, int depth, int light, int dark);
-extern void SetNations_LeftMouseClick(void);
-extern void SetNations_OkButtonClick(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void SetNations_DrawIt(SetNations *s);
 void set_on_lbutton_down_1030_e522(void *o, void (*fn)()) { }
 extern "C" void ctl_init_button_1030_e55b(void *button, void *win, int id, RECT *r, char *title);
 void set_button_action_1030_e5bf(void *c, void (*fn)()) { }
-extern "C" void win_center_1030_e5d9(void *w);
 
-extern "C" void show_window_1030_e611(SetNations *s);
 
-extern "C" void MSHideWindow_of_1030_e647(void *w);
 
 int SetNations_Init(SetNations *s)
 {
@@ -92,16 +85,16 @@ int SetNations_Init(SetNations *s)
     SetRect(&r, 0, 0, 0x280, 0x1e0);
     GRPort_LoadPicture(&s->port, 0x44c, 0x28, 0x9e, (struct logpal *)&g_game_palette);
     SetNations_DrawIt(s);
-    set_on_lbutton_down_1030_e522(&(EventTable &)*s, SetNations_LeftMouseClick);
+    set_on_lbutton_down_1030_e522(&(EventTable &)*s, (void*)(SetNations_LeftMouseClick));
     SetRect(&r, 0, 0, 0xa0, 0x78);
     OffsetRect(&r, 0x20, 0x32);
     FrameInfoRect((GRPort *)s, &r, -2, 0xff, 0);
     SetRect(&r, r.left + 2, r.bottom - 0x3e, r.right - 2, r.bottom - 0x20);
     ctl_init_button_1030_e55b(&s->ok, &(DialogWin &)*s, 0x64, &r, "~Ok");
-    set_button_action_1030_e5bf(&s->ok, SetNations_OkButtonClick);
+    set_button_action_1030_e5bf(&s->ok, (void*)(SetNations_OkButtonClick));
     OffsetRect(&r, 0, 0x1e);
     ctl_init_button_1030_e55b(&s->cancel, &(DialogWin &)*s, 0x65, &r, "~Cancel");
-    set_button_action_1030_e5bf(&s->cancel, SetNations_OkButtonClick);
+    set_button_action_1030_e5bf(&s->cancel, (void*)(SetNations_OkButtonClick));
     win_center_1030_e5d9(&(DialogWin &)*s);
     MSDoAllTasks_1030_e5fe();
     show_window_1030_e611(s);

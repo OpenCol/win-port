@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ReportWin_DoReport_parent removed: the header declares it from the definition (W1 step 3). */
 /* route_edit: candidate for 1028:ccf8 (252 bytes).  Verdict: RELOCATABLE.
  *
  * Opens the trade-route editor. A negative argument means "ask": `TRADESELECT` picks the
@@ -40,7 +41,6 @@ extern MainWin g_main_win;              /* SEG20:0x5ca */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern int route_get(int kind, int route, char *msg);
 extern int make_fake_unit_2(int kind, int tile_x, int tile_y, int owner);
-extern int ReportWin_DoReport_parent(ReportWin *a, int b, char flag, void *d);
 extern void delete_unit(int u);
 
 extern void set_dest(int n);

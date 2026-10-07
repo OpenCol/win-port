@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSInitImageButton, dlg_control_init_1040_b207, get_ctable_1040_b1ea removed: the header declares them from the definition (W1 step 3). */
 /* image_button_init_1040_ada4: candidate for 1040:ada4 (296 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: image_button_init_1040_ada4
@@ -35,14 +36,11 @@ class DialogWin;
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *port, int a, int b, int c, struct logpal *pic);
-extern unsigned MSInitImageButton(int x, int y, SImageButton *c, int a, int b, int d, int e, int f);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_ctable_1040_b1ea(void *p);
 extern "C" int port_width_1040_abae(GRPort *port);
 extern "C" int port_height_1040_abc7(GRPort *port);
 
-extern "C" void dlg_control_init_1040_b207(SImageButton *ctl, void *win, int kind, int id, RECT *r);
 
 void image_button_init_1040_ada4(SImageButton *button, DialogWin *win, int id, register int x, register int y,
                                   int res_down, int res_up, int pal_first, int pal_count)

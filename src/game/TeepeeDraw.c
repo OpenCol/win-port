@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1040_44a9, font_height_1040_44cf removed: the header declares them from the definition (W1 step 3). */
 /* TeepeeDraw: candidate for 1040:2ec4 (1638 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: TeepeeDraw
@@ -70,8 +71,6 @@ extern void GRPort_DrawLine(GRPort *p, short x1, short y1, short x2, short y2);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int MSGetTextLength_1040_44a9(void *font, char *s);
-extern "C" int font_height_1040_44cf(void *font);
 
 extern "C" void TeepeeDraw(GRPort *port, int s, int x, int y, int zoom)
 {

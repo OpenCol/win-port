@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of VList_Head removed: the header declares it from the definition (W1 step 3). */
 /* VList_ClearList: candidate for 1068:a54d (53 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: VList_ClearList
@@ -21,7 +22,6 @@
 
 #include "classes.h"
 /* same object: reached through the 4-byte `PUSH CS / CALL NEAR`, so it is DEFINED here (rule 47) */
-extern "C" void VList_Head(VList *l);
 
 /* same object: 4-byte `push cs; call ` */
 extern "C" void VList_Remove(VList *l);

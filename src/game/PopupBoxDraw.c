@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, win_center_1020_abcb removed: the header declares them from the definition (W1 step 3). */
 /* PopupBoxDraw: candidate for 1020:669e (540 bytes).  Verdict: RELOCATABLE.
  * symbol: PopupBoxDraw
  * name-source: sibling-build
@@ -38,9 +39,6 @@
 
 extern MainWin g_main_win;             /* SEG20:0x5ca */
 
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *pal, Screen *parent);
 
 extern void GRPort_FillColor(GRPort *w, RECT *r, int color);
 extern void GRPort_SetClip(GRPort *port, RECT *r);
@@ -55,7 +53,6 @@ extern void bordered_win_dismiss_1020_665a(void);
 void set_on_lbutton_down_1020_ab20(void *p, void (*fn)()) { }
 void set_on_rbutton_down_1020_ab59(void *p, void (*fn)()) { }
 void set_on_keydown_1020_ab92(void *p, void (*fn)()) { }
-extern void win_center_1020_abcb(void *p);
 
 void PopupBoxDraw(char *win, int x, int y, int w, int h)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of base_defenders removed: the header declares it from the definition (W1 step 3). */
 /* create_village: candidate for 1030:81f1 (255 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -18,7 +19,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void set_village(int s);
 extern void set_tribe(int tribe);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern char base_defenders(int s);
 extern unsigned char *feature_loc(int x, int y);
 extern void owner_set(int x, int y, int n);
 

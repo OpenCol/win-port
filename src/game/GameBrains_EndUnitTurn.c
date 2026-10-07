@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MainWin_CheckMenuItems removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_EndUnitTurn: candidate for 1008:2dbc (636 bytes).  Verdict: RELOCATABLE.
  * symbol: GameBrains_EndUnitTurn
  * name-source: sibling-build
@@ -47,7 +48,6 @@ extern int get_next_active_unit(int u);
 extern void unit_activate(int u);
 
 extern int possibly_center(int x1, int y1, int x2, int y2, int flag);
-extern void MainWin_CheckMenuItems(void *w);
 extern void GameWin_Redraw(GameWin *w);
 
 /* same object: 4-byte `push cs; call ` */

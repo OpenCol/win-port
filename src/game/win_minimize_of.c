@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_minimize removed: the header declares it from the definition (W1 step 3). */
 /* win_minimize_of: candidate for 1048:d920 (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void win_minimize(void *win);
 
 void win_minimize_of(DialogWin *o)
 {

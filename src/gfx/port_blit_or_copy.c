@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1068_d86d removed: the header declares it from the definition (W1 step 3). */
 /* port_blit_or_copy: candidate for 1068:b188 (121 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_blit_or_copy
@@ -25,7 +26,6 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void copy_rect_to_screen_1068_d86d(MagicWin *p, RECT *r);
 
 void port_blit_or_copy(MagicWin *p, RECT *r)
 {

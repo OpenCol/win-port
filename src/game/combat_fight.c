@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_SlideIcon, delete_colony, special_kill removed: the header declares them from the definition (W1 step 3). */
 /* combat_fight: candidate for 1020:4460 (8698 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: combat_fight
@@ -111,8 +112,6 @@ extern void move_to_top(int u);
 extern void sound_play(int n);
 
 extern void force_map(int x, int y);
-extern void MapWin_SlideIcon(void *w, int u, int flags, int d,
-                                 int ux, int uy, int x, int y);
 extern int blockade_speed(int u);
 extern void relocate_stacked_units(int u, int x, int y);
 extern void DrawMapRegion(int x, int y, int w, int h, int flag);
@@ -122,7 +121,6 @@ extern int popm(char *msg, int n);
 extern void move_to_bottom(int u);
 extern void delete_colonist(int colonist);
 extern void set_tribe(int tribe);
-extern void delete_colony(int c);
 extern void delete_village(int s);
 
 extern int bottom_unit(int u);
@@ -159,7 +157,6 @@ extern int get_combat(int u, int attacking);
 
 extern "C" void free_galleon(int n);
 
-extern "C" void special_kill(int d, int u, int show, int x, int y);
 extern "C" void resolve_raid(int native, int colony, int settlement, int force, int t);
 
 extern "C" void try_to_improve(int u, int base, int bonus);

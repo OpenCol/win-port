@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSInitRadio removed: the header declares it from the definition (W1 step 3). */
 /* radio_init: candidate for 1068:df8f (173 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -28,7 +29,6 @@
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void dlg_control_init_1068_e478(SRadioSet *ctl, void *win, int kind, int id, RECT *r);
-extern short MSInitRadio(int *out, RECT *r, int cols, SRadioSet *owner, char *captions, int visible);
 
 void radio_init(SRadioSet *radio, DialogWin *win, int id, RECT *r,
                               register int cols, char *captions)

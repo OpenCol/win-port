@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_UpdateTerrain, MiniWin_UpdateTerrain removed: the header declares them from the definition (W1 step 3). */
 /* UpdateTerrainRegion: candidate for 1040:070f (170 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -14,8 +15,6 @@
 #include "classes.h"
 
 extern char g_mini_win;           /* SEG20:0xde0 */
-extern void MapWin_UpdateTerrain(void *w, int x, int y, int wd, int ht);
-extern void MiniWin_UpdateTerrain(void *o, int x, int y, int tw, int th);
 
 void UpdateTerrainRegion(int x, int y, int w, int h)
 {

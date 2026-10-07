@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_BackspaceMessage removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_AttemptEuropeShip2Ship: candidate for 1048:2979 (752 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_AttemptEuropeShip2Ship
@@ -45,7 +46,6 @@ extern void europe_change_mode(void);
 extern "C" void ColChild_CancelMessage(EuropeWin *child, int a);
 extern "C" void EuropeWin_EuropeMessage(EuropeWin *win, int n);
 extern "C" void ColChild_AddToMessage(EuropeWin *child, int word);
-extern "C" void ColChild_BackspaceMessage(EuropeWin *w);
 extern "C" void ColChild_AddStringToMessage(EuropeWin *message, char *s);
 extern "C" void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long ms);
 

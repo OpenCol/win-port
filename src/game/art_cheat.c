@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, Sprite_Init, set_on_close_1040_a7bc, win_center_1040_a778 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 487 of the imported file. */
 /* art_cheat: candidate for 1040:46aa (5574 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -52,17 +53,11 @@ struct logpal;
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 extern int popup_ask_number(char *ctx, char *name, int n);
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int a, int b, int width, int height,
-                                                 CTable *pal, Screen *parent);
 extern int GRPort_LoadPicture(GRPort *port, int res, int a, int b, struct logpal *pal);
-extern void Sprite_Init(Sprite *s, int res);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_center_1040_a778(void *w);
 extern "C" void show_window_1040_a79d(GameWin *w);
-extern "C" void *set_on_close_1040_a7bc(void *table, void *h);
 
 extern "C" void MSHideWindow_of_1040_a80c(void *w);
 

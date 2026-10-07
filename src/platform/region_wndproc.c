@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_region_click, call_region_dblclk, call_region_enter, call_region_leave, call_region_press removed: the header declares them from the definition (W1 step 3). */
 /* region_wndproc: candidate for 1070:0cc0 (645 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -a
  * symbol: region_wndproc
@@ -51,11 +52,6 @@ extern void SetEventWindow(void *w);
 extern void *ctl_window_1070_96a8(void *ctl);
 extern int ctl_id_1070_96c5(void *ctl);
 extern RECT *ctl_rect(void *ctl);
-extern void call_region_enter(void *ctl, int id);
-extern void call_region_leave(void *ctl, int id);
-extern void call_region_click(void *ctl, int id);
-extern void call_region_press(void *ctl, int id);
-extern void call_region_dblclk(void *ctl, int id);
 
 long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {

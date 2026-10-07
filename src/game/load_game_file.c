@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 106, 109, 294, 298 of the imported file. */
+/* PORT: this file's own declarations of MSDeleteMenuItem_1008_d791, colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words, win_disable_1008_d766, win_enable_1008_d809, win_redraw_menu_bar_1008_d7b3 removed: the header declares them from the definition (W1 step 3). */
 /* load_game_file: candidate for 1008:9056 (2930 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: load_game_file
@@ -83,18 +85,7 @@ extern void revolution_setup(void);
 extern void anti_revolution(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_disable_1008_d766(void *w);
-extern "C" void win_enable_1008_d809(void *w);
-extern "C" void win_redraw_menu_bar_1008_d7b3(void *w);
-extern "C" void MSDeleteMenuItem_1008_d791(void *m, int pos, int item);
 
-extern "C" void nation52_swap_word_at_32(void *nation_text);
-extern "C" void rec6_swap_words(void *p);
-extern "C" void colonies_swap_words(void *colony, int colony_count);
-extern "C" void units_swap_words(void *u, int unit_count);
-extern "C" void nations_swap_words(void *nations);
-extern "C" void records18_swap_words(void *settlements, int settlement_count);
-extern "C" void records_swap_words(void *tribes);
 extern "C" void SetupDitherMap(void);
 
 int load_game_file(char *name)
@@ -110,13 +101,13 @@ int load_game_file(char *name)
     char magic[0x50];
 
     alloc = 0;
-    win_disable_1008_d766(&g_main_win);
+    win_disable_1008_d766((Screen*)(&g_main_win));
     if (g_game.game_flags & GAMEFLAG_CHEAT_MENU) {
         MSDeleteMenuItem_1008_d791(&g_menu_owner, 7, -1);
-        win_redraw_menu_bar_1008_d7b3(&g_main_win);
+        win_redraw_menu_bar_1008_d7b3((EventWin*)(&g_main_win));
     }
     if (file_MSOpenFile_1008_d7e3(&f, name) == 0) {
-        win_enable_1008_d809(&g_main_win);
+        win_enable_1008_d809((Screen*)(&g_main_win));
         return 0;
     }
     if (save_read_field(&f, magic, 0xaL) == 0)
@@ -301,11 +292,11 @@ int load_game_file(char *name)
     else
         anti_revolution();
     err = 0;
-    win_enable_1008_d809(&g_main_win);
+    win_enable_1008_d809((Screen*)(&g_main_win));
     SetupDitherMap();
 done:
     MSCloseFile_1008_d85e(&f);
-    win_enable_1008_d809(&g_main_win);
+    win_enable_1008_d809((Screen*)(&g_main_win));
     if (alloc != 0 && err != 0) {
         map_free();
         feature_free();

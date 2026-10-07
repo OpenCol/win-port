@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, file_MSOpenFile_1050_9096, font_height_1050_9106, text_search, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 189, 236 of the imported file. */
 /* HallOfFame: candidate for 1050:6f8e (2175 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -65,12 +66,8 @@ extern void colon_string(char *buf);
 extern void period_string(char *buf);
 extern void percent_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 extern char *strings(int n);
 
-extern void GameWin_Init(GameWin *w, char *title, int style,
-                                                 int x, int y, int cx, int cy,
-                                                 CTable *pal, Screen *parent);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *w, int id, int a, int b, struct logpal *pal);
 extern void GRPort_String(GRPort *port, unsigned *font, char *s,
@@ -79,14 +76,10 @@ extern void EventWin_Modal(EventWin *w);
 extern void fame_OnLMouseDown(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" char file_MSOpenFile_1050_9096(MSFile *file, char *name);
 extern "C" int read_file_1050_90bc(MSFile *file, void *buf, long n);
 
-extern "C" void win_center_1050_851f(void *w);
 
-extern "C" int font_height_1050_9106(void *font);
 extern "C" void show_window_1050_8bc8(GameWin *w);
-extern "C" void win_show_and_focus_1050_911f(void *w);
 void set_on_lbutton_down_1050_8eb9(void *slot, void (*fn)(void)) { }
 extern "C" void MSHideWindow_of_1050_8cd8(void *w);
 extern "C" void win_release_1050_9148(GameWin *w);

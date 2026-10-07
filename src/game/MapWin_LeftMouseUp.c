@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameBrains_UnitActivate, GameBrains_UnitGotoXY removed: the header declares them from the definition (W1 step 3). */
 /* MapWin_LeftMouseUp: candidate for 1038:97e7 (850 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_LeftMouseUp
@@ -48,11 +49,9 @@ extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 
 extern int top_unit_in_square(int x, int y);
 extern void ColonyWin_Show(void *w, int colony);
-extern void GameBrains_UnitActivate(void *rec, int x, int y);
 extern void MapWin_Reposition(MapWin *o, int x, int y);
 
 extern void GameWin_Redraw(GameWin *rec);
-extern void GameBrains_UnitGotoXY(void *rec, int x, int y);
 extern void GameBrains_MoveUnit(void *rec, int dir);
 
 extern "C" void win_show_and_focus_1038_e279(DialogWin *w);

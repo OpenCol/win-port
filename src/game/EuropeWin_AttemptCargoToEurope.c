@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of cargo_to_europe removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_AttemptCargoToEurope: candidate for 1048:2251 (1832 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_AttemptCargoToEurope
@@ -64,7 +65,6 @@ extern void popup_say(int slot, int word);
 extern int europe_bid_price(int g);
 extern int popup_ask_number(char *ctx, char *name, int n);
 
-extern int cargo_to_europe(int unit, int slot, int keep);
 extern void add_gold(int n, long amount);
 
 extern void space_string(char *buf);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, get_win_1068_d72a, subclass_control_1070_bb63 removed: the header declares them from the definition (W1 step 3). */
 /* MagicWin_Init: candidate for 1068:a890 (150 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MagicWin_Init
@@ -49,11 +50,7 @@
 
 
    /* 0x41e bytes: the palette, its handle and the cycling state */
-extern "C" void GameWin_Init(GameWin *o, char *name, int style, int x, int y,
-                                 int w, int h, CTable *pal, Screen *parent);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *get_win_1068_d72a(void *o);
-extern "C" void subclass_control_1070_bb63(MagicWin *obj, void *hwnd);
 
 extern "C" void MagicWin_Init(MagicWin *o, char *name, int style, int x, int y,
                              register int w, register int h, void *pal, void *parent)

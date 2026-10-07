@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Screen_ShiftKeyPressed removed: the header declares it from the definition (W1 step 3). */
 /* shift_key: candidate for 1040:7cd7 (28 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -20,7 +21,6 @@
 
 #include "classes.h"
 extern MainWin g_main_win;   /* SEG20:0x5ca */
-extern int Screen_ShiftKeyPressed(void *unused1);
 
 int shift_key(void)
 {

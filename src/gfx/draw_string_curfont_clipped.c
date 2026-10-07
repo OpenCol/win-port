@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDrawString_rect removed: the header declares it from the definition (W1 step 3). */
 /* draw_string_curfont_clipped: candidate for 1068:58af (256 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: draw_string_curfont_clipped
@@ -31,8 +32,6 @@ extern int MSGetTextHeight(unsigned hfont);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void report_error_1068_963d(void *ctx, char *msg);
-extern void MSDrawString_rect(GrafRec *graf, unsigned hfont, const char *s, RECT *r,
-                             int flags);
 
 void draw_string_curfont_clipped(GRPort *port, const char *s, RECT *clip,
                                       int align)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_UpdateTerrain_all removed: the header declares it from the definition (W1 step 3). */
 /* UpdateTerrain: candidate for 1040:07b9 (28 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -14,7 +15,6 @@
 
 #include "classes.h"
 
-extern void MapWin_UpdateTerrain_all(void *mw);
 
 void UpdateTerrain(void)
 {

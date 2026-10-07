@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1040_a8dd, font_height_1040_a8c4 removed: the header declares them from the definition (W1 step 3). */
 /* ParseFancyTextAndShow: candidate for 1040:62e0 (661 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 661, not the census 652. The trailing 9 bytes are the dead second epilogue.
@@ -29,8 +30,6 @@
 extern void GRPort_String(GRPort *port, unsigned *hf, const char *s, int x, int y, int align);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int font_height_1040_a8c4(void *font);
-extern int MSGetTextLength_1040_a8dd(void *font, const char *s);
 
 int ParseFancyTextAndShow(GRPort *port, RECT *r, char *text, int draw)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of move_unit removed: the header declares it from the definition (W1 step 3). */
 /* perform_orders_move_to: candidate for 1028:ae3d (822 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -56,7 +57,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern int move_to(int u);
 extern int execute_move_unit(int dx, int dy);
-extern void move_unit(int u, int x, int y);
 
 extern void send_unit_to_europe(void);
 extern void tell_unit_to_europe(int u);

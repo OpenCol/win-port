@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1038_e372, submenu_of_1038_e55f removed: the header declares them from the definition (W1 step 3). */
 /* track_popup_submenu_1038_e2b5: candidate for 1038:e2b5 (60 bytes).  Verdict: RELOCATABLE.
  * symbol: track_popup_submenu_1038_e2b5
  *
@@ -14,8 +15,6 @@ extern int g_stub_a;
 #include "records.h"
 extern void MSTrackPopupMenu(unsigned hmenu, MSWin *win, int x, int y);
 
-extern void *get_win_1038_e372(void *w);
-extern int submenu_of_1038_e55f(void *menu, int pos);
 
 void track_popup_submenu_1038_e2b5(void *w, void *menu, int submenu_pos, int x, int y)
 {

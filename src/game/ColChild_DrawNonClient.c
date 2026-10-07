@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetClip removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_DrawNonClient: candidate for 1048:077f (700 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DrawNonClient
@@ -63,7 +64,6 @@
 
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 
-extern void GRPort_GetClip(ColChild *o, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);

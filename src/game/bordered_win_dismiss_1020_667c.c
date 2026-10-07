@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* bordered_win_dismiss_1020_667c: candidate for 1020:667c (34 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -24,7 +25,6 @@
 
 #include "classes.h"
 
-extern void EventWin_EndModal(void *port);
 
 void bordered_win_dismiss_1020_667c(void)
 {

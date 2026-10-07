@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_hwnd_1070_9681, ctl_kind_1070_9669 removed: the header declares them from the definition (W1 step 3). */
 /* MSCloseWindow: candidate for 1070:088b (90 bytes).  Verdict: RELOCATABLE.
  *
  * Unless the window's kind (ctl_kind_1070_9669) is 3, destroys its Windows handle
@@ -10,8 +11,6 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int ctl_kind_1070_9669(void *ctl);
-extern unsigned ctl_hwnd_1070_9681(void *ctl);
 
 void MSCloseWindow(void *win)
 {

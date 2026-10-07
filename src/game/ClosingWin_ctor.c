@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1010_29c1, MagicWin_Init, port_height_1010_2a80, port_width_1010_2a67, set_on_keydown_1010_2a1b, set_on_lbutton_down_1010_29e2, win_center_1010_299c, win_set_back_color_1010_2978 removed: the header declares them from the definition (W1 step 3). */
 /* ClosingWin_ctor: candidate for 1010:00a8 (503 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ClosingWin::ClosingWin()
@@ -53,16 +54,8 @@ struct logpal;
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 
 extern void EventWin_Init(char *w, char *res, int style, int x, int y, int width, int height, CTable *pal);
-extern "C" void win_set_back_color_1010_2978(EventWin *w, int index);
-extern "C" void win_center_1010_299c(void *w);
-extern "C" void MSShowWindow_of_1010_29c1(EventWin *w);
-extern "C" void *set_on_lbutton_down_1010_29e2(void *table, void *h);
-extern "C" void *set_on_keydown_1010_2a1b(void *table, void *h);
 
 extern void flic_load_resource2(Flic *flic, int res, int start, int count);
-extern "C" int port_width_1010_2a67(Flic *port);
-extern "C" int port_height_1010_2a80(Flic *port);
-extern void MagicWin_Init(void *w, char *res, int style, int a, int b, int width, int height, void *pal, EventWin *parent);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 extern void ClosingWin_Mouse(void);
 extern void ClosingWin_Keys(void);

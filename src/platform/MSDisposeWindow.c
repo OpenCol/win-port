@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of remove_ms_window removed: the header declares it from the definition (W1 step 3). */
 /* MSDisposeWindow: candidate for 1078:1d88 (164 bytes).  Verdict: RELOCATABLE.
  *
  * This tears a platform WINDOW record down (the census called it menu_attach_to_window and the
@@ -15,7 +16,6 @@
 #include "colonization.h"
 
 #include "records.h"
-extern void remove_ms_window(unsigned hwnd);
 
 void *MSDisposeWindow(MSWin *win)
 {

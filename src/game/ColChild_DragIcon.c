@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_GetHotSpot removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61, 62 of the imported file. */
 /* ColChild_DragIcon: candidate for 1048:14ca (645 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -33,7 +34,6 @@ extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
 extern void GetGlobalSpriteScale(int *num, int *den);
 extern void SetGlobalSpriteScale(int num, int den);
-extern void Sprite_GetHotSpot(void *s, int *x, int *y);
 
 extern void Sprite_SetHotSpot(Sprite *s, int x, int y);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of call_listbox_destroyed removed: the header declares it from the definition (W1 step 3). */
 /* listbox_subclass_proc: candidate for 1070:530e (237 bytes).  Verdict: RELOCATABLE.
  *
  * Subclass procedure for MS controls: the previous window procedure and the handler table
@@ -17,7 +18,6 @@
 typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void call_listbox_destroyed(void *listbox);
 long listbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam)
 {
     WNDPROC oldproc;

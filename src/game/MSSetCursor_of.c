@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetCursor removed: the header declares it from the definition (W1 step 3). */
 /* MSSetCursor_of: candidate for 1038:e219 (39 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSSetCursor(void *win, int cur, int now);
 
 void MSSetCursor_of(DialogWin *o, int cur, int now)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* DlgControl_ctor_1040_b0e8: candidate for 1040:b0e8 (143 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: DlgControl::DlgControl()
@@ -11,7 +12,6 @@
 
 #include "w16types.h"
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 #include "classes.h"
 DlgControl::DlgControl()

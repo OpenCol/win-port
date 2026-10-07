@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String_curfont, Sprite_GetHotSpot removed: the header declares them from the definition (W1 step 3). */
 /* Popup_draw: candidate for 1050:4829 (2018 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -91,11 +92,9 @@ typedef struct {
 
 extern int g_popup_tribe;                 /* DGROUP:0x2518, declared */
 
-extern void Sprite_GetHotSpot(void *s, int *x, int *y);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 extern void GRPort_String(GRPort *port, unsigned *hf, char *s, int x, int y, int size);
-extern void GRPort_String_curfont(void *port, char *s, int x, int y, int size);
 extern void SRadioSet_Show(SRadioSet *p);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

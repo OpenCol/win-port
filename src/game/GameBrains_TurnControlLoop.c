@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameBrains_DoViceroy removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_TurnControlLoop: candidate for 1008:3461 (285 bytes).  Verdict: RELOCATABLE.
  * symbol: GameBrains_TurnControlLoop
  * size-source: 285, not the census 273 -- the last 12 bytes are the switch's six-entry
@@ -30,7 +31,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void GameBrains_DoIndians(GameBrains *ctx);
-extern void GameBrains_DoViceroy(GameBrains *c, int n);
 extern void GameBrains_DoEndofTurn(GameBrains *c);
 extern void GameBrains_DoHuman(GameBrains *brains);
 

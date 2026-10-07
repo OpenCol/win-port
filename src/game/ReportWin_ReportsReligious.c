@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawIconRow removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_ReportsReligious: candidate for 1058:1bd8 (341 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_ReportsReligious
  *
@@ -22,7 +23,6 @@ extern void set_europe(int n);
 
 extern char *strings(int n);
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
-extern void DrawIconRow(GRPort *w, int kind, int a, int b, int x, int y, int width, int c, int d, int e);
 
 void ReportWin_ReportsReligious(ReportWin *o, int nation)
 {

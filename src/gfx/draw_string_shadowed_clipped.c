@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDrawString_rect removed: the header declares it from the definition (W1 step 3). */
 /* draw_string_shadowed_clipped: candidate for 1068:5a6f (193 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: draw_string_shadowed_clipped
@@ -32,8 +33,6 @@
 
 extern int MSGetTextHeight(unsigned hfont);
 
-extern void MSDrawString_rect(GrafRec *graf, unsigned hfont, const char *s, RECT *r,
-                             int flags);
 
 void draw_string_shadowed_clipped(GRPort *port, unsigned *hf, const char *s,
                                       RECT *clip, int align)

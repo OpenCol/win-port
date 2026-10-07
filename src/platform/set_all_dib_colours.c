@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_set_dib_colours removed: the header declares it from the definition (W1 step 3). */
 /* set_all_dib_colours: candidate for 1070:a9c0 (38 bytes).  Verdict: RELOCATABLE.
  * symbol: set_all_dib_colours
  *
@@ -16,7 +17,6 @@
 #include "records.h"
 extern int g_stub_a;
 
-extern void wing_set_dib_colours(void *graf, void *pal, int start, int count);
 
 void set_all_dib_colours(void *w, void *pal)
 {

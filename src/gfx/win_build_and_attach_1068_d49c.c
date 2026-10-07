@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ClearEventTable_1068_e157, build_movie_window_1060_a56b, get_win_1068_d72a, win_set_object removed: the header declares them from the definition (W1 step 3). */
 /* win_build_and_attach_1068_d49c: candidate for 1068:d49c (95 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: win_build_and_attach_1068_d49c
@@ -12,11 +13,7 @@
 #include "w16types.h"
 #include "records.h"
 #include "classes.h"
-extern void build_movie_window_1060_a56b(EventWin *o, char *title, int c, int d, int e, int f, int g);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void * get_win_1068_d72a(EventWin *o);
-extern void win_set_object(EventWin *o, void *win);
-extern "C" void ClearEventTable_1068_e157(void *table);
 void win_build_and_attach_1068_d49c(EventWin *o, char *title, int style, int x, int y, int w, int h)
 {
     build_movie_window_1060_a56b(o, title, style, x, y, w, h);

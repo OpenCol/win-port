@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* dialog_ok_cancel: candidate for 1068:cb6d (75 bytes).  Verdict: RELOCATABLE.
  *
  * The OK (0x65) / Cancel (0x66) handler of the dialog whose owner is kept at DGROUP:0x56b6:
@@ -9,7 +10,6 @@
 
 #include "classes.h"
 
-extern void EventWin_EndModal(void *win);
 
 void dialog_ok_cancel(int code)
 {

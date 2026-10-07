@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_validate_rect_1038_e582 removed: the header declares it from the definition (W1 step 3). */
 /* copy_rect_to_screen_1038_e38f: candidate for 1038:e38f (153 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: copy_rect_to_screen_1038_e38f
@@ -17,7 +18,6 @@
 #pragma option -a-
 class DlgControl;
 extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
-extern "C" void port_validate_rect_1038_e582(DialogWin *port, RECT *rect);
 
 void copy_rect_to_screen_1038_e38f(GameWin *w, RECT *r)
 {

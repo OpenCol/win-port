@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of write_in_color removed: the header declares it from the definition (W1 step 3). */
 /* indian_supply_and_demand: candidate for 1030:ac7a (2439 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 2439, the census figure. The gap to `tribe_heresy`'s neighbour is
@@ -59,7 +60,6 @@ extern char get_field(int col, int row);
 
 extern char *strings(int n);
 
-extern int write_in_color(char *s, int x, int y, int c);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

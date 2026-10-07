@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow, ctl_move, port_height_1048_d86c, port_width_1048_d853 removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_DrawAll: candidate for 1048:0d14 (443 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DrawAll
@@ -45,13 +46,9 @@
 
 extern void *GetEventWindow(void);
 extern void SetEventWindow(void *w);
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int port_width_1048_d853(ColChild *port);
-extern "C" int port_height_1048_d86c(ColChild *port);
 
-extern "C" void ctl_move(void *control, int x, int y);
 extern "C" void ColChild_DrawNonClient(ColChild *o);
 extern "C" void call_repaint_handler(ColChild *table);
 extern "C" int MSIsWindowMinimized_of_1048_d8ad(Screen *w);

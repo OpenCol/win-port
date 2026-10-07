@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of create_MSEditBoxClass_window, dlg_control_init_1060_aa64, win_send_settext removed: the header declares them from the definition (W1 step 3). */
 /* edit_box_init_1060_a9bc: candidate for 1060:a9bc (98 bytes).  Verdict: RELOCATABLE.
  * symbol: edit_box_init_1060_a9bc
  *
@@ -12,10 +13,7 @@
 #include "w16types.h"
 #include "classes.h"
 extern int g_stub_a;
-extern int create_MSEditBoxClass_window(RECT *r, void *edit, long l, int visible);
-extern void win_send_settext(int h, void *text);
 
-extern void dlg_control_init_1060_aa64(void *ctl, void *win, int kind, int id, RECT *r);
 
 void edit_box_init_1060_a9bc(SEditBox *edit, void *win, int id, RECT *r, void *text, int style)
 {

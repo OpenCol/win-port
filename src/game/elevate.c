@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of blob, blob2, island removed: the header declares them from the definition (W1 step 3). */
 /* elevate: candidate for 1020:031d (353 bytes).  Verdict: RELOCATABLE.
  * symbol: elevate
  * name-source: sibling-build
@@ -35,9 +36,6 @@ extern unsigned char buffer_get(short handle, int x, int y);
 extern int build_check(int flag);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void island(int x, int y);
-extern void blob2(int x, int y);
-extern void blob(int x, int y);
 
 void elevate(int pick_land)
 {

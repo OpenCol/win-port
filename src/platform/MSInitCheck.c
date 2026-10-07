@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
 /* MSInitCheck: candidate for 1070:2f63 (393 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MSInitCheck
@@ -19,9 +20,7 @@
 #include "records.h"
 
 extern "C" void *ctl_window_1070_96a8(void *ctl);
-extern "C" MSWin *get_win_1070_95f0(void *o);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void parse_hotkey_marker(void *rect, char *s);
 extern "C" CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj);
 
 extern "C" unsigned MSInitCheck(RECT *r, void *ctl, const char *text, int visible)

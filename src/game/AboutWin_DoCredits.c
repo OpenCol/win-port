@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 47 of the imported file. */
+/* PORT: this file's own declarations of MSHideWindow_of_1060_87fe, show_window_1060_87b1 removed: the header declares them from the definition (W1 step 3). */
 /* AboutWin_DoCredits: candidate for 1060:784f (160 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 160, the census, not the 189-byte gap. The 29 bytes between are padding and the
@@ -39,13 +41,11 @@ struct logpal { char pad[1]; };
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
 /* same object: 4-byte `push cs; call ` */
-extern void show_window_1060_87b1(AboutWin *w);
 
-extern void MSHideWindow_of_1060_87fe(void *o);
 
 void AboutWin_DoCredits(AboutWin *w)
 {
-    show_window_1060_87b1(w);
+    show_window_1060_87b1((GameWin *)(w));
     MSDoAllTasks_1060_86b6();
     w->start = w->last = MSGetTicks_1060_87d0();
     while (g_about_done == 0) {

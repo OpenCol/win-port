@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81, 87, 94, 111 of the imported file. */
+/* PORT: this file's own declarations of report_error_1068_9839, wing_dib_flip removed: the header declares them from the definition (W1 step 3). */
 /* load_gif_file: candidate for 1068:43ec (1208 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: load_gif_file
@@ -44,12 +46,10 @@ extern void error_code_set(int code);
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *p, CTable *pal);
 extern int MSGrafOrient(GrafRec *graf);
-extern void wing_dib_flip(void *win);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int file_MSOpenFile_1068_95d5(DiskFile *file, char *name);
 
-extern "C" void report_error_1068_9839(void *ctx, char *msg, char *name);
 
 extern "C" void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
@@ -79,20 +79,20 @@ int load_gif_file(GRPort *port, char *name, register int first, int count,
     save_read_field_1068_95fb(&f, tmp, MSFileSize_1068_9819(&f));
     tmp = (unsigned char *)MSHUnlock(h_);
     if (h_ == 0) {
-        report_error_1068_9839(&g_error_log, "Error: GIF resource not found - ", name);
+        report_error_1068_9839(&g_error_log, (void*)("Error: GIF resource not found - "), name);
         error_code_set(GRERR_NOT_FOUND);
         return 0;
     }
     data = (unsigned char *)MSHLock(h_);
     if (STRNCMP((char *)data, "GIF", 3) != 0) {
-        report_error_1068_9839(&g_error_log, "Error: Resource is not a GIF - ", name);
+        report_error_1068_9839(&g_error_log, (void*)("Error: Resource is not a GIF - "), name);
         MSHUnlock(h_);
         MSDisposeHandle(h_);
         error_code_set(GRERR_BAD_FORMAT);
         return 0;
     }
     if (!(data[0xa] & 0x80)) {
-        report_error_1068_9839(&g_error_log, "Error: GIF contains no global color map - ", name);
+        report_error_1068_9839(&g_error_log, (void*)("Error: GIF contains no global color map - "), name);
         MSHUnlock(h_);
         MSDisposeHandle(h_);
         error_code_set(GRERR_BAD_FORMAT);
@@ -109,7 +109,7 @@ int load_gif_file(GRPort *port, char *name, register int first, int count,
     while (*q == 0)
         q++;
     if (*q != 0x2c && *q != 0x21) {
-        report_error_1068_9839(&g_error_log, "Error: GIF Image Block not found - ", name);
+        report_error_1068_9839(&g_error_log, (void*)("Error: GIF Image Block not found - "), name);
         MSHUnlock(h_);
         MSDisposeHandle(h_);
         error_code_set(GRERR_BAD_FORMAT);

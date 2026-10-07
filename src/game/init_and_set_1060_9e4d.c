@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_Init, eventwin_set_menu removed: the header declares them from the definition (W1 step 3). */
 /* init_and_set_1060_9e4d: candidate for 1060:9e4d (73 bytes).  Verdict: RELOCATABLE.
  * symbol: init_and_set_1060_9e4d
  *
@@ -14,8 +15,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern void EventWin_Init(void *o, char *name, int style, int x, int y, int w, int h, void *pal);
-extern void eventwin_set_menu(void *o, void *p);
 
 void init_and_set_1060_9e4d(void *o, char *name, int style, int x, int y, int w, int h, void *pal, void *p)
 {

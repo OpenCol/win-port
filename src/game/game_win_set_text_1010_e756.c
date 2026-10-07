@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle_of_1010_edd2 removed: the header declares it from the definition (W1 step 3). */
 /* game_win_set_text_1010_e756: candidate for 1010:e756 (75 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: game_win_set_text_1010_e756
@@ -15,7 +16,6 @@ extern int g_stub_a;
 
 extern void ColChild_DrawTitleBar(ColChild *w);
 
-extern "C" void MSSetWinTitle_of_1010_edd2(void *d, char *s);
 
 void game_win_set_text_1010_e756(ColChild *o, char *s)
 {

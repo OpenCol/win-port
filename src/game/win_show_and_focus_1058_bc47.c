@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetFocus_of_1058_c508 removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1058_bc47: candidate for 1058:bc47 (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,7 +16,6 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSSetFocus_of_1058_c508(void *o);
 
 void win_show_and_focus_1058_bc47(DialogWin *o)
 {

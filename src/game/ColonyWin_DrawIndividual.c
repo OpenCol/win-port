@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PieceIconDraw, sprite_width_1010_e60f removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawIndividual: candidate for 1010:92c0 (405 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawIndividual
@@ -45,11 +46,9 @@ extern int job_count(int job);
 extern int ComputeIconRow(int pic, int n, int m, int *px, int y, int w1, int w2, int *pa, int *pb, int style);
 extern int get_job(int colonist);
 extern int get_icon(int colonist);
-extern void PieceIconDraw(void *dst, int icon, int x, int y, int flags);
 
 extern void GRPort_DrawRect(GRPort *w, RECT *r);
 
-extern "C" int sprite_width_1010_e60f(void *sprite);
 
 void ColonyWin_DrawIndividual(ColonyWin *w, int job, int x, int y, int slot)
 {

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 23, 25 of the imported file. */
+/* PORT: this file's own declarations of VList_Head_1060_68db, VList_Next_1060_68fb removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_CurrentEntry: candidate for 1060:2af7 (116 bytes, 8 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -13,17 +15,15 @@
 #include "classes.h"
 #include "records.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void *VList_Head_1060_68db(void *list);
-extern void *VList_Next_1060_68fb(void *list);
 PediaEntry * PediaWin_CurrentEntry(PediaWin *o)
 {
     PediaEntry *r = 0;
     int i;
 
     if (o->sel >= 0) {
-        r = (PediaEntry *)VList_Head_1060_68db(&o->list);
+        r = (PediaEntry *)VList_Head_1060_68db((VList *)(&o->list));
         for (i = 0; o->sel > i; i++)
-            r = (PediaEntry *)VList_Next_1060_68fb(&o->list);
+            r = (PediaEntry *)VList_Next_1060_68fb((VList *)(&o->list));
     }
     return r;
 }

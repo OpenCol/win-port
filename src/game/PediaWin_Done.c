@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_Done: candidate for 1060:2a47 (176 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_Done
@@ -53,7 +54,6 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;         /* SEG20:0x5ca */
 
 extern void GameWin_ResizePort(GameWin *w, void *rect);
-extern void EventWin_EndModal(void *port);
 
 /* same object: 4-byte `push cs; call ` */
 extern "C" void MSHideWindow_of_1060_691b(DialogWin *port);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ParseFancyTextAndShow removed: the header declares it from the definition (W1 step 3). */
 /* draw_wrapped_text: candidate for 1040:62b6 (42 bytes).  Verdict: RELOCATABLE.
  *
  * ParseFancyTextAndShow with a trailing 1.
@@ -9,7 +10,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void ParseFancyTextAndShow(void *port, void *r, char *text, int draw);
 
 void draw_wrapped_text(void *port, void *rect, char *text)
 {

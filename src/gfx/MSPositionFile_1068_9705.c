@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSPositionFile removed: the header declares it from the definition (W1 step 3). */
 /* MSPositionFile_1068_9705: candidate for 1068:9705 (36 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -11,7 +12,6 @@
 #include "colonization.h"
 
 #include "records.h"
-extern int MSPositionFile(void *file, long pos);
 
 int MSPositionFile_1068_9705(void *file, long pos)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_show_and_focus_1038_e279 removed: the header declares it from the definition (W1 step 3). */
 /* MapWin_LeftMouseClick: candidate for 1038:9371 (411 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_LeftMouseClick
@@ -65,7 +66,6 @@ extern void GameWin_Redraw(GameWin *rec);
 extern void GameBrains_MoveUnit(void *rec, int dir);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void win_show_and_focus_1038_e279(void *w);
 
 void MapWin_LeftMouseClick(int x, int y)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1048_e6d0 removed: the header declares it from the definition (W1 step 3). */
 /* port_release_capture: candidate for 1048:db1f (37 bytes).  Verdict: RELOCATABLE.
  * symbol: port_release_capture
  *
@@ -11,7 +12,6 @@
 
 #include "classes.h"
 
-extern void *get_win_1048_e6d0(void *w);
 
 void port_release_capture(Screen *w)
 {

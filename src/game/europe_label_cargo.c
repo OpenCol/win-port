@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, MSGetTextLength_1048_dc4e, set_on_keydown_1048_dceb removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
 /* europe_label_cargo: candidate for 1048:3d72 (725 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -49,9 +50,6 @@ extern void open_string(char *s);
 extern void close_string(char *s);
 extern void space_string(char *buf);
 
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *bits, Screen *parent);
 extern void GRPort_ColorSync(GRPort *port, CTable *page);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
@@ -63,8 +61,6 @@ extern int europe_ask_price(int g);
 extern void comma_string(char *buf);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void europe_remove_label(void);
-extern "C" int MSGetTextLength_1048_dc4e(void *font, const char *s);
-extern "C" void set_on_keydown_1048_dceb(EventTable *table, void *h);
 
 extern "C" void show_window_1048_dd42(void *o);
 

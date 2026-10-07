@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1048_e6d0, submenu_of_1048_e8c1 removed: the header declares them from the definition (W1 step 3). */
 /* track_popup_submenu: candidate for 1048:e1fd (59 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -22,8 +23,6 @@
 extern void MSTrackPopupMenu(unsigned hmenu, MSWin *win, int x, int y);
 
 /* same object: 4-byte `push cs; call ` */
-extern void *get_win_1048_e6d0(void *o);
-extern unsigned submenu_of_1048_e8c1(void *menu, int pos);
 
 void track_popup_submenu(Screen *w, MenuClass *menu, int x, int y)
 {

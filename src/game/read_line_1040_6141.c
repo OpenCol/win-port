@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of read_file_1040_a84d removed: the header declares it from the definition (W1 step 3). */
 /* read_line_1040_6141: candidate for 1040:6141 (204 bytes).  Verdict: RELOCATABLE.
  * symbol: read_line_1040_6141
  *
@@ -12,7 +13,6 @@
 #include "records.h"
 extern int g_stub_a;
 
-extern int read_file_1040_a84d(void *file, void *buf, long n);
 
 char read_line_1040_6141(char *dst, void *file)
 {

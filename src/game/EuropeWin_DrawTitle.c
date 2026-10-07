@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_set_caption_1048_d48b removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawTitle: candidate for 1048:8ded (435 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawTitle
@@ -41,7 +42,6 @@ extern void say_my_bucks(int nation, char *buf);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_europe(int n);
-extern "C" void win_set_caption_1048_d48b(EuropeWin *w, char *s);
 
 void EuropeWin_DrawTitle(EuropeWin *w)
 {

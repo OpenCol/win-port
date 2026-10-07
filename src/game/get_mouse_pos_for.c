@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetMousePos, get_win_1030_ed1f removed: the header declares them from the definition (W1 step 3). */
 /* get_mouse_pos_for: candidate for 1030:e668 (49 bytes, 3 callers).  Verdict: RELOCATABLE.
  *
  * MSGetMousePos against the window derived from a, into b and c. The outer call's second
@@ -8,9 +9,7 @@
 
 #include "records.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void *get_win_1030_ed1f(void *a);
 #include "classes.h"
-extern void MSGetMousePos(void *win, void *x, void *y);
 
 void get_mouse_pos_for(Screen *screen, int *x, int *y)
 {

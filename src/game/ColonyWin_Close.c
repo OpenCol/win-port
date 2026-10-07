@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_Done removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_Close: candidate for 1010:afa9 (91 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_Close
@@ -10,7 +11,6 @@
 #include "w16types.h"
 #include "classes.h"
 extern void *GetEventWindow(void);
-extern void ColonyWin_Done(void *o);
 
 int ColonyWin_Close(void)
 {

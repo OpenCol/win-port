@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_validate_rect_1010_edab removed: the header declares it from the definition (W1 step 3). */
 /* copy_rect_to_screen_1010_e6a4: candidate for 1010:e6a4 (153 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: copy_rect_to_screen_1010_e6a4
@@ -17,7 +18,6 @@
 #pragma option -a-
 class DlgControl;
 extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
-extern "C" void port_validate_rect_1010_edab(DialogWin *port, RECT *rect);
 
 void copy_rect_to_screen_1010_e6a4(GameWin *w, RECT *r)
 {

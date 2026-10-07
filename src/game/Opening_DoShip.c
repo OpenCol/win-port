@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_GetHotSpot removed: the header declares it from the definition (W1 step 3). */
 /* Opening_DoShip: candidate for 1010:05ca (1828 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Opening_DoShip
@@ -27,7 +28,6 @@ class DlgControl;
 #define FRAME058C(o) (&(o)->ship_state1[(o)->frame])
 #define FRAME096C(o) (&(o)->ship_state2[(o)->frame])
 
-extern void Sprite_GetHotSpot(void *s, int *x, int *y);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void sound_play(int n);

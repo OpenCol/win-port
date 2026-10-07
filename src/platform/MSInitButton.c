@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctable_hpal, get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
 /* MSInitButton: candidate for 1070:0f45 (3663 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MSInitButton
@@ -83,11 +84,8 @@ class DlgControl;
 #include "records.h"
 
 extern "C" void *ctl_window_1070_96a8(void *ctl);
-extern "C" MSWin *get_win_1070_95f0(void *o);
-extern "C" void parse_hotkey_marker(void *it, char *s);
 extern "C" void report_error_1070_969a(void *ctx, char *msg);
 extern "C" void *get_ctable_1070_97b7(void *o);
-extern "C" unsigned ctable_hpal(void *table);
 
 extern "C" void palette_get_entry_rgb(void *pal, int i, unsigned char *r, unsigned char *g, unsigned char *b);
 extern "C" int font_handle_1070_9806(void *ref);

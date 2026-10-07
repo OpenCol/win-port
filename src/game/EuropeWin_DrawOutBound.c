@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawOutBound: candidate for 1048:978c (383 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawOutBound
@@ -49,7 +50,6 @@ extern void EuropeWin_DrawTransitUnit(EuropeWin *w, int u, int x, int count3, in
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_europe(int n);
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 void EuropeWin_DrawOutBound(EuropeWin *w, int refresh)
 {

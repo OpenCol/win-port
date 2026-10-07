@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MainWin_ResetWindows removed: the header declares it from the definition (W1 step 3). */
 /* begin_game: candidate for 1008:ca99 (358 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -42,7 +43,6 @@ extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
 extern int customize(void);
 extern void ShowHallOfFame(void);
-extern void MainWin_ResetWindows(void *rec);
 
 /* same object: 4-byte `push cs; call ` */
 extern void say_version(void);

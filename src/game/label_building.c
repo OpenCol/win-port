@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, MSGetTextLength_1010_e2d2, set_on_keydown_1010_e36f, show_window_1010_e404 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 104 of the imported file. */
 /* label_building: candidate for 1010:374e (668 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -47,9 +48,6 @@ extern GameWin *g_colony_popup;         /* DGROUP:0x9ec */
 extern int has_building(int bit);
 extern void space_string(char *buf);
 
-extern void GameWin_Init(GameWin *o, char *name, int style,
-                                                 int x, int y, int w, int h,
-                                                 CTable *bits, Screen *parent);
 extern void GRPort_ColorSync(GRPort *port, CTable *page);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
@@ -57,10 +55,7 @@ extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, i
 extern void LabelKeyClick(int key);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void label_remove_label(void);
-extern "C" int MSGetTextLength_1010_e2d2(void *font, const char *s);
-extern "C" void set_on_keydown_1010_e36f(void *table, void *h);
 
-extern "C" void show_window_1010_e404(void *o);
 
 extern "C" void label_building(register int building, int bx0, int by0, register int kind)
 {

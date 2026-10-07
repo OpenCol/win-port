@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_another_colony, cargo_to_europe, fill_docks removed: the header declares them from the definition (W1 step 3). */
 /* foreign_country: candidate for 1028:3555 (5942 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: foreign_country
@@ -127,7 +128,6 @@ extern int next_unit(int u);
 
 extern int stack_check(int u, int kind);
 extern int unit_from_docks(int spec);
-extern int fill_docks(int from_pool);
 extern int job_of_unit(int u);
 extern int any_spec(int job);
 extern int europe_ask_price(int g);
@@ -138,7 +138,6 @@ extern int europe_bid_price(int g);
 extern int get_cargo(int u, int slot);
 extern int get_cargo_amount(int u, int slot);
 extern int unload_cargo(int u, int slot);
-extern int cargo_to_europe(int u, int slot, int n);
 extern void add_gold(int nation, long amount);
 extern void set_course_for_new_world(int u);
 extern int cargo_from_europe(int u, int g, int want);
@@ -146,7 +145,6 @@ extern int cargo_from_europe(int u, int g, int want);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern int build_another_colony(int n);
 extern int try_to_purchase(int kind, int cost);
 
 void foreign_country(int nation)

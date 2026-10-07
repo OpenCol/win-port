@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* buy_this: candidate for 1028:a19d (179 bytes, ? callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,7 +17,6 @@
 #include "records.h"
 
 /* 52 bytes at SEG20:0x7840; +1 is CONTROL: 0 human, 1 computer, 2 defeated */
-extern int village_bribe(int kind, int nation, int x, int y);
 extern long check_gold(int nation);
 extern void subtract_gold(int nation, long amount);
 extern void feature_set(int x, int y, int mask, int on);

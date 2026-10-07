@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDrawText removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_Text: candidate for 1068:5b90 (54 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_Text
@@ -19,8 +20,6 @@
 #include "classes.h"
 #include "records.h"
 
-extern void MSDrawText(GrafRec *graf, unsigned hfont, const char *s, RECT *r,
-                           int flags);
 
 void GRPort_Text(GRPort *p, unsigned *hf, const char *s,
                              RECT *r, int flags)

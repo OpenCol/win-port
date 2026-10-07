@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GenerateUnit removed: the header declares it from the definition (W1 step 3). */
 /* GenerateUnitsRegion: candidate for 1040:0f93 (327 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -18,7 +19,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void ConformToView(int *l, int *top, int *r, int *bottom);
 extern unsigned char site_get(int x, int y);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void GenerateUnit(int u);
 void GenerateUnitsRegion(int x0, int y0, int w, int h)
 {
     int i;

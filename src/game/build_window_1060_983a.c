@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1060_ab6e, subclass_control_1070_8f26 removed: the header declares them from the definition (W1 step 3). */
 /* build_window_1060_983a: candidate for 1060:983a (84 bytes).  Verdict: RELOCATABLE.
  * symbol: build_window_1060_983a
  *
@@ -19,9 +20,7 @@
 #include "classes.h"
 extern char g_stub_s[];
 extern void EventWin_Init(char *o, char *name, int style, int x, int y, int w, int h, CTable *pal);
-extern void subclass_control_1070_8f26(void *control, void *win);
 
-extern void *get_win_1060_ab6e(void *o);
 
 void build_window_1060_983a(void *o, char *name, int style, int x, int y, int w, int h, void *pal)
 {

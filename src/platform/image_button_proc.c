@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1070_960d, call_image_button_click, call_image_button_rclick, ctable_hpal, port_height_1070_98bc, port_width_1070_98a3 removed: the header declares them from the definition (W1 step 3). */
 /* image_button_proc: candidate for 1070:2782 (1579 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 1579, not the census 1117. The census stops before the last arms; the five-entry jump
@@ -44,14 +45,8 @@ extern void SetEventWindow(void *w);
 extern void *ctl_rect(char *ctl);
 extern void *ctl_window_1070_96a8(char *ctl);
 extern void *get_ctable_1070_97b7(void *c);
-extern unsigned ctable_hpal(void *table);
 extern int ctl_id_1070_96c5(char *ctl);
-extern int port_width_1070_98a3(void *port);
-extern int port_height_1070_98bc(void *port);
-extern GrafRec *GRPort_GetWin_1070_960d(void *p);
 extern char get_keyboard_nav(void *o);
-extern void call_image_button_click(char *ctl, int id);
-extern void call_image_button_rclick(char *ctl, int id);
 
 long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
 {

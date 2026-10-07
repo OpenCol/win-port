@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_DrawCursor removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_CursorUpdate: candidate for 1008:3038 (269 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -25,7 +26,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern int on_screen(int x, int y);
 extern void GenerateActiveUnit(int flag);
 extern void GenerateUnitsRegion(int x, int y, int w, int h);
-extern void MapWin_DrawCursor(void *w, int x, int y);
 
 void GameBrains_CursorUpdate(GameBrains *unused1)
 {

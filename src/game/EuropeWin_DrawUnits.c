@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EuropeWin_DrawLandUnit, copy_rect_to_screen removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_DrawUnits: candidate for 1048:9df1 (298 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_DrawUnits
@@ -45,8 +46,6 @@ extern int next_unit(int u);
 /* same object: 4-byte `push cs; call ` */
 extern "C" void set_europe(int n);
 extern "C" void EuropeWin_UpdateEurope(EuropeWin *o, int x, int y, int w, int h);
-extern "C" void EuropeWin_DrawLandUnit(EuropeWin *o, int u, int x, int *n, int h);
-extern "C" void copy_rect_to_screen(EuropeWin *win, RECT *r);
 
 void EuropeWin_DrawUnits(EuropeWin *o, int blit)
 {

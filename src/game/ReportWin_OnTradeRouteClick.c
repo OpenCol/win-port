@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetPopupParent, route_box_parse removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81 of the imported file. */
 /* ReportWin_OnTradeRouteClick: candidate for 1058:8868 (386 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -41,9 +42,7 @@ extern void *GetEventWindow(void);
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;         /* SEG20:0x5ca */
 
-extern void SetPopupParent(void *parent);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void route_box_parse(int x, int y);
 extern void GameWin_Redraw(GameWin *o);
 /* Two same-module helpers are defined here because the shipped calls to them are the
  * compiler's own `push cs / call ` (4 bytes): only a callee defined in the translation

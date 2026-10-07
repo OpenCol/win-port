@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_966f, get_win_1068_96e8 removed: the header declares them from the definition (W1 step 3). */
 /* CopyToScreen: candidate for 1068:54a3 (235 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CopyToScreen
@@ -19,12 +20,10 @@ extern "C" char GRPort_IsLocked(GRPort *p);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void MSLockGraf(GRPort *port);
 extern "C" void MSUnlockGraf(GRPort *port);
-extern "C" void *get_ctable_1068_966f(void *r);
 
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
-extern "C" void *get_win_1068_96e8(void *r);
 #include "records.h"
 extern void wing_blit(GrafRec *src, int sx, int sy, int w, int h, MSWin *dst, int dx, int dy);
 

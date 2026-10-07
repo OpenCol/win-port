@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_unit_region removed: the header declares it from the definition (W1 step 3). */
 /* collect_stats: candidate for 1030:1cf3 (2622 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -79,7 +80,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern void set_colony(int colony);
 extern void set_village(int s);
-extern int get_unit_region(int u);
 extern int top_unit_in_square(int x, int y);
 extern int next_unit(int u);
 

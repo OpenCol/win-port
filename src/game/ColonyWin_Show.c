@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetPopupParent, delete_colony, show_window_1010_e404, win_release_1010_eb42 removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_Show: candidate for 1010:abc8 (562 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_Show
@@ -62,7 +63,6 @@ extern MainWin g_main_win;             /* SEG20:0x5ca */
 
 extern StatWin g_stat_win;           /* SEG20:0x1566 */
 
-extern void SetPopupParent(void *parent);
 extern void ColChild_DrawNonClient(ColChild *w);
 extern void set_colony(int colony);
 extern void colony_indian_table(void);
@@ -73,7 +73,6 @@ extern void ColChild_Center(ColChild *w);
 
 extern void EventWin_Modal(EventWin *w);
 
-extern void delete_colony(int c);
 extern void GameWin_Redraw(GameWin *rec);
 extern void ColonyWin_TimerProc(void);
 
@@ -81,11 +80,9 @@ extern void ColonyWin_TimerProc(void);
 extern "C" void win_disable_1010_e459(void *w);
 extern "C" void ColonyWin_Init(ColonyWin *w);
 
-extern "C" void show_window_1010_e404(ColonyWin *w);
 
 extern "C" void ColonyWin_DoBuildingFizzle(ColonyWin *w);
 extern "C" void label_remove_label(void);
-extern "C" void win_release_1010_eb42(ColonyWin *w);
 
 void ColonyWin_Show(ColonyWin *w, register int colony)
 {

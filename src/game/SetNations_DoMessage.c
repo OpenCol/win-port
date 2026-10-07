@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1030_e699 removed: the header declares it from the definition (W1 step 3). */
 /* SetNations_DoMessage: candidate for 1030:063b (490 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetNations_DoMessage
@@ -26,7 +27,6 @@ extern int Screen_LButtonPressed(Screen *w, char own, char remove, char wait);
 /* same object: 4-byte `push cs; call ` */
 
 extern "C" int SetNations_TrackMouse(SetNations *s, int x, int y);
-extern "C" void copy_rect_to_screen_1030_e699(SetNations *s, RECT *r);
 extern "C" void SetNations_DrawIt(SetNations *s);
 
 void SetNations_DoMessage(SetNations *s, register int n)

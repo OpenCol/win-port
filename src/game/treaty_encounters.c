@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of negotiate_tribe removed: the header declares it from the definition (W1 step 3). */
 /* treaty_encounters: candidate for 1030:7609 (2086 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 2086, the census figure; the gap to 1030:7e2f is exactly 2086, so there is no dead
@@ -69,7 +70,6 @@ extern int treaty_on(int nation, int other, int mask);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern int blockade_speed(int u);
-extern int negotiate_tribe(int a, int b, int u, int dir);
 extern int negotiate_europe(int nation, int their_nation, int u, int dir, int flag);
 
 void treaty_encounters(int unit, int x, int y)

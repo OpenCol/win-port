@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSOpenResFile removed: the header declares it from the definition (W1 step 3). */
 /* ResourceFile_ctor_1060_8409: candidate for 1060:8409 (73 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ResourceFile::ResourceFile(char*)
@@ -8,7 +9,6 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern "C" short MSOpenResFile(char *name);
 
 ResourceFile::ResourceFile(char *name)
 {

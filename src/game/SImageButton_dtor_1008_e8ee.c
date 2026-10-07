@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* SImageButton_dtor_1008_e8ee: candidate for 1008:e8ee (132 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SImageButton::~SImageButton()
@@ -11,7 +12,6 @@
 
 #include "w16types.h"
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 #include "classes.h"
 

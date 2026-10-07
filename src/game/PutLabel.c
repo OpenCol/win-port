@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1038_8713, font_height_1038_8739 removed: the header declares them from the definition (W1 step 3). */
 /* PutLabel: candidate for 1038:3e9d (255 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: PutLabel
@@ -20,8 +21,6 @@ extern void GRPort_FillColor(GRPort *p, RECT *r, int color);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int align);
 
-extern int MSGetTextLength_1038_8713(void *font, char *s);
-extern int font_height_1038_8739(void *font);
 
 void PutLabel(GRPort *port, Font *font, int n, int x, int y, int color, int fill)
 {

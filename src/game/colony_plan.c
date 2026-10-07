@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of build_another_colony, build_me_a removed: the header declares them from the definition (W1 step 3). */
 /* colony_plan: candidate for 1018:04e0 (13365 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: colony_plan
@@ -166,7 +167,6 @@ extern int make_fake_unit(int icon, int x, int y, int owner, int strength);
 extern void blow_fake_unit(void);
 extern void perform_orders_clear(int u);
 extern void perform_orders_road(int u);
-extern int build_another_colony(int n);
 extern void raise_taxes(char *key, int delta);
 
 extern void set_colony(int colony);
@@ -201,7 +201,6 @@ extern int cargo_free(int g);
 extern "C" int try_connect(void);
 extern "C" void ask_for_cargo(int g, int flag);
 extern "C" int try_to_build(int item);
-extern "C" int build_me_a(int b);
 extern "C" int needs_a_building(int idx);
 
 extern "C" void colony_plan(int colony)

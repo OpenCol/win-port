@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1058_c6e8 removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1058_c4df: candidate for 1058:c4df (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,7 +16,6 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSShowWindow_of_1058_c6e8(void *o);
 
 void win_show_and_focus_1058_c4df(DialogWin *o)
 {

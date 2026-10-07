@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0, load_picture_reinit, port_height_1070_98bc, port_width_1070_98a3 removed: the header declares them from the definition (W1 step 3). */
 /* MSInitImageButton: candidate for 1070:2364 (804 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MSInitImageButton
@@ -41,7 +42,6 @@ class DlgControl;
 
 struct logpal { unsigned short version; unsigned short count; PALETTEENTRY entries[1]; };
 extern int GRPort_LoadPicture(GRPort *port, int res, int w, int h, struct logpal *pal);
-extern void load_picture_reinit(void *port, int res, int first, int count, void *pal);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
    /* 0x41e bytes: the palette, its handle and the cycling state */
@@ -49,13 +49,9 @@ extern void GRPort_ColorSync(GRPort *port, CTable *table);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int port_width_1070_98a3(void *port);
-extern "C" int port_height_1070_98bc(void *port);
 extern "C" void *ctl_window_1070_96a8(void *ctl);
 extern "C" void *get_ctable_1070_97b7(void *c);
 
-extern "C" void *get_win_1070_95f0(void *c);
-extern "C" void *InitCtrlBlock(unsigned hwnd, void *obj);
 
 unsigned MSInitImageButton(register int x, register int y, SImageButton *obj, int res_down,
                                int res_up, int pal_first, int pal_count, int visible)

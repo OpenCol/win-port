@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
+/* PORT: this file's own declarations of win_show removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1008_dbda: candidate for 1008:dbda (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,10 +17,9 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void win_show(void *o);
 
 void win_show_and_focus_1008_dbda(DialogWin *o)
 {
-    win_show(o);
+    win_show((Screen *)(o));
     DialogWin_SetDefaultControlFocus(o);
 }

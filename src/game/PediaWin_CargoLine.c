@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of write_in_color removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_CargoLine: candidate for 1060:358a (535 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -37,7 +38,6 @@ extern void close_string(char *s);
 
 extern void GRPort_String(GRPort *port, unsigned *font, const char *s,
                                      int x, int y, int align);
-extern int write_in_color(char *s, int x, int y, int c);
 
 void PediaWin_CargoLine(PediaWin *w, int goods, int spec, int y)
 {

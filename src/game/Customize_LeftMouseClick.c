@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Customize_DoMessage removed: the header declares it from the definition (W1 step 3). */
 /* Customize_LeftMouseClick: candidate for 1030:1241 (96 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Customize_LeftMouseClick
@@ -16,7 +17,6 @@
 #include "classes.h"
 extern void *GetEventWindow(void);
 extern int Customize_TrackMouse(Customize *w, int x, int y);
-extern void Customize_DoMessage(Customize *w, int panel);
 void Customize_LeftMouseClick(int x, int y)
 {
     Customize *c;

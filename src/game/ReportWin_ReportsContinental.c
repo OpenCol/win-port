@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawIconRow, sprite_height_1058_c24c removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsContinental: candidate for 1058:7056 (2900 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ReportsContinental
@@ -90,8 +91,6 @@ extern void close_string(char *s);
 extern int freedom_level(int nation);
 
 extern int has_father(int nation, int bit);
-extern void DrawIconRow(GRPort *w, int a, int b, int c, int x, int y,
-                                        int cx, int d, int e, int f);
 extern void DrawMultiIconRow(GRPort *w, int x, int y, int cx, int gap);
 extern void ResetMultiIcon(void);
 extern void AddMultiIcon(int kind, int count, int part);
@@ -101,7 +100,6 @@ extern void ShowFloor(void);
 
 extern "C" int font_height_1058_be4f(void *font);
 
-extern "C" int sprite_height_1058_c24c(void *sprite);
 
 extern "C" void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);
 extern "C" void set_button_action_1058_c17f(SButton *button, void *h);

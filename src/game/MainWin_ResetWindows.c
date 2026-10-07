@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MiniWin_ChangeScale removed: the header declares it from the definition (W1 step 3). */
 /* MainWin_ResetWindows: candidate for 1048:a896 (195 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MainWin_ResetWindows
@@ -49,7 +50,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
    /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 extern void GameWin_Redraw(GameWin *w);
-extern void MiniWin_ChangeScale(void *w, int scale);
 extern void PediaWin_Done(PediaWin *w);
 
 /* same object: 4-byte `push cs; call ` */

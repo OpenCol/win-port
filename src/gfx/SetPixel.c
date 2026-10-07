@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of rect_contains removed: the header declares it from the definition (W1 step 3). */
 /* SetPixel: candidate for 1068:56eb (118 bytes).  Verdict: RELOCATABLE.
  *
  * Writes the colour byte at (x, y) of the port through GRPort_PixelMap; outside the clip
@@ -8,7 +9,6 @@
 #include "colonization.h"
 
 #include "w16types.h"
-extern char rect_contains(void *port, int x, int y);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void report_error_1068_98bc(void *ctx, char *msg, int x, int y);
 

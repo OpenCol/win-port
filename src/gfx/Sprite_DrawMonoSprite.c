@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_GetWin_1068_968c removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_DrawMonoSprite: candidate for 1068:87ad (712 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Sprite_DrawMonoSprite
@@ -38,7 +39,6 @@ extern "C" void *port_surface_1068_989f(GRPort *port);
 extern "C" void report_error_1068_963d(void *ctx, char *msg);
 extern "C" int port_height_1068_9886(GRPort *p);
 extern "C" int port_stride_1068_986d(GRPort *p);
-extern "C" MSWin *GRPort_GetWin_1068_968c(GRPort *p);
 
 RECT *Sprite_DrawMonoSprite(RECT *out, Sprite *sprite, GRPort *port,
                                        int colour, int px, int py, unsigned char mode)

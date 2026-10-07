@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle, MSSetWinTitle_of_1058_c555, ReportWin_LeftMouseClick removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReallyDrawReport: candidate for 1058:0738 (986 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ReallyDrawReport
@@ -40,9 +41,7 @@ extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *p
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
-extern void MSSetWinTitle(MSWin *win, char *s);
 extern void ColChild_DrawTitleBar(ColChild *w);
-extern void ReportWin_LeftMouseClick(void);
 extern void ReportWin_ReportsIndian(ReportWin *o, int nation);
 extern void ReportWin_ReportsReligious(ReportWin *o, int nation);
 extern void ReportWin_ReportsContinental(ReportWin *o, int nation);
@@ -64,7 +63,6 @@ extern "C" void *set_on_lclick_1058_bdb7(EventTable *table, void *h);
 
 extern "C" void *set_on_rclick_1058_bdf0(EventTable *table, void *h);
 
-extern "C" void MSSetWinTitle_of_1058_c555(DialogWin *w, char *s);
 
 extern "C" void set_window_caption(ColChild *w, char *s);
 

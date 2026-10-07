@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1068_d72a, wing_curtain_open_v removed: the header declares them from the definition (W1 step 3). */
 /* port_curtain_open_v: candidate for 1068:b55f (84 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_curtain_open_v
@@ -25,10 +26,8 @@
 #include "w16types.h"
 #include "records.h"
 #include "classes.h"
-extern void wing_curtain_open_v(GrafRec *old_graf, GrafRec *new_graf, void *win, RECT *r, int step);
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void *get_win_1068_d72a(DialogWin *o);
 extern "C" GrafRec *GRPort_GetWin_1068_d91d(GRPort *p);
 
 void port_curtain_open_v(MagicWin *s, int step, RECT *r)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_blit_or_copy removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 55 of the imported file. */
 /* port_paint_wndproc: candidate for 1070:bb97 (224 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -31,7 +32,6 @@
 typedef struct { char pad[1]; } MagicWin;
 #include "records.h"
 
-extern void port_blit_or_copy(Port *p, RECT *r);
 
 /* same object: 4-byte `push cs; call ` */
 

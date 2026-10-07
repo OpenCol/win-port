@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_set_cursor_1038_e30a, win_show_and_focus_1038_e279 removed: the header declares them from the definition (W1 step 3). */
 /* MapWin_LeftMouseDown: candidate for 1038:963d (426 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_LeftMouseDown
@@ -28,11 +29,9 @@ extern void *GetEventWindow(void);
 extern GameState g_game;   /* SEG20:0x7782 */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_show_and_focus_1038_e279(void *w);
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 
 extern int Screen_LButtonDownNow(void *w);
-extern "C" void win_set_cursor_1038_e30a(void *w, void *text);
 
 void MapWin_LeftMouseDown(int x, int y)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of SetDifficulty_DoMessage removed: the header declares it from the definition (W1 step 3). */
 /* SetDifficulty_LeftMouseClick: candidate for 1030:091b (96 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetDifficulty_LeftMouseClick
@@ -16,7 +17,6 @@
 #include "classes.h"
 extern void *GetEventWindow(void);
 extern int SetDifficulty_TrackMouse(SetDifficulty *w, int x, int y);
-extern void SetDifficulty_DoMessage(SetDifficulty *w, int panel);
 void SetDifficulty_LeftMouseClick(int x, int y)
 {
     SetDifficulty *c;

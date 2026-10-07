@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl, EventWin_EndModal removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_Done: candidate for 1058:057e (338 bytes, 9 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -19,7 +20,6 @@
 
 #include "colonization.h"
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 #include "w16types.h"
 #include "classes.h"
@@ -30,7 +30,6 @@ class SButton;
  * Declared alone, the `delete` compiles to a five-byte call and the comparator has to
  * collapse it and forgive three jump displacements as one out. */
 
-extern void EventWin_EndModal(void *port);
 /* same object: 4-byte `push cs; call ` */
 extern "C" void win_release_1058_bca9(GameWin *w);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_ctable_1068_d762 removed: the header declares it from the definition (W1 step 3). */
 /* port_copy_both: candidate for 1068:a9b3 (148 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: port_copy_both
@@ -34,7 +35,6 @@
 
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *get_ctable_1068_d762(void *r);
    /* 0x41e bytes: the palette, its handle and the cycling state */
 extern "C" void GRPort_ColorSync(GRPort *port, CTable *page);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);

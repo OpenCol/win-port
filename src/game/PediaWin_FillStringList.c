@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 101 of the imported file. */
+/* PORT: this file's own declarations of VList_Count removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_FillStringList: candidate for 1060:251a (654 bytes).  Verdict: RELOCATABLE.
  * symbol: PediaWin_FillStringList
  * name-source: sibling-build
@@ -36,7 +38,6 @@
 #include "records.h"
 #include "classes.h"
 
-extern int VList_Count(void *list);
 
 /* 5-byte NOP form, so extern (rule 47) */
 extern void PediaWin_EmptyStringList(PediaWin *w);
@@ -98,7 +99,7 @@ void PediaWin_FillStringList(PediaWin *w)
     default:
         break;
     }
-    w->count = VList_Count(&w->list);
+    w->count = VList_Count((VList *)(&w->list));
     PediaWin_SortEntries(w);
     if (w->wanted != -1) {
         for (i = 0; PediaWin_Entry(w, i) != 0 && PediaWin_Entry(w, i)->index != w->wanted; i++)

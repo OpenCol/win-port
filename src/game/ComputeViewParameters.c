@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_ComputeViewParameters removed: the header declares it from the definition (W1 step 3). */
 /* ComputeViewParameters: candidate for 1040:0597 (28 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -18,7 +19,6 @@
 
 #include "classes.h"
 
-extern void MapWin_ComputeViewParameters(void *mw);
 
 void ComputeViewParameters(void)
 {

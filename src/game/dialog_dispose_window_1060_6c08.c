@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDisposeWindow removed: the header declares it from the definition (W1 step 3). */
 /* dialog_dispose_window_1060_6c08: candidate for 1060:6c08 (44 bytes).  Verdict: RELOCATABLE.
  *
  * Replaces the dialog's window pointer (+6) with what MSDisposeWindow
@@ -11,7 +12,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void *MSDisposeWindow(void *win);
 
 void dialog_dispose_window_1060_6c08(DialogWin *dialog)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1068_d72a, subclass_control_1070_bb63 removed: the header declares them from the definition (W1 step 3). */
 /* MagicWin_InitWithMenu: candidate for 1068:a7fa (150 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MagicWin_InitWithMenu
@@ -34,8 +35,6 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *get_win_1068_d72a(void *o);
-extern "C" void subclass_control_1070_bb63(MagicWin *obj, void *hwnd);
 
 extern "C" void MagicWin_InitWithMenu(MagicWin *o, char *name, int style, int x, int y,
                              register int w, register int h, void *pal, void *parent)

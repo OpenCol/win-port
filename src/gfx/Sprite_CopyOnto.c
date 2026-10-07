@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_CopySprite removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_CopyOnto: candidate for 1068:7a50 (48 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -22,8 +23,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void Sprite_CopySprite(void *unused, Sprite *sprite, Sprite *dest, int unused2,
-                             int dx, int dy);
 
 void Sprite_CopyOnto(Sprite *s, Sprite *dest, int dx, int dy)
 {

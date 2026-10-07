@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSResetTimer removed: the header declares it from the definition (W1 step 3). */
 /* MrTimer_Reset: candidate for 1068:9190 (56 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MrTimer_Reset
@@ -17,7 +18,6 @@
 #include "colonization.h"
 
 #include "classes.h"
-extern void MSResetTimer(short hwnd, int id);
 
 void MrTimer_Reset(MrTimer *timer, register int slot)
 {

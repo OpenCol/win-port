@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_dib_flip removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_LoadPicture: candidate for 1068:4c05 (437 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -36,7 +37,6 @@ extern void CTable_UpdatePal(CTable *pal, int start, int count);
 
 extern void GRPort_ColorSync(GRPort *p, CTable *pal);
 extern int MSGrafOrient(GrafRec *graf);
-extern void wing_dib_flip(void *win);
 
 extern "C" void *MSGetResource_1068_94c7(void *type, int id);
 

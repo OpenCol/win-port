@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_InitCWin_style, MSSetCursor_of, set_command_handler_1038_e1ba, set_keyboard_nav_1038_e047, set_max_track_size_1038_e1f7, set_min_track_size_1038_e1d5, set_on_keydown_1038_e240, set_on_lbutton_down_1038_e060, set_on_lbutton_up_1038_e099, set_on_mousemove_1038_e126, set_on_rbutton_down_1038_e0d2, set_on_restore, set_repaint_handler_1038_e10b, win_set_icon_1038_e196 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 43, 44, 45, 46, 47, 48, 50, 54 of the imported file. */
 /* MapWin_Init: candidate for 1038:91f3 (382 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -14,20 +15,6 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void set_keyboard_nav_1038_e047(void *port, int keyboard_nav);
-extern void ColChild_InitCWin_style(void *o, char *title, int which, int x, int y, int cx, int cy, int style, int save);
-extern "C" void set_on_lbutton_down_1038_e060(void *h, void *fn);
-extern "C" void set_on_lbutton_up_1038_e099(void *h, void *fn);
-extern "C" void set_on_rbutton_down_1038_e0d2(void *h, void *fn);
-extern "C" void set_repaint_handler_1038_e10b(MapWin *w, void *fn);
-extern "C" void set_on_mousemove_1038_e126(void *h, void *fn);
-extern "C" void set_on_restore(void *h, void *fn);
-extern "C" void win_set_icon_1038_e196(void *port, int icon);
-extern "C" void set_command_handler_1038_e1ba(void *port, void *fn);
-extern "C" void set_min_track_size_1038_e1d5(void *port, int min_track_w, int min_track_h);
-extern "C" void set_max_track_size_1038_e1f7(void *port, int max_track_w, int max_track_h);
-extern "C" void MSSetCursor_of(void *port, int cur, int now);
-extern "C" void set_on_keydown_1038_e240(void *h, void *fn);
 
 extern void MapWin_RedrawMap(void);
 extern void MapWin_TrackMouse(int x, int y);

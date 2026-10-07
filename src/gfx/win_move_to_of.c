@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_move_to_1078_1ff8 removed: the header declares it from the definition (W1 step 3). */
 /* win_move_to_of: candidate for 1068:df2a (39 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void win_move_to_1078_1ff8(void *win, int x, int y);
 
 void win_move_to_of(DialogWin *o, int x, int y)
 {

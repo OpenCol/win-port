@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow, MSIsWindowMaximized, MSIsWindowMinimized removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_OnSize: candidate for 1048:0a3b (333 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_OnSize
@@ -41,12 +42,9 @@
 
 
 extern void *GetEventWindow(void);
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
 
 extern void MSSetFocus_of_1048_e0cd(Screen *w);
 extern void DialogWin_SetDefaultControlFocus(DialogWin *w);
-extern int MSIsWindowMinimized(void *win);
-extern int MSIsWindowMaximized(void *win);
 extern void MSGetSizeParent(MSWin *win, RECT *r);
 
 /* 5-byte NOP form, so extern (rule 47) */

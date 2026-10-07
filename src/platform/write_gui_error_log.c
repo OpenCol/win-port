@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of game_font_set_1070_dcc1 removed: the header declares it from the definition (W1 step 3). */
 /* write_gui_error_log: candidate for 1070:afce (299 bytes).  Verdict: RELOCATABLE.
  *
  * Sets the log font, then hands the GUI library's error log (the file "SMEDS.LOG" first, then its
@@ -11,7 +12,6 @@
 
 #include "classes.h"
 
-extern void game_font_set_1070_dcc1(void *ctx, int kind, int height);
 extern void report_error_1070_dd0f(void *ctx, char *file, char *title);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void report_error_1070_dc82(void *ctx, char *msg);

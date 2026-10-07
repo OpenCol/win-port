@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of submenu_of_1060_a938 removed: the header declares it from the definition (W1 step 3). */
 /* submenu_append_item: candidate for 1060:8f99 (62 bytes).  Verdict: RELOCATABLE.
  * symbol: submenu_append_item
  *
@@ -14,7 +15,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern int submenu_of_1060_a938(void *menu, int pos);
 
 void submenu_append_item(void *w, int index, int position, char *text, unsigned id)
 {

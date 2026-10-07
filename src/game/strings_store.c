@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of heap_get removed: the header declares it from the definition (W1 step 3). */
 /* strings_store: candidate for 1040:76f0 (94 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: strings_store
@@ -16,7 +17,6 @@
 
 extern char g_stub_s[];
 
-extern void *heap_get(void *pool, int n);
 
 int strings_store(char *s)
 {

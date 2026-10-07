@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSTagAnimate removed: the header declares it from the definition (W1 step 3). */
 /* CTable_SetAnimate: candidate for 1068:0598 (55 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CTable_SetAnimate
@@ -12,7 +13,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSTagAnimate(void *pal, int start, int count);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void CTable_UpdatePal(CTable *p, int start, int count);
 void CTable_SetAnimate(CTable *p, int start, int count)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of set_on_keydown_after_1010_2cdd, set_on_lclick_1010_2c6b, set_on_rclick_1010_2ca4 removed: the header declares them from the definition (W1 step 3). */
 /* Opening_dtor: candidate for 1010:1b29 (756 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Opening::~Opening()
@@ -32,9 +33,6 @@ extern Opening *g_opening;             /* DGROUP:0x964 */
 
 extern "C" void MSUnlockResource_1010_2d72(void *h);
 extern "C" void MSReleaseResource_1010_2d8e(void *h);
-extern "C" void set_on_lclick_1010_2c6b(void *table, void *fn);
-extern "C" void set_on_rclick_1010_2ca4(void *table, void *fn);
-extern "C" void set_on_keydown_after_1010_2cdd(void *table, void *fn);
 
 Opening::~Opening()
 {

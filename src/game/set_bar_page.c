@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_get_scroll_range removed: the header declares it from the definition (W1 step 3). */
 /* set_bar_page: candidate for 1060:90da (65 bytes).  Verdict: RELOCATABLE.
  * symbol: set_bar_page
  *
@@ -14,7 +15,6 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern void ctl_get_scroll_range(void *control, int *pa, int *pb);
 
 void set_bar_page(SScrollBar *bar, int page)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GameWin_Init, MSShowWindow_of_1060_8623, port_height_1060_86e2, port_width_1060_86c9, set_on_keydown_1060_867d, set_on_lbutton_down_1060_8644, win_center_1060_85fe, win_set_back_color_1060_85da removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 84, 85, 102, 103 of the imported file. */
 /* AboutWin_ctor: candidate for 1060:72c8 (1168 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -49,7 +50,6 @@ struct logpal;
 extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
 extern void EventWin_Init(char *w, char *name, int style, int x, int y,
                                        int width, int height, CTable *pal);
-extern void GameWin_Init(GameWin *o, char *name, int style, int x, int y, int w, int h, CTable *pal, Screen *parent);
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void Sprite_Extract_key_rect(Sprite *sprite, void *src, unsigned char transparent, RECT *r);
 extern int GRPort_Init(GRPort *p, void *r);
@@ -60,14 +60,7 @@ extern void AboutWin_Mouse(void);
 extern void AboutWin_Keys(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void win_set_back_color_1060_85da(EventWin *o, int index);
-extern "C" void win_center_1060_85fe(void *o);
-extern "C" void MSShowWindow_of_1060_8623(void *w);
-extern "C" void *set_on_lbutton_down_1060_8644(void *table, void *h);
-extern "C" void *set_on_keydown_1060_867d(void *table, void *h);
 
-extern "C" int port_width_1060_86c9(void *port);
-extern "C" int port_height_1060_86e2(void *port);
 
 AboutWin::AboutWin()
 {

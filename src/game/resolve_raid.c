@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of special_kill removed: the header declares it from the definition (W1 step 3). */
 /* resolve_raid: candidate for 1020:34b4 (2595 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 2595, not the census 2577. The trailing 18 bytes are this function's two jump tables,
@@ -96,7 +97,6 @@ extern int set_job(int colonist, int job);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern int special_kill(int u, int a, int b, int c, int d);
 
 void resolve_raid(int native, int colony, int settlement, int force, int unused1)
 {

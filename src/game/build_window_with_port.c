@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1060_ab6e, subclass_control_1070_a0e2 removed: the header declares them from the definition (W1 step 3). */
 /* build_window_with_port: candidate for 1060:a099 (133 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -29,11 +30,9 @@
 #include "classes.h"
 
 extern void GRPort_ColorSync(GRPort *port, CTable *table);
-extern void subclass_control_1070_a0e2(GameWin *win, void *hwnd);
 
 /* same object: 4-byte `push cs; call ` */
 
-extern void *get_win_1060_ab6e(void *o);
 
 void build_window_with_port(GameWin *o, char *name, int style, int x, int y,
                                 register int w, register int h, void *pal)

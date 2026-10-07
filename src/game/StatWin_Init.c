@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of set_repaint_handler_1058_ba08, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* StatWin_Init: candidate for 1058:8a34 (307 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: StatWin_Init
@@ -33,7 +34,6 @@
 
 
 
-extern void win_set_icon_1078_2832(void *win, int icon);
 struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern int ColChild_IsSmallDesktop(void *w);
@@ -48,7 +48,6 @@ extern "C" void set_keyboard_nav_1058_b992(DialogWin *w, char keyboard_nav);
 
 extern "C" void win_set_icon_1058_b9ab(DialogWin *w, int icon);
 
-extern "C" void set_repaint_handler_1058_ba08(StatWin *o, void *h);
 
 extern "C" void *set_on_lbutton_down_1058_c2ce(EventTable *table, void *h);
 

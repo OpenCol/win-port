@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_DrawAnyMessage removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_ActivateAnyMessage: candidate for 1048:1471 (52 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_ActivateAnyMessage
@@ -19,7 +20,6 @@
 #include "classes.h"
 
 extern "C" void ColChild_ActivateMessage(ColChild *child, int kind, long arg);
-extern "C" void ColChild_DrawAnyMessage(ColChild *w, int mode, long msg);
 
 void ColChild_ActivateAnyMessage(ColChild *w, int kind, long ms)
 {

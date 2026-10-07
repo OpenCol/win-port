@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow removed: the header declares it from the definition (W1 step 3). */
 /* win_hide_1008_d0bc: candidate for 1008:d0bc (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSHideWindow(void *win);
 
 void win_hide_1008_d0bc(Screen *o)
 {

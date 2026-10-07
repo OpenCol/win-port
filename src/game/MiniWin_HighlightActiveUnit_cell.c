@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 155 of the imported file. */
+/* PORT: this file's own declarations of copy_rect_to_screen_1060_631c removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 154 of the imported file. */
 /* MiniWin_HighlightActiveUnit_cell: candidate for 1060:106d (1379 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -54,7 +56,6 @@ extern void GRPort_FillColor(GRPort *w, RECT *r, int color);
 extern void GRPort_DrawLine(GRPort *p, short x1, short y1, short x2, short y2);
 
 /* same object: 4-byte `push cs; call ` */
-extern void copy_rect_to_screen_1060_631c(MiniWin *w, RECT *r);
 
 void MiniWin_HighlightActiveUnit_cell(MiniWin *w, int x, int y, int cols, int rows, int viewer,
                                         int white, char blink)
@@ -152,7 +153,7 @@ void MiniWin_HighlightActiveUnit_cell(MiniWin *w, int x, int y, int cols, int ro
             if (g_units[u].x == col && g_units[u].y == row) {
                 GRPort_FillColor((GRPort *)w, &r, blink != 0 ? (g_game.turn_nation == NATION_SPAIN ? 0xf9 : 0xff)
                                             : (n < 4 ? g_nation_colour[n] : g_tribe_colour_by_nation[n]));
-                copy_rect_to_screen_1060_631c((MiniWin *)((GameWin *)w), &r);
+                copy_rect_to_screen_1060_631c((GameWin *)((MiniWin *)((GameWin *)w)), &r);
                 return;
             }
             OffsetRect(&r, g_view_tile_w, 0);

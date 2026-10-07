@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of cursor_load removed: the header declares it from the definition (W1 step 3). */
 /* game_init: candidate for 1008:4c16 (207 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: game_init
@@ -37,7 +38,6 @@ extern void randmize(void);
 /* same object: 4-byte `push cs; call ` */
 extern "C" void OpenBackdrop(void);
 
-extern "C" void cursor_load(void *cursor, int id);
 
 void game_init(void)
 {

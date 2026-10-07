@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1038_e38f removed: the header declares it from the definition (W1 step 3). */
 /* MapWin_SlideIcon: candidate for 1038:aba2 (737 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_SlideIcon
@@ -42,7 +43,6 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int MapWin_TileSize(MapWin *w);
 
-extern "C" void copy_rect_to_screen_1038_e38f(MapWin *w, RECT *r);
 
 void MapWin_SlideIcon(MapWin *w, int u, int flags, int other, register int x1,
                           register int y1, int x2, int y2)

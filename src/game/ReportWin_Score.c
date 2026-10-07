@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 167, 188 of the imported file. */
+/* PORT: this file's own declarations of PopGuy, write_in_color removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_Score: candidate for 1058:1dad (4128 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: ReportWin_Score
@@ -77,11 +79,9 @@ extern int job_of_unit(int u);
 extern int UnitIcon(int u);
 extern int has_father(int nation, int bit);
 
-extern int write_in_color(char *s, int x, int y, int n);
 extern void GRPort_FillColor(GRPort *w, RECT *r, int colour);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void PopGuy(ReportWin *dst, int pic);
 extern int font_height_1058_be4f(void *font);
 extern int MSGetTextLength_1058_be29(void *font, const char *s);
 
@@ -165,7 +165,7 @@ int ReportWin_Score(ReportWin *w, int draw)
             spec = get_specialty(j);
             pic = ColonistIcon(spec);
             if (draw != 0)
-                PopGuy(w, pic);
+                PopGuy((GRPort *)(w), pic);
             if (spec == JOB_COLONIST_ALT)
                 pop += 2;
             else if (spec == JOB_INDENTURED_SERVANT || spec == JOB_CRIMINAL || spec == JOB_CONVERT)
@@ -186,7 +186,7 @@ int ReportWin_Score(ReportWin *w, int draw)
             pic = ColonistIcon(spec);
         }
         if (draw != 0)
-            PopGuy(w, pic);
+            PopGuy((GRPort *)(w), pic);
         if (spec == JOB_COLONIST_ALT)
             pop += 2;
         else if (spec == JOB_INDENTURED_SERVANT || spec == JOB_CRIMINAL || spec == JOB_CONVERT)

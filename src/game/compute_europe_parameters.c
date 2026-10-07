@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of num_cargo_vessels removed: the header declares it from the definition (W1 step 3). */
 /* compute_europe_parameters: candidate for 1048:4ca4 (40 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: compute_europe_parameters
@@ -18,7 +19,6 @@ extern int g_ships_in_port;                  /* DGROUP:0x1fca */
 
 extern int g_stub_a;
 
-extern int num_cargo_vessels(void *damaged);
 extern void reset_europe_units(void);
 
 void compute_europe_parameters(void)

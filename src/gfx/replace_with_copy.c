@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of handle_replace_with_copy removed: the header declares it from the definition (W1 step 3). */
 /* replace_with_copy: candidate for 1068:9393 (28 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -10,7 +11,6 @@
 
 #include "w16types.h"
 #include "records.h"
-extern void handle_replace_with_copy(void *p);
 
 void replace_with_copy(void *p)
 {

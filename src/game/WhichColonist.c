@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1010_e60f removed: the header declares it from the definition (W1 step 3). */
 /* WhichColonist: candidate for 1010:5dac (315 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: WhichColonist
@@ -23,7 +24,6 @@
 extern int g_stub_a;
 extern int get_icon(int colonist);
 
-extern int sprite_width_1010_e60f(void *sprite);
 
 int WhichColonist(int px, int unused1)
 {

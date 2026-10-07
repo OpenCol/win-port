@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of indian_move removed: the header declares it from the definition (W1 step 3). */
 /* indian_unit: candidate for 1030:9c93 (61 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -14,7 +15,6 @@ extern void move_a_unit(int u, int dir);
 extern void end_unit_turn(int u);
 
 /* same object: 4-byte `push cs; call ` */
-extern int indian_move(int u);
 
 void indian_unit(int u)
 {

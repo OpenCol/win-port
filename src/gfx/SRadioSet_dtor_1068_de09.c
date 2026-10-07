@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* SRadioSet_dtor_1068_de09: candidate for 1068:de09 (114 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SRadioSet::~SRadioSet()
@@ -10,7 +11,6 @@
 #include "colonization.h"
 
 #include "w16types.h"
-extern void DialogWin_RemoveControl(void *list, int id);
 
 #include "classes.h"
 

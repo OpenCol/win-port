@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSMaximizeWindow removed: the header declares it from the definition (W1 step 3). */
 /* MSMaximizeWindow_of: candidate for 1048:e1b5 (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSMaximizeWindow(void *win);
 
 void MSMaximizeWindow_of(Screen *o)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_dib_pointer removed: the header declares it from the definition (W1 step 3). */
 /* MSLockGraf: candidate for 1068:4ed3 (317 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MSLockGraf
@@ -32,7 +33,6 @@
 #include "w16types.h"
 #include "classes.h"
 #include "records.h"
-extern void *wing_dib_pointer(GrafRec *graf);
 extern int MSGrafOrient(GrafRec *graf);
 
 void MSLockGraf(GRPort *port)

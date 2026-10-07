@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init, copy_rect_to_screen_1038_888e, show_window_1038_885c, win_center_1038_8837 removed: the header declares them from the definition (W1 step 3). */
 /* declaration_of_independence: candidate for 1038:660e (1183 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -66,7 +67,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
    reaches it through its segment, and BCC refuses a redeclaration after ctype.h */
 extern unsigned char _ctype[257];   /* DGROUP:0x46c0, declared */
 
-extern void Sprite_Init(Sprite *s, int res);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void SuperWin_Init(SuperWin *w);
 struct logpal;
@@ -76,10 +76,7 @@ extern void SuperWin_GoAway(SuperWin *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" void win_center_1038_8837(void *w);
-extern "C" void show_window_1038_885c(SuperWin *w);
 
-extern "C" void copy_rect_to_screen_1038_888e(SuperWin *w, RECT *r);
 
 void declaration_of_independence(void)
 {

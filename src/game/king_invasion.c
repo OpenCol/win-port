@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_SlideIcon removed: the header declares it from the definition (W1 step 3). */
 /* king_invasion: candidate for 1038:5473 (2637 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -70,7 +71,6 @@ extern unsigned char continent_at(int x, int y);
 extern int land_region_at(int x, int y);
 extern char owner_of(int x, int y);
 extern void set_center(int x, int y, int flag);
-extern void MapWin_SlideIcon(void *w, int u, int speed, int a, int x0, int y0, int x1, int y1);
 extern int popm(char *msg, int n);
 extern void force_mood(int mood);
 extern void DrawMapRegion(int x, int y, int a, int b, int flag);

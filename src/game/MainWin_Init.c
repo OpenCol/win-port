@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow, GamePrefs_RegisterWindow, GamePrefs_WindowArea, GamePrefs_WindowState, MSHideWindow, MSMaximizeWindow, MSSetBackground, MapWin_Init, MiniWin_Init, StatWin_Init, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* MainWin_Init: candidate for 1048:a4bc (543 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MainWin_Init
@@ -42,20 +43,9 @@ class MainWin : public EventWin { public: MenuClass menu; MapWin map; MiniWin mi
 #include "records.h"
 
 
-extern void MSSetBackground(void *win, int cursor);
-extern void win_set_icon_1078_2832(void *win, int icon);
 extern void MSFitWindow(MSWin *win, RECT *r);
-extern void MSMaximizeWindow(void *win);
-extern void MSHideWindow(void *win);
 extern void MSGetWinSize(MSWin *win, RECT *r);
 
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
-extern void GamePrefs_WindowArea(void *root, int which, RECT *r);
-extern int GamePrefs_WindowState(void *root, int which);
-extern void GamePrefs_RegisterWindow(void *root, int which, RECT *rc, int code);
-extern void MapWin_Init(void *w);
-extern void StatWin_Init(void *w);
-extern void MiniWin_Init(void *w);
 extern void EnableLowMemoryCheck(int kb, int secs, int res, EventWin *win, int flag);
 
 extern void MainWin_MainMenuProc(long cmd);

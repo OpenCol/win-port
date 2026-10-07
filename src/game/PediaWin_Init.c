@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_InitCWin_nc_parent, MSCenterWindow, MSInitImageButton, get_ctable_1060_6b75, image_button_init_1060_645c, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_Init: candidate for 1060:15f1 (397 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_Init
@@ -39,8 +40,6 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;   /* SEG20:0x5ca */
 
 extern int ColChild_IsSmallDesktop(void *w);
-extern void win_set_icon_1078_2832(void *win, int icon);
-extern void MSCenterWindow(void *win, int x, int y);
 
 extern void GRPort_FillColor_all(GRPort *p, int color);
 extern void GameWin_ResizePort(GameWin *o, void *rect);
@@ -48,9 +47,7 @@ struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *ctable);
 
 extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern unsigned MSInitImageButton(int x, int y, SImageButton *b, int res, int res2, int w, int h, int a);
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
-extern void ColChild_InitCWin_nc_parent(void *o, char *title, int style, int x, int y, int w, int h, int save, int noclose, void *rec);
 extern void PediaWin_OnOKClick(void);
 
 extern "C" void win_center_1060_60e7(DialogWin *w);
@@ -59,7 +56,6 @@ extern "C" int port_width_1060_65ca(GRPort *port);
 
 extern "C" int port_height_1060_65e3(GRPort *port);
 
-extern "C" void *get_ctable_1060_6b75(DialogWin *w);
 
 extern "C" void set_keyboard_nav_1060_615c(DialogWin *w, char keyboard_nav);
 
@@ -67,7 +63,6 @@ extern "C" void win_set_icon_1060_61b9(DialogWin *w, int icon);
 
 extern "C" void dlg_control_init_1060_6b92(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 
-extern "C" void image_button_init_1060_645c(SImageButton *b, DialogWin *win, int id, int x, int y, int res, int res2, int w, int h);
 
 extern "C" void set_control_action_1060_6584(SImageButton *button, void *h);
 

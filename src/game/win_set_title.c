@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle removed: the header declares it from the definition (W1 step 3). */
 /* win_set_title: candidate for 1048:e5cf (39 bytes).  Verdict: RELOCATABLE.
  *
  * MSSetWinTitle on the window's handle (the pointer at +6), with two arguments.
@@ -7,7 +8,6 @@
 
 #include "classes.h"
 #include "records.h"
-extern void MSSetWinTitle(MSWin *win, char *s);
 
 void win_set_title(DialogWin *o, char *s)
 {

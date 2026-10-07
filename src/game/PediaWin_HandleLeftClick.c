@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PediaWin_PediaName removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 52, 78, 102 of the imported file. */
 /* PediaWin_HandleLeftClick: candidate for 1060:2c0a (1353 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -37,7 +38,6 @@ extern void PediaWin_DrawListArea(PediaWin *w);
 extern void PediaWin_DrawArticle(PediaWin *w);
 #include "records.h"
 extern PediaEntry *PediaWin_CurrentEntry(PediaWin *w);
-extern char *PediaWin_PediaName(PediaWin *w, void *entry);
 
 void PediaWin_HandleLeftClick(PediaWin *w, int x, int y)
 {

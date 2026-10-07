@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetClip removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_SetClip: candidate for 1068:4e10 (120 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GRPort_SetClip
@@ -14,7 +15,6 @@
 #include "classes.h"
 #include "records.h"
 
-extern void MSSetClip(GrafRec *w, RECT *r);
 void GRPort_SetClip(GRPort *port, RECT *r)
 {
     SetRect(&port->rect, r->left, r->top, r->right, r->bottom);

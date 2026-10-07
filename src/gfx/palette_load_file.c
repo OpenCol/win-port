@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of file_MSOpenFile_1068_95d5 removed: the header declares it from the definition (W1 step 3). */
 /* palette_load_file: candidate for 1068:0420 (323 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: palette_load_file
@@ -25,7 +26,6 @@
 #include "records.h"
 
 
-extern "C" int file_MSOpenFile_1068_95d5(DiskFile *file, const char *name);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

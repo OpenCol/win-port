@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSRestoreWindow removed: the header declares it from the definition (W1 step 3). */
 /* MSRestoreWindow_of: candidate for 1060:6809 (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSRestoreWindow(void *win);
 
 void MSRestoreWindow_of(DialogWin *o)
 {

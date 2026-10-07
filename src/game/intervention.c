@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of text_search removed: the header declares it from the definition (W1 step 3). */
 /* intervention: candidate for 1038:6488 (321 bytes).  Verdict: RELOCATABLE.
  * symbol: intervention
  *
@@ -46,7 +47,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void set_colony(int colony);
 extern void force_mood(int mood);
 extern void popup_country(int slot, int flag, int nation);
-extern void text_search(void *ctx, char *name, int n);
 
 extern void popup_say(int slot, int v);
 extern int popm(char *msg, int n);

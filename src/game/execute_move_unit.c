@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of move_is_legal, move_unit removed: the header declares them from the definition (W1 step 3). */
 /* execute_move_unit: candidate for 1020:e460 (692 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: execute_move_unit
@@ -61,9 +62,7 @@ extern int terrain_is_ocean(int x, int y);
 extern void land_ho(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int move_is_legal(int u, int x, int y);
 
-extern void move_unit(int u, int x, int y);
 
 int execute_move_unit(int dx, int dy)
 {

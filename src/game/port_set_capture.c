@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1048_e6d0, win_set_capture removed: the header declares them from the definition (W1 step 3). */
 /* port_set_capture: candidate for 1048:daa5 (37 bytes).  Verdict: RELOCATABLE.
  * symbol: port_set_capture
  *
@@ -11,9 +12,7 @@
 
 #include "records.h"
 #include "classes.h"
-extern void win_set_capture(void *win);
 
-extern void *get_win_1048_e6d0(void *w);
 
 void port_set_capture(Screen *w)
 {

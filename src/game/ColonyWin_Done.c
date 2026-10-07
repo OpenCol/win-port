@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1010_eb6e removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_Done: candidate for 1010:b004 (54 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_Done
@@ -30,7 +31,6 @@
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;   /* SEG20:0x05ca */
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void MSHideWindow_of_1010_eb6e(void *port);
 extern "C" void MSSetFocus_of_1010_eb8f(void *p);
 void ColonyWin_Done(ColonyWin *w)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength, ReportWin_OnLaborClick removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsLabor: candidate for 1058:2dcd (1072 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_ReportsLabor
  *
@@ -35,10 +36,8 @@ extern int ColonistIcon(int spec);
 extern RECT *Sprite_DrawMono(RECT *out, Sprite *sprite, GRPort *port, int x, int y, unsigned char mode);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
-extern int MSGetTextLength(unsigned font_handle, char *s);
 
 extern void ReportWin_OnLaborMouseMove(void);
-extern void ReportWin_OnLaborClick(void);
 
 extern int port_width_1058_bcfb(GRPort *port);
 

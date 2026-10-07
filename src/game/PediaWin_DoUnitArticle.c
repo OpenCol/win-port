@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSGetTextLength_1060_6977, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoUnitArticle: candidate for 1060:3a6d (2697 bytes).  Verdict: RELOCATABLE.
  * name-source: original
  *
@@ -51,7 +52,6 @@ extern void plus_string(char *buf);
 extern void minus_string(char *s);
 extern void colon_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s,
                                      int x, int y, int size);
@@ -67,7 +67,6 @@ extern void PieceDraw(GRPort *port, int u, int flags, int x, int y,
 extern PediaEntry *PediaWin_CurrentEntry(PediaWin *o);
 
 extern int font_height_1060_695e(Font *font);
-extern int MSGetTextLength_1060_6977(void *font, char *buf);
 
 void PediaWin_DoUnitArticle(PediaWin *w)
 {

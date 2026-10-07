@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of is_enemy removed: the header declares it from the definition (W1 step 3). */
 /* negotiate_ai: candidate for 1030:50d4 (336 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: negotiate_ai
@@ -53,7 +54,6 @@ extern int treaty_on(int nation, int other, int bits);
 extern int treaty_off(int nation, int other, int mask);
 
 extern int get_treaty(int nation_a, int nation_b);
-extern int is_enemy(int a, int b);
 extern void unfortify(int nation, int owner);
 
 void negotiate_ai(int nation, int other)

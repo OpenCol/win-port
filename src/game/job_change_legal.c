@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of siege_check removed: the header declares it from the definition (W1 step 3). */
 /* job_change_legal: candidate for 1018:8637 (541 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 541, not the census 532. The trailing 9 bytes are the dead second epilogue.
@@ -37,7 +38,6 @@ extern int get_job(int colonist);
 extern int get_specialty(int u);
 extern int job_transfer_type(int colonist, int job);
 extern int has_building(int bit);
-extern int siege_check(long best_out, long own_out, long total_out);
 extern int job_count(int job);
 
 int job_change_legal(int colonist, int job)

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 133, 136, 147, 148 of the imported file. */
+/* PORT: this file's own declarations of GameBrains_Init, GameBrains_TurnControlLoop, MSSetFocus_of_1008_d136, MainWin_Init, SetPopupParent, game_font_set_1008_cfe5, get_w_a, show_window_1008_d117, win_hide_1008_d0bc, win_show removed: the header declares them from the definition (W1 step 3). */
 /* run_game: candidate for 1008:46ae (863 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: run_game
@@ -82,24 +84,14 @@ extern void MSShowMenuBar(void);
 extern void sound_init(void);
 struct logpal;
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
-extern void MainWin_Init(void *o);
-extern void SetPopupParent(void *parent);
 extern void MainWin_DefaultDesktop(void *o);
 extern void clean_up(void);
 extern void CloseBackdrop(void);
 extern int begin_game(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void game_font_set_1008_cfe5(void *font, int kind, int size);
 
-extern "C" void win_hide_1008_d0bc(void *o);
-extern "C" void win_show(void *o);
-extern "C" int get_w_a(void *r);
-extern "C" void show_window_1008_d117(void *o);
-extern "C" void MSSetFocus_of_1008_d136(void *o);
 
-extern "C" void GameBrains_Init(void *p);
-extern "C" void GameBrains_TurnControlLoop(void *brains);
 
 extern "C" void run_game(void)
 {
@@ -139,10 +131,10 @@ extern "C" void run_game(void)
     win_hide_1008_d0bc(&g_info_win_dlg);
     if (begin_game()) {
         MSShowMenuBar();
-        SetPopupParent(&g_main_win);
+        SetPopupParent((EventWin*)(&g_main_win));
         CloseBackdrop();
         MSDoAllTasks_1008_ce3f();
-        win_show(&g_main_win);
+        win_show((Screen*)(&g_main_win));
         g_4b2a = 0;
         if (get_w_a(&g_prefs_root))
             MainWin_DefaultDesktop(&g_main_win);
@@ -153,8 +145,8 @@ extern "C" void run_game(void)
         }
         g_quit_flag = 0;
         GameBrains_Init(&g_game_brains);
-        win_show(&g_main_win);
-        MSSetFocus_of_1008_d136(&g_main_win);
+        win_show((Screen*)(&g_main_win));
+        MSSetFocus_of_1008_d136((Screen*)(&g_main_win));
         MSDoAllTasks_1008_ce3f();
         while (g_quit_flag == 0) {
             GameBrains_TurnControlLoop(&g_game_brains);

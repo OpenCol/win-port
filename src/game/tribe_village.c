@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of treaty_on, tribe_extortion, tribe_heresy, tribe_live removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 132 of the imported file. */
 /* tribe_village: candidate for 1030:db76 (2415 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -82,18 +83,14 @@ extern void end_unit_turn(int u);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int get_treaty(int nation_a, int nation_b);
-extern "C" void treaty_on(int nation, int other, int bits);
 
 extern "C" int get_name(int nation);
 
 extern "C" void tribe_trade(int unit, int settlement, int nation, int tribe_nation);
 
 extern "C" void tribe_mission(int u, int nation, int tribe);
-extern "C" void tribe_heresy(int u, int nation, int tribe);
 extern "C" void tribe_incite(int u, int nation, int tribe);
 extern "C" int tribe_camp(int u, int nation, int tribe);
-extern "C" void tribe_live(int u, int nation, int tribe, int just_skill);
-extern "C" void tribe_extortion(int u, int nation, int tribe);
 
 int tribe_village(register int unit, int x, int y)
 {

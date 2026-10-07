@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSOpenFile removed: the header declares it from the definition (W1 step 3). */
 /* Flic_Init2: candidate for 1068:2313 (55 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Flic_Init2
@@ -58,7 +59,6 @@ public:
     ~Flic();
 };
 
-extern int MSOpenFile(char *name, MSFile *file);
 extern int MSReadFile(MSFile *file, void *buf, long n);
 extern int MSSeekFile(MSFile *file, long pos);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of text_item_get removed: the header declares it from the definition (W1 step 3). */
 /* text_item_string: candidate for 1040:6ff0 (51 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: text_item_string
@@ -14,7 +15,6 @@
 extern int g_stub_a;
 extern int strings_store(char *s);
 
-extern void text_item_get(void);
 
 int text_item_string(void)
 {

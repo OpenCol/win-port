@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of VList_Head, VList_Next removed: the header declares them from the definition (W1 step 3). */
 /* VList_Count: candidate for 1068:a354 (82 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: VList_Count
@@ -12,8 +13,6 @@
 
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void *VList_Head(void *l);
-extern "C" void *VList_Next(void *l);
 int VList_Count(VList *l)
 {
     int n = 0;

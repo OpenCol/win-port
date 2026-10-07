@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_OnOKClick: candidate for 1048:897a (98 bytes, 2 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_OnOKClick
@@ -15,7 +16,6 @@
 #include "classes.h"
 extern void *GetEventWindow(void);
 extern void MSShowMenuBar(void);
-extern void EventWin_EndModal(void *port);
 
 void EuropeWin_OnOKClick(int unused1)
 {

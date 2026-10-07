@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of CTable_SetAnimate removed: the header declares it from the definition (W1 step 3). */
 /* CTable_SetScale: candidate for 1068:08da (164 bytes, 2 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: CTable_SetScale
@@ -18,7 +19,6 @@ struct logpal;
 
 extern void MSCopyRawColors(struct logpal *pal, unsigned char *dst, int first, int count);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void CTable_SetAnimate(CTable *pal, short first, short count);
 
 void CTable_SetScale(CTable *table, short first, short count, short step_count)
 {

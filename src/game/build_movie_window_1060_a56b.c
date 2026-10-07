@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSDisposeWindow, create_MSMovieClass_window, set_hwnd_object removed: the header declares them from the definition (W1 step 3). */
 /* build_movie_window_1060_a56b: candidate for 1060:a56b (132 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -20,10 +21,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void *MSDisposeWindow(void *win);
-extern void *create_MSMovieClass_window(char *title, int style, int x, int y,
-                                                 int f, int g, void *parent);
-extern void set_hwnd_object(Screen *obj, void *win);
 
 void build_movie_window_1060_a56b(Screen *o, char *title, register int style, int x,
                                       int y, int w, int h)

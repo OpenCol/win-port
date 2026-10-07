@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1068_d995, win_enable_1068_d96a removed: the header declares them from the definition (W1 step 3). */
 /* EndLowMemReport: candidate for 1068:b85e (202 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -37,8 +38,6 @@ extern GameWin *g_lowmem_box;          /* DGROUP:0x56ba */
 extern SButton *g_lowmem_ok;           /* DGROUP:0x56be */
 
 /* same object: 4-byte `push cs; call ` */
-extern "C" void win_enable_1068_d96a(void *o);
-extern "C" void MSHideWindow_of_1068_d995(void *o);
 
 extern "C" void EndLowMemReport(void)
 {

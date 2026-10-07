@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init removed: the header declares it from the definition (W1 step 3). */
 /* init_letter_sprites: candidate for 1060:7f33 (78 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 78 -- the census is RIGHT here and the gap to the next entry is not. The 49
@@ -19,7 +20,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void Sprite_Init(Sprite *s, int res);
 
 void init_letter_sprites(AboutWin *o)
 {

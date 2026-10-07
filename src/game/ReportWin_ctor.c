@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_RemoveControl removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_ctor: candidate for 1008:dd08 (92 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin::ReportWin()
@@ -14,7 +15,6 @@
 #pragma option -a-
 class DlgControl;
 
-extern void DialogWin_RemoveControl(void *list, int id);
 
 /* The bases' and members' constructors are defined in this file because the shipped calls to
  * them are the compiler's own `push cs / call ` (GRPort's and MenuClass's are calls). */

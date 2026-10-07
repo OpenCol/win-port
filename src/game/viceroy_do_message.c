@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_ActivateMessage, ColChild_DrawAnyMessage removed: the header declares them from the definition (W1 step 3). */
 /* viceroy_do_message: candidate for 1038:b23a (53 bytes).  Verdict: RELOCATABLE.
  * symbol: viceroy_do_message
  *
@@ -13,8 +14,6 @@
 
 extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int idx);
-extern void ColChild_ActivateMessage(void *child, int kind, long arg);
-extern void ColChild_DrawAnyMessage(void *w, int mode, long msg);
 
 void viceroy_do_message(int idx, int kind)
 {

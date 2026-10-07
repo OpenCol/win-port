@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of popk removed: the header declares it from the definition (W1 step 3). */
 /* europe_new_wars: candidate for 1048:7897 (892 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: europe_new_wars
@@ -37,7 +38,6 @@ extern void random_activate(int seed);
 
 extern void popup_say(int slot, int word);
 
-extern void popk(char *msg);
 
 extern int treaty_off(int nation, int other, int mask);
 extern int treaty_on(int nation, int other, int mask);

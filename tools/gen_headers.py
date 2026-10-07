@@ -147,12 +147,32 @@ def signature(decl):
     return (re.sub(r"\s+", "", m.group(1)), m.group(2), tuple(params) if params != ["void"] else ())
 
 
+def file_scope(text):
+    """text with comments and every brace block's inside blanked (offsets and lines kept), so
+    only file-scope statements are left to match."""
+    t = strip_comments(text)
+    out, depth = [], 0
+    for ch in t:
+        if ch == "{":
+            depth += 1
+            out.append(ch if depth == 1 else " ")
+        elif ch == "}":
+            depth -= 1
+            out.append(ch if depth == 0 else " ")
+        elif depth and ch != "\n":
+            out.append(" ")
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def file_declarations():
-    """(variables, functions) some file in src/ declares itself: an `extern` variable, or a
-    prototype (not a definition). Functions map to the set of signatures the files give them."""
+    """(variables, functions) some file in src/ declares itself at file scope: an `extern`
+    variable, or a prototype (not a definition). Functions map to the set of signatures the
+    files give them."""
     vars_, funcs = set(), {}
     for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
-        t = strip_comments(open(p, errors="replace").read())
+        t = file_scope(open(p, errors="replace").read())
         for m in re.finditer(r"^[ \t]*((?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;)", t, re.M):
             funcs.setdefault(m.group(2), set()).add(signature(m.group(1)))
         for m in re.finditer(r"^[ \t]*extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;", t, re.M):

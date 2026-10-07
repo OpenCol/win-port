@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
+/* PORT: this file's own declarations of MSShowWindow_of_1010_f0a0 removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1010_ecec: candidate for 1010:ecec (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,10 +17,9 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSShowWindow_of_1010_f0a0(void *o);
 
 void win_show_and_focus_1010_ecec(DialogWin *o)
 {
-    MSShowWindow_of_1010_f0a0(o);
+    MSShowWindow_of_1010_f0a0((Screen *)(o));
     DialogWin_SetDefaultControlFocus(o);
 }

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1068_d86d, port_stride removed: the header declares them from the definition (W1 step 3). */
 /* dissolve_transition: candidate for 1068:af72 (466 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: dissolve_transition
@@ -30,9 +31,7 @@ extern void MSLockGraf(GRPort *port);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void port_copy_rect(MagicWin *w);
 /* same object: 4-byte `push cs; call ` */
-extern "C" int port_stride(void *port);
 
-extern "C" void copy_rect_to_screen_1068_d86d(MagicWin *w, RECT *r);
 
 void dissolve_transition(MagicWin *w)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_DragIconMUp: candidate for 1048:1921 (136 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DragIconMUp
@@ -17,7 +18,6 @@ extern GRPort *g_drag_port;      /* DGROUP:0x4cbc */
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void copy_rect_to_screen(void *win, RECT *rect);
 void ColChild_DragIconMUp(int x, int y)
 {
     ColChild *o;

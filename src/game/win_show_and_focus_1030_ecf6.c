@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow_of_1030_ef7f removed: the header declares it from the definition (W1 step 3). */
 /* win_show_and_focus_1030_ecf6: candidate for 1030:ecf6 (41 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,7 +16,6 @@
 extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
 
 /* same object: 4-byte `push cs; call ` */
-extern void MSShowWindow_of_1030_ef7f(void *o);
 
 void win_show_and_focus_1030_ecf6(DialogWin *o)
 {

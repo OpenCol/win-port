@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* MSInitRegion: candidate for 1070:0be3 (182 bytes).  Verdict: RELOCATABLE.
  *
  * Creates an MSControlClass child window for a region control: position from the object's
@@ -13,7 +14,6 @@
 #include "records.h"
 
 extern void *ctl_window_1070_96a8(void *ctl);
-extern MSWin *get_win_1070_95f0(void *o);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj);
 extern long region_wndproc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);

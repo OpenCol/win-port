@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of village_bribe removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 122, 125, 218 of the imported file. */
 /* try_to_set_job: candidate for 1010:c182 (1917 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -73,7 +74,6 @@ extern int get_treaty(int nation_a, int nation_b);
 
 extern int find_close_village(int x, int y, int nation, int region);
 extern void set_tribe(int tribe);
-extern int village_bribe(int settlement, int nation, int x, int y);
 extern long check_gold(int nation);
 extern void Popup_grey(Popup *p, int id, int on);
 extern void subtract_gold(int nation, long amount);

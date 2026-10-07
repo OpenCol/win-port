@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSShowWindow removed: the header declares it from the definition (W1 step 3). */
 /* MSShowWindow_of_1038_8c1b: candidate for 1038:8c1b (33 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -9,7 +10,6 @@
 
 #include "records.h"
 #include "classes.h"
-extern void MSShowWindow(void *win);
 
 void MSShowWindow_of_1038_8c1b(DialogWin *o)
 {

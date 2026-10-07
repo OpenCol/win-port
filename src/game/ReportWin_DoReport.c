@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ReportWin_DoReport_parent removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_DoReport: candidate for 1058:021c (41 bytes).  Verdict: RELOCATABLE.
  *
  * ReportWin_DoReport_parent(o, kind, flag, NULL).
@@ -13,7 +14,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern int ReportWin_DoReport_parent(ReportWin *o, int kind, char flag, void *rec);
 
 int ReportWin_DoReport(ReportWin *o, int kind, char flag)
 {

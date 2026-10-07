@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of text_search removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_DoCargoArticle: candidate for 1060:37a1 (716 bytes).  Verdict: RELOCATABLE.
  *
  * THE CARGO TYPES ARTICLE of the Colonizopedia: the selected list item's goods (+4) heads the page as
@@ -31,7 +32,6 @@ extern void open_string(char *s);
 extern void close_string(char *s);
 extern void colon_string(char *buf);
 
-extern void text_search(void *ctx, char *section, int n);
 
 extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 

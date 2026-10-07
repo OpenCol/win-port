@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GamePrefs_GetWindow removed: the header declares it from the definition (W1 step 3). */
 /* MainWin_OnSize: candidate for 1048:cd46 (241 bytes).  Verdict: RELOCATABLE.
  *
  * Records the main window's placement in the preferences record fetched by
@@ -16,7 +17,6 @@
 #include "records.h"
 extern void *GetEventWindow(void);
 
-extern PlacementRec *GamePrefs_GetWindow(void *root, int which);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void MSGetWinSize_of_1048_e1d6(Screen *w, RECT *r);
 

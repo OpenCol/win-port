@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 39 of the imported file. */
+/* PORT: this file's own declarations of get_window_rect_1060_61dd removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* MiniWin_HighlightActiveUnit: candidate for 1060:0fdb (146 bytes).  Verdict: RELOCATABLE.
  * symbol: MiniWin_HighlightActiveUnit
@@ -32,11 +34,10 @@ extern void MiniWin_HighlightActiveUnit_cell(MiniWin *w, int x,
                                                  char blink);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void get_window_rect_1060_61dd(MiniWin *w, RECT *r);
 
 void MiniWin_HighlightActiveUnit(MiniWin *w, char blink)
 {
-    get_window_rect_1060_61dd((MiniWin *)((ColChild *)w), &w->clip);
+    get_window_rect_1060_61dd((ColChild *)((MiniWin *)((ColChild *)w)), &w->clip);
     GRPort_SetClip((GRPort *)w, &w->clip);
     MiniWin_HighlightActiveUnit_cell(w, 0, 0, g_map_size.w, g_map_size.h,
                                     g_game.reveal_all != 0 ? -1 : g_game.view_nation,

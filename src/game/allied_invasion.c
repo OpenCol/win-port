@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_SlideIcon removed: the header declares it from the definition (W1 step 3). */
 /* allied_invasion: candidate for 1038:5ec0 (1480 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -55,7 +56,6 @@ extern void set_mood(int mood);
 extern void popup_say(int slot, int word);
 extern void sound_play(int n);
 extern int popm(char *msg, int n);
-extern void MapWin_SlideIcon(void *w, int u, int speed, int a, int x0, int y0, int x1, int y1);
 extern void DrawMapRegion(int x, int y, int w, int h, int flag);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern int top_unit_in_square(int x, int y);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of wing_dib_pointer removed: the header declares it from the definition (W1 step 3). */
 /* wing_dib_flip: candidate for 1070:a736 (309 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -24,7 +25,6 @@
 #include "colonization.h"
 
 #include "records.h"
-extern void *wing_dib_pointer(GrafRec *graf);
 
 void wing_dib_flip(Wing *win)
 {

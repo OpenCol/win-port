@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of Sprite_Init, port_height_1060_86e2, port_width_1060_86c9, sprite_height_1060_8842, sprite_width_1060_881f removed: the header declares them from the definition (W1 step 3). */
 /* AboutWin_UpdateCredits: candidate for 1060:790c (1505 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: AboutWin_UpdateCredits
@@ -53,7 +54,6 @@ class DlgControl;
 
 
 
-extern void Sprite_Init(Sprite *s, int id);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void DoFizzle(GRPort *port, GameWin *w, RECT *r,
@@ -66,11 +66,7 @@ extern void GRPort_String(GRPort *port, unsigned *font, char *s,
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int port_width_1060_86c9(void *port);
-extern "C" int port_height_1060_86e2(void *port);
 
-extern "C" int sprite_width_1060_881f(void *sprite);
-extern "C" int sprite_height_1060_8842(void *sprite);
 
 void AboutWin_UpdateCredits(AboutWin *o)
 {

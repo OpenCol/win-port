@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_ConformToViewWindow, copy_rect_to_screen_1038_e38f removed: the header declares them from the definition (W1 step 3). */
 /* MapWin_ShowMap: candidate for 1038:a6ea (132 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_ShowMap
@@ -17,9 +18,7 @@
 #include "classes.h"
 extern int g_stub_a;
 
-extern "C" void MapWin_ConformToViewWindow(void *w, RECT *r);
 
-extern "C" void copy_rect_to_screen_1038_e38f(void *w, RECT *r);
 
 void MapWin_ShowMap(MapWin *w, int x, int y, int wd, int ht)
 {

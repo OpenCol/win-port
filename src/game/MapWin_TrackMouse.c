@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of win_set_cursor_1078_2986 removed: the header declares it from the definition (W1 step 3). */
 /* MapWin_TrackMouse: candidate for 1038:9b39 (584 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_TrackMouse
@@ -29,7 +30,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void *GetEventWindow(void);
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 extern void MSSetCursor_id(MSWin *win, int cursor);
-extern void win_set_cursor_1078_2986(void *win, int cursor);
 
 /* Two same-module helpers are defined here because the shipped calls to them are the
  * compiler's own `push cs / call `: only a callee defined in the translation unit gets

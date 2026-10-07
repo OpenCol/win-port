@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1010_e60f removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawColonyShips: candidate for 1010:87ff (1314 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawColonyShips
@@ -77,7 +78,6 @@ extern int get_cargo(int u, int slot);
 extern int get_cargo_amount(int u, int slot);
 extern void SetGlobalSpriteScale(int num, int den);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int sprite_width_1010_e60f(void *sprite);
 extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawColonyShips(ColonyWin *w, int redraw)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of combat_fight removed: the header declares it from the definition (W1 step 3). */
 /* colony_fortress: candidate for 1018:9117 (745 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -37,7 +38,6 @@ extern int make_fake_unit(int icon, int x, int y, int owner, int strength);
 extern int possibly_center(int x1, int y1, int x2, int y2, int mode);
 
 extern int popm(char *msg, int n);
-extern int combat_fight(int u, int x, int y, int seen, int f);
 extern void blow_fake_unit(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

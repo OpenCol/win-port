@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ClearEventTable_1060_acb2, build_window_owned, get_win_1060_ab6e, subclass_control_1070_67dd removed: the header declares them from the definition (W1 step 3). */
 /* build_window_1060_9e96: candidate for 1060:9e96 (107 bytes).  Verdict: RELOCATABLE.
  * symbol: build_window_1060_9e96
  *
@@ -20,11 +21,7 @@
 #include "classes.h"
 extern char g_stub_s[];
 extern int g_stub_a;
-extern void build_window_owned(char *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent);
-extern void subclass_control_1070_67dd(void *obj, void *control);
 
-extern void *get_win_1060_ab6e(void *o);
-extern void ClearEventTable_1060_acb2(void *table);
 
 void build_window_1060_9e96(char *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent)
 {

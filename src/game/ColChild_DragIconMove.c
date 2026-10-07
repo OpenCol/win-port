@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_DragIconMove: candidate for 1048:179d (388 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DragIconMove
@@ -37,7 +38,6 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-extern "C" void copy_rect_to_screen(void *win, RECT *r);
 void ColChild_DragIconMove(int x, int y)
 {
     ColChild *o;

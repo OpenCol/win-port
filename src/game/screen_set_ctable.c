@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 17 of the imported file. */
+/* PORT: this file's own declarations of win_select_palette_1060_b07f removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 16 of the imported file. */
 /* screen_set_ctable: candidate for 1060:afa1 (45 bytes, 2 callers).  Verdict: RELOCATABLE.
  *
@@ -10,9 +12,8 @@
 
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void win_select_palette_1060_b07f(Screen *o, void *pal);
 void screen_set_ctable(Screen *o, void *p)
 {
     o->ctable = p;
-    win_select_palette_1060_b07f((Screen *)((DialogWin *)o), (CTable *)p);
+    win_select_palette_1060_b07f((DialogWin *)((Screen *)((DialogWin *)o)), (CTable *)p);
 }

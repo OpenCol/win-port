@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of FrameInfoRect, GameWin_Init, MSGetWinSize_of_1068_df03, build_window_with_port, end_dialog_with_value, radio_init, set_dialog_result, show_window_1068_db76 removed: the header declares them from the definition (W1 step 3). */
 /* ask_choice: candidate for 1068:cd4a (1272 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ask_choice
@@ -44,15 +45,10 @@
 class DlgControl;
 
 extern int MSGetLineHeight(unsigned h);
-extern void build_window_with_port(GameWin *o, char *name, int style,
-                                       int x, int y, int w, int h, void *bits);
-extern void GameWin_Init(GameWin *o, char *name, int style, int x, int y, int w, int h, CTable *pal, Screen *parent);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
 extern void GRPort_Text(GRPort *p, unsigned *font, const char *s, RECT *r, int flags);
 extern void EventWin_Modal(EventWin *o);
-extern void set_dialog_result(void);
-extern void end_dialog_with_value(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void game_font_set_1068_de7b(Font *font, int kind, int height);
@@ -60,15 +56,11 @@ extern "C" void game_font_set_1068_de7b(Font *font, int kind, int height);
 extern "C" int font_handle_1068_dd1e(Font *font);
 
 extern "C" void win_center_1068_dad3(DialogWin *o);
-extern "C" void MSGetWinSize_of_1068_df03(void *o, RECT *r);
 extern "C" void win_move_to_of(DialogWin *o, int x, int y);
-extern "C" void FrameInfoRect(void *p, RECT *r, int depth, int light, int dark);
-extern "C" void radio_init(SRadioSet *g, DialogWin *win, int id, RECT *r, int n, char *items);
 extern "C" void set_control_action_1068_e03c(SRadioSet *g, void *h);
 extern "C" void set_radio_dblclk_1068_e056(SRadioSet *g, void *h);
 extern "C" void ctl_init_button_1068_daf8(SButton *button, DialogWin *win, int id, RECT *r, char *title);
 extern "C" void set_button_action_1068_db5c(SButton *button, void *h);
-extern "C" void show_window_1068_db76(void *o);
 
 extern "C" int ask_choice(char *msg, char *options, void *parent)
 {

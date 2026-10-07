@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSSetWinTitle removed: the header declares it from the definition (W1 step 3). */
 /* win_set_caption_1048_d48b: candidate for 1048:d48b (74 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: win_set_caption_1048_d48b
@@ -25,7 +26,6 @@
 #include "classes.h"
 #include "records.h"
 
-extern void MSSetWinTitle(MSWin *win, char *s);
 
 extern "C" void win_set_title(DialogWin *w, char *s);
 extern "C" void ColChild_DrawTitleBar(ColChild *w);

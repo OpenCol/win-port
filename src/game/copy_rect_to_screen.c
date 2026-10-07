@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of port_validate_rect removed: the header declares it from the definition (W1 step 3). */
 /* copy_rect_to_screen: candidate for 1048:d963 (153 bytes, 12 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: copy_rect_to_screen
@@ -16,7 +17,6 @@
 #pragma option -a-
 class DlgControl;
 extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
-extern "C" void port_validate_rect(DialogWin *port, RECT *rect);
 
 void copy_rect_to_screen(GameWin *w, RECT *r)
 {

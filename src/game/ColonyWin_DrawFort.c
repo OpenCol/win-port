@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PieceIconDraw, sprite_width_1010_e60f removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawFort: candidate for 1010:9455 (472 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawFort
@@ -50,13 +51,11 @@ extern int top_unit_in_square(int x, int y);
 extern int is_colonist(int u);
 extern int guy_number_of_unit(int u);
 extern int get_icon(int colonist);
-extern void PieceIconDraw(void *dst, int icon, int x, int y, int flags);
 
 extern void GRPort_DrawRect(GRPort *w, RECT *r);
 extern int next_unit(int u);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" int sprite_width_1010_e60f(void *sprite);
 
 void ColonyWin_DrawFort(ColonyWin *w, int x, int y, int count)
 {
