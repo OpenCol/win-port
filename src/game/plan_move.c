@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of colony_add_unit_2 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of build_another_colony, combat_fight, find_my_close_unit, passenger, unit_build_another, unit_build_factor removed: the header declares them from the definition (W1 step 3). */
 /* plan_move: candidate for 1028:5329 (19764 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -167,7 +168,6 @@ extern void set_village(int v);
 extern int colony_max_size(void);
 extern int stack_check(int u, int kind);
 extern void end_unit_turn(int u);
-extern void colony_add_unit_2(int colony, int u);
 extern void set_europe(int n);
 extern int unload_cargo(int u, int slot);
 extern int get_warehouse(void);

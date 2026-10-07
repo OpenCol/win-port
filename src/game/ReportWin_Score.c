@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 167, 188 of the imported file. */
 /* PORT: this file's own declarations of PopGuy, write_in_color removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_Score: candidate for 1058:1dad (4128 bytes).  Verdict: RELOCATABLE.
@@ -62,8 +63,6 @@ extern Nation g_nations[];        /* SEG20:0xc2f4 */
 extern GameState g_game;   /* SEG20:0x7782 */
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 extern void space_string(char *buf);
 extern void colon_string(char *buf);
@@ -82,8 +81,6 @@ extern int has_father(int nation, int bit);
 extern void GRPort_FillColor(GRPort *w, RECT *r, int colour);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int font_height_1058_be4f(void *font);
-extern int MSGetTextLength_1058_be29(void *font, const char *s);
 
 int ReportWin_Score(ReportWin *w, int draw)
 {

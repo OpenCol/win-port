@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_IsSmallDesktop, DialogWin_AddControl removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ColChild_InitCWin_nc_parent, MSCenterWindow, MSInitImageButton, get_ctable_1060_6b75, image_button_init_1060_645c, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_Init: candidate for 1060:15f1 (397 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -39,14 +40,12 @@ class PediaWin : public ColChild { public: short category; SImageButton button; 
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;   /* SEG20:0x5ca */
 
-extern int ColChild_IsSmallDesktop(void *w);
 
 extern void GRPort_FillColor_all(GRPort *p, int color);
 extern void GameWin_ResizePort(GameWin *o, void *rect);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *ctable);
 
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
 extern void PediaWin_OnOKClick(void);
 

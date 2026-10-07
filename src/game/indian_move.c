@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_defense removed: the header declares it from the definition (W1 step 3). */
 /* indian_move: candidate for 1030:84d8 (6075 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -a
  * symbol: indian_move
@@ -101,7 +102,6 @@ extern int zoc_4(int x, int y, int nation);
 extern void set_colony(int colony);
 
 extern int get_combat(int u, int mode);
-extern int get_defense(int u, int attacker);
 extern int top_unit(int u);
 extern void end_unit_turn(int u);
 extern int possibly_center(int x0, int y0, int x1, int y1, int flag);

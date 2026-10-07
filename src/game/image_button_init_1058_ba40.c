@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of dlg_control_init_1058_c3f6 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSInitImageButton, get_ctable_1058_c3d9 removed: the header declares them from the definition (W1 step 3). */
 /* image_button_init_1058_ba40: candidate for 1058:ba40 (296 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -41,7 +42,6 @@ extern int GRPort_LoadPicture(GRPort *port, int a, int b, int c, struct logpal *
 extern "C" int port_width_1058_bcfb(GRPort *port);
 extern "C" int port_height_1058_bd14(GRPort *port);
 
-extern "C" void dlg_control_init_1058_c3f6(SImageButton *ctl, void *win, int kind, int id, RECT *r);
 
 void image_button_init_1058_ba40(SImageButton *button, DialogWin *win, int id, register int x, register int y,
                                   int res_down, int res_up, int pal_first, int pal_count)

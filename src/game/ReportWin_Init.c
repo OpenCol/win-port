@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_IsSmallDesktop, DialogWin_AddControl removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ColChild_InitCWin_nc_parent, MSInitImageButton, get_ctable_1058_c3d9, image_button_init_1058_ba40, win_set_drag_height_1078_2aef, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_Init: candidate for 1058:0021 (507 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -35,11 +36,9 @@ class SButton;
 typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;   /* SEG20:0x5ca */
 
-extern int ColChild_IsSmallDesktop(void *w);
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *ctable);
 
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
 
 extern void ReportWin_DrawReport(void);

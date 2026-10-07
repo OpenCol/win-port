@@ -1,14 +1,6 @@
 {
  "first_errors": [
   [
-   18,
-   "'X' was not declared in this scope; did you mean 'X'?"
-  ],
-  [
-   15,
-   "implicit declaration of function 'X'; did you mean 'X'? [-Wimplicit-function-declaration]"
-  ],
-  [
    12,
    "invalid conversion from 'X' to 'X' [-fpermissive]"
   ],
@@ -22,11 +14,11 @@
   ],
   [
    6,
-   "expected unqualified-id before string constant"
+   "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
    6,
-   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
+   "expected unqualified-id before string constant"
   ],
   [
    6,
@@ -35,10 +27,6 @@
   [
    6,
    "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
-   5,
-   "'X' was not declared in this scope"
   ],
   [
    5,
@@ -58,10 +46,6 @@
   ],
   [
    3,
-   "'X' undeclared (first use in this function); did you mean 'X'?"
-  ],
-  [
-   3,
    "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
@@ -78,10 +62,26 @@
   ],
   [
    1,
-   "'X' undeclared (first use in this function)"
+   "'X' was not declared in this scope"
+  ],
+  [
+   1,
+   "assignment to expression with array type"
+  ],
+  [
+   1,
+   "cannot convert 'X' {aka 'X'} to 'X'"
+  ],
+  [
+   1,
+   "expected 'X' before 'X'"
+  ],
+  [
+   1,
+   "expected primary-expression before 'X'"
   ]
  ],
- "ok": 3114,
+ "ok": 3154,
  "toolchain": "mingw-i686",
  "total": 3245
 }

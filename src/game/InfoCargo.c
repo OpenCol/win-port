@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1058_c203 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of port_width_1058_bcfb removed: the header declares it from the definition (W1 step 3). */
 /* InfoCargo: candidate for 1058:8dd6 (1127 bytes).  Verdict: RELOCATABLE.
  * name-source: the Macintosh sibling build, matched by call-site arity
@@ -41,7 +42,6 @@ extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int sprite_width_1058_c203(void *sprite);
 
 void InfoCargo(GRPort *port, int u, int x, int y)
 {

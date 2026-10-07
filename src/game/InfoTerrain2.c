@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* InfoTerrain2: candidate for 1058:8d08 (206 bytes).  Verdict: RELOCATABLE.
  * symbol: InfoTerrain2
  *
@@ -13,7 +14,6 @@
 extern void open_string(char *s);
 extern void close_string(char *s);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 /* The module's rectangle-width helper is defined here because the shipped call to it is the
  * compiler's own `push cs / call `. */

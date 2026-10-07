@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MapWin_GetZoom removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1040_44a9, font_height_1040_44cf removed: the header declares them from the definition (W1 step 3). */
 /* TeepeeDraw: candidate for 1040:2ec4 (1638 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -55,7 +56,6 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern int MapWin_GetZoom(void *mw);
 extern void SetGlobalSpriteScale(int num, int den);
 extern void Sprite_Init_wh(Sprite *s, int w, int h, unsigned char colour);
 extern void Sprite_CopyTo(Sprite *art, Sprite *dest);
@@ -66,7 +66,6 @@ extern int pissed(int tribe, int i);
 
 extern void GRPort_FillColor(GRPort *p, RECT *r, int colour);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern void GRPort_DrawLine(GRPort *p, short x1, short y1, short x2, short y2);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

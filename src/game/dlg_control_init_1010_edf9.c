@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl removed: the header declares it from the definition (W1 step 3). */
 /* dlg_control_init_1010_edf9: candidate for 1010:edf9 (118 bytes).  Verdict: RELOCATABLE.
  *
  * The colony module's DlgControl initialiser: owner window, position, the
@@ -9,7 +10,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 
 void dlg_control_init_1010_edf9(DlgControl *ctl, void *win, int kind, int id, RECT *r)
 {

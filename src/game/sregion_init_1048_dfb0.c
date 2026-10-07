@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSInitRegion removed: the header declares it from the definition (W1 step 3). */
 /* sregion_init_1048_dfb0: candidate for 1048:dfb0 (131 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -13,7 +14,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 
 extern "C" void dlg_control_init_1048_e633(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 

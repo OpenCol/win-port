@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_TradeRoute1: candidate for 1058:7baa (549 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_TradeRoute1
  *
@@ -25,10 +26,8 @@ extern int get_order(int slot);
 
 extern void period_string(char *buf);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
-extern int sprite_width_1058_c203(void *sprite);
 
 void ReportWin_TradeRoute1(ReportWin *o, int y0)
 {

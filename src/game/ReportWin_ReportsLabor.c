@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength, ReportWin_OnLaborClick removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsLabor: candidate for 1058:2dcd (1072 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_ReportsLabor
@@ -28,7 +29,6 @@ extern void set_europe(int n);
 extern void set_colony(int colony);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern int get_specialty(int u);
 extern int is_colonist(int u);
@@ -41,7 +41,6 @@ extern void ReportWin_OnLaborMouseMove(void);
 
 extern int port_width_1058_bcfb(GRPort *port);
 
-extern int MSGetTextLength_1058_be29(Font *font, char *s);
 
 extern int font_height_1058_be4f(Font *font);
 

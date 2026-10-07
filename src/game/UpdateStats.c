@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of StatWin_Stats removed: the header declares it from the definition (W1 step 3). */
 /* UpdateStats: candidate for 1058:b928 (106 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: UpdateStats
@@ -24,7 +25,6 @@ extern void SetGlobalSpriteScale(int num, int den);
 #include "classes.h"
 extern void *GetEventWindow(void);   /* 1060:9fcd, a call: it lives in SEG13 */
 
-extern "C" void StatWin_Stats(StatWin *w);
 
 void UpdateStats(void)
 {

@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 36 of the imported file. */
+/* PORT: this file's own declarations of dlg_control_init_1068_e478 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSInitRadio removed: the header declares it from the definition (W1 step 3). */
 /* radio_init: candidate for 1068:df8f (173 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -28,12 +30,11 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void dlg_control_init_1068_e478(SRadioSet *ctl, void *win, int kind, int id, RECT *r);
 
 void radio_init(SRadioSet *radio, DialogWin *win, int id, RECT *r,
                               register int cols, char *captions)
 {
-    dlg_control_init_1068_e478(radio, win, 3, id, r);
+    dlg_control_init_1068_e478((DlgControl *)(radio), win, 3, id, r);
     radio->on_change = 0;
     radio->on_dblclk = 0;
     radio->on_rbutton_down = 0;

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_ReportsReligious: candidate for 1058:1bd8 (341 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_ReportsReligious
@@ -22,7 +23,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void set_europe(int n);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 void ReportWin_ReportsReligious(ReportWin *o, int nation)
 {

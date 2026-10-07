@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 35 of the imported file. */
 /* ColChild_PackQueue: candidate for 1048:13c7 (170 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_PackQueue
@@ -32,6 +33,6 @@ void ColChild_PackQueue(ColChild *w)
             STRCPY(w->queue[i], w->queue[i + 1]);
         STRCPY(buf, w->queue[0]);
         win_set_caption_1048_d48b(w, buf);
-        w->msg_timer = start_timer(message_timer_expired, 0x7d0, 1);
+        w->msg_timer = start_timer((void*)(message_timer_expired), 0x7d0, 1);
     }
 }

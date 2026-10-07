@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of set_job removed: the header declares it from the definition (W1 step 3). */
 /* preassign_colonists_to_fields: candidate for 1018:7a42 (174 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: preassign_colonists_to_fields
@@ -19,7 +20,6 @@ extern int g_stub_a, g_stub_b;
 
 extern int get_job(int colonist);
 extern int preassign_colonist_to_field(int colonist, int slot);
-extern void set_job(int colonist, int job);
 
 void preassign_colonists_to_fields(void)
 {

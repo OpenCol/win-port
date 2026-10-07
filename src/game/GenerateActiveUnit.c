@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GenerateUnitStack removed: the header declares it from the definition (W1 step 3). */
 /* GenerateActiveUnit: candidate for 1040:0e2e (92 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: GenerateActiveUnit
@@ -25,7 +26,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern int g_stub_a;
 
-extern void GenerateUnitStack(int u, int a, int b);
 
 void GenerateActiveUnit(int flag)
 {

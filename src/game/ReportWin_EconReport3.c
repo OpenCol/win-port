@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_EconReport3: candidate for 1058:4825 (453 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: ReportWin_EconReport3
@@ -22,7 +23,6 @@
 extern void set_europe(int n);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);

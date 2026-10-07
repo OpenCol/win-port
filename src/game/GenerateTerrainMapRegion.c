@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_GetZoom removed: the header declares it from the definition (W1 step 3). */
 /* GenerateTerrainMapRegion: candidate for 1040:19da (924 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -38,7 +39,6 @@ extern unsigned char *g_draw_feature_loc;       /* DGROUP:0x4c7e, plane 1 at the
 extern unsigned char *g_draw_map_loc;       /* DGROUP:0x4c82, plane 0 */
 extern unsigned char *g_draw_site_loc;       /* DGROUP:0x4c86, plane 3 */
 
-extern int MapWin_GetZoom(void *mw);
 extern void SetGlobalSpriteScale(int num, int den);
 extern unsigned char * map_loc(int x, int y);
 extern unsigned char * feature_loc(int x, int y);

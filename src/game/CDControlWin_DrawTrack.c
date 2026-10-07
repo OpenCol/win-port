@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 37 of the imported file. */
 /* PORT: this file's own declarations of copy_rect_to_screen_1040_af03 removed: the header declares it from the definition (W1 step 3). */
 /* CDControlWin_DrawTrack: candidate for 1040:9de6 (197 bytes).  Verdict: RELOCATABLE.
@@ -21,7 +22,6 @@ extern int g_stub_a;
 
 extern void GRPort_FillColor(GRPort *w, RECT *r, int color);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int align);
 
 
 void CDControlWin_DrawTrack(CDControlWin *w)

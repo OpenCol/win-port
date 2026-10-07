@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of FortDraw removed: the header declares it from the definition (W1 step 3). */
 /* DrawColonies: candidate for 1038:de64 (195 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -31,7 +32,6 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void FortDraw(GRPort *port, int i, int px, int py, int size, int a, int b);
 
 void DrawColonies(GRPort *port)
 {

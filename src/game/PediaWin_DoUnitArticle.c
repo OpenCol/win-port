@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1060_6977, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoUnitArticle: candidate for 1060:3a6d (2697 bytes).  Verdict: RELOCATABLE.
  * name-source: original
@@ -53,8 +54,6 @@ extern void minus_string(char *s);
 extern void colon_string(char *buf);
 
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 extern void draw_text_resource(void *target, char *name, void *rect);
 extern int make_fake_unit_2(int kind, int tile_x, int tile_y, int owner);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* SetNations_DrawIt: candidate for 1030:00b7 (595 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: SetNations_DrawIt
@@ -52,8 +53,6 @@
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void FrameInfoRect(GRPort *s, RECT *r, int depth, int light, int dark);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *t,
-                                     int x, int y, int align);
 extern void GRPort_DrawRect(GRPort *s, RECT *r);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

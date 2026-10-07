@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsIndian: candidate for 1058:0cab (1705 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 1705, the census figure, and the gap to the next function is 1705 exactly.
@@ -44,8 +45,6 @@
 extern GameState g_game;   /* SEG20:0x7782 */
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x,
-                                     int y, int size);
 extern void set_tribe(int tribe);
 extern int get_treaty(int nation_a, int nation_b);
 extern int pissed(int a, int tribe);
@@ -59,7 +58,6 @@ extern void colon_string(char *buf);
 extern void set_village(int s);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int MSGetTextLength_1058_be29(void *font, const char *s);
 
 void ReportWin_ReportsIndian(ReportWin *w, int nation)
 {

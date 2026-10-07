@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GenerateTerrainSprite, GenerateTerrainTile removed: the header declares them from the definition (W1 step 3). */
 /* GenerateTerrain: candidate for 1038:d8f8 (1388 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -57,8 +58,6 @@ extern "C" char terrain_fix_2(int terrain);
 extern "C" int resource_at(int x, int y);
 extern "C" int lost_city_at(int x, int y);
 
-extern "C" void GenerateTerrainTile(void *dst, unsigned char kind, int x, int y, int col, int row);
-extern "C" void GenerateTerrainSprite(void *dst, unsigned char icon, int px, int py);
 
 void GenerateTerrain(GRPort *port, int x, int y, register int px, register int py,
                                      int tile)

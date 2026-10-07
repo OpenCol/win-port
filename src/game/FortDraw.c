@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of Sprite_CopyOnto removed: the header declares it from the definition (W1 step 3). */
 /* FortDraw: candidate for 1040:3546 (1255 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -56,7 +57,6 @@ extern void Sprite_CopyTo(Sprite *art, Sprite *dest);
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern "C" void FortDraw(GRPort *port, register int colony, int x, int y, register int zoom,
                                 int show_pop, int show_name)

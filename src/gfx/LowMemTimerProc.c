@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of PostLowMemReport removed: the header declares it from the definition (W1 step 3). */
 /* LowMemTimerProc: candidate for 1068:bc53 (112 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -27,7 +28,6 @@
 
 /* same object: 4-byte `push cs; call ` */
 
-extern void PostLowMemReport(int res, void *win, int flag);
 
 void LowMemTimerProc(void)
 {

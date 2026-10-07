@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1060_6977, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoTerrainArticle: candidate for 1060:44f6 (3491 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -81,8 +82,6 @@ extern void percent_string(char *buf);
 
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void FrameInfoRect(GRPort *w, RECT *r, int depth, int light, int dark);
 
 extern void draw_text_resource(void *target, char *name, void *rect);

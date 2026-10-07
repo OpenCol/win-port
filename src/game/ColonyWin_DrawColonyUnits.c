@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawColonyUnits: candidate for 1010:7b7e (861 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawColonyUnits
@@ -56,8 +57,6 @@ extern void GRPort_ResetClip(GRPort *port);
 extern void set_colony(int colony);
 extern char *get_production_name(int item);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int align);
 extern char *strings(int n);
 extern int top_unit_in_square(int x, int y);
 extern void SetGlobalSpriteScale(int num, int den);

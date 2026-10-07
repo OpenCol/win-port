@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of FortDraw, GRPort_String, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsColony: candidate for 1058:5ad6 (1788 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ReportsColony
@@ -67,9 +68,6 @@ extern void set_colony(int colony);
 
 extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 
-extern void FortDraw(GRPort *w, int id, int x, int y, int a, int b, int c);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern int top_unit_in_square(int x, int y);
 extern int next_unit(int u);
 extern int UnitIcon(int u);
@@ -80,7 +78,6 @@ extern void ReportWin_OnColonyExtraClick(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int sprite_width_1058_c203(void *sprite);
 extern "C" void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);
 extern "C" void set_button_action_1058_c17f(SButton *button, void *h);
 extern "C" void ctl_flag_clear(SButton *control);

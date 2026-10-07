@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_IsSmallDesktop removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of set_repaint_handler_1058_ba08, win_set_icon_1078_2832 removed: the header declares them from the definition (W1 step 3). */
 /* StatWin_Init: candidate for 1058:8a34 (307 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -36,7 +37,6 @@
 
 struct logpal { char pad[1]; };
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
-extern int ColChild_IsSmallDesktop(void *w);
 
 extern void ColChild_InitCWin(ColChild *o, char *title, int style, int x, int y, int w, int h, char save);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of PediaWin_PediaName removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 52, 78, 102 of the imported file. */
 /* PediaWin_HandleLeftClick: candidate for 1060:2c0a (1353 bytes).  Verdict: RELOCATABLE.
@@ -29,7 +30,6 @@
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void FrameInfoRect(GRPort *p, RECT *r, int depth, int light, int dark);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 /* same object: 4-byte `push cs; call ` */
 

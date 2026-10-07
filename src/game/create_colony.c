@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of set_job removed: the header declares it from the definition (W1 step 3). */
 /* create_colony: candidate for 1018:af9d (908 bytes).  Verdict: RELOCATABLE.
  * symbol: create_colony
  *
@@ -75,7 +76,6 @@ extern void set_building(int bit, int on);
 extern void compute_colony_parameters(void);
 extern void colony_indian_table(void);
 extern int guy_number_of_unit(int u);
-extern void set_job(int colonist, int job);
 extern void set_specialty(int a, int b);
 
 int create_colony(int nation, int x, int y, int unit)

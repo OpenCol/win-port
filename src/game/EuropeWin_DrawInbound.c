@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawInbound: candidate for 1048:95c1 (459 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -47,8 +48,6 @@
 
 #include "records.h"
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int align);
 
 extern int top_unit_in_square(int x, int y);
 extern int next_unit(int u);

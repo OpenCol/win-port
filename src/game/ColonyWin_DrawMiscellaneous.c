@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_UpdateColony, copy_rect_to_screen_1010_e6a4 removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawMiscellaneous: candidate for 1010:8190 (316 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawMiscellaneous
@@ -20,7 +21,6 @@
 
 extern int g_stub_a;
 extern void set_colony(int colony);
-extern void ColonyWin_UpdateColony(void *o, int x, int y, int w, int h);
 
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
@@ -29,7 +29,6 @@ extern "C" void ColonyWin_DrawMakeList(ColonyWin *w);
 extern "C" void ColonyWin_DrawColonyUnits(ColonyWin *w);
 extern "C" void ColonyWin_DrawProduction(ColonyWin *w);
 extern "C" void MSHideControl_1010_e54d(void *control);
-extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawMiscellaneous(ColonyWin *w, int redraw)
 {

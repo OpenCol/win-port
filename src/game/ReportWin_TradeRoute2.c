@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl, MSInitButton, dlg_control_init_1058_c3f6, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSShowControl_1058_c26f, sprite_height_1058_c24c removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_TradeRoute2: candidate for 1058:7df4 (441 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -17,15 +18,11 @@
 class SButton;
 
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern short MSInitButton(RECT *rgn, SButton *obj, char *title, int visible);
 
 extern void ReportWin_OnTradeRouteExtraClick(void);
 
-extern "C" int sprite_width_1058_c203(void *sprite);
 
 
-extern "C" void dlg_control_init_1058_c3f6(SButton *ctl, void *win, int kind, int id, RECT *r);
 
 extern "C" void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);
 

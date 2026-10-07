@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow, Sprite_Init removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawABuilding: candidate for 1010:9e22 (1090 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -61,7 +62,6 @@ extern int guys_at_building(int building);
 extern int output_of_building(int building, int *kind_out, int *pic_out, int *extra_out);
 extern int base_building(int building);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ColonyWin_DrawIndividual(ColonyWin *w, int job, int x, int y, int slot);
 extern "C" void ColonyWin_DrawFort(ColonyWin *w, int x, int y, int count);

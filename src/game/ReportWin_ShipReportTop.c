@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_ShipReportTop: candidate for 1058:6481 (691 bytes).  Verdict: RELOCATABLE.
  * symbol: ReportWin_ShipReportTop
  *
@@ -18,7 +19,6 @@ extern void set_europe(int n);
 
 extern char *strings(int n);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 
 extern int port_width_1058_bcfb(GRPort *port);

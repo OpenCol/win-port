@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of Sprite_Init, port_height_1060_86e2, port_width_1060_86c9, sprite_height_1060_8842, sprite_width_1060_881f removed: the header declares them from the definition (W1 step 3). */
 /* AboutWin_UpdateCredits: candidate for 1060:790c (1505 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -61,8 +62,6 @@ extern void DoFizzle(GRPort *port, GameWin *w, RECT *r,
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

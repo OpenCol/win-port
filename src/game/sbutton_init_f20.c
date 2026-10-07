@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl, MSInitButton removed: the header declares them from the definition (W1 step 3). */
 /* sbutton_init_f20: candidate for 1010:eabb (58 bytes).  Verdict: RELOCATABLE.
  * symbol: sbutton_init_f20
  *
@@ -8,8 +9,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
-extern short MSInitButton(RECT *rgn, SButton *obj, char *title, int visible);
 
 extern void dlg_control_init_1010_edf9(DlgControl *ctl, void *win, int kind, int id, RECT *r);
 

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, file_MSOpenFile_1050_9096, font_height_1050_9106, text_search, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 189, 236 of the imported file. */
 /* HallOfFame: candidate for 1050:6f8e (2175 bytes).  Verdict: RELOCATABLE.
@@ -70,8 +71,6 @@ extern char *strings(int n);
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *w, int id, int a, int b, struct logpal *pal);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void EventWin_Modal(EventWin *w);
 extern void fame_OnLMouseDown(void);
 

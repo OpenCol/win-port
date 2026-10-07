@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of KingRoom removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of popk, text_search removed: the header declares them from the definition (W1 step 3). */
 /* end_of_game_check: candidate for 1008:1e2c (2811 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -83,7 +84,6 @@ extern int treaty_off(int nation, int other, int mask);
 /* 5-byte NOP form, so extern (rule 47) */
 extern void OpenBackdrop(void);
 extern void CloseBackdrop(void);
-extern void KingRoom(int scene, int mode, char *s);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

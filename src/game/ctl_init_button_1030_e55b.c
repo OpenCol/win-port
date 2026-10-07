@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 23 of the imported file. */
+/* PORT: this file's own declarations of MSInitButton, dlg_control_init_1030_ec80 removed: the header declares them from the definition (W1 step 3). */
 /* ctl_init_button_1030_e55b: candidate for 1030:e55b (100 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -r-
  * symbol: ctl_init_button_1030_e55b
@@ -17,11 +19,9 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void dlg_control_init_1030_ec80(SButton *ctl, void *win, int kind, int id, RECT *r);
-extern short MSInitButton(RECT *rgn, SButton *obj, char *title, int style);
 void ctl_init_button_1030_e55b(SButton *button, void *win, int id, RECT *r, char *title)
 {
-    dlg_control_init_1030_ec80(button, win, 6, id, r);
+    dlg_control_init_1030_ec80((DlgControl *)(button), win, 6, id, r);
     button->action = 0;
     button->hwnd = MSInitButton(r, button, title, 1);
     button->enabled = 1;

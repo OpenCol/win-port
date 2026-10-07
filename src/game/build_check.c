@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1040_a80c, show_ship, win_release_1040_acac removed: the header declares them from the definition (W1 step 3). */
 /* build_check: candidate for 1040:843c (173 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: build_check
@@ -19,10 +20,7 @@ extern int g_opening_dismissed;                         /* DGROUP:0x1d04 */
 
 extern int g_stub_a;
 
-extern void show_ship(int n);
 
-extern void MSHideWindow_of_1040_a80c(void *d);
-extern void win_release_1040_acac(void *w);
 
 int build_check(int flag)
 {

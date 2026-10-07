@@ -189,7 +189,10 @@ def definition_heads():
             name = m.group(2)
             if name in ("if", "while", "for", "switch", "return", "sizeof"):
                 continue
-            heads.setdefault(name, set()).add(re.sub(r"\s+", " ", m.group(1)).strip())
+            # the header's declarations all sit in one extern "C" block: the definition's own
+            # linkage spelling is not part of its head
+            head = re.sub(r'^extern\s+"C"\s+', "", re.sub(r"\s+", " ", m.group(1)).strip())
+            heads.setdefault(name, set()).add(head)
     return {n: next(iter(h)) for n, h in heads.items() if len(h) == 1}
 
 
@@ -258,6 +261,7 @@ def known_types(src):
 
 
 def type_names(decl, name):
+    decl = re.sub(r'"[^"]*"', "", decl)
     return {w for w in re.findall(r"\b([A-Za-z_]\w*)\b", decl)
             if w != name and w[0].isupper() or w in ("logpal",)} - {"extern"}
 

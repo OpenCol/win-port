@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow, sprite_height_1010_e681, sprite_width_1010_e60f removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawProduction: candidate for 1010:7edb (693 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -62,8 +63,6 @@ extern int get_production_cost(int item, int *tools);
 extern char *get_production_name(int item);
 extern void GRPort_ResetClip(GRPort *port);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int align);
 extern void open_string(char *s);
 extern void space_string(char *buf);
 extern void close_string(char *s);

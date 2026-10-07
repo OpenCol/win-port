@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ctl_init_button_1030_e55b removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 95, 99, 103 of the imported file. */
 /* PORT: this file's own declarations of Customize_LeftMouseClick, Customize_OkButtonClick, GameWin_Init, IsBackdrop, MSHideWindow_of_1030_e647, show_window_1030_e611, win_center_1030_e5d9 removed: the header declares them from the definition (W1 step 3). */
 /* Customize_Init: candidate for 1030:1397 (1158 bytes).  Verdict: RELOCATABLE.
@@ -51,7 +52,6 @@ extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *p
 extern "C" void Customize_DrawIt(Customize *s);
 void set_on_lbutton_down_1030_e522(void *o, void (*fn)()) { }
 
-extern "C" void ctl_init_button_1030_e55b(void *button, void *win, int id, RECT *r, char *title);
 void set_button_action_1030_e5bf(void *c, void (*fn)()) { }
 
 

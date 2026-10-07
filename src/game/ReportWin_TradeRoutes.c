@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29, ReportWin_OnTradeRouteClick, font_height_1058_be4f, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of sprite_height_1058_c24c removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_TradeRoutes: candidate for 1058:7fca (1643 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -60,20 +61,15 @@ class SButton;
 extern char *strings(int n);
 extern void space_string(char *buf);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 extern int GRPort_Init(GRPort *p, void *r);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void FrameInfoRect(GRPort *w, RECT *r, int depth, int light, int dark);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern void ReportWin_OnTradeRouteClick(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int sprite_width_1058_c203(void *sprite);
-extern "C" int MSGetTextLength_1058_be29(void *font, const char *s);
-extern "C" int font_height_1058_be4f(void *font);
 
 extern "C" void ReportWin_TradeRoute2(ReportWin *o);
 extern "C" void ReportWin_TradeRoute1(ReportWin *o, int y0);

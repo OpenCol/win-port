@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_IsSmallDesktop removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_LeftMouseClick: candidate for 1058:0c36 (117 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_LeftMouseClick
@@ -21,7 +22,6 @@ class SButton;
 extern void *GetEventWindow(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern int ColChild_IsSmallDesktop(void *w);
 
 void ReportWin_LeftMouseClick(int unused1, int unused2)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_defense removed: the header declares it from the definition (W1 step 3). */
 /* best_defender: candidate for 1020:1f8c (445 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 445, not the census 436. The trailing 9 bytes are the dead second epilogue.
@@ -39,7 +40,6 @@ extern int is_colony(int x, int y);
 extern int terrain_is_ocean(int x, int y);
 extern int top_unit(int u);
 extern int next_unit(int u);
-extern int get_defense(int u, int attacker);
 extern int get_combat(int u, int attacking);
 
 int best_defender(int u, int attacker)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ColChild_BackspaceMessage, copy_rect_to_screen removed: the header declares them from the definition (W1 step 3). */
 /* EuropeWin_AttemptCargoFromEurope: candidate for 1048:1cbd (1428 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -71,7 +72,6 @@ extern void space_string(char *buf);
 
 extern void colon_string(char *buf);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern void europe_adjust_prices(int reset, int only);
 extern void europe_change_mode(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */

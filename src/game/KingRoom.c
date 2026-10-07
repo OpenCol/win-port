@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, IsBackdrop, set_on_keydown_after_1008_da94, set_on_lclick_1008_da22, set_on_rclick_1008_da5b, show_window_1008_d117, win_center_1008_dacd, win_hide_1008_d0bc removed: the header declares them from the definition (W1 step 3). */
 /* KingRoom: candidate for 1008:b3d0 (2347 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -76,8 +77,6 @@ extern void Sprite_Extract(Sprite *spr, GRPort *src, int x, int y, int w, int h)
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern int text_open(void *a, char *id);
 extern char *text_get(void);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void sound_play(int id);
 extern void text_close(void);
 

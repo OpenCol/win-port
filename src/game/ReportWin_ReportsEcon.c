@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsEcon: candidate for 1058:3c8a (2216 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ReportsEcon
@@ -62,15 +63,12 @@ extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 extern int europe_bid_price(int g);
 extern int europe_ask_price(int g);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int MSGetTextLength_1058_be29(void *font, const char *s);
 
 extern "C" void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);
 extern "C" void set_button_action_1058_c17f(SButton *button, void *h);

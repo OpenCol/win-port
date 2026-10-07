@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 35 of the imported file. */
+/* PORT: this file's own declarations of dlg_control_init_1050_9418 removed: the header declares it from the definition (W1 step 3). */
 /* checkbox_init: candidate for 1050:8718 (138 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -25,14 +27,13 @@
 extern unsigned MSInitCheck(RECT *r, void *ctl, const char *text, int visible);
 
 /* same object: 4-byte `push cs; call ` */
-extern void dlg_control_init_1050_9418(SCheckBox *ctl, void *win, int kind, int id, RECT *r);
 
 void checkbox_init(SCheckBox *checkbox, DialogWin *win, int id, int rx, int ry, char *text)
 {
     RECT r;
 
     text_row_rect(text, rx, ry, &r);
-    dlg_control_init_1050_9418(checkbox, win, 2, id, &r);
+    dlg_control_init_1050_9418((DlgControl *)(checkbox), win, 2, id, &r);
     checkbox->on_change = 0L;
     checkbox->enabled = 1;
     checkbox->checked = 0;

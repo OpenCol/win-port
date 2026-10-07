@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 24 of the imported file. */
 /* ReportWin_ColonyReportTop: candidate for 1058:59f5 (98 bytes).  Verdict: RELOCATABLE.
  *
@@ -16,7 +17,6 @@
 
 extern char *strings(int n);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 void ReportWin_ColonyReportTop(ReportWin *w)
 {

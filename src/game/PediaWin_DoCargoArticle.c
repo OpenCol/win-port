@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of text_search removed: the header declares it from the definition (W1 step 3). */
 /* PediaWin_DoCargoArticle: candidate for 1060:37a1 (716 bytes).  Verdict: RELOCATABLE.
  *
@@ -33,7 +34,6 @@ extern void close_string(char *s);
 extern void colon_string(char *buf);
 
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern void draw_text_resource(void *target, char *name, void *rect);
 

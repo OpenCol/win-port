@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl removed: the header declares it from the definition (W1 step 3). */
 /* dlg_control_init_1060_aa64: candidate for 1060:aa64 (117 bytes).  Verdict: RELOCATABLE.
  * symbol: dlg_control_init_1060_aa64
  *
@@ -11,7 +12,6 @@
 #include "w16types.h"
 #include "classes.h"
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 void dlg_control_init_1060_aa64(DlgControl *ctl, void *win, int kind, int id, RECT *r)
 {
     ctl->win = win;

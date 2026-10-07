@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GenerateUnitStack removed: the header declares it from the definition (W1 step 3). */
 /* GenerateUnit: candidate for 1040:0e8a (265 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -45,7 +46,6 @@ extern int unit_is_active(int u);
 
 /* same object: 4-byte `push cs; call ` */
 extern void GenerateActiveUnit(int flag);
-extern void GenerateUnitStack(int u, int a, int b);
 
 void GenerateUnit(register int u)
 {

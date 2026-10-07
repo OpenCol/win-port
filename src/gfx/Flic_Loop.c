@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 84 of the imported file. */
 /* PORT: this file's own declarations of MagicWin_LoadFlic removed: the header declares it from the definition (W1 step 3). */
 /* Flic_Loop: candidate for 1068:23e0 (115 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -81,7 +82,7 @@ void Flic_Loop(Flic *anim, MagicWin *port)
     g_anim_port = anim->port = port;
     MagicWin_LoadFlic(port, anim);
     g_anim = anim;
-    anim->timer = start_timer(timer_tick_chain, anim->speed, anim->frames);
+    anim->timer = start_timer((void*)(timer_tick_chain), anim->speed, anim->frames);
     if (anim->loop_hook != 0)
         (*anim->loop_hook)();
 }

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of copy_rect_to_screen removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_DrawEuropeShips: candidate for 1048:91ac (1045 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -78,7 +79,6 @@ extern int g_ships_in_port;                    /* DGROUP:0x1fca, ships in port *
 
 extern void EuropeWin_UpdateEurope(EuropeWin *w, int x, int y, int cw, int ch);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern char *strings(int n);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 

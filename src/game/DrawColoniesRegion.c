@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of FortDraw, MapWin_GetZoom removed: the header declares them from the definition (W1 step 3). */
 /* DrawColoniesRegion: candidate for 1040:09e2 (333 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -30,8 +31,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern void ConformToView(int *l, int *top, int *r, int *bottom);
 extern int can_see(int colony, int nation);
 extern unsigned char site_get(int x, int y);
-extern int MapWin_GetZoom(void *mw);
-extern void FortDraw(GRPort *sprites, int i, int px, int py, int size, int a, int b);
 
 void DrawColoniesRegion(int x0, int y0, int w, int h)
 {

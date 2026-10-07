@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_UpdateColony removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawColony: candidate for 1010:aed6 (211 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawColony
@@ -19,7 +20,6 @@ extern int g_stub_a;
 extern void set_colony(int colony);
 extern void compute_colony_parameters(void);
 extern void sort_colonists_by_profession(void);
-extern void ColonyWin_UpdateColony(void *o, int x, int y, int w, int h);
 extern void ColonyWin_DrawButtons(void *w, int a, int b);
 
 extern "C" void ColonyWin_GenerateColonyBaseMap(ColonyWin *w);

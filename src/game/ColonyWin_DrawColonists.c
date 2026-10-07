@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_UpdateColony, GRPort_String, copy_rect_to_screen_1010_e6a4 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1010_e2d2 removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_DrawColonists: candidate for 1010:962d (2009 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -76,7 +77,6 @@ extern int g_consumption[];                    /* SEG21:0x164 */
 extern int g_deficit[];                  /* SEG21:0x18c */
 
 extern void set_colony(int colony);
-extern void ColonyWin_UpdateColony(void *o, int x, int y, int w, int h);
 extern int get_icon(int colonist);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern RECT *Sprite_DrawMono(RECT *out, Sprite *sprite, GRPort *port,
@@ -93,13 +93,10 @@ extern void space_string(char *buf);
 extern void open_string(char *s);
 extern void close_string(char *s);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y,
-                                     int size);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int sprite_width_1010_e60f(Sprite *sprite);
 
-extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawColonists(ColonyWin *w, int redraw)
 {

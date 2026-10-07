@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of label_cargo removed: the header declares it from the definition (W1 step 3). */
 /* ColonyWin_ColonyMouseMarket: candidate for 1010:510b (500 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_ColonyMouseMarket
@@ -61,7 +62,6 @@ extern int shift_key(void);
 extern void ColonyWin_ColonyMouseShipsProper(ColonyWin *w, int x, int y);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void label_cargo(int goods);
 
 extern "C" int ColonyMouseArea(int x, int y);
 

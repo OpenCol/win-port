@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_GetClip, copy_rect_to_screen removed: the header declares them from the definition (W1 step 3). */
 /* ColChild_DrawTitleBar: candidate for 1048:0ecf (394 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -44,8 +45,6 @@ extern void GetGlobalSpriteScale(int *num, int *den);
 extern void SetGlobalSpriteScale(int num, int den);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int align);
 extern void GRPort_ResetClip(GRPort *port);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

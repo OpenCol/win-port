@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow, sprite_height_1058_c24c removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsContinental: candidate for 1058:7056 (2900 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -79,8 +80,6 @@ extern void SetGlobalSpriteScale(int num, int den);
 extern void set_europe(int n);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 extern void space_string(char *buf);
 extern void colon_string(char *buf);
@@ -98,7 +97,6 @@ extern void ShowFloor(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int font_height_1058_be4f(void *font);
 
 
 extern "C" void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);

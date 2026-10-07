@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of show_window_1020_ac0e removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of Sprite_Init, win_center_1020_abcb removed: the header declares them from the definition (W1 step 3). */
 /* show_fathers: candidate for 1020:9a90 (770 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -59,7 +60,6 @@ extern void SuperWin_GoAway(SuperWin *w);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_father(int nation, int father, int on);
 
-extern "C" void show_window_1020_ac0e(SuperWin *w);
 
 void show_fathers(int nation, int father)
 {

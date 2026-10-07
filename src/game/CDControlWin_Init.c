@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 108, 113, 118, 123 of the imported file. */
 /* PORT: this file's own declarations of CDControlWin_ButtonProc, ColChild_InitCWin_nc, disable_parent, enable_parent, get_win_1040_aee6, image_button_init_1040_ada4, show_window_1040_a79d removed: the header declares them from the definition (W1 step 3). */
 /* CDControlWin_Init: candidate for 1040:961c (1923 bytes).  Verdict: RELOCATABLE.
@@ -70,8 +71,6 @@ extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void GRPort_FillColor(GRPort *p, RECT *r, int colour);
 
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void CDControlWin_OnOkClick(void);
 extern void CDControlWin_DrawTime(CDControlWin *w);
 extern void CDControlWin_DrawTrack(CDControlWin *w);

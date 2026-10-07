@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of KingRoom removed: the header declares it from the definition (W1 step 3). */
 /* KingHowdy: candidate for 1008:bcfb (81 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,7 +17,6 @@
 extern GameState g_game;   /* SEG20:0x7782 */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern void KingRoom(int scene, int mode, char *buf);
 void KingHowdy(void)
 {
     char buf[20];

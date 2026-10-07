@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength_1060_6977, Sprite_Init, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 109 of the imported file. */
 /* PediaWin_DoBuildingsArticle: candidate for 1060:58cc (1533 bytes).  Verdict: RELOCATABLE.
@@ -59,7 +60,6 @@ extern void close_string(char *s);
 extern void colon_string(char *buf);
 
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 extern void draw_text_resource(void *target, char *name, void *rect);

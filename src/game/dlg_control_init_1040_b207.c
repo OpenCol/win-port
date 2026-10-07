@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl removed: the header declares it from the definition (W1 step 3). */
 /* dlg_control_init_1040_b207: candidate for 1040:b207 (118 bytes).  Verdict: RELOCATABLE.
  *
  * Segment 1040's copy of the DlgControl initialiser: owner window,
@@ -9,7 +10,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 
 void dlg_control_init_1040_b207(DlgControl *ctl, void *win, int kind, int id, RECT *r)
 {

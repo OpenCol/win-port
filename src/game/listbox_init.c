@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 29 of the imported file. */
+/* PORT: this file's own declarations of dlg_control_init_1050_9418 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of create_MSListBoxClass_window removed: the header declares it from the definition (W1 step 3). */
 /* listbox_init: candidate for 1050:865a (82 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -22,11 +24,10 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern void dlg_control_init_1050_9418(SListBox *ctl, void *win, int kind, int id, RECT *r);
 
 void listbox_init(SListBox *listbox, DialogWin *win, int id, RECT *r)
 {
-    dlg_control_init_1050_9418(listbox, win, 7, id, r);
+    dlg_control_init_1050_9418((DlgControl *)(listbox), win, 7, id, r);
     listbox->hwnd = create_MSListBoxClass_window(r, listbox, 1);
     listbox->count = 0;
 }

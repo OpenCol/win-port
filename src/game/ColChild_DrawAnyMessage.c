@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 43 of the imported file. */
 /* ColChild_DrawAnyMessage: candidate for 1048:12c6 (257 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DrawAnyMessage
@@ -40,7 +41,7 @@ void ColChild_DrawAnyMessage(ColChild *w, int mode, char *msg)
         if (w->queued == 0) {
             if (mode != 0)
                 win_set_caption_1048_d48b(w, buf);
-            w->msg_timer = start_timer(message_timer_expired, 0x7d0, 1);
+            w->msg_timer = start_timer((void*)(message_timer_expired), 0x7d0, 1);
             w->queued++;
         } else {
             if (w->queued <= 0xf) {

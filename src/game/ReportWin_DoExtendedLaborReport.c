@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_DrawInsetRect, GameWin_Init, show_window_1058_bc28 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_DoExtendedLaborReport: candidate for 1058:3236 (2270 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -83,14 +84,12 @@ extern int get_specialty(int u);
 extern int is_colonist(int u);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern int ColonistIcon(int spec);
 extern int Screen_LButtonPressed(Screen *o, char own, char remove, char wait);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int font_height_1058_be4f(void *font);
 extern "C" void win_center_1058_c020(DialogWin *w);
 
 

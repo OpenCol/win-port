@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of CTable_Set, GameWin_Init, IsBackdrop, show_window_1040_a79d, win_center_1040_a778, win_show_and_focus_1040_ac70 removed: the header declares them from the definition (W1 step 3). */
 /* show_ship: candidate for 1040:7dc4 (1656 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -64,8 +65,6 @@ extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pa
 
 extern void GRPort_ColorSync(GRPort *port, CTable *pal);
 extern void GRPort_FillColor_all(GRPort *w, int colour);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void DoFizzle(GRPort *port, GameWin *w, RECT *r, int x, int y,
                               int mode, int step);
 

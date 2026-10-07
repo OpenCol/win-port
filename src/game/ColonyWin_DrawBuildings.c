@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColonyWin_DrawABuilding, ColonyWin_DrawATree, ColonyWin_UpdateColony, copy_rect_to_screen_1010_e6a4 removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawBuildings: candidate for 1010:8dec (264 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_DrawBuildings
@@ -21,11 +22,7 @@
 
 extern int g_stub_a;
 extern void set_colony(int colony);
-extern void ColonyWin_UpdateColony(void *o, int x, int y, int w, int h);
-extern void ColonyWin_DrawABuilding(void *w, int b, int x, int y, int kind);
 
-extern "C" void ColonyWin_DrawATree(void *w, int x, int y, int kind);
-extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawBuildings(ColonyWin *w, int redraw)
 {

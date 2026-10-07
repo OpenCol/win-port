@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of FortDraw, GRPort_String removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ColonyLibertyReport: candidate for 1058:51e2 (2067 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ColonyLibertyReport
@@ -71,9 +72,6 @@ extern void set_colony(int colony);
 
 extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 
-extern void FortDraw(GRPort *w, int id, int x, int y, int a, int b, int c);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern RECT *Sprite_DrawMono(RECT *out, Sprite *sprite, GRPort *dst,
                                   int x, int y, unsigned char flags);

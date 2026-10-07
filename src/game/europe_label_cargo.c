@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, MSGetTextLength_1048_dc4e, set_on_keydown_1048_dceb removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
 /* europe_label_cargo: candidate for 1048:3d72 (725 bytes).  Verdict: RELOCATABLE.
@@ -53,7 +54,6 @@ extern void space_string(char *buf);
 extern void GRPort_ColorSync(GRPort *port, CTable *page);
 extern void GRPort_FillColor_all(GRPort *p, int color);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 extern void LabelKeyProc(int key);
 extern int boycott(int bit);
 extern int europe_bid_price(int g);

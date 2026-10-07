@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsForeign: candidate for 1058:1354 (2180 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  * size-source: 2180, not the census 2171. The trailing 9 bytes are the dead second epilogue.
@@ -73,8 +74,6 @@ extern int popm(char *msg, int n);
 extern void set_europe(int n);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x,
-                                     int y, int size);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 
 extern void space_string(char *buf);
@@ -85,7 +84,6 @@ extern int get_treaty(int nation_a, int nation_b);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern int MSGetTextLength_1058_be29(void *font, const char *s);
 
 void ReportWin_ReportsForeign(ReportWin *w, int nation)
 {

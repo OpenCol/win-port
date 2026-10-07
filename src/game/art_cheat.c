@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MSHideWindow_of_1040_a80c removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, Sprite_Init, set_on_close_1040_a7bc, win_center_1040_a778 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 487 of the imported file. */
 /* art_cheat: candidate for 1040:46aa (5574 bytes).  Verdict: RELOCATABLE.
@@ -59,7 +60,6 @@ extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void show_window_1040_a79d(GameWin *w);
 
-extern "C" void MSHideWindow_of_1040_a80c(void *w);
 
 extern "C" void art_cheat(void)
 {

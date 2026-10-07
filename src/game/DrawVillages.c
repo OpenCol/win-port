@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of TeepeeDraw removed: the header declares it from the definition (W1 step 3). */
 /* DrawVillages: candidate for 1038:df27 (150 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,7 +17,6 @@
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void TeepeeDraw(void *w, int v, int px, int py, int mode);
 
 void DrawVillages(GRPort *port)
 {

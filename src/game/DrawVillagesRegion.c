@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of MapWin_GetZoom, TeepeeDraw removed: the header declares them from the definition (W1 step 3). */
 /* DrawVillagesRegion: candidate for 1040:0877 (302 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -29,8 +30,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void ConformToView(int *l, int *top, int *r, int *bottom);
 extern unsigned char site_get(int x, int y);
-extern int MapWin_GetZoom(void *mw);
-extern void TeepeeDraw(void *sprites, int i, int px, int py, int size);
 
 void DrawVillagesRegion(int x0, int y0, int w, int h)
 {

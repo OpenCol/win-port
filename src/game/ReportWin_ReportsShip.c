@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* ReportWin_ReportsShip: candidate for 1058:6776 (2177 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_ReportsShip
@@ -64,8 +65,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y,
                                          int cx, int cy);

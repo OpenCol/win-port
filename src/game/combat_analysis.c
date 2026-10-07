@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 414 of the imported file. */
+/* PORT: this file's own declarations of FortDraw, GRPort_String, MSHideWindow_of_1020_ac40, TeepeeDraw, show_window_1020_ac0e, win_release_1020_ac61 removed: the header declares them from the definition (W1 step 3). */
 /* combat_analysis: candidate for 1020:68ba (5473 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: combat_analysis
@@ -62,8 +64,6 @@ extern void set_colony(int colony);
 extern void set_village(int s);
 
 extern char *strings(int n);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void PieceDraw(GRPort *port, int unit, int flags, int x, int y,
                                          int span, int mode);
 extern int job_name(int spec);
@@ -77,21 +77,15 @@ extern void minus_string(char *s);
 
 extern int colony_rebel(void);
 
-extern void FortDraw(GRPort *w, int c, int x, int y, int zoom,
-                            int show_pop, int show_name);
 extern int has_building(int bit);
 extern int best_building(int bit);
 extern int get_colony_defense(void);
-extern void TeepeeDraw(void *w, int s, int x, int y, int zoom);
 extern void EventWin_Modal(EventWin *w);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern void PopupBoxDraw(char *win, int x, int y, int w, int h);
 
-extern void show_window_1020_ac0e(void *o);
 
-extern void MSHideWindow_of_1020_ac40(void *o);
-extern void win_release_1020_ac61(void *o);
 
 void combat_analysis(int u0, int u1, int unused_a, int unused_b, int x, int y,
                                int nation0, int nation1, int colony, int settlement,
@@ -418,7 +412,7 @@ void combat_analysis(int u0, int u1, int unused_a, int unused_b, int x, int y,
             }
             if ((fa & 8) != 0) {
                 if (pass != 0)
-                    TeepeeDraw(&g_win, settlement, col, row, 8);
+                    TeepeeDraw((GRPort *)(&g_win), settlement, col, row, 8);
                 col += 0x24;
                 bonus = 1;
                 if ((fa & 0x10) != 0)

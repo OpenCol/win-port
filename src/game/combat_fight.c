@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of get_defense removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MapWin_SlideIcon, delete_colony, special_kill removed: the header declares them from the definition (W1 step 3). */
 /* combat_fight: candidate for 1020:4460 (8698 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -148,7 +149,6 @@ extern void combat_analysis(int u, int u1, int ux, int uy, int x, int y,
                                       int an, int dn, int colony, int settlement, int att,
                                       int def, int roll);
 extern int make_fake_unit(int portrait, int x, int y, int owner, int strength);
-extern int get_defense(int u, int attacker);
 extern void blow_fake_unit(void);
 extern int has_father(int nation, int bit);
 extern int get_combat(int u, int attacking);

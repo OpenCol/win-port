@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of sprite_width_1058_c203 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of set_order removed: the header declares it from the definition (W1 step 3). */
 /* route_order: candidate for 1058:8635 (424 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -29,7 +30,6 @@ extern int get_num_orders(int side);
 extern int get_order(int slot);
 extern void set_num_orders(int side, int count);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern int sprite_width_1058_c203(void *sprite);
 extern char *dest_name(int stop);
 
 void route_order(int side, int x, int y)

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of cargo_to_europe removed: the header declares it from the definition (W1 step 3). */
 /* EuropeWin_AttemptCargoToEurope: candidate for 1048:2251 (1832 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -70,8 +71,6 @@ extern void add_gold(int n, long amount);
 extern void space_string(char *buf);
 extern void colon_string(char *buf);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y,
-                                     int size);
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 extern void europe_adjust_prices(int reset, int only);
 extern void europe_change_mode(void);

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of ColChild_IsSmallDesktop, FortDraw, GRPort_String, MSGetTextLength_1058_be29, TeepeeDraw, copy_rect_to_screen_1058_c340, set_window_caption, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* StatWin_Stats: candidate for 1058:943c (9452 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: StatWin_Stats
@@ -103,7 +104,6 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
 #include "icons.h"
 
-extern int ColChild_IsSmallDesktop(void *w);
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
@@ -137,8 +137,6 @@ extern void sort_16x16(int n, int *payload, int *key);
 extern void SetGlobalSpriteScale(int num, int den);
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y,
                                          int span, int mode);
-extern void FortDraw(GRPort *w, int c, int x, int y, int sc, int a, int b);
-extern void TeepeeDraw(void *w, int v, int x, int y, int sc);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 extern void space_string(char *buf);
@@ -146,19 +144,13 @@ extern void open_string(char *s);
 extern void close_string(char *s);
 extern void comma_string(char *buf);
 extern void percent_string(char *buf);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern "C" int MSGetTextLength_1058_be29(Font *font, char *s);
 extern "C" int font_height_1058_be4f(Font *font);
 
-extern "C" int sprite_width_1058_c203(void *sprite);
-extern "C" void copy_rect_to_screen_1058_c340(void *w, RECT *r);
 
 extern "C" void say_special(char *buf, int u, int flag);
-extern "C" void set_window_caption(StatWin *w, char *s);
 
 extern "C" int StatWin_Stats(StatWin *w)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, ReportWin_DoReport_parent, font_height_1050_9106, win_center_1050_851f, win_show_and_focus_1050_911f removed: the header declares them from the definition (W1 step 3). */
 /* Fame: candidate for 1050:7882 (1642 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -70,8 +71,6 @@ extern int text_open(void *a, char *id);
 extern char *text_get(void);
 extern char *text_item_get(void);
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int size);
 extern void FrameInfoRect(GRPort *w, RECT *r, int depth, int light, int dark);
 extern void sound_play(int n);
 extern void text_close(void);

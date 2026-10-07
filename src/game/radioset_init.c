@@ -1,3 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 39 of the imported file. */
+/* PORT: this file's own declarations of dlg_control_init_1050_9418 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of build_radio_buttons removed: the header declares it from the definition (W1 step 3). */
 /* radioset_init: candidate for 1050:881c (186 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -31,12 +33,11 @@
 #include "classes.h"
 
 /* same object: 4-byte `push cs; call ` */
-extern void dlg_control_init_1050_9418(SRadioSet *ctl, void *win, int kind, int id, RECT *r);
 
 void radioset_init(SRadioSet *radios, DialogWin *win, int id, RECT *r,
                           register int cols, register int count, char * *names)
 {
-    dlg_control_init_1050_9418(radios, win, 3, id, r);
+    dlg_control_init_1050_9418((DlgControl *)(radios), win, 3, id, r);
     radios->on_change = 0L;
     radios->on_dblclk = 0L;
     radios->on_rbutton_down = 0L;

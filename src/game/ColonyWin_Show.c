@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 119 of the imported file. */
 /* PORT: this file's own declarations of SetPopupParent, delete_colony, show_window_1010_e404, win_release_1010_eb42 removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_Show: candidate for 1010:abc8 (562 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -116,7 +117,7 @@ void ColonyWin_Show(ColonyWin *w, register int colony)
         if (g_new_building != 0x10)
             ColonyWin_DoBuildingFizzle(w);
         g_new_building = -1;
-        w->timer = start_timer(ColonyWin_TimerProc, 0x2bc, -1);
+        w->timer = start_timer((void*)(ColonyWin_TimerProc), 0x2bc, -1);
         ColonyWin_DrawColony(w);
         copy_all_to_screen_1010_e3e6(w);
     }

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_GetClip removed: the header declares it from the definition (W1 step 3). */
 /* ColChild_DrawNonClient: candidate for 1048:077f (700 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -71,8 +72,6 @@ extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 extern void FrameInfoRect(GRPort *w, RECT *r, int depth, int light, int dark);
 
 extern void GRPort_DrawRect(GRPort *w, RECT *r);
-extern void GRPort_String(GRPort *port, unsigned *font, char *s,
-                                     int x, int y, int align);
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

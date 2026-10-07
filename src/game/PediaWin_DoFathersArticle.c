@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of VList_Head, VList_Head_1060_68db, VList_Next, VList_Next_1060_68fb, text_search removed: the header declares them from the definition (W1 step 3). */
 /* PediaWin_DoFathersArticle: candidate for 1060:5ec9 (415 bytes).  Verdict: RELOCATABLE.
  * symbol: PediaWin_DoFathersArticle
@@ -24,7 +25,6 @@ extern void close_string(char *s);
 extern void colon_string(char *buf);
 
 
-extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
 
 extern void draw_text_resource(void *target, char *name, void *rect);
 

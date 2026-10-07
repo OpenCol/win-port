@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DialogWin_AddControl removed: the header declares it from the definition (W1 step 3). */
 /* dlg_control_init_1068_e478: candidate for 1068:e478 (118 bytes).  Verdict: RELOCATABLE.
  * symbol: dlg_control_init_1068_e478
  *
@@ -10,7 +11,6 @@
 
 #include "w16types.h"
 #include "classes.h"
-extern void DialogWin_AddControl(void *win, DlgControl *ctl);
 
 void dlg_control_init_1068_e478(DlgControl *ctl, void *win, int kind, int id, RECT *r)
 {

@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of set_job removed: the header declares it from the definition (W1 step 3). */
 /* colony_add_unit_2: candidate for 1018:aeaf (73 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: colony_add_unit_2
@@ -19,7 +20,6 @@ extern void set_colony(int colony);
 extern void colony_indian_table(void);
 extern void compute_colony_parameters(void);
 extern int guy_number_of_unit(int u);
-extern void set_job(int colonist, int job);
 
 int colony_add_unit_2(int colony, int u)
 {

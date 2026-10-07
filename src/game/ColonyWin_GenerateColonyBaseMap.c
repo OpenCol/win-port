@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of DrawColonies, DrawVillages, GenerateTerrain removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_GenerateColonyBaseMap: candidate for 1010:767d (590 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_GenerateColonyBaseMap
@@ -35,9 +36,6 @@
 extern void set_colony(int colony);
 
 extern void SetGlobalSpriteScale(int num, int den);
-extern void GenerateTerrain(void *port, int tx, int ty, int px, int py, int cell);
-extern void DrawColonies(void *port);
-extern void DrawVillages(void *port);
 
 void ColonyWin_GenerateColonyBaseMap(ColonyWin *w)
 {

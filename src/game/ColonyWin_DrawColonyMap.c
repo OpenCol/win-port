@@ -1,3 +1,4 @@
+/* PORT: this file's own declarations of copy_rect_to_screen_1010_e6a4 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow, PieceIconDraw removed: the header declares them from the definition (W1 step 3). */
 /* ColonyWin_DrawColonyMap: candidate for 1010:82cc (1331 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -69,7 +70,6 @@ extern char get_field(int col, int row);
 extern int get_job(int colonist);
 extern int get_icon(int colonist);
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
 
 void ColonyWin_DrawColonyMap(ColonyWin *w, int redraw)
 {
