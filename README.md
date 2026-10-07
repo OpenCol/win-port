@@ -1,12 +1,13 @@
 # win-port
 
-A native port of **Sid Meier's Colonization for Windows** (MicroProse, 1995): the same game,
-compiled with modern tools and running without an emulator. It runs natively on Windows, and on
-Linux and macOS through Winelib.
+A native port of **Sid Meier's Colonization for Windows** (MicroProse, 1995) is the goal here:
+the same game, compiled with modern tools and running without an emulator, natively on Windows
+and on Linux and macOS through Winelib. It is at the start. [STATUS.md](STATUS.md) says how far
+it has got; nothing playable exists yet.
 
 It is built from the byte-matched reconstruction of the original program
 ([col-win-re](https://github.com/dderevjanik/col-win-re), published as
-[win-decomp](https://github.com/colonization-re/win-decomp)). That reconstruction compiles to the
+[win-decomp](https://github.com/OpenCol/win-decomp)). That reconstruction compiles to the
 shipped bytes, so it says exactly what the game does. This repository turns it into a program
 modern compilers accept.
 
