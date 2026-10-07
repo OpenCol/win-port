@@ -83,6 +83,7 @@ def link(objs):
     r = subprocess.run([CXX, "-o", exe, "@" + lst, "-Wl,--no-demangle"] + LIBS,
                        capture_output=True, text=True, errors="replace")
     undefined, twice = collections.defaultdict(set), collections.defaultdict(set)
+    link.stderr = r.stderr
     for line in r.stderr.splitlines():
         o = re.search(r"(\S+?\.o)\b", line)        # ld: build/obj/game/x.o:x.c:(.text+0x1d): ...
         src = os.path.relpath(o.group(1), OBJ)[:-2] + ".c" if o else "?"
@@ -142,7 +143,12 @@ def trap_link(objs, names):
     if r.returncode:
         return False, r.stderr
     undefined, twice, ok = link(objs + [obj])
-    return ok and not undefined and not twice, ""
+    if ok and not undefined and not twice:
+        return True, ""
+    why = ["undefined " + n for n in sorted(undefined)[:10]] + ["twice " + n for n in sorted(twice)[:10]]
+    if not why:
+        why = [l for l in link.stderr.splitlines() if "error" in l or "ld:" in l][:10]
+    return False, "; ".join(why)
 
 
 def measure():
