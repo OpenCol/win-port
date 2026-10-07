@@ -323,5 +323,10 @@ again:
     }
     if (gold != 0)
         g_nations[g_game.turn_nation].gold += gold;
-extern done: if (human && redraw);
+done:
+    if (human && redraw) {
+        DrawMapRegion(x - 3, y - 3, 7, 7, !mapchange);
+        if (mapchange != 0)
+            empty_1040_a184(8);
+    }
 }

@@ -1,5 +1,5 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 129 of the imported file. */
 /* PORT: this file's own declarations of treaty_on, tribe_extortion, tribe_heresy, tribe_live removed: the header declares them from the definition (W1 step 3). */
-/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 132 of the imported file. */
 /* tribe_village: candidate for 1030:db76 (2415 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: tribe_village
@@ -245,7 +245,42 @@ int tribe_village(register int unit, int x, int y)
         Popup_item(&pop, strings(g_action_word[VILLAGE_ACTION_CANCEL - 1]), VILLAGE_ACTION_CANCEL);
         choice = popup_run_thunk_1030_ebe7(&pop) - 1;
     }
-extern "C" act: switch (choice);
+act:
+    switch (choice) {
+    case VILLAGE_ACTION_TRADE:
+        tribe_trade(unit, village, nation, tribe_nation);
+        break;
+    case VILLAGE_ACTION_ENTER_HOSTILE:
+        if (tribe_hostile(unit, village, nation, tribe_nation) != 0)
+            result = 2;
+        break;
+    case VILLAGE_ACTION_ESTABLISH_MISSION:
+        result = 2;
+        tribe_mission(unit, nation, tribe_nation);
+        break;
+    case VILLAGE_ACTION_DENOUNCE_HERESY:
+        tribe_heresy(unit, nation, tribe_nation);
+        break;
+    case VILLAGE_ACTION_INCITE:
+        tribe_incite(unit, nation, tribe_nation);
+        break;
+    case VILLAGE_ACTION_SPEAK_WITH_CHIEF:
+        if (tribe_camp(unit, nation, tribe_nation) != 0)
+            result = 2;
+        break;
+    case VILLAGE_ACTION_LIVE_AMONG_NATIVES:
+        tribe_live(unit, nation, tribe_nation, 0);
+        break;
+    case VILLAGE_ACTION_DEMAND_TRIBUTE:
+        tribe_extortion(unit, nation, tribe_nation);
+        break;
+    case VILLAGE_ACTION_ATTACK:
+        treaty_on(nation, tribe_nation, 4);
+        result = 0;
+        break;
+    default:
+        break;
+    }
 out:
     DrawMap(1);
     if (g_game.unit_count != saved_units)

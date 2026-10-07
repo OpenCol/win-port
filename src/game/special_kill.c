@@ -382,7 +382,43 @@ ship:
         if (show)
             popm("SHIPDAMAGE", 0);
     }
-extern "C" out: if (damaged == 0);
+out:
+    if (damaged == 0) {
+        if (naval != 0) {
+            popup_say(2, get_adjective(wnat));
+            popup_say(3, g_unit_types[wtype].name);
+            if (show) {
+                sound_play(SOUND_SHIPSINK);
+                if (lnat < NATION_EUROPEAN_COUNT && g_nation_text[lnat].control == CONTROL_HUMAN)
+                    new_mood(1);
+                if (wnat < NATION_EUROPEAN_COUNT && g_nation_text[wnat].control == CONTROL_HUMAN)
+                    new_mood(4);
+                popm("SHIPSUNK", 0);
+            }
+        }
+        if ((g_units[loser].flags2 & 0x40) != 0) {
+            idx = -1;
+            for (i = 0; idx < 0 && i < 6; i++)
+                if (g_units[loser].type == g_recruit[i].type)
+                    idx = i;
+            if (idx > 0) {
+                tax_cut = *min_char_ptr_1020_b2f3((char *)&g_nations[lnat].tax,
+                                            &g_recruit[i].tax_cut);
+                if (tax_cut > 0) {
+                    g_nations[lnat].tax = g_nations[lnat].tax - tax_cut;
+                    if (lnat < NATION_EUROPEAN_COUNT && g_nation_text[lnat].control == CONTROL_HUMAN) {
+                        popup_say(0, g_difficulty_words[g_game.difficulty]);
+                        set_name_slot_1020_a94a(1, g_nation_text[lnat].leader);
+                        popup_say(2, g_unit_types[g_units[loser].type].name);
+                        set_text_arg_i_1020_a926(0, tax_cut);
+                        set_text_arg_char_1020_a973(1, g_nations[lnat].tax);
+                    }
+                }
+            }
+        }
+        delete_unit(loser);
+        ret = 1;
+    }
 done:
     return ret;
 }

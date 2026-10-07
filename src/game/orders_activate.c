@@ -133,7 +133,12 @@ int orders_activate(int x, int y)
         unit = next_unit(unit);
         pick--;
     }
-extern "C" activate: if (g_game.selected_unit >= 0);
+activate:
+    if (g_game.selected_unit >= 0) {
+        g_unit_blinking = 0;
+        DrawMapRegion(g_units[g_game.selected_unit].x, g_units[g_game.selected_unit].y, 1, 1, 1);
+        g_unit_blinking = 1;
+    }
     unit_activate(unit);
     if (g_game.selected_unit >= 0)
         g_units[g_game.selected_unit].orders = ORDERS_NONE;

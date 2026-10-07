@@ -18,19 +18,11 @@
   ],
   [
    6,
-   "expected unqualified-id before string constant"
-  ],
-  [
-   6,
    "redefinition of typedef 'X' with different type"
   ],
   [
    6,
    "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
-   5,
-   "expected 'X', 'X', 'X', 'X' or 'X' before 'X' token"
   ],
   [
    4,
@@ -79,9 +71,17 @@
   [
    1,
    "expected primary-expression before 'X'"
+  ],
+  [
+   1,
+   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
+  ],
+  [
+   1,
+   "invalid types 'X' for array subscript"
   ]
  ],
- "ok": 3154,
+ "ok": 3164,
  "toolchain": "mingw-i686",
  "total": 3245
 }

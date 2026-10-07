@@ -1,5 +1,4 @@
-/* PORT: this file's own declarations of KingRoom removed: the header declares it from the definition (W1 step 3). */
-/* PORT: this file's own declarations of popk, text_search removed: the header declares them from the definition (W1 step 3). */
+/* PORT: this file's own declarations of KingRoom, popk, text_search removed: the header declares them from the definition (W1 step 3). */
 /* end_of_game_check: candidate for 1008:1e2c (2811 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 2811, not the census 2809. The compiled function is exactly 2811 bytes and the shipped
@@ -295,7 +294,21 @@ void end_of_game_check(void)
             goto done;
         }
     }
-extern done: if (g_game.game_in_progress == 0);
+done:
+    if (g_game.game_in_progress == 0) {
+        if (ask != 0) {
+            if (g_game.game_flags & GAMEFLAG_REVOLUTION_WON)
+                g_game.reveal_all = 1;
+            ans = show_text_dialog_1008_cdf3("SCORED");
+            if (ans == 2)
+                g_game.game_in_progress = 1;
+            if (g_game.game_in_progress == 0)
+                g_quit_flag = 1;
+            else
+                g_quit_flag = 0;
+        }
+        g_game.game_flags |= 0x10;
+    }
     CloseBackdrop();
     CTable_Fill(&g_game_palette, 10, 0xec, pal);
     MSDoAllTasks_1008_ce3f();

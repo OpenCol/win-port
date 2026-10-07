@@ -357,5 +357,9 @@ void king_invasion(int nation)
             least = 0x63;
         }
     }
-extern done: if (wipe != 0);
+done:
+    if (wipe != 0) {
+        for (kind = 0; kind < 4; kind++)
+            g_game.royal_forces[kind] = 0;
+    }
 }

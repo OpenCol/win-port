@@ -27,3 +27,16 @@ since (`NationText.control`, `Colony.bonus_hammers`, `Unit.flags2`, ...): 141 fi
 gives a header that compiles fewer files (2,444 against 2,723), because it declares fewer
 Windows API functions and globals. Here: `gen_headers.py` takes the corpus's records from
 records.h in place of the header's, and maps `Nation34` to `NationText`.
+
+## 3. port_transform.py deletes the statement after a column-0 goto label (W1, 2026-10-07)
+
+`DEFN` (`tools/port_transform.py` at 508d4d0d0) matches across lines, so a label at the start
+of a line followed by `if (...) {` reads as the definition of a function named `if`. The
+transform then treats it as a rule-47 stub: it writes `extern label: if (...);` and deletes the
+statement's body. In `begin_game.c` that removed the palette fill and the window reset after
+`out:`. 11 files were damaged: begin_game, end_of_game_check, europe_recruit, foreign_unit,
+king_invasion, lost_city_exploration, orders_activate, plan_move, preassign_colonist_to_field,
+special_kill and tribe_village. Each failed to compile, so none was damaged silently.
+
+Here: `import/import.py` patches its temporary copy of the transform (`TRANSFORM_FIXES`: a
+statement keyword is never a function name), and stops if the patched text is ever not found.

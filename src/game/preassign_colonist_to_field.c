@@ -269,7 +269,14 @@ int preassign_colonist_to_field(int colonist, int want)
                         score -= 0xa;
                 }
             }
-extern "C" compare: if (score > best_score);
+compare:
+            if (score > best_score) {
+                best_score = score;
+                best_kind = kind;
+                best_amount = amount;
+                best_col = col;
+                best_row = row;
+            }
         }
         set_field(col, row, -1);
     }

@@ -107,6 +107,10 @@ int begin_game(void)
             goto out;
         }
     } while (more != 0);
-extern out: if (ok != 0);
+out:
+    if (ok != 0) {
+        CTable_Fill(&g_game_palette, 10, 0xec, pal);
+        MainWin_ResetWindows(&g_main_win);
+    }
     return ok;
 }

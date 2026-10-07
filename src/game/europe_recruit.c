@@ -1,4 +1,4 @@
-/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 102, 105 of the imported file. */
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 102, 106, 109 of the imported file. */
 /* europe_recruit: candidate for 1048:6e52 (1063 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: europe_recruit
@@ -97,7 +97,11 @@ void europe_recruit(int youth, int choose)
     if (youth != 0 || choose != 0)
         price = 0;
     g_text_args[0] = price;
-extern "C" top: if (youth != 0); else if (choose != 0) {
+top:
+    if (youth != 0) {
+        g_popup_dude = 3;
+        show_plain_dialog_1048_dde3(&p, (void*)("LOSTCITY0"), 0);
+    } else if (choose != 0) {
         g_popup_dude = 4;
         popup_say(0, g_nation_name_word[g_cur_nation]);
         show_plain_dialog_1048_dde3(&p, (void*)("RECRUITCHOOSE"), 0);

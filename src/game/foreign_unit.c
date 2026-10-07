@@ -71,7 +71,26 @@ void foreign_unit(register int u)
     }
     if (plan_move(u) != 0)
         goto out;
-extern work: switch (g_units[u].orders);
+work:
+    switch (g_units[u].orders) {
+    case ORDERS_PLOW:
+        perform_orders_clear(u);
+        break;
+    case ORDERS_BUILD_ROAD:
+        perform_orders_road(u);
+        break;
+    case ORDERS_BUILD_COLONY:
+        perform_orders_build(u);
+        break;
+    case ORDERS_MISSION:
+    case 12:
+        perform_orders_move_to(u);
+        break;
+    case 10:
+    default:
+        end_unit_turn(u);
+        break;
+    }
 out:
     ;
 }

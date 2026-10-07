@@ -65,6 +65,7 @@ def produce(cwr, source, tmp):
     tree = os.path.join(tmp, "tree")
     with tarfile.open(arc) as t:
         t.extractall(tree)
+    patch_transform(os.path.join(tree, "tools", "port_transform.py"))
     r = subprocess.run([sys.executable, "tools/port_transform.py"], cwd=tree, capture_output=True, text=True)
     if r.returncode:
         sys.exit("port_transform.py failed:\n" + r.stdout[-2000:] + r.stderr[-2000:])
@@ -158,6 +159,27 @@ def corpus_globals(matched):
             out.setdefault(n.group(1), {})
             out[n.group(1)][d] = out[n.group(1)].get(d, 0) + 1
     return json.dumps(out, indent=1, sort_keys=True) + "\n"
+
+
+# Fixes applied to the copy of col-win-re's tools/port_transform.py the import runs (never to
+# col-win-re itself; each is reported in UPSTREAM.md). A fix whose text is not found exactly
+# once stops the import: the upstream tool has changed, and the fix must be looked at again.
+TRANSFORM_FIXES = [
+    # UPSTREAM.md 3: DEFN read a goto label and the `if (...) {` after it as the definition of a
+    # function named `if`, and replaced the statement with `extern label: if (...);`, deleting
+    # its body. A statement keyword is never a function's name.
+    (r'''DEFN = re.compile(r"^[A-Za-z_][^;{}=]*?\b([A-Za-z_]\w*)\s*\([^;{)]*\)\s*\{", re.M)''',
+     r'''DEFN = re.compile(r"^[A-Za-z_][^;{}=]*?\b(?!(?:if|while|for|switch|return|sizeof|else|do)\b)([A-Za-z_]\w*)\s*\([^;{)]*\)\s*\{", re.M)'''),
+]
+
+
+def patch_transform(path):
+    text = open(path).read()
+    for old, new in TRANSFORM_FIXES:
+        if text.count(old) != 1:
+            sys.exit("import: a fix to port_transform.py no longer applies (%r...): look at it again" % old[:50])
+        text = text.replace(old, new)
+    open(path, "w").write(text)
 
 
 def managed(path):

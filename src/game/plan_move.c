@@ -1,5 +1,4 @@
-/* PORT: this file's own declarations of colony_add_unit_2 removed: the header declares it from the definition (W1 step 3). */
-/* PORT: this file's own declarations of build_another_colony, combat_fight, find_my_close_unit, passenger, unit_build_another, unit_build_factor removed: the header declares them from the definition (W1 step 3). */
+/* PORT: this file's own declarations of build_another_colony, colony_add_unit_2, combat_fight, find_my_close_unit, passenger, unit_build_another, unit_build_factor removed: the header declares them from the definition (W1 step 3). */
 /* plan_move: candidate for 1028:5329 (19764 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: plan_move
@@ -498,7 +497,17 @@ extern "C" int plan_move(int unit)
     tblmax = at_plan(nation, x, y, 6);
     if (wantwork != 0)
         kill_strategy(nation, 6, x, y, 0);
-extern "C" retry_site: if (wantwork != 0);
+retry_site:
+    if (wantwork != 0) {
+        if (g_units[u].hold.w.work_turns != 0) {
+            g_units[u].hold.w.work_turns--;
+            goto after_site;
+        }
+        g_units[u].hold.w.work_dir = 0xff;
+        if (routetotal != 0 && g_units[u].hold.amount[0] < 0x7f)
+            g_units[u].hold.amount[0]++;
+        idle = g_units[u].hold.amount[0] + (g_region_pop[region] << 3);
+    }
     if (wantwork != 0) {
         dir = 8;
         best = -999;
@@ -648,7 +657,60 @@ extern "C" retry_site: if (wantwork != 0);
             }
         }
     }
-extern "C" after_site: if (g_units[u].type == UNIT_COLONISTS && wantwork == 0);
+after_site:
+    if (g_units[u].type == UNIT_COLONISTS && wantwork == 0) {
+        bestcol = -1;
+        best = 9999;
+        for (ci = 0; g_game.colony_count > ci; ci++) {
+            set_colony(ci);
+            if (g_cur_colony_rec->nation != (unsigned char)nation)
+                continue;
+            if (land_region_at(g_cur_colony_rec->x, g_cur_colony_rec->y)
+                != region)
+                continue;
+            if (!(g_cur_colony_rec->ai_flags & COLONY_AI_HAS_ROOM) && (int)g_units[u].spec != JOB_CONVERT)
+                continue;
+            ringt = colony_max_size();
+            ringt = min_int_1028_e376(0x10, ringt);
+            d = map_dist(x, y, g_cur_colony_rec->x,
+                g_cur_colony_rec->y) >> 1;
+            defenders = ringt - (int)g_cur_colony_rec->pop;
+            if (defenders > 0)
+                d = defenders * d;
+            if ((char)g_cur_colony_rec->pop >= (char)ringt)
+                d = d * 2;
+            if (stack_check(top_unit_in_square(g_cur_colony_rec->x,
+                g_cur_colony_rec->y), 2)
+                + (int)g_cur_colony_rec->pop >= ringt + 2)
+                continue;
+            if (d < best) {
+                best = d;
+                bestcol = ci;
+            }
+        }
+        if (bestcol >= 0) {
+            set_colony(bestcol);
+            if (g_units[u].x == g_cur_colony_rec->x
+                && g_units[u].y == g_cur_colony_rec->y) {
+                end_unit_turn(u);
+                colony_add_unit_2(bestcol, u);
+                return 1;
+            } else {
+                order_to(u, 0x33, g_cur_colony_rec->x,
+                    g_cur_colony_rec->y);
+                goto out;
+            }
+        } else if (mycoldist == 0) {
+            g_units[u].mission = 0x3d;
+            g_units[u].type = UNIT_PIONEERS;
+            g_units[u].hold.w.tools = 0x14;
+            end_unit_turn(u);
+            goto out;
+        } else if (!(g_game.game_flags & GAMEFLAG_INDEPENDENCE)) {
+            wantwork = 1;
+            goto retry_site;
+        }
+    }
     if (g_unit_types[g_units[u].type].holds > 0 && mycoldist == 0
         && ((g_units[u].type >= UNIT_SHIP_FIRST && g_units[u].type <= UNIT_SHIP_LAST)
         || g_units[u].home == (signed char)mycol)) {
@@ -1683,7 +1745,11 @@ move:
                                     g_units[u].dest_y = y;
                                 }
                             }
-extern "C" out: if (g_units[u].orders == 0xa || g_units[u].orders == ORDERS_NONE);
+out:
+                            if (g_units[u].orders == 0xa || g_units[u].orders == ORDERS_NONE) {
+                                g_units[u].mission = 0x30;
+                                g_units[u].orders = ORDERS_FORTIFY;
+                            }
                             if (g_units[u].orders == ORDERS_FORTIFY) {
                                 x = g_units[u].x;
                                 y = g_units[u].y;
