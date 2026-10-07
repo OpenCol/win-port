@@ -28,3 +28,29 @@ jobs:
           cmake --build build
       - name: Self-test under Wine
         run: WINEDEBUG=-all xvfb-run -a wine build/port_selftest.exe
+
+  compile:
+    # Roadmap W1: every file in src/ compiles, with each toolchain. The record each run writes
+    # is uploaded; tools/ci_record.py downloads it into status/ (winegcc runs only here).
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [mingw-i686, winegcc]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          sudo apt-get update -q
+          if [ "${{ matrix.toolchain }}" = mingw-i686 ]; then
+            sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
+          else
+            sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib
+          fi
+      - name: Every file compiles (W1)
+        run: python3 tools/compile_all.py --toolchain ${{ matrix.toolchain }} --record
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compile-${{ matrix.toolchain }}
+          path: status/compile-${{ matrix.toolchain }}.json

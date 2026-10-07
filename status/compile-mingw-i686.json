@@ -1,4 +1,5 @@
 {
+ "compiler": "i686-w64-mingw32-gcc (GCC) 15.2.0",
  "first_errors": [],
  "ok": 3245,
  "toolchain": "mingw-i686",

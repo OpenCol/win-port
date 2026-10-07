@@ -93,7 +93,9 @@ def main(argv):
                                            (rs[0]["first_raw"] or "")[:60]))
     if "--record" in argv and not opt("--only"):
         os.makedirs(os.path.join(ROOT, "status"), exist_ok=True)
-        out = {"toolchain": tc, "total": len(res), "ok": len(ok),
+        cc = TOOLCHAINS[tc][0]
+        ver = subprocess.run([cc, "--version"], capture_output=True, text=True, errors="replace").stdout
+        out = {"toolchain": tc, "compiler": (ver.splitlines() or [cc])[0].strip(), "total": len(res), "ok": len(ok),
                "first_errors": [[len(rs), msg] for msg, rs in order[:20]]}
         p = os.path.join(ROOT, "status", "compile-%s.json" % tc)
         with open(p, "w") as f:

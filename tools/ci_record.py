@@ -4,7 +4,8 @@
     python3 tools/ci_record.py
 
 Needs the GitHub CLI (`gh`), signed in. Records the run for the commit currently checked
-out when one has finished, else the newest finished run on main, with its conclusion.
+out when one has finished, else the newest finished run on main, with its conclusion, and
+copies the W1 compile record for each toolchain only CI has (winegcc) into status/.
 """
 import json
 import os
@@ -12,6 +13,8 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# toolchains whose W1 record comes from CI rather than this machine
+CI_TOOLCHAINS = ["winegcc"]
 
 
 def main():
@@ -32,6 +35,21 @@ def main():
         json.dump(out, f, indent=1, sort_keys=True)
         f.write("\n")
     print("CI %s at %s (run %s)" % (out["conclusion"], out["commit"][:7], out["run"]))
+    # the W1 records the compile jobs uploaded: winegcc's is measured only there
+    for tc in CI_TOOLCHAINS:
+        tmp = os.path.join(ROOT, "build", "ci-%s" % tc)
+        d = subprocess.run(["gh", "run", "download", str(out["run"]), "-n", "compile-%s" % tc, "-D", tmp],
+                           cwd=ROOT, capture_output=True, text=True)
+        src = os.path.join(tmp, "compile-%s.json" % tc)
+        if d.returncode or not os.path.exists(src):
+            print("  compile-%s: no record in that run" % tc)
+            continue
+        rec = json.load(open(src))
+        rec["ci_run"] = out["run"]
+        with open(os.path.join(ROOT, "status", "compile-%s.json" % tc), "w") as f:
+            json.dump(rec, f, indent=1, sort_keys=True)
+            f.write("\n")
+        print("  compile-%s: %d/%d (%s)" % (tc, rec["ok"], rec["total"], rec.get("compiler", "?")))
     return 0 if out["conclusion"] == "success" else 1
 
 
