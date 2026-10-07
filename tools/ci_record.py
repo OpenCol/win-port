@@ -9,6 +9,7 @@ copies the W1 compile record for each toolchain only CI has (winegcc) into statu
 """
 import json
 import os
+import shutil
 import subprocess
 import sys
 
@@ -38,6 +39,7 @@ def main():
     # the W1 records the compile jobs uploaded: winegcc's is measured only there
     for tc in CI_TOOLCHAINS:
         tmp = os.path.join(ROOT, "build", "ci-%s" % tc)
+        shutil.rmtree(tmp, ignore_errors=True)       # gh run download will not overwrite
         d = subprocess.run(["gh", "run", "download", str(out["run"]), "-n", "compile-%s" % tc, "-D", tmp],
                            cwd=ROOT, capture_output=True, text=True)
         src = os.path.join(tmp, "compile-%s.json" % tc)
