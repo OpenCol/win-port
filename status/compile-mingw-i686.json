@@ -1,16 +1,8 @@
 {
  "first_errors": [
   [
-   5,
-   "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
    2,
    "'X' was not declared in this scope; did you mean 'X'?"
-  ],
-  [
-   2,
-   "assignment to expression with array type"
   ],
   [
    2,
@@ -19,14 +11,6 @@
   [
    2,
    "lvalue required as left operand of assignment"
-  ],
-  [
-   2,
-   "no match for 'X' (operand types are 'X' and 'X')"
-  ],
-  [
-   1,
-   "'X' has no member named 'X'"
   ],
   [
    1,
@@ -49,7 +33,7 @@
    "specializing member 'X' requires 'X' syntax"
   ]
  ],
- "ok": 3224,
+ "ok": 3234,
  "toolchain": "mingw-i686",
  "total": 3245
 }

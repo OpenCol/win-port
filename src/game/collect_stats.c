@@ -1,3 +1,5 @@
+/* PORT: g_nation_region is two-dimensional in the header (the corpus's other files index it so); the flat
+   index here becomes [row][col], the same cell (W1). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 179 of the imported file. */
 /* PORT: this file's own declarations of get_unit_region removed: the header declares it from the definition (W1 step 3). */
 /* collect_stats: candidate for 1030:1cf3 (2622 bytes).  Verdict: RELOCATABLE.
@@ -131,7 +133,7 @@ void collect_stats(int nation)
         g_region_unit_count[nation][i] = 0;
         g_region_colony_count[nation][i] = 0;
         g_region_population[nation][i] = 0;
-        g_nation_region[nation * 16 + i] = 0;
+        g_nation_region[nation][i] = 0;
         g_region_attack[nation][i] = 0;
         g_nation_region_strength[nation][i] = 0;
     }
@@ -177,7 +179,7 @@ void collect_stats(int nation)
                 str = get_combat(u, 0);
                 plus(&g_nation_land_strength[nation], str);
                 if (region >= 0)
-                    plus((unsigned char *)(&g_nation_region[nation * 16 + region]), str);
+                    plus((unsigned char *)(&g_nation_region[nation][region]), str);
                 str = get_combat(u, 1);
                 g_military_power[nation] += str;
                 if (region >= 0)

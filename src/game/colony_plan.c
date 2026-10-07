@@ -1,3 +1,5 @@
+/* PORT: g_leader_traits is LeaderFace[] (bytes a, b, c): [n][0..2] read as .a/.b/.c, signed as
+   the corpus's signed char view read them (W1). */
 /* PORT: this file's own declarations of build_another_colony, build_me_a removed: the header declares them from the definition (W1 step 3). */
 /* colony_plan: candidate for 1018:04e0 (13365 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -463,8 +465,8 @@ extern "C" void colony_plan(int colony)
     if (soldiers > 0)
         g_cur_colony_rec->ai_flags |= COLONY_AI_HAS_SOLDIERS;
     quota = ((g_cur_colony_rec->pop + g_tile_colonists) * 3 >> 1)
-            - (g_leader_traits[nation][2] + (g_game.turn_counter >> 7));
-    w = g_leader_traits[nation][2] + 5;
+            - (((signed char)g_leader_traits[nation].c) + (g_game.turn_counter >> 7));
+    w = ((signed char)g_leader_traits[nation].c) + 5;
     if (soldiers != 0)
         w++;
     if (region_state == 4)
@@ -627,7 +629,7 @@ extern "C" void colony_plan(int colony)
     }
     reset_colony_units();
     ask_for_cargo(0xf,
-        g_leader_traits[nation][0] * 0x32 + 0x64 > g_cur_colony_rec->stock[GOODS_MUSKETS]);
+        ((signed char)g_leader_traits[nation].a) * 0x32 + 0x64 > g_cur_colony_rec->stock[GOODS_MUSKETS]);
     wants_muskets = ((int)g_cur_colony_rec->wanted_goods == 0xf);
     ask_for_cargo(0xd,
         (g_cur_colony_rec->stock[GOODS_TRADE_GOODS] < 0x64

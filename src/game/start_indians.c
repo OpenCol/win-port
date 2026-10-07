@@ -1,3 +1,5 @@
+/* PORT: g_nation_region is two-dimensional in the header (the corpus's other files index it so); the flat
+   index here becomes [row][col], the same cell (W1). */
 /* start_indians: candidate for 1038:0ddf (2707 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -190,7 +192,7 @@ void start_indians(void)
                     continue;
                 if (tribe < 2 && x * 8 > tries)
                     continue;
-                if (g_sketch[x / 5 * 18 + y / 5] != 0 && tries < 10000)
+                if (g_sketch[x / 5][y / 5] != 0 && tries < 10000)
                     continue;
                 ok = 1;
             } while (ok == 0 && tries < 12000);
@@ -201,7 +203,7 @@ void start_indians(void)
                 set_village(s);
                 g_cur_settlement_rec->flags |= SETTLEMENT_CAPITAL;
                 g_tribe_settlement_count[tribe]++;
-                g_sketch[x / 5 * 18 + y / 5] = 1;
+                g_sketch[x / 5][y / 5] = 1;
                 count++;
             }
         } else {
@@ -274,7 +276,7 @@ void start_indians(void)
                 y += g_dir_dy[dir];
                 if (x < 0 || x >= 15 || y < 0 || y >= 18)
                     break;
-                if (g_sketch[x * 18 + y] != 0)
+                if (g_sketch[x][y] != 0)
                     continue;
                 ok = 1;
             } while (ok == 0);
@@ -316,7 +318,7 @@ void start_indians(void)
                 find_close_village(sx, sy, -1, -1);
                 s = create_village(g_cur_tribe_nation, sx, sy);
             }
-            g_sketch[x / 5 * 18 + y / 5] = 1;
+            g_sketch[x / 5][y / 5] = 1;
             count++;
             build_check(0);
         }

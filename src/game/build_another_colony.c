@@ -1,3 +1,5 @@
+/* PORT: g_leader_traits is LeaderFace[] (bytes a, b, c): [n][0..2] read as .a/.b/.c, signed as
+   the corpus's signed char view read them (W1). */
 /* build_another_colony: candidate for 1028:06cd (321 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -53,7 +55,7 @@ int build_another_colony(register int n)
         return 8;
     if (g_colonies_with_room[n] == 0)
         return 8;
-    divisor = 4 - g_leader_traits[n][1];
+    divisor = 4 - ((signed char)g_leader_traits[n].b);
     have = colonies;
     r = (t_a - have) / divisor;
     half = g_nation_cargo_capacity[n] >> 1;
@@ -61,7 +63,7 @@ int build_another_colony(register int n)
         r -= (r - half + 1) >> 1;
     else if (r < half)
         r += (half - r + 1) >> 1;
-    need = -g_leader_traits[n][1] * 3 + 7;
+    need = -((signed char)g_leader_traits[n].b) * 3 + 7;
     if (g_avg_colony_size[n] < need) {
         short_by = need - g_avg_colony_size[n];
         r -= g_nation_colony_count[n] * (short_by + 1);

@@ -196,8 +196,8 @@ typedef struct {
     uint8_t _tail[34];
 } Check;   /* 0x22 bytes */
 typedef struct {
-    int16_t w0;
-    int16_t w2;
+    int16_t name;
+    int16_t transport_cost;   /* PORT: load_data fills the CLASS table's name and transportation cost */
 } ClassRec;   /* 0x4 bytes */
 /* PORT: Colony is records.h's (the corpus's member names, the model's size) */   /* 0xca bytes */
 typedef struct {
@@ -227,13 +227,13 @@ typedef struct {
     int8_t name[256];
     int16_t count;
     uint8_t _pad_102[4];
-    uint16_t obj;
+    uint16_t obj[1];   /* PORT: the font handles run on past the record: remove_font_resource indexes them */
 } FontRes;   /* 0x108 bytes */
 typedef struct {
     uint8_t _pad_0[256];
     int16_t count;
     int8_t name[4];
-    uint16_t fonts;
+    uint16_t fonts[1];   /* PORT: the font handles run on past the record: enum_font_family_proc appends to them */
 } FontTable;   /* 0x108 bytes */
 typedef struct {
     int16_t f0;
@@ -487,7 +487,7 @@ typedef struct {
     uint8_t _pad_0[256];
     int16_t count;
     uint8_t _pad_102[4];
-    int16_t entries;
+    int16_t entries[1];   /* PORT: the entries run on past the record: table_entry_handle indexes them */
 } Table;   /* 0x108 bytes */
 /* PORT: TerrainRec is records.h's (the corpus's member names, the model's size) */   /* 0x10 bytes */
 /* PORT: Tribe is records.h's (the corpus's member names, the model's size) */   /* 0x4e bytes */

@@ -1,3 +1,5 @@
+/* PORT: g_leader_traits is LeaderFace[] (bytes a, b, c): [n][0..2] read as .a/.b/.c, signed as
+   the corpus's signed char view read them (W1). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 605, 611, 629, 642, 684, 686, 701, 704, 715, 763, 769, 771, 801, 805, 817, 827, 831, 841 of the imported file. */
 /* PORT: this file's own declarations of text_dialog_sel_b0 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 773 of the imported file. */
@@ -418,7 +420,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                 other = i;
         }
     }
-    score -= g_leader_traits[their_nation][0];
+    score -= ((signed char)g_leader_traits[their_nation].a);
     if ((unsigned)g_military_power[their_nation] > (unsigned)g_military_power[nation])
         score--;
     if (f406 == 0) {

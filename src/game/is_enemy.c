@@ -1,3 +1,5 @@
+/* PORT: g_leader_traits is LeaderFace[] (bytes a, b, c): [n][0..2] read as .a/.b/.c, signed as
+   the corpus's signed char view read them (W1). */
 /* is_enemy: candidate for 1030:4c87 (757 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 757, not the census 748. The trailing 9 bytes are the dead last epilogue.
@@ -72,7 +74,7 @@ int is_enemy(register int nation, int other)
     }
     if ((get_treaty(nation, other) & 0x60) != 0x20)
         count++;
-    count -= g_leader_traits[nation][0];
+    count -= ((signed char)g_leader_traits[nation].a);
     got = any = 0;
     want = 1;
     for (i = 1; i < 15; i++) {

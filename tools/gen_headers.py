@@ -245,6 +245,30 @@ SIZE_FROM_CORPUS = {
 }
 
 
+# Members the model's records spell other than the code that uses them. Each is (record, the
+# model's member, the port's, why); the size stays the model's, which its check still holds.
+MODEL_FIXES = [
+    ("ClassRec", "int16_t w0;\n    int16_t w2;", "int16_t name;\n    int16_t transport_cost;",
+     "load_data fills the CLASS table's name and transportation cost"),
+    ("FontRes", "uint16_t obj;", "uint16_t obj[1];",
+     "the font handles run on past the record: remove_font_resource indexes them"),
+    ("FontTable", "uint16_t fonts;", "uint16_t fonts[1];",
+     "the font handles run on past the record: enum_font_family_proc appends to them"),
+    ("Table", "int16_t entries;", "int16_t entries[1];",
+     "the entries run on past the record: table_entry_handle indexes them"),
+]
+
+
+def fix_model_records(text):
+    for name, old, new, why in MODEL_FIXES:
+        m = re.search(r"typedef struct \{[^{}]*\} %s;" % re.escape(name), text)
+        if not m or m.group(0).count(old) != 1:
+            sys.exit("gen_headers: MODEL_FIXES: %s has no `%s`" % (name, old))
+        rec = m.group(0).replace(old, new + "   /* PORT: %s */" % why)
+        text = text[:m.start()] + rec + text[m.end():]
+    return text
+
+
 def corpus_records():
     t = strip_comments(open(os.path.join(INC, "records.h")).read())
     return set(re.findall(r"\}\s*(\w+)\s*;", t))
@@ -361,7 +385,7 @@ def corpus_globals():
 def gen_colonization():
     src = open(os.path.join(INC, "colonization.h")).read()
     known_c, known_cpp = known_types(src)
-    out = drop_records(src, corpus_records() | set(ALIASES))
+    out = drop_records(fix_model_records(src), corpus_records() | set(ALIASES))
     cls_names = sorted((set(re.findall(r"\bclass\s+(\w+)", strip_comments(open(os.path.join(INC, "classes.h")).read())))
                         | set(CORPUS_CLASSES)) - local_typedef_names(True))
     fwd = ("#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) +
