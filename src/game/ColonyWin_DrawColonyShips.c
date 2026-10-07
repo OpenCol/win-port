@@ -1,0 +1,188 @@
+/* ColonyWin_DrawColonyShips: candidate for 1010:87ff (1314 bytes).  Verdict: RELOCATABLE.
+ * flags: -ml -WS -Od -Ot -3 -P
+ * symbol: ColonyWin_DrawColonyShips
+ * name-source: sibling-build
+ *
+ * Draws the colony window's dock panel -- the ships and wagons in port and the cargo of the selected
+ * one -- the panel `ColonyWin_ColonyMouseShipsProper` and `ColonyWin_ColonyMouseShipsCargo` take clicks on.
+ *
+ * With no carrier in port (DGROUP:0xc14 is zero) it prints MISC word 11, "No Ships In Port", and
+ * six empty hold sprites (SEG20:0x71a6). Otherwise the heading is "Loading: " (MISC word 23) and the
+ * selected carrier's type name, and the carriers are laid out in two rows: four big sprites 0x22
+ * apart on the first row (ships raised five pixels, all but the first one more) and up to sixteen
+ * 5 pixels apart on the second, which are counted but not drawn. The selected carrier (DGROUP:0xc16)
+ * is outlined in 0xff and the one at DGROUP:0xc18 in 0xfa, unless DGROUP:0xa08 is set.
+ *
+ * Then the selected carrier's six holds: each hold it has shows its cargo's goods sprite -- the
+ * full-load picture set from 0x17 for 100 or more, the part-load set from 0x27 below that -- scaled
+ * to 4/5 when the sprite is wider than an empty hold less ten; holds the type lacks show the empty
+ * hold sprite. With `redraw`, the panel's rectangle goes to the screen.
+ *
+ * The highlight colour is an `unsigned char` passed to a `TextColor(char)`: Borland pushes a char
+ * argument as a WORD straight from its frame slot (`PUSH WORD [BP-1Bh]`), with no CBW or MOV AH,0.
+ * The call after the first-row sprite has an empty `else {}` (rule 62a).
+ *
+ * `g_carrier_highlight` (DGROUP:0xc18) is the SECONDARY highlight slot. Every write in the
+ * corpus sets it and `g_selected_carrier` to the same value in one chained assignment, and
+ * its only read is `ColonyWin_DrawColonyShips`, which boxes the selected carrier in colour 0xff
+ * and this one in 0xfa -- so while the two agree, the dimmer branch never fires. Something
+ * outside the corpus must move one without the other; the name says what the value DOES,
+ * not what makes them differ, which is not established.
+ *
+ * RENAMED 2026-09-26 from colony_draw_carriers: the Mac build's ColonyWin::DrawColonyShips(short): this plus a redraw flag, painting the ships and wagons in port and the selected one's holds.
+ */
+
+#include "colonization.h"
+
+#include "w16types.h"
+#include "units.h"
+#include "misc.h"
+class DlgControl { public: short kind; short id; void *win; RECT rect; short hwnd; DlgControl *next; char initial_focus; char hotkey; short hotkey_pos; DlgControl(); ~DlgControl(); };
+class SButton : public DlgControl { public: short enabled; long action; short colour; SButton(); ~SButton(); };
+#pragma option -a
+class Screen { public: short style; void *ctable; void *win; short fa; char disabled; Screen(); ~Screen(); };
+#pragma option -a-
+class EventTable { public: void *on_mousemove, *on_lbutton_down, *on_lbutton_up, *on_lclick, *on_rbutton_down, *on_rbutton_up, *on_rclick, *on_ldblclk, *on_keydown, *on_keyup, *on_keydown_after, *on_char, *on_close, *on_minimize, *on_restore, *on_setfocus, *on_size, *on_move, *on_commnotify, *on_hscroll, *on_hthumb, *on_vscroll, *on_vthumb; EventTable(); ~EventTable(); };
+class EventWin : public Screen, public EventTable { public: char f69; void *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
+class DialogWin : public EventWin { public: DlgControl *first_ctl; DlgControl *ok_btn; DlgControl *cancel_btn; char keyboard_nav; char f99; DialogWin(); ~DialogWin(); };
+class GRPort { public: int w; int h; int stride; RECT rect; RECT bounds; unsigned char *bits; long *rows; int current; void *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT *r); };
+class GameWin : public GRPort, public DialogWin { public: void *relayout; GameWin(); ~GameWin(); virtual int ResizePort(RECT *r); };
+class SImageButton : public DlgControl { public: long on_click; long on_rclick; GRPort up; GRPort down; void *ctable; char reinit_faces; char pad_73; SImageButton(); ~SImageButton(); };
+class ColChild : public GameWin { public: char title[0x80]; int tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; SImageButton btn; unsigned char active; unsigned char kind; int dropped; void *repaint; void *resize; RECT rect; int which; char noclose; char pad_775; int msg_timer; int queued; ColChild(); ~ColChild(); };
+class SRegion : public DlgControl { public: long on_enter; long on_leave; long on_click; long on_press; long on_dblclk; SRegion(); ~SRegion(); };
+class ColonyWin : public ColChild { public: SRegion region; GRPort back; GRPort terrain; SImageButton ib[3]; SButton b[2]; SImageButton ib2; char buy_shown; char change_shown; short panel; short cx; short cy; int timer; int colony; ColonyWin(); ~ColonyWin(); };
+typedef struct { short hfont, height; } Font;
+#include "records.h"
+
+typedef struct { RECT bounds; RECT area; int hx, hy; int f14, f16; unsigned char key; char pad_19; short handle; unsigned char *bits; } Sprite;   /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
+
+#include "icons.h"
+
+extern void set_colony(int colony);
+extern void ColonyWin_UpdateColony(void *o, int x, int y, int w, int h);
+
+extern void GRPort_String(GRPort *port, unsigned *font, char *s, int x, int y, int size);
+extern char *strings(int n);
+extern void compute_colony_cargo_box(int i, int *x, int *y, int *pw, int *ph);
+extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
+
+extern void colon_string(char *buf);
+extern int nth_cargo_vessel(int carrier);
+
+extern void PieceDraw(GRPort *port, int u, int flags, int x, int y, int span, int mode);
+
+extern void GRPort_DrawRect(GRPort *w, RECT *r);
+extern int get_cargo(int u, int slot);
+extern int get_cargo_amount(int u, int slot);
+extern void SetGlobalSpriteScale(int num, int den);
+/* same object: 4-byte `push cs; call ` (rule 47) */
+extern "C" int sprite_width_1010_e60f(void *sprite);
+extern "C" void copy_rect_to_screen_1010_e6a4(void *w, RECT *r);
+
+void ColonyWin_DrawColonyShips(ColonyWin *w, int redraw)
+{
+    int cx;
+    int cy;
+    int px;
+    int py;
+    int n;
+    int rowi;
+    int goods;
+    int m1;
+    int m2;
+    int base;
+    int amount;
+    int per_row;
+    unsigned char colour;
+    RECT r;
+    RECT s;
+    RECT s2;
+    RECT s3;
+    RECT s4;
+    char buf[0x50];
+    register int i;
+    register int u;
+
+    set_colony(w->colony);
+    ColonyWin_UpdateColony(w, 0xf2, 0x110, 0xaa, 0x73);
+    if (g_carrier_count == 0) {
+        TextColor(0x39);
+        GRPort_String((GRPort *)w, (unsigned *)&g_report_font_small, strings(g_misc_words[MISC_NO_SHIPS_IN_PORT]),
+                             w->rect.left + 0x147, w->rect.top + 0x119, 0);
+        for (i = 0; i < 6; i++) {
+            compute_colony_cargo_box(i, &cx, &cy, &m1, &m2);
+            Sprite_Draw(&s, &g_icon_sprites[ICON_EMPTY_HOLD], (GRPort *)w, w->rect.left + cx, w->rect.top + cy);
+        }
+    } else {
+        buf[0] = 0;
+        say_string(buf, g_misc_words[MISC_LOADING]);
+        colon_string(buf);
+        u = nth_cargo_vessel(g_selected_carrier);
+        STRCAT(buf, strings(g_unit_types[g_units[u].type].name));
+        TextColor(0x39);
+        GRPort_String((GRPort *)w, (unsigned *)&g_report_font_small, buf, w->rect.left + 0x147, w->rect.top + 0x119, 0);
+        cx = 0x106;
+        cy = 0x13c;
+        px = cx;
+        n = 0;
+        rowi = 0;
+        per_row = 4;
+        for (i = 0; g_carrier_count > i; i++) {
+            u = nth_cargo_vessel(i);
+            py = cy;
+            if (g_units[u].type >= UNIT_SHIP_FIRST && g_units[u].type <= UNIT_SHIP_LAST && rowi == 0) {
+                py -= 5;
+                if (i != 0)
+                    py--;
+            }
+            if (rowi == 0)
+                PieceDraw((GRPort *)w, u, 0, w->rect.left + px, w->rect.top + py, 0x20, 0x64);
+            else {
+            }
+            if (g_selected_carrier == i || g_carrier_highlight == i) {
+                colour = 0xfa;
+                if (g_selected_carrier == i)
+                    colour = 0xff;
+                if (colour != 0 && g_scout_visit == 0) {
+                    TextColor(colour);
+                    SetRect(&r, w->rect.left + px - 0x10, w->rect.top + py - 3, w->rect.left + px + 0x10, w->rect.top + py + 0x20);
+                    GRPort_DrawRect((GRPort *)w, &r);
+                }
+            }
+            px += rowi == 0 ? 0x22 : 5;
+            n++;
+            if (n >= per_row) {
+                n = 0;
+                rowi++;
+                if (rowi > 1)
+                    break;
+                px = 0xf5;
+                cy = 0x119;
+                per_row = 0x10;
+            }
+        }
+        u = nth_cargo_vessel(g_selected_carrier);
+        for (i = 0; i < 6; i++) {
+            compute_colony_cargo_box(i, &cx, &cy, &m1, &m2);
+            if (g_unit_types[g_units[u].type].holds > i) {
+                goods = get_cargo(u, i);
+                amount = get_cargo_amount(u, i);
+                if (goods >= 0) {
+                    base = amount >= 100 ? 0x17 : 0x27;
+                    if (sprite_width_1010_e60f(&g_icon_sprites[base + goods])
+                        > sprite_width_1010_e60f(&g_icon_sprites[ICON_EMPTY_HOLD]) - 10) {
+                        SetGlobalSpriteScale(4, 5);
+                        Sprite_Draw(&s2, &g_icon_sprites[base + goods], (GRPort *)w, w->rect.left + cx + 0xd, w->rect.top + cy + 3);
+                        SetGlobalSpriteScale(1, 1);
+                    } else
+                        Sprite_Draw(&s3, &g_icon_sprites[base + goods], (GRPort *)w, w->rect.left + cx + 0xd, w->rect.top + cy + 3);
+                }
+            } else
+                Sprite_Draw(&s4, &g_icon_sprites[ICON_EMPTY_HOLD], (GRPort *)w, w->rect.left + cx, w->rect.top + cy);
+        }
+    }
+    if (redraw != 0) {
+        SetRect(&r, w->rect.left + 0xf2, w->rect.top + 0x110, w->rect.left + 0x19c, w->rect.top + 0x183);
+        copy_rect_to_screen_1010_e6a4(w, &r);
+    }
+}

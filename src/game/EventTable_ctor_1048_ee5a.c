@@ -1,0 +1,17 @@
+/* EventTable_ctor_1048_ee5a: candidate for 1048:ee5a (66 bytes).  Verdict: RELOCATABLE.
+ * flags: -ml -WS -Od -Ot -3 -P
+ * symbol: EventTable::EventTable()
+ *
+ * The constructor of EventTable (0x5c bytes) as compiled into module 1048: hands the
+ * object to the module's own initialiser. One copy per module.
+ */
+
+#include "colonization.h"
+
+#include "classes.h"
+/* same object: 4-byte `push cs; call ` (rule 47) */
+extern "C" void ClearEventTable_1048_ee9c(EventTable *table);
+EventTable::EventTable()
+{
+    ClearEventTable_1048_ee9c(this);
+}

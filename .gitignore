@@ -1,0 +1,15 @@
+build/
+build-*/
+__pycache__/
+*.pyc
+# the first win-port's build output, kept on disk beside branch archive/win16
+build.win16/
+# game files and oracle recordings never go in git (roadmap rule 8): only hashes do
+*.EXE
+*.exe
+*.DLL
+*.dll
+*.SAV
+*.WAV
+*.MID
+tests/golden/runs/

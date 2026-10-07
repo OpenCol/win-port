@@ -1,0 +1,52 @@
+/* w16types.h -- the Windows 3.1 structures whose layout is fixed by the API.
+ *
+ * Member names and types follow WINDOWS.H (tagRECT, tagPOINT, tagPAINTSTRUCT, tagPALETTEENTRY,
+ * tagSIZE, tagLOGFONT).
+ * These are the only structures shared here: the game's own records (Unit, Colony, Nation, the
+ * window objects) are still declared per file, because most reconstructions know only the
+ * members they touch and a member's SIGNEDNESS changes the code (CBW against MOV AH,0).
+ *
+ * C allows a typedef name once per translation unit, so a file that includes this must drop its
+ * own RECT or POINT. That is the whole cost of opting in.
+ *
+ * EVERY reconstruction now does. RECT was declared in 429 files, identically in 427 of them, and
+ * this header had held the same declaration all along while six files used it. The other two
+ * spelled it `int l, t, r, b` and never read a member, and the seven files with their own
+ * PAINTSTRUCT use at most `hdc` and `rcPaint`, which are here at the same offsets. Nothing in
+ * matched/ declares a Windows structure of its own any more; `tools/check_field_names.py
+ * --shareable` is what found that, and will say when a game record becomes shareable too.
+ */
+#ifndef W16TYPES_H
+#define W16TYPES_H
+
+typedef struct { int x, y; } POINT;
+
+typedef struct { int left, top, right, bottom; } RECT;
+
+typedef struct {
+    unsigned hdc;
+    int fErase;
+    RECT rcPaint;
+    int fRestore, fIncUpdate;
+    unsigned char rgbReserved[16];
+} PAINTSTRUCT;
+
+typedef struct { unsigned char peRed, peGreen, peBlue, peFlags; } PALETTEENTRY;
+
+typedef struct { int cx, cy; } SIZE;
+
+/* LF_FACESIZE is 32. `BYTE` is spelled `unsigned char`, as the corpus spells it. */
+typedef struct {
+    int lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
+    unsigned char lfItalic, lfUnderline, lfStrikeOut, lfCharSet,
+                  lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
+    char lfFaceName[32];
+} LOGFONT;
+
+/* The high byte of a word in memory: `HI_BYTE(g_game.game_flags) & GAMEFLAG_HI_CHEAT_MENU` reads
+ * the byte at +1 (`TEST BYTE [..7785],20h`), which is what the shipped code does at the
+ * high-flag tests. A mask of the whole word (`game_flags & 0x2000`) compiles to a word test
+ * instead, and WINDOWS.H's HIBYTE is a shift, a third shape. */
+#define HI_BYTE(w)  (((unsigned char far *)&(w))[1])
+
+#endif

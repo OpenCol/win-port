@@ -1,0 +1,3 @@
+# Files col-win-re's tools/port_transform.py refused at SOURCE; they are not in src/.
+create_map_ports                       nothing left that looks like a definition
+destroy_map_ports                      nothing left that looks like a definition

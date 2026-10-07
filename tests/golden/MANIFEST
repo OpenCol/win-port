@@ -1,0 +1,3 @@
+# Golden oracle runs (roadmap W3). One line per recorded scenario:
+#   <sha256 of the recording>  <scenario name>  <seed>  <nation>  <difficulty>  <turns>
+# The recordings themselves stay out of git (they are derived from the game); only hashes go here.

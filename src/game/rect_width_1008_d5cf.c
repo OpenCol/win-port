@@ -1,0 +1,17 @@
+/* rect_width_1008_d5cf: candidate for 1008:d5cf (31 bytes).  Verdict: EXACT.
+ * name-source: descriptive
+ * size-source: 31, not the census 27. The trailing 4 bytes are the dead second epilogue
+ * the written-out `return` adds (rule 44).
+ *
+ * The width of a rectangle, right minus left -- this segment's copy. One small function compiled into
+ * SEVENTEEN modules; both halves are loaded through their own `LES BX`, because `-Od` keeps
+ * nothing.
+ */
+
+#include "colonization.h"
+
+#include "w16types.h"
+int rect_width_1008_d5cf(RECT *r)
+{
+    return r->right - r->left;
+}

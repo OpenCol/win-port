@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    # Roadmap W0: a Linux runner, the i686 MinGW build, tests under Wine (used only as a test
+    # host for the Win32 build). `import/import.py --check` needs col-win-re, which CI cannot
+    # reach; it runs locally and records its result in status/import.json.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: STATUS.md is what status/*.json says
+        run: python3 tools/status.py --check
+      - name: Toolchains
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends \
+            gcc-mingw-w64-i686 g++-mingw-w64-i686 cmake xvfb wine wine32:i386
+      - name: Build (MinGW, 32-bit x86)
+        run: |
+          cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=toolchains/mingw-i686.cmake
+          cmake --build build
+      - name: Self-test under Wine
+        run: WINEDEBUG=-all xvfb-run -a wine build/port_selftest.exe

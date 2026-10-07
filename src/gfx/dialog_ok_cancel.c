@@ -1,0 +1,22 @@
+/* dialog_ok_cancel: candidate for 1068:cb6d (75 bytes).  Verdict: RELOCATABLE.
+ *
+ * The OK (0x65) / Cancel (0x66) handler of the dialog whose owner is kept at DGROUP:0x56b6:
+ * Cancel first sets the result at DGROUP:0x56b4 to -1; both close the owner's window
+ * (+0x26) through EventWin_EndModal.
+ */
+
+#include "colonization.h"
+
+#include "classes.h"
+
+extern void EventWin_EndModal(void *win);
+
+void dialog_ok_cancel(int code)
+{
+    if (code == 0x65)
+        EventWin_EndModal((EventWin *)(g_dialog_owner + 0x26));
+    else if (code == 0x66) {
+        g_dialog_result = -1;
+        EventWin_EndModal((EventWin *)(g_dialog_owner + 0x26));
+    }
+}
