@@ -49,6 +49,7 @@ extern int has_building(int bit);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_build_list_add(ColonyWin *w, struct Popup *p, int item)
 {
     int id;

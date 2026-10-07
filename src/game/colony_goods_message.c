@@ -13,7 +13,7 @@
 #include "classes.h"
 extern int g_stub_a;
 extern void set_colony(int colony);
-extern void ColChild_CancelMessage(ColChild *child, int a);
+extern "C" void ColChild_CancelMessage(ColChild *child, int a);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void ColonyWin_ColonyMessage(ColonyWin *w, int n);
 extern "C" void ColonyWin_ColonyActivateMessage(ColonyWin *w, int kind, long ms);

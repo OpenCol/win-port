@@ -14,6 +14,7 @@
 #include "w16types.h"
 #include "classes.h"
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColChild_CancelMessage(ColChild *child, int unused1)
 {
     child->active = 0;

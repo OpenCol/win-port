@@ -57,8 +57,8 @@ extern MainWin g_main_win;             /* SEG20:0x5ca */
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern void ColChild_DrawNonClient(ColChild *w);
-extern void ColChild_Center(ColChild *w);
+extern "C" void ColChild_DrawNonClient(ColChild *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColChild_Center(ColChild *w);   /* PORT: C linkage, as defined (W2) */
 extern void EventWin_Modal(EventWin *w);
 extern "C" void PediaWin_FillStringList(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
 extern "C" void PediaWin_DrawListArea(PediaWin *w);   /* PORT: C linkage, as defined (W2) */

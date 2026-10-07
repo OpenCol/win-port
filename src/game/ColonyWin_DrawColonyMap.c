@@ -71,6 +71,7 @@ extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_DrawColonyMap(ColonyWin *w, int redraw)
 {
     int col;

@@ -17,8 +17,9 @@
 #include "classes.h"
 
 extern void set_colony(int colony);
-extern void ColChild_AddToMessage(ColChild *child, int idx);
+extern "C" void ColChild_AddToMessage(ColChild *child, int idx);   /* PORT: C linkage, as defined (W2) */
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_ColonyMessage(ColonyWin *w, int n)
 {
     set_colony(w->colony);

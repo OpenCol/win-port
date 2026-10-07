@@ -41,7 +41,7 @@
 
 /* PORT: this file's own VList removed: include/gen/classes.h define it once (W1 step 2). */
 #include "classes.h"
-extern void VList_dtor(VList *p, int flag);
+extern "C" void VList_dtor(VList *p, int flag);   /* PORT: C linkage, as defined (W2) */
 
 void LinkedList_PediaEntry_dtor(VList *p, unsigned flag)
 {

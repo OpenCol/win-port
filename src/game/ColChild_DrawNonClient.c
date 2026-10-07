@@ -76,6 +76,7 @@ extern void GRPort_SetClip(GRPort *port, RECT *r);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColChild_DrawNonClient(ColChild *w)
 {
     int cw;

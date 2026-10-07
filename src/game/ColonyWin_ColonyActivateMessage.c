@@ -16,6 +16,7 @@
 #include "classes.h"
 extern void set_colony(int colony);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_ColonyActivateMessage(ColonyWin *w, int kind, long ms)
 {
     set_colony(w->colony);

@@ -82,7 +82,7 @@ extern int nth_europe_vessel(int n);
 extern int shift_key(void);
 extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
-extern void europe_change_mode(void);
+extern "C" void europe_change_mode(void);   /* PORT: C linkage, as defined (W2) */
 extern void europe_click_ship(int unit, int in_port);
 extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 extern void EuropeWin_EuropeMouseTransit(EuropeWin *w, int x, int y);

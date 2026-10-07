@@ -63,8 +63,8 @@ public:
 
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 
-extern void ColChild_DrawNonClient(ColChild *w);
-extern void ColChild_Center(ColChild *w);
+extern "C" void ColChild_DrawNonClient(ColChild *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColChild_Center(ColChild *w);   /* PORT: C linkage, as defined (W2) */
 
 extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);

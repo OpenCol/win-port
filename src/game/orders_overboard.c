@@ -38,6 +38,7 @@ extern int get_cargo_amount(int u, int slot);
 extern void space_string(char *buf);
 extern int unload_cargo(int u, int slot);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void orders_overboard(void)
 {
     Popup p(0x800);

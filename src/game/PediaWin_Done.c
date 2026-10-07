@@ -59,6 +59,7 @@ extern void GameWin_ResizePort(GameWin *w, void *rect);
 extern "C" void MSHideWindow_of_1060_691b(DialogWin *port);
 extern "C" void win_set_focus(DialogWin *w);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_Done(PediaWin *w)
 {
     RECT r;

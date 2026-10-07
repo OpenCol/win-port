@@ -49,6 +49,7 @@ extern void ColonyWin_ColonyMouseShipsProper(ColonyWin *w, int x, int y);
 
 extern "C" int ColonyMouseArea(int x, int y);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_ColonyMouseShipsCargo(ColonyWin *w, int px, int py)
 {
     register int u;

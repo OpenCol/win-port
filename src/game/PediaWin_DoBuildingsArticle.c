@@ -73,6 +73,7 @@ extern "C" int sprite_width_1060_60c4(Sprite *sprite);
 extern "C" int sprite_height_1060_69bc(Sprite *sprite);
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_DoBuildingsArticle(PediaWin *o)
 {
     Sprite spr;

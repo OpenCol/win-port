@@ -38,7 +38,7 @@ class SButton;
 extern GameState g_game;   /* SEG20:0x7782 */
 extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void GameWin_Redraw(GameWin *o);
-extern void ColChild_Center(ColChild *o);
+extern "C" void ColChild_Center(ColChild *o);   /* PORT: C linkage, as defined (W2) */
 extern void EventWin_Modal(EventWin *w);
 
 /* same object: 4-byte `push cs; call ` */

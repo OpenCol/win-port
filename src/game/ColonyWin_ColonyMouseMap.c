@@ -76,6 +76,7 @@ extern "C" void label_map(int cell);
 extern "C" void colony_change_selected(void);
 extern "C" void colony_map_click(void);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_ColonyMouseMap(ColonyWin *w, int x, int y)
 {
     int rx;

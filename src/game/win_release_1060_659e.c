@@ -19,6 +19,7 @@ class DlgControl;
 
 extern "C" void dialog_dispose_window_1060_6c08(DialogWin *dialog);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void win_release_1060_659e(GameWin *o)
 {
     dialog_dispose_window_1060_6c08(&(DialogWin &)*o);

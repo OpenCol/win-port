@@ -40,7 +40,7 @@ extern int stow_cargo(int unit, int goods, int amount);
 
 /* 5-byte NOP form, so extern (rule 47) */
 extern void set_europe(int n);
-extern void europe_change_mode(void);
+extern "C" void europe_change_mode(void);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ColChild_CancelMessage(EuropeWin *child, int a);
@@ -52,6 +52,7 @@ extern "C" void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long m
 extern "C" void set_text_arg_i_1048_db6a(int i, int v);
 extern "C" void EuropeWin_EuropeError(EuropeWin *win, int word, long ms);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 int EuropeWin_AttemptEuropeShip2Ship(EuropeWin *w, int src, int to, int slot, int ask)
 {
     register int from = src;

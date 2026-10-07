@@ -46,7 +46,7 @@
 extern ColonyWin *g_colony_window_ptr;       /* DGROUP:0xa00, in this module */
 
 extern void ColChild_InitCWin_style_nc(ColChild *o, char *title, int which, int x, int y, int w, int h, int style, char save, char noclose);
-extern void ColChild_Center(ColChild *w);
+extern "C" void ColChild_Center(ColChild *w);   /* PORT: C linkage, as defined (W2) */
 extern void GRPort_FillColor_all(GRPort *p, int colour);
 
 

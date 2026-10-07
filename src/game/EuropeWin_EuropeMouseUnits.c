@@ -67,7 +67,7 @@ extern void get_unit_loc(int index, int x, int *band, int *pos,
                                  int *width, int *p6, int *p7);
 extern int InBox(int x, int y, int rx, int ry, int rw, int rh);
 extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
-extern void europe_change_mode(void);
+extern "C" void europe_change_mode(void);   /* PORT: C linkage, as defined (W2) */
 extern void europe_select_unit(void);
 extern void europe_click_unit(void);
 extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */

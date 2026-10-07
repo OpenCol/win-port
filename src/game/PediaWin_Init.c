@@ -65,6 +65,7 @@ extern "C" void dlg_control_init_1060_6b92(DlgControl *ctl, void *win, int kind,
 
 extern "C" void set_control_action_1060_6584(SImageButton *button, void *h);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_Init(PediaWin *o, int flag, EventWin *parent)
 {
     RECT rc;

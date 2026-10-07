@@ -24,6 +24,7 @@ extern int g_stub_a;
 extern void set_colony(int colony);
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_DrawBuildings(ColonyWin *w, int redraw)
 {
     register int i;

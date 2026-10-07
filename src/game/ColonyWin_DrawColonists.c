@@ -98,6 +98,7 @@ extern void close_string(char *s);
 extern "C" int sprite_width_1010_e60f(Sprite *sprite);
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_DrawColonists(ColonyWin *w, int redraw)
 {
     int i;

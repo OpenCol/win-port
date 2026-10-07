@@ -34,12 +34,13 @@
 #include "w16types.h"
 #include "classes.h"
 extern void set_europe(int n);
-extern void EuropeWin_EuropeMouseMarket(EuropeWin *w, int x, int y);
-extern void EuropeWin_EuropeMouseShipsCargo(EuropeWin *w, int x, int y);
+extern "C" void EuropeWin_EuropeMouseMarket(EuropeWin *w, int x, int y);   /* PORT: C linkage, as defined (W2) */
+extern "C" void EuropeWin_EuropeMouseShipsCargo(EuropeWin *w, int x, int y);   /* PORT: C linkage, as defined (W2) */
 extern void EuropeWin_EuropeMouseShipsProper(EuropeWin *w, int x, int y);
 extern void EuropeWin_EuropeMouseTransit(EuropeWin *w, int x, int y);
 extern void EuropeWin_EuropeMouseUnits(EuropeWin *w, int x, int y);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void EuropeWin_EuropeMouseParse(EuropeWin *w, int r, register int x, register int y)
 {
     set_europe(w->nation);

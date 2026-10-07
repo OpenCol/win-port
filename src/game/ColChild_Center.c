@@ -32,6 +32,7 @@
 extern "C" void win_move_to_1048_d7e4(DialogWin *w, int x, int y);
 extern "C" void win_center_1048_d80b(DialogWin *w);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColChild_Center(ColChild *w)
 {
     RECT r;

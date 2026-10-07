@@ -64,13 +64,13 @@ extern MainWin g_main_win;             /* SEG20:0x5ca */
 
 extern StatWin g_stat_win;           /* SEG20:0x1566 */
 
-extern void ColChild_DrawNonClient(ColChild *w);
+extern "C" void ColChild_DrawNonClient(ColChild *w);   /* PORT: C linkage, as defined (W2) */
 extern void set_colony(int colony);
 extern void colony_indian_table(void);
 extern void compute_colony_screen(void);
 extern void ColonyWin_LoadColony(ColonyWin *w);
 extern void ColonyWin_DrawColony(ColonyWin *w);
-extern void ColChild_Center(ColChild *w);
+extern "C" void ColChild_Center(ColChild *w);   /* PORT: C linkage, as defined (W2) */
 
 extern void EventWin_Modal(EventWin *w);
 

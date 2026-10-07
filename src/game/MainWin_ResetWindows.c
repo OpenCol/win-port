@@ -50,12 +50,13 @@ extern GameState g_game;   /* SEG20:0x7782 */
 
    /* GameWin : GRPort, DialogWin -- the two bases as their bytes, 0xc4 */
 extern void GameWin_Redraw(GameWin *w);
-extern void PediaWin_Done(PediaWin *w);
+extern "C" void PediaWin_Done(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` */
 extern "C" void win_show_and_focus_1048_d8f7(DialogWin *w);
 extern "C" void StartCheat(void);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void MainWin_ResetWindows(MainWin *o)
 {
     MapWin_Recenter(&o->map, g_cursor_x, g_cursor_y);

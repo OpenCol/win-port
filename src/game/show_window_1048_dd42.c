@@ -22,6 +22,7 @@ class DlgControl;
 
 extern "C" void win_show_and_focus_1048_e7ca(DialogWin *o);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void show_window_1048_dd42(GameWin *o)
 {
     win_show_and_focus_1048_e7ca(&(DialogWin &)*o);

@@ -65,8 +65,10 @@ TWICE = re.compile(r"multiple definition of `([^']+)'")
 
 
 def sources():
-    """Every file the executable is linked from: src/ as imported, and src/gen (generated)."""
-    return ca.sources() + sorted(glob.glob(os.path.join(ROOT, "src", "gen", "*.c")))
+    """Every file the executable is linked from: src/ as imported, src/gen (generated) and
+    src/host (the port's own runtime and glue; its self-test is a program of its own)."""
+    host = [p for p in glob.glob(os.path.join(ROOT, "src", "host", "*.c")) if not p.endswith("selftest.c")]
+    return ca.sources() + sorted(glob.glob(os.path.join(ROOT, "src", "gen", "*.c"))) + sorted(host)
 
 
 def link(objs):
@@ -108,7 +110,7 @@ def classify(sym, demangled, api):
     plain = sym[1:] if sym.startswith("_") else sym
     if plain.upper() in api or plain.upper().lstrip("_") in api:
         return "win16 API (W4: src/platform maps it to Win32)"
-    if plain.startswith("asm_"):
+    if plain.startswith("asm_") or re.match(r"L1[789]_[0-9a-f]{4}$", plain):
         return "assembly (W5: src/asm)"
     if plain.startswith("g_"):
         return "global without storage"

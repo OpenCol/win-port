@@ -12,6 +12,7 @@
 extern char *strings(int n);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ColChild_AddStringToMessage(ColChild *m, char *s);
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColChild_AddToMessage(ColChild *child, int idx)
 {
     ColChild_AddStringToMessage(child, strings(idx));

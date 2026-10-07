@@ -78,6 +78,7 @@ extern int get_cargo_amount(int u, int slot);
 extern void SetGlobalSpriteScale(int num, int den);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_DrawColonyShips(ColonyWin *w, int redraw)
 {
     int cx;

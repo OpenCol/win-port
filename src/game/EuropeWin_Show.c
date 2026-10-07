@@ -82,6 +82,7 @@ extern "C" void set_name_slot_1048_de36(int slot, char *s);
 
 extern "C" void europe_remove_label(void);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void EuropeWin_Show(EuropeWin *w, int nation, int unit)
 {
     RECT r;

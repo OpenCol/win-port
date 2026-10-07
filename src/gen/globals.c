@@ -34,6 +34,7 @@ int g_attitude_word[5];
 int g_attitudinal_word[5];
 int g_autoplay;
 int g_avg_colony_size[4];
+EventWin *g_backdrop_win;
 unsigned char g_bells_extra;
 uint16_t g_bells_this_turn;
 int g_best_job_amount;
@@ -620,6 +621,11 @@ int g_step_group[14];
 char g_str_null[5];
 Plan g_strategies[4][16];
 char g_strbuf[256];
+int g_stub_a;
+int g_stub_a, g_stub_b;
+int g_stub_a, g_stub_b, g_stub_c, g_stub_d;
+int g_stub_i;
+long g_stub_l;
 int g_super_win_open;
 int16_t g_tbl21_1c4;
 int g_terrain_bonus[29];
@@ -656,6 +662,7 @@ unsigned char g_tile_terrain_class;
 signed char g_tile_tribe[5][5];
 int g_tile_units;
 int g_tile_w;
+MrTimer *g_timer;
 char g_title_area_map[21];
 int g_trade_click_busy;
 int16_t g_trade_route_count;
@@ -734,7 +741,7 @@ int8_t g_year_lo;
 int16_t g_yes_id;
 int g_zoom;
 
-/* not defined here (126):
+/* not defined here (127):
  *   g_art_bonus: no address in the model
  *   g_art_forest: no address in the model
  *   g_art_hills: no address in the model
@@ -832,6 +839,7 @@ int g_zoom;
  *   g_str_meekness: no address in the model
  *   g_str_ordinal: no address in the model
  *   g_str_usedup_tools: no address in the model
+ *   g_stub_s: no address in the model
  *   g_table6: no address in the model
  *   g_tally_word: no address in the model
  *   g_terrain_row_bytes: no address in the model

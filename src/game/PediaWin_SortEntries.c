@@ -35,6 +35,7 @@ typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" char *PediaWin_PediaName(PediaWin *w, PediaEntry *entry);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_SortEntries(PediaWin *w)
 {
     int n;

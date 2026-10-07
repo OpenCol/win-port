@@ -125,6 +125,8 @@ def main(argv):
     names = und.demangle(undefined)
     bases = {names[s].split("(")[0].strip() for s in undefined
              if s.startswith("__Z") and "::" not in names.get(s, s).split("(")[0]}
+    # and C callers' plain names (`_ColChild_CancelMessage`) that a C++ file defines mangled
+    bases |= {s[1:] for s in undefined if s.startswith("_") and not s.startswith("__")}
     for p, funcs in sorted(cpp_definitions(bases).items()):
         text = open(p).read()
         new, n = define_c(text, funcs)

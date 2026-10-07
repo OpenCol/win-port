@@ -33,8 +33,8 @@
 #include "records.h"
 
 extern void set_colony(int colony);
-extern void ColChild_CancelMessage(ColChild *child, int a);
-extern void ColChild_AddToMessage(ColChild *child, int idx);
+extern "C" void ColChild_CancelMessage(ColChild *child, int a);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColChild_AddToMessage(ColChild *child, int idx);   /* PORT: C linkage, as defined (W2) */
 extern void ColChild_BackspaceMessage(ColChild *w);
 
 extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */

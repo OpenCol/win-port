@@ -28,8 +28,8 @@ extern int get_warehouse(void);
 extern int find_cargo(int unit, int goods);
 extern int unload_cargo(int unit, int slot);
 extern int stow_cargo(int unit, int goods, int amount);
-extern void ColChild_CancelMessage(ColChild *child, int a);
-extern void ColChild_AddToMessage(ColChild *child, int idx);
+extern "C" void ColChild_CancelMessage(ColChild *child, int a);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColChild_AddToMessage(ColChild *child, int idx);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */
 extern void popup_say(int slot, int word);

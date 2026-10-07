@@ -92,6 +92,7 @@ extern "C" void EuropeWin_EuropeMarketMessage(EuropeWin *win, int goods, int pri
 extern "C" int EuropeWin_AttemptCargoFromEurope(EuropeWin *w, int u, int goods, int allowed, int ask);
 extern "C" void EuropeWin_EuropeMouseMarket(EuropeWin *w, int x, int y);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void EuropeWin_EuropeMouseShipsCargo(EuropeWin *w, register int x, int y)
 {
     int rel;

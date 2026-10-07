@@ -73,7 +73,7 @@ extern void colon_string(char *buf);
 
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 extern void europe_adjust_prices(int reset, int only);
-extern void europe_change_mode(void);
+extern "C" void europe_change_mode(void);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void ColChild_CancelMessage(ColChild *child, int a);
@@ -88,6 +88,7 @@ extern "C" void set_text_arg_i_1048_db6a(int i, int v);
 extern "C" void EuropeWin_EuropeClearBig(EuropeWin *w);
 extern "C" void EuropeWin_EuropeShowBig(EuropeWin *w);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 int EuropeWin_AttemptCargoToEurope(EuropeWin *w, int unit, int goods, int ask)
 {
     int result;

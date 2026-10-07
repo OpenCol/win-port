@@ -96,6 +96,7 @@ extern "C" PediaEntry *PediaWin_CurrentEntry(PediaWin *o);
 extern "C" int font_height_1060_695e(Font *font);
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_DoTerrainArticle(PediaWin *w)
 {
     register int sx;

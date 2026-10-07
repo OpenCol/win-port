@@ -80,6 +80,7 @@ extern "C" void *set_on_move(EventTable *table, void *h);
 
 extern "C" void *set_on_size(EventTable *table, void *h);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void MainWin_Init(MainWin *o)
 {
     RECT rc;

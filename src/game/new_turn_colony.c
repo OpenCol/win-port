@@ -126,9 +126,9 @@ extern void set_europe(int n);
 extern int europe_bid_price(int good);
 extern "C" void traffic_to_europe(int good, int amount);   /* PORT: C linkage, as defined (W2) */
    /* ColChild : GameWin, the base and the SImageButton as their bytes: 0x77a */
-extern void ColChild_CancelMessage(ColChild *child, int a);
+extern "C" void ColChild_CancelMessage(ColChild *child, int a);   /* PORT: C linkage, as defined (W2) */
 extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */
-extern void ColChild_AddToMessage(ColChild *child, int word);
+extern "C" void ColChild_AddToMessage(ColChild *child, int word);   /* PORT: C linkage, as defined (W2) */
 
 extern void ColChild_BackspaceMessage(ColChild *w);
 

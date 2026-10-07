@@ -51,6 +51,7 @@ extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ClosingWin_DoClosing(ClosingWin *w)
 {
     show_window_1010_2af0(w);

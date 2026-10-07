@@ -25,6 +25,7 @@ extern void EuropeWin_DrawEuropeShips(EuropeWin *o, int redraw);
 extern void EuropeWin_DrawMarket(EuropeWin *o, int refresh);
 extern void EuropeWin_DrawUnits(EuropeWin *o, int blit);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void europe_change_mode(void)
 {
     EuropeWin_DrawTitle(&g_europe_win);
