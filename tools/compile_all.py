@@ -29,7 +29,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LAYERS = ("game", "gfx", "platform")
 TOOLCHAINS = {
     "mingw-i686": ("i686-w64-mingw32-gcc", "i686-w64-mingw32-g++", []),
-    "winegcc": ("winegcc", "wineg++", ["-m32"]),
+    # -c: without it winegcc treats the call as a link and runs winebuild on an object that
+    # -fsyntax-only never wrote ("is an empty file")
+    "winegcc": ("winegcc", "wineg++", ["-m32", "-c"]),
     "host": ("cc", "c++", []),
 }
 FLAGS = re.compile(r"^\s*\*?\s*flags:\s*(.+?)\s*$", re.M)
