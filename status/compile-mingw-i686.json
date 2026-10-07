@@ -1,0 +1,87 @@
+{
+ "first_errors": [
+  [
+   141,
+   "'X' has no member named 'X'"
+  ],
+  [
+   59,
+   "'X' was not declared in this scope; did you mean 'X'?"
+  ],
+  [
+   55,
+   "cannot convert 'X' {aka 'X'} to 'X'"
+  ],
+  [
+   32,
+   "invalid conversion from 'X' to 'X' [-fpermissive]"
+  ],
+  [
+   30,
+   "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
+   29,
+   "'X' was not declared in this scope"
+  ],
+  [
+   29,
+   "implicit declaration of function 'X'; did you mean 'X'? [-Wimplicit-function-declaration]"
+  ],
+  [
+   25,
+   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
+  ],
+  [
+   18,
+   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
+  ],
+  [
+   16,
+   "conflicting declaration 'X'"
+  ],
+  [
+   15,
+   "'X' has no member named 'X'; did you mean 'X'?"
+  ],
+  [
+   11,
+   "subscripted value is neither array nor pointer nor vector"
+  ],
+  [
+   10,
+   "passing argument 2 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
+   8,
+   "'X' undeclared (first use in this function)"
+  ],
+  [
+   8,
+   "conflicting types for 'X'; have 'X'"
+  ],
+  [
+   6,
+   "redefinition of typedef 'X' with different type"
+  ],
+  [
+   5,
+   "'X' undeclared (first use in this function); did you mean 'X'?"
+  ],
+  [
+   4,
+   "returning 'X' from a function with return type 'X' makes integer from pointer without a cast [-Wint-conversion]"
+  ],
+  [
+   2,
+   "cannot convert 'X' to 'X' in assignment"
+  ],
+  [
+   2,
+   "expected 'X', 'X', 'X', 'X' or 'X' before 'X' token"
+  ]
+ ],
+ "ok": 2723,
+ "toolchain": "mingw-i686",
+ "total": 3245
+}

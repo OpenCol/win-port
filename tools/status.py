@@ -8,6 +8,7 @@ Every figure on the page comes from a file a gate command wrote, and every row n
 command. A milestone with no record shows "not measured": nothing is estimated. Writers:
     status/import.json   python3 import/import.py --check
     status/ci.json       python3 tools/ci_record.py        (the latest CI run on GitHub)
+    status/compile-<toolchain>.json   python3 tools/compile_all.py --record
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -43,9 +44,21 @@ def w0():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w1():
+    recs = [r for r in (rec("compile-mingw-i686"), rec("compile-winegcc")) if r]
+    if not recs:
+        return "--", "not measured"
+    parts = ["%s %d/%d" % (r["toolchain"], r["ok"], r["total"]) for r in recs]
+    done = len(recs) == 2 and all(r["ok"] == r["total"] for r in recs)
+    if recs[0]["first_errors"]:
+        n, msg = recs[0]["first_errors"][0]
+        parts.append("largest group: %d x %s" % (n, msg.replace("|", "\\|")[:60]))
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 ROWS = [
     ("W0", "bootstrap", w0, "import/import.py --check, tools/ci_record.py"),
-    ("W1", "compile", None, "tools/compile_all.py (not written yet)"),
+    ("W1", "compile", w1, "tools/compile_all.py --record [--toolchain winegcc]"),
     ("W2", "link", None, "tools/undefined.py (not written yet)"),
     ("W3", "oracle", None, "tests/oracle --selftest, state.py --roundtrip, differential (not written yet)"),
     ("W4", "platform", None, "checklist + MS* trace prefix (not written yet)"),
