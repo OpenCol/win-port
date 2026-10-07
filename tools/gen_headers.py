@@ -116,25 +116,45 @@ def defined_types(text):
 _LOCAL_TYPEDEFS = None
 
 
-def local_typedef_names():
-    """Names some file in src/ defines for itself as a typedef or struct (a local view)."""
+def local_typedef_names(cpp=None):
+    """Names some file in src/ defines for itself as a typedef or struct (a local view): of the
+    C++ files (cpp=True), the C files (False), or all."""
     global _LOCAL_TYPEDEFS
     if _LOCAL_TYPEDEFS is None:
-        names = set()
+        names = {True: set(), False: set()}
         for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
-            names |= defined_types(open(p, errors="replace").read())
+            t = open(p, errors="replace").read()
+            names[bool(re.search(r"flags:.*-P\b", t[:4000]))] |= defined_types(t)
         _LOCAL_TYPEDEFS = names
-    return _LOCAL_TYPEDEFS
+    if cpp is None:
+        return _LOCAL_TYPEDEFS[True] | _LOCAL_TYPEDEFS[False]
+    return _LOCAL_TYPEDEFS[cpp]
+
+
+def signature(decl):
+    """A function declaration's types without its parameter names, extern or spacing:
+    `extern "C" int f(char *s, int n);` -> ('int', 'f', ('char*', 'int'))."""
+    d = re.sub(r'\bextern\s+(?:"C"\s+)?', "", decl).strip().rstrip(";").strip()
+    m = re.match(r"(.*?)\b(\w+)\s*\((.*)\)$", d, re.S)
+    if not m:
+        return None
+    params = []
+    for prm in [x.strip() for x in m.group(3).split(",")] if m.group(3).strip() else []:
+        prm = re.sub(r"\s+", " ", prm)
+        if prm not in ("void", "...") and re.search(r"[\w\]]\s*$", prm) and len(re.findall(r"\w+", prm)) > 1:
+            prm = re.sub(r"\s*\b\w+\s*((?:\[[^\]]*\])*)$", r"\1", prm)    # drop the name, keep [] dims
+        params.append(re.sub(r"\s+", "", prm))
+    return (re.sub(r"\s+", "", m.group(1)), m.group(2), tuple(params) if params != ["void"] else ())
 
 
 def file_declarations():
     """(variables, functions) some file in src/ declares itself: an `extern` variable, or a
-    prototype (not a definition)."""
-    vars_, funcs = set(), set()
+    prototype (not a definition). Functions map to the set of signatures the files give them."""
+    vars_, funcs = set(), {}
     for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
         t = strip_comments(open(p, errors="replace").read())
-        for m in re.finditer(r"^[ \t]*(?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;", t, re.M):
-            funcs.add(m.group(1))
+        for m in re.finditer(r"^[ \t]*((?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;)", t, re.M):
+            funcs.setdefault(m.group(2), set()).add(signature(m.group(1)))
         for m in re.finditer(r"^[ \t]*extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;", t, re.M):
             vars_.add(m.group(1))
     return vars_, funcs
@@ -208,12 +228,13 @@ def known_types(src):
     common = (defined_types(src) | defined_types(open(os.path.join(INC, "w16types.h")).read())
               | defined_types(open(os.path.join(INC, "records.h")).read()) | set(ALIASES)
               | {"i16", "u16", "i32", "u32"})
-    classes = set(re.findall(r"\bclass\s+(\w+)", cls[:split])) - local_typedef_names()
-    # C files may define their own views of the classes, so the C side gets no class types
-    # at all; C++ gets each class forward-declared, which a file's own definition can follow --
-    # except a class some file still views as `typedef struct {...} Name;`, which a forward
-    # `class Name;` would contradict
-    return common, common | classes
+    classes = set(re.findall(r"\bclass\s+(\w+)", cls[:split])) - local_typedef_names(True)
+    views = defined_types(cls[split:]) - local_typedef_names(False)
+    # C++ gets each class forward-declared, which a file's own definition can follow -- except
+    # a class some C++ file still views as `typedef struct {...} Name;`, which a forward
+    # `class Name;` would contradict. C gets classes.h's views, included from the header --
+    # except a view some C file still defines for itself.
+    return common | views, common | classes
 
 
 def type_names(decl, name):
@@ -250,8 +271,9 @@ def gen_colonization():
     known_c, known_cpp = known_types(src)
     out = drop_records(src, corpus_records() | set(ALIASES))
     cls_names = sorted(set(re.findall(r"\bclass\s+(\w+)", strip_comments(open(os.path.join(INC, "classes.h")).read())))
-                       - local_typedef_names())
-    fwd = "#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) + "#endif\n"
+                       - local_typedef_names(True))
+    fwd = ("#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) +
+           "#else\n#include \"classes.h\"   /* PORT: the C views */\n#endif\n")
     out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd, 1)
     # globals: the type the corpus's own files declare, where the header's differs
     own_vars, own_funcs = file_declarations()
@@ -318,7 +340,9 @@ def gen_colonization():
     own = own_funcs
     protos = []
     for name, head in sorted(heads.items()):
-        if name in declared or name in own or "::" in head or re.match(r"\s*(static|inline)\b", head) or "operator" in head:
+        if name in own and own[name] != {signature(head + ";")}:
+            continue        # a file declares it some other way: that file's declaration stands
+        if name in declared or "::" in head or re.match(r"\s*(static|inline)\b", head) or "operator" in head:
             continue
         g = guarded("extern %s;" % head, name, known_c, known_cpp)
         if g:

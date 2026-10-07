@@ -1,15 +1,11 @@
 {
  "first_errors": [
   [
-   46,
+   48,
    "invalid conversion from 'X' to 'X' [-fpermissive]"
   ],
   [
-   41,
-   "implicit declaration of function 'X'; did you mean 'X'? [-Wimplicit-function-declaration]"
-  ],
-  [
-   34,
+   31,
    "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
@@ -17,32 +13,20 @@
    "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
-   13,
-   "passing argument 2 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+   15,
+   "implicit declaration of function 'X'; did you mean 'X'? [-Wimplicit-function-declaration]"
   ],
   [
    11,
    "conflicting declaration 'X'"
   ],
   [
-   9,
-   "cannot convert 'X' {aka 'X'} to 'X'"
-  ],
-  [
-   8,
+   10,
    "conflicting types for 'X'; have 'X'"
-  ],
-  [
-   8,
-   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
   ],
   [
    7,
    "'X' was not declared in this scope"
-  ],
-  [
-   6,
-   "passing argument 3 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
    6,
@@ -61,8 +45,16 @@
    "expected unqualified-id before string constant"
   ],
   [
+   5,
+   "implicit declaration of function 'X' [-Wimplicit-function-declaration]"
+  ],
+  [
    4,
    "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
+  ],
+  [
+   4,
+   "passing argument 3 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
   ],
   [
    4,
@@ -70,7 +62,7 @@
   ],
   [
    3,
-   "'X' undeclared (first use in this function)"
+   "'X' undeclared (first use in this function); did you mean 'X'?"
   ],
   [
    2,
@@ -79,9 +71,17 @@
   [
    2,
    "no match for 'X' (operand types are 'X' and 'X')"
+  ],
+  [
+   2,
+   "passing argument 2 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
+   1,
+   "'X' has no member named 'X'"
   ]
  ],
- "ok": 2996,
+ "ok": 3050,
  "toolchain": "mingw-i686",
  "total": 3245
 }

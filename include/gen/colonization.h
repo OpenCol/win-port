@@ -48,11 +48,14 @@
 class AboutWin;
 class CTable;
 class ColChild;
+class ColonyWin;
 class CursorClass;
+class Customize;
 class DebugWin;
 class DialogWin;
 class DiskFile;
 class DlgControl;
+class EuropeWin;
 class EventTable;
 class EventWin;
 class Font;
@@ -60,6 +63,7 @@ class GRPort;
 class GamePrefs;
 class GameWin;
 class LogWindow;
+class MagicWin;
 class MapWin;
 class MenuClass;
 class MiniWin;
@@ -80,9 +84,12 @@ class Screen;
 class SetDifficulty;
 class SetNations;
 class Sprite;
+class StatWin;
 class SuperWin;
 class VList;
 class VListItem;
+#else
+#include "classes.h"   /* PORT: the C views */
 #endif
 
 
@@ -646,11 +653,7 @@ extern i16 g_ai_repeat_unit;   /* PORT: the corpus's type */
 extern int16_t g_america_map;
 extern void *g_anim;
 extern void *g_anim2;
-#ifdef __cplusplus
-extern Sprite g_art_base[];
-#else
-extern int8_t g_art_base[][32];
-#endif
+extern Sprite g_art_base[];   /* PORT: the corpus's type */
 extern int8_t g_art_bonus[][32];
 extern int8_t g_art_hills[][32];
 extern int8_t g_art_forest[][32];
@@ -659,11 +662,7 @@ extern i16 g_attitude_word[];   /* PORT: the corpus's type */
 extern i16 g_attitudinal_word[];   /* PORT: the corpus's type */
 extern i16 g_autoplay;   /* PORT: the corpus's type */
 extern i16 g_avg_colony_size[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Sprite g_background_tile;
-#else
-extern int8_t g_background_tile;
-#endif
+extern Sprite g_background_tile;   /* PORT: the corpus's type */
 extern int8_t g_backslash[];
 extern int16_t g_base_sales[];
 extern unsigned char g_bells_extra;   /* PORT: the corpus's type */
@@ -749,12 +748,12 @@ extern char g_colony_slot28_busy;   /* PORT: the corpus's type */
 extern i16 g_colony_tally[];   /* PORT: the corpus's type */
 extern i16 g_colony_timer;   /* PORT: the corpus's type */
 extern i16 g_best_job_amount;   /* PORT: the corpus's type */
+extern DialogWin g_colony_win_rec;   /* PORT: the corpus's type */
 #ifdef __cplusplus
-extern DialogWin g_colony_win_rec;
+extern ColonyWin g_colony_window;
 #else
-extern int8_t g_colony_win_rec;
-#endif
 extern int8_t g_colony_window;
+#endif
 extern i16 g_colony_window_open;   /* PORT: the corpus's type */
 extern void *g_color_resource_type;
 extern i16 g_combat_flags[2];   /* PORT: the corpus's type */
@@ -792,11 +791,7 @@ extern int8_t g_cursor_sprite[];
 extern i16 g_cursor_state;   /* PORT: the corpus's type */
 extern i16 g_cursor_x;   /* PORT: the corpus's type */
 extern i16 g_cursor_y;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern CursorClass g_cursors[];
-#else
-extern int8_t g_cursors[][4];
-#endif
+extern CursorClass g_cursors[];   /* PORT: the corpus's type */
 extern int16_t g_custom_house_colony;
 extern i16 g_cycle_flag;   /* PORT: the corpus's type */
 extern i16 g_debug_flags;   /* PORT: the corpus's type */
@@ -828,11 +823,7 @@ extern i16 g_drag_mode;   /* PORT: the corpus's type */
 extern RECT g_drag_rect_dst[];
 extern RECT g_drag_rect_src;
 extern unsigned char g_drag_slot;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Sprite *g_drag_sprite;
-#else
-extern void *g_drag_sprite;
-#endif
+extern Sprite *g_drag_sprite;   /* PORT: the corpus's type */
 extern i16 g_drag_unit;   /* PORT: the corpus's type */
 extern i16 g_drag_x;   /* PORT: the corpus's type */
 extern i16 g_drag_y;   /* PORT: the corpus's type */
@@ -848,11 +839,7 @@ extern i16 g_draw_py;   /* PORT: the corpus's type */
 extern i16 g_draw_x;   /* PORT: the corpus's type */
 extern i16 g_draw_y;   /* PORT: the corpus's type */
 extern int16_t g_econ_title_word;
-#ifdef __cplusplus
-extern Sprite g_edge_sprites[];
-#else
-extern SpriteRec g_edge_sprites[];
-#endif
+extern Sprite g_edge_sprites[];   /* PORT: the corpus's type */
 extern i16 g_editbox_extra;   /* PORT: the corpus's type */
 extern void * g_editbox_font;   /* PORT: the corpus's type */
 extern WNDPROC g_editbox_proc;
@@ -872,7 +859,11 @@ extern i16 g_europe_rclick_busy;   /* PORT: the corpus's type */
 extern i16 g_europe_selected_ship;   /* PORT: the corpus's type */
 extern i16 g_europe_ship_highlight;   /* PORT: the corpus's type */
 extern i16 g_europe_timer;   /* PORT: the corpus's type */
+#ifdef __cplusplus
+extern EuropeWin g_europe_win;
+#else
 extern int8_t g_europe_win;
+#endif
 extern char g_europe_win_dlg;   /* PORT: the corpus's type */
 extern int16_t g_europe_word;
 extern i16 g_europe_x0;   /* PORT: the corpus's type */
@@ -891,31 +882,15 @@ extern char g_field[];   /* PORT: the corpus's type */
 extern unsigned char g_fish_food;   /* PORT: the corpus's type */
 extern int16_t g_flag_1d04;
 extern char g_flag_art[][0x20];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Sprite g_flag_sprite;
-#else
-extern int8_t g_flag_sprite[];
-#endif
+extern Sprite g_flag_sprite;   /* PORT: the corpus's type */
 extern void *g_flic_resource_type;
 extern int8_t g_fmt_alloc_failed[];
 extern int8_t g_fmt_lock_failed[];
 extern int8_t g_fog_sprite;
 extern int8_t g_font12[];
-#ifdef __cplusplus
-extern Font g_font16;
-#else
-extern int8_t g_font16[];
-#endif
-#ifdef __cplusplus
-extern Font g_font_small;
-#else
-extern int8_t g_font_small;
-#endif
-#ifdef __cplusplus
-extern Font g_font_tiny;
-#else
-extern int8_t g_font_tiny;
-#endif
+extern Font g_font16;   /* PORT: the corpus's type */
+extern Font g_font_small;   /* PORT: the corpus's type */
+extern Font g_font_tiny;   /* PORT: the corpus's type */
 extern int16_t g_force[];
 extern i16 g_foreign_owner;   /* PORT: the corpus's type */
 extern Pattern g_forest_pattern;
@@ -927,11 +902,7 @@ extern int16_t g_game_flags;
 extern uint8_t g_game_flags_hi;
 extern int16_t g_game_in_progress;
 extern i16 g_game_over;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern CTable g_game_palette;
-#else
-extern int8_t g_game_palette;
-#endif
+extern CTable g_game_palette;   /* PORT: the corpus's type */
 extern int8_t g_game_record;
 extern int8_t g_game_record2;
 extern unsigned char g_garrisoned_regions;   /* PORT: the corpus's type */
@@ -953,11 +924,7 @@ extern i16 g_grid_x;   /* PORT: the corpus's type */
 extern i16 g_grid_y;   /* PORT: the corpus's type */
 extern int16_t g_group;
 extern i16 g_group_members[][8];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Font g_heading_font;
-#else
-extern int8_t g_heading_font;
-#endif
+extern Font g_heading_font;   /* PORT: the corpus's type */
 extern u16 g_hinstance;   /* PORT: the corpus's type */
 extern i16 g_hint6_shown;   /* PORT: the corpus's type */
 extern i16 g_hit_panel;   /* PORT: the corpus's type */
@@ -969,32 +936,12 @@ extern i16 g_hprev;   /* PORT: the corpus's type */
 extern unsigned char g_icon_dx;   /* PORT: the corpus's type */
 extern unsigned char g_icon_dy;   /* PORT: the corpus's type */
 extern i16 g_icon_h;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern GRPort g_icon_port;
-#else
-extern int8_t g_icon_port[];
-#endif
-#ifdef __cplusplus
-extern Sprite g_icon_sprite;
-#else
-extern int8_t g_icon_sprite[];
-#endif
-#ifdef __cplusplus
-extern Sprite g_icon_sprites[];
-#else
-extern int8_t g_icon_sprites[][32];
-#endif
+extern GRPort g_icon_port;   /* PORT: the corpus's type */
+extern Sprite g_icon_sprite;   /* PORT: the corpus's type */
+extern Sprite g_icon_sprites[];   /* PORT: the corpus's type */
 extern int8_t g_in_accel;
-#ifdef __cplusplus
-extern Font g_info_font_large;
-#else
-extern int8_t g_info_font_large;
-#endif
-#ifdef __cplusplus
-extern Font g_info_font_small;
-#else
-extern uint8_t g_info_font_small;
-#endif
+extern Font g_info_font_large;   /* PORT: the corpus's type */
+extern Font g_info_font_small;   /* PORT: the corpus's type */
 extern i16 g_info_label[];   /* PORT: the corpus's type */
 extern int8_t g_info_win;
 extern char g_info_win_dlg;   /* PORT: the corpus's type */
@@ -1044,11 +991,7 @@ extern WNDPROC g_listbox_proc;
 extern i16 g_listbox_registered;   /* PORT: the corpus's type */
 extern char g_loaded_flag;   /* PORT: the corpus's type */
 extern i16 g_map_load_error;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Font g_log_font;
-#else
-extern int8_t g_log_font;
-#endif
+extern Font g_log_font;   /* PORT: the corpus's type */
 extern char g_log_name[];   /* PORT: the corpus's type */
 extern i16 g_lowmem_busy;   /* PORT: the corpus's type */
 extern i16 g_lowmem_count;   /* PORT: the corpus's type */
@@ -1072,31 +1015,19 @@ extern int8_t g_map_overlay;
 extern char g_mini_win_dlg;   /* PORT: the corpus's type */
 extern i16 g_seam_handle;   /* PORT: the corpus's type */
 extern uint8_t *g_tile_p1;
-#ifdef __cplusplus
-extern GRPort g_map_port;
-#else
-extern int8_t g_map_port[];
-#endif
+extern GRPort g_map_port;   /* PORT: the corpus's type */
 extern uint8_t *g_tile_p0;
 extern uint8_t *g_draw_p0;
 extern i16 g_map_timer;   /* PORT: the corpus's type */
 extern int16_t g_map_version;
 extern int16_t g_map_width;
-#ifdef __cplusplus
-extern MapWin g_map_window;
-#else
-extern int8_t g_map_window[];
-#endif
+extern MapWin g_map_window;   /* PORT: the corpus's type */
 extern char g_map_window_dlg;   /* PORT: the corpus's type */
 extern char g_market_col;   /* PORT: the corpus's type */
 extern u16 g_mci_device;   /* PORT: the corpus's type */
 extern i16 g_menu_active;   /* PORT: the corpus's type */
 extern i16 g_menu_depth;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern MenuClass g_menu_owner;
-#else
-extern int8_t g_menu_owner;
-#endif
+extern MenuClass g_menu_owner;   /* PORT: the corpus's type */
 extern int16_t g_menu_title_word;
 extern i16 g_merc[4];   /* PORT: the corpus's type */
 extern int16_t g_merc_nation;
@@ -1109,11 +1040,7 @@ extern i16 g_misc_words[];   /* PORT: the corpus's type */
 extern i16 g_mission_word[];   /* PORT: the corpus's type */
 extern i16 g_modal_active;   /* PORT: the corpus's type */
 extern i16 g_modal_done;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern EventWin *g_modal_win;
-#else
-extern Modal *g_modal_win;
-#endif
+extern EventWin *g_modal_win;   /* PORT: the corpus's type */
 extern int16_t g_mother_country_idx;
 extern uint8_t g_mother_country_idx_b;
 extern char g_mouse_up_busy;   /* PORT: the corpus's type */
@@ -1166,20 +1093,12 @@ extern u16 g_next_menu_id;   /* PORT: the corpus's type */
 extern int16_t g_no_id;
 extern i16 g_no_map_file;   /* PORT: the corpus's type */
 extern char g_number_buf[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Font g_number_font;
-#else
-extern int8_t g_number_font;
-#endif
+extern Font g_number_font;   /* PORT: the corpus's type */
 extern i16 g_ocean_x;   /* PORT: the corpus's type */
 extern i16 g_ocean_y;   /* PORT: the corpus's type */
 extern i16 g_open_flag;   /* PORT: the corpus's type */
 extern int32_t g_opening_restypes[4];
-#ifdef __cplusplus
-extern GameWin g_opening_win;
-#else
-extern int8_t g_opening_win[];
-#endif
+extern GameWin g_opening_win;   /* PORT: the corpus's type */
 extern unsigned char g_order_flags[];   /* PORT: the corpus's type */
 extern char g_order_letter[];   /* PORT: the corpus's type */
 extern i16 g_order_word[];   /* PORT: the corpus's type */
@@ -1188,11 +1107,7 @@ extern signed char g_ortho_dy[];   /* PORT: the corpus's type */
 extern int16_t g_over_band[];
 extern int16_t g_over_lo[];
 extern signed char *g_overlay_plane;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Sprite g_overlay_sprites[];
-#else
-extern SpriteRec g_overlay_sprites[];
-#endif
+extern Sprite g_overlay_sprites[];   /* PORT: the corpus's type */
 extern int16_t g_override_a_val;
 extern int16_t g_override_b_val;
 extern int16_t g_page_word;
@@ -1232,35 +1147,19 @@ extern i16 g_player_took_control;   /* PORT: the corpus's type */
 extern i16 g_pop_besieged;   /* PORT: the corpus's type */
 extern i16 g_pop_blockaded;   /* PORT: the corpus's type */
 extern unsigned char g_pop_by_nation[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Font *g_popup_font;
-#else
-extern int8_t *g_popup_font;
-#endif
-#ifdef __cplusplus
-extern Font *g_popup_font_small;
-#else
-extern void *g_popup_font_small;
-#endif
+extern Font *g_popup_font;   /* PORT: the corpus's type */
+extern Font *g_popup_font_small;   /* PORT: the corpus's type */
 extern int8_t *g_popup_label[];
 extern i16 g_popup_label_id[];   /* PORT: the corpus's type */
 extern unsigned char g_popup_hilite_color;   /* PORT: the corpus's type */
 extern unsigned char g_popup_text_color;   /* PORT: the corpus's type */
 extern unsigned char g_popup_m2;   /* PORT: the corpus's type */
 extern unsigned char g_popup_m3;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern EventWin *g_popup_owner;
-#else
-extern void *g_popup_owner;
-#endif
+extern EventWin *g_popup_owner;   /* PORT: the corpus's type */
 extern void *g_restype_text_popup;
 extern signed char g_portrait_gap;   /* PORT: the corpus's type */
 extern int16_t g_power_words[];
-#ifdef __cplusplus
-extern GamePrefs g_prefs_root;
-#else
-extern int8_t g_prefs_root;
-#endif
+extern GamePrefs g_prefs_root;   /* PORT: the corpus's type */
 extern i16 g_prev_group;   /* PORT: the corpus's type */
 extern i16 g_prod[];   /* PORT: the corpus's type */
 extern char *g_ptr_2504;   /* PORT: the corpus's type */
@@ -1292,28 +1191,12 @@ extern i16 g_region_size[16];   /* PORT: the corpus's type */
 extern unsigned char g_region_state[][16];   /* PORT: the corpus's type */
 extern unsigned char g_region_unit_count[][16];   /* PORT: the corpus's type */
 extern unsigned char g_region_unit_tally[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern DialogWin g_report_window_dlg;
-#else
-extern int8_t g_report_window_dlg;
-#endif
-#ifdef __cplusplus
-extern Font g_report_font;
-#else
-extern int8_t g_report_font;
-#endif
-#ifdef __cplusplus
-extern Font g_report_font_small;
-#else
-extern int8_t g_report_font_small;
-#endif
+extern DialogWin g_report_window_dlg;   /* PORT: the corpus's type */
+extern Font g_report_font;   /* PORT: the corpus's type */
+extern Font g_report_font_small;   /* PORT: the corpus's type */
 extern RECT *g_report_rect;
 extern int16_t g_report_title_word;
-#ifdef __cplusplus
-extern ReportWin g_report_window;
-#else
-extern int8_t g_report_window;
-#endif
+extern ReportWin g_report_window;   /* PORT: the corpus's type */
 extern char g_restype_text_copy[4];   /* PORT: the corpus's type */
 extern i16 g_reselect_unit;   /* PORT: the corpus's type */
 extern i16 g_reserved_count;   /* PORT: the corpus's type */
@@ -1333,11 +1216,7 @@ extern unsigned char g_ring_tile_count[];   /* PORT: the corpus's type */
 extern signed char g_ring_dx[];   /* PORT: the corpus's type */
 extern signed char g_ring_dy[];   /* PORT: the corpus's type */
 extern i16 g_route_label[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Sprite g_route_panel_sprite;
-#else
-extern int8_t g_route_panel_sprite;
-#endif
+extern Sprite g_route_panel_sprite;   /* PORT: the corpus's type */
 extern i16 g_route_stop;   /* PORT: the corpus's type */
 extern i16 g_route_unit;   /* PORT: the corpus's type */
 extern RouteRec g_routes[];
@@ -1364,11 +1243,7 @@ extern i16 g_scenery_seed;   /* PORT: the corpus's type */
 extern i16 g_score_total;   /* PORT: the corpus's type */
 extern unsigned char g_colour_table[];   /* PORT: the corpus's type */
 extern i16 g_scout_visit;   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern GRPort g_sprite_sheet;
-#else
-extern int8_t g_sprite_sheet;
-#endif
+extern GRPort g_sprite_sheet;   /* PORT: the corpus's type */
 extern i16 g_scrollbar_extra;   /* PORT: the corpus's type */
 extern i16 g_scrollbar_registered;   /* PORT: the corpus's type */
 extern i16 g_sea_claim;   /* PORT: the corpus's type */
@@ -1485,11 +1360,7 @@ extern unsigned char g_terrain_colour[];   /* PORT: the corpus's type */
 extern i16 g_terrain_defence;   /* PORT: the corpus's type */
 extern uint8_t g_terrain_row_bytes[][16];
 extern TerrainRec g_terrain_rows[];
-#ifdef __cplusplus
-extern Sprite g_terrain_sprites[];
-#else
-extern SpriteRec g_terrain_sprites[];
-#endif
+extern Sprite g_terrain_sprites[];   /* PORT: the corpus's type */
 extern char g_text[];   /* PORT: the corpus's type */
 extern int8_t g_text_405[];
 extern int8_t g_text_406[];
@@ -1531,11 +1402,7 @@ extern signed char g_tile_tribe[5][5];   /* PORT: the corpus's type */
 extern i16 g_tile_units;   /* PORT: the corpus's type */
 extern i16 g_tile_w;   /* PORT: the corpus's type */
 extern char g_title_area_map[];   /* PORT: the corpus's type */
-#ifdef __cplusplus
-extern Font g_title_font;
-#else
-extern int8_t g_title_font;
-#endif
+extern Font g_title_font;   /* PORT: the corpus's type */
 extern int8_t g_title_map[];
 extern i16 g_trade_click_busy;   /* PORT: the corpus's type */
 extern int16_t g_trade_route_count;
@@ -1594,11 +1461,7 @@ extern signed char g_want_muskets;   /* PORT: the corpus's type */
 extern signed char g_want_tools;   /* PORT: the corpus's type */
 extern int16_t g_wanted_specialty;
 extern int16_t g_war_started[];
-#ifdef __cplusplus
-extern GameWin g_win;
-#else
-extern int8_t g_win[];
-#endif
+extern GameWin g_win;   /* PORT: the corpus's type */
 extern i16 g_window_count;   /* PORT: the corpus's type */
 extern int8_t g_window_no_title;
 extern i16 g_wing_orientation;   /* PORT: the corpus's type */
@@ -1659,15 +1522,9 @@ extern int CheckMenuItem(unsigned, unsigned, unsigned);
 extern void ClientToScreen(unsigned, POINT *);
 extern int ClosingWin_ctor();
 extern int ClosingWin_dtor();
-#ifdef __cplusplus
 extern void ColChild_AddBucksToMessage(ColChild *w, long bucks);
-#endif
-#ifdef __cplusplus
 extern void ColChild_AddLongToMessage(ColChild *w, long value);
-#endif
-#ifdef __cplusplus
 extern void ColChild_AddNumberToMessage(ColChild *w, int number);
-#endif
 extern void ColChild_DragIconMUp(int x, int y);
 extern void ColChild_DragIconMove(int x, int y);
 extern int ColChild_ctor_1008_e67b();
@@ -1916,15 +1773,9 @@ extern void * GlobalLock(unsigned);
 extern unsigned long GlobalSize(int);
 extern int GlobalUnlock(int);
 extern void InflateRect(RECT *, int, int);
-#ifdef __cplusplus
 extern void InfoCargo(GRPort *port, int u, int x, int y);
-#endif
-#ifdef __cplusplus
 extern void InfoTerrain(GRPort *port, int kind, int *px, int *py);
-#endif
-#ifdef __cplusplus
 extern void InfoTerrain2(GRPort *port, int kind, int *px, int *py);
-#endif
 extern int InsertMenu(unsigned, unsigned, unsigned, unsigned, char *);
 extern int IntersectRect(RECT *, RECT *, RECT *);
 extern void InvalidateRect(unsigned, RECT *, int);
@@ -2083,9 +1934,7 @@ extern FARPROC MakeProcInstance(FARPROC, unsigned);
 extern void MapWin_LeftMouseClick(int x, int y);
 extern void MapWin_LeftMouseDown(int x, int y);
 extern void MapWin_LeftMouseUp(int x, int y);
-#ifdef __cplusplus
 extern void MapWin_Recenter(MapWin *w, int x, int y);
-#endif
 extern void MapWin_RightMouseClick(int x, int y);
 extern int MapWin_ctor();
 extern int MapWin_dtor();
@@ -2120,13 +1969,9 @@ extern int ReleaseDC(unsigned, unsigned);
 extern int RemoveFontResource(char *);
 extern int RemoveMenu(unsigned, unsigned, unsigned);
 extern int ReportWin_Close(void);
-#ifdef __cplusplus
 extern int ReportWin_DoReport(ReportWin *o, int kind, char flag);
-#endif
 /* PORT: ReportWin_Done's prototype here was stale, and its definition names a type no header has */
-#ifdef __cplusplus
 extern void ReportWin_Init_default(ReportWin *o);
-#endif
 extern void ReportWin_KeyClick(int key);
 /* PORT: ReportWin_OnColonyNextClick's prototype here was stale, and its definition names a type no header has */
 /* PORT: ReportWin_OnColonyPrevClick's prototype here was stale, and its definition names a type no header has */
@@ -2472,47 +2317,21 @@ extern void compose_unit_icon(int u, int flags, int x, int y, int w, int h);
 extern int control_is_current(unsigned hwnd);
 extern long control_message_handler(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
 extern int converts_lose_faith(int u);
-#ifdef __cplusplus
 extern void copy_all_to_screen_1008_db30(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1010_2c4d(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1010_e3e6(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1020_abf0(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1030_e504(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1038_8819(GameWin *w);
-#endif
 extern void copy_all_to_screen_1038_a6cf(void *p);
-#ifdef __cplusplus
 extern void copy_all_to_screen_1038_e428(GameWin *w);
-#endif
 extern void copy_all_to_screen_1040_07d5(void);
-#ifdef __cplusplus
 extern void copy_all_to_screen_1040_abe0(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1048_dd24(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1050_843b(GameWin *port);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1058_c1bf(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1060_610c(GameWin *w);
-#endif
-#ifdef __cplusplus
 extern void copy_all_to_screen_1060_ae72(GameWin *w);
-#endif
 extern void copy_logpalette(void *src, void *dst);
 extern void copy_rect(RECT *src, RECT *dst);
 extern int count_buildable(void);
@@ -2818,20 +2637,14 @@ extern void free_space_1068_9487(void);
 extern unsigned fwrite_rtl(void *, unsigned, unsigned, FILE *);
 extern void game_colony_options(void);
 extern void game_init(void);
-#ifdef __cplusplus
 extern void game_win_set_text_1010_e756(ColChild *o, char *s);
-#endif
-#ifdef __cplusplus
 extern void game_win_set_text_1038_dffc(ColChild *o, char *s);
-#endif
 extern void generate_map(int loaded);
 extern int get_adjective(int nation);
 extern void *get_current_port(void);
 extern void get_entry_rect(void *root, int which, RECT *r);
 /* PORT: get_game_options's prototype here was stale, and its definition names a type no header has */
-#ifdef __cplusplus
 extern void get_mouse_pos_for(Screen *screen, int *x, int *y);
-#endif
 extern void get_mouse_pos_for_1050_8f2b(void *screen, void *x, void *y);
 extern void get_scale_pair(int *a, int *b);
 extern int get_true_adjective(int n);
@@ -3085,9 +2898,7 @@ extern void menu_check_item(unsigned hmenu, unsigned long id, char check);
 extern void menu_enable_item_1070_da13(unsigned hmenu, unsigned long id, char enable);
 extern void menu_enable_pos(unsigned hmenu, int pos, int item, char enable);
 extern long menu_find_item(unsigned hmenu, unsigned id);
-#ifdef __cplusplus
 extern void menu_init(MenuClass *m, int id);
-#endif
 extern void menu_insert_1070_d855(unsigned hmenu, int pos, int item, const char *text, unsigned id);
 extern void menu_insert_auto_id(unsigned hmenu, int pos, int item, const char *text);
 extern char *menu_popup_parse(unsigned hmenu, char *p);
@@ -3287,70 +3098,28 @@ extern int popup_run_thunk_1030_ebe7(void *p);
 extern int popup_run_thunk_1048_de13(void *p);
 extern void port_call_2d24(void *w);
 extern void port_call_2d3e(void *w);
-#ifdef __cplusplus
 extern int port_height_1008_db11(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1010_e3c7(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1030_e959(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1048_d7c5(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1050_8ba9(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1058_c045(GRPort *win);
-#endif
-#ifdef __cplusplus
 extern int port_height_1060_699d(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1060_af15(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1068_df70(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_height_1070_dbe6(GRPort *port);
-#endif
 extern long port_paint_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp);
-#ifdef __cplusplus
 extern int port_width_1008_daf2(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1010_2ba0(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1010_e3a8(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1030_e93a(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1048_d4f6(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1050_8b8a(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1058_be8e(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1060_6886(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1060_aef6(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1068_df51(GRPort *p);
-#endif
-#ifdef __cplusplus
 extern int port_width_1070_dbc7(GRPort *port);
-#endif
 extern long port_wndproc(unsigned hwnd, unsigned msg, unsigned wparam, unsigned long lparam);
 extern void preload_pictures(void);
 extern int prev_sibling_window(int h);
@@ -3403,14 +3172,10 @@ extern int recruit_unit(int kind, int a);
 extern int rect_bottom(RECT *r);
 extern int rect_contains_1048_174f(RECT *r, int x, int y);
 extern int rect_height_1008_d5ee(RECT *r);
-#ifdef __cplusplus
 extern int rect_height_1010_2b81(Sprite *s);
-#endif
 extern int rect_height_1010_2ec7(RECT *r);
 extern int rect_height_1010_ed8b(RECT *r);
-#ifdef __cplusplus
 extern int rect_height_1020_ad08(Sprite *s);
-#endif
 extern int rect_height_1020_b03e(RECT *r);
 extern int rect_height_1030_e9b2(RECT *r);
 extern int rect_height_1038_8986(RECT *r);
@@ -3419,9 +3184,7 @@ extern int rect_height_1040_aa80(RECT *rect);
 extern int rect_height_1048_d6ba(RECT *r);
 extern int rect_height_1048_dae9(RECT *rect);
 extern int rect_height_1050_832b(RECT *r);
-#ifdef __cplusplus
 extern int rect_height_1050_83da(Sprite *s);
-#endif
 extern int rect_height_1058_bd4c(RECT *r);
 extern int rect_height_1060_63d4(RECT *r);
 extern int rect_height_1060_8906(void *p);
@@ -3436,19 +3199,13 @@ extern int rect_height_1078_3418(RECT *r);
 extern int rect_is_empty(RECT *r);
 extern int rect_right(RECT *r);
 extern int rect_width_1008_d5cf(RECT *r);
-#ifdef __cplusplus
 extern int rect_width_1010_2b62(Sprite *s);
-#endif
 extern int rect_width_1010_2ea8(RECT *r);
 extern int rect_width_1010_ed6c(RECT *r);
-#ifdef __cplusplus
 extern int rect_width_1020_ace9(Sprite *s);
-#endif
 extern int rect_width_1020_b01f(RECT *r);
 extern int rect_width_1030_e4e5(RECT *r);
-#ifdef __cplusplus
 extern int rect_width_1038_87fa(Sprite *s);
-#endif
 extern int rect_width_1038_8967(RECT *r);
 extern int rect_width_1038_dfbd(RECT *r);
 extern int rect_width_1040_44e8(RECT *r);
@@ -3456,9 +3213,7 @@ extern int rect_width_1040_a903(RECT *rect);
 extern int rect_width_1048_d69b(RECT *rect);
 extern int rect_width_1048_daca(RECT *rect);
 extern int rect_width_1050_830c(RECT *r);
-#ifdef __cplusplus
 extern int rect_width_1050_841c(Sprite *s);
-#endif
 extern int rect_width_1058_bd2d(RECT *r);
 extern int rect_width_1060_63b5(RECT *r);
 extern int rect_width_1060_8865(RECT *r);
@@ -3626,9 +3381,7 @@ extern void set_current_tribe(int t);
 extern void * set_current_window(void *w);
 extern void set_cursor(unsigned h);
 extern void set_cursor_pos(int x, int y);
-#ifdef __cplusplus
 extern void set_default_font_ref(Font *font);
-#endif
 extern void set_default_name_slots(void);
 extern void set_done_flag_1008_b362(void);
 extern void set_done_flag_1008_b37c(void);
@@ -3878,9 +3631,7 @@ extern void toggle_colony_report_view(void);
 extern int tolower_rtl(int);
 extern void tory_uprising(int nation);
 extern int toupper_rtl(int);
-#ifdef __cplusplus
 extern void track_popup_submenu(Screen *w, MenuClass *menu, int x, int y);
-#endif
 extern void trade_route_single_port_check(int u, int at_stop);
 extern int translate_key(int key);
 extern void treasure_fleet_arrives(void);
@@ -3989,36 +3740,16 @@ extern void win_init_full_1048_01c2(void *, char *, int, int, int, int, int, int
 extern void win_init_parent_1048_014a(void *, char *, int, int, int, int, int, int, int, void *);
 extern void win_release_capture(void *unused1);
 extern void win_send_415(unsigned hwnd, unsigned wp);
-#ifdef __cplusplus
 extern void win_show_and_focus_1008_dbda(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1010_2e7f(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1010_e4ff(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1010_ecec(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1020_aedb(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1030_ecf6(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1058_bc47(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1058_c4df(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_show_and_focus_1068_e4ee(DialogWin *o);
-#endif
-#ifdef __cplusplus
 extern void win_take_focus(DialogWin *w);
-#endif
 extern void window_relayout(char *w);
 extern void window_resized(int a);
 extern void wing_call_0000(long a, long b, int c, int d, int e, int f);
@@ -4056,247 +3787,1309 @@ extern Plan g_plans[][64];
 extern Plan g_strategies[][16];
 
 /* PORT: functions src/ defines that the model's header does not declare */
-#ifdef __cplusplus
+extern int ATOL_1050_8de2(char *digits);
+extern void AboutWin_DoCredits(AboutWin *w);
+extern void AboutWin_Keys(void);
+extern void AboutWin_Mouse(void);
+extern void AboutWin_UpdateCredits(AboutWin *o);
+extern void AddMultiIcon(int kind, int count, int part);
+#ifndef __cplusplus
+extern void CDControlWin_DrawTime(CDControlWin *w);
+#endif
+#ifndef __cplusplus
+extern void CDControlWin_DrawTrack(CDControlWin *w);
+#endif
+extern void CDControlWin_OnOkClick(void);
+extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int count);
+extern void CTable_Reseed(CTable *o);
+extern void CTable_ResetScale(CTable *pal);
+extern void CTable_Scale(CTable *table, int step);
+extern void CTable_SetScale(CTable *table, short first, short count, short step_count);
+extern void CTable_UpdatePal(CTable *p, int start, int count);
 extern void CTable_load_rgb(CTable *table, int count, void *src);
-#endif
-#ifdef __cplusplus
 extern void CTable_pack_with_source(CTable *ctable, short first, short count, short mode, void *src);
-#endif
-#ifdef __cplusplus
+extern void CTable_set_key_and_reinstall(CTable *table, short first, short count, short mode, char r, char g, char b);
+extern int Century(void);
+extern void ClearEventTable_1008_ea88(EventTable *table);
+extern void ClearEventTable_1010_3036(EventTable *table);
+extern void ClearEventTable_1010_f196(EventTable *table);
+extern void ClearEventTable_1020_b1d2(EventTable *table);
+extern void ClearEventTable_1030_f353(EventTable *table);
+extern void ClearEventTable_1038_8c71(EventTable *table);
+extern void ClearEventTable_1040_b461(EventTable *table);
+extern void ClearEventTable_1048_ee9c(EventTable *table);
+extern void ClearEventTable_1050_967e(EventTable *table);
+extern void ClearEventTable_1058_c8a5(EventTable *table);
+extern void ClearEventTable_1060_6d0a(EventTable *table);
+extern void ClearEventTable_1060_8b2b(EventTable *table);
+extern void ClosingWin_Keys(void);
+extern void ClosingWin_Mouse(void);
 extern int ColChild_CancelIfActive(ColChild *w);
+extern void ColChild_DrawAll(void);
+extern void ColChild_DrawTitleBar(ColChild *w);
+extern void ColChild_ExtractSprite(ColChild *w);
+extern void ColChild_GetMessageColors(ColChild *unused, int sel, int *a, int *b);
+extern void ColChild_InitCWin(ColChild *o, char *title, int which, int x, int y, int w, int h, char save);
+extern void ColChild_InitCWin_style_nc(ColChild *o, char *title, int which, int x, int y, int w, int h, int style, char save, char noclose);
+extern void ColChild_MinButton(void);
+extern void ColChild_OnMove(void);
+extern void ColChild_PackQueue(ColChild *w);
+extern int ColonistIcon(int spec);
+extern int ColonyMouseArea(int x, int y);
+#ifdef __cplusplus
+extern void ColonyWin_ColonyMarketMessage(ColonyWin *w, int goods, int unused, int flag);
 #endif
 #ifdef __cplusplus
+extern void ColonyWin_ColonyMouseMove(ColonyWin *w, int panel, int x, int y);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_ColonyMouseParse(ColonyWin *w, int panel, int x, int y);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_DoBuildingFizzle(ColonyWin *w);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_DrawColony(ColonyWin *w);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_DrawFort(ColonyWin *w, int x, int y, int count);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_DrawMarket(ColonyWin *w, int redraw);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_DrawTitle(ColonyWin *w);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_GenerateColonyBaseMap(ColonyWin *w);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_Init(ColonyWin *w);
+#endif
+#ifdef __cplusplus
+extern void ColonyWin_LoadColony(ColonyWin *w);
+#endif
+extern void ColonyWin_TimerProc(void);
+#ifdef __cplusplus
+extern void ColonyWin_colony_hammer_buy(ColonyWin *w, int unused1);
+#endif
+extern void ComputeViewParameters(void);
+extern void ConformToView(int *l, int *top, int *r, int *bottom);
+extern void ConformToViewSize(int *x, int *y, int *w, int *h);
+extern void CopyToScreen(GRPort *port, Screen *screen, RECT *src, RECT *dst);
 extern void CopyToScreen_1068_558e(GRPort *port, POINT *dst_win, POINT *src_rect, POINT *at);
+#ifdef __cplusplus
+extern void Customize_DrawBoxText(Customize *s, int i);
 #endif
 #ifdef __cplusplus
+extern void Customize_DrawIt(Customize *s);
+#endif
+#ifdef __cplusplus
+extern int Customize_Init(Customize *s);
+#endif
+#ifdef __cplusplus
+extern int Customize_TrackMouse(Customize *o, int x, int y);
+#endif
+extern void DialogWin_SetDefaultControlFocus(DialogWin *o);
+extern void DisableLowMemoryCheck(void);
+extern void DoFireworks(void);
+extern void DoFizzle(GRPort *port, GameWin *win, RECT *r, int x, int y, int mode, int step);
+extern void DrawColoniesRegion(int x0, int y0, int w, int h);
+extern void DrawMultiIconRow(GRPort *port, int x, int y, int avail, int gap);
+extern void DrawSpriteSquare(void);
+extern void DrawVillagesRegion(int x0, int y0, int w, int h);
+extern void EnableLowMemoryCheck(int kb, int secs, int msg_res, EventWin *win, int flag);
+extern int EuropeMouseArea(int x, int y);
+#ifdef __cplusplus
+extern void EuropeWin_Done(EuropeWin *o);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawEurope(EuropeWin *w);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawEuropeShips(EuropeWin *w, int redraw);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawInbound(EuropeWin *w, int refresh);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawMarket(EuropeWin *w, int refresh);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawOutBound(EuropeWin *w, int refresh);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawTitle(EuropeWin *w);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawTransitUnit(EuropeWin *w, int u, int base_x, int count3, int extra, int *n, int colour);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_DrawUnits(EuropeWin *o, int blit);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_EuropeActivateMessage(EuropeWin *win, int kind, long ms);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_EuropeClearBig(EuropeWin *w);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_EuropeError(EuropeWin *win, int word, long ms);
+#endif
+extern void EuropeWin_EuropeKeyParse(int key);
+#ifdef __cplusplus
+extern void EuropeWin_EuropeMarketMessage(EuropeWin *win, int goods, int price, int buy, int qty);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_EuropeShowBig(EuropeWin *w);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_Init(EuropeWin *o);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_LoadEurope(EuropeWin *w);
+#endif
+#ifdef __cplusplus
+extern void EuropeWin_UpdateEurope(EuropeWin *o, int x, int y, int w, int h);
+#endif
+extern void EventWin_Modal(EventWin *o);
+extern void FinalScore(void);
+#ifndef __cplusplus
+extern void Flic_DecodeFrame(Flic *flic, unsigned char *data, FlicFrame *frame);
+#endif
+#ifndef __cplusplus
+extern void Flic_Init(Flic *flic, char *name);
+#endif
+#ifndef __cplusplus
+extern void Flic_Init2(Flic *flic, char *name, int first, int count);
+#endif
+#ifndef __cplusplus
+extern void Flic_NextFrame(Flic *flic);
+#endif
+extern void FreezeMenus(void);
 extern void GRPort_ChangeColor_all(GRPort *p, int from, int to);
-#endif
-#ifdef __cplusplus
+extern void GRPort_ColorSync(GRPort *port, CTable *table);
+extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
+extern void GRPort_DrawLine(GRPort *p, short x1, short y1, short x2, short y2);
+extern void GRPort_DrawRaisedRect(GRPort *p, RECT *r);
+extern void GRPort_DrawRect(GRPort *p, RECT *r);
+extern void GRPort_FillColor(GRPort *p, RECT *r, int color);
+extern GrafRec *GRPort_GetWin_1068_d91d(GRPort *p);
+extern char GRPort_IsLocked(GRPort *p);
+extern unsigned char * GRPort_NextScanLine(GRPort *p, unsigned char *row);
+extern unsigned char * GRPort_PrevScanLine(GRPort *port, unsigned char *row);
+extern void GRPort_SetClip(GRPort *port, RECT *r);
+extern void GRPort_Text(GRPort *p, unsigned *hf, const char *s, RECT *r, int flags);
+extern void GameBrains_DoHuman(GameBrains *brains);
+extern void GameBrains_ProcessActiveUnit(GameBrains *r);
+extern void GamePrefs_Default(GamePrefs *prefs);
+extern void GamePrefs_LoadPrefs(GamePrefs *p);
+extern void GameWin_Redraw(GameWin *w);
+extern void GenerateActiveUnit(int flag);
+extern void GenerateTerrainMap(int nation);
+extern void GenerateTerrainMapRegion(int x, int y, int w, int h, int nation);
+extern void GenerateUnits(void);
+extern void *GetEventWindow(void);
+extern void GetGlobalSpriteScale(int *num, int *den);
+extern int InBox(int x, int y, int rx, int ry, int rw, int rh);
+extern int InIconRow(int pic, int a, int n, int x, int y, int span, int span2, int style, int px, int py);
+extern int InRect(RECT *r, int x, int y);
+extern void KeyEvents(int key);
+extern void KingHowdy(void);
+extern void LabelKeyClick(int key);
+extern void LabelKeyProc(int key);
 extern void LinkedList_PediaEntry_dtor(VList *p, unsigned flag);
-#endif
+extern int LoadSaveGame(void);
+extern void LoadTray(void);
+extern void LowMemTimerProc(void);
+extern void MSAnimatePal(Palette *pal, unsigned hpal, int start, int count);
+extern void MSDeleteMenuItem_1048_e2bb(MenuClass *menu_owner, int pos, int item);
+extern void MSDrawLine(GrafRec *win, int x1, int y1, int x2, int y2);
+extern void MSDrawString(GrafRec *graf, unsigned hfont, const char *s, int x, int y, RECT *clip, int align);
+extern void MSFitWindow(MSWin *win, RECT *r);
+extern void MSFlushInput(void);
+extern void MSFlushInput_1010_e5aa(void);
+extern void MSFlushInput_1050_8d10(void);
+extern void MSFlushInput_1058_bba6(void);
+extern void MSFlushInput_1060_6713(void);
+extern void *MSGetResource_1010_2d16(void *type, int id);
+extern void *MSGetResource_1060_8884(void *type, int id);
+extern void *MSGetResource_1068_94c7(void *type, int id);
+extern void *MSGetResource_1068_da25(void *type, int id);
+extern void MSGetSizeParent(MSWin *win, RECT *r);
+extern void MSGetSizeParent_of(Screen *o, RECT *r);
+extern int MSGetTextHeight(unsigned font_handle);
+extern void MSGetWinSize(MSWin *win, RECT *r);
+extern void MSGetWinSize_of_1048_e1d6(Screen *o, RECT *r);
+extern int MSGrafOrient(GrafRec *graf);
+extern void MSHideMenuBar(void);
+extern void MSHideWindow_of_1048_d4d5(Screen *o);
+extern void MSHideWindow_of_1060_691b(DialogWin *o);
+extern int MSIsWindowMaximized_of(Screen *o);
+extern int MSIsWindowMinimized_of_1048_d8ad(Screen *o);
+extern int MSIsWindowMinimized_of_1060_67e4(DialogWin *o);
+extern void MSLockGraf(GRPort *port);
+extern void *MSLockResource_1010_2d39(void *p);
+extern void * MSLockResource_1040_a99c(void *res);
+extern void * MSLockResource_1050_8dc2(void *p);
+extern void *MSLockResource_1060_88a7(void *p);
+extern void *MSLockResource_1068_94f8(void *p);
+extern void *MSLockResource_1068_da48(void *p);
+extern void MSMaximizeWindow_of(Screen *o);
+extern void MSPushButton(unsigned hwnd);
+extern void MSRawSetCTEntry(Palette *pal, int i, char r, char g, char b);
+extern void MSReleaseResource(void *p);
+extern void MSReleaseResource_1010_2d8e(void *p);
+extern void MSReleaseResource_1040_a9d8(void *res);
+extern void MSReleaseResource_1050_8e1e(void *p);
+extern void MSReleaseResource_1068_9549(void *res);
+extern void MSRestoreWindow_of(DialogWin *o);
+extern void MSSetCursor_id(MSWin *win, int id);
+extern void MSSetEBLimit(SEditBox *edit, int max_chars);
+extern void MSSetFocus_of_1048_e0cd(Screen *o);
+extern void MSShowControl_1050_8459(DlgControl *control);
+extern void MSShowMenuBar(void);
+extern void MSTrackPopupMenu(unsigned hmenu, MSWin *win, int x, int y);
+extern void MSUnlockGraf(GRPort *port);
+extern void MSUnlockResource(void *p);
+extern void MSUnlockResource_1010_2d72(void *p);
+extern void MSUnlockResource_1040_a9bc(void *res);
+extern void MSUnlockResource_1050_8e02(void *p);
+extern void MSUnlockResource_1068_952d(void *res);
+extern void MSUpdatePalette(Palette *pal, unsigned hpal, int start, int count);
 extern int MSWriteLine(MSFile *file, char *s);
+#ifdef __cplusplus
+extern void MagicWin_load_gif(MagicWin *o, int id, register int first, register int count, void *pal);
+#endif
+#ifdef __cplusplus
+extern void MagicWin_load_lbm(MagicWin *o, int res_id, register int first, register int count, void *pal);
+#endif
+#ifdef __cplusplus
+extern void MagicWin_load_pcx(MagicWin *o, int id, register int first, register int count, void *pal);
+#endif
+#ifdef __cplusplus
+extern void MagicWin_load_picture(MagicWin *o, int id, register int first, register int count, void *pal);
+#endif
+#ifdef __cplusplus
+extern void MagicWin_remap_to_palette(MagicWin *w, short first, short count);
+#endif
+extern void MainWin_MainMenuProc(long cmd);
+#ifndef __cplusplus
+extern void MainWin_MenuReleaseOrders(MainWin *w);
+#endif
+extern void MainWin_OnMove(void);
+extern void MainWin_OnSize(void);
+extern void MapWin_RedrawMap(void);
+extern void MapWin_ShowMap_all(void *p);
+extern int MapWin_TileSize(MapWin *w);
+extern void MapWin_TrackMouse(int x, int y);
+extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
+extern void MiniWin_BlastMiniRegion(MiniWin *w, int x, int y, int cols, int rows, int viewer, int white);
+extern void MiniWin_Draw(MiniWin *w);
+extern void MiniWin_HighlightActiveUnit_cell(MiniWin *w, int x, int y, int cols, int rows, int viewer, int white, char blink);
+extern void MiniWin_MiniUpdate(void);
 extern void MiniWin_RightMouseClick(int x, int y);
+#ifdef __cplusplus
+extern void Opening_DoCredits(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_DoMonsters(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_DoPan(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_DoShip(Opening *o);
+#endif
+extern void Opening_OpeningKeys(void);
+extern void Opening_OpeningMouse(void);
+#ifdef __cplusplus
+extern void Opening_Play(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_RefreshUpdatePort(Opening *w);
+#endif
+extern void Opening_TimerProc(void);
+#ifdef __cplusplus
+extern void Opening_UnDoCredits(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_UnDoMonsters(Opening *w);
+#endif
+#ifdef __cplusplus
+extern void Opening_UnDoShip(Opening *o);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_CargoLine(PediaWin *w, int goods, int spec, int y);
+#endif
+extern int PediaWin_Close(void);
+#ifndef __cplusplus
+extern PediaEntry * PediaWin_CurrentEntry(PediaWin *o);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_DrawArticle(PediaWin *w);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_DrawListArea(PediaWin *w);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_DrawTitle(PediaWin *o);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_EmptyStringList(PediaWin *o);
+#endif
+#ifndef __cplusplus
+extern PediaEntry * PediaWin_Entry(PediaWin *o, int idx);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_FillListArea(PediaWin *w);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_FillStringList(PediaWin *w);
+#endif
+#ifndef __cplusplus
+extern void PediaWin_HandleLeftClick(PediaWin *w, int x, int y);
+#endif
+extern void PediaWin_KeyClick(int key);
+extern void PediaWin_OnOKClick(void);
+extern void PediaWin_OnScroll(int page);
+#ifndef __cplusplus
+extern void PediaWin_SortEntries(PediaWin *w);
+#endif
+extern void PieceDraw_noport(int u, int flags, int x, int y, int w, int h);
+extern void PieceInit(void);
+extern void PlayRandomTrack(void);
+extern void PopupBoxDraw(char *win, int x, int y, int w, int h);
+extern void RGBTree_insert(RGBTree *tree, RGBTreeNode *key, short n);
+extern short RGBTree_nearest_grey(RGBTree *tree, unsigned char *pal);
+extern void RedrawSpriteSquare(void);
+extern void ReportWin_ColonyReportTop(ReportWin *w);
+extern void ReportWin_DrawReport(void);
+extern void ReportWin_EconReport2(ReportWin *o, int nation);
+extern void ReportWin_EconReport3(ReportWin *o, int nation);
+extern void ReportWin_Init(ReportWin *o, char flag, void *parent);
+extern void ReportWin_OnLaborMouseMove(void);
+extern void ReportWin_OnOKClick(void);
+extern void ReportWin_OnTradeRouteExtraClick(void);
+extern void ReportWin_ReallyDrawReport(ReportWin *o);
+extern int ReportWin_Score(ReportWin *w, int draw);
+extern void ReportWin_ShipReportTop(ReportWin *o, int nation);
+extern void ReportWin_TradeRoute1(ReportWin *o, int y0);
+extern void ResetMultiIcon(void);
+extern void SRadioSet_Show(SRadioSet *o);
+extern int ScaleMult(int amount, int start, int exact);
+extern int ScanOceanDither(void);
+extern int Screen_LButtonPressed(Screen *o, char own, char remove, char wait);
 extern void Screen_RButtonPressed(void *o, char own, int remove, int wait);
+extern void SetCDCallback(void *fn);
 #ifdef __cplusplus
+extern void SetDifficulty_DrawIt(SetDifficulty *s);
+#endif
+#ifdef __cplusplus
+extern int SetDifficulty_Init(SetDifficulty *s);
+#endif
+#ifdef __cplusplus
+extern int SetDifficulty_TrackMouse(SetDifficulty *unused, int x, int y);
+#endif
+#ifdef __cplusplus
+extern void SetNations_DrawIt(SetNations *s);
+#endif
+#ifdef __cplusplus
+extern int SetNations_Init(SetNations *s);
+#endif
+#ifdef __cplusplus
+extern int SetNations_TrackMouse(SetNations *unused, int x, int y);
+#endif
+extern void SetupDitherMap(void);
+extern void ShowFloor(void);
+extern void ShowMap(void);
+extern void ShowMapRegion(int x, int y, int w, int h);
+extern void Sprite_ChangeColor(Sprite *s, unsigned char from, unsigned char to);
+extern void Sprite_ChangeColor_1068_7c97(Sprite *s, unsigned char *map, int from, int unused1);
+extern void Sprite_CopyTo(Sprite *s, Sprite *dest);
+extern RECT *Sprite_DrawMono(RECT *out, Sprite *sprite, GRPort *port, int px, int py, unsigned char mode);
+extern RECT *Sprite_DrawMonoSprite(RECT *out, Sprite *sprite, GRPort *port, int colour, int px, int py, unsigned char mode);
+extern RECT *Sprite_DrawSprite(RECT *out, Sprite *sprite, GRPort *port, int colour, int px, int py);
+extern void Sprite_Extract(Sprite *spr, GRPort *src, int x, int y, int w, int h);
 extern void Sprite_ExtractRect(Sprite *s, void *src, RECT *r);
+extern void Sprite_Extract_key_rect(Sprite *sprite, void *src, unsigned char transparent, RECT *r);
+extern void Sprite_Extract_mask(Sprite *s, void *src, unsigned char transparent, int x, int y, int w, int h);
+extern void Sprite_InitStruct(Sprite *s);
+extern char Sprite_IsLocked(Sprite *s);
+extern void Sprite_Lock(Sprite *s);
+extern void Sprite_SetHotSpot(Sprite *s, int x, int y);
+extern void Sprite_Unlock(Sprite *s);
+extern void StartCheat(void);
+extern void StatWin_LeftMouseClick(int x, int y);
+extern void SuperWin_Execute(SuperWin *w);
+extern void SuperWin_GoAway(SuperWin *w);
+extern void SuperWin_Init(SuperWin *o);
+extern void SuperWin_KeyDown(void);
+extern void SuperWin_LeftMouseDown(void);
+extern void SuperWin_RightMouseDown(void);
+extern void UpdateStats(void);
+extern void UpdateTerrain(void);
+extern void UpdateTerrainRegion(int x, int y, int w, int h);
+#ifdef __cplusplus
+extern void VListItem_SetListItem(VListItem *it, void *item);
 #endif
 #ifdef __cplusplus
-extern void VList_insert(VList *list, void *item);
+extern void VListItem_SetNext(VListItem *it, VListItem *h);
 #endif
+#ifdef __cplusplus
+extern void VListItem_SetPrev(VListItem *it, VListItem *h);
+#endif
+extern void VList_ClearList(VList *l);
+extern int VList_IsEmpty(VList *list);
+extern void VList_insert(VList *list, void *item);
+extern int WhichColonist(int px, int unused1);
 extern int WinMain(unsigned hinst, unsigned hprev, char *cmdline, int show);
+extern void add_gold(int n, long amount);
+extern void add_pickup(int colony, int value, int loads, int troops);
+extern void add_plan(int nation, int x, int y, int kind, int priority);
+extern void add_strategy(int nation, int x, int y, int kind, int priority);
+extern void additional_spotting(int u, int bits);
+extern int ai_sell(int goods);
+extern void allied_invasion(int mercs);
+extern int allocate_map_memory(int big);
+extern void analyze_cash_flow(int good, int prod, int use, int stock);
+#ifndef __cplusplus
+extern void anim_start(Flic *anim, void *port);
+#endif
+#ifndef __cplusplus
+extern void anim_start_ex(Flic *anim, void *port, int a4, int a5);
+#endif
+extern int any_ship_in_stack(int u);
+extern int any_spec(int job);
+extern void arm_indians(int col, int row);
+extern void arrivals_to_mapboard(void);
 extern int ask_choice_noparent(char *msg, char *options);
+extern void ask_for_cargo(int goods, int flag);
+extern void assess_upkeep(void);
+extern int at_plan(int nation, int x, int y, int kind);
 extern int audio_open_element(Audio *o, char *name);
 extern void audio_play_element(Audio *o);
-#ifdef __cplusplus
+extern void autosave(void);
+extern int avail_of_father(int nation, int cat);
+extern int base_building(int building);
+extern int bearing_adjacent(int dir, int last_dir);
+extern int begin_game(void);
+extern int best_building(int bit);
+extern int best_freedom(int nation);
+extern int blockade_speed(int u);
+extern void bordered_win_dismiss_1020_665a(void);
+extern void bordered_win_dismiss_1020_667c(void);
+extern void bottom_box(int unused1);
+extern int bottom_unit(int u);
+extern int boycott(int goods);
+extern int btoi(char *p);
+extern void buffer_fill(short handle, char fill_byte);
+extern unsigned char buffer_get(short handle, int x, int y);
+extern int build_check(int flag);
+extern void build_map(int loaded);
 extern void build_opening_art(AboutWin *o);
+#ifndef __cplusplus
+extern void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr);
 #endif
+extern int building_level(int bit);
+extern int building_of_job(int job);
+extern void buy_mercs(void);
+extern int buy_this(int kind, int nation, int x, int y);
+extern void call_checkbox_changed(SCheckBox *ctl, int id, int checked);
+extern void call_handler_slot_1894(ColChild *w, int size_code);
+extern void call_on_char(EventTable *table, int ch);
+extern int call_on_close(EventTable *table);
+extern void call_on_commnotify(EventTable *table, int notify_status);
+extern void call_on_hscroll(EventTable *table, int pos);
+extern void call_on_hthumb(EventTable *handlers, int pos);
+extern void call_on_keydown(EventTable *table, int key);
+extern void call_on_keydown_after(EventTable *table, int key);
+extern void call_on_keyup(EventTable *table, int key);
+extern void call_on_lbutton_down(EventTable *table, int x, int y);
+extern void call_on_lbutton_up(EventTable *table, int x, int y);
+extern void call_on_lclick(EventTable *table, int x, int y);
+extern void call_on_ldblclk(EventTable *table, int x, int y);
+extern void call_on_move(EventTable *t, int x, int y);
+extern void call_on_rbutton_down(EventTable *table, int x, int y);
+extern void call_on_rbutton_up(EventTable *table, int x, int y);
+extern void call_on_rclick(EventTable *table, int x, int y);
+extern void call_on_setfocus(EventTable *handlers);
+extern void call_on_size(EventTable *table, int size_type);
+extern void call_on_vscroll(EventTable *table, int pos);
+extern void call_on_vthumb(EventTable *table, int pos);
+extern void call_radio_changed(SRadioSet *ctl, int id, int item);
+extern void call_radio_dblclk(SRadioSet *ctl, int id, int index);
+extern void call_radio_rbutton_down(SRadioSet *ctl, int id, int index);
+extern void call_repaint_handler(ColChild *w);
+extern int can_see(int colony, int nation);
+extern int cargo_check(int u, int need, int last_ship);
+extern int cargo_diff_adjust(int amount);
+extern int cargo_free(int goods);
+extern int cargo_from_europe(int unit, int good, int want);
+extern int cargo_holds_free(int u, int goods, int *room);
+extern int cargo_to_ship(int u, int goods, int max);
+extern long check_gold(int nation);
 extern void check_mask_reset(void);
+extern void check_tut(void);
+extern void checkbox_disable(SCheckBox *checkbox);
+extern void checkbox_init(SCheckBox *checkbox, DialogWin *win, int id, int rx, int ry, char *text);
+extern void choose_freedom(int nation);
+extern void clean_up(void);
+extern void clear_pickup(void);
+extern void clear_plan(int nation);
 extern void clear_selected_orders(void);
 extern void clear_strategy_row(int nation);
+extern int close_move(int x, int y, int limit);
+extern void close_string(char *s);
+extern void collect_stats(int nation);
+extern void collect_stats_1(int nation);
+extern void colon_string(char *buf);
+extern int colony_add_unit(int colony, int u);
+extern int colony_building_level(int colony, int bit);
+extern void colony_change_mode(void);
+extern void colony_cursor_update(void);
+extern void colony_depletion(void);
+extern void colony_error(int idx, long ms);
+extern void colony_field_table(void);
+extern void colony_fortress(void);
+#ifdef __cplusplus
+extern void colony_goods_message(ColonyWin *w, int n, long ms);
+#endif
+extern void colony_indian_table(void);
+extern void colony_map_click(void);
+extern int colony_map_status(void);
+extern int colony_max_size(void);
+#ifdef __cplusplus
+extern void colony_panel_dispatch(ColonyWin *w, int panel, int x, int y);
+#endif
+extern int colony_rebel(void);
+extern void colony_screen(int unused1);
 extern void colony_window_draw_status(void);
-#ifdef __cplusplus
+extern void combat_analysis(int u0, int u1, int unused_a, int unused_b, int x, int y, int nation0, int nation1, int colony, int settlement, int n0, int n1, int n2);
+extern void comma_string(char *buf);
+extern int compute_colonist_yield(int colonist, int *good);
+extern void compute_colony_base_parameters(void);
+extern void compute_colony_cargo_box(int n, int *px, int *py, int *pw, int *ph);
+extern void compute_colony_dynamic(void);
+extern void compute_colony_parameters(void);
+extern void compute_colony_screen(void);
+extern void compute_colony_yield(void);
+extern void compute_europe_cargo_box(int i, int *x, int *y, int *w, int *h);
+extern void compute_europe_parameters(void);
+extern void compute_moves(void);
+extern int compute_yield(int col, int row, int *kind_out, int flag);
+extern void conquest(void);
+extern unsigned char continent_at(int x, int y);
+extern void continent_free(void);
+extern unsigned char continent_get(int x, int y);
+extern unsigned char * continent_loc(int x, int y);
 extern void controls_invalidate(DialogWin *w);
-#endif
-#ifdef __cplusplus
 extern void controls_unlink_all(DialogWin *w);
-#endif
 extern void copy_dib_colours(GrafRec *graf, void *pal, int first, int n);
 extern void copy_logpalette_entry(void *unused, void *src, void *dst);
+extern void copy_rect_to_screen_1008_e5b8(GameWin *w, RECT *r);
+extern void copy_rect_to_screen_1010_2f5a(GameWin *w, RECT *r);
+extern void copy_rect_to_screen_1020_ae42(GameWin *w, RECT *r);
+extern void copy_rect_to_screen_1060_afe6(GameWin *w, RECT *r);
 extern void copy_screen_to_wingdc(GrafRec *graf, RECT *r);
 extern int copy_text_resource(char *name, char *dst, int n);
+extern void coronado_colony(int colony, int nation);
+extern int count_eligible_builds(void);
+extern int crc(int *p, int taps);
 extern unsigned create_MSStaticClass_window(RECT *r, void *ctl, const char *text, long param);
+extern int create_colony(int nation, int x, int y, int unit);
+extern int create_village(int nation, int x, int y);
+extern int ctl_hwnd_1060_ac4a(DlgControl *ctl);
+extern void ctl_init_button_1050_8ac8(SButton *button, DialogWin *win, int id, RECT *r, char *title);
+extern void ctl_init_button_1068_daf8(SButton *button, DialogWin *win, int id, RECT *r, char *title);
+extern int ctl_kind_1060_ac19(DlgControl *ctl);
+extern DlgControl *ctl_next_1060_abe3(DlgControl *ctl);
+extern void *ctl_window_1050_948e(DlgControl *ctl);
+extern int custom_sell(int n);
+extern void custom_set(int bit, int on);
 extern void decode_planar(unsigned char *dst, Bmhd *h, unsigned char *src, short len, int bytemode);
+extern void delete_colonist(int colonist);
+extern void delete_unit(int u);
+extern void delete_village(int s);
+extern int dest_get(int cur);
+extern void dialog_dispose_window_1010_ef10(DialogWin *dialog);
+extern void dialog_dispose_window_1020_af04(DialogWin *dialog);
+extern void dialog_dispose_window_1040_b09c(DialogWin *dialog);
+extern void dialog_dispose_window_1048_e895(DialogWin *dialog);
+extern void dialog_dispose_window_1050_906a(DialogWin *dialog);
+extern void dialog_dispose_window_1058_c529(DialogWin *dialog);
+extern void dialog_dispose_window_1060_6c08(DialogWin *dialog);
+extern void dispatch_click(int x, int y);
 #ifdef __cplusplus
+extern void dissolve_transition(MagicWin *w);
+#endif
+extern void do_rivers(void);
+extern void draw_colony_map(int unused1);
+extern void draw_europe_screen(void);
+extern void draw_market(int unused1);
 extern void draw_string_curfont_clipped(GRPort *port, const char *s, RECT *clip, int align);
-#endif
-#ifdef __cplusplus
 extern void draw_string_shadowed_clipped(GRPort *port, unsigned *hf, const char *s, RECT *clip, int align);
-#endif
-#ifdef __cplusplus
 extern void draw_text_curfont(GRPort *port, const char *s, RECT *r, int flags);
-#endif
-#ifdef __cplusplus
+extern void draw_text_resource(void *target, char *name, void *rect);
 extern void edit_box_create(SEditBox *edit, void *win, int id, int x, int y, int w, void *text, int style);
-#endif
+extern void edit_box_init_1060_a95b(SEditBox *edit, void *win, int id, RECT *r, void *text);
+extern void edit_box_init_1060_a9bc(SEditBox *edit, void *win, int id, RECT *r, void *text, int style);
+extern int edit_key_allowed(SEditBox *table, int key);
+extern void elevate(int pick_land);
+extern int eligible_to_build(int item);
+extern void end_of_game_check(void);
+extern void end_unit_turn(int unit);
+extern int enemy_is_active(int unit);
+extern int enumerate_font_families(FontFile *lparam);
 extern int error_code_get(void);
+extern void error_code_set(int code);
+extern void europe_adjust_prices(int reset, int only);
 extern int europe_area_hit_region(void);
-#ifdef __cplusplus
+extern int europe_ask_price(int goods);
+extern int europe_bid_price(int goods);
+extern void europe_click_ship(int unit, int in_port);
+extern void europe_click_unit(void);
+extern void europe_init(void);
+extern int europe_new_taxes(void);
+extern void europe_new_turn(int nation);
+extern void europe_new_wars(void);
+extern int europe_religious_threshold(int nation, int *rate);
+extern void europe_select_unit(void);
+extern int execute_move_unit(int dx, int dy);
+extern void explore_map_square(int x, int y, int nation, int flag);
+extern void factory_cash_flow(int raw_goods, int k);
+extern void fame_OnLMouseDown(void);
+extern int far_move(int sx, int sy, int tx, int ty);
+extern void feature_free(void);
+extern unsigned char feature_get(int x, int y);
+extern unsigned char * feature_loc(int x, int y);
+extern void feature_set(int x, int y, int mask, int on);
+extern int field_index(int x, int y);
+extern void fileio_purge_all_spaces(char *s);
+extern int find_4(int x, int y, int want);
+extern int find_beach(int nation, int x, int y, int use_status, int artillery);
+extern int find_cargo(int u, int goods);
+extern int find_close_colony(int x, int y, int nation, int land);
+extern int find_close_village(int x, int y, int nation, int land);
 extern DlgControl *find_control(DialogWin *w);
-#endif
+extern int find_orphan_cargo_units(int u);
+extern int find_village(int x, int y);
 extern void flag_4bee_set(void);
+#ifndef __cplusplus
+extern void flic_load_resource(Flic *flic, int id);
+#endif
+#ifndef __cplusplus
+extern void flic_load_resource2(Flic *flic, int id, int first, int count);
+#endif
+#ifndef __cplusplus
+extern void flic_seek_frame(Flic *flic, int n, void *pal);
+#endif
+extern int font_handle_1068_da68(Font *font);
+extern int font_height_1060_695e(Font *font);
+extern int food_box_size(int *pa, int *pb);
+extern void force_map(int x, int y);
+extern int foreign_cargo(int u);
+extern int foreign_city(int u, int colony);
+extern void foreign_country(int nation);
+extern void foreign_turn(int nation);
+extern int free_boycott(int good);
+extern void free_galleon(int unused1);
+extern void free_galleon2(int u, int n);
+extern void free_wing_library(void);
+extern int freedom_level(int nation);
+extern void freedom_name(int nation, char *s);
+extern void game_font_set_1068_de7b(Font *font, int kind, int height);
 extern int game_text_dialog(char *name, int sel);
+extern char *get_america_name(int n);
+extern int get_cargo(int u, int slot);
+extern int get_cargo_amount(int u, int slot);
+extern int get_checked_1070_9921(SCheckBox *ctl);
+extern int get_colony_defense(void);
+extern void get_colony_name(int nation, char *out);
+extern int get_combat(int unit, int attacking);
+extern char get_field(int x, int y);
+extern int get_hpage(EventWin *obj);
+extern int get_hpos(EventWin *obj);
+extern int get_icon(int colonist);
+extern int get_indian(int x, int y);
+extern char get_initial_focus(DlgControl *ctl);
+extern void get_max_track_size_1070_9c38(EventWin *obj, int *pa, int *pb);
+extern Mci *get_mci(Audio *r);
+extern void get_min_track_size_1070_9c10(EventWin *obj, int *pa, int *pb);
+extern int get_name(int nation);
+extern int get_next_active_unit(int unit);
+extern int get_num_orders(int high);
+extern int get_order(int slot);
+extern int get_production_class(int item, int *idx);
+extern int get_production_cost(int item, int *tools);
+extern char *get_production_name(int item);
+extern int get_progress(int colonist);
+extern int get_specialty(int u);
+extern int get_spotting(int x, int y, int nation);
+extern int get_strength(void);
+extern void get_transit_loc(int idx, int base_x, int tier3_count, int extra, int *tier, int *x, int *sprite, int *w, int *size);
 extern int get_true_name(int n);
+extern int get_unit_dest(int u);
+extern void get_unit_loc(int index, int x, int *band, int *pos, int *row_y, int *p6, int *p7);
+extern int get_unit_route(int u);
+extern int get_valid_square(int corner_x, int y0, int *px, int *py, int want);
+extern int get_valid_square_2(int x0, int y0, int *px, int *py, int kind);
+extern int get_voyage_delay(int u, int tile_x, int unused1);
+extern int get_vpage(EventWin *obj);
+extern int get_vpos(EventWin *obj);
+extern int get_warehouse(void);
+extern void *get_win_1050_94fb(Screen *r);
+extern MSWin *get_win_1070_dd3f(Screen *r);
+extern void get_window_rect_1058_bcd5(ColChild *w, RECT *r);
+extern int get_yield_type(int x, int y, int *spec_out);
+extern void give_me_liberty(int nation, int father, int unused1);
+extern void great(int slot, char *name, int n);
+#ifndef __cplusplus
+extern RECT grow_region_rect(Flic *grid, int x0, int y0);
+#endif
+extern int guy_number_of_unit(int target);
+extern int guys_at_building(int building);
 extern void hall_of_fame_with_entry(FameEntry *entry);
+extern void handle_resize(short *hp, long size);
 extern void handle_resize_entry(short *hp, long size);
+extern int has_building(int bit);
+extern int has_father(int nation, int bit);
+extern int heap_create(MemBlock *heap, int kind, unsigned size);
+extern void heap_destroy(MemBlock *block);
+extern int heap_lock(MemBlock *block);
 extern int hide_owner_window(void);
+extern int inCargoBox(int x, int y);
+extern int inInboundBox(int x, int y);
+extern int inMarketBox(int x, int y);
+extern int inOutboundBox(int x, int y);
+extern int inShipyard(int x, int y);
+extern int inUnitsBox(int x, int y);
+extern int in_port(int unit_id, int colony_id);
+extern int in_view(int x, int y, int nation);
+extern int indian_make_peace(int nation, int tribe);
+extern void indian_supply_and_demand(void);
+extern void indian_turn(int tribe);
+extern void indian_turns(void);
+extern void indian_unit(int u);
+extern void indian_village(int s);
+extern void init_data(void);
+extern void init_letter_sprites(AboutWin *o);
 extern void init_record(MemBlock *r, int kind, int handle, long ptr, int size);
+extern void init_water_sprites(void);
+extern void intern(int nation);
 extern void invalidate_window_rect(MSWin *win, void *rect);
+extern int is_anything(int x, int y);
+extern int is_armed(int u);
+extern int is_city(int x, int y);
+extern int is_colonist(int u);
+extern int is_colony(int x, int y);
 extern int is_ctrl_held(void);
+extern int is_horse(int u);
+extern int is_hostile(int x, int y, int me);
+extern int is_unit(int x, int y);
+extern int is_village(int x, int y);
+extern void issue_stack_orders(int u, int orders);
+extern int job_available(int job);
+extern int job_cargo(int *goods, int job);
+extern int job_change_legal(int colonist, int job);
+extern int job_count(int job);
+extern int job_desc(int spec);
+extern int job_index(int spec);
+extern int job_is_useful(int job);
+extern int job_name(int spec);
+extern int job_of_building(int building);
+extern int job_of_unit(int u);
+extern int job_transfer_type(int colonist, int job);
+extern void kill_offboard(int nation);
+extern void kill_plan(int nation, int col);
+extern void kill_strategy(int nation, int kind, int x, int y, int radius);
+extern void kill_tribe(int tribe);
+extern void king_invasion(int nation);
+extern void land_ho(void);
 extern long list_current_value(ListIter *it);
 extern long list_first_value(ListIter *it);
 extern int list_has_item(ListWin *o, int key);
 extern void list_hide_items(ListWin *o);
-#ifdef __cplusplus
 extern void * list_prev(VList *list);
-#endif
 extern int listbox_get_cursel(unsigned hwnd);
+extern void listbox_init(SListBox *listbox, DialogWin *win, int id, RECT *r);
 extern void listbox_set_cursel(unsigned hwnd, int index);
+extern long listbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
+extern void load_data(void);
+#ifndef __cplusplus
+extern char load_frr_file(Flic *flic);
+#endif
+extern int load_game_file(char *name);
+extern int load_map_file(void);
+extern void load_terrain(int row);
+extern void load_wing_library(void);
+extern int lost_city_at(int x, int y);
+extern void lost_city_exploration(int unit, int x, int y);
 extern int main(void);
+extern void main_screen_refresh(void);
+extern void make_building_table(void);
+extern void make_fake_type(int icon, int strength);
+extern int make_fake_unit(int icon, int x, int y, int owner, int strength);
+extern int make_fake_unit_2(int kind, int tile_x, int tile_y, int owner);
+extern void map_analysis(void);
+extern int map_check(void);
+extern int map_dist(int x1, int y1, int x2, int y2);
 extern void map_draw_marker(int spr, int x, int y, int flags);
-#ifdef __cplusplus
 extern void map_draw_tile_rect(MapWin *w, int x, int y, int wd, int ht);
-#endif
-#ifdef __cplusplus
+extern void map_free(void);
+extern unsigned char map_get(int x, int y);
+extern void map_init(void);
+extern unsigned char * map_loc(int x, int y);
+extern int map_startup(int big);
 extern void mappos_to_winpos(MapWin *w, register int x, int y, int *px, int *py);
-#endif
+extern int master_unit_in_stack(int u);
 extern void mci_close_device(MciDev *device);
 extern void mci_get_rect(MciDev *device, RECT *r);
 extern void mci_seek_to_start(MciDev *device);
 extern void mci_set_time_format(MciRec *r, char frames);
+extern RECT *measure_wrapped_text(RECT *out, unsigned font, char *s, int width);
+extern void meek(int slot, int flag);
+extern int menace(int nation, int owner, int flag, int unit);
+extern int menaced(int x, int y, int nation, int flag);
 extern void menu_append_item(void *unused, unsigned hmenu, unsigned id, char *text);
+extern void menu_enable_item(unsigned hmenu, unsigned long id, char enable);
+extern void menu_insert_1048_e260(MenuClass *menu_owner, int pos, int item, const char *text, unsigned id);
+extern void menu_insert_auto(MenuClass *menu_owner, int pos, int item, const char *text);
+extern void minus_string(char *s);
+extern void move_a_unit(int u, int dir);
+extern void move_cursor(int dir);
+extern int move_dist(int tx, int ty, int x, int y, int want, int limit);
+extern unsigned char move_rate(int u);
+extern int move_to(int u);
+extern void move_to_bottom(int u);
+extern int music_by_number(int x);
 extern void music_set_next_group(int group);
+extern int needs_a_building(int idx);
+extern void negotiate_ai(int nation, int other);
+extern int neighbor_is_forest_1038_d44f(int p, int tile);
+extern int neighbor_is_forest_1040_00d5(int p, int tile);
+extern void new_dest(int colony);
+extern void new_turn_bookkeeping(void);
+extern void new_turn_colony(int colony);
+extern int next_improve(int job);
+extern int next_unit(int u);
+extern int nonclient_height(MSWin *win);
+extern int nonclient_width(MSWin *win);
+extern int nth_cargo_vessel(int carrier);
+extern int nth_eligible_build(int nth);
+extern int nth_europe_vessel(int n);
+extern int nth_noncarrier_in_chain(int u, int n);
+extern int nth_unit_with_job(int n);
+extern int on_colony_map(int dx, int dy, int mode);
+extern int on_screen(int x, int y);
+extern void open_string(char *s);
+extern void opening_dismiss_1040_7d80(void);
+extern void opening_dismiss_1040_7d94(void);
+extern void order_to(int u, int mission, int dest_x, int dest_y);
+extern int orders_activate(int x, int y);
+extern char *orders_pointer(int i);
+extern int output_of_building(int building, int *kind_out, int *pic_out, int *extra_out);
+extern char owner_of(int x, int y);
+extern void owner_set(int x, int y, int n);
 extern void palette_animate_own(Palette *pal, int start, int count);
-#ifdef __cplusplus
 extern void palette_cross_fade(CTable *table, int step);
-#endif
+extern void palette_delete(unsigned hpal);
+extern void palette_init(Palette *pal);
 extern void palette_load_file_entry(void *pal, char *name);
 extern void palette_rotate(Palette *pal, int start, int count, int n);
 extern void palette_save_file_all(void *pal, char *name);
+extern void percent_string(char *buf);
+extern int perform_orders_load(int u);
+extern int perform_orders_unload(int u, int in_europe);
+extern void period_string(char *buf);
+extern int pick_ship_in_chain(int u, int flag, int *out);
+extern void pick_up_colonist(int id);
+extern void pick_up_invalid_colonists(void);
+extern void pick_up_unit(int u);
+extern int piss_factor(int tension);
+extern int pissed(int tribe, int i);
+extern int place_in_stack(int u);
+extern void plan_strategy(int nation);
+extern void platform_startup(void);
+extern void plus_string(char *buf);
+extern int popup_ask_number(char *ctx, char *name, int n);
+extern void popup_country(int slot, int flag, int nation);
+extern void popup_done(void);
 extern void *popup_owner_get(void);
+#ifdef __cplusplus
+extern void port_blit_and_select(MagicWin *o, void *src, RECT *sr, RECT *dr);
+#endif
+#ifdef __cplusplus
+extern void port_copy_full(MagicWin *o);
+#endif
+#ifdef __cplusplus
+extern void port_copy_rect(MagicWin *o);
+#endif
+#ifdef __cplusplus
+extern void port_curtain_open_h(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_curtain_open_v(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_draw_at(MagicWin *o);
+#endif
+#ifdef __cplusplus
+extern void port_draw_sprite(MagicWin *o, void *rec, int x, int y);
+#endif
+#ifdef __cplusplus
+extern void port_fade_through_black(MagicWin *s, short first, short count, register short steps);
+#endif
+#ifdef __cplusplus
+extern void port_grab_from_window(MagicWin *p);
+#endif
+extern int port_height_1040_abc7(GRPort *port);
+extern int port_height_1068_9886(GRPort *p);
+extern void port_release_capture(Screen *w);
+extern void port_remap_pixels(Port *p, unsigned char *table, short base, short count);
+#ifdef __cplusplus
+extern void port_reset_fill(MagicWin *o, unsigned char colour);
+#endif
+extern void *port_row_offsets(GRPort *port);
+#ifdef __cplusplus
+extern void port_scroll_down(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_scroll_left(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_scroll_right(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_scroll_up(MagicWin *s, int step, RECT *r);
+#endif
+extern void port_set_capture(Screen *w);
+extern int port_stride_1068_986d(GRPort *p);
+extern void *port_surface_1068_989f(GRPort *port);
+extern void *port_surface_1068_dd01(GRPort *port);
+extern void port_update(void);
+extern int port_width_1040_abae(GRPort *port);
+#ifdef __cplusplus
+extern void port_wipe_down(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_wipe_left(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_wipe_right(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_wipe_up(MagicWin *s, int step, RECT *r);
+#endif
+#ifdef __cplusplus
+extern void port_zoom_in(MagicWin *s, int step, RECT *r);
+#endif
+extern void possibly_spot_stack(int u);
+extern int preassign_colonist_to_field(int colonist, int want);
+extern void preassign_colonists_to_fields(void);
+extern void process_off_board_ships(void);
+extern void produce_something(void);
 extern int pump_messages_syskey(void);
-#ifdef __cplusplus
+extern int purchase_available(int kind);
+extern void push_ms_window(int hwnd);
+extern void push_pickup(int n);
+extern void push_plan(int nation, int n);
+extern void push_strategy(int nation, int n);
+extern void put_down_unit(int u, int x, int y);
+extern int radio_count_1070_9a5d(SRadioSet *radios);
+extern void raise_taxes(char *key, int delta);
+extern void randmize(void);
+extern void random_activate(int seed);
+extern void random_reseed(long seed);
+extern int read_file_1038_e4b8(MSFile *file, void *buf, long n);
+extern int read_file_1050_90bc(MSFile *file, void *buf, long n);
+extern void rebel_check(int nation);
+extern int rebel_level(int nation);
 extern void rec_get_pair(Sprite *r, int *a, int *b);
-#endif
-#ifdef __cplusplus
 extern void rec_set_pair_min1(Sprite *r, int a, int b);
-#endif
+extern int rect_height(RECT *r);
+extern int rect_width(RECT *r);
 extern void redraw_active_unit_tile(int flag);
 extern void redraw_map_in_mode(int nation, int mode);
+extern int region_build_factor(int nation, int region);
+#ifndef __cplusplus
+extern void region_init(Flic *flic);
+#endif
+extern long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp);
 extern void report_error(void *ctx, char *message);
+extern void report_error_1028_e4db(char *ctx, char *s, long unused1);
+extern void report_error_1040_a948(void *ctx, char *msg, char *name);
+extern void report_error_1040_aa02(void *ctx, char *msg, int id, unsigned n);
+extern void report_error_1068_94ea(void *ctx, char *msg, long value);
+extern void report_error_1068_963d(void *ctx, char *msg);
+extern void report_error_1068_98bc(void *ctx, char *msg, int x, int y);
+extern void report_error_1070_a08c(void *ctx, char *msg, long code);
+extern void report_error_1070_dc82(void *ctx, char *msg);
+extern void report_error_1070_dd0f(void *ctx, char *file, char *title);
+extern void reset_building_sequence(void);
+extern void reset_colony(void);
+extern void reset_colony_units(void);
+extern void reset_europe_units(void);
 extern void reset_popup_font(void);
+extern void resolve_raid(int native, int colony, int settlement, int force, int unused1);
+extern int resource_at(int x, int y);
+extern int resource_bonus(int resource, int goods);
 extern int return_one_1070_84b3(void);
+extern void revolution(void);
+extern void revolution_check(int nation);
+extern void revolution_setup(void);
+extern void royal_edicts(int nation);
+#ifndef __cplusplus
+extern char save_frr_file(Flic *flic);
+#endif
+extern int save_game(char *name);
 extern void save_game_dialog(void);
+extern void save_slot_file_name(char *out, int unused1);
+extern void say_my_bucks(int nation, char *buf);
+extern void say_special(char *buf, int u, int flag);
+extern void say_version(void);
+extern void sbutton_init_1010_eeac(SButton *button, void *win, int id, RECT *r, char *title);
+extern void sbutton_init_1058_c11b(SButton *button, void *win, int id, RECT *pos, char *title);
+extern int scan_for_one_terrain(int x, int y, unsigned char lo, unsigned char hi);
+extern int scan_for_terrain(int x, int y, unsigned char lo, unsigned char hi);
+extern void screen_set_ctable(Screen *o, void *p);
+extern void scroll_set_pos_ex(MSWin *win, int pos, int flag);
 extern void scroll_set_range_ex(MSWin *win, int lo, int hi, int flag);
-#ifdef __cplusplus
+extern void send_unit_to_europe(void);
+extern void set_all_dib_colours(void *w, void *pal);
 extern void set_bar_page(SScrollBar *bar, int page);
-#endif
-#ifdef __cplusplus
+extern void set_building(int bit, int on);
 extern void set_button_action_1030_e5bf(SButton *button, void *h);
-#endif
-#ifdef __cplusplus
+extern void set_button_action_1048_e087(SButton *button, void *h);
+extern void set_button_action_1050_8b2c(SButton *button, void *h);
+extern void set_button_action_1058_c17f(SButton *button, void *h);
+extern void set_button_action_1068_db5c(SButton *button, void *h);
+extern int set_cargo(int unit, int slot, int type);
+extern void set_cargo_amount(int u, int slot, int amt);
+extern void set_center(int x, int y, int flag);
+extern void set_checked_1050_87a2(SCheckBox *check, int checked);
+extern void set_colony(int colony);
+extern void set_command_handler_1048_e176(EventWin *r, void *h);
 extern void set_control_action_1040_aecc(SImageButton *button, void *h);
-#endif
-#ifdef __cplusplus
+extern void set_control_action_1058_bb68(SImageButton *button, void *h);
+extern void set_control_action_1060_6584(SImageButton *button, void *h);
+extern void set_control_action_1068_e03c(SRadioSet *radios, void *h);
+extern void set_cur_item_1050_88f0(SRadioSet *radios, int cur_item);
+extern void set_dest(int n);
+extern void set_father(int nation, int father, int on);
 extern void set_hpage(EventWin *o, int page);
-#endif
+extern void set_indian(int x, int y, int bits);
+extern void set_keyboard_nav_1048_deb3(DialogWin *r, char keyboard_nav);
+extern void set_keyboard_nav_1058_b992(DialogWin *r, char keyboard_nav);
 extern void set_long_0e(MSWin *win, long v);
 extern void set_long_12(MSWin *win, long v);
 extern void set_long_16(MSWin *win, long v);
 extern void set_map_caption_area_map(void);
-#ifdef __cplusplus
 extern void set_max_track_size_1050_0d1f(EventWin *r, int max_track_w, int max_track_h);
-#endif
-#ifdef __cplusplus
+extern void set_min_track_size_1048_e130(EventWin *r, int min_track_w, int min_track_h);
+extern void set_num_orders(int high, int count);
+extern void *set_on_char(EventTable *table, void *h);
+extern void *set_on_close_1050_8ef2(EventTable *table, void *h);
+extern void *set_on_close_1058_b9cf(EventTable *table, void *h);
+extern void *set_on_close_1060_6726(EventTable *table, void *fn);
 extern void *set_on_keydown_1020_ab92(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
 extern void *set_on_keydown_1040_abfe(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_keydown_1058_c307(EventTable *table, void *h);
 extern void *set_on_keydown_after_1040_ab75(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_keydown_after_1050_8544(EventTable *table, void *h);
+extern void *set_on_keydown_after_1058_bc70(EventTable *table, void *h);
+extern void *set_on_keydown_after_1060_675f(EventTable *table, void *fn);
 extern void *set_on_lbutton_down_1020_ab20(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
 extern void *set_on_lbutton_down_1030_e522(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
 extern void *set_on_lbutton_down_1040_ac37(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_lbutton_down_1048_decc(EventTable *table, void *h);
+extern void *set_on_lbutton_down_1050_8eb9(EventTable *table, void *h);
+extern void *set_on_lbutton_down_1058_c2ce(EventTable *table, void *h);
+extern void *set_on_lbutton_up_1048_d9fc(EventTable *table, void *h);
 extern void *set_on_lclick_1040_ab03(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_lclick_1048_da6c(EventTable *table, void *h);
 extern void *set_on_lclick_1050_8f80(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_lclick_1058_bdb7(EventTable *table, void *h);
+extern void *set_on_mousemove_1048_da35(EventTable *table, void *h);
+extern void *set_on_mousemove_1058_bf13(EventTable *table, void *h);
 extern void *set_on_rbutton_down_1020_ab59(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_rbutton_down_1048_df05(EventTable *table, void *h);
 extern void *set_on_rclick_1040_ab3c(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
 extern void *set_on_rclick_1050_8fb9(EventTable *table, void *h);
-#endif
-#ifdef __cplusplus
+extern void *set_on_rclick_1058_bdf0(EventTable *table, void *h);
+extern void set_owner(int u, int owner);
 extern void set_popup_font(Font *p);
-#endif
-#ifdef __cplusplus
+extern void set_progress(int colonist, int progress);
+extern void set_radio_dblclk_1050_88d6(SRadioSet *radios, void *h);
+extern void set_radio_dblclk_1068_e056(SRadioSet *radios, void *h);
+extern void set_ranks(void);
+extern void set_region_click_1048_e033(SRegion *r, void *h);
+extern void set_region_click_1050_89cd(SRegion *r, void *h);
+extern void set_relayout_handler_1050_857d(GameWin *r, void *h);
+extern void set_see(int colony, int nation);
+extern void set_specialty(int i, int s);
+extern void set_text_arg(int i, int value);
+extern void set_text_arg_char_1020_a973(int i, char value);
+extern void set_text_arg_char_1048_de8f(int i, char value);
+extern void set_text_arg_i_1010_ebb0(int i, int value);
+extern int set_treaty(int nation, int other, int flags);
+extern void set_tribe(int tribe);
+extern void set_unit_dest(int u, int n);
+extern void set_unit_route(int u, int n);
+extern void set_village(int s);
 extern void set_vpage(EventWin *o, int page);
-#endif
+extern int shift_key(void);
 extern void show_backdrop(BackdropWin *w, register int which);
-#ifdef __cplusplus
+extern void show_fathers(int nation, int father);
+extern int siege_check_2(int *best_out, int *own_out, int *total_out, int nation);
+extern void simple_cash_flow(int idx, int use);
+extern unsigned char site_get(int x, int y);
+extern unsigned char * site_loc(int x, int y);
+extern void sort_16x16(int n, int *payload, int *key);
+extern void sort_colonists_by_profession(void);
+extern int soundQueue(void);
+extern void sound_init(void);
+extern void space_string(char *buf);
+extern void spacer(char *buf, int n);
+extern int specialty_count(int spec);
+extern void spot_stack(int u, int nation);
+extern void spot_unit(int u, int n);
 extern void sprite_button_init_1060_91e5(SImageButton *button, void *win, int id, register int x, register int y, int w, int h, void *sprite, unsigned char color);
-#endif
-#ifdef __cplusplus
 extern void sprite_button_init_1060_950f(SImageButton *ctrl, void *win, int id, register int x, register int y, int w, int h, void *sprite, unsigned char color, int visible);
-#endif
-#ifdef __cplusplus
 extern RECT *sprite_draw9_in_colour(RECT *out, Sprite *sprite, GRPort *port, unsigned char colour, int px, int py, unsigned char mode);
-#endif
-#ifdef __cplusplus
 extern RECT *sprite_draw_colour_fe(RECT *out, Sprite *s, GRPort *port, int px, int py);
-#endif
-#ifdef __cplusplus
 extern RECT *sprite_draw_in_colour(RECT *out, Sprite *sprite, GRPort *port, unsigned char colour, int px, int py);
-#endif
-#ifdef __cplusplus
+extern void sprite_extract_from_sheet(void *s, int mode, int x, int y, int w, int h);
 extern void sprite_free(Sprite *sprite);
-#endif
-#ifdef __cplusplus
+extern int sprite_height_1060_69bc(Sprite *sprite);
+extern int sprite_height_1068_9ae0(Sprite *sprite);
 extern void sprite_merge_1(Sprite *sprite, Sprite *dest);
-#endif
-#ifdef __cplusplus
 extern void sprite_merge_at(Sprite *sprite, Sprite *dst, int dx, int dy);
-#endif
-#ifdef __cplusplus
 extern void sprite_read_auto_pal(Sprite *sprite, char *name, void *pal);
-#endif
-#ifdef __cplusplus
+extern void sprite_read_file(Sprite *sprite, char *name);
 extern void sprite_read_file_entry(Sprite *sprite, char *name);
-#endif
-#ifdef __cplusplus
+extern int sprite_width_1050_83f9(Sprite *sprite);
+extern int sprite_width_1060_60c4(Sprite *sprite);
+extern int sprite_width_1068_9abd(Sprite *sprite);
+extern void sprite_write_file(Sprite *spr, char *name);
 extern void sprite_write_file_pal(Sprite *sprite, char *name, int first, register int count, void *pal);
-#endif
+extern int square_ok(int u, int x, int y);
+extern void sregion_init_1050_894a(SRegion *o, DialogWin *win, int id, RECT *r);
+extern int stack_check(int unit, int kind);
+extern void stack_ship(int ship);
+extern void stack_to_board(int u);
+extern void stack_units(int u);
+extern void start_indians(void);
+extern long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp);
+extern int stow_cargo(int u, int goods, int amount);
+extern char *strings(int n);
+extern void strings_shutdown(void);
+extern int strings_store(char *s);
 extern void submenu_append_item(void *w, int index, int position, char *text, unsigned id);
+extern void subtract_gold(int nation, long amount);
 extern void super_win_set_open(void *w, int open);
+extern void swap(int *a, int *b);
+extern void tell_unit_from_europe(int u);
+extern void tell_unit_in_europe(int u);
+extern void tell_unit_to_europe(int u);
+extern char terrain_fix_2(int terrain);
+extern int terrain_is_ocean(int x, int y);
+extern int terrain_type(int map_byte);
 extern int text_dialog_dude(void *name, int sel, int value);
 extern int text_dialog_nation(void *name, int sel, int nation);
 extern int text_dialog_tribe(void *name, int sel, int tribe);
+extern int text_item_number(void);
+extern int text_item_string(void);
+extern int text_string(void);
+extern void times_string(char *buf);
+extern int top_building(int building);
+extern int top_unit(int u);
+extern int top_unit_in_square(int x, int y);
+extern void track_popup_submenu_1038_e2b5(void *w, void *menu, int submenu_pos, int x, int y);
+extern void treaty_encounters(int unit, int x, int y);
+extern int treaty_off(int nation, int other, int mask);
+extern void tribe_burn_missions(int tribe, int nation);
+extern int tribe_camp(int u, int nation_arg, int named);
+extern void tribe_mission(int u, int nation, int named);
+extern int tribe_radius(int tribe);
+extern void tribe_trade(int unit, int settlement, int nation, int tribe_nation);
+extern int try_connect(void);
+extern int try_to_build(int item);
+extern void try_to_improve(int unit, int base, int bonus);
+extern int try_to_purchase(int kind, int unused1);
+extern int type_of_army(int kind, int nation);
+extern void unfortify(int nation, int owner);
+extern void unit_activate(int u);
+extern int unit_from_docks(int code);
+extern int unit_is_active(int u);
+extern int unit_of_job(int job);
+extern int unit_rules(int u);
+extern int unit_special_active(int u);
 extern int unit_transfer_cargo(register int from, int to, int slot, int ask);
+extern void unpack_bits(unsigned char *dst, Bmhd *h, unsigned char *src, short len);
+extern void unspot_stack(int u);
+extern void unspot_unit(int u);
+extern void use_tools(int u);
+extern int valid_port(int colony, int unit);
+extern int village_anger(int s, int *strength);
 #ifdef __cplusplus
+extern VListItem *vlist_item_next(VListItem *item);
+#endif
+#ifdef __cplusplus
+extern VListItem *vlist_item_prev(VListItem *it);
+#endif
+extern int water_access(int x, int y);
+extern int which_move(int dx, int dy);
 extern void win_build_and_attach_1068_d49c(EventWin *o, char *title, int style, int x, int y, int w, int h);
-#endif
-#ifdef __cplusplus
 extern void win_build_and_attach_1068_d4fb(EventWin *o, char *title, int style, int x, int y, int w, int h, void *owner);
-#endif
+extern void win_center_1058_c020(DialogWin *o);
+extern int win_client_height_1048_e5aa(Screen *o);
 extern void win_client_to_screen(MSWin *win, int x, int y, int *px, int *py);
+extern int win_client_width_1048_e585(Screen *o);
 extern void win_close(MSWin *win);
+extern void win_enable_1060_6798(DialogWin *o);
 extern long win_get_ctl(unsigned hwnd);
 extern void win_get_text(unsigned hwnd, char *buf);
+extern void win_hide_1050_6e73(BackdropWin *w);
 extern void win_invalidate(unsigned hwnd);
 extern int win_is_visible(MSWin *win);
 extern void win_kill_timer(MSWin *win, unsigned id);
+extern void win_load_cursor(DialogWin *o, int id);
+extern void win_minimize_of(DialogWin *o);
+extern void win_move_to_1048_d7e4(DialogWin *o, int left, int top);
+extern void win_move_to_of(DialogWin *o, int x, int y);
+extern void win_move_to_rect(Screen *o, RECT *r);
 extern void win_point_in_parent(MSWin *win, int x, int y, int *px, int *py);
+extern void win_release_1050_9148(GameWin *o);
+extern void win_release_1058_bca9(GameWin *o);
+extern void win_set_back_color_1008_d60e(Screen *o, int index);
+extern void win_set_back_color_1048_e152(Screen *o, int index);
+extern void win_set_back_color_1050_8f5c(DialogWin *o, int index);
 extern void win_set_ctl(unsigned hwnd, long ctl);
+extern void win_set_drag_height_1058_bb82(DialogWin *o, int drag_height);
 extern void win_set_edge_width(MSWin *win, int edge_width);
+extern void win_set_focus(DialogWin *w);
+extern void win_set_icon_1048_e191(Screen *o, int icon);
+extern void win_set_icon_1058_b9ab(DialogWin *o, int icon);
 extern void win_set_text(unsigned hwnd, char *text);
 extern void win_set_timer(MSWin *win, unsigned id, unsigned elapse);
+extern void win_set_title(DialogWin *o, char *s);
+extern void win_show_and_focus_1038_8aec(DialogWin *w);
+extern void win_show_and_focus_1040_b052(DialogWin *w);
+extern void win_show_and_focus_1048_e7ca(DialogWin *w);
+extern void win_show_and_focus_1050_94ab(DialogWin *w);
+extern void win_show_and_focus_1060_6b25(DialogWin *w);
+extern void win_show_and_focus_1060_8ae2(DialogWin *w);
+extern void wing_blit(GrafRec *src, int sx, int sy, int w, int h, MSWin *dst, int dx, int dy);
 extern void wing_blit_to_window(GrafRec *src, MSWin *win, RECT *sr, RECT *dr);
 extern void wing_curtain_open_v_at(GrafRec *old_graf, GrafRec *new_graf, MSWin *win, RECT *r, int dx, int dy, int step);
 extern void wing_dissolve(Surface *dst, Surface *src, MSWin *scr, RECT *r, int stride);
 extern void wing_palette_to_dib(GrafRec *graf, unsigned hpal);
+extern void wipe_rows(GameWin *win_a, GameWin *win_b, RECT *src_rect, int x, int y, int mode, int step, int delay);
+extern int xtoi(char *p);
+extern int zoc(int x, int y, int n);
+extern int zoc_2(int x, int y, int nation);
+extern int zoc_4(int x, int y, int nation);
 
 #ifdef __cplusplus
 }
