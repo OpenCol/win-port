@@ -40,3 +40,46 @@ special_kill and tribe_village. Each failed to compile, so none was damaged sile
 
 Here: `import/import.py` patches its temporary copy of the transform (`TRANSFORM_FIXES`: a
 statement keyword is never a function name), and stops if the patched text is ever not found.
+
+## 4. Model records that name or size members other than the code uses (W1, 2026-10-07)
+
+`analysis/port-header.h` at 508d4d0d0 gives these records members the corpus does not use.
+Each failed to compile against the header ("has no member", "subscripted value is neither
+array nor pointer"):
+
+| Record | Model | Corpus | Evidence |
+| --- | --- | --- | --- |
+| `ClassRec` | `w0`, `w2` | `name`, `transport_cost` | `load_data.c` fills them from the CLASS table |
+| `FontRes` | `uint16_t obj` | handles at +0x106, indexed | `remove_font_resource.c`: `p->obj[i]` |
+| `FontTable` | `uint16_t fonts` | handles at +0x106, appended | `enum_font_family_proc.c`: `tbl->fonts[tbl->count++]` |
+| `Table` | `int16_t entries` | entries at +0x106, indexed | `table_entry_handle.c`: `t->entries[n]` |
+| `Pattern` | `_tail[9]` | `unsigned char b[9]` | `PediaWin_DoTerrainArticle.c` (local typedef) |
+
+The three handle tables run past the 0x108 bytes the model sizes them at: the model records a
+trailing array's first element as a scalar. Here: `tools/gen_headers.py` `MODEL_FIXES` renames
+the members and makes the three trailing members `[1]` arrays; the sizes and their checks stay
+the model's.
+
+## 5. Classes the corpus defines in every file and never in classes.h (W1, 2026-10-07)
+
+`Popup` (42 of 43 C++ copies identical, 61 of 63 C views), `Flic` (20 of 25 C++ copies; the
+rest pad the same offsets) and a C view of `MagicWin` are not in `include/classes.h`; each file
+that uses one carries its own copy. `MainWin` and `PediaWin` are worse: C++ files view each
+three ways (the class, a byte view, an opaque pad), so they cannot be merged by substitution.
+Here: `include/port/corpus_classes.h` holds `Popup`, `Flic` and the `MagicWin` view once, and
+the local copies are removed; `MainWin` and `PediaWin` stay per file for now.
+
+## 6. Globals typed as Borland `int *` that point at 16-bit cells (W1, 2026-10-07)
+
+`g_scale_map` is declared `int *` throughout the corpus, but it is set to a `ScaleSlot`'s
+`map`, an array of words. On a 32-bit `int` that reads two cells at a time. Here:
+`gen_headers.py` `GLOBAL_TYPES` declares it `i16 *`. The same holds for any `int *` the port
+widens to: `max_ptr_1050_97d1` now takes `i16 *`, and so do the locals its callers pass.
+
+## 7. In-file stubs and `asm db` that stand for code (W1, 2026-10-07)
+
+`PopupBoxDraw.c` and `SuperWin_Init.c` define empty bodies for six `set_on_*` functions to get
+the byte-matched call shape; a link would have two definitions of each. `colony_select_profession.c`
+spells two loop exits as `asm db 0x0b,0xc0,0x74,0x58` and `asm db 0x83,0x7e,0xd0,0x00,0x7c,0x48`
+(both jump to 1010:d57b, after the `for (;;)`): the C around them does not say they exit.
+Here: the stubs are removed and the exits are `break`s, each with a `PORT:` note.
