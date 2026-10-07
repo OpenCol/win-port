@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 120, 131 of the imported file. */
 /* perform_orders_route: candidate for 1028:b2a1 (1159 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -117,7 +118,7 @@ void perform_orders_route(int u, int at_stop)
                 slot = find_cargo(u, good);
                 if (slot >= 0) {
                     if (site == 999)
-                        EuropeWin_AttemptCargoToEurope(&g_europe_win, u, good, 0);
+                        EuropeWin_AttemptCargoToEurope((EuropeWin *)(&g_europe_win), u, good, 0);
                     else
                         attempt_cargo_to_colony(u, good, 0);
                 }
@@ -128,7 +129,7 @@ void perform_orders_route(int u, int at_stop)
         count = get_num_orders(1);
         for (i = 0; i < count; i++) {
             good = get_order(i + 6);
-            EuropeWin_AttemptCargoFromEurope(&g_europe_win, u, good, 1, 0);
+            EuropeWin_AttemptCargoFromEurope((EuropeWin *)(&g_europe_win), u, good, 1, 0);
         }
     } else {
         more = 1;

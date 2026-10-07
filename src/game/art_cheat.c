@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 487 of the imported file. */
 /* art_cheat: candidate for 1040:46aa (5574 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: art_cheat
@@ -484,7 +485,7 @@ extern "C" void art_cheat(void)
         if (unknown == 0) {
             win_center_1040_a778((DialogWin *)((char *)&win + 0x26));
             show_window_1040_a79d(&win);
-            set_on_close_1040_a7bc((EventTable *)((char *)&win + 0x33), viewer_dismiss_handler);
+            set_on_close_1040_a7bc((EventTable *)((char *)&win + 0x33), (void*)(viewer_dismiss_handler));
             g_viewer_dismissed = 0;
             while (g_viewer_dismissed == 0)
                 MSDoTask_1040_a7f5();

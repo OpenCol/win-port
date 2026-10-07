@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 86 of the imported file. */
 /* europe_purchase: candidate for 1048:7296 (957 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: europe_purchase
@@ -83,7 +84,7 @@ void europe_purchase(void)
 
 restart:
     g_popup_dude = 2;
-    show_plain_dialog_1048_dde3(&p, "PURCHASE", 0);
+    show_plain_dialog_1048_dde3(&p, (void*)("PURCHASE"), 0);
     p.flags |= 1;
     Popup_item(&p, strings(g_misc_words[MISC_NONE]), 0x19d);
     for (i = 0; i < 6; i++) {

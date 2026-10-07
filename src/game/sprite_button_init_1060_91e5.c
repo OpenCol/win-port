@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61 of the imported file. */
 /* sprite_button_init_1060_91e5: candidate for 1060:91e5 (810 bytes).  Verdict: RELOCATABLE.
  *
  * Builds a w-by-h button from a sprite rather than from a picture resource: the control record is
@@ -58,7 +59,7 @@ void sprite_button_init_1060_91e5(SImageButton *button, void *win, int id, regis
     button->reinit_faces = 0;
     button->ctable = get_ctable_1060_aa47((Screen *)win);
     SetRect(&r, x, y, x + w, y + h);
-    dlg_control_init_1060_aa64((DlgControl *)button, win, 6, id, &r);
+    dlg_control_init_1060_aa64((SImageButton *)((DlgControl *)button), win, 6, id, &r);
     button->on_click = 0L;
     GetGlobalSpriteScale(&sx, &sy);
     SetGlobalSpriteScale(1, 1);

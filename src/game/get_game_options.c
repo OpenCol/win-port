@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 127, 128, 129, 133, 134, 135, 137 of the imported file. */
 /* get_game_options: candidate for 1008:bd72 (1752 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -124,17 +125,17 @@ extern "C" int get_game_options(void)
         p = IsBackdrop();
         if (p != 0) {
             GameWin_Init(&w, "", 0x801, 0, 0, 0x280, 0x1e0, &g_game_palette, (Screen *)p);
-            set_on_lclick_1008_da22(&(EventTable &)*g_backdrop_win, set_done_flag_1008_b362);
-            set_on_rclick_1008_da5b(&(EventTable &)*g_backdrop_win, set_done_flag_1008_b362);
-            set_on_keydown_after_1008_da94(&(EventTable &)*g_backdrop_win, set_done_flag_1008_b37c);
+            set_on_lclick_1008_da22(&(EventTable &)*g_backdrop_win, (void*)(set_done_flag_1008_b362));
+            set_on_rclick_1008_da5b(&(EventTable &)*g_backdrop_win, (void*)(set_done_flag_1008_b362));
+            set_on_keydown_after_1008_da94(&(EventTable &)*g_backdrop_win, (void*)(set_done_flag_1008_b37c));
         } else
             GameWin_Init(&w, "", 0x801, 0, 0, 0x280, 0x1e0, &g_game_palette,
                                              (Screen *)&g_main_win);
-        set_on_lclick_1008_da22((EventTable *)&w, set_done_flag_1008_b362);
-        set_on_rclick_1008_da5b((EventTable *)&w, set_done_flag_1008_b362);
-        set_on_keydown_after_1008_da94((EventTable *)&w, set_done_flag_1008_b37c);
+        set_on_lclick_1008_da22((EventTable *)&w, (void*)(set_done_flag_1008_b362));
+        set_on_rclick_1008_da5b((EventTable *)&w, (void*)(set_done_flag_1008_b362));
+        set_on_keydown_after_1008_da94((EventTable *)&w, (void*)(set_done_flag_1008_b37c));
         GRPort_LoadPicture(&w, 0xca, 0x10, 0x18, (struct logpal *)&g_game_palette);
-        if (popup_ask(g_game_txt, "LEADERNAME", 0x17,
+        if (popup_ask(g_game_txt, (void*)("LEADERNAME"), 0x17,
                                        g_nation_text[g_game.player_nation].leader))
             goto out;
         STRCPY(name, g_name_slots[0]);

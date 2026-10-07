@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 108, 110, 112 of the imported file. */
 /* ask_port: candidate for 1028:bfd0 (1133 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ask_port
@@ -105,11 +106,11 @@ int ask_port(register int unit, int cur, int mark_here, int offer_extra)
     do {
     if (unit >= 0) {
         if (g_units[unit].type >= UNIT_SHIP_FIRST && g_units[unit].type <= UNIT_SHIP_LAST)
-            show_plain_dialog_1028_e43b(&p, "SAILPORT", 0);
+            show_plain_dialog_1028_e43b(&p, (void*)("SAILPORT"), 0);
         else
-            show_plain_dialog_1028_e43b(&p, "TRAVELPLACE", 0);
+            show_plain_dialog_1028_e43b(&p, (void*)("TRAVELPLACE"), 0);
     } else {
-        show_plain_dialog_1028_e43b(&p, "TRADESTART", 0);
+        show_plain_dialog_1028_e43b(&p, (void*)("TRADESTART"), 0);
     }
     lo = page * per_page;
     hi = lo + per_page - 1;

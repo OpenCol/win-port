@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 54 of the imported file. */
 /* orders_overboard: candidate for 1008:00d2 (384 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -51,7 +52,7 @@ void orders_overboard(void)
     if (g_units[u].cargo_count == 0)
         goto out;
     g_popup_dude = 0;
-    show_plain_dialog_1008_cd53(&p, "OVERBOARD", 0);
+    show_plain_dialog_1008_cd53(&p, (void*)("OVERBOARD"), 0);
     Popup_item(&p, strings(g_misc_words[MISC_NOTHING]), 0x63);
     for (slot = 0; slot < g_units[u].cargo_count; slot++) {
         type = get_cargo(u, slot);

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 47 of the imported file. */
 /* PediaWin_OnScroll: candidate for 1060:31fc (111 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -44,6 +45,6 @@ void PediaWin_OnScroll(int page)
     if (page != g_pedia_page) {
         p->page = g_pedia_page = page;
         PediaWin_DrawListArea(p);
-        copy_all_to_screen_1060_610c(p);
+        copy_all_to_screen_1060_610c((GameWin *)(p));
     }
 }

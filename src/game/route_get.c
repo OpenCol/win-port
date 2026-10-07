@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 69 of the imported file. */
 /* route_get: candidate for 1028:c83a (441 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: route_get
@@ -66,7 +67,7 @@ extern "C" int route_get(int kind, int route, char *title)
     int i;
 
     if (g_game.trade_route_count < 1) {
-        show_text_dialog_1028_e48e("TRADENONE");
+        show_text_dialog_1028_e48e((void*)("TRADENONE"));
         goto done;
     }
     show_plain_dialog_1028_e43b(&popup, title, 0);

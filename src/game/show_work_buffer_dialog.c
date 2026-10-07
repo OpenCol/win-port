@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 65 of the imported file. */
 /* show_work_buffer_dialog: candidate for 1048:ae68 (278 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: show_work_buffer_dialog
@@ -62,7 +63,7 @@ void show_work_buffer_dialog(void)
                                      port_height_1048_d86c(&g_map_port),
                                      &g_game_palette, (Screen *)&g_main_win);
     win_center_1048_d80b((DialogWin *)&w);
-    set_on_close_1048_df3e((EventTable *)&w, work_buffer_dismiss_handler);
+    set_on_close_1048_df3e((EventTable *)&w, (void*)(work_buffer_dismiss_handler));
     SetRect(&r, 0, 0, port_width_1048_d853(&g_map_port),
             port_height_1048_d86c(&g_map_port));
     GRPort_CopyToPort(&g_map_port, &w, &r, &r);

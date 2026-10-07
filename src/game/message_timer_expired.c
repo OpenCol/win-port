@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* message_timer_expired: candidate for 1048:0000 (217 bytes).  Verdict: RELOCATABLE.
  * symbol: message_timer_expired
  *
@@ -35,7 +36,7 @@ void message_timer_expired(int id)
 {
     if (g_europe_timer != -1 && g_europe_timer == id) {
         g_europe_timer = -1;
-        EuropeWin_DrawTitle(&g_europe_win);
+        EuropeWin_DrawTitle((EuropeWin *)(&g_europe_win));
         ColChild_PackQueue((ColChild *)&g_europe_win);
     }
     if (g_map_timer != -1 && g_map_timer == id) {

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 21 of the imported file. */
 /* colony_window_draw_status: candidate for 1010:6d1d (28 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@ extern void ColonyWin_DrawTitle(ColonyWin *w);
 
 void colony_window_draw_status(void)
 {
-    ColonyWin_DrawTitle(&g_colony_window);
+    ColonyWin_DrawTitle((ColonyWin *)(&g_colony_window));
 }

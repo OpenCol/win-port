@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 87 of the imported file. */
 /* orders_road: candidate for 1008:06bc (663 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -84,7 +85,7 @@ extern "C" void orders_road(void)
                 if (price <= 0)
                     goto build;
                 set_text_arg_i_1008_cda6(1, price);
-                show_plain_dialog_1008_cd53(&popup, "INDIANROAD", 0);
+                show_plain_dialog_1008_cd53(&popup, (void*)("INDIANROAD"), 0);
                 if (check_gold(g_game.turn_nation) < price)
                     Popup_grey(&popup, 1, 1);
                 g_popup_tribe = g_cur_tribe;

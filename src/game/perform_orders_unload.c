@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 113 of the imported file. */
 /* perform_orders_unload: candidate for 1028:b728 (731 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 731, not the census 722. The trailing 9 bytes are the dead second epilogue.
@@ -110,7 +111,7 @@ int perform_orders_unload(int u, int in_europe)
     }
     if (in_europe != 0) {
         goods = get_cargo(u, worst);
-        EuropeWin_AttemptCargoToEurope(&g_europe_win, u, goods, 0);
+        EuropeWin_AttemptCargoToEurope((EuropeWin *)(&g_europe_win), u, goods, 0);
     } else {
         goods = unload_cargo(u, worst);
         g_cur_colony_rec->stock[goods] += g_cargo_amount;

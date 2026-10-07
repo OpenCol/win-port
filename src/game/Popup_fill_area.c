@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 58 of the imported file. */
 /* Popup_fill_area: candidate for 1050:41ad (1091 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -55,7 +56,7 @@ void Popup_fill_area(Popup *popup, int unused1, int unused2, int unused3, int un
         height = port_height_1050_8ba9(popup->win);
         for (a = 0; a < height; a += 0x20)
             for (b = 0; b < width; b += 0x20)
-                Sprite_Draw(&r1, &popup->tile, popup->win, b, a);
+                Sprite_Draw(&r1, (Sprite *)(&popup->tile), popup->win, b, a);
         SetRect(&rc, popup->box_x, popup->box_y, popup->box_x + popup->box_w, popup->box_y + popup->box_h);
         if (g_popup_tribe == 5)
             Popup_DrawDude(popup);

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 143 of the imported file. */
 /* label_map: candidate for 1010:3cb4 (920 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: label_map
@@ -140,7 +141,7 @@ extern "C" void label_map(int cell)
                                      &g_game_palette, (Screen *)&g_colony_win_rec);
     GRPort_ColorSync(g_colony_popup, &g_game_palette);
     GRPort_FillColor_all(g_colony_popup, 0);
-    set_on_keydown_1010_e36f(&(EventTable &)*g_colony_popup, LabelKeyClick);
+    set_on_keydown_1010_e36f(&(EventTable &)*g_colony_popup, (void*)(LabelKeyClick));
     TextColor(0xff);
     GRPort_String(g_colony_popup, (unsigned *)&g_number_font, buf, port_width_1010_e3a8(g_colony_popup) / 2,
                          port_height_1010_e3c7(g_colony_popup) / 2, 0);

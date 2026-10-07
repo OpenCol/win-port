@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 52, 78, 102 of the imported file. */
 /* PediaWin_HandleLeftClick: candidate for 1060:2c0a (1353 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -49,7 +50,7 @@ void PediaWin_HandleLeftClick(PediaWin *w, int x, int y)
     if (w->sel != -1) {
         w->sel = -1;
         PediaWin_DrawListArea(w);
-        copy_all_to_screen_1060_610c(w);
+        copy_all_to_screen_1060_610c((GameWin *)(w));
         return;
     }
     w->sel = -1;
@@ -75,7 +76,7 @@ void PediaWin_HandleLeftClick(PediaWin *w, int x, int y)
                                    + ((rect_height_1060_63d4(&w->rect) - 0x50) / 8 * i
                                       + w->rect.top) + 0x29,
                                  0);
-            copy_all_to_screen_1060_610c(w);
+            copy_all_to_screen_1060_610c((GameWin *)(w));
             goto done;
         }
         SetRect(&r, (rect_width_1060_63b5(&w->rect) - 0x55) / 2 + w->rect.left + 0x20,
@@ -99,7 +100,7 @@ void PediaWin_HandleLeftClick(PediaWin *w, int x, int y)
                                    + ((rect_height_1060_63d4(&w->rect) - 0x50) / 8 * i
                                       + w->rect.top) + 0x29,
                                  0);
-            copy_all_to_screen_1060_610c(w);
+            copy_all_to_screen_1060_610c((GameWin *)(w));
             goto done;
         }
     }

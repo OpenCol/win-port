@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 122, 125, 218 of the imported file. */
 /* try_to_set_job: candidate for 1010:c182 (1917 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: try_to_set_job
@@ -119,10 +120,10 @@ extern "C" int try_to_set_job(register int colonist, register int job)
         popm("MORETHANTHREE", 5);
         break;
     case 2:
-        show_text_dialog_1010_e528("ONE_ENTER");
+        show_text_dialog_1010_e528((void*)("ONE_ENTER"));
         break;
     case 1:
-        show_text_dialog_1010_e528("ONE_LEAVE");
+        show_text_dialog_1010_e528((void*)("ONE_LEAVE"));
         break;
     case 4:
         set_name_slot_1010_e658(0, g_cur_colony_rec->name);
@@ -215,7 +216,7 @@ extern "C" int try_to_set_job(register int colonist, register int job)
             price = village_bribe(g_cur_settlement, g_cur_colony_rec->nation, tx, ty);
             set_text_arg_i_1010_ebb0(1, price);
             g_popup_tribe = g_cur_tribe;
-            show_plain_dialog_1010_ec06(&popup, "INDIANLAND", 0);
+            show_plain_dialog_1010_ec06(&popup, (void*)("INDIANLAND"), 0);
             if (check_gold(g_cur_colony_rec->nation) < (long)price)
                 Popup_grey(&popup, 1, 1);
             answer = popup_run_thunk_1010_e4b1(&popup);

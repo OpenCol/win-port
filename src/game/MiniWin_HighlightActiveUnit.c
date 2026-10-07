@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* MiniWin_HighlightActiveUnit: candidate for 1060:0fdb (146 bytes).  Verdict: RELOCATABLE.
  * symbol: MiniWin_HighlightActiveUnit
  * name-source: sibling-build
@@ -35,7 +36,7 @@ extern void get_window_rect_1060_61dd(MiniWin *w, RECT *r);
 
 void MiniWin_HighlightActiveUnit(MiniWin *w, char blink)
 {
-    get_window_rect_1060_61dd((ColChild *)w, &w->clip);
+    get_window_rect_1060_61dd((MiniWin *)((ColChild *)w), &w->clip);
     GRPort_SetClip((GRPort *)w, &w->clip);
     MiniWin_HighlightActiveUnit_cell(w, 0, 0, g_map_size.w, g_map_size.h,
                                     g_game.reveal_all != 0 ? -1 : g_game.view_nation,

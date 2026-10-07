@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 290 of the imported file. */
 /* load_data: candidate for 1008:9c64 (2934 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: load_data
@@ -287,7 +288,7 @@ void load_data(void)
     text_open(0, "EUROLABEL");
     for (i = 0; i < 3; i++)
         g_eurolabel_word[i] = text_string();
-    text_open("PEDIA", "MISCELLANEOUS");
+    text_open((void*)("PEDIA"), "MISCELLANEOUS");
     text_get();
     g_pedia_count = ATOL_1008_d87e(g_text_buf);
     for (i = 0; i < g_pedia_count; i++)

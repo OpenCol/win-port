@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 84, 85, 102, 103 of the imported file. */
 /* AboutWin_ctor: candidate for 1060:72c8 (1168 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: AboutWin::AboutWin()
@@ -81,8 +82,8 @@ AboutWin::AboutWin()
     win_set_back_color_1060_85da((DialogWin *)&win, 0);
     win_center_1060_85fe((DialogWin *)&win);
     MSShowWindow_of_1060_8623((DialogWin *)&win);
-    set_on_lbutton_down_1060_8644(&(EventTable &)win, AboutWin_Mouse);
-    set_on_keydown_1060_867d(&(EventTable &)win, AboutWin_Keys);
+    set_on_lbutton_down_1060_8644(&(EventTable &)win, (void*)(AboutWin_Mouse));
+    set_on_keydown_1060_867d(&(EventTable &)win, (void*)(AboutWin_Keys));
     MSDoAllTasks_1060_86b6();
     GRPort_LoadPicture(&pic, 0x2ee, 0x10, 0xd2, (struct logpal *)&g_game_palette);
     GRPort_LoadPicture(&tmp, 0xcb, 0xd3, 0x18, (struct logpal *)&g_game_palette);
@@ -99,8 +100,8 @@ AboutWin::AboutWin()
     GameWin_Init(this, "", 0x801, 0, 0, port_width_1060_86c9(&pic),
                                      port_height_1060_86e2(&pic), &g_game_palette, &win);
     win_center_1060_85fe(&(DialogWin &)*this);
-    set_on_lbutton_down_1060_8644(&(EventTable &)*this, AboutWin_Mouse);
-    set_on_keydown_1060_867d(&(EventTable &)*this, AboutWin_Keys);
+    set_on_lbutton_down_1060_8644(&(EventTable &)*this, (void*)(AboutWin_Mouse));
+    set_on_keydown_1060_867d(&(EventTable &)*this, (void*)(AboutWin_Keys));
     GRPort_CopyToPort(&pic, this, &full, &full);
     for (i = 0; i < FATHER_COUNT; i++)
         shown[i] = 0;

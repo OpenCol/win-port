@@ -244,6 +244,11 @@ def type_names(decl, name):
 
 def guarded(decl, name, known_c, known_cpp):
     """The declaration as it may appear in the header: plain, C++-only, or None."""
+    # an elaborated `struct tag` here would be a new, prototype-scoped type in C: only tags
+    # some header defines may appear
+    tags = set(re.findall(r"\b(?:struct|union)\s+(\w+)", decl))
+    if tags - set(TAGS_KNOWN):
+        return None
     types = type_names(decl, name)
     if types <= known_c and types <= known_cpp:
         return decl
@@ -252,6 +257,19 @@ def guarded(decl, name, known_c, known_cpp):
     if types <= known_c:
         return "#ifndef __cplusplus\n%s\n#endif" % decl
     return None
+
+
+# struct tags the headers define (records.h and colonization.h use typedef names; these few
+# are tags the corpus names directly)
+TAGS_KNOWN = ("PopupItem", "PopupLine", "PopupSprite", "PopupEdit", "DlgControl", "logpal")
+
+
+def corpus_functions():
+    p = os.path.join(ROOT, "import", "functions.json")
+    if not os.path.exists(p):
+        return {}
+    import json
+    return json.load(open(p))
 
 
 def corpus_globals():
@@ -345,6 +363,21 @@ def gen_colonization():
         if name in declared or "::" in head or re.match(r"\s*(static|inline)\b", head) or "operator" in head:
             continue
         g = guarded("extern %s;" % head, name, known_c, known_cpp)
+        if g:
+            protos.append(g)
+    # functions src/ calls but does not define (the assembly segments', refused files'): the
+    # corpus's own declaration, when all its spellings have one signature and every file in src/
+    # that declares the function agrees
+    cf = corpus_functions()
+    for name in sorted(cf):
+        if name in heads or name in declared:
+            continue
+        sigs = {signature(d) for d in cf[name]}
+        if len(sigs) != 1 or None in sigs or (name in own and own[name] != sigs):
+            continue
+        best = sorted(cf[name].items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+        decl = best if best.startswith("extern") else "extern " + best
+        g = guarded(decl, name, known_c, known_cpp)
         if g:
             protos.append(g)
     tail = ["", "/* PORT: globals the corpus declares that the model's header does not */"] + extra + \

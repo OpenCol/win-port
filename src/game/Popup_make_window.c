@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 76, 77 of the imported file. */
 /* Popup_make_window: candidate for 1050:3364 (395 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Popup_make_window
@@ -73,7 +74,7 @@ extern "C" int Popup_make_window(Popup *popup)
                                      &g_game_palette, (Screen *)g_popup_owner);
     if (rect_width_1050_830c(&desk) > 0x280 || rect_height_1050_832b(&desk) > 0x1e0)
         win_center_1050_851f((DialogWin *)((char *)popup->win + 0x26));
-    set_on_keydown_after_1050_8544((EventTable *)((char *)popup->win + 0x33), key_click);
-    set_relayout_handler_1050_857d(popup->win, port_update);
+    set_on_keydown_after_1050_8544((EventTable *)((char *)popup->win + 0x33), (void*)(key_click));
+    set_relayout_handler_1050_857d(popup->win, (void*)(port_update));
     return 1;
 }

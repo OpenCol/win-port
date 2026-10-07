@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 107 of the imported file. */
 /* europe_recruit_any: candidate for 1048:6596 (952 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -104,7 +105,7 @@ void europe_recruit_any(void)
     sort_16x16(n, types, prices);
     do {
 restart:
-        show_plain_dialog_1048_dde3(&p, "KINGRECRUIT", 0);
+        show_plain_dialog_1048_dde3(&p, (void*)("KINGRECRUIT"), 0);
         shown = 0;
         if (page == 0)
             Popup_item(&p, strings(g_misc_words[MISC_NONE]), 0x19d);

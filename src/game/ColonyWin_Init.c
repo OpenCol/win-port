@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81, 82, 83, 84, 86, 87, 91, 104, 105, 106, 107, 108, 112 of the imported file. */
 /* ColonyWin_Init: candidate for 1010:a7c7 (1025 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColonyWin_Init
@@ -78,17 +79,17 @@ void ColonyWin_Init(ColonyWin *w)
     g_colony_window_ptr = w;
     ColChild_Center((ColChild *)w);
     if (g_scout_visit == 0) {
-        set_on_mousemove_1010_e7a1(&(EventTable &)*w, ColonyWin_MouseMove);
-        set_on_lbutton_down_1010_e7d8(&(EventTable &)*w, ColonyWin_LeftMouseClick);
-        set_on_rbutton_down_1010_e811(&(EventTable &)*w, ColonyWin_RightMouseClick);
-        set_on_ldblclk(&(EventTable &)*w, ColonyWin_DblMouseClick);
+        set_on_mousemove_1010_e7a1(&(EventTable &)*w, (void*)(ColonyWin_MouseMove));
+        set_on_lbutton_down_1010_e7d8(&(EventTable &)*w, (void*)(ColonyWin_LeftMouseClick));
+        set_on_rbutton_down_1010_e811(&(EventTable &)*w, (void*)(ColonyWin_RightMouseClick));
+        set_on_ldblclk(&(EventTable &)*w, (void*)(ColonyWin_DblMouseClick));
     }
-    set_on_keydown_1010_e36f(&(EventTable &)*w, ColonyWin_KeyClick);
-    set_on_close_1010_e883(&(EventTable &)*w, ColonyWin_Close);
+    set_on_keydown_1010_e36f(&(EventTable &)*w, (void*)(ColonyWin_KeyClick));
+    set_on_close_1010_e883(&(EventTable &)*w, (void*)(ColonyWin_Close));
     GRPort_FillColor_all((GRPort *)w, g_draw_color);
     SetRect(&r, w->rect.left + 0x262, w->rect.top + 0x186, w->rect.left + 0x280, w->rect.top + 0x1b8);
     sregion_init_1010_e8bc(&w->region, &(DialogWin &)*w, 0x80, &r);
-    set_region_click_1010_e93f(&w->region, ColonyWin_OnOKClick);
+    set_region_click_1010_e93f(&w->region, (void*)(ColonyWin_OnOKClick));
     image_button_init_1010_e976(&w->ib[0], &(DialogWin &)*w, 0x64, w->rect.left + 0x25d, w->rect.top + 0x113, 0xcf, 0xcf, 0x28, 0x60);
     image_button_init_1010_e976(&w->ib[1], &(DialogWin &)*w, 0x65, w->rect.left + 0x25d, w->rect.top + 0x138, 0xd0, 0xd0, 0x28, 0x60);
     image_button_init_1010_e976(&w->ib[2], &(DialogWin &)*w, 0x66, w->rect.left + 0x25d, w->rect.top + 0x15d, 0xd1, 0xd1, 0x28, 0x60);
@@ -101,13 +102,13 @@ void ColonyWin_Init(ColonyWin *w)
     w->buy_shown = 1;
     w->change_shown = 1;
     if (g_scout_visit == 0) {
-        set_button_action_1010_eaf5(&w->b[0], ColonyHammerBuy);
-        set_button_action_1010_eaf5(&w->b[1], ColonyHammerChange);
-        set_control_action_1010_eb0f(&w->ib[0], ColonyWin_MiscButtonClick);
-        set_control_action_1010_eb0f(&w->ib[1], ColonyWin_MiscButtonClick);
-        set_control_action_1010_eb0f(&w->ib[2], ColonyWin_MiscButtonClick);
+        set_button_action_1010_eaf5(&w->b[0], (void*)(ColonyHammerBuy));
+        set_button_action_1010_eaf5(&w->b[1], (void*)(ColonyHammerChange));
+        set_control_action_1010_eb0f(&w->ib[0], (void*)(ColonyWin_MiscButtonClick));
+        set_control_action_1010_eb0f(&w->ib[1], (void*)(ColonyWin_MiscButtonClick));
+        set_control_action_1010_eb0f(&w->ib[2], (void*)(ColonyWin_MiscButtonClick));
     }
     set_keyboard_nav_1010_eb29(&(DialogWin &)*w, 0);
     image_button_init_1010_e976(&w->ib2, &(DialogWin &)*w, 0x65, 0, 0, 0xce, 0xce, 0x28, 0x60);
-    set_control_action_1010_eb0f(&w->ib2, ColonyWin_OnOKClick);
+    set_control_action_1010_eb0f(&w->ib2, (void*)(ColonyWin_OnOKClick));
 }

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61, 66 of the imported file. */
 /* MiniWin_Init: candidate for 1060:05e8 (313 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -58,10 +59,10 @@ void MiniWin_Init(MiniWin *w)
     set_min_track_size_1060_6175((EventWin *)((char *)w + 0x26), 0x50, w->rect.top + 0x55);
     set_max_track_size_1060_6197((EventWin *)((char *)w + 0x26), 0x180, 0x1a0);
     win_set_icon_1060_61b9((DialogWin *)((char *)w + 0x26), 0x83);
-    get_window_rect_1060_61dd((ColChild *)w, &w->clip);
+    get_window_rect_1060_61dd((MiniWin *)((ColChild *)w), &w->clip);
     set_on_lbutton_down_1060_6203((EventTable *)((char *)w + 0x33), (void *)MiniWin_LeftMouseClick);
     set_on_rbutton_down_1060_623c((EventTable *)((char *)w + 0x33), (void *)MiniWin_RightMouseClick);
     win_set_cursor_1060_6275((DialogWin *)((char *)w + 0x26), (int *)(int *)g_cursors[10], 0);
     set_on_keydown_1060_629f((EventTable *)((char *)w + 0x33), (void *)KeyEvents);
-    set_repaint_handler_1060_62d8((ColChild *)w, (void *)MiniWin_MiniUpdate);
+    set_repaint_handler_1060_62d8((MiniWin *)((ColChild *)w), (void *)MiniWin_MiniUpdate);
 }

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 128 of the imported file. */
 /* choose_freedom: candidate for 1020:a27a (838 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -125,7 +126,7 @@ void choose_freedom(int nation)
         goto out;
     force_mood(3);
 restart:
-    show_plain_dialog_1020_a8d3(&p, "WHICHFREEDOM", 0);
+    show_plain_dialog_1020_a8d3(&p, (void*)("WHICHFREEDOM"), 0);
     if (avail != 0) {
         for (i = 0; i < FATHER_CAT_COUNT; i++) {
             if (avail_of_father(nation, i) == 0)

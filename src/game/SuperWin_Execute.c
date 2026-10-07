@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
 /* SuperWin_Execute: candidate for 1050:6c4c (84 bytes, 4 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -19,7 +20,7 @@ extern void show_window_1050_8bc8(SuperWin *w);
 
 void SuperWin_Execute(SuperWin *w)
 {
-    copy_all_to_screen_1050_843b(w);
+    copy_all_to_screen_1050_843b((GameWin *)(w));
     win_center_1050_851f((DialogWin *)((char *)w + 0x26));
     show_window_1050_8bc8(w);
     MSDoAllTasks_1050_8be7();

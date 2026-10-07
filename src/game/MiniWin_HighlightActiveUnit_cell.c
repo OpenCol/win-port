@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 154 of the imported file. */
 /* MiniWin_HighlightActiveUnit_cell: candidate for 1060:106d (1379 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -151,7 +152,7 @@ void MiniWin_HighlightActiveUnit_cell(MiniWin *w, int x, int y, int cols, int ro
             if (g_units[u].x == col && g_units[u].y == row) {
                 GRPort_FillColor((GRPort *)w, &r, blink != 0 ? (g_game.turn_nation == NATION_SPAIN ? 0xf9 : 0xff)
                                             : (n < 4 ? g_nation_colour[n] : g_tribe_colour_by_nation[n]));
-                copy_rect_to_screen_1060_631c((GameWin *)w, &r);
+                copy_rect_to_screen_1060_631c((MiniWin *)((GameWin *)w), &r);
                 return;
             }
             OffsetRect(&r, g_view_tile_w, 0);

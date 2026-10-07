@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 187 of the imported file. */
 /* MainWin_MainMenuProc: candidate for 1048:c0b2 (2990 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MainWin_MainMenuProc
@@ -184,7 +185,7 @@ void MainWin_MainMenuProc(long cmd)
         p = &filter[11];
         STRCPY(p, date);
         path[0] = 0;
-        if (file_save_dialog(path, filter, "sav", 0))
+        if (file_save_dialog(path, filter, (void*)("sav"), 0))
             save_game(path);
         break;
     case 105:

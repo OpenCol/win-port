@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 118 of the imported file. */
 /* PediaWin_DoJobArticle: candidate for 1060:52b6 (1529 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_DoJobArticle
@@ -115,7 +116,7 @@ void PediaWin_DoJobArticle(PediaWin *w)
     open_string(buf);
     say_string(buf, g_spec_recs[job].name);
     colon_string(buf);
-    text_search("PEDIA", "PEDIA", 3);
+    text_search((void*)("PEDIA"), "PEDIA", 3);
     STRCAT(buf, g_text_buf);
     close_string(buf);
     TextColor(0xc);

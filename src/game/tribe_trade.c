@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 176 of the imported file. */
 /* tribe_trade: candidate for 1030:b61e (4658 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: tribe_trade
@@ -173,7 +174,7 @@ void tribe_trade(int unit, int settlement, int nation, int tribe_nation)
             if (human == 0)
                 slot = rand_range(0, g_units[unit].cargo_count - 1);
             else {
-                show_plain_dialog_1030_ebb7(&p, "TRADEWHICH", 0);
+                show_plain_dialog_1030_ebb7(&p, (void*)("TRADEWHICH"), 0);
                 for (i = 0; i < g_units[unit].cargo_count; i++) {
                     goods = get_cargo(unit, i);
                     amount = get_cargo_amount(unit, i);

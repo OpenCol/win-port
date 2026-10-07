@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 33, 34, 36, 40, 42, 47, 48 of the imported file. */
 /* Popup_DrawDude: candidate for 1050:45f0 (569 bytes, 2 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -30,22 +31,22 @@ void Popup_DrawDude(Popup *w)
 
     if (g_popup_dude != -1) {
         switch (g_popup_dude) {
-        case 0: Sprite_Draw((RECT *)b1, &w->portrait, w->win, w->box_x, w->box_y); break;
-        case 1: Sprite_Draw((RECT *)b2, &w->portrait, w->win, w->box_x + w->box_w, w->box_y); break;
+        case 0: Sprite_Draw((RECT *)b1, (Sprite *)(&w->portrait), w->win, w->box_x, w->box_y); break;
+        case 1: Sprite_Draw((RECT *)b2, (Sprite *)(&w->portrait), w->win, w->box_x + w->box_w, w->box_y); break;
         case 2: case 3: case 4: case 5:
-            Sprite_Draw((RECT *)b3, &w->portrait, w->win, w->box_x + (w->win_w >> 1), w->box_y); break;
+            Sprite_Draw((RECT *)b3, (Sprite *)(&w->portrait), w->win, w->box_x + (w->win_w >> 1), w->box_y); break;
         }
     } else if (g_popup_nation != -1) {
         switch (g_popup_nation) {
-        case 0: Sprite_Draw((RECT *)b4, &w->portrait, w->win, w->box_x + w->box_w, w->box_y); break;
+        case 0: Sprite_Draw((RECT *)b4, (Sprite *)(&w->portrait), w->win, w->box_x + w->box_w, w->box_y); break;
         case 1: case 2: case 3:
-            Sprite_Draw((RECT *)b5, &w->portrait, w->win, w->box_x + (w->win_w >> 1), w->box_y); break;
+            Sprite_Draw((RECT *)b5, (Sprite *)(&w->portrait), w->win, w->box_x + (w->win_w >> 1), w->box_y); break;
         }
     } else if (g_popup_tribe != -1) {
         switch (g_popup_tribe) {
         case 0: case 1: case 2: case 3: case 5: case 6: case 7: case 8:
-            Sprite_Draw((RECT *)b6, &w->portrait, w->win, 10, 10); break;
-        case 4: Sprite_Draw((RECT *)b7, &w->portrait, w->win, w->box_x + w->box_w, 10); break;
+            Sprite_Draw((RECT *)b6, (Sprite *)(&w->portrait), w->win, 10, 10); break;
+        case 4: Sprite_Draw((RECT *)b7, (Sprite *)(&w->portrait), w->win, w->box_x + w->box_w, 10); break;
         }
     }
 }

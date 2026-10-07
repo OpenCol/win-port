@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 132 of the imported file. */
 /* tribe_village: candidate for 1030:db76 (2415 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: tribe_village
@@ -129,7 +130,7 @@ int tribe_village(register int unit, int x, int y)
     }
     if (g_units[unit].type >= UNIT_SHIP_FIRST && g_units[unit].type <= UNIT_SHIP_LAST) {
         if ((get_treaty(nation, tribe_nation) & 0x20) == 0) {
-            show_text_dialog_1030_ec0a("DONTKNOWSHIPS");
+            show_text_dialog_1030_ec0a((void*)("DONTKNOWSHIPS"));
             goto out;
         }
         if (attitude >= 0x4b || mood >= 0x40) {

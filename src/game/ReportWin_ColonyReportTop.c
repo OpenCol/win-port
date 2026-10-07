@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 24 of the imported file. */
 /* ReportWin_ColonyReportTop: candidate for 1058:59f5 (98 bytes).  Verdict: RELOCATABLE.
  *
  * Title line of the colony report: swaps in palette byte 0xf9 and draws text string
@@ -21,5 +22,5 @@ void ReportWin_ColonyReportTop(ReportWin *w)
 {
     TextColor(0xf9);
     GRPort_String((GRPort *)w, (unsigned *)&g_report_font, strings(g_misc_words[MISC_COLONY_ADVISOR_REPORT]),
-                         port_width_1058_be8e(w) / 2, w->rect.top + 0x12, 0x10);
+                         port_width_1058_be8e((GRPort *)(w)) / 2, w->rect.top + 0x12, 0x10);
 }

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 56 of the imported file. */
 /* MiniWin_UpdateTerrain: candidate for 1060:096c (196 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -53,5 +54,5 @@ void MiniWin_UpdateTerrain(MiniWin *w, int tx, int ty, int tw, int th)
     MiniWin_BlastMiniRegion(w, 0, 0, g_map_size.w, g_map_size.h,
                   g_game.reveal_all != 0 ? -1 : g_game.view_nation, 0);
     SetRect(&r, x, y, x + pw, y + ph);
-    copy_rect_to_screen_1060_631c((GameWin *)w, &r);
+    copy_rect_to_screen_1060_631c((MiniWin *)((GameWin *)w), &r);
 }

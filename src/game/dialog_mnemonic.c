@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 48, 52, 60, 61 of the imported file. */
 /* dialog_mnemonic: candidate for 1060:9c4c (412 bytes).  Verdict: RELOCATABLE.
  *
  * Presses the control whose mnemonic is `key`, lower-cased first with STRLWR on a two-byte
@@ -45,11 +46,11 @@ int dialog_mnemonic(DialogWin *w, char key)
     for (c = w->first_ctl; c != 0 && found == 0; c = c->next) {
         if (c->hotkey_pos >= 0) {
             if (c->hotkey == key) {
-                if (ctl_kind_1060_ac19(c) == 6 && get_button_enabled_1060_ac31((SButton *)c) != 0) {
+                if (ctl_kind_1060_ac19(c) == 6 && get_button_enabled_1060_ac31((DlgControl *)((SButton *)c)) != 0) {
                     MSPushButton(ctl_hwnd_1060_ac4a(c));
                     r = 1;
                     break;
-                } else if (ctl_kind_1060_ac19(c) == 2 && get_check_enabled_1060_ac63((SCheckBox *)c) != 0) {
+                } else if (ctl_kind_1060_ac19(c) == 2 && get_check_enabled_1060_ac63((DlgControl *)((SCheckBox *)c)) != 0) {
                     checkbox_click(ctl_hwnd_1060_ac4a(c));
                     r = 1;
                     break;
@@ -57,8 +58,8 @@ int dialog_mnemonic(DialogWin *w, char key)
             }
         } else if (ctl_kind_1060_ac19(c) == 3) {
             grp = c;
-            items = (RadioItem *)get_items_1060_ac7c((SRadioSet *)grp);
-            n = radio_count_1060_ac99((SRadioSet *)grp);
+            items = (RadioItem *)get_items_1060_ac7c((DlgControl *)((SRadioSet *)grp));
+            n = radio_count_1060_ac99((DlgControl *)((SRadioSet *)grp));
             for (i = 0; i < n; i++) {
                 if (items[i].accel >= 0 && items[i].key == key) {
                     radio_click(items[i].hwnd);

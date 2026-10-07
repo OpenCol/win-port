@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 59, 61 of the imported file. */
 /* dest_get: candidate for 1028:ca10 (305 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -56,9 +57,9 @@ int dest_get(int cur)
     int ev;
 
     if (g_cur_route_rec->sea != 0)
-        show_plain_dialog_1028_e43b(&p, "SAILPORT", 0);
+        show_plain_dialog_1028_e43b(&p, (void*)("SAILPORT"), 0);
     else
-        show_plain_dialog_1028_e43b(&p, "TRAVELPLACE", 0);
+        show_plain_dialog_1028_e43b(&p, (void*)("TRAVELPLACE"), 0);
     p.flags |= 1;
     for (i = 0; i < g_cur_route_rec->count; i++) {
         Popup_item(&p, dest_name(i), i + 1);

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 92, 110, 111, 112 of the imported file. */
 /* PediaWin_Show: candidate for 1060:1be8 (998 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_Show
@@ -89,7 +90,7 @@ void PediaWin_Show(PediaWin *o, int category, int article)
                 rect_width_1060_63b5(&o->rect) + o->rect.left - 0x1d,
                 rect_height_1060_63d4(&o->rect) + o->rect.top - 0x29);
         scrollbar_init(&o->bar, &(DialogWin &)*o, 0x66, &r, 1L);
-        set_control_action_1060_6685(&o->bar, PediaWin_OnScroll);
+        set_control_action_1060_6685(&o->bar, (void*)(PediaWin_OnScroll));
         MSHideControl_1060_669f(&o->bar);
         o->scrollbar_built = 1;
     }
@@ -107,9 +108,9 @@ void PediaWin_Show(PediaWin *o, int category, int article)
     if (MSIsWindowMinimized_of_1060_67e4(&(DialogWin &)*o) != 0)
         MSRestoreWindow_of(&(DialogWin &)*o);
     MSFlushInput_1060_6713();
-    set_on_lbutton_down_1060_6203(&(EventTable &)*o, PediaWin_LeftMouseClick);
-    set_on_close_1060_6726(&(EventTable &)*o, PediaWin_Close);
-    set_on_keydown_after_1060_675f(&(EventTable &)*o, PediaWin_KeyClick);
+    set_on_lbutton_down_1060_6203(&(EventTable &)*o, (void*)(PediaWin_LeftMouseClick));
+    set_on_close_1060_6726(&(EventTable &)*o, (void*)(PediaWin_Close));
+    set_on_keydown_after_1060_675f(&(EventTable &)*o, (void*)(PediaWin_KeyClick));
     show_window_1060_612a(o);
     MSDoAllTasks_1060_6149();
 }

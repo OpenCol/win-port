@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 20 of the imported file. */
 /* heap_destroy: candidate for 1040:6c03 (79 bytes, 3 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -17,7 +18,7 @@ extern void heap_release(MemBlock *b);
 void heap_destroy(MemBlock *block)
 {
     if (block->owns_handle != 0) {
-        heap_release((Resource *)block);
+        heap_release((MemBlock *)((Resource *)block));
         MSDisposeHandle(block->handle);
     }
     block->used = 0;

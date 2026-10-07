@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 23 of the imported file. */
 /* set_map_caption_area_map: candidate for 1038:91a4 (31 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -20,5 +21,5 @@ extern char g_area_map_str[];   /* DGROUP:0x1cac, "Area Map" */
 
 void set_map_caption_area_map(void)
 {
-    game_win_set_text_1038_dffc(&g_map_window, g_area_map_str);
+    game_win_set_text_1038_dffc((ColChild *)(&g_map_window), g_area_map_str);
 }

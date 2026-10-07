@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 78 of the imported file. */
 /* capture_cargo: candidate for 1020:2166 (655 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: capture_cargo
@@ -75,7 +76,7 @@ int capture_cargo(int loser, int winner)
     if (cargo_check(winner, 1, 1) >= count)
         goto out;
     if (nation < NATION_EUROPEAN_COUNT && g_nation_text[nation].control == CONTROL_HUMAN) {
-        show_plain_dialog_1020_a8d3(&p, "PICKACARGO", 0);
+        show_plain_dialog_1020_a8d3(&p, (void*)("PICKACARGO"), 0);
         Popup_item(&p, strings(g_misc_words[MISC_NOTHING]), 0x63);
         for (slot = 0; slot < count; slot++) {
             type = get_cargo(loser, slot);

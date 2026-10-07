@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61, 62 of the imported file. */
 /* ColChild_DragIcon: candidate for 1048:14ca (645 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ColChild_DragIcon
@@ -58,8 +59,8 @@ void ColChild_DragIcon(ColChild *o, Sprite *sprite, int unused1, int unused2,
     GRPort_SetClip(o, &o->rect);
     GetGlobalSpriteScale(&scale_a, &scale_b);
     SetGlobalSpriteScale(1, 1);
-    old8 = set_on_lbutton_up_1048_d9fc(&(EventTable &)*o, ColChild_DragIconMUp);
-    old0 = set_on_mousemove_1048_da35(&(EventTable &)*o, ColChild_DragIconMove);
+    old8 = set_on_lbutton_up_1048_d9fc(&(EventTable &)*o, (void*)(ColChild_DragIconMUp));
+    old0 = set_on_mousemove_1048_da35(&(EventTable &)*o, (void*)(ColChild_DragIconMove));
     old12 = set_on_lclick_1048_da6c(&(EventTable &)*o, 0);
     g_drag_sprite = sprite;
     Sprite_GetHotSpot(g_drag_sprite, &hot_x, &hot_y);

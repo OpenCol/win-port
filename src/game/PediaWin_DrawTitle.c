@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 51 of the imported file. */
 /* PediaWin_DrawTitle: candidate for 1060:203f (215 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -48,5 +49,5 @@ void PediaWin_DrawTitle(PediaWin *o)
     message_buf_cat_1060_684c("Entry:");
     TextColor(0xc);
     GRPort_String((GRPort *)o, (unsigned *)&g_font_small, message_buf_1060_686e(),
-                         port_width_1060_6886(o) / 2, o->rect.top + 0x14, 0);
+                         port_width_1060_6886((GRPort *)(o)) / 2, o->rect.top + 0x14, 0);
 }

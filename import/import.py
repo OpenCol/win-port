@@ -16,6 +16,7 @@ What an import writes (everything else in the tree is this repository's own):
     import/REFUSED         the files port_transform.py would not transform, and why
     import/globals.json    every file-scope extern the corpus writes for a variable, by name
                            (port_transform.py removes them; gen_headers.py takes their types)
+    import/functions.json  every file-scope prototype the corpus writes, by name
 
 --check compares a fresh import with the tree, file by file:
     identical   the same bytes
@@ -25,7 +26,8 @@ What an import writes (everything else in the tree is this repository's own):
     extra       present in an imported directory, not produced -- a failure
 and writes status/import.json for tools/status.py. It exits 0 when nothing fails.
 
-A plain import refuses to run over files with `PORT:` edits: once the port has diverged, a
+A plain import at the SOURCE last checked leaves files with `PORT:` edits as they are and
+refreshes the rest. Once SOURCE moves, it refuses while any file carries `PORT:` edits: a
 re-import from a newer SOURCE is a three-way merge (roadmap section 2), never an overwrite.
 """
 import glob
@@ -83,10 +85,47 @@ def produce(cwr, source, tmp):
             + "".join(l + "\n" for l in refused))
     files["import/REFUSED"] = text.encode()
     files["import/globals.json"] = corpus_globals(os.path.join(tree, "matched")).encode()
+    files["import/functions.json"] = corpus_functions(os.path.join(tree, "matched")).encode()
     return files
 
 
 QUALIFIERS = re.compile(r"(?<![\w])(?:far|near|huge|_far|_near|_huge)(?![\w])\s*")
+
+
+def file_scope(text):
+    """The text outside every brace block, comments removed."""
+    t = re.sub(r"/\*.*?\*/", " ", text, flags=re.S)
+    t = re.sub(r"//[^\n]*", "", t)
+    depth, buf = 0, []
+    for ch in t:
+        if ch == "{":
+            if depth == 0:
+                buf.append(";")          # a body ends the statement its head began
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        elif depth == 0:
+            buf.append(ch)
+    return "".join(buf)
+
+
+def corpus_functions(matched):
+    """{function name: {declaration: number of files}} -- every file-scope prototype the
+    corpus's files write (not a definition), Borland's qualifiers removed. port_transform.py
+    takes them out of the sources; tools/gen_headers.py declares, from here, the functions
+    src/ calls but does not define (the assembly segments', and those the import refused)."""
+    out = {}
+    for p in sorted(glob.glob(os.path.join(matched, "*", "*.c"))):
+        scope = file_scope(open(p, errors="replace").read())
+        for m in re.finditer(r"(?:^|;|\n)\s*((?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;)",
+                             scope):
+            d = re.sub(r"\s+", " ", QUALIFIERS.sub("", re.sub(r"\b(?:pascal|cdecl|_pascal|_cdecl|_export)\b\s*", "",
+                                                             m.group(1)))).strip()
+            if d.startswith(("return ", "else ", "typedef ")):
+                continue
+            out.setdefault(m.group(2), {})
+            out[m.group(2)][d] = out[m.group(2)].get(d, 0) + 1
+    return json.dumps(out, indent=1, sort_keys=True) + "\n"
 
 
 def corpus_globals(matched):
@@ -181,19 +220,25 @@ def main(argv):
         files = produce(cwr, source, tmp)
     if "--check" in argv:
         return check(files, source)
-    edited = [p for p in tree_files()
-              if PORT_MARK.search(open(os.path.join(ROOT, p), "rb").read().decode("latin-1"))]
-    if edited:
-        sys.exit("%d imported file(s) carry PORT: edits (%s, ...): a re-import is a three-way merge, "
-                 "not an overwrite" % (len(edited), edited[0]))
+    edited = {p for p in tree_files()
+              if PORT_MARK.search(open(os.path.join(ROOT, p), "rb").read().decode("latin-1"))}
+    rec = os.path.join(ROOT, "status", "import.json")
+    last = json.load(open(rec))["source"] if os.path.exists(rec) else None
+    if edited and last != source:
+        sys.exit("%d imported file(s) carry PORT: edits (%s, ...) and SOURCE moved from %s: a re-import "
+                 "is a three-way merge, not an overwrite" % (len(edited), sorted(edited)[0], (last or "?")[:10]))
+    # at the same SOURCE a file with PORT: edits is left as it is; everything else is refreshed
     for p in tree_files():
-        if p not in files:
+        if p not in files and p not in edited:
             os.remove(os.path.join(ROOT, p))
     for p, data in files.items():
+        if p in edited:
+            continue
         q = os.path.join(ROOT, p)
         os.makedirs(os.path.dirname(q), exist_ok=True)
         open(q, "wb").write(data)
-    print("imported %d files from col-win-re %s" % (len(files), source[:10]))
+    print("imported %d files from col-win-re %s (%d with PORT: edits left as they are)"
+          % (len(files) - len(edited), source[:10], len(edited)))
     return 0
 
 

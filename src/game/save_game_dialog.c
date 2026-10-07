@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 105, 107 of the imported file. */
 /* save_game_dialog: candidate for 1028:dca2 (1622 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: save_game_dialog
@@ -100,11 +101,11 @@ void save_game_dialog(void)
         say_number(name, g_game.year);
         close_string(name);
         set_name_slot_1028_e412(1, name);
-        show_text_dialog_1028_e48e("SAVEGOOD");
+        show_text_dialog_1028_e48e((void*)("SAVEGOOD"));
     } else if (result == 2)
-        show_text_dialog_1028_e48e("SAVEMEM");
+        show_text_dialog_1028_e48e((void*)("SAVEMEM"));
     else
-        show_text_dialog_1028_e48e("SAVEERROR");
+        show_text_dialog_1028_e48e((void*)("SAVEERROR"));
 out:
     return;
 }

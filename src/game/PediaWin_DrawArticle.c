@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 40, 66 of the imported file. */
 /* PediaWin_DrawArticle: candidate for 1060:23e3 (311 bytes).  Verdict: RELOCATABLE.
  *
  * Draws the encyclopedia page: with no article selected (+0x84c == -1) the index is drawn
@@ -37,7 +38,7 @@ void PediaWin_DrawArticle(PediaWin *w)
 
     if (w->sel == -1) {
         PediaWin_DrawListArea(w);
-        copy_all_to_screen_1060_610c(w);
+        copy_all_to_screen_1060_610c((GameWin *)(w));
         return;
     }
     SetRect(&r, 0, 0, port_width_1060_65ca(&w->port), port_height_1060_65e3(&w->port));
@@ -63,5 +64,5 @@ void PediaWin_DrawArticle(PediaWin *w)
         PediaWin_DoFathersArticle(w);
         break;
     }
-    copy_all_to_screen_1060_610c(w);
+    copy_all_to_screen_1060_610c((GameWin *)(w));
 }

@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 24 of the imported file. */
 /* GamePrefs_SavePrefs: candidate for 1040:70fe (127 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: GamePrefs_SavePrefs
@@ -21,6 +22,6 @@ extern "C" void GamePrefs_SavePrefs(GamePrefs *p)
     DiskFile f;
 
     p->use_default_layout = 0;
-    MSCreateFile_1040_aa10(&f, "COLWIN.PRF");
+    MSCreateFile_1040_aa10(&f, (void*)("COLWIN.PRF"));
     write_file_1040_aa36(&f, p, 0x19cL);
 }

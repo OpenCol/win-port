@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* MiniWin_Draw: candidate for 1060:08dd (143 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -35,7 +36,7 @@ extern void get_window_rect_1060_61dd(MiniWin *w, RECT *r);
 
 void MiniWin_Draw(MiniWin *w)
 {
-    get_window_rect_1060_61dd((ColChild *)w, &w->clip);
+    get_window_rect_1060_61dd((MiniWin *)((ColChild *)w), &w->clip);
     GRPort_SetClip((GRPort *)w, &w->clip);
     MiniWin_BlastMiniRegion(w, 0, 0, g_map_size.w, g_map_size.h,
                   g_game.reveal_all != 0 ? -1 : g_game.view_nation, 0);

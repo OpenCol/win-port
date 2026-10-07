@@ -5090,6 +5090,12 @@ extern int xtoi(char *p);
 extern int zoc(int x, int y, int n);
 extern int zoc_2(int x, int y, int nation);
 extern int zoc_4(int x, int y, int nation);
+extern void Font_ctor_1008_d9c4(Font *o, int a, int b) ;
+extern int GRPort_ResizePort(GRPort *port, RECT *r);
+extern void GameWin_ResizePort(GameWin *w, void *rect);
+extern int GetTextExtentPoint(unsigned hdc, const char *s, int n, SIZE *sz);
+extern unsigned WinGCreateBitmap(unsigned hdc, BITMAPINFO *bi, void *bits);
+extern int WinGRecommendDIBFormat(BITMAPINFO *bi);
 
 #ifdef __cplusplus
 }

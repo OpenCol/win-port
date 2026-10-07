@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 118, 136, 137, 138 of the imported file. */
 /* PediaWin_ShowModal: candidate for 1060:17a4 (1053 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: PediaWin_ShowModal
@@ -115,7 +116,7 @@ void PediaWin_ShowModal(PediaWin *pedia, int category, int article, EventWin *pa
                 rect_width_1060_63b5(&pedia->rect) + pedia->rect.left - 0x1d,
                 rect_height_1060_63d4(&pedia->rect) + pedia->rect.top - 0x29);
         scrollbar_init(&pedia->bar, &(DialogWin &)*pedia, 0x66, &r, 1L);
-        set_control_action_1060_6685(&pedia->bar, PediaWin_OnScroll);
+        set_control_action_1060_6685(&pedia->bar, (void*)(PediaWin_OnScroll));
         MSHideControl_1060_669f(&pedia->bar);
         pedia->scrollbar_built = 1;
     }
@@ -133,9 +134,9 @@ void PediaWin_ShowModal(PediaWin *pedia, int category, int article, EventWin *pa
     show_window_1060_612a(pedia);
     MSFlushInput_1060_6713();
     MSDoAllTasks_1060_6149();
-    set_on_lbutton_down_1060_6203(&(EventTable &)*pedia, PediaWin_LeftMouseClick);
-    set_on_close_1060_6726(&(EventTable &)*pedia, PediaWin_Close);
-    set_on_keydown_after_1060_675f(&(EventTable &)*pedia, PediaWin_KeyClick);
+    set_on_lbutton_down_1060_6203(&(EventTable &)*pedia, (void*)(PediaWin_LeftMouseClick));
+    set_on_close_1060_6726(&(EventTable &)*pedia, (void*)(PediaWin_Close));
+    set_on_keydown_after_1060_675f(&(EventTable &)*pedia, (void*)(PediaWin_KeyClick));
     win_set_icon_1060_61b9(&(DialogWin &)*pedia, 0x82);
     EventWin_Modal((EventWin *)(&(DialogWin &)*pedia));
     win_release_1060_659e(pedia);

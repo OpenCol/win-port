@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
 /* tribe_incite: candidate for 1030:d700 (1113 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: tribe_incite
@@ -109,7 +110,7 @@ extern "C" void tribe_incite(int u, register int nation, int tribe_nation)
         } else {
             g_popup_tribe = g_cur_tribe;
             popup_say(0, get_adjective(tribe_nation));
-            show_plain_dialog_1030_ebb7(&p, "INDIANWARPATH", 0);
+            show_plain_dialog_1030_ebb7(&p, (void*)("INDIANWARPATH"), 0);
             for (target = 0; target < 4; target++) {
                 if (target == nation)
                     continue;

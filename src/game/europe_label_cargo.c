@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
 /* europe_label_cargo: candidate for 1048:3d72 (725 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: europe_label_cargo
@@ -109,7 +110,7 @@ extern "C" void europe_label_cargo(register int goods)
                                      &g_game_palette, (Screen *)&g_europe_win_dlg);
     GRPort_ColorSync(g_europe_popup, &g_game_palette);
     GRPort_FillColor_all(g_europe_popup, 0);
-    set_on_keydown_1048_dceb((EventTable *)((char *)g_europe_popup + 0x33), LabelKeyProc);
+    set_on_keydown_1048_dceb((EventTable *)((char *)g_europe_popup + 0x33), (void*)(LabelKeyProc));
     TextColor(0xff);
     GRPort_String(g_europe_popup, (unsigned *)&g_number_font, buf, port_width_1048_d4f6(g_europe_popup) / 2,
                          port_height_1048_d7c5(g_europe_popup) / 2, 0);

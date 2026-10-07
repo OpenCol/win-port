@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 31, 32 of the imported file. */
 /* audio_play_element: candidate for 1068:d5b3 (75 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -28,7 +29,7 @@ extern void win_set_focus_1068_e278(Audio *o);
 void audio_play_element(Audio *o)
 {
     if (o->mci != 0) {
-        mci_play((MSWin *)(get_win_1068_d72a((Screen *)o)), (MciDev *)o->mci);
-        win_set_focus_1068_e278((DialogWin *)o);
+        mci_play((MSWin *)(get_win_1068_d72a((Audio *)((Screen *)o))), (MciDev *)o->mci);
+        win_set_focus_1068_e278((Audio *)((DialogWin *)o));
     }
 }

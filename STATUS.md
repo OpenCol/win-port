@@ -5,8 +5,8 @@ then `python3 tools/status.py`.
 
 | | Milestone | State | Measured | Gate |
 | --- | --- | --- | --- | --- |
-| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3280 files, 3245 sources; 199 edited by PORT:); CI success at 910bf70 (run 37690568974) | `import/import.py --check, tools/ci_record.py` |
-| W1 | compile | open | mingw-i686 3050/3245; largest group: 48 x invalid conversion from 'X' to 'X' [-fpermissive] | `tools/compile_all.py --record [--toolchain winegcc]` |
+| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3281 files, 3245 sources; 247 edited by PORT:); CI success at 910bf70 (run 37690568974) | `import/import.py --check, tools/ci_record.py` |
+| W1 | compile | open | mingw-i686 3111/3245; largest group: 16 x 'X' was not declared in this scope; did you mean 'X'? | `tools/compile_all.py --record [--toolchain winegcc]` |
 | W2 | link | -- | not measured | `tools/undefined.py (not written yet)` |
 | W3 | oracle | -- | not measured | `tests/oracle --selftest, state.py --roundtrip, differential (not written yet)` |
 | W4 | platform | -- | not measured | `checklist + MS* trace prefix (not written yet)` |

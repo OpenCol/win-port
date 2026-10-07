@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 102 of the imported file. */
 /* woodcut_show: candidate for 1060:003a (1077 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -99,7 +100,7 @@ int woodcut_show(int index)
     w_left = sprite_width_1060_60c4(&frame[0]);
     w_mid = sprite_width_1060_60c4(&frame[1]);
     w_right = sprite_width_1060_60c4(&frame[2]);
-    text_open("WOODCUT", "WOODCUT");
+    text_open((void*)("WOODCUT"), "WOODCUT");
     for (i = 0; i <= index; i++)
         line = text_get();
     text_close();

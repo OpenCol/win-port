@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61 of the imported file. */
 /* attempt_to_set_sail: candidate for 1048:5284 (489 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -58,7 +59,7 @@ extern "C" void attempt_to_set_sail(int ship)
     g_units[u].orders = ORDERS_NONE;
     stack_ship(u);
     g_popup_dude = 0;
-    show_plain_dialog_1048_dde3(&popup, "SAILAWAY", 0);
+    show_plain_dialog_1048_dde3(&popup, (void*)("SAILAWAY"), 0);
     Popup_set_width(&popup, 0x1e0);
     sort_stack_by_class(u);
     for (k = top_unit(u); k >= 0; k = next_unit(k))

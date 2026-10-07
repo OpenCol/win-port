@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 99, 113 of the imported file. */
 /* foreign_cargo: candidate for 1020:9126 (1400 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * flags: -ml -WS -Od -Ot -3 -P
@@ -96,7 +97,7 @@ int foreign_cargo(int u)
     if (nation >= NATION_EUROPEAN_COUNT || g_nation_text[nation].control != CONTROL_HUMAN)
         goto out;
     if ((get_treaty(nation, owner) & 0x40) == 0) {
-        show_text_dialog_1020_aa02("TRADEATWAR");
+        show_text_dialog_1020_aa02((void*)("TRADEATWAR"));
         goto out;
     }
     if (has_father(nation, FATHER_JAN_DE_WITT) == 0) {
@@ -110,7 +111,7 @@ int foreign_cargo(int u)
     }
     slot = 0;
     if (g_units[u].cargo_count > 1) {
-        show_plain_dialog_1020_a8d3(&p, "TRADEWHICH", 0);
+        show_plain_dialog_1020_a8d3(&p, (void*)("TRADEWHICH"), 0);
         for (goods = 0; g_units[u].cargo_count > goods; goods++) {
             type = get_cargo(u, goods);
             amount = get_cargo_amount(u, goods);

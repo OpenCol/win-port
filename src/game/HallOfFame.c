@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 189, 236 of the imported file. */
 /* HallOfFame: candidate for 1050:6f8e (2175 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: HallOfFame
@@ -186,7 +187,7 @@ extern "C" void HallOfFame(FameEntry *entry, char show)
         if (rec[i].granted != 0) {
             say_string(buf, g_misc_words[MISC_PRESIDENT]);
             comma_string(buf);
-            text_search("NAMES", "INDEPENDENT", rec[i].nation);
+            text_search((void*)("NAMES"), "INDEPENDENT", rec[i].nation);
             STRCAT(buf, g_text_buf);
         } else if (rec[i].indep != 0)
             say_string(buf, g_misc_words[MISC_GENERAL_CONTINENTAL_ARMY]);
@@ -233,7 +234,7 @@ extern "C" void HallOfFame(FameEntry *entry, char show)
     EventWin_Modal(&w);
     MSHideWindow_of_1050_8cd8((DialogWin *)&w);
     win_release_1050_9148(&w);
-    if ((open = file_MSCreateFile_1050_9174(&f, "HALLFAME.DAT")) == 0)
+    if ((open = file_MSCreateFile_1050_9174(&f, (void*)("HALLFAME.DAT"))) == 0)
         goto close;
     write_file_1050_919a(&f, rec, 0xd2L);
 close:

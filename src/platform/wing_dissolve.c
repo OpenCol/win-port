@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61, 62 of the imported file. */
 /* wing_dissolve: candidate for 1070:cafe (849 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -58,8 +59,8 @@ void wing_dissolve(Surface *dst, Surface *src, MSWin *scr, RECT *r, int stride)
     height = rect_height(r);
     hcols = MSAllocateHandle((unsigned)(width * 2));
     hrows = MSAllocateHandle((unsigned)(height * 2));
-    src_bits = wing_dib_pointer((GrafRec *)src);
-    dst_bits = wing_dib_pointer((GrafRec *)dst);
+    src_bits = wing_dib_pointer((Surface *)((GrafRec *)src));
+    dst_bits = wing_dib_pointer((Surface *)((GrafRec *)dst));
     if (scr->hpal != 0 && g_palette_mode == 1)
         RealizePalette(scr->hdc);
     cols = (int *)MSHLock(hcols);

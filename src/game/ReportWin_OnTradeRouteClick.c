@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 81 of the imported file. */
 /* ReportWin_OnTradeRouteClick: candidate for 1058:8868 (386 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_OnTradeRouteClick
@@ -78,7 +79,7 @@ void ReportWin_OnTradeRouteClick(int x, int y)
     if (y >= 0x19) {
         if (font_height_1058_be4f(&g_font_small) * 2 + 0x1d > y) {
             STRCPY(buf, g_cur_route_rec->name);
-            if (popup_ask(g_game_txt, "TRADENAME", 0x1f, buf) != 0)
+            if (popup_ask(g_game_txt, (void*)("TRADENAME"), 0x1f, buf) != 0)
                 goto done;
             STRCPY(g_cur_route_rec->name, g_name_slots[0]);
             GameWin_Redraw((GameWin *)o);

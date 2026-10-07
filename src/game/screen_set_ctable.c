@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 16 of the imported file. */
 /* screen_set_ctable: candidate for 1060:afa1 (45 bytes, 2 callers).  Verdict: RELOCATABLE.
  *
  * Stores a pointer at +2 and passes object and pointer on.
@@ -13,5 +14,5 @@ extern void win_select_palette_1060_b07f(Screen *o, void *pal);
 void screen_set_ctable(Screen *o, void *p)
 {
     o->ctable = p;
-    win_select_palette_1060_b07f((DialogWin *)o, (CTable *)p);
+    win_select_palette_1060_b07f((Screen *)((DialogWin *)o), (CTable *)p);
 }

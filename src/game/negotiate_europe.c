@@ -1,3 +1,4 @@
+/* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 773 of the imported file. */
 /* negotiate_europe: candidate for 1030:5240 (9035 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: negotiate_europe
@@ -770,7 +771,7 @@ extern "C" int negotiate_europe(int nation, int their_nation, int u, int dir, in
                 text_dialog_sel_b0("THREATS", their_nation);
         }
         if (answer == 4) {
-            show_plain_dialog_1030_ebb7(&p, "MILITARY", 0);
+            show_plain_dialog_1030_ebb7(&p, (void*)("MILITARY"), 0);
             amount = 0;
             for (i = 0; i < 0xc; i++) {
                 if (i >= 4) {
