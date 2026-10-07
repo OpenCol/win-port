@@ -42,7 +42,7 @@ extern EventWin * g_backdrop_win;   /* DGROUP:0xc6: the backdrop; its EventTable
 struct logpal;
 
 extern void CTable_Scale(CTable *, int);
-extern void sound_play(int);
+extern "C" void sound_play(int);   /* PORT: C linkage, as defined (W2) */
 extern void Sprite_Extract_key_rect(Sprite *, void *src, unsigned char transparent, RECT *);
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *, RECT *, RECT *);

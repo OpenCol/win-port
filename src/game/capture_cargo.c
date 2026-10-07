@@ -44,7 +44,7 @@ class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdi
 
 /* 52 bytes at SEG20:0x7840; +1 is CONTROL: 0 human, 1 computer, 2 defeated */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 extern int get_cargo(int u, int slot);
 extern int get_cargo_amount(int u, int slot);

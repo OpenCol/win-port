@@ -45,6 +45,7 @@ extern "C" void port_set_capture(Screen *p);
 
 extern "C" void port_release_capture(Screen *p);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColChild_DragIcon(ColChild *o, Sprite *sprite, int unused1, int unused2,
                            int *out_x, int *out_y)
 {

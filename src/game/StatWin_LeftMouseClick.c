@@ -25,8 +25,8 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern GameBrains g_game_brains;     /* SEG20:0x40d6 */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern int GameBrains_EndUnitTurn(void *rec, int force);
-extern void GameBrains_SetViewMode(void *rec);
+extern "C" int GameBrains_EndUnitTurn(void *rec, int force);   /* PORT: C linkage, as defined (W2) */
+extern "C" void GameBrains_SetViewMode(void *rec);   /* PORT: C linkage, as defined (W2) */
 extern void UpdateStats(void);
 
 void StatWin_LeftMouseClick(int x, int y)

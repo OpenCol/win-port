@@ -51,8 +51,8 @@ extern void GRPort_FillColor_all(GRPort *p, int colour);
 
 
 extern void ColonyWin_OnOKClick(int unused1);
-extern void ColonyHammerBuy(void);
-extern void ColonyHammerChange(void);
+extern "C" void ColonyHammerBuy(void);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColonyHammerChange(void);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 

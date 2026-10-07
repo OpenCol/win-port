@@ -82,8 +82,8 @@ extern int get_cargo(int u, int slot);
 extern int get_cargo_amount(int u, int slot);
 extern int shift_key(void);
 extern int europe_bid_price(int g);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern void EuropeWin_EuropeMouseShipsProper(EuropeWin *w, int x, int y);
 extern void EuropeWin_EuropeMouseTransit(EuropeWin *w, int x, int y);
 /* same object: 4-byte `push cs; call ` (rule 47) */

@@ -36,7 +36,7 @@ class SButton;
 
 #include "records.h"
 extern GameState g_game;   /* SEG20:0x7782 */
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void GameWin_Redraw(GameWin *o);
 extern void ColChild_Center(ColChild *o);
 extern void EventWin_Modal(EventWin *w);

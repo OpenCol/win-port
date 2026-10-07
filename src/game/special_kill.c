@@ -104,8 +104,8 @@ extern void set_owner(int u, int owner);
 extern void put_down_unit(int u, int x, int y);
 
 extern void popup_say(int slot, int word);
-extern int popm(char *name, int n);
-extern void sound_play(int n);
+extern "C" int popm(char *name, int n);   /* PORT: C linkage, as defined (W2) */
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern int unload_cargo(int u, int slot);
 extern int stow_cargo(int u, int goods, int amount);
 extern int cargo_check(int u, int need, int last_ship);

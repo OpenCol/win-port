@@ -65,10 +65,10 @@ extern int g_popup_tribe;                       /* DGROUP:0x2518, declared */
 
    /* DialogWin : EventWin, flattened for C */
 
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int get_specialty(int u);
 extern int job_change_legal(int colonist, int job);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 
 extern char *strings(int n);
 extern void popup_say(int slot, int word);
@@ -82,7 +82,7 @@ extern void subtract_gold(int nation, long amount);
 extern void set_indian(int x, int y, int bits);
 extern void pick_up_colonist(int id);
 extern int set_job(int colonist, int job);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern int has_building(int bit);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void win_disable_1010_e459(void *o);

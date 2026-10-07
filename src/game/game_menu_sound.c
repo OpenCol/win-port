@@ -38,7 +38,7 @@ extern void Popup_set_check(Popup *p, int key, int on);
 extern int Popup_get_check(Popup *p, int key);
 extern int soundQueue(void);
 extern void LoadTray(void);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 void game_menu_sound(void)
 {

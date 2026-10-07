@@ -42,9 +42,9 @@ extern int nth_cargo_vessel(int carrier);
 extern int get_cargo(int u, int slot);
 extern int get_cargo_amount(int u, int slot);
 extern void ColonyWin_ColonyMarketMessage(ColonyWin *w, int goods, int unused, int flag);
-extern void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);
+extern "C" void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);   /* PORT: C linkage, as defined (W2) */
 extern int shift_key(void);
-extern int ColonyWin_AttemptCargoToColony(void *w, int unit, int goods, int ask);
+extern "C" int ColonyWin_AttemptCargoToColony(void *w, int unit, int goods, int ask);   /* PORT: C linkage, as defined (W2) */
 extern void ColonyWin_ColonyMouseShipsProper(ColonyWin *w, int x, int y);
 
 extern "C" int ColonyMouseArea(int x, int y);

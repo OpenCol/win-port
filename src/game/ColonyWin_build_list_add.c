@@ -36,7 +36,7 @@
 
 extern char *strings(int n);
 /* PORT: `typedef struct Popup Popup;` removed: include/gen/classes.h defines Popup (W1). */
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern int get_production_class(int item, int *idx);
 extern int get_production_cost(int item, int *tools);
 extern char *get_production_name(int item);

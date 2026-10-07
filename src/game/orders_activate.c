@@ -59,19 +59,19 @@ extern GameBrains g_game_brains;       /* SEG20:0x40d6, declared */
 extern GameState g_game;   /* SEG20:0x7782 */
 
 extern int top_unit_in_square(int x, int y);
-extern void sort_stack_by_class(int u);
+extern "C" void sort_stack_by_class(int u);   /* PORT: C linkage, as defined (W2) */
 extern int top_unit(int u);
 extern int unit_is_active(int u);
 extern char *strings(int n);
 
 extern void space_string(char *buf);
 extern int job_of_unit(int u);
-extern void Popup_sprite(Popup *popup, Sprite *art, int id, char *s);
-extern int UnitIcon(int u);
+extern "C" void Popup_sprite(Popup *popup, Sprite *art, int id, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern int next_unit(int u);
 extern void DrawMapRegion(int x, int y, int a, int b, int flag);
 extern void unit_activate(int u);
-extern int GameBrains_EndUnitTurn(void *brains, int force);
+extern "C" int GameBrains_EndUnitTurn(void *brains, int force);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void popup_setup_plain_1008_ce18(Popup *p);
 

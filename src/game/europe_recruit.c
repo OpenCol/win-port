@@ -63,10 +63,10 @@ extern void popup_say(int slot, int word);
 extern void open_string(char *s);
 extern void close_string(char *s);
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_grey(Popup *p, int id, int on);
 extern int Popup_help_me(Popup *popup);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" int unit_from_docks(int type);

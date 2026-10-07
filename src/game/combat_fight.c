@@ -106,13 +106,13 @@ extern void set_colony(int colony);
 extern int get_specialty(int u);
 extern int ColonistIcon(int spec);
 extern void set_village(int s);
-extern int popm(char *msg, int n);   /* 1050:64d1 */
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */   /* 1050:64d1 */
 extern int colony_rebel(void);
 extern int terrain_is_ocean(int x, int y);
 extern int is_colony(int x, int y);
 extern void stack_units(int u);
 extern void move_to_top(int u);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 extern void force_map(int x, int y);
 extern int blockade_speed(int u);
@@ -120,7 +120,7 @@ extern void relocate_stacked_units(int u, int x, int y);
 extern void DrawMapRegion(int x, int y, int w, int h, int flag);
 
 extern void popup_say(int slot, int word);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void move_to_bottom(int u);
 extern void delete_colonist(int colonist);
 extern void set_tribe(int tribe);

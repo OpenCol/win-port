@@ -27,7 +27,7 @@
 #include "records.h"
 class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 
 int choose_cargo(char *title)

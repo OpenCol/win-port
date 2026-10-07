@@ -48,11 +48,11 @@ extern void MSSetCursor_id(MSWin *win, int cursor);
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 
 extern int top_unit_in_square(int x, int y);
-extern void ColonyWin_Show(void *w, int colony);
+extern "C" void ColonyWin_Show(void *w, int colony);   /* PORT: C linkage, as defined (W2) */
 extern void MapWin_Reposition(MapWin *o, int x, int y);
 
 extern void GameWin_Redraw(GameWin *rec);
-extern void GameBrains_MoveUnit(void *rec, int dir);
+extern "C" void GameBrains_MoveUnit(void *rec, int dir);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void win_show_and_focus_1038_e279(DialogWin *w);
 

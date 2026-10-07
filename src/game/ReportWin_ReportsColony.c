@@ -70,7 +70,7 @@ extern void GRPort_DrawRaisedRect(GRPort *w, RECT *r);
 
 extern int top_unit_in_square(int x, int y);
 extern int next_unit(int u);
-extern int UnitIcon(int u);
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y,
                                          int cx, int cy);
 

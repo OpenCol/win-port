@@ -31,7 +31,7 @@ extern GameState g_game;   /* SEG20:0x7782 */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 
-extern int Screen_LButtonDownNow(void *w);
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 
 void MapWin_LeftMouseDown(int x, int y)
 {

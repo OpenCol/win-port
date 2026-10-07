@@ -54,16 +54,16 @@ extern int g_popup_tribe;                     /* DGROUP:0x2518, declared */
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 
 extern void space_string(char *buf);
 
 extern void expand_text_template(char *src, char *dst);
-extern int text_open(void *ctx, char *name);
-extern char *text_get(void);
+extern "C" int text_open(void *ctx, char *name);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void popup_say(int slot, int v);
-extern int popm(char *msg, int n);
-extern void sound_play(int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern void new_mood(int mood);
 
 extern "C" void set_text_arg_i_1048_db6a(int slot, int v);

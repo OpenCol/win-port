@@ -67,7 +67,7 @@ extern int next_unit(int u);
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y, int span, int mode);
 extern int compute_yield(int col, int row, int *goods, int flag);
 extern char get_field(int col, int row);
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

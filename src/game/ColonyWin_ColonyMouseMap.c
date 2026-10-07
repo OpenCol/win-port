@@ -56,17 +56,17 @@ typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char 
 extern char g_pedia_win;               /* SEG20:0x387c, declared */
 extern void set_colony(int colony);
 
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 extern char get_field(int col, int row);
 extern void arm_indians(int col, int row);
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int terrain_is_ocean(int x, int y);
-extern int try_to_set_job(int c, int job);
+extern "C" int try_to_set_job(int c, int job);   /* PORT: C linkage, as defined (W2) */
 extern void pick_up_colonist(int id);
-extern void set_field(int col, int row, int colonist);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" void set_field(int col, int row, int colonist);   /* PORT: C linkage, as defined (W2) */
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
-extern void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);
+extern "C" void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);   /* PORT: C linkage, as defined (W2) */
 extern void ColonyWin_ColonyMouseBuildings(ColonyWin *w, int x, int y);
 extern void ColonyWin_ColonyMouseColonists(ColonyWin *w, int x, int y);
 /* same object: 4-byte `push cs; call ` (rule 47) */

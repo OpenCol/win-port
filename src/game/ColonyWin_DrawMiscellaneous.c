@@ -30,6 +30,7 @@ extern "C" void ColonyWin_DrawColonyUnits(ColonyWin *w);
 extern "C" void ColonyWin_DrawProduction(ColonyWin *w);
 extern "C" void MSHideControl_1010_e54d(void *control);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_DrawMiscellaneous(ColonyWin *w, int redraw)
 {
     RECT r;

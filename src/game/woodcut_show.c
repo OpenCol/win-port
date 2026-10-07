@@ -53,8 +53,8 @@ class DlgControl;
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
-extern int text_open(void *ctx, char *name);
-extern char *text_get(void);
+extern "C" int text_open(void *ctx, char *name);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void text_close(void);
 
 extern void SuperWin_Init(SuperWin *w);

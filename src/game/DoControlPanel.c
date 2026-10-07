@@ -33,7 +33,7 @@ public:
  * so the base constructor is reached through the four-byte `PUSH CS / CALL NEAR` the
  * shipped has rather than a five-byte call the comparator has to collapse. */
 
-extern void CDControlWin_Init(CDControlWin *w);
+extern "C" void CDControlWin_Init(CDControlWin *w);   /* PORT: C linkage, as defined (W2) */
 
 void DoControlPanel(void)
 {

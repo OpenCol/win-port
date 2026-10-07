@@ -62,7 +62,7 @@ class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdi
 
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 
 extern void space_string(char *buf);

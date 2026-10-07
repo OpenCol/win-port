@@ -82,7 +82,7 @@ extern void compute_colony_parameters(void);
 extern void compute_colony_yield(void);
 extern int colony_rebel(void);
 extern int has_building(int bit);
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
 extern void ReportWin_ColonyReportTop(ReportWin *o);
 

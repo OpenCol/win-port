@@ -64,16 +64,16 @@ extern int job_of_building(int building);
 extern int guys_at_building(int building);
 extern int InIconRow(int pic, int a, int n, int x, int y, int span, int span2, int style, int px, int py);
 extern int base_building(int building);
-extern int nth_guy_in_job(int job, int nth);
-extern int get_job(int colonist);
+extern "C" int nth_guy_in_job(int job, int nth);   /* PORT: C linkage, as defined (W2) */
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern void colony_select_profession(int unit_roles_only);
-extern int try_to_set_job(int c, int job);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" int try_to_set_job(int c, int job);   /* PORT: C linkage, as defined (W2) */
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
-extern void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);
+extern "C" void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);   /* PORT: C linkage, as defined (W2) */
 extern void ColonyWin_ColonyMouseColonists(ColonyWin *w, int x, int y);
 extern int get_specialty(int u);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int ColonyMouseArea(int x, int y);
 extern "C" void label_building(int b, int x, int y, int kind);

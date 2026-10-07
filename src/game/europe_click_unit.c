@@ -43,15 +43,15 @@
 #include "records.h"
 class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
-extern int text_open(void *unused, char *id);
-extern int UnitIcon(int u);
-extern void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);
-extern char *text_get(void);
+extern "C" int text_open(void *unused, char *id);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void expand_text_template(char *src, char *dst);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_grey(Popup *p, int key, int on);
 extern void move_to_top(int u);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

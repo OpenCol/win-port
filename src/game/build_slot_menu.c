@@ -51,7 +51,7 @@ extern void space_string(char *buf);
 extern void comma_string(char *buf);
 extern char *strings(int n);
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void save_slot_file_name(char *dst, int slot);

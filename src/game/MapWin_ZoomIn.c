@@ -12,6 +12,7 @@
 #include "classes.h"
 extern void GameWin_Redraw(GameWin *w);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 int MapWin_ZoomIn(MapWin *w)
 {
     if (w->zoom < 4) {

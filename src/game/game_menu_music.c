@@ -45,7 +45,7 @@
 class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
 extern void Popup_hilite(Popup *p, int key, int on);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void win_draw_text_default(Popup *p, char *s, int sel, int n);
 

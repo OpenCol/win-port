@@ -26,6 +26,7 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void GRPort_ResetClip(GRPort *port);
 
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void MapWin_RevealHiddenTerrain(MapWin *w)
 {
     RECT r;

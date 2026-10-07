@@ -70,12 +70,12 @@ extern void CTable_CopyRawColors(CTable *pal, unsigned char *dst, int first, int
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern int text_open(void *a, char *id);
-extern char *text_get(void);
+extern "C" int text_open(void *a, char *id);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern char *text_item_get(void);
 
 extern void FrameInfoRect(GRPort *w, RECT *r, int depth, int light, int dark);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern void text_close(void);
 extern void EventWin_Modal(EventWin *w);
 extern void fame_OnLMouseDown(void);

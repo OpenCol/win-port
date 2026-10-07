@@ -20,7 +20,7 @@ extern int g_stub_a;
 extern void set_colony(int colony);
 extern void compute_colony_parameters(void);
 extern void sort_colonists_by_profession(void);
-extern void ColonyWin_DrawButtons(void *w, int a, int b);
+extern "C" void ColonyWin_DrawButtons(void *w, int a, int b);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void ColonyWin_GenerateColonyBaseMap(ColonyWin *w);
 extern "C" void ColonyWin_DrawTitle(ColonyWin *w);

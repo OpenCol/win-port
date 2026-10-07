@@ -70,7 +70,7 @@ extern int set_nation(void);
 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *port, int res, int a, int b, struct logpal *pal);
-extern int popup_ask(void *ctx, void *name, int max_len, void *dflt);
+extern "C" int popup_ask(void *ctx, void *name, int max_len, void *dflt);   /* PORT: C linkage, as defined (W2) */
 
 extern void FrameInfoRect(GRPort *p, RECT *r, int depth, int light, int dark);
 

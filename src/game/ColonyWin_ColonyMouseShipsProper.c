@@ -54,8 +54,8 @@ extern char g_pedia_win;              /* SEG20:0x387c, declared */
 
 extern int nth_cargo_vessel(int carrier);
 extern int shift_key(void);
-extern void ColonyWin_AttemptShipToShip(ColonyWin *w, int from, int to, int slot, int ask);
-extern void PediaWin_ShowModal(void *ctx, int category, int type, void *w);
+extern "C" void ColonyWin_AttemptShipToShip(ColonyWin *w, int from, int to, int slot, int ask);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_ShowModal(void *ctx, int category, int type, void *w);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

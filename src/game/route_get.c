@@ -54,7 +54,7 @@ extern GameState g_game;   /* SEG20:0x7782 */
 extern "C" void set_dest(int r);
 
 extern void period_string(char *buf);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_set_active(Popup *popup, int id);
 extern void popup_say(int slot, int word);
 

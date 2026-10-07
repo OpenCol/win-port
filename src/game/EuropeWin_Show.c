@@ -58,7 +58,7 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;             /* SEG20:0x5ca */
 
 extern StatWin g_stat_win;           /* SEG20:0x1566 */
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void popup_country(int slot, int flag, int nation);
 extern void popup_say(int slot, int v);

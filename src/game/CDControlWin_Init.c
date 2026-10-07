@@ -73,8 +73,8 @@ extern void GRPort_FillColor(GRPort *p, RECT *r, int colour);
 
 extern void GRPort_DrawLine(GRPort *w, short x1, short y1, short x2, short y2);
 extern void CDControlWin_OnOkClick(void);
-extern void CDControlWin_DrawTime(CDControlWin *w);
-extern void CDControlWin_DrawTrack(CDControlWin *w);
+extern "C" void CDControlWin_DrawTime(CDControlWin *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void CDControlWin_DrawTrack(CDControlWin *w);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

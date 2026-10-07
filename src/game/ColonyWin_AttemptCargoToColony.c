@@ -31,11 +31,11 @@ extern int stow_cargo(int unit, int goods, int amount);
 extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int idx);
 
-extern void ColChild_AddStringToMessage(ColChild *message, char *s);
+extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */
 extern void popup_say(int slot, int word);
 extern int popup_ask_number(char *ctx, char *name, int n);
 
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void ColonyWin_ColonyMessage(ColonyWin *w, int n);
 
@@ -45,6 +45,7 @@ extern "C" void set_text_arg_i_1010_ebb0(int i, int v);
 
 extern "C" void colony_change_mode(void);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 int ColonyWin_AttemptCargoToColony(ColonyWin *w, int unit, int goods, int ask)
 {
     int result = 1;

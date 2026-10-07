@@ -81,18 +81,18 @@ extern char g_pedia_win;   /* SEG20:0x387c */
 
 extern int get_specialty(int u);
 extern void set_specialty(int c, int specialty);
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int any_spec(int job);
 extern int job_cargo(int *out, int job);
 extern int nth_unit_with_job(int n);
 extern int set_job(int colonist, int job);
 extern int job_available(int job);
-extern int colonist_find(int colonist, int *x, int *y);
+extern "C" int colonist_find(int colonist, int *x, int *y);   /* PORT: C linkage, as defined (W2) */
 extern void pick_up_colonist(int id);
 extern int compute_yield(int x, int y, int *kind, int flag);
 extern int compute_colonist_yield(int colonist, int *kind);
 extern int preassign_colonist_to_field(int colonist, int job);
-extern void set_field(int x, int y, int colonist);
+extern "C" void set_field(int x, int y, int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int has_building(int bit);
 extern int place_in_stack(int u);
 extern int has_father(int nation, int bit);
@@ -103,25 +103,25 @@ extern void space_string(char *buf);
 extern void open_string(char *s);
 extern void close_string(char *s);
 extern void colon_string(char *buf);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_set_width(Popup *popup, int width);
 extern void Popup_set_font(Popup *popup, Font *ctl);
-extern void Popup_string(Popup *popup, char *s);
+extern "C" void Popup_string(Popup *popup, char *s);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_grey(Popup *p, int key, int on);
 extern void Popup_hilite(Popup *p, int key, int on);
 extern void Popup_set_active(Popup *popup, int key);
 extern int Popup_help_me(Popup *popup);
 extern void popup_say(int slot, int word);
-extern int popm(char *name, int style);
-extern void PediaWin_ShowModal(void *pedia, int category, int item, void *parent);
+extern "C" int popm(char *name, int style);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int item, void *parent);   /* PORT: C linkage, as defined (W2) */
 
-extern void win_disable_1010_e459(void *p);
+extern "C" void win_disable_1010_e459(void *p);   /* PORT: C linkage, as defined (W2) */
 
 extern void colony_cursor_update(void);
 
-extern int try_to_set_job(int c, int job);
+extern "C" int try_to_set_job(int c, int job);   /* PORT: C linkage, as defined (W2) */
 extern void colony_change_selected(void);
-extern void win_enable_1010_e4d4(void *p);
+extern "C" void win_enable_1010_e4d4(void *p);   /* PORT: C linkage, as defined (W2) */
 
 typedef struct {
     char text[0x50];                  /* BP-166 */

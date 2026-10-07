@@ -61,7 +61,7 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;     /* SEG20:0x5ca, declared */
 extern char g_pedia_win;    /* SEG20:0x387c, declared */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void set_europe(int n);
 extern int has_father(int nation, int bit);
 
@@ -70,7 +70,7 @@ extern void open_string(char *s);
 extern void close_string(char *s);
 extern void force_mood(int mood);
 extern int Popup_help_me(Popup *popup);
-extern void PediaWin_ShowModal(void *pedia, int category, int article, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int article, void *parent);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" int Century(void);
 extern "C" int avail_of_father(int nation, int cat);

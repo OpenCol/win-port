@@ -93,7 +93,10 @@ def arity(params):
 
 def definitions(path):
     """[(name, arity, start, end, body)] of the file-scope function definitions in path."""
-    text = open(path, errors="replace").read()
+    return definitions_text(open(path, errors="replace").read())
+
+
+def definitions_text(text):
     b = blank(text)
     out, depth_at = [], []
     # file scope: positions at brace depth 0
@@ -186,6 +189,40 @@ def plan():
     return files, removals, review
 
 
+GLOBAL = re.compile(r"^([A-Za-z_][\w \t\*]*?\b)(g_\w+)(\s*(?:\[[^\]]*\]\s*)*)(\([^;{}]*\))?\s*;", re.M)
+
+
+def global_plan():
+    """{path: [(start, end, replacement)]}: a global two files define keeps its definition
+    in the first (a create_* file before its destroy_* twin); the others declare it."""
+    defs = collections.defaultdict(list)
+    texts = {}
+    for p in ca.sources():
+        text = open(p, errors="replace").read()
+        b = blank(text)
+        depth, depth_at = 0, []
+        for ch in b:
+            depth_at.append(depth)
+            depth += (ch == "{") - (ch == "}")
+        for m in GLOBAL.finditer(b):
+            head = m.group(1).strip()
+            if depth_at[m.start()] or re.match(r"(extern|static|typedef|return|class|struct)\b", head):
+                continue
+            defs[m.group(2)].append((p, m))
+        texts[p] = text
+    out = collections.defaultdict(list)
+    for name, ds in defs.items():
+        if len({p for p, _m in ds}) < 2:
+            continue
+        ds = sorted(ds, key=lambda d: (not os.path.basename(d[0]).startswith("create_"), d[0]))
+        keep = os.path.relpath(ds[0][0], os.path.join(ROOT, "src"))
+        for p, m in ds[1:]:
+            decl = "extern %s %s%s;" % (texts[p][m.start(1):m.end(1)].strip(), name,
+                                       re.sub(r"\s+", "", m.group(3)))
+            out[p].append((m.start(), m.end(), decl + "   /* PORT: defined in src/%s (W2) */" % keep))
+    return texts, out
+
+
 def edit(text, cuts):
     out, pos = [], 0
     for s, e, why in sorted(cuts):
@@ -225,6 +262,20 @@ def main(argv):
         else:
             open(p, "w").write(files[p])
             restored.append((p, after["first_raw"]))
+    texts, gcuts = global_plan()
+    for p, cuts in sorted(gcuts.items()):
+        before = ca.compile_one("mingw-i686", p)
+        t = texts[p]
+        for s0, e0, rep in sorted(cuts, reverse=True):
+            t = t[:s0] + rep + t[e0:]
+        open(p, "w").write(t)
+        after = ca.compile_one("mingw-i686", p)
+        if after["ok"] or dt.error_set(after) <= dt.error_set(before):
+            kept += 1
+        else:
+            open(p, "w").write(texts[p])
+            restored.append((p, after["first_raw"]))
+    print("globals: %d defined twice, in %d files" % (sum(len(c) for c in gcuts.values()), len(gcuts)))
     print("edited %d files; restored %d" % (kept, len(restored)))
     for p, why in restored:
         print("  restored %-48s %s" % (os.path.relpath(p, ROOT), (why or "")[:80]))

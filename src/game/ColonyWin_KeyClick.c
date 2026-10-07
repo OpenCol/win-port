@@ -30,7 +30,7 @@ extern int nth_cargo_vessel(int carrier);
 extern int perform_orders_load(int u);
 extern int perform_orders_unload(int u, int flag);
 extern void ColonyWin_colony_hammer_buy(ColonyWin *w, int a);
-extern void ColonyWin_colony_hammer_change(ColonyWin *w, int a);
+extern "C" void ColonyWin_colony_hammer_change(ColonyWin *w, int a);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void colony_change_selected(void);

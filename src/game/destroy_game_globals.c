@@ -56,37 +56,37 @@ public:
 
 /* PORT: an in-file stub of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it (W2). */
 
-GamePrefs g_prefs_root;            /* SEG20:0x10 */
-CTable g_game_palette;             /* SEG20:0x1ac */
-MainWin g_main_win;             /* SEG20:0x5ca */
+extern GamePrefs g_prefs_root;   /* PORT: defined in src/game/create_game_globals.c (W2) */            /* SEG20:0x10 */
+extern CTable g_game_palette;   /* PORT: defined in src/game/create_game_globals.c (W2) */             /* SEG20:0x1ac */
+extern MainWin g_main_win;   /* PORT: defined in src/game/create_game_globals.c (W2) */             /* SEG20:0x5ca */
 /* MainWin is 0x3b0c bytes (its shipped type descriptor, and MainWin_ctor's member offsets), so
  * 0xc bytes separate it from the debug window: g_game_brains, the GameBrains object every
  * function of module 1008:2927..3cc8 runs on. It has no constructor (nothing is built between
  * the two windows), and is spelled as an anonymous block like the gap below. */
 static char gap_40d6[0x40e2 - 0x40d6];
-DebugWin g_debug_win;              /* SEG20:0x40e2 */
-Sprite g_art_base[0x1b];   /* SEG20:0x41a6, the first art sprites. Its readers once
+extern DebugWin g_debug_win;   /* PORT: defined in src/game/create_game_globals.c (W2) */              /* SEG20:0x40e2 */
+extern Sprite g_art_base[0x1b];   /* PORT: defined in src/game/create_game_globals.c (W2) */   /* SEG20:0x41a6, the first art sprites. Its readers once
    indexed it past its end ([411], [412] for the background tile and the route panel); the
    shipped fixups name those sprites' own symbols, so they read g_background_tile and
    g_route_panel_sprite now, and every remaining reference is to this array (2026-10-02). */
-Sprite g_terrain_sprites[0xbe];       /* SEG20:0x4506 */
-Sprite g_overlay_sprites[0x2c];       /* SEG20:0x5cc6 */
-Sprite g_icon_sprites[0x84];       /* SEG20:0x6246 */
-Sprite g_flag_art[0x12];       /* SEG20:0x72c6 */
+extern Sprite g_terrain_sprites[0xbe];   /* PORT: defined in src/game/create_game_globals.c (W2) */       /* SEG20:0x4506 */
+extern Sprite g_overlay_sprites[0x2c];   /* PORT: defined in src/game/create_game_globals.c (W2) */       /* SEG20:0x5cc6 */
+extern Sprite g_icon_sprites[0x84];   /* PORT: defined in src/game/create_game_globals.c (W2) */       /* SEG20:0x6246 */
+extern Sprite g_flag_art[0x12];   /* PORT: defined in src/game/create_game_globals.c (W2) */       /* SEG20:0x72c6 */
 /* PORT: one Sprite, as every user of g_background_tile takes it; the shipped data held an array of one (W1). */
-Sprite g_background_tile;            /* SEG20:0x7506 */
-Sprite g_route_panel_sprite;              /* SEG20:0x7526 */
-Sprite g_edge_sprites[0x10];       /* SEG20:0x7546 */
-CursorClass g_cursors[0xf];        /* SEG20:0x7746 */
-Font g_title_font;                     /* DGROUP:0x4b06 */
-Font g_report_font_small;              /* DGROUP:0x4b0a */
-Font g_font_tiny;                      /* DGROUP:0x4b0e */
-Font g_info_font_small;                /* DGROUP:0x4b12 */
-Font g_info_font_large;                /* DGROUP:0x4b16 */
-Font g_number_font;                    /* DGROUP:0x4b1a */
-Font g_font_small;                     /* DGROUP:0x4b1e */
-Font g_heading_font;                   /* DGROUP:0x4b22 */
-Font g_report_font;                    /* DGROUP:0x4b26 */
+extern Sprite g_background_tile;   /* PORT: defined in src/game/create_game_globals.c (W2) */            /* SEG20:0x7506 */
+extern Sprite g_route_panel_sprite;   /* PORT: defined in src/game/create_game_globals.c (W2) */              /* SEG20:0x7526 */
+extern Sprite g_edge_sprites[0x10];   /* PORT: defined in src/game/create_game_globals.c (W2) */       /* SEG20:0x7546 */
+extern CursorClass g_cursors[0xf];   /* PORT: defined in src/game/create_game_globals.c (W2) */        /* SEG20:0x7746 */
+extern Font g_title_font;   /* PORT: defined in src/game/create_game_globals.c (W2) */                     /* DGROUP:0x4b06 */
+extern Font g_report_font_small;   /* PORT: defined in src/game/create_game_globals.c (W2) */              /* DGROUP:0x4b0a */
+extern Font g_font_tiny;   /* PORT: defined in src/game/create_game_globals.c (W2) */                      /* DGROUP:0x4b0e */
+extern Font g_info_font_small;   /* PORT: defined in src/game/create_game_globals.c (W2) */                /* DGROUP:0x4b12 */
+extern Font g_info_font_large;   /* PORT: defined in src/game/create_game_globals.c (W2) */                /* DGROUP:0x4b16 */
+extern Font g_number_font;   /* PORT: defined in src/game/create_game_globals.c (W2) */                    /* DGROUP:0x4b1a */
+extern Font g_font_small;   /* PORT: defined in src/game/create_game_globals.c (W2) */                     /* DGROUP:0x4b1e */
+extern Font g_heading_font;   /* PORT: defined in src/game/create_game_globals.c (W2) */                   /* DGROUP:0x4b22 */
+extern Font g_report_font;   /* PORT: defined in src/game/create_game_globals.c (W2) */                    /* DGROUP:0x4b26 */
 /* THE GAP BEFORE THE SCREEN PORT. This TU's segment is laid out in definition order, so
  * g_cursors ending at 0x7782 would put g_sprite_sheet there; it ships at 0xdea0. The 0x671e
  * bytes between are the rest of the original TU's definitions -- the game state from
@@ -108,4 +108,4 @@ static unsigned char init_dc98[0x28] = {
     0x03, 0x0f, 0x0e, 0x0f, 0x27, 0x0e, 0x06, 0x0e, 0x20, 0x0c, 0x04, 0x0c,
     0x1b, 0x09, 0x01, 0x09, 0x18, 0x0a, 0x02, 0x0a, 0x15, 0x0b, 0x03, 0x0b };
 static char gap_dcc0[0xdea0 - 0xdcc0];
-GRPort g_sprite_sheet;           /* SEG20:0xdea0 */
+extern GRPort g_sprite_sheet;   /* PORT: defined in src/game/create_game_globals.c (W2) */           /* SEG20:0xdea0 */

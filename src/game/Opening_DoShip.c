@@ -30,7 +30,7 @@ class DlgControl;
 
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern void DoFizzle(GRPort *port, GameWin *window, RECT *r,
                               int x, int y, int mode, int step);
 

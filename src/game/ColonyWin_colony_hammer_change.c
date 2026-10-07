@@ -69,13 +69,13 @@ extern int count_eligible_builds(void);
 extern int nth_eligible_build(int nth);
 extern void Popup_set_width(Popup *popup, int width);
 extern char *strings(int n);
-extern void Popup_string(Popup *popup, char *s);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_string(Popup *popup, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_hilite(Popup *o, int key, int on);
 extern void Popup_set_active(Popup *popup, int key);
 extern int Popup_help_me(Popup *popup);
 extern int get_production_class(int item, int *idx);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void MSShowControl_1010_e574(void *control);
 extern "C" void MSHideControl_1010_e54d(void *control);

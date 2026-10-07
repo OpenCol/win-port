@@ -58,8 +58,8 @@ extern int pissed(int tribe, int i);
 extern void set_village(int s);
 extern void popup_say(int slot, int word);
 extern char *strings(int n);
-extern void Popup_item(Popup *popup, char *s, int id);
-extern int popm(char *msg, int n);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void piss_off(int tribe, int nation, int delta, int unused);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

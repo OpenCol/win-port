@@ -60,7 +60,7 @@ class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdi
 
 extern char g_pedia_win;          /* SEG20:0x387c, declared */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 
 extern void space_string(char *buf);
@@ -68,7 +68,7 @@ extern void space_string(char *buf);
 extern void sort_16x16(int n, int *payload, int *key);
 extern void Popup_grey(Popup *p, int id, int on);
 extern int Popup_help_me(Popup *popup);
-extern void PediaWin_ShowModal(void *pedia, int category, int article, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int article, void *parent);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" int unit_from_docks(int type);
 extern "C" void reset_europe_units(void);

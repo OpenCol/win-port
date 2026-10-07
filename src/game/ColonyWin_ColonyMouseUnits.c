@@ -40,9 +40,9 @@ extern char g_pedia_win;             /* SEG20:0x387c */
 extern int g_stub_a;
 extern void set_colony(int colony);
 
-extern void ColonyWin_DrawMiscellaneous(void *w, int redraw);
+extern "C" void ColonyWin_DrawMiscellaneous(void *w, int redraw);   /* PORT: C linkage, as defined (W2) */
 extern int nth_noncarrier_in_chain(int first, int n);
-extern void PediaWin_ShowModal(void *ctx, int category, int type, void *dlg);
+extern "C" void PediaWin_ShowModal(void *ctx, int category, int type, void *dlg);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void ColonyWin_ColonyClickUnits(void *w);
 extern "C" void colony_change_selected(void);

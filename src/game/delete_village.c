@@ -26,7 +26,7 @@ extern void delete_unit(int u);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern void popup_say(int slot, int word);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 
 void delete_village(int s)
 {

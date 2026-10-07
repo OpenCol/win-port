@@ -95,18 +95,18 @@ extern int save_game(char *path);
 extern void liberty_declared(void);
 extern void FinalScore(void);
 extern void set_center(int x, int y, int flag);
-extern int GameBrains_EndUnitTurn(void *brains, int force);
-extern void GameBrains_SetViewMode(void *ctx);
-extern int MapWin_ZoomIn(void *w);
-extern int MapWin_ZoomOut(void *w);
-extern void MapWin_SetZoom(void *w, int z);
-extern void MapWin_RevealHiddenTerrain(void *w);
+extern "C" int GameBrains_EndUnitTurn(void *brains, int force);   /* PORT: C linkage, as defined (W2) */
+extern "C" void GameBrains_SetViewMode(void *ctx);   /* PORT: C linkage, as defined (W2) */
+extern "C" int MapWin_ZoomIn(void *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" int MapWin_ZoomOut(void *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void MapWin_SetZoom(void *w, int z);   /* PORT: C linkage, as defined (W2) */
+extern "C" void MapWin_RevealHiddenTerrain(void *w);   /* PORT: C linkage, as defined (W2) */
 
-extern void GameBrains_KeyboardEvent(void *rec, int key);
-extern void GameBrains_NextUnitTurn(void *ctx);
+extern "C" void GameBrains_KeyboardEvent(void *rec, int key);   /* PORT: C linkage, as defined (W2) */
+extern "C" void GameBrains_NextUnitTurn(void *ctx);   /* PORT: C linkage, as defined (W2) */
 extern unsigned char site_get(int x, int y);
 
-extern void PediaWin_Show(void *p, int kind, int article);
+extern "C" void PediaWin_Show(void *p, int kind, int article);   /* PORT: C linkage, as defined (W2) */
 
 extern void AboutBox(void);
 extern void conquest(void);
@@ -115,11 +115,11 @@ extern void revolution(void);
 extern void DrawMap(int flag);
 extern void GameWin_Redraw(GameWin *w);
 extern int popup_ask_number(char *ctx, char *name, int n);
-extern void sound_play(int id);
+extern "C" void sound_play(int id);   /* PORT: C linkage, as defined (W2) */
 extern void art_cheat(void);
 extern void OpenBackdrop(void);
 extern void CloseBackdrop(void);
-extern void MainWin_DefaultDesktop(void *o);
+extern "C" void MainWin_DefaultDesktop(void *o);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int get_w_6(void *r);

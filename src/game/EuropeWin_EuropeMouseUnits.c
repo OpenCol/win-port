@@ -66,11 +66,11 @@ extern int shift_key(void);
 extern void get_unit_loc(int index, int x, int *band, int *pos,
                                  int *width, int *p6, int *p7);
 extern int InBox(int x, int y, int rx, int ry, int rw, int rh);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern void europe_change_mode(void);
 extern void europe_select_unit(void);
 extern void europe_click_unit(void);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void EuropeWin_AttemptCargoToEurope(EuropeWin *w, int u, int goods, int ask);
 

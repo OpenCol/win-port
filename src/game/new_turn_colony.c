@@ -124,10 +124,10 @@ extern int g_shortfall[];                 /* SEG21:0x1b4 */
 extern void set_europe(int n);
 
 extern int europe_bid_price(int good);
-extern void traffic_to_europe(int good, int amount);
+extern "C" void traffic_to_europe(int good, int amount);   /* PORT: C linkage, as defined (W2) */
    /* ColChild : GameWin, the base and the SImageButton as their bytes: 0x77a */
 extern void ColChild_CancelMessage(ColChild *child, int a);
-extern void ColChild_AddStringToMessage(ColChild *message, char *s);
+extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */
 extern void ColChild_AddToMessage(ColChild *child, int word);
 
 extern void ColChild_BackspaceMessage(ColChild *w);
@@ -140,8 +140,8 @@ extern void new_mood(int mood);
 extern void force_mood(int mood);
 
 extern char *strings(int n);
-extern int popm(char *msg, int n);
-extern void ColonyWin_Show(void *w, int colony);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
+extern "C" void ColonyWin_Show(void *w, int colony);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void set_colony(int colony);

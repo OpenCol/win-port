@@ -63,9 +63,9 @@ extern int next_unit(int u);
 extern void get_transit_loc(int idx, int base_x, int tier3_count, int extra,
                                          int *tier, int *x, int *sprite, int *w, int *size);
 extern int InBox(int x, int y, int rx, int ry, int rw, int rh);
-extern int Screen_LButtonDownNow(void *w);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
-extern int UnitIcon(int u);
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern void EuropeWin_OnOKClick(int n);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 

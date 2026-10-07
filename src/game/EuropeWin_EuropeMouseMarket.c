@@ -70,10 +70,10 @@ extern int nth_europe_vessel(int n);
 extern int shift_key(void);
 extern int europe_ask_price(int g);
 extern void EuropeWin_DrawMarket(EuropeWin *w, int flag);
-extern void europe_label_cargo(int goods);
+extern "C" void europe_label_cargo(int goods);   /* PORT: C linkage, as defined (W2) */
 extern void europe_change_mode(void);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern void EuropeWin_EuropeMouseShipsCargo(EuropeWin *w, int x, int y);
 extern void EuropeWin_EuropeMouseShipsProper(EuropeWin *w, int x, int y);
 extern void EuropeWin_EuropeMouseTransit(EuropeWin *w, int x, int y);

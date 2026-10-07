@@ -52,7 +52,7 @@ extern void GameWin_Redraw(GameWin *o);
 
 extern "C" int font_height_1058_be4f(Font *font);
 
-extern int popup_ask(void *ctx, void *name, int max, void *dflt);
+extern "C" int popup_ask(void *ctx, void *name, int max, void *dflt);   /* PORT: C linkage, as defined (W2) */
 
 void ReportWin_OnTradeRouteClick(int x, int y)
 {

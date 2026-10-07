@@ -31,5 +31,5 @@
 
 /* PORT: an in-file stub of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it (W2). */
 
-LogWindow g_error_log(g_log_name);        /* DGROUP:0x2ac0 */
-Font g_log_font;                        /* DGROUP:0x4e68 */
+extern LogWindow g_error_log;   /* PORT: defined in src/game/create_log_window.c (W2) */        /* DGROUP:0x2ac0 */
+extern Font g_log_font;   /* PORT: defined in src/game/create_log_window.c (W2) */                        /* DGROUP:0x4e68 */

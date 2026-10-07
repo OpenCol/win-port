@@ -55,12 +55,12 @@ typedef struct { char gamewin[0xc4]; char title[0x80]; int tile_w, tile_h; char 
 extern char g_pedia_win;               /* SEG20:0x387c, declared */
 extern void set_colony(int colony);
 extern void colony_select_profession(int unit_roles_only);
-extern int colonist_find(int id, int *col, int *row);
-extern int Screen_LButtonDownNow(void *w);
+extern "C" int colonist_find(int id, int *col, int *row);   /* PORT: C linkage, as defined (W2) */
+extern "C" int Screen_LButtonDownNow(void *w);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
-extern void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);
+extern "C" void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y, int *rx, int *ry);   /* PORT: C linkage, as defined (W2) */
 extern int get_specialty(int u);
-extern void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);
+extern "C" void PediaWin_ShowModal(void *pedia, int category, int type, void *parent);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int ColonyMouseArea(int x, int y);
 extern "C" int WhichColonist(int x, int y);

@@ -108,7 +108,7 @@ extern void GRPort_SetClip(GRPort *port, RECT *r);
 extern void GRPort_ResetClip(GRPort *port);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern int top_unit_in_square(int x, int y);
-extern void sort_stack_by_class(int u);
+extern "C" void sort_stack_by_class(int u);   /* PORT: C linkage, as defined (W2) */
 extern int top_unit(int u);
 extern int next_unit(int u);
 extern unsigned char map_get(int x, int y);

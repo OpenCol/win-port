@@ -34,4 +34,4 @@ class DlgControl;
  * shipped has rather than a five-byte call the comparator has to collapse. */
 /* PORT: an in-file stub of GameWin::GameWin removed: src/game/GameWin_ctor_1008_d8ee.c defines it (W2). */
 /* PORT: this copy of GameWin::~GameWin removed: src/game/GameWin_dtor_1008_d965.c defines it once (W2). */
-GameWin g_win;      /* SEG22:0x0a */
+extern GameWin g_win;   /* PORT: defined in src/game/create_module_gamewin_1020_b374.c (W2) */      /* SEG22:0x0a */

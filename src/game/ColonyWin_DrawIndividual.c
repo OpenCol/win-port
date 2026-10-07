@@ -44,7 +44,7 @@ extern int g_stub_a;
 extern void set_colony(int colony);
 extern int job_count(int job);
 extern int ComputeIconRow(int pic, int n, int m, int *px, int y, int w1, int w2, int *pa, int *pb, int style);
-extern int get_job(int colonist);
+extern "C" int get_job(int colonist);   /* PORT: C linkage, as defined (W2) */
 extern int get_icon(int colonist);
 
 extern void GRPort_DrawRect(GRPort *w, RECT *r);

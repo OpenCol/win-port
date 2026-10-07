@@ -45,10 +45,10 @@
 #include "records.h"
 class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdit; struct PopupLine; class SRadioSet; class SCheckBox; class SEditBox; class SButton; class SListBox; class SRegion;/* PORT: this file's own Popup removed: include/gen/classes.h define it once (W1 step 2). */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
-extern int possibly_center(int x1, int y1, int x2, int y2, int mode);
-extern void sound_play(int n);
+extern "C" int possibly_center(int x1, int y1, int x2, int y2, int mode);   /* PORT: C linkage, as defined (W2) */
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 char possible_popup(char *msg, int ask, int remember, register int x,
                               register int y, int mode, int sound)

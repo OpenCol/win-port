@@ -60,9 +60,9 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 extern void ColChild_DrawNonClient(ColChild *w);
 extern void ColChild_Center(ColChild *w);
 extern void EventWin_Modal(EventWin *w);
-extern void PediaWin_FillStringList(PediaWin *w);
-extern void PediaWin_DrawListArea(PediaWin *w);
-extern void PediaWin_LeftMouseClick(int x, int y);
+extern "C" void PediaWin_FillStringList(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_DrawListArea(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_LeftMouseClick(int x, int y);   /* PORT: C linkage, as defined (W2) */
 extern void PediaWin_KeyClick(int key);
 extern void PediaWin_OnScroll(int page);
 extern int PediaWin_Close(void);
@@ -88,6 +88,7 @@ extern "C" void win_set_icon_1060_61b9(DialogWin *port, int icon);
 extern "C" void win_enable_1060_6798(DialogWin *o);
 extern "C" void win_set_focus(DialogWin *w);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_ShowModal(PediaWin *pedia, int category, int article, EventWin *parent)
 {
     GRPort port;

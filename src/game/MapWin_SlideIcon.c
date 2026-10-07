@@ -33,7 +33,7 @@ class DlgControl;
 #include "records.h"
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern int possibly_center(int x1, int y1, int x2, int y2, int mode);
+extern "C" int possibly_center(int x1, int y1, int x2, int y2, int mode);   /* PORT: C linkage, as defined (W2) */
 extern void UpdateTerrainRegion(int x, int y, int w, int h);
 extern void GenerateUnitsRegion(int x, int y, int w, int h);
 extern void PieceDraw_noport(int u, int flags, int x, int y, int w, int h);

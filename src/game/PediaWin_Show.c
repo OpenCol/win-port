@@ -34,9 +34,9 @@ class PediaWin : public ColChild { public: short category; SImageButton button; 
 struct logpal;
 extern int GRPort_LoadPicture(GRPort *p, int res, int w, int h, struct logpal *pal);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
-extern void PediaWin_FillStringList(PediaWin *w);
-extern void PediaWin_DrawListArea(PediaWin *w);
-extern void PediaWin_LeftMouseClick(int x, int y);
+extern "C" void PediaWin_FillStringList(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_DrawListArea(PediaWin *w);   /* PORT: C linkage, as defined (W2) */
+extern "C" void PediaWin_LeftMouseClick(int x, int y);   /* PORT: C linkage, as defined (W2) */
 extern void PediaWin_KeyClick(int key);
 extern void PediaWin_OnScroll(int page);
 extern int PediaWin_Close(void);
@@ -61,6 +61,7 @@ extern "C" void *set_on_close_1060_6726(EventTable *table, void *fn);
 extern "C" void *set_on_keydown_after_1060_675f(EventTable *table, void *fn);
 extern "C" void win_set_icon_1060_61b9(DialogWin *port, int icon);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void PediaWin_Show(PediaWin *o, int category, int article)
 {
     GRPort port;

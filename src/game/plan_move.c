@@ -180,11 +180,11 @@ extern void relocate_stacked_units(int u, int x, int y);
 extern int terrain_is_ocean(int x, int y);
 extern void move_a_unit(int u, int dir);
 extern void set_course_for_europe(int u);
-extern void traffic_to_europe(int g, int n);
+extern "C" void traffic_to_europe(int g, int n);   /* PORT: C linkage, as defined (W2) */
 extern void delete_unit(int u);
 
 extern void popup_say(int slot, int t);
-extern int popm(char *msg, int k);
+extern "C" int popm(char *msg, int k);   /* PORT: C linkage, as defined (W2) */
 extern int get_treaty(int nation_a, int nation_b);
 extern int village_anger(int v, int *strength);
 extern int tribe_radius(int tribe);

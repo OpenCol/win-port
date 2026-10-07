@@ -59,7 +59,7 @@ typedef struct { char pad[1]; } MainWin;
 extern MainWin g_main_win;        /* SEG20:0x5ca, declared */
 extern GameState g_game;   /* SEG20:0x7782 */
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void popup_say(int slot, int v);
 extern int nth_cargo_vessel(int carrier);
 extern int unit_is_active(int u);
@@ -67,16 +67,16 @@ extern void space_string(char *buf);
 extern void open_string(char *s);
 extern void close_string(char *s);
 
-extern char *text_get(void);
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void expand_text_template(char *src, char *dst);
-extern int text_open(void *unused, char *id);
-extern void Popup_sprite(Popup *popup, Sprite *art, int u, char *s);
-extern int UnitIcon(int u);
+extern "C" int text_open(void *unused, char *id);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_sprite(Popup *popup, Sprite *art, int u, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_set_active(Popup *popup, int id);
 extern void move_to_top(int u);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern int get_cargo(int u, int slot);
-extern int attempt_cargo_to_colony(int u, int type, int n);
+extern "C" int attempt_cargo_to_colony(int u, int type, int n);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void win_disable_1010_e459(void *ctx);
 extern "C" void win_enable_1010_e4d4(void *ctx);

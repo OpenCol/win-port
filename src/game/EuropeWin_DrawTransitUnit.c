@@ -50,7 +50,7 @@
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
 
 #include "icons.h"
-extern int UnitIcon(int u);
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y, int span, int mode);
 extern void SetGlobalSpriteScale(int num, int den);
 extern int get_cargo(int u, int slot);

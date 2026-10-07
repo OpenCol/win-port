@@ -23,7 +23,7 @@
 extern int g_stub_a;
 extern void *GetEventWindow(void);
 
-extern void ColonyWin_DrawMiscellaneous(void *w, int redraw);
+extern "C" void ColonyWin_DrawMiscellaneous(void *w, int redraw);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void MSHideControl_1010_e54d(void *control);
 extern "C" void MSShowControl_1010_e574(void *control);

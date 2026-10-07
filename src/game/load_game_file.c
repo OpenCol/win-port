@@ -78,7 +78,7 @@ extern int allocate_map_memory(int big);
 extern void map_free(void);
 extern void feature_free(void);
 extern void continent_free(void);
-extern void sound_play(int id);
+extern "C" void sound_play(int id);   /* PORT: C linkage, as defined (W2) */
 extern void LoadTray(void);
 extern void random_activate(int seed);
 extern void revolution_setup(void);

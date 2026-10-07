@@ -34,7 +34,7 @@ extern int g_popup_tribe;             /* DGROUP:0x2518, declared */
 
 extern int land_region_at(int x, int y);
 extern unsigned char feature_get(int x, int y);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern int is_colony(int x, int y);
 extern int find_close_village(int x, int y, int nation, int owner);
 extern int tribe_radius(int tribe);

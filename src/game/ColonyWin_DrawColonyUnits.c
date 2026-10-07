@@ -61,7 +61,7 @@ extern char *strings(int n);
 extern int top_unit_in_square(int x, int y);
 extern void SetGlobalSpriteScale(int num, int den);
 extern void PieceDraw(GRPort *port, int u, int flags, int x, int y, int span, int mode);
-extern int UnitIcon(int u);
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
 
 extern void GRPort_DrawRect(GRPort *w, RECT *r);

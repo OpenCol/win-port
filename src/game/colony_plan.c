@@ -164,7 +164,7 @@ extern int terrain_is_ocean(int x, int y);
 
 extern int has_father(int nation, int bit);
 extern int treaty_on(int nation, int other, int m);
-extern void traffic_from_europe(int g, int n);
+extern "C" void traffic_from_europe(int g, int n);   /* PORT: C linkage, as defined (W2) */
 extern int make_fake_unit(int icon, int x, int y, int owner, int strength);
 extern void blow_fake_unit(void);
 extern void perform_orders_clear(int u);
@@ -183,7 +183,7 @@ extern int has_building(int bit);
 extern int get_specialty(int u);
 extern void set_specialty(int u, int s);
 extern void set_progress(int u, int progress);
-extern int get_job(int u);
+extern "C" int get_job(int u);   /* PORT: C linkage, as defined (W2) */
 extern int any_spec(int job);
 extern int set_job(int u, int job);
 extern void reset_colony_units(void);

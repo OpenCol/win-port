@@ -59,11 +59,11 @@ extern StatWin g_stat_win;           /* SEG20:0x1566 */
 extern void *GetEventWindow(void);
 extern int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my);
 
-extern void ColonyWin_Show(void *w, int colony);
+extern "C" void ColonyWin_Show(void *w, int colony);   /* PORT: C linkage, as defined (W2) */
 extern void MapWin_Reposition(MapWin *o, int x, int y);
 
 extern void GameWin_Redraw(GameWin *rec);
-extern void GameBrains_MoveUnit(void *rec, int dir);
+extern "C" void GameBrains_MoveUnit(void *rec, int dir);   /* PORT: C linkage, as defined (W2) */
 
 /* same object: 4-byte `push cs; call ` */
 

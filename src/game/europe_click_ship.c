@@ -49,15 +49,15 @@ class Font; class GameWin; struct PopupItem; struct PopupSprite; struct PopupEdi
 
 
 extern void popup_say(int slot, int v);
-extern void Popup_item(Popup *popup, char *s, int id);
-extern char *text_get(void);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void expand_text_template(char *src, char *dst);
-extern int text_open(void *unused, char *id);
-extern void Popup_sprite(Popup *popup, Sprite *art, int u, char *s);
-extern int UnitIcon(int u);
+extern "C" int text_open(void *unused, char *id);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_sprite(Popup *popup, Sprite *art, int u, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
 extern void move_to_top(int u);
 extern int get_cargo(int u, int slot);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 
 extern "C" void set_name_slot_1048_de36(int slot, char *s);
 

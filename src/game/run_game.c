@@ -87,7 +87,7 @@ extern void MSShowMenuBar(void);
 extern void sound_init(void);
 struct logpal;
 extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
-extern void MainWin_DefaultDesktop(void *o);
+extern "C" void MainWin_DefaultDesktop(void *o);   /* PORT: C linkage, as defined (W2) */
 extern void clean_up(void);
 extern void CloseBackdrop(void);
 extern int begin_game(void);

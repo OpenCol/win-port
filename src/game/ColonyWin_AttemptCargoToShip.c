@@ -37,7 +37,7 @@ extern void ColChild_CancelMessage(ColChild *child, int a);
 extern void ColChild_AddToMessage(ColChild *child, int idx);
 extern void ColChild_BackspaceMessage(ColChild *w);
 
-extern void ColChild_AddStringToMessage(ColChild *message, char *s);
+extern "C" void ColChild_AddStringToMessage(ColChild *message, char *s);   /* PORT: C linkage, as defined (W2) */
 extern int cargo_holds_free(int u, int g, int *room);
 extern void popup_say(int slot, int word);
 extern int popup_ask_number(char *ctx, char *name, int n);

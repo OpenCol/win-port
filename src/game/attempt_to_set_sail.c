@@ -31,16 +31,16 @@ extern void stack_ship(int u);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern void Popup_set_width(Popup *popup, int width);
-extern void sort_stack_by_class(int u);
+extern "C" void sort_stack_by_class(int u);   /* PORT: C linkage, as defined (W2) */
 extern int top_unit(int u);
 extern int next_unit(int u);
-extern int UnitIcon(int u);
-extern void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);   /* PORT: C linkage, as defined (W2) */
 extern int get_cargo(int u, int slot);
 extern void relocate_stacked_units(int u, int x, int y);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-extern void set_course_for_new_world(int u);
+extern "C" void set_course_for_new_world(int u);   /* PORT: C linkage, as defined (W2) */
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void reset_europe_units(void);
 /* same object: 4-byte `push cs; call ` (rule 47) */

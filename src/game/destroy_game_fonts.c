@@ -29,5 +29,5 @@
 /* PORT: an in-file stub of Font::Font removed: src/game/Font_ctor_1008_d9c4.c defines it (W2). */
 /* PORT: an in-file stub of Font::~Font removed: src/game/Font_dtor_1008_d4b5.c defines it (W2). */
 
-Font g_font16(1, 0x10);     /* DGROUP:0x24e8 */
-Font g_font12(1, 0xc);      /* DGROUP:0x24ec */
+extern Font g_font16;   /* PORT: defined in src/game/create_game_fonts.c (W2) */     /* DGROUP:0x24e8 */
+extern Font g_font12;   /* PORT: defined in src/game/create_game_fonts.c (W2) */      /* DGROUP:0x24ec */

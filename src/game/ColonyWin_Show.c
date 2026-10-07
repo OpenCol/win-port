@@ -85,6 +85,7 @@ extern "C" void ColonyWin_Init(ColonyWin *w);
 extern "C" void ColonyWin_DoBuildingFizzle(ColonyWin *w);
 extern "C" void label_remove_label(void);
 
+extern "C"   /* PORT: C linkage: C files call it too (W2) */
 void ColonyWin_Show(ColonyWin *w, register int colony)
 {
     int prev;

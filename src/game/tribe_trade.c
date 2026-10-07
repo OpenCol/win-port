@@ -88,7 +88,7 @@ extern int get_cargo_amount(int u, int slot);
 
 extern void space_string(char *buf);
 
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 extern void popup_say(int slot, int word);
 extern int piss_factor(int tension);

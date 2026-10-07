@@ -38,7 +38,7 @@ extern int Popup_exec(Popup *popup, char *text);
 
 extern void set_colony(int colony);
 extern char *strings(int n);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern int custom_sell(int good);
 extern void Popup_set_check(Popup *p, int key, int on);
 extern int Popup_get_check(Popup *p, int key);

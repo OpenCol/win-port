@@ -42,7 +42,7 @@ extern int get_production_cost(int item, int *tools);
 extern char *get_production_name(int item);
 
 extern long check_gold(int nation);
-extern int popm(char *msg, int n);
+extern "C" int popm(char *msg, int n);   /* PORT: C linkage, as defined (W2) */
 extern void subtract_gold(int nation, long amount);
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" void MSShowControl_1010_e574(void *control);

@@ -76,9 +76,9 @@ extern void CTable_Fill(CTable *pal, int start, int count, unsigned char *rgb);
 extern int GRPort_LoadPicture(GRPort *p, int id, int a, int b, struct logpal *pal);
 extern void Sprite_Extract(Sprite *spr, GRPort *src, int x, int y, int w, int h);
 extern RECT *Sprite_Draw(RECT *out, Sprite *s, GRPort *port, int px, int py);
-extern int text_open(void *a, char *id);
-extern char *text_get(void);
-extern void sound_play(int id);
+extern "C" int text_open(void *a, char *id);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
+extern "C" void sound_play(int id);   /* PORT: C linkage, as defined (W2) */
 extern void text_close(void);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */

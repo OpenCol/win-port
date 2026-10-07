@@ -54,8 +54,8 @@ extern char g_labels_txt[];              /* DGROUP:0xaa, "LABELS" */
 extern Nation g_nations[];             /* SEG20:0xc2f4; 0xc326 is +0x32,
                                               .start_x and .start_y */
 
-extern int text_open(void *unused, char *name);
-extern char *text_get(void);
+extern "C" int text_open(void *unused, char *name);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern char *text_item_get(void);
 extern int text_item_string(void);
 extern int text_string(void);

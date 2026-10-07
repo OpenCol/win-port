@@ -36,7 +36,7 @@
  * inside the window. Nothing in the corpus writes them. */
 
 extern int MapWin_TileSize(MapWin *w);
-extern int possibly_center(int x1, int y1, int x2, int y2, int mode);
+extern "C" int possibly_center(int x1, int y1, int x2, int y2, int mode);   /* PORT: C linkage, as defined (W2) */
 extern int GRPort_Init(GRPort *p, void *r);
 extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 

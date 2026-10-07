@@ -56,15 +56,15 @@ extern void space_string(char *buf);
 extern void open_string(char *s);
 extern void close_string(char *s);
 
-extern int text_open(void *ctx, char *name);
-extern int UnitIcon(int u);
-extern void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);
-extern char *text_get(void);
+extern "C" int text_open(void *ctx, char *name);   /* PORT: C linkage, as defined (W2) */
+extern "C" int UnitIcon(int u);   /* PORT: C linkage, as defined (W2) */
+extern "C" void Popup_sprite(Popup *popup, Sprite *sprite, int id, char *s);   /* PORT: C linkage, as defined (W2) */
+extern "C" char *text_get(void);   /* PORT: C linkage, as defined (W2) */
 extern void expand_text_template(char *src, char *dst);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern void Popup_set_active(Popup *popup, int key);
 extern void move_to_top(int u);
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 
 /* The module's one-line wrappers are defined here because the shipped calls to them are
  * the compiler's own `push cs / call `; their own callees are not in this file. */

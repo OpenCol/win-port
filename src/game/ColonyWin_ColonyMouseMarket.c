@@ -56,8 +56,8 @@ extern int nth_cargo_vessel(int carrier);
 extern void ColonyWin_DrawMarket(ColonyWin *w, int redraw);
 extern int ColonyWin_AttemptCargoToShip(ColonyWin *w, int u, int goods, int a, int b);
 extern void ColonyWin_ColonyMarketMessage(ColonyWin *w, int goods, int a, int flag);
-extern void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y,
-                                  int *mx, int *my);
+extern "C" void ColChild_DragIcon(ColChild *w, void *sprite, int x, int y,
+                                  int *mx, int *my);   /* PORT: C linkage, as defined (W2) */
 extern int shift_key(void);
 extern void ColonyWin_ColonyMouseShipsProper(ColonyWin *w, int x, int y);
 

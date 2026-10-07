@@ -41,7 +41,7 @@ public:
    /* 0x41e bytes: the palette, its handle and the cycling state */
 
 extern int g_stub_a;
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern void DoFireworks(void);
 
 extern void Flic_Reset(Flic *anim);

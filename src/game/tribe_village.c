@@ -78,7 +78,7 @@ extern char *strings(int n);
 
 extern int land_region_at(int x, int y);
 extern int job_of_unit(int u);
-extern void Popup_item(Popup *popup, char *text, int id);
+extern "C" void Popup_item(Popup *popup, char *text, int id);   /* PORT: C linkage, as defined (W2) */
 extern void DrawMap(int flag);
 extern void end_unit_turn(int u);
 

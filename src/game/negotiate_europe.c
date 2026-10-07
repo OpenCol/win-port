@@ -108,13 +108,13 @@ extern int g_units_expelled;                   /* DGROUP:0x1182, declared */
 
 extern void Popup_ctor(Popup *p, int n);
 extern void Popup_dtor(Popup *p, int n);
-extern void Popup_item(Popup *popup, char *s, int id);
+extern "C" void Popup_item(Popup *popup, char *s, int id);   /* PORT: C linkage, as defined (W2) */
 extern char *strings(int n);
 extern int get_treaty(int nation_a, int nation_b);
 extern int treaty_off(int nation, int other, int mask);
 extern int treaty_on(int nation, int other, int m);
 
-extern void sound_play(int n);
+extern "C" void sound_play(int n);   /* PORT: C linkage, as defined (W2) */
 extern void set_europe(int n);
 extern void set_colony(int colony);
 extern void set_tribe(int tribe);
