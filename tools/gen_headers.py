@@ -166,17 +166,47 @@ def file_scope(text):
     return "".join(out)
 
 
+def file_typedefs():
+    """{name: {typedef statement}} of the one-line typedefs files in src/ write at file scope."""
+    out = {}
+    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+        for m in re.finditer(r"^[ \t]*(typedef [^;{}]*;)", file_scope(open(p, errors="replace").read()), re.M):
+            s = re.sub(r"\s+", " ", m.group(1)).strip()
+            n = re.search(r"\(\s*\*\s*(\w+)\s*\)\s*\(|(\w+)\s*;$", s)
+            if n:
+                out.setdefault(n.group(1) or n.group(2), set()).add(s)
+    return out
+
+
+def global_definitions():
+    """{name: `extern TYPE name[dims];`} for every global some file in src/ defines (not
+    static, not extern): the type its definition gives it, widened. Constructor arguments and
+    initialisers are dropped."""
+    out = {}
+    for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
+        scope = file_scope(open(p, errors="replace").read())
+        for m in re.finditer(r"(?:^|;|\})[ \t\n]*((?!extern\b|static\b|typedef\b|return\b)[A-Za-z_][\w \t*]*?)\b(g_\w+)"
+                             r"\s*((?:\[[^\]]*\]\s*)*)(?:\([^;{}]*\))?\s*(?:=[^;]*)?;", scope, re.M):
+            head = re.sub(r"\s+", " ", m.group(1)).strip()
+            if not head or re.search(r"\b(class|struct|union|enum)\s*$", head):
+                continue
+            # exactly as defined: the definition in src/ still says `int`, and a header that said
+            # i16 would contradict it (the sources' ints are widened together, later)
+            out[m.group(2)] = "extern %s %s%s;" % (head, m.group(2), re.sub(r"\s+", "", m.group(3)))
+    return out
+
+
 def file_declarations():
     """(variables, functions) some file in src/ declares itself at file scope: an `extern`
     variable, or a prototype (not a definition). Functions map to the set of signatures the
     files give them."""
-    vars_, funcs = set(), {}
+    vars_, funcs = {}, {}
     for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c")):
         t = file_scope(open(p, errors="replace").read())
         for m in re.finditer(r"^[ \t]*((?:extern\s+(?:\"C\"\s+)?)?[A-Za-z_][^;{}()#=]*?\b([A-Za-z_]\w*)\s*\([^;{}]*\)\s*;)", t, re.M):
             funcs.setdefault(m.group(2), set()).add(signature(m.group(1)))
-        for m in re.finditer(r"^[ \t]*extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;", t, re.M):
-            vars_.add(m.group(1))
+        for m in re.finditer(r"^[ \t]*(extern\s+(?!\"C\")[^;(){}=]*?\b(\w+)\s*(?:\[[^\]]*\]\s*)*;)", t, re.M):
+            vars_.setdefault(m.group(2), set()).add(re.sub(r"\s+", " ", m.group(1)).strip())
     return vars_, funcs
 
 
@@ -317,9 +347,43 @@ def gen_colonization():
     fwd = ("#ifdef __cplusplus\n" + "".join("class %s;\n" % c for c in cls_names) +
            "#else\n#include \"classes.h\"   /* PORT: the C views */\n#endif\n")
     out = out.replace('#include "w16types.h"', '#include "w16types.h"\n#include "records.h"\n' + fwd, 1)
-    # globals: the type the corpus's own files declare, where the header's differs
+    # typedefs the header and the files both define: when every file spells it one way, that
+    # spelling (an identical typedef may be repeated, a different one may not)
+    ftd = file_typedefs()
+
+    def td_line(m):
+        spell = ftd.get(m.group(1))
+        if spell and len(spell) == 1:
+            s = next(iter(spell))
+            if re.sub(r"\s+", " ", m.group(0)).strip() != s:
+                return s + "   /* PORT: the files' typedef */"
+        return m.group(0)
+    out = re.sub(r"^typedef [^;{}]*?\(\s*\*\s*(\w+)\s*\)\s*\([^;{}]*\)\s*;", td_line, out, flags=re.M)
+    out = re.sub(r"^typedef struct (\w+)_s \1;", td_line, out, flags=re.M)
+    # globals: the type a global's definition in src/ gives it; else the one spelling every file
+    # in src/ that declares it uses; else the corpus's (most files'). A global the files in src/
+    # declare two ways is left to them.
     own_vars, own_funcs = file_declarations()
-    cg = {n: d for n, d in corpus_globals().items() if n not in own_vars}
+    defs = global_definitions()
+    cg = {}
+    for n, d in corpus_globals().items():
+        if n in own_vars and len(own_vars[n]) > 1:
+            continue
+        cg[n] = d
+    for n, spells in own_vars.items():
+        if len(spells) == 1 and n.startswith("g_"):
+            cg[n] = next(iter(spells))          # as the files in src/ write it
+    users = corpus_globals()
+    for n, d in defs.items():
+        u = users.get(n)
+        # the definition's `T x[1]` against its users' `T x`: the users' (one object, as every
+        # caller takes it; the defining file follows, with a PORT: edit)
+        if u and "[" in d and "[" not in u:
+            continue
+        if n not in own_vars or own_vars[n] <= {d}:
+            cg[n] = d
+    # the stubs' scratch globals belong to each file that writes one, with its own type
+    cg = {n: d for n, d in cg.items() if not n.startswith("g_stub")}
     gfix = []
 
     def glob_decl(m):

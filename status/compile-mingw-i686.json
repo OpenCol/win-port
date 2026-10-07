@@ -1,32 +1,20 @@
 {
  "first_errors": [
   [
-   12,
+   13,
    "invalid conversion from 'X' to 'X' [-fpermissive]"
   ],
   [
-   11,
-   "conflicting declaration 'X'"
+   7,
+   "'X' was not declared in this scope; did you mean 'X'?"
   ],
   [
-   10,
+   7,
    "conflicting types for 'X'; have 'X'"
   ],
   [
    6,
-   "'X' was not declared in this scope; did you mean 'X'?"
-  ],
-  [
-   6,
-   "redefinition of typedef 'X' with different type"
-  ],
-  [
-   6,
    "subscripted value is neither array nor pointer nor vector"
-  ],
-  [
-   4,
-   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
   ],
   [
    4,
@@ -38,7 +26,15 @@
   ],
   [
    3,
+   "conflicting declaration 'X'"
+  ],
+  [
+   3,
    "passing argument 1 of 'X' from incompatible pointer type [-Wincompatible-pointer-types]"
+  ],
+  [
+   2,
+   "invalid conversion from 'X' {aka 'X'} to 'X' [-fpermissive]"
   ],
   [
    2,
@@ -54,15 +50,19 @@
   ],
   [
    1,
-   "'X' was not declared in this scope"
-  ],
-  [
-   1,
    "assignment to expression with array type"
   ],
   [
    1,
+   "cannot convert 'X' to 'X'"
+  ],
+  [
+   1,
    "cannot convert 'X' {aka 'X'} to 'X'"
+  ],
+  [
+   1,
+   "cannot convert to a pointer type"
   ],
   [
    1,
@@ -81,7 +81,7 @@
    "invalid types 'X' for array subscript"
   ]
  ],
- "ok": 3164,
+ "ok": 3181,
  "toolchain": "mingw-i686",
  "total": 3245
 }

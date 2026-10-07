@@ -73,7 +73,8 @@ Sprite g_terrain_sprites[0xbe];       /* SEG20:0x4506 */
 Sprite g_overlay_sprites[0x2c];       /* SEG20:0x5cc6 */
 Sprite g_icon_sprites[0x84];       /* SEG20:0x6246 */
 Sprite g_flag_art[0x12];       /* SEG20:0x72c6 */
-Sprite g_background_tile[1];            /* SEG20:0x7506 */
+/* PORT: one Sprite, as every user of g_background_tile takes it; the shipped data held an array of one (W1). */
+Sprite g_background_tile;            /* SEG20:0x7506 */
 Sprite g_route_panel_sprite;              /* SEG20:0x7526 */
 Sprite g_edge_sprites[0x10];       /* SEG20:0x7546 */
 CursorClass g_cursors[0xf];        /* SEG20:0x7746 */

@@ -109,7 +109,7 @@ typedef uint16_t HANDLE;
 typedef uint16_t HDC;
 typedef uint16_t HINSTANCE;
 typedef uint16_t HWND;
-typedef long (*WNDPROC)();
+typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);   /* PORT: the files' typedef */
 
 typedef struct {
     uint8_t _pad_0[590];
@@ -631,7 +631,7 @@ PORT_SIZE_ASSERT(sizeof(WordPair) == 4, "WordPair is not 0x4 bytes");
 
 extern i16 g_1fbe;   /* PORT: the corpus's type */
 extern int16_t g_266a;
-extern int16_t g_4b2a;
+extern int g_4b2a;   /* PORT: the corpus's type */
 extern i16 g_4bec;   /* PORT: the corpus's type */
 extern char g_4c24;   /* PORT: the corpus's type */
 extern i16 g_4cd8;   /* PORT: the corpus's type */
@@ -647,13 +647,13 @@ extern i16 g_about_step;   /* PORT: the corpus's type */
 extern i16 g_action_word[];   /* PORT: the corpus's type */
 extern i16 g_adjacent_colony_nation;   /* PORT: the corpus's type */
 extern i16 g_ai_managing_colony;   /* PORT: the corpus's type */
-extern unsigned char g_ai_military_target[];   /* PORT: the corpus's type */
+extern unsigned char g_ai_military_target[4];   /* PORT: the corpus's type */
 extern i16 g_ai_repeat_count;   /* PORT: the corpus's type */
 extern i16 g_ai_repeat_unit;   /* PORT: the corpus's type */
 extern int16_t g_america_map;
 extern void *g_anim;
 extern void *g_anim2;
-extern Sprite g_art_base[];   /* PORT: the corpus's type */
+extern Sprite g_art_base[0x1b];   /* PORT: the corpus's type */
 extern int8_t g_art_bonus[][32];
 extern int8_t g_art_hills[][32];
 extern int8_t g_art_forest[][32];
@@ -716,7 +716,7 @@ extern int16_t g_chosen_item;
 extern int8_t g_claim_sprite;
 extern ClassRec g_class[];
 extern i16 g_closing_flag;   /* PORT: the corpus's type */
-extern i16 g_cmisc_word[];   /* PORT: the corpus's type */
+extern int g_cmisc_word[3];   /* PORT: the corpus's type */
 extern unsigned char g_coarse_grid_land[15][18];   /* PORT: the corpus's type */
 extern i16 g_flat_step_cost;   /* PORT: the corpus's type */
 extern unsigned char g_coarse_grid_sea[15][18];   /* PORT: the corpus's type */
@@ -789,9 +789,9 @@ extern void * g_current_window;   /* PORT: the corpus's type */
 extern char *g_cursor;   /* PORT: the corpus's type */
 extern int8_t g_cursor_sprite[];
 extern i16 g_cursor_state;   /* PORT: the corpus's type */
-extern i16 g_cursor_x;   /* PORT: the corpus's type */
-extern i16 g_cursor_y;   /* PORT: the corpus's type */
-extern CursorClass g_cursors[];   /* PORT: the corpus's type */
+extern int g_cursor_x;   /* PORT: the corpus's type */
+extern int g_cursor_y;   /* PORT: the corpus's type */
+extern CursorClass g_cursors[0xf];   /* PORT: the corpus's type */
 extern int16_t g_custom_house_colony;
 extern i16 g_cycle_flag;   /* PORT: the corpus's type */
 extern i16 g_debug_flags;   /* PORT: the corpus's type */
@@ -839,7 +839,7 @@ extern i16 g_draw_py;   /* PORT: the corpus's type */
 extern i16 g_draw_x;   /* PORT: the corpus's type */
 extern i16 g_draw_y;   /* PORT: the corpus's type */
 extern int16_t g_econ_title_word;
-extern Sprite g_edge_sprites[];   /* PORT: the corpus's type */
+extern Sprite g_edge_sprites[0x10];   /* PORT: the corpus's type */
 extern i16 g_editbox_extra;   /* PORT: the corpus's type */
 extern void * g_editbox_font;   /* PORT: the corpus's type */
 extern WNDPROC g_editbox_proc;
@@ -848,8 +848,12 @@ extern int8_t g_empty[];
 extern int8_t g_empty2[];
 extern int8_t g_empty_hold_sprite;
 extern char g_str_null[];   /* PORT: the corpus's type */
-extern char g_error_log;   /* PORT: the corpus's type */
-extern int16_t g_eurolabel_word[];
+#ifdef __cplusplus
+extern LogWindow g_error_log;
+#else
+extern int8_t g_error_log;
+#endif
+extern int g_eurolabel_word[3];   /* PORT: the corpus's type */
 extern i16 g_europe_arrival_unit;   /* PORT: the corpus's type */
 extern i16 g_europe_hover_busy;   /* PORT: the corpus's type */
 extern i16 g_europe_hover;   /* PORT: the corpus's type */
@@ -881,13 +885,13 @@ extern i16 g_feature_words[];   /* PORT: the corpus's type */
 extern char g_field[];   /* PORT: the corpus's type */
 extern unsigned char g_fish_food;   /* PORT: the corpus's type */
 extern int16_t g_flag_1d04;
-extern char g_flag_art[][0x20];   /* PORT: the corpus's type */
+extern Sprite g_flag_art[0x12];   /* PORT: the corpus's type */
 extern Sprite g_flag_sprite;   /* PORT: the corpus's type */
 extern void *g_flic_resource_type;
 extern int8_t g_fmt_alloc_failed[];
 extern int8_t g_fmt_lock_failed[];
 extern int8_t g_fog_sprite;
-extern int8_t g_font12[];
+extern Font g_font12;   /* PORT: the corpus's type */
 extern Font g_font16;   /* PORT: the corpus's type */
 extern Font g_font_small;   /* PORT: the corpus's type */
 extern Font g_font_tiny;   /* PORT: the corpus's type */
@@ -938,8 +942,8 @@ extern unsigned char g_icon_dy;   /* PORT: the corpus's type */
 extern i16 g_icon_h;   /* PORT: the corpus's type */
 extern GRPort g_icon_port;   /* PORT: the corpus's type */
 extern Sprite g_icon_sprite;   /* PORT: the corpus's type */
-extern Sprite g_icon_sprites[];   /* PORT: the corpus's type */
-extern int8_t g_in_accel;
+extern Sprite g_icon_sprites[0x84];   /* PORT: the corpus's type */
+extern char g_in_accel;   /* PORT: the corpus's type */
 extern Font g_info_font_large;   /* PORT: the corpus's type */
 extern Font g_info_font_small;   /* PORT: the corpus's type */
 extern i16 g_info_label[];   /* PORT: the corpus's type */
@@ -1013,7 +1017,7 @@ extern i16 g_map_lclick_busy;   /* PORT: the corpus's type */
 extern i16 g_map_mode;   /* PORT: the corpus's type */
 extern int8_t g_map_overlay;
 extern char g_mini_win_dlg;   /* PORT: the corpus's type */
-extern i16 g_seam_handle;   /* PORT: the corpus's type */
+extern int g_seam_handle;   /* PORT: the corpus's type */
 extern uint8_t *g_tile_p1;
 extern GRPort g_map_port;   /* PORT: the corpus's type */
 extern uint8_t *g_tile_p0;
@@ -1062,20 +1066,20 @@ extern char g_name_slots[][0x50];   /* PORT: the corpus's type */
 extern int16_t g_nation3_prefix_word;
 extern i16 g_nation_abbrev[];   /* PORT: the corpus's type */
 extern i16 g_nation_adjective[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_armed_ships[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_cargo_capacity[];   /* PORT: the corpus's type */
+extern unsigned char g_nation_armed_ships[4];   /* PORT: the corpus's type */
+extern unsigned char g_nation_cargo_capacity[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_colony_count[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_colour[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_free_colonists[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_land_strength[];   /* PORT: the corpus's type */
+extern unsigned char g_nation_free_colonists[4];   /* PORT: the corpus's type */
+extern unsigned char g_nation_land_strength[4];   /* PORT: the corpus's type */
 extern i16 g_nation_name[];   /* PORT: the corpus's type */
 extern i16 g_nation_name_word[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_population[];   /* PORT: the corpus's type */
+extern unsigned char g_nation_population[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_region[][16];   /* PORT: the corpus's type */
 extern unsigned char g_nation_region_strength[][16];   /* PORT: the corpus's type */
-extern unsigned char g_nation_ship_count[];   /* PORT: the corpus's type */
+extern unsigned char g_nation_ship_count[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_ships_in_transit[];   /* PORT: the corpus's type */
-extern unsigned char g_nation_strength[];   /* PORT: the corpus's type */
+extern unsigned char g_nation_strength[4];   /* PORT: the corpus's type */
 extern NationText g_nation_text[];   /* PORT: the corpus's type */
 extern unsigned char g_nation_unit_count[4];   /* PORT: the corpus's type */
 extern Nation2 g_nations2[];
@@ -1107,7 +1111,7 @@ extern signed char g_ortho_dy[];   /* PORT: the corpus's type */
 extern int16_t g_over_band[];
 extern int16_t g_over_lo[];
 extern signed char *g_overlay_plane;   /* PORT: the corpus's type */
-extern Sprite g_overlay_sprites[];   /* PORT: the corpus's type */
+extern Sprite g_overlay_sprites[0x2c];   /* PORT: the corpus's type */
 extern int16_t g_override_a_val;
 extern int16_t g_override_b_val;
 extern int16_t g_page_word;
@@ -1146,10 +1150,10 @@ extern int16_t g_player_nation;
 extern i16 g_player_took_control;   /* PORT: the corpus's type */
 extern i16 g_pop_besieged;   /* PORT: the corpus's type */
 extern i16 g_pop_blockaded;   /* PORT: the corpus's type */
-extern unsigned char g_pop_by_nation[];   /* PORT: the corpus's type */
+extern unsigned char g_pop_by_nation[4];   /* PORT: the corpus's type */
 extern Font *g_popup_font;   /* PORT: the corpus's type */
 extern Font *g_popup_font_small;   /* PORT: the corpus's type */
-extern int8_t *g_popup_label[];
+extern char * g_popup_label[3];   /* PORT: the corpus's type */
 extern i16 g_popup_label_id[];   /* PORT: the corpus's type */
 extern unsigned char g_popup_hilite_color;   /* PORT: the corpus's type */
 extern unsigned char g_popup_text_color;   /* PORT: the corpus's type */
@@ -1248,7 +1252,7 @@ extern i16 g_scrollbar_extra;   /* PORT: the corpus's type */
 extern i16 g_scrollbar_registered;   /* PORT: the corpus's type */
 extern i16 g_sea_claim;   /* PORT: the corpus's type */
 extern int16_t g_season;
-extern i16 g_season_word[];   /* PORT: the corpus's type */
+extern int g_season_word[2];   /* PORT: the corpus's type */
 extern long g_seed_base;   /* PORT: the corpus's type */
 extern int16_t g_seg31_0c[];
 extern int16_t g_seg31_38[];
@@ -1360,7 +1364,7 @@ extern unsigned char g_terrain_colour[];   /* PORT: the corpus's type */
 extern i16 g_terrain_defence;   /* PORT: the corpus's type */
 extern uint8_t g_terrain_row_bytes[][16];
 extern TerrainRec g_terrain_rows[];
-extern Sprite g_terrain_sprites[];   /* PORT: the corpus's type */
+extern Sprite g_terrain_sprites[0xbe];   /* PORT: the corpus's type */
 extern char g_text[];   /* PORT: the corpus's type */
 extern int8_t g_text_405[];
 extern int8_t g_text_406[];
@@ -1498,7 +1502,7 @@ extern int8_t text_lobotomize[];
 /* named only in a prototype, and only ever as a pointer */
 typedef struct FILE_s FILE;
 typedef struct Handler_s Handler;
-typedef struct LPCSTR_s LPCSTR;
+typedef const char *LPCSTR;   /* PORT: the files' typedef */
 
 /* one prototype per callee: the signature the most files agree on */
 extern void * ATOL(void *);
@@ -3783,8 +3787,69 @@ extern void write_gui_error_log(void);
 
 
 /* PORT: globals the corpus declares that the model's header does not */
+extern unsigned char _ctype[257];
+extern int g_4bee;
+extern void *g_anim_port;
+extern char g_area_map_str[];
+extern Pickup g_cargo_pickups[];
+extern GameWin *g_colony_popup;
+#ifdef __cplusplus
+extern ColonyWin *g_colony_window_ptr;
+#endif
+extern int g_consumption[];
+extern GRPort * g_current_port;
+extern int g_damaged_in_port;
+extern char g_data_dir[];
+#ifdef __cplusplus
+extern DebugWin g_debug_win;
+#endif
+extern int g_deficit[];
+extern GRPort *g_drag_port;
+extern unsigned char *g_draw_feature_loc;
+extern unsigned char *g_draw_map_loc;
+extern unsigned char *g_draw_site_loc;
+extern GameWin *g_europe_popup;
+extern int g_frame_top_sel[];
+extern int g_frame_top_text[];
+extern GameState g_game;
+extern GameBrains g_game_brains;
+extern int g_gr_error;
+extern char g_labels_txt[];
+extern GameWin *g_lowmem_box;
+extern SButton *g_lowmem_ok;
+#ifndef __cplusplus
+extern MainWin g_main_win;
+#endif
+extern MapSize g_map_size;
+extern char g_mini_win;
+extern int g_mood;
+extern char g_names_txt[];
+extern Nation g_nations[];
+extern int g_next_mood;
+#ifdef __cplusplus
+extern Opening *g_opening;
+#endif
+extern int g_opening_dismissed;
+extern char g_pedia_win;
 extern Plan g_plans[][64];
+extern int g_popup_nation;
+extern int g_popup_tribe;
+extern int g_rank_ids[4];
+extern ScaleSlot g_scale_cache[];
+extern int g_ships_in_port;
+extern int g_shortfall[];
+extern unsigned char g_sq_feature;
+extern unsigned char g_sq_site;
+extern unsigned char g_sq_terrain;
+#ifdef __cplusplus
+extern StatWin g_stat_win;
+#endif
+extern char g_str_usa[];
 extern Plan g_strategies[][16];
+extern unsigned char *g_tile_feature_loc;
+extern unsigned char *g_tile_map_loc;
+extern int g_units_expelled;
+extern unsigned g_wing_library;
 
 /* PORT: functions src/ defines that the model's header does not declare */
 extern int ATOL_1050_8de2(char *digits);
