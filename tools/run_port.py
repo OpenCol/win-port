@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the port under Wine and say how it ended (roadmap W4).
 
-    python3 tools/run_port.py [--seconds N] [--trace]
+    python3 tools/run_port.py [--seconds N] [--trace] [--desktop WxH]
 
 Runs build/colonize.exe (tools/undefined.py links it) in a fresh copy of the game directory
 ($COL_GAME_DIR, the patched install, hash-checked; copied to build/run/game every run), so it
@@ -58,7 +58,8 @@ def main(argv):
     t0 = time.time()
     # a Wine virtual desktop: windows go where the program puts them, as on Windows 3.1, with no
     # host window manager moving them (the macOS menu bar would push one created at y=0 down)
-    cmd = [wine(), "explorer", "/desktop=colonization,1024x768", EXE] if "--no-desktop" not in argv else [wine(), EXE]
+    size = argv[argv.index("--desktop") + 1] if "--desktop" in argv else "1024x768"
+    cmd = [wine(), "explorer", "/desktop=colonization," + size, EXE] if "--no-desktop" not in argv else [wine(), EXE]
     p = subprocess.Popen(cmd, cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     try:
         out, _ = p.communicate(timeout=secs)

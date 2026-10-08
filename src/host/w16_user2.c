@@ -80,7 +80,11 @@ int w16_GetSystemMetrics(int i)
 /* ------------------------------------------------------------------ window state */
 
 int w16_ShowWindow(unsigned h, int cmd) W16(ShowWindow);
-int w16_ShowWindow(unsigned h, int cmd) { return ShowWindow(HW(h), cmd); }
+int w16_ShowWindow(unsigned h, int cmd)
+{
+    w16_trace("ShowWindow(%#x, %d)", h, cmd);
+    return ShowWindow(HW(h), cmd);
+}
 
 void w16_UpdateWindow(unsigned h) W16(UpdateWindow);
 void w16_UpdateWindow(unsigned h) { UpdateWindow(HW(h)); }

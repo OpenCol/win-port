@@ -1,11 +1,11 @@
 {
  "scenarios": {
   "AUTO01": {
-   "checkpoints": 19,
+   "checkpoints": 31,
    "first_divergence": null,
-   "in_lockstep": 19,
+   "in_lockstep": 31,
    "save_sha256": "86cd21209301506e5dd00239251c70815c8712e15034c49c2c90f08390bbc365",
-   "turns": 3
+   "turns": 5
   }
  }
 }

@@ -5,6 +5,7 @@ and their state is compared at every step of every turn (roadmap W6).
     python3 tests/lockstep.py oracle SAVE [--turns N]    record the original  -> build/lockstep/<name>.oracle.*
     python3 tests/lockstep.py native SAVE [--turns N]    record the port      -> build/lockstep/<name>.native.*
     python3 tests/lockstep.py compare SAVE               the two, checkpoint by checkpoint
+    python3 tests/lockstep.py compare SAVE --full        every modelled global, not only the save's
     python3 tests/lockstep.py run SAVE [--turns N]       all three
     ... compare|run SAVE --record                      also merge the result into status/lockstep.json
 
@@ -109,6 +110,11 @@ def oracle_main(save, turns, out, raw):
     lin = r.base[E.SEG20] + E.BRAINS + 2
 
     loaded = r.base[E.DGROUP] + 0x8B             # g_loaded_flag
+    # and every data segment whole, beside the recorder's blocks: a divergence starts in state
+    # the save does not hold (the map's visible range, a window's size) before it reaches it
+    layout = json.load(open(os.path.join(ROOT, "import", "layout.json")))
+    data_segs = {int(k): v for k, v in layout["segments"].items() if 20 <= int(k) <= 34}
+    full = []
 
     def on_step(uc, _access, address, size, value, _ud):
         # the end of a human turn's store, with the recorder's all-AI ones: GameBrains_DoHuman
@@ -124,6 +130,9 @@ def oracle_main(save, turns, out, raw):
         turn, = struct.unpack("<h", bytes(uc.mem_read(r.base[E.SEG20] + E.GAME + 14, 2)))
         if (turn, step) != r.key:
             r.checkpoint((turn, step))
+            segs = {i: bytearray(m.read(i, 0, n)) for i, n in data_segs.items()}
+            segs[E.SEG20][E.BRAINS + 2:E.BRAINS + 4] = new
+            full.append({i: bytes(b) for i, b in segs.items()})
             if r.halt:                           # the turn limit: now, not at the next API call
                 uc.emu_stop()
             if r.raw is not None:
@@ -132,6 +141,9 @@ def oracle_main(save, turns, out, raw):
                 r.raw[-1]["brains"] = b.hex()
     r.uc.hook_add(UC_HOOK_MEM_WRITE, on_step, None, lin, lin + 1)
     doc = r.record()
+    import pickle
+    with gzip.open(raw.replace(".raw.gz", ".full.gz"), "wb") as fz:
+        pickle.dump(full, fz)
     doc["scenario"] = name
     doc["l17_seeds"] = l17
     json.dump(doc, open(out, "w"), indent=1)
@@ -192,8 +204,11 @@ def native(save, turns, seconds=1800):
     if "links" not in r.stdout:
         sys.exit("the port does not link:\n" + r.stdout[-1500:])
     t0 = time.time()
-    subprocess.run([sys.executable, os.path.join(ROOT, "tools", "run_port.py"), "--seconds", str(seconds)],
-                   env=dict(os.environ, PORT_LOCKSTEP=wine_path(work)))
+    # the oracle's display, 640 x 480: the screen metrics and WM_GETMINMAXINFO say so in a lockstep
+    # run (src/host), which is what places a maximized window; the 640 x 480 Wine desktop does the
+    # same where the driver has virtual desktops (winemac does not)
+    subprocess.run([sys.executable, os.path.join(ROOT, "tools", "run_port.py"), "--seconds", str(seconds),
+                    "--desktop", "640x480"], env=dict(os.environ, PORT_LOCKSTEP=wine_path(work)))
     cps = native_checkpoints(os.path.join(work, "native.cp"))
     print("native %s: %d checkpoints, %.0f s (log: %s)" % (name, len(cps), time.time() - t0,
                                                             os.path.relpath(os.path.join(work, "native.log"), ROOT)))
@@ -330,6 +345,47 @@ def compare(save, quiet=False):
     return same, total, first
 
 
+def compare_full(save, limit=12):
+    """every global the port dumps, in the 16-bit layout, against the oracle's data segments, at
+    each checkpoint: the first checkpoint where any differs, and which"""
+    import pickle
+    name, _path = scenario(save)
+    layout = json.load(open(os.path.join(ROOT, "import", "layout.json")))["globals"]
+    names = {}
+    for n, (seg, off) in layout.items():
+        names.setdefault((seg, off), n)
+    full = pickle.load(gzip.open(os.path.join(OUT, name + ".oracle.full.gz"), "rb"))
+    d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
+    keys = [(c["turn"], c["step"]) for c in d["checkpoints"]]
+    nat = native_checkpoints(os.path.join(OUT, name + ".native", "native.cp"))
+    k0 = next((k for k, key in enumerate(keys) if key == (nat[0]["turn"], nat[0]["step"])), 0) if nat else 0
+    for k, n in enumerate(nat):
+        if k0 + k >= len(full):
+            break
+        o = full[k0 + k]
+        diffs = []
+        for seg, off, count, w16, wn, kind, data in n["globals"]:
+            if kind == 3 or (kind == 0 and w16 != wn) or seg not in o:
+                continue
+            for e in range(count):
+                at, el = off + e * w16, data[e * wn:(e + 1) * wn]
+                ob = o[seg][at:at + w16]
+                pb = el[:w16]
+                if len(ob) == w16 and ob != pb:
+                    i = next(j for j in range(w16) if ob[j] != pb[j])
+                    g = names.get((seg, off), "%d:%04x" % (seg, off))
+                    diffs.append("%s%s+%#x (%d:%04x): %s, the port %s" % (
+                        g, "[%d]" % e if count > 1 else "", i, seg, at + i, ob[i:i + 4].hex(), pb[i:i + 4].hex()))
+                    break
+        if diffs:
+            print("checkpoint %d (turn %d step %d): %d globals differ" % (k, n["turn"], n["step"], len(diffs)))
+            for x in diffs[:limit]:
+                print("  " + x)
+            return k, diffs
+    print("every dumped global agrees at every checkpoint")
+    return None, []
+
+
 def record(save, same, total, first):
     """merge one scenario's result into status/lockstep.json (a ledger: other scenarios stay)"""
     name, path = scenario(save)
@@ -369,6 +425,9 @@ def main(argv):
         native(argv[1], turns, int(opt("--seconds", "1800")))
         print("bytes the port's dump cannot speak for:", unknown_bytes(argv[1]))
         return 0
+    if argv[:1] == ["compare"] and "--full" in argv:
+        k, _d = compare_full(argv[1], int(opt("--limit", "12")))
+        return 0 if k is None else 1
     if argv[:1] == ["compare"]:
         same, total, first = compare(argv[1])
         if "--record" in argv:

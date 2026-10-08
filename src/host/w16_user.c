@@ -194,8 +194,8 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
         return DefWindowProcA(h, msg, wp, lp);
     to16(msg, wp, lp, &m16, &w16, &l16);
     if (msg == WM_SIZE || msg == WM_MOVE)
-        w16_trace("%s(%#x) %d,%d", msg == WM_SIZE ? "WM_SIZE" : "WM_MOVE", w16_token(h),
-                  (int16_t)LOWORD(lp), (int16_t)HIWORD(lp));
+        w16_trace("%s(%#x) %d,%d wp %u", msg == WM_SIZE ? "WM_SIZE" : "WM_MOVE", w16_token(h),
+                  (int16_t)LOWORD(lp), (int16_t)HIWORD(lp), (unsigned)wp);
     if (msg == WM_CREATE || msg == WM_NCCREATE) {
         CREATESTRUCTA *cs = (CREATESTRUCTA *)lp;
         cs16.lpCreateParams = cs->lpCreateParams;
@@ -211,6 +211,20 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
         POINT *src = &mm->ptReserved;
         POINT16 *dst = &mm16.ptReserved;
         int i;
+        if (w16_lockstep()) {
+            /* the lockstep's 640 x 480 screen (W6), as winsim fills it: maximized, the window's
+               frame just off it; tracked up to the screen and 12 */
+            mm->ptMaxSize.x = 640 - 2 * mm->ptMaxPosition.x;
+            mm->ptMaxSize.y = 480 - 2 * mm->ptMaxPosition.y;
+            mm->ptMaxTrackSize.x = 640 + 12;
+            mm->ptMaxTrackSize.y = 480 + 12;
+            mm->ptMinTrackSize.x = 112;
+            mm->ptMinTrackSize.y = 27;
+            mm->ptReserved.x = mm->ptReserved.y = 0;
+        }
+        w16_trace("WM_GETMINMAXINFO(%#x) max %ldx%ld at %ld,%ld, track %ldx%ld..%ldx%ld", w16_token(h),
+                  mm->ptMaxSize.x, mm->ptMaxSize.y, mm->ptMaxPosition.x, mm->ptMaxPosition.y,
+                  mm->ptMinTrackSize.x, mm->ptMinTrackSize.y, mm->ptMaxTrackSize.x, mm->ptMaxTrackSize.y);
         for (i = 0; i < 5; i++) {
             dst[i].x = (int16_t)src[i].x;
             dst[i].y = (int16_t)src[i].y;
