@@ -39,16 +39,25 @@ import compile_all as ca      # noqa: E402
 INSTRUMENT = bool(os.environ.get("PORT_INSTRUMENT"))
 # PORT_TOOLCHAIN=winegcc: Winelib (W8) -- ELF objects, no leading underscore on C names, the
 # program a Winelib executable (colonize.exe.so, run with wine)
+# PORT_TOOLCHAIN=mingw-x64: 64-bit Windows (W9) -- build/x64/colonize.exe
 TOOLCHAIN = os.environ.get("PORT_TOOLCHAIN", "mingw-i686")
 WINELIB = TOOLCHAIN == "winegcc"
-OBJ = os.path.join(ROOT, "build", ("obj-instrument" if INSTRUMENT else "obj") + ("-winegcc" if WINELIB else ""))
-NM = "nm" if WINELIB else "i686-w64-mingw32-nm"
+X64 = TOOLCHAIN == "mingw-x64"
+# where stdcall names are undecorated (ELF, Win64) the W16() shims cannot take the Win16 names:
+# they keep their C names and the game's objects are renamed onto them (src/host/w16.h)
+RENAME = WINELIB or X64
+OBJ = os.path.join(ROOT, "build", ("obj-instrument" if INSTRUMENT else "obj") +
+                   {"winegcc": "-winegcc", "mingw-x64": "-x64"}.get(TOOLCHAIN, ""))
+NM = {"winegcc": "nm", "mingw-x64": "x86_64-w64-mingw32-nm"}.get(TOOLCHAIN, "i686-w64-mingw32-nm")
+OBJCOPY = {"winegcc": "objcopy", "mingw-x64": "x86_64-w64-mingw32-objcopy"}.get(TOOLCHAIN, "i686-w64-mingw32-objcopy")
+CXXFILT = {"winegcc": ["c++filt"], "mingw-x64": ["x86_64-w64-mingw32-c++filt"]}.get(TOOLCHAIN, ["i686-w64-mingw32-c++filt", "-_"])
 CC, CXX, _ = ca.TOOLCHAINS[TOOLCHAIN]
 # -mno-cygwin: Wine's msvcrt, as MinGW's -- io.h, _stricmp, and fopen of a Z:\ path (the tests
 # name files that way), not glibc's
 M32 = ["-m32", "-mno-cygwin"] if WINELIB else []
-PREFIX = "" if WINELIB else "_"            # __USER_LABEL_PREFIX__
-EXE = os.path.join(ROOT, "build", "linux", "colonize.exe") if WINELIB else os.path.join(ROOT, "build", "colonize.exe")
+PREFIX = "" if RENAME else "_"            # __USER_LABEL_PREFIX__
+EXE = {"winegcc": os.path.join(ROOT, "build", "linux", "colonize.exe"),
+       "mingw-x64": os.path.join(ROOT, "build", "x64", "colonize.exe")}.get(TOOLCHAIN, os.path.join(ROOT, "build", "colonize.exe"))
 
 
 def headers_mtime():
@@ -84,7 +93,7 @@ def w16_syms():
 
 def build(src, hdr):
     o = obj_path(src)
-    if WINELIB:
+    if RENAME:
         hdr = max(hdr, os.path.getmtime(build.syms))
     if os.path.exists(o) and os.path.getmtime(o) > max(os.path.getmtime(src), hdr):
         return o, None
@@ -96,11 +105,11 @@ def build(src, hdr):
         "-fno-common",
         "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", o, src]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace", stdin=subprocess.DEVNULL, timeout=300)
-    if not r.returncode and WINELIB and "/src/host/" not in src:
+    if not r.returncode and RENAME and "/src/host/" not in src:
         # and its static constructors out of .init_array: on Winelib the dynamic loader would run
         # them before Wine is up, before the initial data; w16_winelib.c runs port_ctors after it
-        r = subprocess.run(["objcopy", "--redefine-syms=" + build.syms, "--rename-section",
-                            ".init_array=port_ctors", o], capture_output=True, text=True)
+        r = subprocess.run([OBJCOPY, "--redefine-syms=" + build.syms] + (
+            ["--rename-section", ".init_array=port_ctors"] if WINELIB else []) + [o], capture_output=True, text=True)
     if r.returncode:
         if os.path.exists(o):
             os.remove(o)
@@ -116,6 +125,8 @@ LIBS_MINGW = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disa
 # Winelib: the import libraries are Wine's; libstdc++ is the host's (a shared ELF library);
 # --wrap=WinMain: the game runs on a thread with the 64 MB stack (src/host/w16_winelib.c)
 LIBS = ["-m32", "-mno-cygwin", "-mwindows", "-Wl,--wrap=WinMain", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"] if WINELIB else LIBS_MINGW
+if X64:                                   # no stdcall on Win64: nothing to fix up
+    LIBS = [l for l in LIBS_MINGW if "stdcall" not in l]
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 
@@ -130,14 +141,20 @@ def sources():
 
 
 def alias_flags():
-    """--defsym for each contained global (src/gen/aliases.txt, tools/gen_globals.py)."""
+    """--defsym for each contained global (src/gen/aliases.txt, tools/gen_globals.py). On a 64-bit
+    target the globals inside g_main_win move with its pointers: their offsets are the target
+    compiler's, from member paths (tools/alias_paths.py, tools/alias_offsets.py)."""
     p = os.path.join(ROOT, "src", "gen", "aliases.txt")
     out = []
+    moved = {}
+    if X64:
+        import alias_offsets
+        moved = {n: off for n, (c, off) in alias_offsets.offsets(TOOLCHAIN).items()}
     if os.path.exists(p):
         for line in open(p):
             if line.strip() and not line.startswith("#"):
                 n, c, off = line.split()
-                out.append("-Wl,--defsym,%s%s=%s%s+%s" % (PREFIX, n, PREFIX, c, off))
+                out.append("-Wl,--defsym,%s%s=%s%s+%s" % (PREFIX, n, PREFIX, c, hex(moved[n]) if n in moved else off))
     return out
 
 
@@ -168,7 +185,7 @@ def demangle(names):
     names = list(names)
     if not names:
         return {}
-    r = subprocess.run(["c++filt"] if WINELIB else ["i686-w64-mingw32-c++filt", "-_"], input="\n".join(names), capture_output=True, text=True)
+    r = subprocess.run(CXXFILT, input="\n".join(names), capture_output=True, text=True)
     return dict(zip(names, r.stdout.splitlines()))
 
 
@@ -251,7 +268,7 @@ def measure():
     if INSTRUMENT:
         srcs = srcs + [trace_table()]
     hdr = headers_mtime()
-    if WINELIB:
+    if RENAME:
         build.syms = w16_syms()
     with concurrent.futures.ThreadPoolExecutor(os.cpu_count() or 4) as ex:
         built = list(ex.map(lambda s: build(s, hdr), srcs))
@@ -302,7 +319,8 @@ def main(argv):
                "backlog": {g: sorted(n[1:] if n.startswith("_") else n for n in groups.get(g, []))
                            for g in BACKLOGS}}
         out["toolchain"] = TOOLCHAIN
-        with open(os.path.join(ROOT, "status", "link-winegcc.json" if WINELIB else "link.json"), "w") as fh:
+        with open(os.path.join(ROOT, "status", {"winegcc": "link-winegcc.json", "mingw-x64": "link-x64.json"}.get(
+                TOOLCHAIN, "link.json")), "w") as fh:
             json.dump(out, fh, indent=1, sort_keys=True)
             fh.write("\n")
     return 0 if ok else 1

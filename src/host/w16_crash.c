@@ -63,7 +63,11 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
 #endif
     lo = (uintptr_t)tib->StackLimit;
     hi = (uintptr_t)tib->StackBase;
+#ifdef _WIN64
+    bp = (uintptr_t *)e->ContextRecord->Rbp;
+#else
     bp = (uintptr_t *)e->ContextRecord->Ebp;
+#endif
     for (i = 0; i < 24 && (uintptr_t)bp >= lo && (uintptr_t)bp + 8 <= hi; i++) {
         line("frame ", bp[1]);
         if ((uintptr_t *)bp[0] <= bp)
