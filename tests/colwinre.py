@@ -21,7 +21,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATCHED_EXE = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
 UNICORN = "unicorn==2.1.4"
 # what the tools read from col-win-re itself (no game bytes: those come from $COL_GAME_DIR)
-PATHS = ["tools", "analysis/model.json", "analysis/ne", "analysis/save-layout.json"]
+# Without the ordinal tables the machine has no handler for KERNEL.ORD_18 and crawls, one
+# instruction per run: every file the emulator tools read is here.
+PATHS = ["tools", "analysis/model.json", "analysis/ne", "analysis/save-layout.json",
+         "analysis/win16-ordinals.json", "analysis/colonize-imports-resolved.json",
+         "analysis/ghidra/functions.json", "analysis/dyn-trace.json", "analysis/re-wmcommand.json",
+         "analysis/re_agent/runtime"]
 
 
 def col_win_re():
