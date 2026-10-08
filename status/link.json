@@ -1,17 +1,13 @@
 {
  "backlog": {
   "assembly (W5: src/asm)": [],
-  "win16 API (W4: src/platform maps it to Win32)": [
-   "CommDlgExtendedError",
-   "GetOpenFileName",
-   "GetSaveFileName"
-  ]
+  "win16 API (W4: src/platform maps it to Win32)": []
  },
  "gate": true,
  "links": true,
- "objects": 3267,
+ "objects": 3268,
  "outside_backlog": [],
- "sources": 3267,
+ "sources": 3268,
  "twice": 0,
- "undefined": 3
+ "undefined": 0
 }
