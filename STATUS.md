@@ -10,11 +10,11 @@ then `python3 tools/status.py`.
 | W2 | link | DONE | objects 3269/3269; executable links (backlog trapped); undefined 0: 0 assembly, 0 win16 API; twice defined 0 | `tools/undefined.py --record` |
 | W3 | oracle | DONE | oracle self-test identical (1 turns, 6 checkpoints); state round trip lossless: 670/671 globals converted, 0 lost, 1 by address only; differential 20/20 functions agree | `tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record` |
 | W4 | platform | DONE | Win16 functions not provided: 0 of 167; framework trace: 10000 of the first 10000 calls match the oracle | `tools/undefined.py --record, tests/trace.py --gate --record` |
-| W5 | asm | -- | not measured | `differential on segments 17-19 (not written yet)` |
+| W5 | asm | DONE | routines agreeing with the originals: 12/12; 915 SPRT sprites (837 drawn): 3264/3264 calls identical; 96 CvPc canvases: 96/96 calls identical; 1 FLIC (66 frames): 66/66 calls identical | `tests/asm.py --record` |
 | W6 | lockstep | -- | not measured | `tests/lockstep --corpus golden (not written yet)` |
 | W7 | playable | -- | not measured | `scripted sessions, saves both ways, human pass` |
 | W8 | linux | -- | not measured | `winegcc build through W3-W7` |
 | W9 | 64-bit | -- | not measured | `W6 and W7 on x64, x86_64, macOS` |
 | W10 | release | -- | not measured | `a clean machine per OS reaches the map` |
 
-Current milestone: **W5** (roadmap rule 1: one at a time, in order).
+Current milestone: **W6** (roadmap rule 1: one at a time, in order).

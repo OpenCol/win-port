@@ -14,6 +14,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/diff.json     python3 tests/diff.py --record           (needs $COL_GAME_DIR and wine)
     status/oracle.json   python3 tests/oracle.py --selftest --record   (needs $COL_GAME_DIR)
     status/trace.json    python3 tests/trace.py --gate --record    (needs $COL_GAME_DIR and wine)
+    status/asm.json      python3 tests/asm.py --record             (needs $COL_GAME_DIR and wine)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -122,13 +123,33 @@ def w4():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w5():
+    a = rec("asm")
+    if not a:
+        return "open", "not measured"
+    parts = ["routines agreeing with the originals: %d/%d" % (a["agree"], a["routines"])]
+    done = a["agree"] == a["routines"] == 12
+    c = a.get("asset_counts", {})
+    for kind, label in (("SPRT", "SPRT sprites (%d drawn)" % c.get("sprites drawn", 0)), ("CVPC", "CvPc canvases"),
+                        ("FLIC", "FLIC (%d frames)" % c.get("FLIC frames", 0))):
+        s = a.get("assets", {}).get(kind)
+        if not s:
+            parts.append("%s: not measured" % label)
+            done = False
+            continue
+        parts.append("%d %s: %d/%d calls identical" % (c.get(kind, 0), label, s["identical"], s["calls"]))
+        done &= s["identical"] == s["calls"]
+    done &= c.get("SPRT") == 915 and c.get("CVPC") == 96 and c.get("FLIC frames") == 66
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 ROWS = [
     ("W0", "bootstrap", w0, "import/import.py --check, tools/ci_record.py"),
     ("W1", "compile", w1, "tools/compile_all.py --record [--toolchain winegcc]"),
     ("W2", "link", w2, "tools/undefined.py --record"),
     ("W3", "oracle", w3, "tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record"),
     ("W4", "platform", w4, "tools/undefined.py --record, tests/trace.py --gate --record"),
-    ("W5", "asm", None, "differential on segments 17-19 (not written yet)"),
+    ("W5", "asm", w5, "tests/asm.py --record"),
     ("W6", "lockstep", None, "tests/lockstep --corpus golden (not written yet)"),
     ("W7", "playable", None, "scripted sessions, saves both ways, human pass"),
     ("W8", "linux", None, "winegcc build through W3-W7"),

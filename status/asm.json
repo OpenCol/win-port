@@ -1,0 +1,75 @@
+{
+ "agree": 12,
+ "asset_counts": {
+  "CVPC": 96,
+  "FLIC": 1,
+  "FLIC frames": 66,
+  "SPRT": 915,
+  "sprites drawn": 837
+ },
+ "assets": {
+  "CVPC": {
+   "calls": 96,
+   "identical": 96
+  },
+  "FLIC": {
+   "calls": 66,
+   "identical": 66
+  },
+  "SPRT": {
+   "calls": 3264,
+   "identical": 3264
+  }
+ },
+ "functions": {
+  "L17_01dc": {
+   "agree": 240,
+   "sets": 240
+  },
+  "L17_01f0": {
+   "agree": 240,
+   "sets": 240
+  },
+  "L17_01fe": {
+   "agree": 240,
+   "sets": 240
+  },
+  "asm_copy_bits": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_decode_byte_run": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_decode_delta_flc": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_decode_literal": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_draw_mono_sprite": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_draw_sprite": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_fill_rect": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_lzw_decode": {
+   "agree": 60,
+   "sets": 60
+  },
+  "asm_wipe_rows": {
+   "agree": 60,
+   "sets": 60
+  }
+ },
+ "routines": 12
+}
