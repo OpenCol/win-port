@@ -21,6 +21,7 @@ void w16_GetClientRect(unsigned h, RECT16 *r)
     RECT rc;
     GetClientRect(HW(h), &rc);
     w16_rect_out(r, &rc);
+    w16_trace("GetClientRect(%#x) = %ld,%ld,%ld,%ld", h, rc.left, rc.top, rc.right, rc.bottom);
 }
 
 void w16_GetWindowRect(unsigned h, RECT16 *r) W16(GetWindowRect);
@@ -29,6 +30,7 @@ void w16_GetWindowRect(unsigned h, RECT16 *r)
     RECT rc;
     GetWindowRect(HW(h), &rc);
     w16_rect_out(r, &rc);
+    w16_trace("GetWindowRect(%#x) = %ld,%ld,%ld,%ld", h, rc.left, rc.top, rc.right, rc.bottom);
 }
 
 void w16_ClientToScreen(unsigned h, POINT16 *p) W16(ClientToScreen);
@@ -61,13 +63,16 @@ void w16_MapWindowPoints(unsigned from, unsigned to, POINT16 *p, unsigned n)
 int w16_MoveWindow(unsigned h, int x, int y, int w, int hh, int repaint) W16(MoveWindow);
 int w16_MoveWindow(unsigned h, int x, int y, int w, int hh, int repaint)
 {
+    w16_trace("MoveWindow(%#x, %d,%d %dx%d, %d)", h, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)hh, repaint);
     return MoveWindow(HW(h), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)hh, repaint);
 }
 
 int w16_GetSystemMetrics(int i) W16(GetSystemMetrics);
 int w16_GetSystemMetrics(int i)
 {
-    return GetSystemMetrics(i);
+    int v = GetSystemMetrics(i);
+    w16_trace("GetSystemMetrics(%d) = %d", i, v);
+    return v;
 }
 
 /* ------------------------------------------------------------------ window state */

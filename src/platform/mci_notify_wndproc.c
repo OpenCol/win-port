@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* mci_notify_wndproc: candidate for 1078:04b7 (127 bytes).  Verdict: RELOCATABLE.
  * symbol: mci_notify_wndproc
  *
@@ -33,11 +34,11 @@ long mci_notify_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
     switch (msg) {
     case MM_MCINOTIFY:
         if (wp == 1) {
-            mciSendCommand((unsigned)lp, 0x804, 0, 0);
-            if ((unsigned)lp == g_mci_device) {
+            mciSendCommand((u16)lp, 0x804, 0, 0);
+            if ((u16)lp == g_mci_device) {
                 call_midi_done_callback();
                 g_mci_device = 0;
-            } else if ((unsigned)lp == g_cd_device) {
+            } else if ((u16)lp == g_cd_device) {
                 call_cd_done_callback();
                 g_cd_device = 0;
             }

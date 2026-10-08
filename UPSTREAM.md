@@ -114,13 +114,16 @@ likewise `g_europe_win`; storage generated from the C declaration was 1 byte for
 2,606-byte object, which the state round trip caught. Here: tools/gen_globals.py defines
 every class-typed global in C++, from the class.
 
-## 12. The emulator's MoveWindow sends no messages (W4, 2026-10-08)
+## 12. The emulator's MoveWindow sends no messages (W4, 2026-10-08) -- DONE in 0ad06e0da
 
-`tools/re_agent/winsim.py` has no `api_MOVEWINDOW`: the call reaches the generic stub, returns 0
-and sends nothing. Windows sends WM_WINDOWPOSCHANGING/CHANGED, and from them WM_MOVE and WM_SIZE.
-The game reacts: `GameWin::ResizePort` -> `win_set_client_size` -> `MoveWindow`, and its move
-handler (`object_message_handler` -> `call_on_move` -> `port_wndproc` -> `GameWin_Resize`)
-re-initialises the port's surface. So the oracle's framework trace (tests/trace.py) and the
-port's part at call 132, the opening's first picture: the port, under Windows' rules, makes
-the extra resize; the oracle cannot. Measured: 132 of the first 10,000 framework calls match,
-and the next one is that resize. W4's trace gate needs the oracle to send these messages.
+`tools/re_agent/winsim.py` had no `api_MOVEWINDOW`: the call reached the generic stub, returned 0
+and sent nothing. It also had no non-client frame, answered SM_CXBORDER with 16 and IsIconic
+with 1. col-win-re 0ad06e0da models them (MoveWindow's WM_WINDOWPOSCHANGING/CHANGED, and
+DefWindowProc's WM_MOVE/WM_SIZE; window frames; MapWindowPoints; the metric; IsIconic 0).
+
+The diagnosis that filed this was wrong about the trace. The port's extra re-initialisation at
+call 132 was the port's: `port_wndproc` passed `(unsigned)lparam` -- 16 bits under Borland, 32
+here -- as WM_SIZE's width, so the game resized a port that already had that size. With the
+casts fixed (src/platform, 73 sites), the strict trace matches 10,000 of 10,000 calls (12,449
+of 12,449 recorded) against the pinned emulator and against 0ad06e0da alike. The import stays
+pinned at 508d4d0d0c; the next pin brings 0ad06e0da in.

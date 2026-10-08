@@ -193,6 +193,9 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
     if (!proc || depth == 64)
         return DefWindowProcA(h, msg, wp, lp);
     to16(msg, wp, lp, &m16, &w16, &l16);
+    if (msg == WM_SIZE || msg == WM_MOVE)
+        w16_trace("%s(%#x) %d,%d", msg == WM_SIZE ? "WM_SIZE" : "WM_MOVE", w16_token(h),
+                  (int16_t)LOWORD(lp), (int16_t)HIWORD(lp));
     if (msg == WM_CREATE || msg == WM_NCCREATE) {
         CREATESTRUCTA *cs = (CREATESTRUCTA *)lp;
         cs16.lpCreateParams = cs->lpCreateParams;

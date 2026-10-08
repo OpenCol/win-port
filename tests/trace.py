@@ -262,9 +262,11 @@ def canon_handles(lines):
     return out
 
 
-# Behaviour the oracle does not model (UPSTREAM.md): with --skip-oracle-gaps, a diagnostic and
-# never the gate, the port's part of it is dropped before comparing. MoveWindow's WM_MOVE makes
-# the game re-initialise the port: this run of calls, after a MSGrafOrient.
+# Runs of calls only one side makes, dropped from the port's trace with --skip-oracle-gaps: a
+# diagnostic, never the gate. The one listed was taken for behaviour the oracle lacks (UPSTREAM.md
+# 12) and was the port's own: a WM_SIZE handler passing `(unsigned)lparam`, 32 bits here, as the
+# width, so the game re-initialised a port of the same size. Kept to show how far the two agree
+# past such a run while a new one is found.
 ORACLE_GAPS = [["MSUnlockGraf", "MSHUnlock", "MSDisposeHandle", "MSInitGraf", "MSAllocateHandle", "MSLockGraf",
                 "MSGrafOrient", "MSValidRect"]]
 

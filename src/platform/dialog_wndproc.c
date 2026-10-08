@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of call_edit_changed, ctl_hwnd_1070_9681, dialog_mnemonic, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* dialog_wndproc: candidate for 1070:9331 (699 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -89,13 +90,13 @@ extern "C" long dialog_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
         d->first_ctl = 0;
         return object_message_handler(hwnd, msg, wparam, lparam);
     case WM_COMMAND:
-        switch ((unsigned)(lparam >> 16)) {
+        switch ((u16)(lparam >> 16)) {
         case WM_DESTROY:
-            hctl = (unsigned)lparam;
-            SendMessage(hctl, (unsigned)(lparam >> 16), wparam, lparam);
+            hctl = (u16)lparam;
+            SendMessage(hctl, (u16)(lparam >> 16), wparam, lparam);
             break;
         case EN_CHANGE:
-            hedit = (unsigned)lparam;
+            hedit = (u16)lparam;
             idx = GetClassWord(hedit, -18) - 4;
             obj = (void *)GetWindowLong(hedit, idx);
             call_edit_changed((SEditBox *)obj);

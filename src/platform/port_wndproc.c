@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of GRPort_GetWin_1070_dc44, GameWin_Resize removed: the header declares them from the definition (W1 step 3). */
 /* port_wndproc: candidate for 1070:a156 (770 bytes).  Verdict: RELOCATABLE.
  *
@@ -76,7 +77,7 @@ long port_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
     case WM_SIZE:
         g_current_window = port != 0 ? (char *)port + 0x26 : (char *)port;
         if (!IsIconic(hwnd))
-            GameWin_Resize((GameWin *)port, (unsigned)lparam, (unsigned)(lparam >> 16));
+            GameWin_Resize((GameWin *)port, (i16)lparam, (i16)(lparam >> 16));
         return dialog_wndproc(hwnd, msg, wparam, lparam);
     case WM_DESTROY:
         GRPort_Init_wh(port, 0, 0);

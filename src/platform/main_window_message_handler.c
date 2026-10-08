@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of port_height_1070_dd75, port_width_1070_dd5c, win_client_height_1070_ddb3, win_client_width_1070_dd8e removed: the header declares them from the definition (W1 step 3). */
 /* main_window_message_handler: candidate for 1070:b344 (2066 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -164,8 +165,8 @@ extern "C" long main_window_message_handler(unsigned hwnd, unsigned msg, unsigne
         w1 = get_win_1070_dd3f((Screen *)GetWindowLong(hwnd, 0));
         if (w1->size_by_edges != 0 && res == HTCLIENT) {
             GetWindowRect(hwnd, &rc);
-            mx = (unsigned)lp - rc.left;
-            my = (unsigned)(lp >> 16) - rc.top;
+            mx = (i16)lp - rc.left;
+            my = (i16)(lp >> 16) - rc.top;
             tw = w1->edge_width == 0 ? 5 : w1->edge_width;
             GetClientRect(hwnd, &rc2);
             col = row = 0;
@@ -225,7 +226,7 @@ extern "C" long main_window_message_handler(unsigned hwnd, unsigned msg, unsigne
         }
         if (w1->drag_by_client != 0 && res == HTCLIENT) {
             GetWindowRect(hwnd, &rc);
-            my = (unsigned)(lp >> 16) - rc.top;
+            my = (i16)(lp >> 16) - rc.top;
             if (w1->drag_height == 0 || w1->drag_height > my)
                 res = HTCAPTION;
         }

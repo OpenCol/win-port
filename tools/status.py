@@ -112,8 +112,8 @@ def w4():
         done &= left == 0
     if tr:
         parts.append("framework trace: %d of the first %d calls match the oracle" % (tr["matching"], tr["n"]))
-        if "matching_skipping_oracle_gaps" in tr:
-            parts.append("%d with the oracle's unmodelled MoveWindow skipped (UPSTREAM.md 12; not the gate)"
+        if tr.get("matching_skipping_oracle_gaps", tr["matching"]) != tr["matching"]:
+            parts.append("%d with tests/trace.py's ORACLE_GAPS skipped (a diagnostic, not the gate)"
                          % tr["matching_skipping_oracle_gaps"])
         done &= tr["matching"] >= tr["n"]
     else:

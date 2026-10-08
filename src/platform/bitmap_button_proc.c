@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 93, 94, 127, 136, 137, 143 of the imported file. */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 96, 97, 130, 139, 140, 146 of the imported file. */
@@ -65,7 +66,7 @@ long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
         SetCapture(hwnd_);
     case WM_MOUSEMOVE:
         if (o->pressed != 0) {
-            pt.x = (int)lp;
+            pt.x = (i16)lp;
             pt.y = (int)((unsigned long)lp >> 16);
             r = *(RECT *)ctl_rect(ctl);
             OffsetRect(&r, -r.left, -r.top);
@@ -83,7 +84,7 @@ long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
         if (o->pressed != 0) {
             ReleaseCapture();
             o->pressed = 0;
-            pt.x = (int)lp;
+            pt.x = (i16)lp;
             pt.y = (int)((unsigned long)lp >> 16);
             r = *(RECT *)ctl_rect(ctl);
             OffsetRect(&r, -r.left, -r.top);

@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* object_message_handler: candidate for 1070:69ba (2587 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -139,18 +140,18 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
             BringWindowToTop(w_);
         }
         obj->ldown = 1;
-        call_on_lbutton_down(&(EventTable &)*obj, (unsigned)lp,
-                            (unsigned)(lp >> 16));
+        call_on_lbutton_down(&(EventTable &)*obj, (i16)lp,
+                            (i16)(lp >> 16));
         break;
     case WM_LBUTTONUP:
         g_current_window = obj;
         if (obj->ldown == 1) {
             obj->ldown = 0;
-            call_on_lclick(&(EventTable &)*obj, (unsigned)lp,
-                                 (unsigned)(lp >> 16));
+            call_on_lclick(&(EventTable &)*obj, (i16)lp,
+                                 (i16)(lp >> 16));
         }
-        call_on_lbutton_up(&(EventTable &)*obj, (unsigned)lp,
-                            (unsigned)(lp >> 16));
+        call_on_lbutton_up(&(EventTable &)*obj, (i16)lp,
+                            (i16)(lp >> 16));
         break;
     case WM_RBUTTONDOWN:
         win = get_win_1070_95f0((EventWin *)GetWindowLong(w_, 0));
@@ -160,29 +161,29 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
         }
         g_current_window = obj;
         obj->rdown = 1;
-        call_on_rbutton_down(&(EventTable &)*obj, (unsigned)lp,
-                             (unsigned)(lp >> 16));
+        call_on_rbutton_down(&(EventTable &)*obj, (i16)lp,
+                             (i16)(lp >> 16));
         break;
     case WM_RBUTTONUP:
         g_current_window = obj;
         if (obj->rdown == 1) {
             g_current_window = obj;
             obj->rdown = 0;
-            call_on_rclick(&(EventTable &)*obj, (unsigned)lp,
-                                 (unsigned)(lp >> 16));
+            call_on_rclick(&(EventTable &)*obj, (i16)lp,
+                                 (i16)(lp >> 16));
         }
-        call_on_rbutton_up(&(EventTable &)*obj, (unsigned)lp,
-                             (unsigned)(lp >> 16));
+        call_on_rbutton_up(&(EventTable &)*obj, (i16)lp,
+                             (i16)(lp >> 16));
         break;
     case WM_MOUSEMOVE:
         g_current_window = obj;
-        call_far_slot((Handler *)&obj->on_mousemove, (unsigned)lp,
-                                (unsigned)(lp >> 16));
+        call_far_slot((Handler *)&obj->on_mousemove, (i16)lp,
+                                (i16)(lp >> 16));
         break;
     case WM_LBUTTONDBLCLK:
         g_current_window = obj;
-        call_on_ldblclk(&(EventTable &)*obj, (unsigned)lp,
-                             (unsigned)(lp >> 16));
+        call_on_ldblclk(&(EventTable &)*obj, (i16)lp,
+                             (i16)(lp >> 16));
         break;
     case WM_KEYDOWN:
         g_current_window = obj;
@@ -217,18 +218,18 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
     case WM_SIZE:
         g_current_window = obj;
         if (!IsIconic(w_)) {
-            empty_1070_9e5e(obj, (unsigned)lp, (unsigned)(lp >> 16));
+            empty_1070_9e5e(obj, (i16)lp, (i16)(lp >> 16));
             call_on_size(&(EventTable &)*obj, wp);
         }
         break;
     case WM_MOVE:
         g_current_window = obj;
-        call_on_move(&(EventTable &)*obj, (unsigned)lp,
-                             (unsigned)(lp >> 16));
+        call_on_move(&(EventTable &)*obj, (i16)lp,
+                             (i16)(lp >> 16));
         break;
     case WM_COMMAND:
         g_current_window = obj;
-        if ((unsigned)lp == 0)
+        if ((u16)lp == 0)
             wm_command(w_, wp);
         break;
     case WM_SYSCOMMAND:
@@ -252,13 +253,13 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
             return main_window_message_handler(w_, msg, wp, lp);
     case WM_COMMNOTIFY:
         g_current_window = obj;
-        call_on_commnotify(&(EventTable &)*obj, (unsigned)lp);
+        call_on_commnotify(&(EventTable &)*obj, (u16)lp);
         return 1;
     case WM_HSCROLL:
         pos = get_hpos(obj);
         switch (wp) {
         case SB_THUMBPOSITION:
-            pos = (unsigned)lp;
+            pos = (i16)lp;
             SetScrollPos(w_, SB_HORZ, pos, 1);
             g_current_window = obj;
             obj->hpos = pos;
@@ -266,7 +267,7 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
             break;
         case SB_THUMBTRACK:
             g_current_window = obj;
-            call_on_hthumb(&(EventTable &)*obj, (unsigned)lp);
+            call_on_hthumb(&(EventTable &)*obj, (i16)lp);
             break;
         case SB_LINEDOWN:
             pos++;
@@ -306,7 +307,7 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
         pos = get_vpos(obj);
         switch (wp) {
         case SB_THUMBPOSITION:
-            pos = (unsigned)lp;
+            pos = (i16)lp;
             SetScrollPos(w_, SB_VERT, pos, 1);
             g_current_window = obj;
             obj->vpos = pos;
@@ -314,7 +315,7 @@ extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
             break;
         case SB_THUMBTRACK:
             g_current_window = obj;
-            call_on_vthumb(&(EventTable &)*obj, (unsigned)lp);
+            call_on_vthumb(&(EventTable &)*obj, (i16)lp);
             break;
         case SB_LINEDOWN:
             pos++;

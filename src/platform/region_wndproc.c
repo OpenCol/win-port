@@ -1,3 +1,4 @@
+/* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of call_region_click, call_region_dblclk, call_region_enter, call_region_leave, call_region_press removed: the header declares them from the definition (W1 step 3). */
 /* region_wndproc: candidate for 1070:0cc0 (645 bytes).  Verdict: RELOCATABLE.
@@ -61,7 +62,7 @@ long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
     ctl = w->ctl;
     switch (msg) {
     case WM_MOUSEMOVE:
-        pt.x = (int)lp;
+        pt.x = (i16)lp;
         pt.y = (int)((unsigned long)lp >> 16);
         if (g_hover_active == 0) {
             if (g_hover_pressed == 0) {
