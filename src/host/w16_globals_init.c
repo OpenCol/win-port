@@ -162,7 +162,14 @@ __attribute__((constructor(101))) static void port_load_initial_data(void)
         src = segs[g->seg].data + g->off;
         for (k = 0; k < g->count; k++, src += g->w16, dst += g->wn) {
             unsigned tseg, toff;
-            if ((g->kind == 1 || g->kind == 2) && g->w16 != g->wn) {   /* int: Borland's width, widened */
+            if ((g->kind == 1 || g->kind == 2) && g->w16 > 2 && g->wn == 2 * g->w16) {
+                /* a row of ints (int g_group_members[7][8]): each of its words widened */
+                unsigned j;
+                for (j = 0; j < g->w16; j += 2) {
+                    int32_t v = g->kind == 1 ? (int32_t)(int16_t)r16(src + j) : (int32_t)r16(src + j);
+                    memcpy(dst + 2 * j, &v, 4);
+                }
+            } else if ((g->kind == 1 || g->kind == 2) && g->w16 != g->wn) {   /* int: Borland's width, widened */
                 long v;
                 if (g->w16 == 2)
                     v = g->kind == 1 ? (long)(int16_t)r16(src) : (long)r16(src);

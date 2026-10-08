@@ -9,7 +9,10 @@
 unsigned w16_GlobalAlloc(unsigned flags, unsigned long size) W16(GlobalAlloc);
 unsigned w16_GlobalAlloc(unsigned flags, unsigned long size)
 {
-    HGLOBAL h = GlobalAlloc(flags & (GMEM_MOVEABLE | GMEM_ZEROINIT | GMEM_FIXED), size ? size : 1);
+    HGLOBAL h;
+    if (size >= 16ul << 20)
+        w16_report("huge GlobalAlloc(%#x, %lu) from %p", flags, size, __builtin_return_address(0));
+    h = GlobalAlloc(flags & (GMEM_MOVEABLE | GMEM_ZEROINIT | GMEM_FIXED), size ? size : 1);
     return TOK(h);
 }
 
@@ -34,6 +37,8 @@ unsigned long w16_GlobalSize(unsigned h) { return (unsigned long)GlobalSize((HGL
 unsigned w16_LocalAlloc(unsigned flags, unsigned size) W16(LocalAlloc);
 unsigned w16_LocalAlloc(unsigned flags, unsigned size)
 {
+    if (size >= 16u << 20)
+        w16_report("huge LocalAlloc(%#x, %u) from %p", flags, size, __builtin_return_address(0));
     return TOK(LocalAlloc(flags & (LMEM_MOVEABLE | LMEM_ZEROINIT), size ? size : 1));
 }
 

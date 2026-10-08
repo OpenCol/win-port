@@ -70,11 +70,18 @@ unsigned w16_CreateSolidBrush(unsigned long color) { return TOK(CreateSolidBrush
 unsigned w16_CreateBitmap(int w, int h, unsigned planes, unsigned bpp, void *bits) W16(CreateBitmap);
 unsigned w16_CreateBitmap(int w, int h, unsigned planes, unsigned bpp, void *bits)
 {
+    if ((long long)w * h * bpp >= 128ll << 20 || w < 0 || h < 0)
+        w16_report("huge CreateBitmap(%d x %d x %u) from %p", w, h, bpp, __builtin_return_address(0));
     return TOK(CreateBitmap(w, h, planes, bpp, bits));
 }
 
 unsigned w16_CreateCompatibleBitmap(unsigned dc, int w, int h) W16(CreateCompatibleBitmap);
-unsigned w16_CreateCompatibleBitmap(unsigned dc, int w, int h) { return TOK(CreateCompatibleBitmap(DC(dc), w, h)); }
+unsigned w16_CreateCompatibleBitmap(unsigned dc, int w, int h)
+{
+    if ((long long)w * h >= 16ll << 20 || w < 0 || h < 0)
+        w16_report("huge CreateCompatibleBitmap(%d x %d) from %p", w, h, __builtin_return_address(0));
+    return TOK(CreateCompatibleBitmap(DC(dc), w, h));
+}
 
 int w16_GetBitmapDimensionEx(unsigned b, SIZE16 *s) W16(GetBitmapDimensionEx);
 int w16_GetBitmapDimensionEx(unsigned b, SIZE16 *s)

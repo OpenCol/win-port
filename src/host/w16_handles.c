@@ -86,3 +86,18 @@ void w16_trace(const char *fmt, ...)
     fputc('\n', f);
     fflush(f);
 }
+
+/* a line in $PORT_LOG whether or not the run traces: what a player's run that stops must say */
+void w16_report(const char *fmt, ...)
+{
+    const char *log = getenv("PORT_LOG");
+    FILE *f = log ? fopen(log, "a") : 0;
+    va_list ap;
+    if (!f)
+        return;
+    va_start(ap, fmt);
+    vfprintf(f, fmt, ap);
+    va_end(ap);
+    fputc('\n', f);
+    fclose(f);
+}

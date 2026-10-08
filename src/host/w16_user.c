@@ -14,6 +14,7 @@
  * form (WM_NCCALCSIZE, WM_GETMINMAXINFO, ...) still reach Windows intact.
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "w16.h"
 
@@ -214,10 +215,10 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
         if (w16_lockstep()) {
             /* the lockstep's 640 x 480 screen (W6), as winsim fills it: maximized, the window's
                frame just off it; tracked up to the screen and 12 */
-            mm->ptMaxSize.x = 640 - 2 * mm->ptMaxPosition.x;
-            mm->ptMaxSize.y = 480 - 2 * mm->ptMaxPosition.y;
-            mm->ptMaxTrackSize.x = 640 + 12;
-            mm->ptMaxTrackSize.y = 480 + 12;
+            mm->ptMaxSize.x = w16_lockstep_screen(0) - 2 * mm->ptMaxPosition.x;
+            mm->ptMaxSize.y = w16_lockstep_screen(1) - 2 * mm->ptMaxPosition.y;
+            mm->ptMaxTrackSize.x = w16_lockstep_screen(0) + 12;
+            mm->ptMaxTrackSize.y = w16_lockstep_screen(1) + 12;
             mm->ptMinTrackSize.x = 112;
             mm->ptMinTrackSize.y = 27;
             mm->ptReserved.x = mm->ptReserved.y = 0;
@@ -238,8 +239,17 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
         w16_trace("message nesting %d: %#x to %p (from %#x %#x %#x)", depth, msg, (void *)h,
                   stack[depth - 1].msg, stack[depth - 2].msg, stack[depth - 3].msg);
         if (depth >= 40) {
-            for (i = 0; i < depth; i++)
+            /* the end of the run: said in $PORT_LOG whether or not it is tracing */
+            const char *log = getenv("PORT_LOG");
+            FILE *f = log ? fopen(log, "a") : 0;
+            for (i = 0; i < depth; i++) {
                 w16_trace("  [%d] %#x to %p", i, stack[i].msg, (void *)stack[i].hwnd);
+                if (f)
+                    fprintf(f, "crash message nesting [%d] %#x to %p wp %#lx lp %#lx\n", i, stack[i].msg,
+                            (void *)stack[i].hwnd, (unsigned long)stack[i].wp, (unsigned long)stack[i].lp);
+            }
+            if (f)
+                fclose(f);
             ExitProcess(6);
         }
     }
@@ -473,8 +483,8 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
     MSG m;
     for (;;) {
         if (!PeekMessageA(&m, W16_HWND(hwnd), lo, hi, remove)) {
-            if (w16_lockstep())
-                w16_lockstep_idle();      /* time passes as winsim's does (W6) */
+            if (w16_script())
+                w16_lockstep_idle();      /* time passes as winsim's does (W6); a script's next step */
             return 0;
         }
         /* a lockstep run hears no one but its script: the host's keys and mouse are dropped (W6) */
@@ -483,7 +493,7 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
         if (!(remove & PM_REMOVE))
             PeekMessageA(&m, m.hwnd, m.message, m.message, PM_REMOVE);
     }
-    if (w16_lockstep())
+    if (w16_script())
         w16_lockstep_message(&m);
     last = m;
     msg_out(g, &m);

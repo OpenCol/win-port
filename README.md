@@ -56,6 +56,12 @@ python3 tools/run_port.py --play        # play it, under Wine
 stay between runs and the original directory is never written. Without `--play`, `run_port.py`
 is the test runner: a fresh copy each run, a time limit, a log in `build/run/`.
 
+The Wine is col-win-re's runtime (Gcenx wine-devel 11.18, set up by its `tools/setup-runtime.sh`),
+with a prefix of the port's own (`build/wineprefix`); `$PORT_WINE` names another. Not Apple's
+GPTK Wine 7.7 (Homebrew's `wine64`): it aborts the process the first time a sound plays, which
+in a new game is right after the King's audience. If the game stops, `build/run/port.log` and
+`build/run/wine.log` say why.
+
 The gates that measure the port are listed in `STATUS.md` (generated: `python3 tools/status.py`).
 
 `toolchains/` also holds `clang-cl-x86` (the MSVC-compatible check), and `winegcc-i386` and

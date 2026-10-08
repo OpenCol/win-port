@@ -314,14 +314,6 @@ def to_16(name, c, bn, amap):
 
 # ------------------------------------------------------------------ the two sides
 
-def wine():
-    for w in ("wine", "wine64"):
-        p = shutil.which(w)
-        if p:
-            return p
-    sys.exit("no wine on PATH: the native harness is a Win32 program")
-
-
 def harness_stale():
     """the harness is older than what it is built from: the headers, src/gen, its own sources"""
     if not os.path.exists(EXE):
@@ -337,8 +329,8 @@ def harness_stale():
 def harness(*args):
     if harness_stale():
         subprocess.run([sys.executable, os.path.join(ROOT, "tests", "state", "build.py")], check=True)
-    r = subprocess.run([wine(), EXE] + list(args), capture_output=True, text=True,
-                       env=dict(os.environ, WINEDEBUG="-all"))
+    r = subprocess.run([colwinre.wine(), EXE] + list(args), capture_output=True, text=True,
+                       env=colwinre.wine_env(dict(os.environ, WINEDEBUG="-all")))
     if r.returncode:
         sys.exit("port_state %s failed (%d): %s" % (" ".join(args), r.returncode, r.stderr[-500:]))
     return json.loads(r.stdout) if args[0] == "layout" else r

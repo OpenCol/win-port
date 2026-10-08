@@ -9,11 +9,16 @@
  *     cmd N           a menu command (WM_COMMAND N to the main window), once the game sits idle
  *     snap NAME       the screen as it is, to NAME.bmp in this directory ($PORT_SNAPSHOT set)
  *     grab NAME       the windows as Wine shows them (after the palette, GDI text, menus), to NAME.bmp
- *     click X Y       a left click at (X, Y) of a grab's image, to the window under it
+ *     click X Y       a left click at (X, Y) of the program's topmost window, to the window under it
  *     wait N          N more idle rounds before the next
  *     exit            the end of a session: the program stops
  *                     (key, cmd, snap, wait and exit are one script, run in order)
  *     noautoplay      the player stays human: no all-AI stores (a UI session, roadmap W7)
+ *     sound           MCI and sndPlaySound play, as in --play (a lockstep run's are silent)
+ *     screen W H      the screen's size (default 640 480, the oracle's): a player's larger one
+ *     realtime        only the script: the clock, timers, seeds, screen, sound, dialogs and the
+ *                     host's input are the real ones, as in --play (w16_lockstep() answers 0,
+ *                     w16_script() 1) -- for reproducing what a player saw
  *     saveas PATH     the file the Save dialog is answered with
  *     nudge N         a Return the oracle posted at its checkpoint N (a modal message)
  *     srand N         the seeds the original's srand got, in order
@@ -58,7 +63,8 @@ static FILE *log_f, *cp_f;
 static unsigned long ticks;
 static struct { char kind; unsigned long v; char text[64]; } script[512];
 static unsigned nscript, iscript, waitn;
-static int noautoplay;
+static int noautoplay, realtime, sound;
+static int screen_w = 640, screen_h = 480;
 static HWND click_h;
 static LPARAM click_lp;
 static int click_left;
@@ -107,6 +113,14 @@ static void init(void)
             snprintf(save, sizeof save, "%s", v);
         else if (!strcmp(line, "noautoplay"))
             noautoplay = 1;
+        else if (!strcmp(line, "sound"))
+            sound = 1;
+        else if (!strcmp(line, "screen")) {
+            char *e;
+            screen_w = (int)strtol(v, &e, 0);
+            screen_h = (int)strtol(e, 0, 0);
+        } else if (!strcmp(line, "realtime"))
+            realtime = noautoplay = 1;
         else if (!strcmp(line, "saveas"))
             snprintf(saveas, sizeof saveas, "%s", v);
         else if ((!strcmp(line, "key") || !strcmp(line, "cmd") || !strcmp(line, "snap") || !strcmp(line, "wait")
@@ -139,6 +153,26 @@ static void init(void)
 }
 
 int w16_lockstep(void)
+{
+    if (active < 0)
+        init();
+    return active && !realtime;
+}
+
+/* the lockstep's sound is silent (MCI and sndPlaySound answer 1) unless the script says `sound` */
+int w16_lockstep_silent(void)
+{
+    return w16_lockstep() && !sound;
+}
+
+/* the lockstep's screen: GetSystemMetrics and the maximized size answer it */
+int w16_lockstep_screen(int y)
+{
+    return y ? screen_h : screen_w;
+}
+
+/* a script runs (lockstep or realtime): its idle hook and message hook are called */
+int w16_script(void)
 {
     if (active < 0)
         init();
@@ -212,6 +246,8 @@ static void post_key(unsigned vk)
 void w16_lockstep_idle(void)
 {
     int i;
+    if (realtime)
+        Sleep(1);                        /* the real clock moves; 400 empty polls are >= 0.4 s */
     ticks += 5;
     for (i = 0; i < 32; i++)
         if (timers[i].ms && ticks >= timers[i].due) {

@@ -15,7 +15,8 @@ A session is the lockstep's script (src/host/w16_lockstep.c) with the player lef
 idle -- a menu command (WM_COMMAND, the main window's own: MainWin_MainMenuProc), a key, a
 click, a picture of the screen as Wine shows it (`grab`, a .bmp in build/sessions/NAME/, with
 NAME.txt listing the windows), a wait -- and `exit` ends it. `new_game` starts from the main
-menu instead of a save: America, the first leader, the first nation, the King's audience.
+menu instead of a save: America, the first leader, the first nation, the King's audience --
+with sound on (`sound`): the first WAV plays there, and a Wine that cannot play one stops.
 A session passes when it reaches `exit`: no crash, no Win16 function the platform layer lacks
 (an `unported` trap), no stall (still running at --seconds). The snapshots are for a person to
 look at, and for the comparison with the original (to come: the oracle runs the same scripts).
@@ -34,7 +35,7 @@ import colwinre               # noqa: E402
 OUT = os.path.join(ROOT, "build", "sessions")
 RETURN, ESCAPE, DOWN = 0x0D, 0x1B, 0x28
 LOAD = [("key", DOWN), ("key", DOWN), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "loaded")]
-OK = (113, 124)                          # the Ok of the difficulty and nation screens, in a grab
+OK = (112, 123)                          # the Ok of the difficulty and nation screens, in their window
 
 
 def show(cmd, name, close=ESCAPE):
@@ -69,7 +70,7 @@ def run(name, steps, save="AUTO01.SAV", seconds=180):
     os.makedirs(work)
     path = save if os.path.isabs(save) else os.path.join(colwinre.game_dir(), save)
     wine = lambda p: "Z:" + os.path.abspath(p).replace("/", "\\")
-    lines = ["save " + wine(path), "noautoplay"]
+    lines = ["save " + wine(path), "noautoplay"] + (["sound"] if name in FROM_MENU else [])
     for kind, v in ([] if name in FROM_MENU else LOAD) + steps + [("exit", "")]:
         if kind == "saveas":
             lines.append("saveas " + wine(os.path.join(work, v)))

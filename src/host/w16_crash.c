@@ -43,8 +43,7 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
     NT_TIB *tib = (NT_TIB *)NtCurrentTeb();
     uintptr_t *bp, lo, hi;
     int i;
-    if (code != EXCEPTION_ACCESS_VIOLATION && code != EXCEPTION_INT_DIVIDE_BY_ZERO &&
-        code != EXCEPTION_ILLEGAL_INSTRUCTION && code != EXCEPTION_STACK_OVERFLOW)
+    if ((code & 0xF0000000u) != 0xC0000000u)   /* errors only: not a debug print, not a breakpoint */
         return EXCEPTION_CONTINUE_SEARCH;
     if (log_file == INVALID_HANDLE_VALUE || InterlockedExchange(&busy, 1))
         return EXCEPTION_CONTINUE_SEARCH;
@@ -67,6 +66,13 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
+/* the program ends without a fault: said, so a run that stops is not silent */
+static void on_exit_(void)
+{
+    if (log_file != INVALID_HANDLE_VALUE)
+        put("exit: the program returned or called exit()\n");
+}
+
 __attribute__((constructor)) static void install(void)
 {
     const char *log = getenv("PORT_LOG");
@@ -74,4 +80,5 @@ __attribute__((constructor)) static void install(void)
         log_file = CreateFileA(log, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_ALWAYS,
                                FILE_ATTRIBUTE_NORMAL, 0);
     AddVectoredExceptionHandler(1, on_fault);
+    atexit(on_exit_);
 }

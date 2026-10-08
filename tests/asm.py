@@ -588,9 +588,8 @@ def native(calls, tmp):
                     f.write(struct.pack("<III", 1, v & 0xFFFFFFFF, 0))
                 else:
                     f.write(struct.pack("<III", 0, v & 0xFFFF, 0))
-    wine = next((w for w in ("wine", "wine64") if subprocess.run(["which", w], capture_output=True).returncode == 0), None)
-    r = subprocess.run([wine, HARNESS, "Z:" + job.replace("/", "\\"), "Z:" + res.replace("/", "\\")],
-                       capture_output=True, text=True, env=dict(os.environ, WINEDEBUG="-all"))
+    r = subprocess.run([colwinre.wine(), HARNESS, "Z:" + job.replace("/", "\\"), "Z:" + res.replace("/", "\\")],
+                       capture_output=True, text=True, env=colwinre.wine_env(dict(os.environ, WINEDEBUG="-all")))
     if r.returncode or not os.path.exists(res):
         sys.exit("the asm harness failed (%d): %s" % (r.returncode, r.stderr[-1500:]))
     out, data, p = [], open(res, "rb").read(), 0

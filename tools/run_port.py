@@ -33,13 +33,6 @@ RUN = os.path.join(ROOT, "build", "run")
 RUN = os.environ.get("PORT_RUN_DIR") or RUN   # a run of its own (tests/lockstep.py: one per scenario)
 
 
-def wine():
-    for w in ("wine", "wine64"):
-        if shutil.which(w):
-            return shutil.which(w)
-    sys.exit("no wine on PATH")
-
-
 def main(argv):
     play = "--play" in argv
     secs = int(argv[argv.index("--seconds") + 1]) if "--seconds" in argv else (10 ** 7 if play else 20)
@@ -57,7 +50,7 @@ def main(argv):
     log = os.path.join(RUN, "port.log")
     if os.path.exists(log):
         os.remove(log)
-    env = dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all,err+seh"), PORT_LOG=log)
+    env = colwinre.wine_env(dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all,err+seh"), PORT_LOG=log))
     if "--trace" in argv:
         env["PORT_TRACE"] = "1"
     if "--snapshot" in argv:
@@ -70,7 +63,7 @@ def main(argv):
     # a Wine virtual desktop: windows go where the program puts them, as on Windows 3.1, with no
     # host window manager moving them (the macOS menu bar would push one created at y=0 down)
     size = argv[argv.index("--desktop") + 1] if "--desktop" in argv else "1024x768"
-    cmd = [wine(), "explorer", "/desktop=colonization," + size, EXE] if "--no-desktop" not in argv else [wine(), EXE]
+    cmd = [colwinre.wine(), "explorer", "/desktop=colonization," + size, EXE] if "--no-desktop" not in argv else [colwinre.wine(), EXE]
     p = subprocess.Popen(cmd, cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     try:
         out, _ = p.communicate(timeout=secs)
@@ -78,7 +71,7 @@ def main(argv):
     except subprocess.TimeoutExpired:
         # the whole Wine session: in a virtual desktop the game is not p's own process, and
         # holds p's output open
-        subprocess.run(["wineserver", "-k"], capture_output=True)
+        subprocess.run([colwinre.wineserver(), "-k"], capture_output=True, env=env)
         p.kill()
         try:
             out, _ = p.communicate(timeout=20)
@@ -92,6 +85,8 @@ def main(argv):
     if tail:
         print("  " + tail[-1])
     out_s = out.decode(errors="replace")
+    with open(os.path.join(RUN, "wine.log"), "w") as f:     # Wine's own output, for a crash it reports
+        f.write(out_s)
     # a crash: Wine names the faulting address; the build has debug info and a fixed base
     m = re.search(r"Unhandled (\w[\w ]*?) (?:on (\w+) access to ([0-9a-fA-F]+) )?at address ([0-9a-fA-F]+)", out_s)
     if m:
@@ -106,6 +101,11 @@ def main(argv):
                                    capture_output=True, text=True).stdout.split()
             print("  fault %s at %s %s%s" % (got.get("code"), got.get("at"), " ".join(where),
                                             " reading/writing %s" % got["address"] if "address" in got else ""))
+    nest = [l for l in text.splitlines() if l.startswith("crash message nesting")]
+    if nest:
+        print("  stopped: window messages nested %d deep (w16_user.c), outermost first:" % len(nest))
+        for l in nest[:6] + (["    ..."] if len(nest) > 12 else []) + nest[-6:]:
+            print("    " + l[len("crash message nesting "):] if l.startswith("crash") else l)
     entered = re.findall(r"^entered ([0-9a-f]+)", text, re.M)
     if entered:
         r = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-s", "-e", EXE] + entered,

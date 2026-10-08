@@ -70,8 +70,8 @@ int w16_MoveWindow(unsigned h, int x, int y, int w, int hh, int repaint)
 int w16_GetSystemMetrics(int i) W16(GetSystemMetrics);
 int w16_GetSystemMetrics(int i)
 {
-    /* a lockstep run has the oracle's screen, 640 x 480 (W6): the game lays its windows out by it */
-    int v = w16_lockstep() && (i == SM_CXSCREEN || i == SM_CYSCREEN) ? (i == SM_CXSCREEN ? 640 : 480)
+    /* a lockstep run has the oracle's screen, 640 x 480 (W6; or its script's `screen`): the game lays its windows out by it */
+    int v = w16_lockstep() && (i == SM_CXSCREEN || i == SM_CYSCREEN) ? w16_lockstep_screen(i == SM_CYSCREEN)
                                                                     : GetSystemMetrics(i);
     w16_trace("GetSystemMetrics(%d) = %d", i, v);
     return v;

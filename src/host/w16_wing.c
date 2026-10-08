@@ -43,7 +43,12 @@ unsigned w16_WinGCreateBitmap(unsigned hdc, BITMAPINFO *bi, void **bits) W16(Win
 unsigned w16_WinGCreateBitmap(unsigned hdc, BITMAPINFO *bi, void **bits)
 {
     void *p = 0;
-    HBITMAP b = CreateDIBSection(W16_HDC(hdc), bi, DIB_RGB_COLORS, &p, 0, 0);
+    HBITMAP b;
+    if ((long long)bi->bmiHeader.biWidth * bi->bmiHeader.biHeight >= 16ll << 20
+        || (long long)bi->bmiHeader.biWidth * bi->bmiHeader.biHeight <= -(16ll << 20) || bi->bmiHeader.biWidth < 0)
+        w16_report("huge WinGCreateBitmap(%ld x %ld) from %p", bi->bmiHeader.biWidth, bi->bmiHeader.biHeight,
+                   __builtin_return_address(0));
+    b = CreateDIBSection(W16_HDC(hdc), bi, DIB_RGB_COLORS, &p, 0, 0);
     if (bits)
         *bits = p;
     w16_trace("WinGCreateBitmap(%ldx%ld) = %p, bits %p", bi->bmiHeader.biWidth, bi->bmiHeader.biHeight, (void *)b, p);
@@ -241,14 +246,21 @@ static int grab_origin(POINT *o)
     return grab_n > 0;
 }
 
-/* a mouse click at (x, y) of a grab's image: down and up to the window under it, in its client
-   coordinates -- a lockstep script's `click` */
+/* a mouse click at (x, y) of the topmost window of the program (its window rectangle, frame
+   included): down and up to the window under it, in its client coordinates -- a lockstep
+   script's `click`. The topmost window, not the grab's corner: a realtime run's backdrop covers
+   the host's whole screen and moves the corner */
 HWND w16_grab_click(int x, int y, POINT *client)
 {
     POINT o, p;
+    RECT r;
     HWND h;
+    client->x = client->y = 0;
     if (!grab_origin(&o))
         return 0;
+    GetWindowRect(grab_list[0], &r);
+    o.x = r.left;
+    o.y = r.top;
     p.x = o.x + x;
     p.y = o.y + y;
     if (!(h = WindowFromPoint(p)))

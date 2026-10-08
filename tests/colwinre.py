@@ -90,3 +90,40 @@ def use():
         if p not in sys.path:
             sys.path.insert(0, p)
     return t
+
+
+# Wine: the runtime col-win-re set up (tools/setup-runtime.sh: Gcenx wine-devel 11.18), not the
+# first on PATH. Apple's GPTK Wine 7.7 (Homebrew's wine64) aborts the whole process in
+# alloc_pages_vprot (virtual.c) the first time a sound plays -- sndPlaySound, sync or async; a
+# new game's first is meetking.wav, after the King's audience. $PORT_WINE overrides.
+WINE11 = os.path.join("analysis", "dynamic", "runtime", "wine-11.18", "Wine Devel.app", "Contents", "Resources",
+                      "wine", "bin", "wine")
+
+
+def wine():
+    import shutil
+    if os.environ.get("PORT_WINE"):
+        return os.environ["PORT_WINE"]
+    for p in (os.environ.get("COL_WIN_RE"), os.path.join(ROOT, "..", "..", "dderevjanik", "col-win-re")):
+        if p and os.path.exists(os.path.join(p, WINE11)):
+            return os.path.abspath(os.path.join(p, WINE11))
+    for w in ("wine", "wine64"):
+        if shutil.which(w):
+            sys.stderr.write("warning: Wine 11 not found (col-win-re tools/setup-runtime.sh); using %s, which may "
+                             "abort when a sound plays\n" % shutil.which(w))
+            return shutil.which(w)
+    sys.exit("no Wine: run col-win-re's tools/setup-runtime.sh, or set $PORT_WINE")
+
+
+def wine_env(env=None):
+    """the environment a Wine run gets: the port's own prefix (build/wineprefix), not the
+    user's ~/.wine nor col-win-re's, unless $WINEPREFIX names one"""
+    env = dict(os.environ if env is None else env)
+    env.setdefault("WINEPREFIX", os.path.join(ROOT, "build", "wineprefix"))
+    return env
+
+
+def wineserver():
+    w = wine()
+    s = os.path.join(os.path.dirname(w), "wineserver")
+    return s if os.path.exists(s) else "wineserver"

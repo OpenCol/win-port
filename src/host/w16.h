@@ -25,6 +25,7 @@ typedef struct { int16_t x, y; } POINT16;
    fit; every handle crossing into the game is a 16-bit token, 0 for NULL. */
 unsigned w16_token(HANDLE h);          /* the token for h, made on first sight */
 HANDLE w16_handle(unsigned token);     /* the Win32 handle behind a token */
+void w16_report(const char *fmt, ...);  /* a line in $PORT_LOG, traced or not */
 void w16_forget(unsigned token);       /* the handle is gone (DeleteObject, DestroyWindow) */
 #define W16_HWND(t) ((HWND)w16_handle(t))
 #define W16_HDC(t) ((HDC)w16_handle(t))
@@ -33,6 +34,9 @@ void w16_forget(unsigned token);       /* the handle is gone (DeleteObject, Dest
 void w16_trace(const char *fmt, ...);
 /* the autoplay lockstep (w16_lockstep.c, roadmap W6): all 0 / no-ops unless $PORT_LOCKSTEP is set */
 int w16_lockstep(void);
+int w16_lockstep_silent(void);          /* MCI and sndPlaySound do nothing */
+int w16_lockstep_screen(int y);         /* its screen: width (0) or height (1) */
+int w16_script(void);                   /* a lockstep script runs, in lockstep or realtime */
 const char *w16_lockstep_save(void);
 const char *w16_lockstep_saveas(void);
 int w16_snapshot_write(const char *path);
