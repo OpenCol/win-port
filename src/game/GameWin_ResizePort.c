@@ -23,9 +23,11 @@ class DlgControl;
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 extern "C" void win_set_client_size_1060_aecf(DialogWin *port, int x, int y);
-int GameWin::ResizePort(RECT *rect)
+/* PORT: ResizePort_own, and its base call names GRPort's own -- GRPort::ResizePort dispatches
+   on the class tag (W4, gen_headers DEVIRTUALIZE) */
+int GameWin::ResizePort_own(RECT *rect)
 {
-    if (GRPort::ResizePort(rect) == 1) {
+    if (GRPort::ResizePort_own(rect) == 1) {
         win_set_client_size_1060_aecf(&(DialogWin &)*this, rect_width_1060_ae90(rect), rect_height_1060_aeaf(rect));
         return 1;
     } else

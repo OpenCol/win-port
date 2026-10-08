@@ -29,10 +29,10 @@ class EventTable { public: void far *on_mousemove, far *on_lbutton_down, far *on
 class Screen { public: short style; void far *ctable; void far *win; short fa; char disabled; Screen(); ~Screen(); };
 #pragma pack(1)
 class EventWin : public Screen, public EventTable { public: char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
-class GRPort { public: i16 w; i16 h; i16 stride; RECT rect; RECT bounds; unsigned char huge *bits; long far *rows; i16 current; void far *win; GRPort(); ~GRPort(); virtual int ResizePort(RECT far *r); };
+class GRPort { public: i16 vptr; i16 w; i16 h; i16 stride; RECT rect; RECT bounds; unsigned char huge *bits; long far *rows; i16 current; void far *win; GRPort(); ~GRPort(); int ResizePort(RECT far *r); int ResizePort_own(RECT far *r); };
 class DlgControl { public: short kind; short id; void far *win; RECT rect; short hwnd; DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; DlgControl(); ~DlgControl(); };
 class DialogWin : public EventWin { public: DlgControl far *first_ctl; DlgControl far *ok_btn; DlgControl far *cancel_btn; char keyboard_nav; char f99; DialogWin(); ~DialogWin(); };
-class GameWin : public GRPort, public DialogWin { public: void far *relayout; GameWin(); ~GameWin(); virtual int ResizePort(RECT far *r); };
+class GameWin : public GRPort, public DialogWin { public: void far *relayout; GameWin(); ~GameWin(); int ResizePort_own(RECT far *r); };
 #pragma pack(2)
 class Sprite { public: RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsigned char key; short handle; unsigned char huge *bits; Sprite(); ~Sprite(); };
 #pragma pack(1)
@@ -249,5 +249,10 @@ typedef struct {
 } MagicWin;
 #endif
 
+#ifdef __cplusplus
+/* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */
+PORT_SIZE_ASSERT(sizeof(GRPort) == 0x26, "GRPort is not the game's 0x26 bytes");
+PORT_SIZE_ASSERT(sizeof(GameWin) == 0xc4, "GameWin is not the game's 0xc4 bytes");
+#endif
 #pragma pack(pop)
 #endif

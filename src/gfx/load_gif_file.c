@@ -133,6 +133,7 @@ int load_gif_file(GRPort *port, char *name, register int first, int count,
     if (MSGrafOrient((GrafRec *)port->win) == 0)
         wing_dib_flip((Wing *)port->win);
     MSDisposeHandle(h_);
-    MSCloseFile_1068_95b5(&f);
+    /* PORT: the success path fell off the end with MSCloseFile's AX as the result: returned (W4) */
+    return MSCloseFile_1068_95b5(&f);
 }
 

@@ -5,9 +5,9 @@ then `python3 tools/status.py`.
 
 | | Milestone | State | Measured | Gate |
 | --- | --- | --- | --- | --- |
-| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3284 files, 3245 sources; 1070 edited by PORT:); CI success at a8f4098 (run 37723780479) | `import/import.py --check, tools/ci_record.py` |
+| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3284 files, 3245 sources; 1074 edited by PORT:); CI success at a8f4098 (run 37723780479) | `import/import.py --check, tools/ci_record.py` |
 | W1 | compile | DONE | mingw-i686 3245/3245; winegcc 3245/3245 | `tools/compile_all.py --record [--toolchain winegcc]` |
-| W2 | link | DONE | objects 3256/3256; executable links (backlog trapped); undefined 36: 12 assembly, 24 win16 API; twice defined 0 | `tools/undefined.py --record` |
+| W2 | link | DONE | objects 3260/3260; executable links (backlog trapped); undefined 23: 12 assembly, 11 win16 API; twice defined 0 | `tools/undefined.py --record` |
 | W3 | oracle | DONE | oracle self-test identical (1 turns, 6 checkpoints); state round trip lossless: 670/671 globals converted, 0 lost, 1 by address only; differential 20/20 functions agree | `tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record` |
 | W4 | platform | -- | not measured | `checklist + MS* trace prefix (not written yet)` |
 | W5 | asm | -- | not measured | `differential on segments 17-19 (not written yet)` |

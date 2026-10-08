@@ -5915,6 +5915,10 @@ extern VListItem *vlist_item_next(VListItem *item);
 #ifdef __cplusplus
 extern VListItem *vlist_item_prev(VListItem *it);
 #endif
+extern void w16_forget(unsigned token);
+extern HANDLE w16_handle(unsigned token);
+extern unsigned w16_token(HANDLE h);
+extern void w16_trace(const char *fmt, ...);
 extern int wait_mouse_button(MSWin *win, char left, char remove, char wait);
 extern int water_access(int x, int y);
 extern int which_move(int dx, int dy);

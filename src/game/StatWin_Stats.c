@@ -744,4 +744,5 @@ after_tile:
                 set_window_caption(w, "Info Window");
         }
         copy_rect_to_screen_1058_c340(w, &w->rect);
+    return 0;   /* PORT: no return in the original (AX unset); no caller reads it (W4) */
     }

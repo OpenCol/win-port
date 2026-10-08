@@ -611,6 +611,33 @@ def corpus_classes():
 CORPUS_CLASSES, CORPUS_VIEWS = corpus_classes()[2:]
 
 
+# Borland's vtable pointer is a near pointer, 2 bytes; GCC's is 4, which moves every member of
+# every polymorphic class (and the C views, and the corpus's raw base offsets such as
+# `(char *)o + 0x26`) by 2 per vtable. The game has ONE virtual function, ResizePort, which
+# only GRPort and GameWin define. So the port has no virtual function: GRPort's first member is
+# the 2-byte `vptr` Borland had there, holding a class tag (0 GRPort, 1 GameWin and every class
+# derived from it, set by GameWin's constructor), and GRPort::ResizePort dispatches on it to
+# the two classes' own versions, renamed ResizePort_own (src/host/cxx_glue.c). Every class then
+# lays out as the game's does, byte for byte.
+DEVIRTUALIZE = [
+    ("class GRPort { public: ", "class GRPort { public: i16 vptr; "),
+    ("GRPort(); ~GRPort(); virtual int ResizePort(RECT far *r); };",
+     "GRPort(); ~GRPort(); int ResizePort(RECT far *r); int ResizePort_own(RECT far *r); };"),
+    ("GameWin(); ~GameWin(); virtual int ResizePort(RECT far *r); };",
+     "GameWin(); ~GameWin(); int ResizePort_own(RECT far *r); };"),
+]
+
+
+def devirtualize(text):
+    for a, b in DEVIRTUALIZE:
+        if text.count(a) != 1:
+            sys.exit("gen_headers: DEVIRTUALIZE: `%s` is not in classes.h once" % a)
+        text = text.replace(a, b)
+    if "virtual" in re.sub(r"/\*.*?\*/", "", text, flags=re.S):
+        sys.exit("gen_headers: classes.h has a virtual function DEVIRTUALIZE does not handle")
+    return text
+
+
 def gen_classes():
     src = open(os.path.join(INC, "classes.h")).read()
     cpp, c, names, views = corpus_classes()
@@ -619,8 +646,14 @@ def gen_classes():
     src = src[:i] + note % (", ".join(names), "these") + cpp + src[i:]
     j = src.rindex("#endif", 0, src.rindex("#endif"))
     src = src[:j] + note % (", ".join(views), "these") + c + src[j:]
-    text = borland_pragmas(widen_records(src))
+    text = borland_pragmas(widen_records(devirtualize(src)))
     text = text.replace('#include "records.h"', '#include "records.h"\n#include "port/types.h"\n' + PACK_OPEN, 1)
+    # the classes are the game's size now: say so where C++ sees them
+    asserts = ("#ifdef __cplusplus\n/* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */\n"
+               "PORT_SIZE_ASSERT(sizeof(GRPort) == 0x26, \"GRPort is not the game's 0x26 bytes\");\n"
+               "PORT_SIZE_ASSERT(sizeof(GameWin) == 0xc4, \"GameWin is not the game's 0xc4 bytes\");\n#endif\n")
+    i = text.rindex("#endif")
+    text = text[:i] + asserts + text[i:]
     i = text.rindex("#endif")
     text = text[:i] + PACK_CLOSE + text[i:]
     return BANNER % "classes.h" + text

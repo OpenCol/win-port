@@ -17,4 +17,5 @@ unsigned MSAllocateHandle(unsigned long size)
 
     if (h == 0)
         error_code_set(GRERR_ALLOC_FAILED);
+    return h;   /* PORT: the original has no return; its caller got AX, which held h (W4) */
 }

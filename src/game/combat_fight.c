@@ -930,5 +930,6 @@ vanish:
         ShowMap();
     }
 out:
-    ;
+    return 0;   /* PORT: the real fight fell off the end (AX unset); the one caller that reads the
+                   value, plan_move, passes real == 0 and gets the estimate's explicit return (W4) */
 }

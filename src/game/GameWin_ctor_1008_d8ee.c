@@ -19,4 +19,5 @@ GameWin::GameWin()
 {
     first_ctl = 0;
     relayout = 0;
+    vptr = 1;   /* PORT: the class tag Borland's vtable pointer stood for: a GameWin (W4, gen_headers DEVIRTUALIZE) */
 }

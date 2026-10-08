@@ -22,7 +22,8 @@ extern int g_stub_a;
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-int GRPort::ResizePort(RECT *r)
+/* PORT: ResizePort_own -- GRPort::ResizePort dispatches on the class tag (W4, gen_headers DEVIRTUALIZE) */
+int GRPort::ResizePort_own(RECT *r)
 {
     return GRPort_Init(this, r);
 }

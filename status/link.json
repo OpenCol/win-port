@@ -16,18 +16,8 @@
   ],
   "win16 API (W4: src/platform maps it to Win32)": [
    "CommDlgExtendedError",
-   "FindResource",
-   "FreeLibrary",
-   "FreeResource",
    "GetOpenFileName",
    "GetSaveFileName",
-   "LoadBitmap",
-   "LoadCursor",
-   "LoadIcon",
-   "LoadLibrary",
-   "LoadMenu",
-   "LoadResource",
-   "LockResource",
    "WinGBitBlt",
    "WinGCreateBitmap",
    "WinGCreateDC",
@@ -35,17 +25,14 @@
    "WinGGetDIBPointer",
    "WinGRecommendDIBFormat",
    "WinGSetDIBColorTable",
-   "WinGStretchBlt",
-   "mciGetDeviceID",
-   "mciSendCommand",
-   "sndPlaySound"
+   "WinGStretchBlt"
   ]
  },
  "gate": true,
  "links": true,
- "objects": 3256,
+ "objects": 3260,
  "outside_backlog": [],
- "sources": 3256,
+ "sources": 3260,
  "twice": 0,
- "undefined": 36
+ "undefined": 23
 }

@@ -17,4 +17,5 @@
 
 int empty_1040_7d3b(int x, int y, int w, int h)
 {
+    return 0;   /* PORT: empty in the original (AX unset); its one caller, europe_area_hit_region, has none (W4) */
 }

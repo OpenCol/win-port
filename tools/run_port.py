@@ -14,6 +14,7 @@ Exit status: 0 the game exited by itself, 3 it reached a trap (the log names it)
 124 it was still running after --seconds (then stopped), other: it crashed.
 """
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -41,7 +42,7 @@ def main(argv):
     log = os.path.join(RUN, "port.log")
     if os.path.exists(log):
         os.remove(log)
-    env = dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all"), PORT_LOG=log)
+    env = dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all,err+seh"), PORT_LOG=log)
     if "--trace" in argv:
         env["PORT_TRACE"] = "1"
     t0 = time.time()
@@ -60,6 +61,26 @@ def main(argv):
     tail = [l for l in text.splitlines() if l.startswith("unported")]
     if tail:
         print("  " + tail[-1])
+    out_s = out.decode(errors="replace")
+    # a crash: Wine names the faulting address; the build has debug info and a fixed base
+    m = re.search(r"Unhandled (\w[\w ]*?) (?:on (\w+) access to ([0-9a-fA-F]+) )?at address ([0-9a-fA-F]+)", out_s)
+    if m:
+        where = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-e", EXE, m.group(4)],
+                               capture_output=True, text=True).stdout.split()
+        print("  %s%s at %s: %s" % (m.group(1), " (%s %s)" % (m.group(2), m.group(3)) if m.group(2) else "",
+                                   m.group(4), " ".join(where)))
+    frames = re.findall(r"^frame (?:0x)?([0-9a-fA-F]+)", text, re.M)
+    if frames:
+        r = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-s", "-e", EXE] + frames,
+                           capture_output=True, text=True).stdout.splitlines()
+        print("  called from:")
+        for i in range(0, len(r) - 1, 2):
+            print("    %-36s %s" % (r[i], r[i + 1]))
+    calls = [l for l in text.splitlines() if not l.startswith(("unported", "crash", "frame"))]
+    if calls and ("--trace" in argv):
+        print("  last platform calls:")
+        for l in calls[-8:]:
+            print("    " + l)
     if "-v" in argv:
         print(text[-4000:])
         print(out.decode(errors="replace")[-2000:])

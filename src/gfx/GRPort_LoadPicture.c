@@ -85,5 +85,6 @@ int GRPort_LoadPicture(GRPort *port, int id, int first, int count, struct logpal
     if (MSGrafOrient((GrafRec *)port->win) == 0)
         wing_dib_flip((Wing *)port->win);
     MSReleaseResource_1068_9549(res);
+    return 0;   /* PORT: the success path had no return value (AX after a void call); no caller reads it (W4) */
 }
 

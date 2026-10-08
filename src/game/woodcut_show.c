@@ -150,5 +150,6 @@ int woodcut_show(int index)
     DoFizzle(&port, &dlg, &rc, 0x83, 0x63, -1, 0x10);
     SuperWin_Execute(&dlg);
     SuperWin_GoAway(&dlg);
+    return 0;   /* PORT: no return in the original (AX after a void call); woodcut() passes it on and no caller reads that (W4) */
 }
 
