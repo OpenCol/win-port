@@ -102,6 +102,14 @@ def classes():
     return out
 
 
+def diff_functions():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("diff", os.path.join(ROOT, "tests", "diff.py"))
+    d = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(d)
+    return list(d.FUNCTIONS)
+
+
 def needed_classes(es, cls):
     want, todo = set(), []
     for _n, decl, _x in es:
@@ -168,7 +176,14 @@ def table(es, layout, drop):
               "extern const struct PortField port_fields[];", "extern const unsigned port_field_count;",
               "const struct PortField port_fields[] = {"]
     rows = fields(needed_classes([e for e in es if e[0] not in drop], cls), cls)
-    lines += rows + ["};", "const unsigned port_field_count = %d;" % len(rows), "}"]
+    lines += rows + ["};", "const unsigned port_field_count = %d;" % len(rows)]
+    # the functions the differential calls (tests/diff.py), by name
+    fns = diff_functions()
+    lines += ["struct PortFunction { const char *name; void (*fn)(void); };",
+              "extern const struct PortFunction port_functions[];", "extern const unsigned port_function_count;",
+              "const struct PortFunction port_functions[] = {"]
+    lines += ['  { "%s", (void (*)(void))%s },' % (f, f) for f in fns] or ['  { "", 0 },']
+    lines += ["};", "const unsigned port_function_count = %d;" % len(fns), "}"]
     return "\n".join(lines) + "\n", where
 
 

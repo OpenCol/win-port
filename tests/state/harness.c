@@ -4,11 +4,15 @@
  *                                     and each class's size, bases and members, as JSON
  *   port_state.exe roundtrip IN OUT   load the globals from IN, then write them all to OUT
  *   port_state.exe dump OUT           write the globals as the program starts them
+ *   port_state.exe batch IN JOBS OUT  per job line `name args...`: load IN, call, print EAX, dump OUT.<n>
+ *                                     (the per-function differential, tests/diff.py)
  *
  * Linked with every game object (tests/state/build.py), so the globals are the game's own
  * storage. IN and OUT hold records: name, NUL, a 4-byte little-endian length, the bytes.
  * The table of globals is generated (build/state/table.c, from tests/state/build.py).
  */
+#include <setjmp.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -62,7 +66,67 @@ static int load(const char *path)
         n++;
     }
     fclose(f);
-    fprintf(stderr, "loaded %u globals\n", n);
+    (void)n;
+    return 0;
+}
+
+struct PortFunction { const char *name; void (*fn)(void); };
+extern const struct PortFunction port_functions[];
+extern const unsigned port_function_count;
+typedef long (*AnyFn)(long, long, long, long, long, long, long, long);
+
+static int dump(const char *path);
+
+/* a call that faults (reads through a null pointer the original read harmlessly) is
+   reported as `fault`, and the batch goes on */
+static jmp_buf fault_jump;
+static void on_fault(int sig)
+{
+    (void)sig;
+    longjmp(fault_jump, 1);
+}
+
+/* batch IN JOBS OUT: for each line of JOBS ("name a b c ..."), load IN, call the function with
+   those integer arguments, print its return value (EAX), write the globals to OUT.<line> */
+static int batch(const char *in, const char *jobs, const char *out)
+{
+    FILE *f = fopen(jobs, "r");
+    char line[512];
+    unsigned k = 0;
+    if (!f)
+        return 1;
+    while (fgets(line, sizeof line, f)) {
+        char name[128], path[512];
+        long a[8] = { 0 };
+        unsigned i;
+        int n = sscanf(line, "%127s %ld %ld %ld %ld %ld %ld %ld %ld", name, &a[0], &a[1], &a[2], &a[3],
+                       &a[4], &a[5], &a[6], &a[7]);
+        const struct PortFunction *fn = 0;
+        if (n < 1)
+            continue;
+        for (i = 0; i < port_function_count; i++)
+            if (strcmp(port_functions[i].name, name) == 0)
+                fn = &port_functions[i];
+        if (load(in))
+            return 1;
+        if (!fn) {
+            printf("%u %s unknown\n", k++, name);
+            continue;
+        }
+        signal(SIGSEGV, on_fault);
+        if (setjmp(fault_jump)) {
+            printf("%u %s fault\n", k, name);
+            fflush(stdout);
+        } else {
+            long r = ((AnyFn)fn->fn)(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
+            printf("%u %s %ld\n", k, name, r);
+            fflush(stdout);
+        }
+        sprintf(path, "%s.%u", out, k++);
+        if (dump(path))
+            return 1;
+    }
+    fclose(f);
     return 0;
 }
 
@@ -113,6 +177,8 @@ int main(int argc, char **argv)
     }
     if (argc == 4 && strcmp(argv[1], "roundtrip") == 0)
         return load(argv[2]) || dump(argv[3]);
+    if (argc == 5 && strcmp(argv[1], "batch") == 0)
+        return batch(argv[2], argv[3], argv[4]);
     if (argc == 3 && strcmp(argv[1], "dump") == 0)
         return dump(argv[2]);             /* the globals as the executable starts them */
     fprintf(stderr, "usage: port_state layout | roundtrip IN OUT | dump OUT\n");

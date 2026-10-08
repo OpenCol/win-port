@@ -1,0 +1,26 @@
+{
+ "agree": 20,
+ "functions": {
+  "bottom_unit": true,
+  "cargo_free": true,
+  "colony_has_building": true,
+  "field_index": true,
+  "freedom_level": true,
+  "get_cargo_amount": true,
+  "get_treaty": true,
+  "get_unit_dest": true,
+  "has_father": true,
+  "is_armed": true,
+  "is_colonist": true,
+  "job_of_unit": true,
+  "next_unit": true,
+  "on_map": true,
+  "region_build_factor": true,
+  "set_cargo_amount": true,
+  "set_treaty": true,
+  "top_unit": true,
+  "tribe_radius": true,
+  "which_move": true
+ },
+ "total": 20
+}
