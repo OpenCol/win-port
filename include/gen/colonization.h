@@ -668,7 +668,7 @@ extern int8_t g_art_mountains[][32];
 extern int g_attitude_word[];   /* PORT: the corpus's type */
 extern int g_attitudinal_word[];   /* PORT: the corpus's type */
 extern int g_autoplay;   /* PORT: the corpus's type */
-extern int g_avg_colony_size[];   /* PORT: the corpus's type */
+extern i16 g_avg_colony_size[4];   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern Sprite g_background_tile;   /* PORT: the corpus's type */
 extern int8_t g_backslash[];
 extern int16_t g_base_sales[];
@@ -796,8 +796,8 @@ extern void * g_current_window;   /* PORT: the corpus's type */
 extern char *g_cursor;   /* PORT: the corpus's type */
 extern int8_t g_cursor_sprite[];
 extern int g_cursor_state;   /* PORT: the corpus's type */
-extern int g_cursor_x;   /* PORT: the corpus's type */
-extern int g_cursor_y;   /* PORT: the corpus's type */
+extern i16 g_cursor_x;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
+extern i16 g_cursor_y;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern CursorClass g_cursors[0xf];   /* PORT: the corpus's type */
 extern int16_t g_custom_house_colony;
 extern int g_cycle_flag;   /* PORT: the corpus's type */
@@ -1014,8 +1014,8 @@ extern int g_lowmem_timer;   /* PORT: the corpus's type */
 extern void *g_lowmem_win;
 extern unsigned long g_map_bytes;   /* PORT: the corpus's type */
 extern long g_map_cells;   /* PORT: the corpus's type */
-extern int g_map_center_x;   /* PORT: the corpus's type */
-extern int g_map_center_y;   /* PORT: the corpus's type */
+extern i16 g_map_center_x;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
+extern i16 g_map_center_y;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern int g_map_click_busy;   /* PORT: the corpus's type */
 extern char g_map_file_name[];   /* PORT: the corpus's type */
 extern int16_t g_map_h;
@@ -1046,7 +1046,7 @@ extern char g_message_buf[];   /* PORT: the corpus's type */
 extern int16_t g_human_turn_active;
 extern int16_t g_end_of_turn_pending;
 extern void (*g_midi_done_cb)(void);   /* PORT: the files' type */
-extern unsigned g_military_power[];   /* PORT: the corpus's type */
+extern u16 g_military_power[4];   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern int g_misc_words[];   /* PORT: the corpus's type */
 extern int g_mission_word[];   /* PORT: the corpus's type */
 extern int g_modal_active;   /* PORT: the corpus's type */
@@ -1188,7 +1188,7 @@ extern unsigned int g_rank[4];   /* PORT: the corpus's type */
 extern int16_t g_rebel_adjective;
 extern int16_t g_rebel_sentiment;
 extern int16_t g_rebel_step;
-extern Rec6 g_rec6_78e0;   /* PORT: the corpus's type */
+extern Rec6 g_rec6_78e0[4];   /* PORT: four Rec6 records, one per nation: save_game writes and load_game_file reads 0x18 bytes from it (load_game_file.c); declared as one, the load wrote 18 bytes past it (W6) */
 extern Rec7c0a g_rec_7c0a;
 extern Recruit g_recruit[];
 extern int g_redraw_mode;   /* PORT: the corpus's type */
@@ -1198,7 +1198,7 @@ extern unsigned char g_region_flags[];   /* PORT: the corpus's type */
 extern unsigned char g_region_pop[];   /* PORT: the corpus's type */
 extern unsigned char g_region_population[][16];   /* PORT: the corpus's type */
 extern unsigned char g_region_settlements[];   /* PORT: the corpus's type */
-extern int g_region_size[16];   /* PORT: the corpus's type */
+extern i16 g_region_size[16];   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern unsigned char g_region_state[][16];   /* PORT: the corpus's type */
 extern unsigned char g_region_unit_count[][16];   /* PORT: the corpus's type */
 extern unsigned char g_region_unit_tally[];   /* PORT: the corpus's type */
@@ -1250,7 +1250,7 @@ extern i16 *g_scale_map;   /* PORT: it points at a ScaleSlot's map, i16[0x400] (
 extern int g_scale_num;   /* PORT: the corpus's type */
 extern int16_t g_hint_flags;
 extern int8_t g_hint_flags_hi;
-extern int g_scenery_seed;   /* PORT: the corpus's type */
+extern i16 g_scenery_seed;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern int g_score_total;   /* PORT: the corpus's type */
 extern unsigned char g_colour_table[];   /* PORT: the corpus's type */
 extern int g_scout_visit;   /* PORT: the corpus's type */
@@ -1499,7 +1499,7 @@ extern int16_t g_yes_id;
 extern int8_t g_zero[];
 extern int8_t g_zero_digit[];
 extern int8_t g_zero_digit2[];
-extern int g_zoom;   /* PORT: the corpus's type */
+extern i16 g_zoom;   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern int8_t opening_class_name[];
 extern int8_t str_spaces3[];
 extern int8_t str_slash[];
@@ -5917,10 +5917,20 @@ extern VListItem *vlist_item_next(VListItem *item);
 extern VListItem *vlist_item_prev(VListItem *it);
 #endif
 extern void w16_animate(unsigned start, unsigned n, const PALETTEENTRY *e);
+extern unsigned long w16_borland_seed(void);
 extern int w16_device_caps(HDC dc, int i);
 extern int w16_display_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh);
 extern void w16_forget(unsigned token);
 extern HANDLE w16_handle(unsigned token);
+extern int w16_lockstep(void);
+extern void w16_lockstep_idle(void);
+extern int w16_lockstep_kill_timer(HWND h, unsigned id);
+extern void w16_lockstep_message(void);
+extern const char *w16_lockstep_save(void);
+extern unsigned w16_lockstep_set_timer(HWND h, unsigned id, unsigned ms);
+extern unsigned w16_lockstep_srand(unsigned seed);
+extern void w16_lockstep_step(void *brains);
+extern unsigned long w16_lockstep_ticks(void);
 extern int w16_palette_device(void);
 extern unsigned w16_system_palette(unsigned start, unsigned n, PALETTEENTRY *out);
 extern unsigned w16_token(HANDLE h);

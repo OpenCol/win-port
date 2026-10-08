@@ -1,3 +1,4 @@
+/* PORT: g_rec6_78e0 is declared as its four records (W6): the swap takes the array, not its address. */
 /* PORT: this file's own declarations of colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words removed: the header declares them from the definition (W1 step 3). */
 /* save_game: candidate for 1008:a7f6 (2627 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -78,9 +79,9 @@ int save_game(char *name)
     nation52_swap_word_at_32(g_nation_text);
     save_write_field(&f, g_nation_text, 0xd0L);
     nation52_swap_word_at_32(g_nation_text);
-    rec6_swap_words(&g_rec6_78e0);
+    rec6_swap_words(g_rec6_78e0);
     save_write_field(&f, &g_rec6_78e0, 0x18L);
-    rec6_swap_words(&g_rec6_78e0);
+    rec6_swap_words(g_rec6_78e0);
     if (g_game.colony_count != 0) {
         colonies_swap_words(g_colonies, g_game.colony_count);
         save_write_field(&f, g_colonies, (unsigned)(g_game.colony_count * 0xca));

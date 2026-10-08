@@ -15,6 +15,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/oracle.json   python3 tests/oracle.py --selftest --record   (needs $COL_GAME_DIR)
     status/trace.json    python3 tests/trace.py --gate --record    (needs $COL_GAME_DIR and wine)
     status/asm.json      python3 tests/asm.py --record             (needs $COL_GAME_DIR and wine)
+    status/lockstep.json python3 tests/lockstep.py run SAVE --record  (a ledger, per scenario)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -123,6 +124,25 @@ def w4():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w6():
+    a = rec("lockstep")
+    if not a or not a.get("scenarios"):
+        return "open", "not measured"
+    sc = a["scenarios"]
+    cps = sum(v["checkpoints"] for v in sc.values())
+    same = sum(v["in_lockstep"] for v in sc.values())
+    turns = sum(v["turns"] for v in sc.values())
+    whole = sum(v["turns"] for v in sc.values() if v["in_lockstep"] == v["checkpoints"])
+    golden = [l for l in open(os.path.join(ROOT, "tests", "golden", "MANIFEST")) if l.strip() and not l.startswith("#")]
+    parts = ["%d scenario(s): %d/%d checkpoints in lockstep, %d of %d turns whole" % (len(sc), same, cps, whole, turns)]
+    bad = sorted((k, v["first_divergence"]) for k, v in sc.items() if v["first_divergence"])
+    if bad:
+        parts.append("first divergence: %s %s" % bad[0])
+    parts.append("golden corpus: %d of 21 scenarios recorded" % len(golden))
+    done = not bad and len(golden) >= 21 and all(k in sc for k in (l.split()[1] for l in golden))
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 def w5():
     a = rec("asm")
     if not a:
@@ -150,7 +170,7 @@ ROWS = [
     ("W3", "oracle", w3, "tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record"),
     ("W4", "platform", w4, "tools/undefined.py --record, tests/trace.py --gate --record"),
     ("W5", "asm", w5, "tests/asm.py --record"),
-    ("W6", "lockstep", None, "tests/lockstep --corpus golden (not written yet)"),
+    ("W6", "lockstep", w6, "tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)"),
     ("W7", "playable", None, "scripted sessions, saves both ways, human pass"),
     ("W8", "linux", None, "winegcc build through W3-W7"),
     ("W9", "64-bit", None, "W6 and W7 on x64, x86_64, macOS"),

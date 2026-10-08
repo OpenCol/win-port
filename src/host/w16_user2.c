@@ -70,7 +70,9 @@ int w16_MoveWindow(unsigned h, int x, int y, int w, int hh, int repaint)
 int w16_GetSystemMetrics(int i) W16(GetSystemMetrics);
 int w16_GetSystemMetrics(int i)
 {
-    int v = GetSystemMetrics(i);
+    /* a lockstep run has the oracle's screen, 640 x 480 (W6): the game lays its windows out by it */
+    int v = w16_lockstep() && (i == SM_CXSCREEN || i == SM_CYSCREEN) ? (i == SM_CXSCREEN ? 640 : 480)
+                                                                    : GetSystemMetrics(i);
     w16_trace("GetSystemMetrics(%d) = %d", i, v);
     return v;
 }
@@ -162,7 +164,7 @@ int w16_DestroyCursor(unsigned c)
 }
 
 unsigned long w16_GetTickCount(void) W16(GetTickCount);
-unsigned long w16_GetTickCount(void) { return GetTickCount(); }
+unsigned long w16_GetTickCount(void) { return w16_lockstep() ? w16_lockstep_ticks() : GetTickCount(); }
 
 void w16_MessageBeep(unsigned t) W16(MessageBeep);
 void w16_MessageBeep(unsigned t) { MessageBeep(t); }
@@ -281,11 +283,13 @@ unsigned w16_SetTimer(unsigned h, unsigned id, unsigned ms, void *fn)
 {
     /* the game sets no timer procedure: its timers arrive as WM_TIMER */
     (void)fn;
+    if (w16_lockstep())                 /* fired from the virtual clock (W6) */
+        return w16_lockstep_set_timer(HW(h), id, ms);
     return (unsigned)SetTimer(HW(h), id, ms, 0);
 }
 
 int w16_KillTimer(unsigned h, unsigned id) W16(KillTimer);
-int w16_KillTimer(unsigned h, unsigned id) { return KillTimer(HW(h), id); }
+int w16_KillTimer(unsigned h, unsigned id) { return w16_lockstep() ? w16_lockstep_kill_timer(HW(h), id) : KillTimer(HW(h), id); }
 
 /* ------------------------------------------------------------------ menus */
 

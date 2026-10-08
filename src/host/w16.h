@@ -31,6 +31,16 @@ void w16_forget(unsigned token);       /* the handle is gone (DeleteObject, Dest
 
 /* $PORT_TRACE: one line per platform call, to $PORT_LOG */
 void w16_trace(const char *fmt, ...);
+/* the autoplay lockstep (w16_lockstep.c, roadmap W6): all 0 / no-ops unless $PORT_LOCKSTEP is set */
+int w16_lockstep(void);
+const char *w16_lockstep_save(void);
+unsigned long w16_lockstep_ticks(void);
+unsigned w16_lockstep_set_timer(HWND h, unsigned id, unsigned ms);
+int w16_lockstep_kill_timer(HWND h, unsigned id);
+void w16_lockstep_idle(void);
+void w16_lockstep_message(void);
+int w16_lockstep_input(const MSG *m);
+unsigned w16_lockstep_srand(unsigned seed);
 extern int w16_tracing;
 
 /* the 1995 display, in software (w16_display.c) */

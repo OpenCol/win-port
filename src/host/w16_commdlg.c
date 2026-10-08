@@ -1,6 +1,7 @@
 /* COMMDLG: the open and save file dialogs, Win16 on Win32 (roadmap W4). The game's OPENFILENAME
    is its own structure in the port's layout (the field order of Win32's, handles as tokens);
    it is copied into Win32's, the dialog run, and the results copied back. */
+#include <stdio.h>
 #include <string.h>
 #include "w16.h"
 #include <commdlg.h>
@@ -47,6 +48,10 @@ char w16_GetOpenFileName(OPENFILENAME_G *g)
 {
     OPENFILENAMEA o;
     BOOL r;
+    if (w16_lockstep_save()) {          /* the scenario's saved game, no dialog (W6) */
+        snprintf(g->lpstrFile, g->nMaxFile, "%s", w16_lockstep_save());
+        return 1;
+    }
     in(&o, g);
     r = GetOpenFileNameA(&o);
     out(g, &o);

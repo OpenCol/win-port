@@ -1,4 +1,8 @@
-"""col-win-re's emulator tools, at the commit in import/SOURCE, for the W3 tests.
+"""col-win-re's emulator tools, at the commit in import/ORACLE, for the W3-W6 tests.
+
+The tools have their own pin, apart from the corpus's (import/SOURCE): the emulator is a test
+instrument, and a fix to it (col-win-re 0ad06e0da: MoveWindow's messages, window frames, the
+border metric) must not wait for the corpus's three-way merge. Without import/ORACLE, SOURCE.
 
 The oracle and the state tests use col-win-re's software Win16 machine
 (tools/re_agent/win16emu.py, winsim.py, probe.py, state.py) as a library. Like the import,
@@ -51,7 +55,8 @@ def game_dir():
 
 def tree():
     """The unpacked col-win-re tools at SOURCE, with game/ linked to $COL_GAME_DIR."""
-    source = open(os.path.join(ROOT, "import", "SOURCE")).read().strip()
+    pin = os.path.join(ROOT, "import", "ORACLE")
+    source = open(pin if os.path.exists(pin) else os.path.join(ROOT, "import", "SOURCE")).read().strip()
     out = os.path.join(ROOT, "build", "colwinre", source[:12])
     if not os.path.isdir(os.path.join(out, "tools")):
         os.makedirs(out, exist_ok=True)

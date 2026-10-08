@@ -10,6 +10,7 @@ g_europe_timer g_main_win 0x317e
 g_europe_win g_main_win 0x2a08
 g_europe_win_dlg g_main_win 0x2a2e
 g_europe_x0 g_main_win 0x3172
+g_goods_wanted g_seg24_065e 0x0
 g_info_win_dlg g_main_win 0xfc2
 g_map_timer g_main_win 0x804
 g_map_window g_main_win 0x8e
@@ -17,7 +18,18 @@ g_map_window_dlg g_main_win 0xb4
 g_menu_owner g_main_win 0x8c
 g_mini_win g_main_win 0x816
 g_mini_win_dlg g_main_win 0x83c
+g_nation_region g_seg20_da50 0xe0
+g_nation_region_strength g_seg20_da50 0x160
 g_pedia_win g_main_win 0x32b2
+g_region_attack g_seg20_da50 0x120
+g_region_colony_count g_seg20_da50 0x60
+g_region_farmland g_seg20_da50 0x0
+g_region_flags g_seg20_da50 0x1a0
+g_region_population g_seg20_da50 0xa0
+g_region_settlements g_seg20_da50 0x10
+g_region_unit_count g_seg20_da50 0x20
 g_report_window g_main_win 0x173c
 g_report_window_dlg g_main_win 0x1762
 g_stat_win g_main_win 0xf9c
+g_want_muskets g_seg24_065e 0xf
+g_want_tools g_seg24_065e 0xe

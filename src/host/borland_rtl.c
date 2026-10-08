@@ -96,13 +96,22 @@ int printf_rtl(const char *fmt, ...)
     return n;
 }
 
+extern "C" int w16_lockstep(void);
+extern "C" unsigned w16_lockstep_srand(unsigned seed);
+
 static unsigned long borland_seed = 1;
 int rand_rtl(void)
 {
     borland_seed = borland_seed * 0x015A4E35UL + 1;
     return (int)((borland_seed >> 16) & 0x7FFF);
 }
-void srand_rtl(unsigned seed) { borland_seed = (unsigned short)seed; }
+void srand_rtl(unsigned seed)
+{
+    if (w16_lockstep())                 /* the oracle's seed, not the clock's (W6) */
+        seed = w16_lockstep_srand(seed);
+    borland_seed = (unsigned short)seed;
+}
+extern "C" unsigned long w16_borland_seed(void) { return borland_seed; }
 
 long time_rtl(long *t)
 {

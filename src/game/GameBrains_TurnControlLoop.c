@@ -1,3 +1,4 @@
+/* PORT: after each write of GameBrains.step, w16_lockstep_step: the autoplay lockstep's checkpoint (W6); it does nothing outside a lockstep run. */
 /* PORT: this file's own declarations of GameBrains_DoViceroy removed: the header declares it from the definition (W1 step 3). */
 /* GameBrains_TurnControlLoop: candidate for 1008:3461 (285 bytes).  Verdict: RELOCATABLE.
  * symbol: GameBrains_TurnControlLoop
@@ -34,6 +35,8 @@ extern void GameBrains_DoIndians(GameBrains *ctx);
 extern void GameBrains_DoEndofTurn(GameBrains *c);
 extern void GameBrains_DoHuman(GameBrains *brains);
 
+extern void w16_lockstep_step(void *brains);
+
 void GameBrains_TurnControlLoop(GameBrains *brains)
 {
     if (g_game.game_in_progress != 0) {
@@ -42,27 +45,33 @@ void GameBrains_TurnControlLoop(GameBrains *brains)
             case 0:
                 GameBrains_DoIndians(brains);
                 brains->step++;
+                w16_lockstep_step(brains);
                 break;
             case 1:
                 GameBrains_DoViceroy(brains, 0);
                 brains->step++;
+                w16_lockstep_step(brains);
                 break;
             case 2:
                 GameBrains_DoViceroy(brains, 1);
                 brains->step++;
+                w16_lockstep_step(brains);
                 break;
             case 3:
                 GameBrains_DoViceroy(brains, 2);
                 brains->step++;
+                w16_lockstep_step(brains);
                 break;
             case 4:
                 GameBrains_DoViceroy(brains, 3);
                 brains->step++;
+                w16_lockstep_step(brains);
                 break;
             case 5:
                 GameBrains_DoEndofTurn(brains);
                 g_game.end_of_turn_pending = 0;
                 brains->step = 0;
+                w16_lockstep_step(brains);
                 break;
             }
         }

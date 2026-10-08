@@ -1,3 +1,4 @@
+/* PORT: after the write of GameBrains.step, w16_lockstep_step: the autoplay lockstep's checkpoint (W6); it does nothing outside a lockstep run. */
 /* GameBrains_Reset: candidate for 1008:378f (41 bytes).  Verdict: EXACT.
  * name-source: sibling-build
  *
@@ -16,9 +17,12 @@
 
 #include "records.h"
 
+extern void w16_lockstep_step(void *brains);
+
 void GameBrains_Reset(GameBrains *brains)
 {
     brains->phase = 100;
     brains->awaiting_human = 0;
     brains->step = 0;
+    w16_lockstep_step(brains);
 }

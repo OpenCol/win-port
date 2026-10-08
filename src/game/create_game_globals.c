@@ -1,3 +1,4 @@
+/* PORT: g_cursor_x/y are Borland's 16-bit int, i16: load_game_file reads them raw from the save (W6). */
 /* create_game_globals: candidate for 1008:ee00 (445 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: _STCON_()
@@ -115,8 +116,8 @@ int g_4b2a;                            /* DGROUP:0x4b2a */
 char g_panel_shown_mask;               /* DGROUP:0x4b2c */
 static char pad_4b2d;                  /* DGROUP:0x4b2d, no reader */
 int g_seam_handle;                     /* DGROUP:0x4b2e */
-int g_cursor_x;                        /* DGROUP:0x4b30 */
-int g_cursor_y;                        /* DGROUP:0x4b32 */
+i16 g_cursor_x;                        /* DGROUP:0x4b30 */
+i16 g_cursor_y;                        /* DGROUP:0x4b32 */
 int g_season_word[2];                  /* DGROUP:0x4b34 */
 int g_cmisc_word[3];                   /* DGROUP:0x4b38 */
 int g_eurolabel_word[3];               /* DGROUP:0x4b3e */

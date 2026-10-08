@@ -270,9 +270,32 @@ MODEL_FIXES = [
 
 # Globals whose corpus type was Borland's int where it now names an i16 cell: (name, the port's
 # declaration, why). Applied after every other rule.
+RAW16 = ("Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6)")
+
 GLOBAL_TYPES = [
     ("g_scale_map", "extern i16 *g_scale_map;",
      "it points at a ScaleSlot's map, i16[0x400] (SetGlobalSpriteScale)"),
+    ("g_rec6_78e0", "extern Rec6 g_rec6_78e0[4];",
+     "four Rec6 records, one per nation: save_game writes and load_game_file reads 0x18 bytes "
+     "from it (load_game_file.c); declared as one, the load wrote 18 bytes past it (W6)"),
+    ("g_avg_colony_size", "extern i16 g_avg_colony_size[4];",
+     RAW16),
+    ("g_cursor_x", "extern i16 g_cursor_x;",
+     RAW16),
+    ("g_cursor_y", "extern i16 g_cursor_y;",
+     RAW16),
+    ("g_map_center_x", "extern i16 g_map_center_x;",
+     RAW16),
+    ("g_map_center_y", "extern i16 g_map_center_y;",
+     RAW16),
+    ("g_military_power", "extern u16 g_military_power[4];",
+     RAW16),
+    ("g_region_size", "extern i16 g_region_size[16];",
+     RAW16),
+    ("g_scenery_seed", "extern i16 g_scenery_seed;",
+     RAW16),
+    ("g_zoom", "extern i16 g_zoom;",
+     RAW16),
 ]
 
 

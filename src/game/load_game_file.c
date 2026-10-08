@@ -1,3 +1,4 @@
+/* PORT: g_rec6_78e0 is declared as its four records (W6): the swap takes the array, not its address. */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 106, 109, 294, 298 of the imported file. */
 /* PORT: this file's own declarations of MSDeleteMenuItem_1008_d791, colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words, win_disable_1008_d766, win_enable_1008_d809, win_redraw_menu_bar_1008_d7b3 removed: the header declares them from the definition (W1 step 3). */
 /* load_game_file: candidate for 1008:9056 (2930 bytes).  Verdict: RELOCATABLE.
@@ -154,7 +155,7 @@ int load_game_file(char *name)
     nation52_swap_word_at_32(g_nation_text);
     if (save_read_field(&f, &g_rec6_78e0, 0x18L) == 0)
         goto done;
-    rec6_swap_words(&g_rec6_78e0);
+    rec6_swap_words(g_rec6_78e0);
     if (g_game.colony_count != 0)
         if (save_read_field(&f, g_colonies, (unsigned)(g_game.colony_count * 0xca)) == 0)
             goto done;

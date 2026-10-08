@@ -145,9 +145,14 @@ int L17_01dc(int n)
     return (int)(uint16_t)(next_random() % (uint16_t)n);
 }
 
-/* 1080:01f0: set the seed (its caller's first argument, a long) */
+/* 1080:01f0: set the seed (its caller's first argument, a long). A lockstep run (W6) hands the
+   seed to a filter: the oracle's, not the clock's. */
+long (*port_l17_seed_filter)(long);
+
 void L17_01f0(long seed)
 {
+    if (port_l17_seed_filter)
+        seed = port_l17_seed_filter(seed);
     g_dgroup_3f00_seed = (uint32_t)seed;
 }
 

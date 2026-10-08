@@ -23,6 +23,8 @@ unsigned long w16_mciSendCommand(unsigned dev, unsigned msg, unsigned long flags
     void *p = (void *)(uintptr_t)parms;
     MCIERROR r;
     DWORD_PTR cb = 0;
+    if (w16_lockstep())                 /* no device, as winsim's default answers (W6) */
+        return 1;
     if (p && (flags & MCI_NOTIFY))
         cb = (DWORD_PTR)w16_handle((unsigned)(*(unsigned long *)p & 0xFFFF));
     switch (msg) {
@@ -76,4 +78,4 @@ unsigned w16_mciGetDeviceID(const char *name) W16(mciGetDeviceID);
 unsigned w16_mciGetDeviceID(const char *name) { return mciGetDeviceIDA(name); }
 
 int w16_sndPlaySound(const char *name, unsigned flags) W16(sndPlaySound);
-int w16_sndPlaySound(const char *name, unsigned flags) { return sndPlaySoundA(name, flags); }
+int w16_sndPlaySound(const char *name, unsigned flags) { return w16_lockstep() ? 1 : sndPlaySoundA(name, flags); }

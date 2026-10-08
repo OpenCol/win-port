@@ -457,8 +457,20 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
 int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned remove)
 {
     MSG m;
-    if (!PeekMessageA(&m, W16_HWND(hwnd), lo, hi, remove))
-        return 0;
+    for (;;) {
+        if (!PeekMessageA(&m, W16_HWND(hwnd), lo, hi, remove)) {
+            if (w16_lockstep())
+                w16_lockstep_idle();      /* time passes as winsim's does (W6) */
+            return 0;
+        }
+        /* a lockstep run hears no one but its script: the host's keys and mouse are dropped (W6) */
+        if (!w16_lockstep() || w16_lockstep_input(&m))
+            break;
+        if (!(remove & PM_REMOVE))
+            PeekMessageA(&m, m.hwnd, m.message, m.message, PM_REMOVE);
+    }
+    if (w16_lockstep())
+        w16_lockstep_message();
     last = m;
     msg_out(g, &m);
     return 1;
