@@ -1,3 +1,4 @@
+/* PORT: the game's 16-bit words read and written as i16, not int (4 bytes here) (W4). */
 /* CTable_Init: candidate for 1068:0180 (227 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * symbol: CTable_Init
@@ -48,9 +49,9 @@ void CTable_Init(CTable *pal, int id)
         return;
     }
     p = (char *)MSLockResource_1068_94f8(res);
-    first = swap_word_identity_1068_9518(*(int *)p);
+    first = swap_word_identity_1068_9518(*(i16 *)p);
     p += 2;
-    count = swap_word_identity_1068_9518(*(int *)p);
+    count = swap_word_identity_1068_9518(*(i16 *)p);
     p += 2;
     CTable_Fill(pal, first, count, p);
     MSUnlockResource_1068_952d(res);

@@ -1,3 +1,4 @@
+/* PORT: the game's 16-bit words read and written as i16, not int (4 bytes here) (W4). */
 /* MSDecodeDeltaFli: candidate for 1070:86d7 (697 bytes, 1 caller).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -36,9 +37,9 @@ void MSDecodeDeltaFli(unsigned char *src, unsigned char *dst, int stride, unsign
     add16 += add;
     add32 = (unsigned long)add16 << 16;
     add32 += add16;
-    row = *(int *)src + row0;
+    row = *(i16 *)src + row0;
     src += 2;
-    rows = *(int *)src;
+    rows = *(i16 *)src;
     src += 2;
     while (--rows >= 0) {
         col = col0;

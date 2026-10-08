@@ -1,3 +1,4 @@
+/* PORT: the permutations are allocated 2 bytes an entry: i16, not int (4 bytes here) (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 62, 63 of the imported file. */
 /* PORT: this file's own declarations of wing_dib_pointer removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 61, 62 of the imported file. */
@@ -40,8 +41,8 @@ void wing_dissolve(Surface *dst, Surface *src, MSWin *scr, RECT *r, int stride)
     unsigned char *dst_bits;
     short hcols;
     short hrows;
-    int *cols;
-    int *rows;
+    i16 *cols;
+    i16 *rows;
     int width;
     int height;
     int a;
@@ -64,8 +65,8 @@ void wing_dissolve(Surface *dst, Surface *src, MSWin *scr, RECT *r, int stride)
     dst_bits = wing_dib_pointer((GrafRec *)((Surface *)((GrafRec *)dst)));
     if (scr->hpal != 0 && g_palette_mode == 1)
         RealizePalette(scr->hdc);
-    cols = (int *)MSHLock(hcols);
-    rows = (int *)MSHLock(hrows);
+    cols = (i16 *)MSHLock(hcols);
+    rows = (i16 *)MSHLock(hrows);
     for (i = 0; i < width; i++)
         cols[i] = i;
     for (i = 0; i < height; i++)
@@ -102,8 +103,8 @@ void wing_dissolve(Surface *dst, Surface *src, MSWin *scr, RECT *r, int stride)
             WinGBitBlt(scr->hdc, dx, dy, width, height, dst->hdc, sx, sy);
         }
     }
-    cols = (int *)MSHUnlock(hcols);
-    rows = (int *)MSHUnlock(hrows);
+    cols = (i16 *)MSHUnlock(hcols);
+    rows = (i16 *)MSHUnlock(hrows);
     src_bits = return_null(src);
     dst_bits = return_null(dst);
     MSDisposeHandle(hcols);

@@ -1,3 +1,4 @@
+/* PORT: the tribe word read as i16, not int (4 bytes here) (W4). */
 /* get_adjective: candidate for 1030:8033 (124 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -23,7 +24,7 @@ extern GameState g_game;   /* SEG20:0x7782 */
 int get_adjective(int nation)
 {
     if (nation >= 4)
-        return ((int *)((char *)&g_tribe[nation] - 0x16))[0];
+        return ((i16 *)((char *)&g_tribe[nation] - 0x16))[0];
     else {
         if (g_game.game_flags & GAMEFLAG_INDEPENDENCE) {
             if (g_game.player_nation == nation)

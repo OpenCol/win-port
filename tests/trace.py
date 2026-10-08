@@ -34,6 +34,11 @@ import colwinre               # noqa: E402
 
 OUT = os.path.join(ROOT, "build", "trace")
 N_DEFAULT = 10000
+# Both sides record a quarter more calls than are compared: collapsing the polling runs (and
+# skipping the oracle's gaps) shortens a trace, and the gate compares the first N that remain.
+def recorded(n):
+    return n + n // 4
+
 
 
 def framework():
@@ -176,7 +181,7 @@ def oracle_main(n, out):
 def oracle(n):
     os.makedirs(OUT, exist_ok=True)
     out = os.path.join(OUT, "oracle.txt")
-    r = subprocess.run([colwinre.python(), __file__, "--oracle-run", str(n), out])
+    r = subprocess.run([colwinre.python(), __file__, "--oracle-run", str(recorded(n)), out])
     return out if r.returncode == 0 else None
 
 
@@ -192,7 +197,7 @@ def native(n):
     raw = os.path.join(OUT, "native.raw")
     if os.path.exists(raw):
         os.remove(raw)
-    env = dict(os.environ, PORT_MSTRACE="Z:" + raw.replace("/", "\\"), PORT_MSTRACE_N=str(n))
+    env = dict(os.environ, PORT_MSTRACE="Z:" + raw.replace("/", "\\"), PORT_MSTRACE_N=str(recorded(n)))
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "run_port.py"), "--seconds", "600"], env=env)
     # pointers: the executable's own data symbols, sorted
     sym = subprocess.run(["i686-w64-mingw32-nm", "-n", "--defined-only", os.path.join(ROOT, "build", "colonize.exe")],
@@ -234,6 +239,21 @@ def native(n):
     return out
 
 
+# Calls that poll a clock or the queue: how many there are depends on how fast the machine runs
+# (the emulator's clock advances per call, the port's is the wall clock), so a run of the same
+# one counts once.
+POLLING = ("MSGetTicks", "MSDoTask", "MSKeyPressed")
+
+
+def collapse(lines):
+    out = []
+    for l in lines:
+        if out and l == out[-1] and l.split()[0].split("_1")[0] in POLLING:
+            continue
+        out.append(l)
+    return out
+
+
 def canon_handles(lines):
     """each handle (hNNNN) by its order of first use, so the two programs' numbering need not agree"""
     seen, out = {"h0": "0"}, []
@@ -242,9 +262,31 @@ def canon_handles(lines):
     return out
 
 
-def compare(a, b):
-    x = canon_handles([l.rstrip("\n") for l in open(a)])
-    y = canon_handles([l.rstrip("\n") for l in open(b)])
+# Behaviour the oracle does not model (UPSTREAM.md): with --skip-oracle-gaps, a diagnostic and
+# never the gate, the port's part of it is dropped before comparing. MoveWindow's WM_MOVE makes
+# the game re-initialise the port: this run of calls, after a MSGrafOrient.
+ORACLE_GAPS = [["MSUnlockGraf", "MSHUnlock", "MSDisposeHandle", "MSInitGraf", "MSAllocateHandle", "MSLockGraf",
+                "MSGrafOrient", "MSValidRect"]]
+
+
+def drop_gaps(lines):
+    names = [(l.split() or [""])[0] for l in lines]
+    out, i = [], 0
+    while i < len(lines):
+        for gap in ORACLE_GAPS:
+            if names[i:i + len(gap)] == gap and i and names[i - 1] == "MSGrafOrient":
+                i += len(gap)
+                break
+        else:
+            out.append(lines[i])
+            i += 1
+    return out
+
+
+def compare(a, b, skip_gaps=False):
+    x = canon_handles(collapse([l.rstrip("\n") for l in open(a)]))
+    raw_y = collapse([l.rstrip("\n") for l in open(b)])
+    y = canon_handles(drop_gaps(raw_y) if skip_gaps else raw_y)
     n = 0
     while n < min(len(x), len(y)) and x[n] == y[n]:
         n += 1
@@ -265,7 +307,8 @@ def main(argv):
             oracle(n)
             native(n)
         a, b = os.path.join(OUT, "oracle.txt"), os.path.join(OUT, "native.txt")
-        same, x, y = compare(a, b)
+        same, x, y = compare(a, b, skip_gaps="--skip-oracle-gaps" in argv)
+        same = min(same, n)
         print("matching prefix: %d of %d (oracle %d calls, native %d)" % (same, n, len(x), len(y)))
         if same < min(len(x), len(y)):
             for k in range(max(0, same - 3), min(same + 3, len(x), len(y))):
@@ -273,9 +316,14 @@ def main(argv):
                 print("  %s %6d  native: %s" % (" ", k, y[k][:100]))
         if "--record" in argv:
             with open(os.path.join(ROOT, "status", "trace.json"), "w") as f:
-                json.dump({"n": n, "matching": same, "oracle": len(x), "native": len(y)}, f, indent=1, sort_keys=True)
+                # the gate is the strict prefix; the one with the oracle's gaps skipped is recorded
+                # beside it, a diagnostic of how far the port agrees past what the oracle models
+                strict = min(compare(a, b)[0], n)
+                skipped = min(compare(a, b, skip_gaps=True)[0], n)
+                json.dump({"n": n, "matching": strict, "matching_skipping_oracle_gaps": skipped,
+                           "oracle": len(x), "native": len(y)}, f, indent=1, sort_keys=True)
                 f.write("\n")
-        return 0 if same >= n else 1
+        return 0 if same >= n and "--skip-oracle-gaps" not in argv else 1
     print(__doc__)
     return 2
 

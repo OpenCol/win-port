@@ -162,8 +162,14 @@ __attribute__((constructor(101))) static void port_load_initial_data(void)
         src = segs[g->seg].data + g->off;
         for (k = 0; k < g->count; k++, src += g->w16, dst += g->wn) {
             unsigned tseg, toff;
-            if (g->kind == 1 || g->kind == 2) {          /* int: Borland's 2 bytes, widened */
-                long v = g->w16 == 2 ? (g->kind == 1 ? (long)(int16_t)r16(src) : (long)r16(src)) : (long)src[0];
+            if ((g->kind == 1 || g->kind == 2) && g->w16 != g->wn) {   /* int: Borland's width, widened */
+                long v;
+                if (g->w16 == 2)
+                    v = g->kind == 1 ? (long)(int16_t)r16(src) : (long)r16(src);
+                else if (g->w16 == 1)
+                    v = g->kind == 1 ? (long)(int8_t)src[0] : (long)src[0];
+                else
+                    v = (long)(r16(src) | (unsigned long)r16(src + 2) << 16);
                 memcpy(dst, &v, g->wn < sizeof v ? g->wn : sizeof v);
             } else if (g->w16 == g->wn) {
                 memcpy(dst, src, g->wn);

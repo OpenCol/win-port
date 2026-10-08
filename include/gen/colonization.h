@@ -4302,7 +4302,7 @@ extern unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text, int visi
 extern unsigned MSInitCheck(RECT *r, void *ctl, const char *text, int visible);
 extern GrafRec *MSInitGraf(RECT *r);
 extern unsigned MSInitImageButton(register int x, register int y, SImageButton *obj, int res_down, int res_up, int pal_first, int pal_count, int visible);
-extern short MSInitRadio(int *out, RECT *area, int cols, void *owner, char *s, int visible);
+extern short MSInitRadio(i16 *out, RECT *area, int cols, void *owner, char *s, int visible);
 extern unsigned MSInitRegion(RECT *r, void *ctl);
 extern int MSIsWindowMaximized(MSWin *win);
 extern int MSIsWindowMaximized_of(Screen *o);
@@ -4782,7 +4782,7 @@ extern char build_me_a(int n);
 extern void build_movie_window_1060_a56b(Screen *o, char *title, register int style, int x, int y, int w, int h);
 extern void build_movie_window_1060_a5ef(Screen *o, char *title, register int style, int x, int y, int w, int h, void *owner);
 extern void build_opening_art(AboutWin *o);
-extern short build_radio_buttons(int *out, RECT *area, int cols, void *owner, int count, char * *names, int visible);
+extern short build_radio_buttons(i16 *out, RECT *area, int cols, void *owner, int count, char * *names, int visible);
 extern void build_region_rects(Flic *region, unsigned char *data, FlicFrame *hdr);
 extern Popup build_slot_menu(char *title, int count);
 extern void build_window_owned(Screen *o, char *title, register int style, int x, int y, int w, int h, void *target, void *owner);
@@ -5916,8 +5916,13 @@ extern VListItem *vlist_item_next(VListItem *item);
 #ifdef __cplusplus
 extern VListItem *vlist_item_prev(VListItem *it);
 #endif
+extern void w16_animate(unsigned start, unsigned n, const PALETTEENTRY *e);
+extern int w16_device_caps(HDC dc, int i);
+extern int w16_display_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh);
 extern void w16_forget(unsigned token);
 extern HANDLE w16_handle(unsigned token);
+extern int w16_palette_device(void);
+extern unsigned w16_system_palette(unsigned start, unsigned n, PALETTEENTRY *out);
 extern unsigned w16_token(HANDLE h);
 extern void w16_trace(const char *fmt, ...);
 extern int wait_mouse_button(MSWin *win, char left, char remove, char wait);

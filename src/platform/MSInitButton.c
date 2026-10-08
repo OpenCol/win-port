@@ -1,3 +1,4 @@
+/* PORT: the font record's handle is a 16-bit token followed by `owned`: read as u16, not unsigned (4 bytes here) (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 164 of the imported file. */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 125 of the imported file. */
@@ -107,7 +108,7 @@ extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
     unsigned oldpen;
     unsigned white;
     unsigned grey;
-    unsigned *fp;
+    u16 *fp;
     unsigned oldfont;
     SButton *button;
     RECT tr;
@@ -169,7 +170,7 @@ extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
     }
     white = CreatePen(PS_SOLID, 1, 0xffffffL);
     grey = CreatePen(PS_SOLID, 1, 0x808080L);
-    fp = (unsigned *)MSHLock(font_handle_1070_9806((Font *)g_button_font));
+    fp = (u16 *)MSHLock(font_handle_1070_9806((Font *)g_button_font));
     oldfont = SelectObject(memdc, *fp);
     oldbmp = SelectObject(memdc, bmp_up);
     keep = rc;

@@ -4,6 +4,7 @@
    $PORT_LOG as `frame` lines (tools/run_port.py resolves them) and the program stops. */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "w16.h"
 
 #define MAX_DEPTH 3000
@@ -98,6 +99,16 @@ __attribute__((no_instrument_function)) void w16_trace_call(void *fn, uintptr_t 
     if (lo >= port_trace_fn_count || sorted[lo]->fn != fn)
         return;
     t = sorted[lo];
+    {
+        /* a clock or queue poll repeated: how often depends on the machine's speed, so a run of
+           the same one is written once (tests/trace.py's POLLING) */
+        static const struct PortTraceFn *prev;
+        int poll = !strncmp(t->name, "MSGetTicks", 10) || !strncmp(t->name, "MSDoTask", 8) ||
+                   !strncmp(t->name, "MSKeyPressed", 12);
+        if (poll && t == prev)
+            return;
+        prev = t;
+    }
     fputs(t->name, trace_file);
     for (k = 0; t->kinds[k]; k++)
         fprintf(trace_file, " %lx", (unsigned long)frame[2 + k]);

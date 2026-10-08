@@ -60,9 +60,14 @@ def main(argv):
         out, _ = p.communicate(timeout=secs)
         code = p.returncode
     except subprocess.TimeoutExpired:
-        p.kill()
-        out, _ = p.communicate()
+        # the whole Wine session: in a virtual desktop the game is not p's own process, and
+        # holds p's output open
         subprocess.run(["wineserver", "-k"], capture_output=True)
+        p.kill()
+        try:
+            out, _ = p.communicate(timeout=20)
+        except subprocess.TimeoutExpired:
+            out = b""
         code = 124
     text = open(log).read() if os.path.exists(log) else ""
     how = {0: "exited", 3: "reached a trap", 124: "still running after %ds (stopped)" % secs}.get(code, "crashed (%d)" % code)

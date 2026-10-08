@@ -1,3 +1,4 @@
+/* PORT: the count field is 16-bit: passed as i16 * (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 36 of the imported file. */
 /* PORT: this file's own declarations of dlg_control_init_1068_e478 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSInitRadio removed: the header declares it from the definition (W1 step 3). */
@@ -40,6 +41,6 @@ void radio_init(SRadioSet *radio, DialogWin *win, int id, RECT *r,
     radio->on_rbutton_down = 0;
     radio->cols = cols;
     radio->cur_item = 0;
-    radio->hmem = MSInitRadio((int *)&radio->count, r, cols, radio, captions, 1);
+    radio->hmem = MSInitRadio((i16 *)&radio->count, r, cols, radio, captions, 1);
     radio->items = MSHLock(radio->hmem);
 }

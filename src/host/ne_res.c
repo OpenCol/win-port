@@ -87,9 +87,12 @@ static int by_name_table(const NeModule *m, const char *type, const char *name, 
         if (!size)
             break;
         if (_stricmp(tname, type) == 0) {
-            int id_ok = w < 0x10000 ? (!*iname && (iord & 0x7fff) == (uint16_t)w)
-                                    : (*iname && _stricmp(iname, name) == 0);
-            if (id_ok)
+            /* the type name names an ordinal type; an integer id is then looked up in it (any
+               entry gives the type), a named one needs its own entry */
+            if (w < 0x10000) {
+                if (find_ordinal(m, (const char *)(uintptr_t)(tord & 0x7fff), name, out))
+                    return 1;
+            } else if (*iname && _stricmp(iname, name) == 0)
                 return find_ordinal(m, (const char *)(uintptr_t)(tord & 0x7fff),
                                     (const char *)(uintptr_t)(iord & 0x7fff), out);
         }

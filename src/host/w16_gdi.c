@@ -86,7 +86,7 @@ int w16_GetBitmapDimensionEx(unsigned b, SIZE16 *s)
 }
 
 int w16_GetDeviceCaps(unsigned dc, int i) W16(GetDeviceCaps);
-int w16_GetDeviceCaps(unsigned dc, int i) { return GetDeviceCaps(DC(dc), i); }
+int w16_GetDeviceCaps(unsigned dc, int i) { return w16_device_caps(DC(dc), i); }
 
 int w16_BitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy, unsigned long rop) W16(BitBlt);
 int w16_BitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy, unsigned long rop)
@@ -224,12 +224,23 @@ unsigned w16_SelectPalette(unsigned dc, unsigned p, int bg) W16(SelectPalette);
 unsigned w16_SelectPalette(unsigned dc, unsigned p, int bg) { return TOK(SelectPalette(DC(dc), (HPALETTE)OBJ(p), bg)); }
 
 unsigned w16_RealizePalette(unsigned dc) W16(RealizePalette);
-unsigned w16_RealizePalette(unsigned dc) { return RealizePalette(DC(dc)); }
+unsigned w16_RealizePalette(unsigned dc)
+{
+    HPALETTE p = (HPALETTE)GetCurrentObject(DC(dc), OBJ_PAL);
+    unsigned r = RealizePalette(DC(dc));
+    if (w16_palette_device() && p) {
+        w16_realize(p);
+        return 236;                       /* entries mapped, as a palette device answers */
+    }
+    return r;
+}
 
 void w16_AnimatePalette(unsigned p, unsigned start, unsigned n, void *e) W16(AnimatePalette);
 void w16_AnimatePalette(unsigned p, unsigned start, unsigned n, void *e)
 {
     AnimatePalette((HPALETTE)OBJ(p), start, n, (PALETTEENTRY *)e);
+    if (w16_palette_device())
+        w16_animate(start, n, (const PALETTEENTRY *)e);
 }
 
 unsigned w16_GetPaletteEntries(unsigned p, unsigned start, unsigned n, PALETTEENTRY *e) W16(GetPaletteEntries);
@@ -247,5 +258,7 @@ void w16_SetPaletteEntries(unsigned p, unsigned start, unsigned n, void *e)
 int w16_GetSystemPaletteEntries(unsigned dc, unsigned start, unsigned n, void *e) W16(GetSystemPaletteEntries);
 int w16_GetSystemPaletteEntries(unsigned dc, unsigned start, unsigned n, void *e)
 {
+    if (w16_palette_device())
+        return (int)w16_system_palette(start, n, (PALETTEENTRY *)e);
     return GetSystemPaletteEntries(DC(dc), start, n, (PALETTEENTRY *)e);
 }

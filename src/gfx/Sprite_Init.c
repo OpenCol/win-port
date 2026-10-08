@@ -1,3 +1,4 @@
+/* PORT: the game's 16-bit words read and written as i16, not int (4 bytes here) (W4). */
 /* PORT: this file's own declarations of swap_sprite_row_words removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_Init: candidate for 1068:6859 (554 bytes).  Verdict: RELOCATABLE.
  * name-source: 37 callers over 63 sites, all passing one word; the error message names the resource kind
@@ -50,9 +51,9 @@ void Sprite_Init(Sprite *s, register int res_id)
         return;
     }
     p = (char *)MSLockResource_1068_94f8(h);
-    s->hx = swap_word_identity_1068_9518(*(int *)p);
+    s->hx = swap_word_identity_1068_9518(*(i16 *)p);
     p += 2;
-    s->hy = swap_word_identity_1068_9518(*(int *)p);
+    s->hy = swap_word_identity_1068_9518(*(i16 *)p);
     p += 2;
     copy_rect((RECT *)p, &s->bounds);
     p += 8;

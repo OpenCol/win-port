@@ -1,3 +1,4 @@
+/* PORT: the row header's words written as i16, not int (4 bytes here) (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 105, 145 of the imported file. */
 /* PORT: this file's own declarations of GRPort_PixelMap removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_ExtractSprite: candidate for 1068:7dd3 (1813 bytes).  Verdict: RELOCATABLE.
@@ -215,9 +216,9 @@ int Sprite_ExtractSprite(Sprite *s, GRPort *port, int key, RECT *src)
     s->hy = 0;
     out = (unsigned char *)MSHLock(h);
     for (y = 0; bot - top > y; y++) {
-        *(int *)out = starts[y];
+        *(i16 *)out = starts[y];
         out += 2;
-        *(int *)out = lens[y];
+        *(i16 *)out = lens[y];
         out += 2;
         for (x = lens[y], p = rows[y]; x > 0; x--) {
             *out = *p;

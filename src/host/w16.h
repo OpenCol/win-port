@@ -33,6 +33,14 @@ void w16_forget(unsigned token);       /* the handle is gone (DeleteObject, Dest
 void w16_trace(const char *fmt, ...);
 extern int w16_tracing;
 
+/* the 1995 display, in software (w16_display.c) */
+int w16_palette_device(void);
+int w16_device_caps(HDC dc, int i);
+unsigned w16_system_palette(unsigned start, unsigned n, PALETTEENTRY *out);
+void w16_realize(HPALETTE pal);
+void w16_animate(unsigned start, unsigned n, const PALETTEENTRY *e);
+int w16_display_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh);
+
 static inline void w16_rect_in(RECT *d, const RECT16 *s)
 {
     d->left = s->left; d->top = s->top; d->right = s->right; d->bottom = s->bottom;

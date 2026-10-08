@@ -1,3 +1,4 @@
+/* PORT: the radio item's window is a 16-bit field: read as i16, not int (4 bytes here) (W4). */
 /* PORT: this file's own declarations of get_items_1070_99c5, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of ctl_hwnd_1070_9681, ctl_kind_1070_9669, focus_walk_siblings removed: the header declares them from the definition (W1 step 3). */
 /* focus_at_or_after: candidate for 1070:928c (165 bytes).  Verdict: RELOCATABLE.
@@ -31,14 +32,14 @@
 void focus_at_or_after(void *o, void *w)
 {
     void *p;
-    int *q;
+    i16 *q;
     register int h;
 
     if (get_keyboard_nav((DialogWin *)o) == 0)
         return;
     if (ctl_kind_1070_9669((DlgControl *)w) == 3) {
         p = w;
-        q = (int *)get_items_1070_99c5((SRadioSet *)p);
+        q = (i16 *)get_items_1070_99c5((SRadioSet *)p);
         h = *q;
         h = prev_sibling_window(h);
         focus_walk_siblings((DialogWin *)o, h, 2);

@@ -1,3 +1,4 @@
+/* PORT: the item count goes to a 16-bit field: `out` is i16 *, not int * (4 bytes here) (W4). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, set_cur_item_1070_9994 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* build_radio_buttons: candidate for 1070:3976 (1115 bytes).  Verdict: RELOCATABLE.
@@ -42,7 +43,7 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 
-short build_radio_buttons(int *out, RECT *area, int cols, void *owner,
+short build_radio_buttons(i16 *out, RECT *area, int cols, void *owner,
                                      int count, char * *names, int visible)
 {
     short h;

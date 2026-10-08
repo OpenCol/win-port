@@ -173,8 +173,8 @@ int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, i
 int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy)
 {
     shadow_blit(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)w, (int16_t)h);
-    return BitBlt(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
-                  SRCCOPY);
+    return w16_display_blit(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx,
+                            (int16_t)sy, (int16_t)w, (int16_t)h);
 }
 
 int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy, int sw, int sh) W16(WinGStretchBlt);
@@ -182,7 +182,6 @@ int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int s
 {
     HDC dc = W16_HDC(d);
     shadow_blit(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)sw, (int16_t)sh);
-    SetStretchBltMode(dc, COLORONCOLOR);
-    return StretchBlt(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
-                      (int16_t)sw, (int16_t)sh, SRCCOPY);
+    return w16_display_blit(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
+                            (int16_t)sw, (int16_t)sh);
 }

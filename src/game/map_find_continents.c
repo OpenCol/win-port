@@ -1,3 +1,4 @@
+/* PORT: the counts are 0x4000 bytes of 16-bit words: u16, not unsigned (4 bytes here) (W4). */
 /* map_find_continents: candidate for 1038:c2a9 (1138 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  * size-source: 1138, not the census 1129. The trailing 9 bytes are the dead second epilogue.
@@ -61,14 +62,14 @@ int map_find_continents(void)
     int i;
     unsigned char *p;
     unsigned char *q;
-    unsigned *counts;
+    u16 *counts;
     short h;
     register int j;
 
     flags = 0;
     counts = 0;
     h = MSAllocateHandle(0x4000L);
-    counts = (unsigned *)MSHLock(h);
+    counts = (u16 *)MSHLock(h);
     buffer_fill(g_plane2_handle, 0);
     for (pass = 1; pass >= 0; pass--) {
         memset_rtl(counts, 0, 0x4000);
@@ -153,7 +154,7 @@ int map_find_continents(void)
     }
     for (i = 0; i < 0x10; i++)
         g_region_size[i] = counts[i];
-    counts = (unsigned *)MSHUnlock(h);
+    counts = (u16 *)MSHUnlock(h);
     MSDisposeHandle(h);
     return flags;
 }

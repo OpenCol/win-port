@@ -322,8 +322,20 @@ def wine():
     sys.exit("no wine on PATH: the native harness is a Win32 program")
 
 
-def harness(*args):
+def harness_stale():
+    """the harness is older than what it is built from: the headers, src/gen, its own sources"""
     if not os.path.exists(EXE):
+        return True
+    built = os.path.getmtime(EXE)
+    for d in (os.path.join(ROOT, "include", "gen"), os.path.join(ROOT, "src", "gen"), os.path.join(ROOT, "tests", "state")):
+        for n in os.listdir(d):
+            if os.path.getmtime(os.path.join(d, n)) > built:
+                return True
+    return False
+
+
+def harness(*args):
+    if harness_stale():
         subprocess.run([sys.executable, os.path.join(ROOT, "tests", "state", "build.py")], check=True)
     r = subprocess.run([wine(), EXE] + list(args), capture_output=True, text=True,
                        env=dict(os.environ, WINEDEBUG="-all"))

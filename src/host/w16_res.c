@@ -78,8 +78,8 @@ unsigned w16_FindResource(unsigned hinst, const char *name, const char *type)
     NeResource nr;
     if (!m->ne || !ne_find(m->ne, rid(type), rid(name), &nr)) {
         if (w16_tracing > 0)
-            w16_trace("FindResource(%s, %s/%s): not there", m->ne ? m->ne->path : "?",
-                      (uintptr_t)type < 0x10000 ? "#" : type, (uintptr_t)name < 0x10000 ? "#" : name);
+            w16_trace("FindResource(%s, %s/%u): not there", m->ne ? m->ne->path : "?",
+                      (uintptr_t)type < 0x10000 ? "#" : type, (unsigned)(uintptr_t)name);
         return 0;
     }
     r = malloc(sizeof *r);

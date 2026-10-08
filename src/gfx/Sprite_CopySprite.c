@@ -1,3 +1,4 @@
+/* PORT: the game's 16-bit words read and written as i16, not int (4 bytes here) (W4). */
 /* PORT: this file's own declarations of handle_replace_with_copy removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_CopySprite: candidate for 1068:8a75 (1282 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -105,16 +106,16 @@ void Sprite_CopySprite(Sprite *unused, Sprite *sprite, Sprite *dest, int unused2
             k |= 2;
         switch (k) {
         case 0:
-            *(int *)q = 0;
+            *(i16 *)q = 0;
             q += 2;
-            *(int *)q = 0;
+            *(i16 *)q = 0;
             q += 2;
             break;
         case 1:
-            *(int *)q = *(int *)pb;
+            *(i16 *)q = *(i16 *)pb;
             q += 2;
             pb += 2;
-            n = *(int *)q = *(int *)pb;
+            n = *(i16 *)q = *(i16 *)pb;
             q += 2;
             pb += 2;
             MSCopyMem(pb, q, (long)n);
@@ -122,10 +123,10 @@ void Sprite_CopySprite(Sprite *unused, Sprite *sprite, Sprite *dest, int unused2
             q += n;
             break;
         case 2:
-            *(int *)q = *(int *)pa + xoff;
+            *(i16 *)q = *(i16 *)pa + xoff;
             q += 2;
             pa += 2;
-            n = *(int *)q = *(int *)pa;
+            n = *(i16 *)q = *(i16 *)pa;
             q += 2;
             pa += 2;
             MSCopyMem(pa, q, (long)n);
@@ -133,17 +134,17 @@ void Sprite_CopySprite(Sprite *unused, Sprite *sprite, Sprite *dest, int unused2
             q += n;
             break;
         case 3:
-            d0 = *(int *)pb;
+            d0 = *(i16 *)pb;
             pb += 2;
-            d1 = *(int *)pb + d0;
+            d1 = *(i16 *)pb + d0;
             pb += 2;
-            s0 = *(int *)pa + xoff;
+            s0 = *(i16 *)pa + xoff;
             pa += 2;
-            s1 = *(int *)pa + s0;
+            s1 = *(i16 *)pa + s0;
             pa += 2;
-            *(int *)q = min_int_1068_9847(d0, s0);
+            *(i16 *)q = min_int_1068_9847(d0, s0);
             q += 2;
-            *(int *)q = max_int_1068_98e4(d1, s1) - *(int *)(q - 2);
+            *(i16 *)q = max_int_1068_98e4(d1, s1) - *(i16 *)(q - 2);
             q += 2;
             n = w;
             for (j = 0; n-- != 0; j++) {
