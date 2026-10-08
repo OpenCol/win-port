@@ -13,7 +13,9 @@ player opens it, from a saved game, and looked at.
 A session is the lockstep's script (src/host/w16_lockstep.c) with the player left human
 (`noautoplay`): the game loads SAVE through its own menu, then each step runs once the game sits
 idle -- a menu command (WM_COMMAND, the main window's own: MainWin_MainMenuProc), a key, a
-snapshot of the screen (`snap`, a .bmp in build/sessions/NAME/), a wait -- and `exit` ends it.
+click, a picture of the screen as Wine shows it (`grab`, a .bmp in build/sessions/NAME/, with
+NAME.txt listing the windows), a wait -- and `exit` ends it. `new_game` starts from the main
+menu instead of a save: America, the first leader, the first nation, the King's audience.
 A session passes when it reaches `exit`: no crash, no Win16 function the platform layer lacks
 (an `unported` trap), no stall (still running at --seconds). The snapshots are for a person to
 look at, and for the comparison with the original (to come: the oracle runs the same scripts).
@@ -31,27 +33,33 @@ import colwinre               # noqa: E402
 
 OUT = os.path.join(ROOT, "build", "sessions")
 RETURN, ESCAPE, DOWN = 0x0D, 0x1B, 0x28
-LOAD = [("key", DOWN), ("key", DOWN), ("key", DOWN), ("key", RETURN), ("wait", 4), ("snap", "loaded")]
+LOAD = [("key", DOWN), ("key", DOWN), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "loaded")]
+OK = (113, 124)                          # the Ok of the difficulty and nation screens, in a grab
 
 
 def show(cmd, name, close=ESCAPE):
     """a menu command's screen: opened, looked at, closed"""
-    return [("cmd", cmd), ("wait", 3), ("snap", name), ("key", close), ("wait", 2)]
+    return [("cmd", cmd), ("wait", 3), ("grab", name), ("key", close), ("wait", 2)]
 
 
 SESSIONS = {
     # the map and its views
-    "map": [("cmd", 306), ("wait", 2), ("snap", "zoom_in"), ("cmd", 308), ("wait", 2), ("snap", "zoom_out"),
-            ("cmd", 307), ("wait", 2), ("cmd", 310), ("wait", 2), ("snap", "reveal"), ("cmd", 311), ("wait", 2),
-            ("cmd", 312), ("wait", 2), ("snap", "default_desktop")],
+    "map": [("cmd", 306), ("wait", 2), ("grab", "zoom_in"), ("cmd", 308), ("wait", 2), ("grab", "zoom_out"),
+            ("cmd", 307), ("wait", 2), ("cmd", 310), ("wait", 2), ("grab", "reveal"), ("cmd", 311), ("wait", 2),
+            ("cmd", 312), ("wait", 2), ("grab", "default_desktop")],
     "europe": show(302, "europe"),
     "reports": sum((show(c, "report_%d" % c, RETURN) for c in range(501, 510)), []),
     "colonopedia": sum((show(c, "pedia_%d" % c) for c in range(700, 706)), []) + show(500, "pedia_terrain"),
     "about": show(706, "about", RETURN),
     "options": show(100, "game_options", RETURN) + show(101, "colony_options", RETURN) + show(55, "control_panel"),
     "find_colony": show(303, "find_city"),
-    "save": [("saveas", "SESSION.SAV"), ("cmd", 104), ("wait", 4), ("snap", "saved")],
+    "save": [("saveas", "SESSION.SAV"), ("cmd", 104), ("wait", 4), ("grab", "saved")],
+    "new_game": [("wait", 3), ("grab", "main_menu"), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "difficulty"),
+                 ("click", OK), ("wait", 4), ("grab", "nation"), ("click", OK), ("wait", 4), ("grab", "name")]
+                + sum(([("key", RETURN), ("wait", 6), ("grab", "start_%d" % i)] for i in range(1, 6)), [])
+                + [("wait", 10), ("grab", "map")],
 }
+FROM_MENU = {"new_game"}
 
 
 def run(name, steps, save="AUTO01.SAV", seconds=180):
@@ -62,11 +70,13 @@ def run(name, steps, save="AUTO01.SAV", seconds=180):
     path = save if os.path.isabs(save) else os.path.join(colwinre.game_dir(), save)
     wine = lambda p: "Z:" + os.path.abspath(p).replace("/", "\\")
     lines = ["save " + wine(path), "noautoplay"]
-    for kind, v in LOAD + steps + [("exit", "")]:
+    for kind, v in ([] if name in FROM_MENU else LOAD) + steps + [("exit", "")]:
         if kind == "saveas":
             lines.append("saveas " + wine(os.path.join(work, v)))
         elif kind == "key":
             lines.append("key %#x" % v)
+        elif kind == "click":
+            lines.append("click %d %d" % v)
         else:
             lines.append("%s %s" % (kind, v))
     open(os.path.join(work, "lockstep.txt"), "w").write("\n".join(lines) + "\n")
@@ -85,7 +95,7 @@ def run(name, steps, save="AUTO01.SAV", seconds=180):
     elif "crash" in port_log or r.returncode not in (0, 124):
         verdict = "crash (exit %d): %s" % (r.returncode, (next((l for l in port_log.splitlines() if "crash" in l or "fault" in l), "")[:120]))
     else:
-        done = log.count("\ncmd ") + log.count("\nkey ") + log.count("\nsnap ")
+        done = sum(log.count("\n%s " % k) for k in ("cmd", "key", "snap", "grab", "click"))
         verdict = "stalled after %d steps" % done
     return {"verdict": verdict, "snapshots": snaps, "seconds": round(time.time() - t0)}
 

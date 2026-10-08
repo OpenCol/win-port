@@ -1,3 +1,4 @@
+/* PORT: the version word is 16-bit: `ver` i16, as load_game_file reads it (W7). */
 /* PORT: g_rec6_78e0 is declared as its four records (W6): the swap takes the array, not its address. */
 /* PORT: this file's own declarations of colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words removed: the header declares them from the definition (W1 step 3). */
 /* save_game: candidate for 1008:a7f6 (2627 bytes).  Verdict: RELOCATABLE.
@@ -58,7 +59,7 @@ int save_game(char *name)
     register int i;
     register int err = 0;
     DiskFile f;
-    int ver;
+    i16 ver;
     long p;
     char eof;
 

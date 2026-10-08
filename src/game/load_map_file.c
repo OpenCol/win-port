@@ -1,3 +1,4 @@
+/* PORT: the version word is 16-bit: `ver` i16, so the 2-byte read fills it (W7: AMER2.MP was refused, error 3). */
 /* PORT: this file's own declarations of file_MSOpenFile_1038_e492 removed: the header declares it from the definition (W1 step 3). */
 /* load_map_file: candidate for 1038:cfae (455 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -48,7 +49,7 @@ int load_map_file(void)
 {
     register int err = 1;
     DiskFile f;
-    int ver;
+    i16 ver;
     char name[0x14];
 
     name[0] = 0;

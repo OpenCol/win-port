@@ -8,6 +8,8 @@
  *     key VK          a key, posted once the game sits idle (the menu keys to Load; a session's)
  *     cmd N           a menu command (WM_COMMAND N to the main window), once the game sits idle
  *     snap NAME       the screen as it is, to NAME.bmp in this directory ($PORT_SNAPSHOT set)
+ *     grab NAME       the windows as Wine shows them (after the palette, GDI text, menus), to NAME.bmp
+ *     click X Y       a left click at (X, Y) of a grab's image, to the window under it
  *     wait N          N more idle rounds before the next
  *     exit            the end of a session: the program stops
  *                     (key, cmd, snap, wait and exit are one script, run in order)
@@ -43,6 +45,8 @@ extern uint32_t g_dgroup_3f00_seed;
 extern long (*port_l17_seed_filter)(long);
 void w16_trace_mark(const char *text);
 int w16_snapshot_write(const char *path);
+int w16_grab_write(const char *path);
+HWND w16_grab_click(int x, int y, POINT *client);
 
 #define SEG20 20
 #define DGROUP 34
@@ -55,6 +59,9 @@ static unsigned long ticks;
 static struct { char kind; unsigned long v; char text[64]; } script[512];
 static unsigned nscript, iscript, waitn;
 static int noautoplay;
+static HWND click_h;
+static LPARAM click_lp;
+static int click_left;
 static char saveas[MAX_PATH];
 static unsigned nudges[256], nnudges, inudge;
 static unsigned long srands[4096], nsrand, isrand;
@@ -103,8 +110,9 @@ static void init(void)
         else if (!strcmp(line, "saveas"))
             snprintf(saveas, sizeof saveas, "%s", v);
         else if ((!strcmp(line, "key") || !strcmp(line, "cmd") || !strcmp(line, "snap") || !strcmp(line, "wait")
+                  || !strcmp(line, "grab") || !strcmp(line, "click")
                   || !strcmp(line, "exit")) && nscript < 512) {
-            script[nscript].kind = line[0];
+            script[nscript].kind = strcmp(line, "click") ? line[0] : 'm';
             script[nscript].v = strtoul(v, 0, 0);
             snprintf(script[nscript].text, sizeof script[nscript].text, "%s", v);
             nscript++;
@@ -237,6 +245,22 @@ void w16_lockstep_idle(void)
             fprintf(log_f, "snap %s: %s\n", script[k].text, w16_snapshot_write(path) ? "written" : "no shadow screen");
             break;
         }
+        case 'm': {
+            char *e;
+            int x = (int)strtol(script[k].text, &e, 0), y = (int)strtol(e, 0, 0);
+            POINT p;
+            click_left = 3;
+            click_h = w16_grab_click(x, y, &p);
+            click_lp = MAKELPARAM(p.x, p.y);
+            fprintf(log_f, "click %d %d to %p at tick %lu\n", x, y, (void *)click_h, ticks);
+            break;
+        }
+        case 'g': {
+            char path[MAX_PATH + 80];
+            snprintf(path, sizeof path, "%s\\%s.bmp", dir, script[k].text);
+            fprintf(log_f, "grab %s: %s\n", script[k].text, w16_grab_write(path) ? "written" : "no window");
+            break;
+        }
         case 'w':
             waitn = (unsigned)script[k].v;
             break;
@@ -260,8 +284,8 @@ int w16_lockstep_input(const MSG *m)
     int key = m->message >= WM_KEYFIRST && m->message <= WM_KEYLAST;
     int mouse = (m->message >= WM_MOUSEFIRST && m->message <= WM_MOUSELAST) ||
                 (m->message >= WM_NCMOUSEMOVE && m->message <= WM_NCMBUTTONDBLCLK);
-    if (mouse)
-        return 0;
+    if (mouse)                           /* ours: a script's click, its three messages */
+        return click_left && m->hwnd == click_h && m->lParam == click_lp && click_left--;
     if (key)                             /* ours: lParam 1 (down, char) or 0xC0000001 (up) */
         return m->lParam == 1 || (unsigned long)m->lParam == 0xC0000001ul;
     return 1;

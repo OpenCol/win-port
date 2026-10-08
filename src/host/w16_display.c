@@ -93,9 +93,17 @@ static Blit last[32];
 
 static void redo(void);
 
-/* a palette entry of the system palette changed: what is on the screen shows it */
+/* the system palette may have changed: if it did, what is on the screen shows it. Realizing
+   the palette already realized changes nothing on the hardware, and must change nothing here:
+   every control's WM_PAINT realizes the window's palette (wing_child_paint), and re-blitting
+   then would cover the text the controls painted before it (the main menu's radio items) */
+static RGBQUAD shown[256];
+
 static void sys_changed(void)
 {
+    if (!memcmp(shown, sys, sizeof sys))
+        return;
+    memcpy(shown, sys, sizeof sys);
     redo();
 }
 
@@ -177,7 +185,13 @@ static void redo(void)
         HDC dc;
         if (!b.hwnd || !IsWindow(b.hwnd))
             continue;
-        dc = GetDC(b.hwnd);
+        if (GetWindowLongA(b.hwnd, GWL_STYLE) & WS_CHILD) {
+            /* a control paints its parent's bitmap and then its own text (wing_child_paint,
+               radio_wndproc): a re-blit would leave only the bitmap, so it paints again */
+            InvalidateRect(b.hwnd, 0, FALSE);
+            continue;
+        }
+        dc = GetDCEx(b.hwnd, 0, DCX_CACHE | DCX_CLIPCHILDREN | DCX_CLIPSIBLINGS);
         w16_display_blit(dc, b.x, b.y, b.w, b.h, b.src, b.sx, b.sy, b.sw, b.sh);
         ReleaseDC(b.hwnd, dc);
     }

@@ -1,3 +1,4 @@
+/* PORT: the version word is 16-bit: `ver` i16, the 2-byte read fills it; a 4-byte int kept a stale upper half and the save could read as newer than the game (W7). */
 /* PORT: dims is Borland's 16-bit int (i16): the code sizes it in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: g_rec6_78e0 is declared as its four records (W6): the swap takes the array, not its address. */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 106, 109, 294, 298 of the imported file. */
@@ -95,7 +96,7 @@ int load_game_file(char *name)
     register int i;
     register int err = 1;
     DiskFile f;
-    int ver;
+    i16 ver;
     int alloc;
     long area;
     long p;

@@ -192,3 +192,137 @@ int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int s
     return w16_display_blit(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
                             (int16_t)sw, (int16_t)sh);
 }
+
+/* what Wine shows: every visible top-level window of the program, read back from its window DC
+   and placed at its screen position (bottom of the z-order first) -- a lockstep script's `grab`.
+   Unlike the shadow screen above, this is after the display path (w16_display.c): the system
+   palette, GDI text, the menu bar, the frames. */
+static HWND grab_list[64];
+static int grab_n;
+
+static BOOL CALLBACK grab_collect(HWND h, LPARAM l)
+{
+    DWORD pid;
+    (void)l;
+    GetWindowThreadProcessId(h, &pid);
+    if (pid == GetCurrentProcessId() && IsWindowVisible(h) && grab_n < 64)
+        grab_list[grab_n++] = h;
+    return TRUE;
+}
+
+static void grab_describe(FILE *t, HWND h, int depth)
+{
+    char cls[64], title[64];
+    RECT r;
+    HWND c;
+    GetClassNameA(h, cls, sizeof cls);
+    GetWindowTextA(h, title, sizeof title);
+    GetWindowRect(h, &r);
+    fprintf(t, "%*s%p %s \"%s\" (%ld,%ld)-(%ld,%ld) style %08lx%s\n", depth * 2, "", (void *)h, cls, title, r.left, r.top,
+            r.right, r.bottom, (unsigned long)GetWindowLongA(h, GWL_STYLE), IsWindowVisible(h) ? "" : " hidden");
+    for (c = GetWindow(h, GW_CHILD); c && depth < 4; c = GetWindow(c, GW_HWNDNEXT))
+        if (IsWindowVisible(c))
+            grab_describe(t, c, depth + 1);
+}
+
+/* the top-left corner of a grab: the union of the program's visible top-level windows */
+static int grab_origin(POINT *o)
+{
+    RECT all = { 0x7fff, 0x7fff, -0x7fff, -0x7fff }, r;
+    int i;
+    grab_n = 0;
+    EnumWindows(grab_collect, 0);
+    for (i = 0; i < grab_n; i++) {
+        GetWindowRect(grab_list[i], &r);
+        UnionRect(&all, &all, &r);
+    }
+    o->x = all.left;
+    o->y = all.top;
+    return grab_n > 0;
+}
+
+/* a mouse click at (x, y) of a grab's image: down and up to the window under it, in its client
+   coordinates -- a lockstep script's `click` */
+HWND w16_grab_click(int x, int y, POINT *client)
+{
+    POINT o, p;
+    HWND h;
+    if (!grab_origin(&o))
+        return 0;
+    p.x = o.x + x;
+    p.y = o.y + y;
+    if (!(h = WindowFromPoint(p)))
+        return 0;
+    SetCursorPos(p.x, p.y);
+    ScreenToClient(h, &p);
+    *client = p;
+    PostMessageA(h, WM_MOUSEMOVE, 0, MAKELPARAM(p.x, p.y));
+    PostMessageA(h, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(p.x, p.y));
+    PostMessageA(h, WM_LBUTTONUP, 0, MAKELPARAM(p.x, p.y));
+    return h;
+}
+
+int w16_grab_write(const char *path)
+{
+    RECT all = { 0x7fff, 0x7fff, -0x7fff, -0x7fff }, r;
+    BITMAPINFO bi;
+    BITMAPFILEHEADER fh;
+    HDC dc;
+    HBITMAP bm;
+    void *bits;
+    DWORD size, wr;
+    HANDLE f;
+    int i, w, h;
+    grab_n = 0;
+    EnumWindows(grab_collect, 0);
+    for (i = 0; i < grab_n; i++) {
+        GetWindowRect(grab_list[i], &r);
+        UnionRect(&all, &all, &r);
+    }
+    if (!grab_n || all.right <= all.left || all.bottom <= all.top)
+        return 0;
+    w = all.right - all.left;
+    h = all.bottom - all.top;
+    memset(&bi, 0, sizeof bi);
+    bi.bmiHeader.biSize = sizeof bi.bmiHeader;
+    bi.bmiHeader.biWidth = w;
+    bi.bmiHeader.biHeight = -h;
+    bi.bmiHeader.biPlanes = 1;
+    bi.bmiHeader.biBitCount = 32;
+    dc = CreateCompatibleDC(0);
+    bm = CreateDIBSection(0, &bi, DIB_RGB_COLORS, &bits, 0, 0);
+    SelectObject(dc, bm);
+    for (i = grab_n - 1; i >= 0; i--) {
+        HDC wdc = GetWindowDC(grab_list[i]);
+        GetWindowRect(grab_list[i], &r);
+        BitBlt(dc, r.left - all.left, r.top - all.top, r.right - r.left, r.bottom - r.top, wdc, 0, 0, SRCCOPY);
+        ReleaseDC(grab_list[i], wdc);
+    }
+    GdiFlush();
+    {   /* beside it, NAME.txt: the windows, top of the z-order first, and their visible children */
+        char txt[MAX_PATH + 8];
+        FILE *t;
+        snprintf(txt, sizeof txt, "%.*s.txt", (int)(strlen(path) - 4), path);
+        if ((t = fopen(txt, "w"))) {
+            for (i = 0; i < grab_n; i++)
+                grab_describe(t, grab_list[i], 0);
+            fclose(t);
+        }
+    }
+    size = (DWORD)w * h * 4;
+    f = CreateFileA(path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+    if (f != INVALID_HANDLE_VALUE) {
+        fh.bfType = 0x4d42;
+        fh.bfOffBits = sizeof fh + sizeof bi.bmiHeader;
+        fh.bfSize = fh.bfOffBits + size;
+        fh.bfReserved1 = fh.bfReserved2 = 0;
+        bi.bmiHeader.biSizeImage = size;
+        WriteFile(f, &fh, sizeof fh, &wr, 0);
+        WriteFile(f, &bi.bmiHeader, sizeof bi.bmiHeader, &wr, 0);
+        WriteFile(f, bits, size, &wr, 0);
+        CloseHandle(f);
+    }
+    DeleteDC(dc);
+    DeleteObject(bm);
+    return f != INVALID_HANDLE_VALUE;
+}

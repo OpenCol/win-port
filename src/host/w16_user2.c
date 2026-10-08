@@ -181,6 +181,15 @@ int w16_MessageBox(unsigned h, char *text, char *title, unsigned type)
 
 /* ------------------------------------------------------------------ painting */
 
+/* a window of a CS_OWNDC class (MSWindowClass, MSMovieClass: register_ms_classes) keeps its DC
+   for its life: ReleaseDC and EndPaint leave it valid, GetDC hands back the same one, and the game
+   draws through a DC it released (the title's animation, the King's audience, the dialogs'
+   pictures). Its token must stay too. */
+static int own_dc(unsigned h)
+{
+    return HW(h) && (GetClassLongA(HW(h), GCL_STYLE) & (CS_OWNDC | CS_CLASSDC));
+}
+
 unsigned w16_BeginPaint(unsigned h, PAINTSTRUCT16 *p) W16(BeginPaint);
 unsigned w16_BeginPaint(unsigned h, PAINTSTRUCT16 *p)
 {
@@ -202,7 +211,8 @@ void w16_EndPaint(unsigned h, PAINTSTRUCT16 *p)
     ps.fErase = p->fErase;
     w16_rect_in(&ps.rcPaint, &p->rcPaint);
     EndPaint(HW(h), &ps);
-    w16_forget(p->hdc);
+    if (!own_dc(h))
+        w16_forget(p->hdc);
 }
 
 void w16_InvalidateRect(unsigned h, RECT16 *r, int erase) W16(InvalidateRect);
@@ -230,7 +240,8 @@ int w16_ReleaseDC(unsigned h, unsigned dc) W16(ReleaseDC);
 int w16_ReleaseDC(unsigned h, unsigned dc)
 {
     int r = ReleaseDC(HW(h), W16_HDC(dc));
-    w16_forget(dc);
+    if (!own_dc(h))
+        w16_forget(dc);
     return r;
 }
 

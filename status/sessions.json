@@ -19,6 +19,10 @@
   "snapshots": 5,
   "verdict": "pass"
  },
+ "new_game": {
+  "snapshots": 10,
+  "verdict": "pass"
+ },
  "options": {
   "snapshots": 4,
   "verdict": "pass"
