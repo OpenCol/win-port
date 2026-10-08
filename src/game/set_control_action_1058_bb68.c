@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_control_action_1058_bb68: candidate for 1058:bb68 (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@
 
 void set_control_action_1058_bb68(SImageButton *button, void *h)
 {
-    button->on_click = (long)h;
+    button->on_click = (intptr_t)h;
 }

@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_radio_dblclk_1068_e056: candidate for 1068:e056 (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@
 
 void set_radio_dblclk_1068_e056(SRadioSet *radios, void *h)
 {
-    radios->on_dblclk = (long)h;
+    radios->on_dblclk = (intptr_t)h;
 }

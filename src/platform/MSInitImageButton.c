@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, get_ctable_1070_97b7 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0, load_picture_reinit, port_height_1070_98bc, port_width_1070_98a3 removed: the header declares them from the definition (W1 step 3). */
 /* MSInitImageButton: candidate for 1070:2364 (804 bytes).  Verdict: RELOCATABLE.
@@ -99,6 +100,6 @@ unsigned MSInitImageButton(register int x, register int y, SImageButton *obj, in
                         0, g_hinstance, 0L);
     blk = (CtrlBlock *)InitCtrlBlock(hwnd, obj);
     blk->kind = 5;
-    SetWindowLong(hwnd, -4, (long)(void *)image_button_proc);
+    SetWindowLong(hwnd, -4, (intptr_t)(void *)image_button_proc);
     return hwnd;
 }

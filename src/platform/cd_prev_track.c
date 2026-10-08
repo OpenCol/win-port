@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* cd_prev_track: candidate for 1078:0ed8 (255 bytes).  Verdict: RELOCATABLE.
  * symbol: cd_prev_track
  *
@@ -25,20 +26,20 @@ void cd_prev_track(void)
         dev = g_cd_device;
     else {
         op.lpstrDeviceType = "cdaudio";
-        if ((err = mciSendCommand(0, 0x803, 0x2000L, (unsigned long)(void *)&op)) != 0)
+        if ((err = mciSendCommand(0, 0x803, 0x2000L, (uintptr_t)(void *)&op)) != 0)
             return;
         dev = op.wDeviceID;
         g_cd_device = dev;
     }
     flags = 0x100;
     st.dwItem = 8;
-    err = mciSendCommand(dev, 0x814, flags, (unsigned long)(void *)&st);
+    err = mciSendCommand(dev, 0x814, flags, (uintptr_t)(void *)&st);
     if (err != 0)
         return;
     cur = st.dwReturn;
     flags = 0x100;
     st.dwItem = 3;
-    err = mciSendCommand(dev, 0x814, flags, (unsigned long)(void *)&st);
+    err = mciSendCommand(dev, 0x814, flags, (uintptr_t)(void *)&st);
     if (err != 0)
         return;
     flags = 8;

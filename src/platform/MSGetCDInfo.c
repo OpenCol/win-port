@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* MSGetCDInfo: candidate for 1078:0fd7 (222 bytes).  Verdict: RELOCATABLE.
  *
  * Current position of the open CD in TMSF: the time format is set, MCI_STATUS_POSITION queried, and the
@@ -27,12 +28,12 @@ int MSGetCDInfo(int *minutes, int *seconds, int *tracks)
         dev = g_cd_device;
     sp.dwTimeFormat = 10L;
     flags = 0x400L;
-    r = mciSendCommand(dev, 0x80d, flags, (unsigned long)(void *)&sp);
+    r = mciSendCommand(dev, 0x80d, flags, (uintptr_t)(void *)&sp);
     if (r != 0)
         return 0;
     flags = 0x100L;
     st.dwItem = 2L;
-    r = mciSendCommand(dev, 0x814, flags, (unsigned long)(void *)&st);
+    r = mciSendCommand(dev, 0x814, flags, (uintptr_t)(void *)&st);
     if (r != 0)
         return 0;
     if (minutes != 0)

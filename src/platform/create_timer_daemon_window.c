@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* create_timer_daemon_window: candidate for 1078:1885 (106 bytes).  Verdict: RELOCATABLE.
  *
  * Creates the hidden "MSMrTimerClass" window (default size, no parent), reports
@@ -14,6 +15,6 @@ unsigned create_timer_daemon_window(void *obj)
 
     if (h == 0)
         stub_reporter(&g_error_log, "Error: Cannot create timer daemon");
-    SetWindowLong(h, 0, (long)obj);
+    SetWindowLong(h, 0, (intptr_t)obj);
     return h;
 }

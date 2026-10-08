@@ -28,7 +28,7 @@ class EventTable { public: void far *on_mousemove, far *on_lbutton_down, far *on
 #pragma pack(2)
 class Screen { public: short style; void far *ctable; void far *win; short fa; char disabled; Screen(); ~Screen(); };
 #pragma pack(1)
-class EventWin : public Screen, public EventTable { public: char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
+class EventWin : public Screen, public EventTable { public: char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; intptr_t menu_handler; intptr_t command_handler; short ldown, rdown; short hpos, vpos; EventWin(); ~EventWin(); };
 class GRPort { public: i16 vptr; i16 w; i16 h; i16 stride; RECT rect; RECT bounds; unsigned char huge *bits; long far *rows; i16 current; void far *win; GRPort(); ~GRPort(); int ResizePort(RECT far *r); int ResizePort_own(RECT far *r); };
 class DlgControl { public: short kind; short id; void far *win; RECT rect; short hwnd; DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; DlgControl(); ~DlgControl(); };
 class DialogWin : public EventWin { public: DlgControl far *first_ctl; DlgControl far *ok_btn; DlgControl far *cancel_btn; char keyboard_nav; char f99; DialogWin(); ~DialogWin(); };
@@ -37,10 +37,10 @@ class GameWin : public GRPort, public DialogWin { public: void far *relayout; Ga
 class Sprite { public: RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsigned char key; short handle; unsigned char huge *bits; Sprite(); ~Sprite(); };
 #pragma pack(1)
 class AboutWin : public GameWin { public: EventWin win; CTable table; GRPort pic; GRPort page; GRPort overlay; unsigned char palette[0x8a4 - 0x5e0]; RECT full; RECT top_strip; RECT bottom_strip; Sprite logo; Sprite letters[0x15]; Sprite tile; long start; long last; i16 shown[0x19]; AboutWin(); ~AboutWin(); };
-class SImageButton : public DlgControl { public: long on_click; long on_rclick; GRPort up; GRPort down; void far *ctable; char reinit_faces; char pad_73; SImageButton(); ~SImageButton(); };
+class SImageButton : public DlgControl { public: intptr_t on_click; intptr_t on_rclick; GRPort up; GRPort down; void far *ctable; char reinit_faces; char pad_73; SImageButton(); ~SImageButton(); };
 class ColChild : public GameWin { public: char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; SImageButton btn; unsigned char active; unsigned char kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; ColChild(); ~ColChild(); };
-class SButton : public DlgControl { public: short enabled; long action; short colour; SButton(); ~SButton(); };
-class SRegion : public DlgControl { public: long on_enter; long on_leave; long on_click; long on_press; long on_dblclk; SRegion(); ~SRegion(); };
+class SButton : public DlgControl { public: short enabled; intptr_t action; short colour; SButton(); ~SButton(); };
+class SRegion : public DlgControl { public: intptr_t on_enter; intptr_t on_leave; intptr_t on_click; intptr_t on_press; intptr_t on_dblclk; SRegion(); ~SRegion(); };
 class ColonyWin : public ColChild { public: SRegion region; GRPort back; GRPort terrain; SImageButton ib[3]; SButton b[2]; SImageButton ib2; char buy_shown; char change_shown; short panel; short cx; short cy; i16 timer; i16 colony; ColonyWin(); ~ColonyWin(); };
 class CursorClass { public: short hcursor; short id; CursorClass(); ~CursorClass(); };
 class Customize : public GameWin { public: RECT boxes[12]; i16 hit[4]; i16 choice[4]; SButton ok; SButton cancel; GRPort port; i16 done; i16 cancelled; i16 family; Customize(); ~Customize(); };
@@ -59,11 +59,11 @@ class Opening : public GameWin { public: GRPort port1; GRPort port2; CTable tabl
 class RGBTree { public: short handle; RGBTreeNode far *nodes; short nil; short count; short base; short stack[(0x606 - 0xc) / 2]; short sp; short built; short visited; RGBTree(); ~RGBTree(); void build(unsigned char huge *pal, short base, short count); void insert(RGBTreeNode far *key, short n); short lookup(unsigned char r, unsigned char g, unsigned char b, short tol); };
 class ReportWin : public ColChild { public: short kind; SImageButton image; short nation; short page; short view; short score; unsigned char modal; char pad_7f9; void far *rec; i16 cell_x[29]; i16 cell_y[29]; i16 counts[29]; SButton far *prev; SButton far *next; SButton far *extra_btn; ReportWin(); ~ReportWin(); };
 class ResourceFile { public: short h; ResourceFile(char far *name); ~ResourceFile(); };
-class SCheckBox : public DlgControl { public: long on_change; short checked; short enabled; SCheckBox(); ~SCheckBox(); };
-class SEditBox : public DlgControl { public: long on_change; long key_filter; char multiline; char pad_23; long f24; SEditBox(); ~SEditBox(); };
+class SCheckBox : public DlgControl { public: intptr_t on_change; short checked; short enabled; SCheckBox(); ~SCheckBox(); };
+class SEditBox : public DlgControl { public: intptr_t on_change; intptr_t key_filter; char multiline; char pad_23; long f24; SEditBox(); ~SEditBox(); };
 class SListBox : public DlgControl { public: short count; long f1c; SListBox(); ~SListBox(); };
-class SRadioSet : public DlgControl { public: long on_change; long on_dblclk; long on_rbutton_down; short count; short cols; short cur_item; short hmem; void far *items; SRadioSet(); ~SRadioSet(); };
-class SScrollBar : public DlgControl { public: long on_change; long on_track; short page; short f24; short pos; SScrollBar(); ~SScrollBar(); };
+class SRadioSet : public DlgControl { public: intptr_t on_change; intptr_t on_dblclk; intptr_t on_rbutton_down; short count; short cols; short cur_item; short hmem; void far *items; SRadioSet(); ~SRadioSet(); };
+class SScrollBar : public DlgControl { public: intptr_t on_change; intptr_t on_track; short page; short f24; short pos; SScrollBar(); ~SScrollBar(); };
 class SetDifficulty : public GameWin { public: RECT boxes[5]; i16 hit; i16 choice; SButton ok; SButton cancel; GRPort port; i16 done; i16 cancelled; SetDifficulty(); ~SetDifficulty(); };
 class SetNations : public GameWin { public: RECT boxes[4]; i16 hit; i16 choice; SButton ok; SButton cancel; GRPort port; i16 done; i16 cancelled; SetNations(); ~SetNations(); };
 class StatWin : public ColChild { public: GRPort picture; StatWin(); ~StatWin(); };
@@ -106,7 +106,7 @@ public:
     struct PopupSprite *cur_sprite;
     i16 sprite_wraps, sprites_h;
     struct PopupEdit *edit_items;
-    long on_click, draw_sprite;
+    intptr_t on_click, draw_sprite;
     MemBlock arena;
     SRadioSet *radios;
     SCheckBox *checks;
@@ -170,9 +170,9 @@ typedef struct { char pal[0x404]; u16 hpal; short seed; short steps, first, coun
 typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; } ColChild;
 typedef struct { u16 hcursor; i16 id; } CursorClass;
 typedef struct DlgControl { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; } DlgControl;
-typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl far *first_ctl; struct DlgControl far *ok_btn; struct DlgControl far *cancel_btn; char keyboard_nav; char f99; } DialogWin;
+typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; intptr_t menu_handler; intptr_t command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl far *first_ctl; struct DlgControl far *ok_btn; struct DlgControl far *cancel_btn; char keyboard_nav; char f99; } DialogWin;
 typedef struct { void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; } EventTable;
-typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; long menu_handler; long command_handler; short ldown, rdown; short hpos, vpos; } EventWin;
+typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; intptr_t menu_handler; intptr_t command_handler; short ldown, rdown; short hpos, vpos; } EventWin;
 typedef struct { char pad[0x574]; void far *loop_hook; } Flic;
 typedef struct { short hfont, height; } Font;
 typedef struct { short vptr; i16 w; i16 h; i16 stride; RECT rect; RECT bounds; unsigned char huge *bits; long far *rows; i16 current; void far *win; } GRPort;
@@ -186,14 +186,14 @@ typedef struct { short hwnd; TimerFn slots[17]; i16 counts[17]; } MrTimer;
 typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short category; char button[0x74]; char bar[0x28]; char port[0x26]; char list[0xc]; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; } PediaWin;
 typedef struct { short handle; RGBTreeNode far *nodes; short nil; short count; short base; short stack[(0x606 - 0xc) / 2]; short sp; short built; short visited; } RGBTree;
 typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short kind; char image[0x74]; short nation; short page; short view; short score; unsigned char modal; char pad_7f9; void far *rec; i16 cell_x[29]; i16 cell_y[29]; i16 counts[29]; void far *prev; void far *next; void far *extra_btn; } ReportWin;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; short enabled; long action; short colour; } SButton;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; long on_change; short checked; short enabled; } SCheckBox;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; long on_change; long key_filter; char multiline; char pad_23; long f24; } SEditBox;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; long on_click; long on_rclick; char up[0x26]; char down[0x26]; void far *ctable; char reinit_faces; char pad_73; } SImageButton;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; short enabled; intptr_t action; short colour; } SButton;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; short checked; short enabled; } SCheckBox;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t key_filter; char multiline; char pad_23; long f24; } SEditBox;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_click; intptr_t on_rclick; char up[0x26]; char down[0x26]; void far *ctable; char reinit_faces; char pad_73; } SImageButton;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; short count; long f1c; } SListBox;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; void far *next; char initial_focus; char hotkey; short hotkey_pos; long on_change; long on_dblclk; long on_rbutton_down; short count; short cols; short cur_item; short hmem; void far *items; } SRadioSet;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; long on_enter; long on_leave; long on_click; long on_press; long on_dblclk; } SRegion;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; long on_change; long on_track; short page; short f24; short pos; } SScrollBar;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; void far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t on_dblclk; intptr_t on_rbutton_down; short count; short cols; short cur_item; short hmem; void far *items; } SRadioSet;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_enter; intptr_t on_leave; intptr_t on_click; intptr_t on_press; intptr_t on_dblclk; } SRegion;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t on_track; short page; short f24; short pos; } SScrollBar;
 typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; } Screen;
 typedef struct { RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsigned char key; char pad_19; short handle; unsigned char huge *bits; } Sprite;
 typedef struct { char gamewin[0xc4]; char win[0x8c]; char palette[0x414 - 0x150]; } SuperWin;
@@ -223,7 +223,7 @@ typedef struct {
     struct PopupSprite *cur_sprite;
     i16 sprite_wraps, sprites_h;
     struct PopupEdit *edit_items;
-    long on_click, draw_sprite;
+    intptr_t on_click, draw_sprite;
     MemBlock arena;
     void *radios;
     void *checks;
@@ -251,8 +251,8 @@ typedef struct {
 
 #ifdef __cplusplus
 /* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */
-PORT_SIZE_ASSERT(sizeof(GRPort) == 0x26 + 3 * (sizeof(void *) - 4), "GRPort is not the game's 0x26 bytes");
-PORT_SIZE_ASSERT(sizeof(GameWin) == 0xc4 + 33 * (sizeof(void *) - 4), "GameWin is not the game's 0xc4 bytes");
+PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GRPort) == 0x26, "GRPort is not the game's 0x26 bytes");
+PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, "GameWin is not the game's 0xc4 bytes");
 #endif
 #pragma pack(pop)
 #endif

@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* InitCtrlBlock: candidate for 1070:08e5 (201 bytes).  Verdict: RELOCATABLE.
  *
  * Allocates the 0x1e-byte control block for a window: handle at +0, the owning object at
@@ -28,7 +29,7 @@ CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj)
         c->pressed = 0;
         c->f12 = 0;
         c->kind = 0;
-        SetWindowLong(hwnd, 0, (long)c);
+        SetWindowLong(hwnd, 0, (intptr_t)c);
     } else {
         report_error_1070_969a(&g_error_log, "Error: Tried to initialize NULL control in InitCtrlBlock");
     }

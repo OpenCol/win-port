@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* midi_play: candidate for 1078:0594 (388 bytes).  Verdict: RELOCATABLE.
  *
  * Plays a MIDI file: any open device (DGROUP:0x3c78) is stopped, the "sequencer" device
@@ -26,7 +27,7 @@ long midi_play(const char *name)
         stop_mci_device_1078_0940();
     op.lpstrDeviceType = "sequencer";
     op.lpstrElementName = name;
-    err = mciSendCommand(0, 0x803, 0x2200L, (unsigned long)(void *)&op);
+    err = mciSendCommand(0, 0x803, 0x2200L, (uintptr_t)(void *)&op);
     if (err != 0) {
         mm_error_report(&g_error_log, "Midi Device failed to open", (long)(int)err);
         return err;
@@ -34,7 +35,7 @@ long midi_play(const char *name)
     dev = op.wDeviceID;
     g_mci_device = dev;
     st.dwItem = 0x4003;
-    err = mciSendCommand(dev, 0x814, 0x100L, (unsigned long)(void *)&st);
+    err = mciSendCommand(dev, 0x814, 0x100L, (uintptr_t)(void *)&st);
     if (err != 0) {
         mciSendCommand(dev, 0x804, 0L, 0L);
         mm_error_report(&g_error_log, "Output port is not MIDI Mapper", (long)(int)err);
@@ -47,7 +48,7 @@ long midi_play(const char *name)
         }
     }
     pp.dwCallback = (unsigned long)g_cd_notify_hwnd;
-    err = mciSendCommand(dev, 0x806, 1L, (unsigned long)(void *)&pp);
+    err = mciSendCommand(dev, 0x806, 1L, (uintptr_t)(void *)&pp);
     if (err != 0) {
         mciSendCommand(dev, 0x804, 0L, 0L);
         mm_error_report(&g_error_log, "Midi Play error", (long)(int)err);

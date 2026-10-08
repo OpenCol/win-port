@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* Popup_set_draw_sprite: candidate for 1050:1060 (27 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@
 
 void Popup_set_draw_sprite(Popup *popup, void *h)
 {
-    popup->draw_sprite = (long)h;
+    popup->draw_sprite = (intptr_t)h;
 }

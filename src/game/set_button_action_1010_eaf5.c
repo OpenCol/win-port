@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_button_action_1010_eaf5: candidate for 1010:eaf5 (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -15,5 +16,5 @@
 
 void set_button_action_1010_eaf5(SButton *button, void *h)
 {
-    button->action = (long)h;
+    button->action = (intptr_t)h;
 }

@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: the font record's handle is a 16-bit token followed by `owned`: read as u16, not unsigned (4 bytes here) (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 164 of the imported file. */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
@@ -357,6 +358,6 @@ extern "C" unsigned MSInitButton(RECT *rgn, SButton *obj, const char *text,
     c->bmp1 = bmp_down;
     c->bmp2 = bmp_grey;
     c->kind = 6;
-    SetWindowLong(hwnd, GWL_WNDPROC, (long)(void *)bitmap_button_proc);
+    SetWindowLong(hwnd, GWL_WNDPROC, (intptr_t)(void *)bitmap_button_proc);
     return hwnd;
 }

@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_button_action_1068_db5c: candidate for 1068:db5c (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@
 
 void set_button_action_1068_db5c(SButton *button, void *h)
 {
-    button->action = (long)h;
+    button->action = (intptr_t)h;
 }

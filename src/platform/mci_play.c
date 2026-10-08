@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* mci_play: candidate for 1078:2f60 (76 bytes).  Verdict: RELOCATABLE.
  *
  * Starts an MCI device playing and asks to be told when it stops:
@@ -35,5 +36,5 @@ void mci_play(MSWin *win, MciDev *mci)
     p.dwCallback = (unsigned)win->hwnd;
     p.dwFrom = p.dwTo = 0;
     flags = 1;
-    mciSendCommand(mci->id, 0x806, flags, (unsigned long)(void *)&p);
+    mciSendCommand(mci->id, 0x806, flags, (uintptr_t)(void *)&p);
 }

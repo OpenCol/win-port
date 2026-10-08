@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* MSCloseCDTray: candidate for 1078:0b9c (212 bytes).  Verdict: RELOCATABLE.
  *
  * Closes the CD door. With neither a playing device nor a tray device known, "cdaudio" is
@@ -23,18 +24,18 @@ void MSCloseCDTray(void)
 
     if (g_cd_device == 0 && g_cd_tray_device == 0) {
         op.lpstrDeviceType = "cdaudio";
-        if ((r = mciSendCommand(0, 0x803, 0x2000L, (unsigned long)(void *)&op)) != 0)
+        if ((r = mciSendCommand(0, 0x803, 0x2000L, (uintptr_t)(void *)&op)) != 0)
             return;
         dev = op.wDeviceID;
         flags = 0x100L;
-        r = mciSendCommand(dev, 0x80d, flags, (unsigned long)(void *)&sp);
+        r = mciSendCommand(dev, 0x80d, flags, (uintptr_t)(void *)&sp);
         mciSendCommand(dev, 0x804, 0L, 0L);
     } else if (g_cd_tray_device != 0) {
         dev = g_cd_tray_device;
         g_cd_tray_device = 0;
         MSCloseCD();
         flags = 0x200L;
-        r = mciSendCommand(dev, 0x80d, flags, (unsigned long)(void *)&sp);
+        r = mciSendCommand(dev, 0x80d, flags, (uintptr_t)(void *)&sp);
         mciSendCommand(dev, 0x804, 0L, 0L);
     }
 }

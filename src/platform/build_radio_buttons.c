@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: the item count goes to a 16-bit field: `out` is i16 *, not int * (4 bytes here) (W4). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, set_cur_item_1070_9994 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of InitCtrlBlock, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
@@ -88,7 +89,7 @@ short build_radio_buttons(i16 *out, RECT *area, int cols, void *owner,
         blk->bmp2 = bmp_on;
         blk->data = &items[i];
         blk->kind = 3;
-        SetWindowLong(items[i].hwnd, -4, (long)(void *)radio_wndproc);
+        SetWindowLong(items[i].hwnd, -4, (intptr_t)(void *)radio_wndproc);
         SetRect(&items[i].rect, x, ch / 2 - rowh / 2 + y, x + cw,
                 ch / 2 - rowh / 2 + y + rowh);
         items[i].index = i;

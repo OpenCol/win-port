@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* mci_close_device: candidate for 1078:2df1 (43 bytes).  Verdict: RELOCATABLE.
  *
  * MCI message 0x804 with a four-byte parameter block on the stack to the
@@ -14,5 +15,5 @@ void mci_close_device(MciDev *device)
 {
     MciParms p;
 
-    mciSendCommand(device->id, 0x804, 0L, (unsigned long)(void *)&p);
+    mciSendCommand(device->id, 0x804, 0L, (uintptr_t)(void *)&p);
 }

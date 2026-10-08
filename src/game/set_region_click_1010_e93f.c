@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_region_click_1010_e93f: candidate for 1010:e93f (26 bytes).  Verdict: EXACT.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: set_region_click_1010_e93f
@@ -26,5 +27,5 @@
 
 void set_region_click_1010_e93f(SRegion *r, void *h)
 {
-    r->on_click = (long)h;
+    r->on_click = (intptr_t)h;
 }

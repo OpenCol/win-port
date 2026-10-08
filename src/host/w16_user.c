@@ -387,10 +387,28 @@ int w16_DestroyWindow(unsigned h)
     return r;
 }
 
-long w16_GetWindowLong(unsigned h, int i) W16(GetWindowLong);
-long w16_GetWindowLong(unsigned h, int i)
+#ifdef _WIN64
+/* W9: the game keeps pointers in its windows' extra bytes (its controls' records at 0, a
+   window's object at 12) and lays longs out at any offset (4, 6, 10). A 64-bit pointer does
+   not fit a long, so on Win64 each slot the game names is a window property of its own, as
+   wide as a pointer; nothing else reads those bytes. */
+static const char *slot_name(int i, char *buf)
+{
+    snprintf(buf, 16, "w16L%d", i);
+    return buf;
+}
+#endif
+
+intptr_t w16_GetWindowLong(unsigned h, int i) W16(GetWindowLong);
+intptr_t w16_GetWindowLong(unsigned h, int i)
 {
     HWND hw = W16_HWND(h);
+#ifdef _WIN64
+    if (i >= 0) {
+        char buf[16];
+        return (intptr_t)GetPropA(hw, slot_name(i, buf));
+    }
+#endif
     if (i == GWLP_WNDPROC) {
         GAMEPROC g = (GAMEPROC)GetPropA(hw, PROP_PROC);
         WNDPROC p;
@@ -398,20 +416,28 @@ long w16_GetWindowLong(unsigned h, int i)
             return (long)(intptr_t)(void *)g;
         p = (WNDPROC)GetWindowLongPtrA(hw, GWLP_WNDPROC);
         if (p == w16_wndproc)
-            return (long)(intptr_t)(void *)game_proc(hw);
-        return (long)(intptr_t)(void *)cookie_for(p);
+            return (intptr_t)(void *)game_proc(hw);
+        return (intptr_t)(void *)cookie_for(p);
     }
     if (i == GWLP_HWNDPARENT)
-        return (long)TOK(GetWindowLongPtrA(hw, i));
+        return (intptr_t)TOK(GetWindowLongPtrA(hw, i));
     return GetWindowLongA(hw, i);
 }
 
-long w16_SetWindowLong(unsigned h, int i, long v) W16(SetWindowLong);
-long w16_SetWindowLong(unsigned h, int i, long v)
+intptr_t w16_SetWindowLong(unsigned h, int i, intptr_t v) W16(SetWindowLong);
+intptr_t w16_SetWindowLong(unsigned h, int i, intptr_t v)
 {
     HWND hw = W16_HWND(h);
+#ifdef _WIN64
+    if (i >= 0) {
+        char buf[16];
+        intptr_t old = (intptr_t)GetPropA(hw, slot_name(i, buf));
+        SetPropA(hw, buf, (HANDLE)v);
+        return old;
+    }
+#endif
     if (i == GWLP_WNDPROC) {
-        long old = w16_GetWindowLong(h, i);
+        intptr_t old = w16_GetWindowLong(h, i);
         GAMEPROC g = (GAMEPROC)(intptr_t)v;
         WNDPROC p32 = win32_of(g);
         if (p32) {
@@ -423,7 +449,7 @@ long w16_SetWindowLong(unsigned h, int i, long v)
         }
         return old;
     }
-    return SetWindowLongA(hw, i, v);
+    return SetWindowLongA(hw, i, (LONG)v);
 }
 
 unsigned w16_GetClassWord(unsigned h, int i) W16(GetClassWord);

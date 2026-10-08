@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_control_action_1060_6685: candidate for 1060:6685 (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -20,5 +21,5 @@
 
 void set_control_action_1060_6685(SScrollBar *bar, void *h)
 {
-    bar->on_change = (long)h;
+    bar->on_change = (intptr_t)h;
 }

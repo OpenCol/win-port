@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* Popup_set_on_click: candidate for 1050:1045 (27 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -17,5 +18,5 @@
 
 void Popup_set_on_click(Popup *popup, void *h)
 {
-    popup->on_click = (long)h;
+    popup->on_click = (intptr_t)h;
 }

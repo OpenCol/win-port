@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_MSScrollBarClass_window: candidate for 1070:5b29 (507 bytes).  Verdict: RELOCATABLE.
@@ -65,7 +66,7 @@ unsigned create_MSScrollBarClass_window(RECT *r, void *ctl, unsigned long style_
     }
     hwnd = CreateWindow("MSScrollBarClass", "", style, r->left, r->top, rect_width_1070_962a(r), rect_height_1070_9649(r),
                         get_win_1070_95f0((Screen *)(ctl_window_1070_96a8((DlgControl *)ctl)))->hwnd, 0, g_hinstance, 0);
-    SetWindowLong(hwnd, g_scrollbar_extra, (long)ctl);
+    SetWindowLong(hwnd, g_scrollbar_extra, (intptr_t)ctl);
     ShowScrollBar(hwnd, 2, 1);
     scroll_set_range(hwnd, 1, 100);
     return hwnd;

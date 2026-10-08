@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* mci_open_element: candidate for 1078:2e1c (278 bytes).  Verdict: RELOCATABLE.
  *
  * Opens an animation element (a file name) as a child of the window (style 0x40000000, the
@@ -30,7 +31,7 @@ AnimRec *mci_open_element(MSWin *win, const char *name)
     op.lpstrAlias = 0;
     op.dwStyle = 0x40000000L;
     op.hWndParent = win->hwnd;
-    if (mciSendCommand(0, 0x803, 0x30200L, (unsigned long)(void *)&op) == 0) {
+    if (mciSendCommand(0, 0x803, 0x30200L, (uintptr_t)(void *)&op) == 0) {
         h = MSAllocateHandle(12L);
         rec = (AnimRec *)MSHLock(h);
         rec->handle = h;
@@ -39,9 +40,9 @@ AnimRec *mci_open_element(MSWin *win, const char *name)
         wp.hWnd = 0;
         wp.nCmdShow = 5;
         wp.lpstrText = 0;
-        mciSendCommand(rec->dev, 0x841, 0x40000L, (unsigned long)(void *)&wp);
+        mciSendCommand(rec->dev, 0x841, 0x40000L, (uintptr_t)(void *)&wp);
         st.dwItem = 0x4001;
-        mciSendCommand(rec->dev, 0x814, 0x100L, (unsigned long)(void *)&st);
+        mciSendCommand(rec->dev, 0x814, 0x100L, (uintptr_t)(void *)&st);
         rec->speed = (unsigned)st.dwReturn;
         rec->rate = 0x20000L;
     }

@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* subclass_control_1070_8f26: candidate for 1070:8f26 (52 bytes).  Verdict: RELOCATABLE.
  *
  * Stores the long in window word 8 of the control's window (+2) and
@@ -12,7 +13,7 @@
 
 void subclass_control_1070_8f26(void *control, MSWin *win)
 {
-    SetWindowLong(win->hwnd, 8, (long)control);
-    SetWindowLong(win->hwnd, -4, (long)(void *)dialog_wndproc);
+    SetWindowLong(win->hwnd, 8, (intptr_t)control);
+    SetWindowLong(win->hwnd, -4, (intptr_t)(void *)dialog_wndproc);
 }
 

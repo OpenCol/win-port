@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* mci_can_open: candidate for 1078:2d51 (109 bytes).  Verdict: RELOCATABLE.
  *
  * Tests whether the MCI device type "avivideo" can be opened (MCI_OPEN by type): 1 when the open
@@ -19,5 +20,5 @@ int mci_can_open(void)
     op.lpstrAlias = 0;
     op.extra = 0;
     op.extra2 = 0;
-    return mciSendCommand(0, 0x803, 0x2000L, (unsigned long)(void *)&op) == 0;
+    return mciSendCommand(0, 0x803, 0x2000L, (uintptr_t)(void *)&op) == 0;
 }

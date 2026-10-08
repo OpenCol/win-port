@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_control_action_1068_e03c: candidate for 1068:e03c (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -15,5 +16,5 @@
 
 void set_control_action_1068_e03c(SRadioSet *radios, void *h)
 {
-    radios->on_change = (long)h;
+    radios->on_change = (intptr_t)h;
 }

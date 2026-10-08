@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* DisposeCtrlBlock: candidate for 1070:09dd (264 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: DisposeCtrlBlock
@@ -52,7 +53,7 @@ extern "C" void DisposeCtrlBlock(unsigned hwnd)
         h = c->handle;
         MSHUnlock(h);
         MSDisposeHandle(h);
-        SetWindowLong(hwnd, -4, (long)(void *)control_message_handler);
+        SetWindowLong(hwnd, -4, (intptr_t)(void *)control_message_handler);
     } else {
         report_error_1070_969a(&g_error_log, "Error: Tried to dispose NULL control in DisposeCtrlBlock");
     }

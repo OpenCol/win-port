@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8, font_handle_1070_9806 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_MSEditBoxClass_window: candidate for 1070:5550 (638 bytes).  Verdict: RELOCATABLE.
@@ -98,8 +99,8 @@ unsigned create_MSEditBoxClass_window(RECT *r, SEditBox *edit, unsigned long fla
     font = (FontRec *)MSHLock(font_handle_1070_9806((Font *)g_editbox_font));
     SendMessage(hwnd, 0x30, font->hfont, 0L);
     MSHUnlock(font_handle_1070_9806((Font *)g_editbox_font));
-    SetWindowLong(hwnd, -4, (long)(void *)editbox_subclass_proc);
-    SetWindowLong(hwnd, g_editbox_extra, (long)g_editbox_proc);
-    SetWindowLong(hwnd, g_editbox_extra + 4, (long)edit);
+    SetWindowLong(hwnd, -4, (intptr_t)(void *)editbox_subclass_proc);
+    SetWindowLong(hwnd, g_editbox_extra, (intptr_t)g_editbox_proc);
+    SetWindowLong(hwnd, g_editbox_extra + 4, (intptr_t)edit);
     return hwnd;
 }

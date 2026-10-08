@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* win_set_object: candidate for 1070:6811 (32 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -12,5 +13,5 @@
 
 void win_set_object(void *o, MSWin *win)
 {
-    SetWindowLong(win->hwnd, 4, (long)o);
+    SetWindowLong(win->hwnd, 4, (intptr_t)o);
 }

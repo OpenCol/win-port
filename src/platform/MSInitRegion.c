@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* MSInitRegion: candidate for 1070:0be3 (182 bytes).  Verdict: RELOCATABLE.
@@ -27,6 +28,6 @@ unsigned MSInitRegion(RECT *r, void *ctl)
                         get_win_1070_95f0((Screen *)(ctl_window_1070_96a8((DlgControl *)ctl)))->hwnd, 0, g_hinstance, 0);
     c = InitCtrlBlock(hwnd, ctl);
     c->kind = 1;
-    SetWindowLong(hwnd, -4, (long)(void *)region_wndproc);
+    SetWindowLong(hwnd, -4, (intptr_t)(void *)region_wndproc);
     return hwnd;
 }

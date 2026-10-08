@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_region_click_1048_e033: candidate for 1048:e033 (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -16,5 +17,5 @@
 
 void set_region_click_1048_e033(SRegion *r, void *h)
 {
-    r->on_click = (long)h;
+    r->on_click = (intptr_t)h;
 }

@@ -17,8 +17,8 @@ typedef struct {
 typedef struct { unsigned long dwCallback; unsigned hWnd, wReserved1, nCmdShow, wReserved2; const char *lpstrText; } WINDOW_G;
 typedef struct { unsigned long dwCallback; RECT16 rc; } RECT_G;
 
-unsigned long w16_mciSendCommand(unsigned dev, unsigned msg, unsigned long flags, unsigned long parms) W16(mciSendCommand);
-unsigned long w16_mciSendCommand(unsigned dev, unsigned msg, unsigned long flags, unsigned long parms)
+unsigned long w16_mciSendCommand(unsigned dev, unsigned msg, unsigned long flags, uintptr_t parms) W16(mciSendCommand);
+unsigned long w16_mciSendCommand(unsigned dev, unsigned msg, unsigned long flags, uintptr_t parms)
 {
     void *p = (void *)(uintptr_t)parms;
     MCIERROR r;

@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 38 of the imported file. */
 /* PORT: this file's own declarations of get_win_1070_95f0, parse_hotkey_marker removed: the header declares them from the definition (W1 step 3). */
@@ -52,6 +53,6 @@ extern "C" unsigned MSInitCheck(RECT *r, void *ctl, const char *text, int visibl
     c->bmp2 = bmp_on;
     c->kind = 2;
     c->data = copy;
-    SetWindowLong(hwnd, -4, (long)(void *)checkbox_wndproc);
+    SetWindowLong(hwnd, -4, (intptr_t)(void *)checkbox_wndproc);
     return hwnd;
 }

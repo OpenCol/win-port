@@ -1,3 +1,4 @@
+/* PORT: mciSendCommand's parameter block is passed as uintptr_t, not unsigned long: 8 bytes on 64-bit Windows (W9). */
 /* MSGetCDTracks: candidate for 1078:09cf (292 bytes).  Verdict: RELOCATABLE.
  *
  * Opens "cdaudio" temporarily, sets MSF time format, asks MCI_STATUS_NUMBER_OF_TRACKS
@@ -19,16 +20,16 @@ int MSGetCDTracks(void)
     unsigned dev;
 
     op.lpstrDeviceType = "cdaudio";
-    if ((r = mciSendCommand(0, 0x803, 0x2000L, (unsigned long)(void *)&op)) != 0)
+    if ((r = mciSendCommand(0, 0x803, 0x2000L, (uintptr_t)(void *)&op)) != 0)
         return -1;
     dev = op.wDeviceID;
     sp.dwTimeFormat = 2L;
-    if ((r = mciSendCommand(dev, 0x80d, 0x400L, (unsigned long)(void *)&sp)) != 0) {
+    if ((r = mciSendCommand(dev, 0x80d, 0x400L, (uintptr_t)(void *)&sp)) != 0) {
         mciSendCommand(dev, 0x804, 0L, 0L);
         return -1;
     }
     st.dwItem = 3L;
-    if ((r = mciSendCommand(dev, 0x814, 0x100L, (unsigned long)(void *)&st)) != 0) {
+    if ((r = mciSendCommand(dev, 0x814, 0x100L, (uintptr_t)(void *)&st)) != 0) {
         mciSendCommand(dev, 0x804, 0L, 0L);
         return -1;
     }

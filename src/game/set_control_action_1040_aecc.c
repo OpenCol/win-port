@@ -1,3 +1,4 @@
+/* PORT: a callback is stored as intptr_t, not long: a pointer is 8 bytes on 64-bit Windows (W9). */
 /* set_control_action_1040_aecc: candidate for 1040:aecc (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -18,5 +19,5 @@
 
 void set_control_action_1040_aecc(SImageButton *button, void *h)
 {
-    button->on_click = (long)h;
+    button->on_click = (intptr_t)h;
 }

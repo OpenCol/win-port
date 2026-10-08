@@ -1,3 +1,4 @@
+/* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* create_ctrl_win: candidate for 1070:2688 (236 bytes).  Verdict: RELOCATABLE.
@@ -58,6 +59,6 @@ unsigned create_ctrl_win(int x, int y, int w, int h, void *obj, int visible)
                         0, g_hinstance, 0);
     c = InitCtrlBlock(hwnd, obj);
     c->kind = 5;
-    SetWindowLong(hwnd, -4, (long)(void *)image_button_proc);
+    SetWindowLong(hwnd, -4, (intptr_t)(void *)image_button_proc);
     return hwnd;
 }

@@ -37,7 +37,7 @@
 class DlgControl;
 template <class T> class LinkedList : public VList { public: LinkedList(); };
 class PediaWin : public ColChild { public: short category; SImageButton button; SScrollBar bar; GRPort port; LinkedList<PediaEntry> list; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; PediaWin(); ~PediaWin(); };
-typedef char pedia_list_at_0x83e[(offsetof(PediaWin, list) == 0x83e + 58 * (sizeof(void *) - 4)) ? 1 : -1];   /* PORT: +4 a pointer before it on 64-bit (W9) */
+typedef char pedia_list_at_0x83e[(sizeof(void *) != 4 || offsetof(PediaWin, list) == 0x83e) ? 1 : -1];   /* PORT: the game's offset where a pointer is 4 bytes (W9) */
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" char *PediaWin_PediaName(PediaWin *w, PediaEntry *entry);
