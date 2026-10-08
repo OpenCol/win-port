@@ -1,0 +1,8 @@
+{
+ "W6": {
+  "by": "Daniel Derevjanik",
+  "date": "2026-10-08",
+  "state": "deferred",
+  "why": "the full golden corpus (21 scenarios x 150 turns) is deferred: 6 scenarios x 20 turns are in lockstep (726/726 checkpoints), the rest is tested later from a playable build (W7)"
+ }
+}

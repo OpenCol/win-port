@@ -16,6 +16,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/trace.json    python3 tests/trace.py --gate --record    (needs $COL_GAME_DIR and wine)
     status/asm.json      python3 tests/asm.py --record             (needs $COL_GAME_DIR and wine)
     status/lockstep.json python3 tests/lockstep.py run SAVE --record  (a ledger, per scenario)
+    status/decisions.json   by hand: a milestone the owner deferred (who, when, why)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -184,12 +185,17 @@ def render():
              "then `python3 tools/status.py`.", "",
              "| | Milestone | State | Measured | Gate |", "| --- | --- | --- | --- | --- |"]
     current = None
+    decided = rec("decisions") or {}
     for key, name, fn, gate in ROWS:
         state, what = fn() if fn else ("--", "not measured")
-        if current is None and state != "DONE":
+        d = decided.get(key)
+        if d and state != "DONE" and d.get("state") == "deferred":
+            state = "DEFERRED"
+            what += "; deferred %s by %s: %s" % (d["date"], d["by"], d["why"])
+        if current is None and state not in ("DONE", "DEFERRED"):
             current = key
         lines.append("| %s | %s | %s | %s | `%s` |" % (key, name, state, what, gate))
-    lines += ["", "Current milestone: **%s** (roadmap rule 1: one at a time, in order)." % (current or "none"), ""]
+    lines += ["", "Current milestone: **%s** (roadmap rule 1: one at a time, in order; DEFERRED by the owner, status/decisions.json)." % (current or "none"), ""]
     return "\n".join(lines)
 
 

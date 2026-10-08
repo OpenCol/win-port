@@ -11,10 +11,10 @@ then `python3 tools/status.py`.
 | W3 | oracle | DONE | oracle self-test identical (1 turns, 6 checkpoints); state round trip lossless: 670/671 globals converted, 0 lost, 1 by address only; differential 20/20 functions agree | `tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record` |
 | W4 | platform | DONE | Win16 functions not provided: 0 of 167; framework trace: 10000 of the first 10000 calls match the oracle | `tools/undefined.py --record, tests/trace.py --gate --record` |
 | W5 | asm | DONE | routines agreeing with the originals: 12/12; 915 SPRT sprites (837 drawn): 3264/3264 calls identical; 96 CvPc canvases: 96/96 calls identical; 1 FLIC (66 frames): 66/66 calls identical | `tests/asm.py --record` |
-| W6 | lockstep | open | 6 scenario(s): 726/726 checkpoints in lockstep, 120 of 120 turns whole; golden corpus: 0 of 21 scenarios recorded | `tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)` |
+| W6 | lockstep | DEFERRED | 6 scenario(s): 726/726 checkpoints in lockstep, 120 of 120 turns whole; golden corpus: 0 of 21 scenarios recorded; deferred 2026-10-08 by Daniel Derevjanik: the full golden corpus (21 scenarios x 150 turns) is deferred: 6 scenarios x 20 turns are in lockstep (726/726 checkpoints), the rest is tested later from a playable build (W7) | `tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)` |
 | W7 | playable | -- | not measured | `scripted sessions, saves both ways, human pass` |
 | W8 | linux | -- | not measured | `winegcc build through W3-W7` |
 | W9 | 64-bit | -- | not measured | `W6 and W7 on x64, x86_64, macOS` |
 | W10 | release | -- | not measured | `a clean machine per OS reaches the map` |
 
-Current milestone: **W6** (roadmap rule 1: one at a time, in order).
+Current milestone: **W7** (roadmap rule 1: one at a time, in order; DEFERRED by the owner, status/decisions.json).
