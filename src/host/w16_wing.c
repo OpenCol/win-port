@@ -87,7 +87,7 @@ static void *shadow_bits;
 #define SHADOW_W 1024
 #define SHADOW_H 768
 
-static void shadow_blit(int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh)
+static void shadow_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh)
 {
     static const char *dir;
     static int checked;
@@ -113,6 +113,21 @@ static void shadow_blit(int x, int y, int w, int h, HDC src, int sx, int sy, int
     }
     if (!dir || !shadow_dc)
         return;
+    {
+        /* at the window's place, measured from the top-level window it belongs to */
+        HWND hw = WindowFromDC(dst), top = hw ? GetAncestor(hw, GA_ROOT) : 0;
+        POINT p = { 0, 0 }, o = { 0, 0 };
+        if (hw)
+            ClientToScreen(hw, &p);
+        if (top) {
+            static HWND first;
+            if (!first || !IsWindow(first))
+                first = top;
+            ClientToScreen(first, &o);
+        }
+        x += p.x - o.x;
+        y += p.y - o.y;
+    }
     if (sw == w && sh == h)
         BitBlt(shadow_dc, x, y, w, h, src, sx, sy, SRCCOPY);
     else
@@ -157,7 +172,7 @@ static void shadow_blit(int x, int y, int w, int h, HDC src, int sx, int sy, int
 int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy) W16(WinGBitBlt);
 int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy)
 {
-    shadow_blit((int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)w, (int16_t)h);
+    shadow_blit(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)w, (int16_t)h);
     return BitBlt(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
                   SRCCOPY);
 }
@@ -166,7 +181,7 @@ int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int s
 int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy, int sw, int sh)
 {
     HDC dc = W16_HDC(d);
-    shadow_blit((int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)sw, (int16_t)sh);
+    shadow_blit(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)sw, (int16_t)sh);
     SetStretchBltMode(dc, COLORONCOLOR);
     return StretchBlt(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
                       (int16_t)sw, (int16_t)sh, SRCCOPY);

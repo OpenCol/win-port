@@ -103,8 +103,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_colony_rclick_busy, 34, 0x09f7, 1, 1, sizeof(g_colony_rclick_busy), 0 },   /* g_colony_rclick_busy */
   { (void *)&g_colony_slot28_busy, 34, 0x09f8, 1, 1, sizeof(g_colony_slot28_busy), 0 },   /* g_colony_slot28_busy */
   { (void *)&g_colony_tally, 24, 0x066e, 4, 2, sizeof(g_colony_tally[0]), 1 },   /* g_colony_tally */
-  { (void *)&g_colony_timer, 20, 0x2d34, 1, 2, sizeof(g_colony_timer), 1 },   /* g_colony_timer */
-  { (void *)&g_colony_window, 20, 0x25be, 1, 1, sizeof(g_colony_window), 0 },   /* g_colony_window */
   { (void *)&g_colony_window_open, 34, 0x00b2, 1, 2, sizeof(g_colony_window_open), 1 },   /* g_colony_window_open */
   { (void *)&g_colony_window_ptr, 34, 0x0a00, 1, 4, sizeof(g_colony_window_ptr), 3 },   /* g_colony_window_ptr */
   { (void *)&g_color_resource_type, 34, 0x2af2, 1, 4, sizeof(g_color_resource_type), 3 },   /* g_color_resource_type */
@@ -143,7 +141,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_cursor_x, 34, 0x4b30, 1, 2, sizeof(g_cursor_x), 1 },   /* g_cursor_x */
   { (void *)&g_cursor_y, 34, 0x4b32, 1, 2, sizeof(g_cursor_y), 1 },   /* g_cursor_y */
   { (void *)&g_cursors, 20, 0x7746, 15, 4, sizeof(g_cursors[0]), 0 },   /* g_cursors */
-  { (void *)&g_custom_house_colony, 20, 0x2fd0, 1, 2, sizeof(g_custom_house_colony), 0 },   /* g_custom_house_colony */
   { (void *)&g_cycle_flag, 34, 0x0076, 1, 2, sizeof(g_cycle_flag), 1 },   /* g_cycle_flag */
   { (void *)&g_damaged_in_port, 34, 0x1fcc, 1, 2, sizeof(g_damaged_in_port), 1 },   /* g_damaged_in_port */
   { (void *)&g_data_dir, 29, 0x0000, 60, 1, sizeof(g_data_dir[0]), 0 },   /* g_data_dir */
@@ -155,8 +152,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_defence_village, 34, 0x0dc0, 1, 2, sizeof(g_defence_village), 1 },   /* g_defence_village */
   { (void *)&g_deficit, 21, 0x018c, 20, 2, sizeof(g_deficit[0]), 1 },   /* g_deficit */
   { (void *)&g_depletion_rolls, 34, 0x4ba9, 1, 1, sizeof(g_depletion_rolls), 0 },   /* g_depletion_rolls */
-  { (void *)&g_desk_x, 20, 0x2d28, 1, 2, sizeof(g_desk_x), 1 },   /* g_desk_x */
-  { (void *)&g_desk_y, 20, 0x2d2a, 1, 2, sizeof(g_desk_y), 1 },   /* g_desk_y */
   { (void *)&g_dialog_help_used, 34, 0x4dfe, 1, 2, sizeof(g_dialog_help_used), 0 },   /* g_dialog_help_used */
   { (void *)&g_dialog_owner, 34, 0x56b6, 1, 4, sizeof(g_dialog_owner), 3 },   /* g_dialog_owner */
   { (void *)&g_dialog_result, 34, 0x56b4, 1, 2, sizeof(g_dialog_result), 1 },   /* g_dialog_result */
@@ -206,10 +201,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_europe_screen_open, 34, 0x00b4, 1, 2, sizeof(g_europe_screen_open), 1 },   /* g_europe_screen_open */
   { (void *)&g_europe_selected_ship, 34, 0x4cde, 1, 2, sizeof(g_europe_selected_ship), 1 },   /* g_europe_selected_ship */
   { (void *)&g_europe_ship_highlight, 34, 0x4ce2, 1, 2, sizeof(g_europe_ship_highlight), 1 },   /* g_europe_ship_highlight */
-  { (void *)&g_europe_timer, 20, 0x3748, 1, 2, sizeof(g_europe_timer), 1 },   /* g_europe_timer */
-  { (void *)&g_europe_win, 20, 0x2fd2, 1, 1, sizeof(g_europe_win), 0 },   /* g_europe_win */
-  { (void *)&g_europe_win_dlg, 20, 0x2ff8, 1, 1, sizeof(g_europe_win_dlg), 0 },   /* g_europe_win_dlg */
-  { (void *)&g_europe_x0, 20, 0x373c, 1, 2, sizeof(g_europe_x0), 1 },   /* g_europe_x0 */
   { (void *)&g_event_seed, 34, 0x4b88, 1, 2, sizeof(g_event_seed), 1 },   /* g_event_seed */
   { (void *)&g_far_start_x, 34, 0x4bfe, 1, 2, sizeof(g_far_start_x), 1 },   /* g_far_start_x */
   { (void *)&g_far_start_y, 34, 0x4c00, 1, 2, sizeof(g_far_start_y), 1 },   /* g_far_start_y */
@@ -268,7 +259,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_info_font_large, 34, 0x4b16, 1, 4, sizeof(g_info_font_large), 0 },   /* g_info_font_large */
   { (void *)&g_info_font_small, 34, 0x4b12, 1, 4, sizeof(g_info_font_small), 0 },   /* g_info_font_small */
   { (void *)&g_info_label, 20, 0xdcc0, 4, 2, sizeof(g_info_label[0]), 1 },   /* g_info_label */
-  { (void *)&g_info_win_dlg, 20, 0x158c, 1, 1, sizeof(g_info_win_dlg), 0 },   /* g_info_win_dlg */
   { (void *)&g_job_of_building, 21, 0x00cd, 42, 1, sizeof(g_job_of_building[0]), 0 },   /* g_job_of_building */
   { (void *)&g_job_popup_active, 34, 0x0a12, 1, 2, sizeof(g_job_popup_active), 1 },   /* g_job_popup_active */
   { (void *)&g_job_unit_type, 34, 0x0bf8, 9, 1, sizeof(g_job_unit_type[0]), 0 },   /* g_job_unit_type */
@@ -329,20 +319,14 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_map_load_error, 34, 0x1c68, 1, 2, sizeof(g_map_load_error), 1 },   /* g_map_load_error */
   { (void *)&g_map_mode, 34, 0x1ca4, 1, 2, sizeof(g_map_mode), 1 },   /* g_map_mode */
   { (void *)&g_map_size, 34, 0x4c40, 1, 4, sizeof(g_map_size), 0 },   /* g_map_size */
-  { (void *)&g_map_timer, 20, 0x0dce, 1, 2, sizeof(g_map_timer), 1 },   /* g_map_timer */
   { (void *)&g_map_version, 34, 0x1c62, 1, 2, sizeof(g_map_version), 0 },   /* g_map_version */
-  { (void *)&g_map_window, 20, 0x0658, 1, 1928, sizeof(g_map_window), 0 },   /* g_map_window */
-  { (void *)&g_map_window_dlg, 20, 0x067e, 1, 1, sizeof(g_map_window_dlg), 0 },   /* g_map_window_dlg */
   { (void *)&g_market_col, 34, 0x1fc6, 1, 1, sizeof(g_market_col), 0 },   /* g_market_col */
   { (void *)&g_mci_device, 34, 0x3c78, 1, 2, sizeof(g_mci_device), 2 },   /* g_mci_device */
   { (void *)&g_menu_active, 34, 0x0c26, 1, 2, sizeof(g_menu_active), 1 },   /* g_menu_active */
   { (void *)&g_menu_depth, 34, 0x56de, 1, 2, sizeof(g_menu_depth), 1 },   /* g_menu_depth */
-  { (void *)&g_menu_owner, 20, 0x0656, 1, 2, sizeof(g_menu_owner), 0 },   /* g_menu_owner */
   { (void *)&g_merc, 26, 0x0036, 4, 2, sizeof(g_merc[0]), 1 },   /* g_merc */
   { (void *)&g_message_buf, 34, 0x4e6c, 2048, 1, sizeof(g_message_buf[0]), 0 },   /* g_message_buf */
   { (void *)&g_military_power, 20, 0xd9d6, 4, 2, sizeof(g_military_power[0]), 2 },   /* g_military_power */
-  { (void *)&g_mini_win, 20, 0x0de0, 1, 1, sizeof(g_mini_win), 0 },   /* g_mini_win */
-  { (void *)&g_mini_win_dlg, 20, 0x0e06, 1, 1, sizeof(g_mini_win_dlg), 0 },   /* g_mini_win_dlg */
   { (void *)&g_misc_words, 20, 0xdcc8, 221, 2, sizeof(g_misc_words[0]), 1 },   /* g_misc_words */
   { (void *)&g_mission_word, 20, 0xd8b6, 4, 2, sizeof(g_mission_word[0]), 1 },   /* g_mission_word */
   { (void *)&g_modal_active, 34, 0x4cd2, 1, 2, sizeof(g_modal_active), 1 },   /* g_modal_active */
@@ -420,7 +404,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_pedia_count, 34, 0x0098, 1, 2, sizeof(g_pedia_count), 1 },   /* g_pedia_count */
   { (void *)&g_pedia_mode, 34, 0x09dc, 1, 2, sizeof(g_pedia_mode), 1 },   /* g_pedia_mode */
   { (void *)&g_pedia_page, 34, 0x28a6, 1, 2, sizeof(g_pedia_page), 1 },   /* g_pedia_page */
-  { (void *)&g_pedia_win, 20, 0x387c, 1, 1, sizeof(g_pedia_win), 0 },   /* g_pedia_win */
   { (void *)&g_pedia_word, 20, 0xd938, 30, 2, sizeof(g_pedia_word[0]), 1 },   /* g_pedia_word */
   { (void *)&g_pending_col, 34, 0x4b9a, 1, 2, sizeof(g_pending_col), 1 },   /* g_pending_col */
   { (void *)&g_pending_flag, 34, 0x0a10, 1, 2, sizeof(g_pending_flag), 1 },   /* g_pending_flag */
@@ -562,7 +545,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_st_a, 34, 0x0a0b, 1, 1, sizeof(g_st_a), 0 },   /* g_st_a */
   { (void *)&g_st_b, 34, 0x0a0d, 1, 1, sizeof(g_st_b), 0 },   /* g_st_b */
   { (void *)&g_st_c, 34, 0x0a0f, 1, 1, sizeof(g_st_c), 0 },   /* g_st_c */
-  { (void *)&g_stat_win, 20, 0x1566, 1, 1, sizeof(g_stat_win), 0 },   /* g_stat_win */
   { (void *)&g_static_registered, 34, 0x33d0, 1, 2, sizeof(g_static_registered), 1 },   /* g_static_registered */
   { (void *)&g_step_banner, 32, 0x008c, 14, 2, sizeof(g_step_banner[0]), 1 },   /* g_step_banner */
   { (void *)&g_step_footer, 32, 0x00a8, 14, 2, sizeof(g_step_footer[0]), 1 },   /* g_step_footer */
@@ -656,7 +638,7 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_y_lo, 34, 0x4bd7, 1, 1, sizeof(g_y_lo), 0 },   /* g_y_lo */
   { (void *)&g_zoom, 34, 0x1c9a, 1, 2, sizeof(g_zoom), 1 },   /* g_zoom */
 };
-const unsigned port_init_global_count = 641;
+const unsigned port_init_global_count = 623;
 
 const struct PortInitFunction port_init_functions[] = {
   { 0x10080000u, (void *)autosave },

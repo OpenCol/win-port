@@ -260,7 +260,7 @@ def main(argv):
     open(rsp, "w").write("\n".join(objs) + "\n")
     libs = [l for l in und.LIBS if l != "-mwindows"]
     r = subprocess.run([und.CXX, "-o", EXE, "@" + rsp, "-mconsole", "-Wl,--disable-dynamicbase",
-                        ] + libs, capture_output=True, text=True)
+                        ] + und.alias_flags() + libs, capture_output=True, text=True)
     if r.returncode:
         sys.exit("link failed:\n" + "\n".join(r.stderr.splitlines()[-15:]))
     print("build/port_state.exe: %d globals; %d dropped" % (len(es) - len(drop), len(drop)))

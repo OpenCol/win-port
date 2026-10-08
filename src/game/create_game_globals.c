@@ -62,6 +62,9 @@ public:
     MainWin();
     ~MainWin();
 };
+/* PORT: the game's MainWin is 0x3b0c bytes (its type descriptor); the globals inside it are
+   aliases at its offsets (tools/gen_globals.py CONTAINERS), so its layout must be the game's (W4) */
+PORT_SIZE_ASSERT(sizeof(MainWin) == 0x3b0c, "MainWin is not the game's 0x3b0c bytes");
 
 /* same object: 4-byte `push cs; call ` (rule 47), from here or from the _STDES_ */
 

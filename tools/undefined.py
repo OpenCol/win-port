@@ -85,13 +85,25 @@ def sources():
             + sorted(glob.glob(os.path.join(ROOT, "src", "asm", "*.c"))))
 
 
+def alias_flags():
+    """--defsym for each contained global (src/gen/aliases.txt, tools/gen_globals.py)."""
+    p = os.path.join(ROOT, "src", "gen", "aliases.txt")
+    out = []
+    if os.path.exists(p):
+        for line in open(p):
+            if line.strip() and not line.startswith("#"):
+                n, c, off = line.split()
+                out.append("-Wl,--defsym,_%s=_%s+%s" % (n, c, off))
+    return out
+
+
 def link(objs):
     """{symbol: [objects that want it]}, {symbol: [objects that define it]} from the linker."""
     lst = os.path.join(ROOT, "build", "link.rsp")
     with open(lst, "w") as f:
         f.write("\n".join(objs) + "\n")
     exe = os.path.join(ROOT, "build", "colonize.exe")
-    r = subprocess.run([CXX, "-o", exe, "@" + lst, "-Wl,--no-demangle"] + LIBS,
+    r = subprocess.run([CXX, "-o", exe, "@" + lst, "-Wl,--no-demangle"] + alias_flags() + LIBS,
                        capture_output=True, text=True, errors="replace")
     undefined, twice = collections.defaultdict(set), collections.defaultdict(set)
     link.stderr = r.stderr

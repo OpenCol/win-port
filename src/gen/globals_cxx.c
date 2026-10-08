@@ -9,20 +9,12 @@
 
 extern "C" {
 
-DialogWin g_colony_win_rec;
-ColonyWin g_colony_window;
 ColonyWin *g_colony_window_ptr;
-EuropeWin g_europe_win;
 Sprite g_flag_sprite;
 GRPort g_icon_port;
 Sprite g_icon_sprite;
 GRPort g_map_port;
-MapWin g_map_window;
-MenuClass g_menu_owner;
 Opening *g_opening;
-ReportWin g_report_window;
-DialogWin g_report_window_dlg;
-StatWin g_stat_win;
 
 }  /* extern "C" */
 
