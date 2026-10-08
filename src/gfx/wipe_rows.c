@@ -40,8 +40,9 @@ void wipe_rows(GameWin *win_a, GameWin *win_b, RECT *src_rect, int x, int y,
     int a;
     int b;
     int t;
-    int *cols;
-    int *tbl;
+    /* PORT: i16, Borland's int: asm_wipe_rows reads both tables as words (W4) */
+    i16 *cols;
+    i16 *tbl;
     RECT r;
     RECT area;
     void *src_rows;
@@ -55,7 +56,7 @@ void wipe_rows(GameWin *win_a, GameWin *win_b, RECT *src_rect, int x, int y,
     SetRect(&area, x, y, x + w, y + h);
     src_rows = port_row_offsets((GRPort *)win_a);
     dst_rows = port_row_offsets((GRPort *)win_b);
-    tbl = new int[w + h];
+    tbl = new i16[w + h];
     cols = tbl + h;
     for (j = 0; j < w; j++)
         cols[j] = j;

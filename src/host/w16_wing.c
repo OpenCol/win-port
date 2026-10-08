@@ -6,6 +6,9 @@
  * section is all of that: an 8-bit DIB with its own colour table, whose pixels the program
  * owns, blitted through GDI. The game's BITMAPINFO is Win32's with 256 colours (0x428 bytes).
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "w16.h"
 
 #define TOK(h) w16_token((HANDLE)(h))
@@ -74,9 +77,87 @@ unsigned w16_WinGGetDIBColorTable(unsigned hdc, unsigned start, unsigned n, RGBQ
     return GetDIBColorTable(W16_HDC(hdc), start, n, q);
 }
 
+/* $PORT_SNAPSHOT (a directory): what the game puts in its windows, as frame.bmp and a
+   numbered copy every 3 seconds -- for a run nobody watches. Every WinG blit to a window is
+   also made into a 32-bit "screen" the size of the largest window, at the window's client
+   coordinates; that is what is saved. */
+static HDC shadow_dc;
+static HBITMAP shadow_bm;
+static void *shadow_bits;
+#define SHADOW_W 1024
+#define SHADOW_H 768
+
+static void shadow_blit(int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh)
+{
+    static const char *dir;
+    static int checked;
+    static DWORD last;
+    static unsigned n;
+    char path[MAX_PATH];
+    int k;
+    if (!checked) {
+        dir = getenv("PORT_SNAPSHOT");
+        checked = 1;
+        if (dir) {
+            BITMAPINFO bi;
+            memset(&bi, 0, sizeof bi);
+            bi.bmiHeader.biSize = sizeof bi.bmiHeader;
+            bi.bmiHeader.biWidth = SHADOW_W;
+            bi.bmiHeader.biHeight = -SHADOW_H;
+            bi.bmiHeader.biPlanes = 1;
+            bi.bmiHeader.biBitCount = 32;
+            shadow_dc = CreateCompatibleDC(0);
+            shadow_bm = CreateDIBSection(0, &bi, DIB_RGB_COLORS, &shadow_bits, 0, 0);
+            SelectObject(shadow_dc, shadow_bm);
+        }
+    }
+    if (!dir || !shadow_dc)
+        return;
+    if (sw == w && sh == h)
+        BitBlt(shadow_dc, x, y, w, h, src, sx, sy, SRCCOPY);
+    else
+        StretchBlt(shadow_dc, x, y, w, h, src, sx, sy, sw, sh, SRCCOPY);
+    GdiFlush();
+    {
+        DWORD now = GetTickCount();
+        for (k = 0; k < 2; k++) {
+            BITMAPFILEHEADER fh;
+            BITMAPINFOHEADER bh;
+            DWORD size = SHADOW_W * SHADOW_H * 4, wr;
+            HANDLE f;
+            if (k == 0)
+                snprintf(path, sizeof path, "%s/frame.bmp", dir);
+            else if (now - last >= 3000) {
+                snprintf(path, sizeof path, "%s/frame-%03u.bmp", dir, n++);
+                last = now;
+            } else
+                break;
+            f = CreateFileA(path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+            if (f == INVALID_HANDLE_VALUE)
+                continue;
+            memset(&bh, 0, sizeof bh);
+            bh.biSize = sizeof bh;
+            bh.biWidth = SHADOW_W;
+            bh.biHeight = -SHADOW_H;
+            bh.biPlanes = 1;
+            bh.biBitCount = 32;
+            bh.biSizeImage = size;
+            fh.bfType = 0x4d42;
+            fh.bfOffBits = sizeof fh + sizeof bh;
+            fh.bfSize = fh.bfOffBits + size;
+            fh.bfReserved1 = fh.bfReserved2 = 0;
+            WriteFile(f, &fh, sizeof fh, &wr, 0);
+            WriteFile(f, &bh, sizeof bh, &wr, 0);
+            WriteFile(f, shadow_bits, size, &wr, 0);
+            CloseHandle(f);
+        }
+    }
+}
+
 int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy) W16(WinGBitBlt);
 int w16_WinGBitBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy)
 {
+    shadow_blit((int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)w, (int16_t)h);
     return BitBlt(W16_HDC(d), (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
                   SRCCOPY);
 }
@@ -85,6 +166,7 @@ int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int s
 int w16_WinGStretchBlt(unsigned d, int x, int y, int w, int h, unsigned s, int sx, int sy, int sw, int sh)
 {
     HDC dc = W16_HDC(d);
+    shadow_blit((int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy, (int16_t)sw, (int16_t)sh);
     SetStretchBltMode(dc, COLORONCOLOR);
     return StretchBlt(dc, (int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, W16_HDC(s), (int16_t)sx, (int16_t)sy,
                       (int16_t)sw, (int16_t)sh, SRCCOPY);

@@ -1,19 +1,6 @@
 {
  "backlog": {
-  "assembly (W5: src/asm)": [
-   "L17_01dc",
-   "L17_01f0",
-   "L17_01fe",
-   "asm_copy_bits",
-   "asm_decode_byte_run",
-   "asm_decode_delta_flc",
-   "asm_decode_literal",
-   "asm_draw_mono_sprite",
-   "asm_draw_sprite",
-   "asm_fill_rect",
-   "asm_lzw_decode",
-   "asm_wipe_rows"
-  ],
+  "assembly (W5: src/asm)": [],
   "win16 API (W4: src/platform maps it to Win32)": [
    "CommDlgExtendedError",
    "GetOpenFileName",
@@ -22,9 +9,9 @@
  },
  "gate": true,
  "links": true,
- "objects": 3264,
+ "objects": 3267,
  "outside_backlog": [],
- "sources": 3264,
+ "sources": 3267,
  "twice": 0,
- "undefined": 15
+ "undefined": 3
 }

@@ -45,6 +45,12 @@ def main(argv):
     env = dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all,err+seh"), PORT_LOG=log)
     if "--trace" in argv:
         env["PORT_TRACE"] = "1"
+    if "--snapshot" in argv:
+        # Wine sees the host filesystem as Z:
+        for old in os.listdir(RUN):
+            if old.startswith("frame") and old.endswith(".bmp"):
+                os.remove(os.path.join(RUN, old))
+        env["PORT_SNAPSHOT"] = "Z:" + RUN.replace("/", "\\")
     t0 = time.time()
     p = subprocess.Popen([wine(), EXE], cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     try:

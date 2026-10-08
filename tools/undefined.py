@@ -77,10 +77,12 @@ TWICE = re.compile(r"multiple definition of `([^']+)'")
 
 
 def sources():
-    """Every file the executable is linked from: src/ as imported, src/gen (generated) and
-    src/host (the port's own runtime and glue; its self-test is a program of its own)."""
+    """Every file the executable is linked from: src/ as imported, src/gen (generated),
+    src/host (the port's own runtime and glue; its self-test is a program of its own) and
+    src/asm (the assembly segments in C, W5)."""
     host = [p for p in glob.glob(os.path.join(ROOT, "src", "host", "*.c")) if not p.endswith("selftest.c")]
-    return ca.sources() + sorted(glob.glob(os.path.join(ROOT, "src", "gen", "*.c"))) + sorted(host)
+    return (ca.sources() + sorted(glob.glob(os.path.join(ROOT, "src", "gen", "*.c"))) + sorted(host)
+            + sorted(glob.glob(os.path.join(ROOT, "src", "asm", "*.c"))))
 
 
 def link(objs):
