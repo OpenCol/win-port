@@ -41,9 +41,10 @@ def recorded(n):
 
 
 
-def framework():
-    """[(name, 'SSSS:OOOO', kinds)] -- every MS* function src/ defines at a known address; kinds
-    is one letter per parameter: i an int (a word), l a long, p a pointer."""
+def framework(pattern=None):
+    """[(name, 'SSSS:OOOO', kinds)] -- every MS* function src/ defines at a known address (or every
+    one whose name matches `pattern`, a regular expression: tests/lockstep.py --calls); kinds is
+    one letter per parameter: i an int (a word), l a long, p a pointer."""
     import importlib.util
     spec = importlib.util.spec_from_file_location("port_twins", os.path.join(ROOT, "tools", "twins.py"))
     twins = importlib.util.module_from_spec(spec)
@@ -52,7 +53,7 @@ def framework():
     for layer in ("platform", "gfx", "game"):
         d = os.path.join(ROOT, "src", layer)
         for f in sorted(os.listdir(d)):
-            if not f.startswith("MS") or not f.endswith(".c"):
+            if not f.endswith(".c") or not (re.search(pattern, f[:-2]) if pattern else f.startswith("MS")):
                 continue
             t = open(os.path.join(d, f), errors="replace").read()
             m = re.search(r"candidate for (10[0-9a-f]{2}:[0-9a-f]{4})", t)

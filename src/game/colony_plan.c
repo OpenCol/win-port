@@ -1,3 +1,4 @@
+/* PORT: list, count are Borland's 16-bit int (i16): the code sizes them in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: g_leader_traits is LeaderFace[] (bytes a, b, c): [n][0..2] read as .a/.b/.c, signed as
    the corpus's signed char view read them (W1). */
 /* PORT: this file's own declarations of build_another_colony, build_me_a removed: the header declares them from the definition (W1 step 3). */
@@ -302,8 +303,8 @@ extern "C" void colony_plan(int colony)
     int assigned[32];
     int spec[32];
     int verdict[19];
-    int list[25];
-    int count[25];
+    i16 list[25];
+    i16 count[25];
 
     set_colony(colony);
     is_center = (g_cur_colony_rec->x == 0x2e && g_cur_colony_rec->y == 0x14);

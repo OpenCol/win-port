@@ -1,3 +1,4 @@
+/* PORT: counts is Borland's 16-bit int (i16): the code sizes it in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: this file's own declarations of siege_check removed: the header declares it from the definition (W1 step 3). */
 /* job_change_legal: candidate for 1018:8637 (541 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -47,7 +48,7 @@ int job_change_legal(int colonist, int job)
     int n;
     int spec;
     int j;
-    int counts[25];
+    i16 counts[25];
     register int code;
     register int i;
 

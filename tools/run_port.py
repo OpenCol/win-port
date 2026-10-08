@@ -27,6 +27,7 @@ import colwinre               # noqa: E402
 
 EXE = os.path.join(ROOT, "build", "colonize.exe")
 RUN = os.path.join(ROOT, "build", "run")
+RUN = os.environ.get("PORT_RUN_DIR") or RUN   # a run of its own (tests/lockstep.py: one per scenario)
 
 
 def wine():

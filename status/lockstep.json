@@ -1,11 +1,46 @@
 {
  "scenarios": {
   "AUTO01": {
-   "checkpoints": 31,
-   "first_divergence": null,
-   "in_lockstep": 31,
+   "checkpoints": 121,
+   "first_divergence": "checkpoint 87 (turn 18 step 3): colonies[3].jobs: 04, the port 00; nation_tallies+0x1: 02, the port 01; plane0+0x6fc: 0d, the port 05",
+   "in_lockstep": 87,
    "save_sha256": "86cd21209301506e5dd00239251c70815c8712e15034c49c2c90f08390bbc365",
-   "turns": 5
+   "turns": 20
+  },
+  "NEW001": {
+   "checkpoints": 85,
+   "first_divergence": null,
+   "in_lockstep": 85,
+   "save_sha256": "83533213e5513ee8c10e971293eabf1f0a50b5aed6ca397544b2669a9c73b0a5",
+   "turns": 14
+  },
+  "NEW002": {
+   "checkpoints": 121,
+   "first_divergence": null,
+   "in_lockstep": 121,
+   "save_sha256": "accb8e078916fd63cd68079ffa2a7ffaed5cf99a7a8b1dd439a34ee92cfaf59b",
+   "turns": 20
+  },
+  "NEW003": {
+   "checkpoints": 121,
+   "first_divergence": "checkpoint 21 (turn 3 step 3): tribes[4].anger: 10, the port 09; plane1+0x3d0: 10, the port 00",
+   "in_lockstep": 21,
+   "save_sha256": "03b78911f212506d4f3d825dc8142d9d55fb9071a5cfe77eb4bea62bd992cb18",
+   "turns": 20
+  },
+  "NEW004": {
+   "checkpoints": 121,
+   "first_divergence": "checkpoint 58 (turn 9 step 4): colonies[1].jobs: 06, the port 04; tribes[5].anger: 2c, the port 14; nation_tallies+0x2: 02, the port 03; plane1+0x97e: 18, the port 00; plane2+0x97e: 21, the port 91",
+   "in_lockstep": 58,
+   "save_sha256": "bd78da4a2cefe2eb708441d13b2f3fb670ceaf78255a392fb77a0adfa24357fc",
+   "turns": 20
+  },
+  "NEW005": {
+   "checkpoints": 121,
+   "first_divergence": null,
+   "in_lockstep": 121,
+   "save_sha256": "0422d4a5ad7634f7222a7e8b74d68f891d0d02757a9ca4a4e97107728f30abf1",
+   "turns": 20
   }
  }
 }

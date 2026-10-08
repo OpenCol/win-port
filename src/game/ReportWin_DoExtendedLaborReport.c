@@ -1,3 +1,4 @@
+/* PORT: counts is Borland's 16-bit int (i16): the code sizes it in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: this file's own declarations of GRPort_String, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_DrawInsetRect, GameWin_Init, show_window_1058_bc28 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_DoExtendedLaborReport: candidate for 1058:3236 (2270 bytes).  Verdict: RELOCATABLE.
@@ -122,7 +123,7 @@ extern "C" void ReportWin_DoExtendedLaborReport(ReportWin *o, int mx, int my)
     GRPort port;
     RECT r3;
     RECT r4;
-    int counts[0x30];
+    i16 counts[0x30];
 
     u = -1;
     for (i = 0; i < 0x1d; i++) {

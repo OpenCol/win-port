@@ -1,3 +1,10 @@
+/* PORT: `terrain` starts at 0. Only the food-shortage branch sets it, but the forest penalty in the
+ * other branch reads it: the original reads its stack slot [bp-0x26] uninitialised -- what earlier
+ * frames left there. The W6 oracle saw 0, 1, 2, 48, 50, 51 there (NEW001, seven turns, 43 calls,
+ * two callers), never the forest range 8..0x17, so the original never took the ten off from that
+ * branch; the port's own garbage did (lockstep: g_best_job_score 1121 for 1131, then a colonist's
+ * job). 0 is outside the range as the original's values were; tests/lockstep.py's oracle reports
+ * a stale value inside it (hazards). */
 /* preassign_colonist_to_field: candidate for 1018:7327 (1819 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * name-source: sibling-build
@@ -134,6 +141,7 @@ int preassign_colonist_to_field(int colonist, int want)
     result = 1;
     armed = 0;
     region = 0;
+    terrain = 0;    /* PORT: see the note at the top (W6) */
     nation = g_cur_colony_rec->nation;
     human = nation < NATION_EUROPEAN_COUNT && g_nation_text[nation].control == CONTROL_HUMAN;
     capacity = get_warehouse();

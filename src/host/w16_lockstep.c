@@ -34,6 +34,7 @@ extern const unsigned port_init_global_count;
 extern unsigned long w16_borland_seed(void);
 extern uint32_t g_dgroup_3f00_seed;
 extern long (*port_l17_seed_filter)(long);
+void w16_trace_mark(const char *text);
 
 #define SEG20 20
 #define DGROUP 34
@@ -310,6 +311,11 @@ void w16_lockstep_step(void *brains)
     last_step = step;
     fprintf(log_f, "checkpoint %u: turn %d step %d at tick %lu\n", checkpoints, turn, step, ticks);
     fflush(log_f);
+    {
+        char mark[64];
+        snprintf(mark, sizeof mark, "checkpoint %u turn %d step %d", checkpoints, turn, step);
+        w16_trace_mark(mark);          /* the call trace's marker (tests/lockstep.py --calls) */
+    }
     dump(turn, step);
     checkpoints++;
     if (*(int16_t *)(game + 66) && turns) {

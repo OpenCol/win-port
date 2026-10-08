@@ -1,3 +1,4 @@
+/* PORT: dims is Borland's 16-bit int (i16): the code sizes it in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: g_rec6_78e0 is declared as its four records (W6): the swap takes the array, not its address. */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 106, 109, 294, 298 of the imported file. */
 /* PORT: this file's own declarations of MSDeleteMenuItem_1008_d791, colonies_swap_words, nation52_swap_word_at_32, nations_swap_words, rec6_swap_words, records18_swap_words, records_swap_words, units_swap_words, win_disable_1008_d766, win_enable_1008_d809, win_redraw_menu_bar_1008_d7b3 removed: the header declares them from the definition (W1 step 3). */
@@ -98,7 +99,7 @@ int load_game_file(char *name)
     int alloc;
     long area;
     long p;
-    int dims[2];
+    i16 dims[2];
     char magic[0x50];
 
     alloc = 0;

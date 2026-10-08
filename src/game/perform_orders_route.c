@@ -1,3 +1,4 @@
+/* PORT: score is cleared whole, sizeof score: the code clears 0x20 bytes, 16 of Borland's 2-byte ints, and as int (sort_16x16 takes int *) that left half of it stack garbage (W6). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 120, 131 of the imported file. */
 /* perform_orders_route: candidate for 1028:b2a1 (1159 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -134,7 +135,7 @@ void perform_orders_route(int u, int at_stop)
     } else {
         more = 1;
         while (g_unit_types[g_units[u].type].holds - g_units[u].cargo_count && more) {
-            memset_rtl(score, 0, 0x20);
+            memset_rtl(score, 0, sizeof score);
             for (i = 0; i < 16; i++)
                 idx[i] = (unsigned char)i;
             count = get_num_orders(1);

@@ -6,6 +6,12 @@ and their state is compared at every step of every turn (roadmap W6).
     python3 tests/lockstep.py native SAVE [--turns N]    record the port      -> build/lockstep/<name>.native.*
     python3 tests/lockstep.py compare SAVE               the two, checkpoint by checkpoint
     python3 tests/lockstep.py compare SAVE --full        every modelled global, not only the save's
+    python3 tests/lockstep.py makesave NAME K OUT.SAV    a saved game from the oracle's checkpoint K
+    python3 tests/lockstep.py newgame NAME --seed S      a new game, saved at its first turn: a scenario
+    ... oracle|native|run SAVE --calls REGEX             also log every call of the functions whose names
+                                                         match, with their arguments, on both sides
+    python3 tests/lockstep.py calls SAVE                 the first call where the two logs part
+                                                         (build/lockstep/scenarios/NAME.SAV)
     python3 tests/lockstep.py run SAVE [--turns N]       all three
     ... compare|run SAVE --record                      also merge the result into status/lockstep.json
 
@@ -28,6 +34,7 @@ in order: srand's (the C runtime) and L17_01f0's (the assembly generator at DGRO
 """
 import gzip
 import json
+import re
 import os
 import shutil
 import struct
@@ -40,6 +47,8 @@ sys.path.insert(0, os.path.join(ROOT, "tests"))
 import colwinre               # noqa: E402
 
 OUT = os.path.join(ROOT, "build", "lockstep")
+# the emulator without a Python call per instruction or memory access (col-win-re win16emu.py)
+FAST = dict(os.environ, WIN16EMU_FAST="1")
 
 # the menu path to a saved game: the intro, left to end by itself (the port's does by tick
 # ~135,000 of its clock; a key to skip it would land on whichever screen is up), then BEGINMENU's
@@ -64,14 +73,16 @@ def scenario(save):
 
 # ------------------------------------------------------------------ the original
 
-def oracle_main(save, turns, out, raw):
-    """In the emulator's Python: the recorder, started from SAVE"""
+def oracle_main(save, turns, out, raw, seed=None):
+    """In the emulator's Python: the recorder, started from SAVE -- or, SAVE "new", a new game from
+    the recorder's own new-game script (its --seed: another game per seed)"""
     t = colwinre.use()
     os.chdir(t)
     shutil.copyfile(os.path.join(ROOT, "tests", "oracle", "e2e_turns.py"), os.path.join(t, "tools", "e2e_turns.py"))
     import e2e_turns as E
-    E.SETUP = LOAD_SETUP
-    r = E.Recorder(os.path.join(t, "game", "COLONIZE.EXE"), turns=turns, progress=True, raw_path=raw)
+    if save != "new":
+        E.SETUP = LOAD_SETUP
+    r = E.Recorder(os.path.join(t, "game", "COLONIZE.EXE"), seed=seed, turns=turns, progress=True, raw_path=raw)
     sim, m = r.sim, r.m
     name = os.path.basename(save)
     game_file = sim.game_file
@@ -100,6 +111,18 @@ def oracle_main(save, turns, out, raw):
         v = struct.unpack("<I", bytes(machine.uc.mem_read(machine.seg_base(ss) + bp + 6, 4)))[0]
         l17.append({"api_calls": r.api_n, "phase": r.phase, "seed": v})
     m.on_call(L17_SET_SEED, on_l17, "L17_01f0")
+    # --calls: every call of the matching functions, by name and arguments (tests/trace.py's
+    # function list and kinds), and a marker at each checkpoint (on_step)
+    calls = [] if os.environ.get("LOCKSTEP_CALLS") else None
+    if calls is not None:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("trace_fns", os.path.join(ROOT, "tests", "trace.py"))
+        tr = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(tr)
+        for fname, addr, kinds in tr.framework(os.environ["LOCKSTEP_CALLS"]):
+            def observer(machine, raw_args, fname=fname, kinds=kinds):
+                calls.append(fname + " " + " ".join(call_args(raw_args, kinds)))
+            m.on_call(addr, observer, fname)
 
     # checkpoints at the writes of GameBrains.step, where the port takes them (w16_lockstep_step,
     # after each such statement), not at the next API call: the recorder's rule never fires, this
@@ -129,6 +152,8 @@ def oracle_main(save, turns, out, raw):
         step, = struct.unpack("<h", new)
         turn, = struct.unpack("<h", bytes(uc.mem_read(r.base[E.SEG20] + E.GAME + 14, 2)))
         if (turn, step) != r.key:
+            if calls is not None:
+                calls.append("# turn %d step %d" % (turn, step))
             r.checkpoint((turn, step))
             segs = {i: bytearray(m.read(i, 0, n)) for i, n in data_segs.items()}
             segs[E.SEG20][E.BRAINS + 2:E.BRAINS + 4] = new
@@ -141,6 +166,8 @@ def oracle_main(save, turns, out, raw):
                 r.raw[-1]["brains"] = b.hex()
     r.uc.hook_add(UC_HOOK_MEM_WRITE, on_step, None, lin, lin + 1)
     doc = r.record()
+    if calls is not None:
+        open(out.replace(".json", ".calls"), "w").write("\n".join(calls) + "\n")
     import pickle
     with gzip.open(raw.replace(".raw.gz", ".full.gz"), "wb") as fz:
         pickle.dump(full, fz)
@@ -150,14 +177,44 @@ def oracle_main(save, turns, out, raw):
     return 0
 
 
-def oracle(save, turns):
+def call_args(raw, kinds):
+    """a call's arguments as both logs write them: an int's low 16 bits, a char's low 8, a long
+    whole, a pointer or a handle by its kind only (their values are each machine's own)"""
+    out, k = [], 0
+    for c in kinds:
+        if c in "ich":
+            v = int.from_bytes(raw[k:k + 2], "little")
+            out.append("h" if c == "h" else "%d" % (v & 0xFF if c == "c" else v))
+            k += 2
+        elif c == "l":
+            out.append("%d" % int.from_bytes(raw[k:k + 4], "little"))
+            k += 4
+        else:
+            out.append("*")
+            k += 4
+    return out
+
+
+def native_call_line(line, kinds_of):
+    """the port's trace line (name, then each argument's 32-bit frame word in hex) as call_args"""
+    p = line.split()
+    kinds = kinds_of.get(p[0], "")
+    out = []
+    for c, x in zip(kinds, p[1:]):
+        v = int(x, 16)
+        out.append("h" if c == "h" else "*" if c == "p" else "%d" % (v & 0xFF if c == "c" else v & 0xFFFF if c == "i" else v & 0xFFFFFFFF))
+    return " ".join([p[0]] + out)
+
+
+def oracle(save, turns, calls=None):
     name, path = scenario(save)
+    env = dict(FAST, LOCKSTEP_CALLS=calls) if calls else FAST
     os.makedirs(OUT, exist_ok=True)
     out, raw, log = (os.path.join(OUT, name + ".oracle" + x) for x in (".json", ".raw.gz", ".log"))
     t0 = time.time()
     with open(log, "w") as f:
         code = subprocess.run([colwinre.python(), "-u", __file__, "--oracle-run", path, str(turns), out, raw],
-                              stdout=f, stderr=subprocess.STDOUT).returncode
+                              stdout=f, stderr=subprocess.STDOUT, env=env).returncode
     if code:
         sys.exit("the oracle run failed (%d):\n%s" % (code, open(log).read()[-3000:]))
     d = json.load(open(out))
@@ -186,7 +243,7 @@ def wine_path(p):
     return "Z:" + os.path.abspath(p).replace("/", "\\")
 
 
-def native(save, turns, seconds=1800):
+def native(save, turns, seconds=1800, calls=None):
     name, path = scenario(save)
     d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
     work = os.path.join(OUT, name + ".native")
@@ -200,7 +257,8 @@ def native(save, turns, seconds=1800):
     lines += ["srand %d" % x["seed"] for x in d["seeds"]]
     lines += ["l17 %d" % x["seed"] for x in d["l17_seeds"]]
     open(os.path.join(work, "lockstep.txt"), "w").write("\n".join(lines) + "\n")
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "undefined.py")], capture_output=True, text=True)
+    benv = dict(os.environ, PORT_INSTRUMENT="1", PORT_TRACE_FNS=calls) if calls else os.environ
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "undefined.py")], capture_output=True, text=True, env=benv)
     if "links" not in r.stdout:
         sys.exit("the port does not link:\n" + r.stdout[-1500:])
     t0 = time.time()
@@ -208,7 +266,10 @@ def native(save, turns, seconds=1800):
     # run (src/host), which is what places a maximized window; the 640 x 480 Wine desktop does the
     # same where the driver has virtual desktops (winemac does not)
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "run_port.py"), "--seconds", str(seconds),
-                    "--desktop", "640x480"], env=dict(os.environ, PORT_LOCKSTEP=wine_path(work)))
+                    "--desktop", "640x480"],
+                   env=dict(os.environ, PORT_LOCKSTEP=wine_path(work), PORT_RUN_DIR=os.path.join(work, "run"),
+                            **({"PORT_MSTRACE": wine_path(os.path.join(work, "native.calls")),
+                                "PORT_MSTRACE_N": "200000000"} if calls else {})))
     cps = native_checkpoints(os.path.join(work, "native.cp"))
     print("native %s: %d checkpoints, %.0f s (log: %s)" % (name, len(cps), time.time() - t0,
                                                             os.path.relpath(os.path.join(work, "native.log"), ROOT)))
@@ -386,10 +447,117 @@ def compare_full(save, limit=12):
     return None, []
 
 
+# save_game's fields, in its order (src/game/save_game.c): a global and its size, a count field of
+# GameState times a stride, or a literal
+SAVE_FIELDS = [
+    ("g_save_magic", 9), ("lit", b"\x1a"), ("g_save_version", 2), ("g_map_size", 4), ("g_game", 0x8e),
+    ("g_nation_text", 0xd0), ("g_rec6_78e0", 0x18), ("g_colonies", (30, 0xca)), ("g_units", (28, 0x1c)),
+    ("g_nations", 0x4f0), ("g_settlements", (26, 0x12)), ("g_tribes", 0x270), ("g_leader_traits", 0xc),
+    ("g_nation_unit_count", 4), ("g_nation_colony_count", 4), ("g_nation_free_colonists", 4),
+    ("g_pop_by_nation", 4), ("g_nation_population", 4), ("g_nation_land_strength", 4),
+    ("g_nation_cargo_capacity", 4), ("g_nation_ship_count", 4), ("g_military_power", 8),
+    ("g_nation_armed_ships", 4), ("g_ai_military_target", 4), ("g_nation_strength", 4), ("g_unit_tally", 0x4c),
+    ("g_region_settlements", 0x10), ("g_region_flags", 0x10), ("g_region_unit_count", 0x40),
+    ("g_region_colony_count", 0x40), ("g_nation_region_strength", 0x40), ("g_region_population", 0x40),
+    ("g_nation_region", 0x40), ("g_region_attack", 0x40), ("g_avg_colony_size", 8), ("g_show_icon_counts", 1),
+    ("g_tribe_strength", 8), ("g_tribe_pop", 8), ("g_tribe_settlement_count", 8), ("g_tribe_region", 0x80),
+    ("g_cursor_x", 2), ("g_cursor_y", 2), ("g_zoom", 2), ("g_map_center_x", 2), ("g_map_center_y", 2),
+    ("plane0", None), ("plane1", None), ("plane2", None), ("plane3", None),
+    ("g_coarse_grid_sea", 0x10e), ("g_coarse_grid_land", 0x10e), ("g_region_farmland", 0x20), ("g_region_size", 0x20),
+    ("lit", bytes(4)),        # `p`: an uninitialised local save_game writes (the roadmap's documented mask)
+    ("g_seed_base", 4), ("g_scenery_seed", 2), ("g_routes", 0x378),
+]
+
+
+def build_save(segs, blocks):
+    """the bytes save_game would write from an oracle checkpoint: its data segments (whole) and its
+    recorded blocks (the map planes, behind huge pointers)"""
+    layout = json.load(open(os.path.join(ROOT, "import", "layout.json")))["globals"]
+    game = segs[20][0x7782:0x7782 + 0x8e]
+    out = bytearray()
+    for name, size in SAVE_FIELDS:
+        if name == "lit":
+            out += size
+        elif name.startswith("plane"):
+            out += bytes.fromhex(blocks[name])
+        else:
+            seg, off = layout[name]
+            if isinstance(size, tuple):
+                cnt, = struct.unpack_from("<h", game, size[0])
+                size = max(0, cnt) * size[1]
+            out += segs[seg][off:off + size]
+    return bytes(out)
+
+
+def makesave(name, k, out):
+    import pickle
+    full = pickle.load(gzip.open(os.path.join(OUT, name + ".oracle.full.gz"), "rb"))
+    raw = json.load(gzip.open(os.path.join(OUT, name + ".oracle.raw.gz"), "rt"))
+    d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
+    # the full capture is per step-write checkpoint; the raw blocks too (the same hook)
+    b = build_save(full[k], raw[k])
+    open(out, "wb").write(b)
+    cp = d["checkpoints"][k]
+    print("%s: %d bytes from %s's checkpoint %d (turn %d step %d)" % (out, len(b), name, k, cp["turn"], cp["step"]))
+    return b
+
+
+def newgame(name, seed):
+    """the oracle plays the new-game dialogs (seed S: every srand seed plus S), and its state at the
+    first checkpoint of the game becomes a saved game: a scenario both sides then load"""
+    os.makedirs(os.path.join(OUT, "scenarios"), exist_ok=True)
+    out, raw, log = (os.path.join(OUT, name + ".oracle" + x) for x in (".json", ".raw.gz", ".log"))
+    t0 = time.time()
+    with open(log, "w") as f:
+        code = subprocess.run([colwinre.python(), "-u", __file__, "--oracle-run", "new", "1", out, raw, str(seed)],
+                              stdout=f, stderr=subprocess.STDOUT, env=FAST).returncode
+    if code:
+        sys.exit("the new game failed (%d):\n%s" % (code, open(log).read()[-3000:]))
+    d = json.load(open(out))
+    import pickle
+    full = pickle.load(gzip.open(raw.replace(".raw.gz", ".full.gz"), "rb"))
+    # the first checkpoint with a game in progress (GameState +66)
+    k = next(i for i, segs in enumerate(full) if struct.unpack_from("<h", segs[20], 0x7782 + 66)[0])
+    path = os.path.join(OUT, "scenarios", name + ".SAV")
+    makesave(name, k, path)
+    print("new game %s (seed %d): %.0f s; scenario %s" % (name, seed, time.time() - t0, os.path.relpath(path, ROOT)))
+    return path
+
+
+def compare_calls(save, regex, context=4):
+    """the oracle's and the port's call logs, from the first checkpoint they share: where they part"""
+    name, _path = scenario(save)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("trace_fns", os.path.join(ROOT, "tests", "trace.py"))
+    tr = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tr)
+    kinds_of = {n: k for n, _a, k in tr.framework(regex)}
+    o = [l.rstrip("\n") for l in open(os.path.join(OUT, name + ".oracle.calls"))]
+    n = [l.rstrip("\n") for l in open(os.path.join(OUT, name + ".native", "native.calls"))]
+    n = [re.sub(r"^checkpoint \d+ ", "", l[2:]) if l.startswith("# ") else native_call_line(l, kinds_of) for l in n]
+    o = [l[2:] if l.startswith("# ") else l.rstrip() for l in o]
+    first = next((l for l in n if l.startswith("turn ")), None)
+    if first is None or first not in o:
+        print("no shared checkpoint (port's first: %s)" % first)
+        return
+    o, n = o[o.index(first):], n[n.index(first):]
+    for i, (a, b) in enumerate(zip(o, n)):
+        if a != b:
+            mark = next((x for x in reversed(o[:i]) if x.startswith("turn ")), "?")
+            print("the calls part at %s, call %d after it:" % (mark, i - o.index(mark)))
+            for j in range(max(0, i - context), min(i + context, len(o), len(n))):
+                print("  %s oracle: %-60s port: %s" % ("=" if o[j] == n[j] else "!", o[j][:60], n[j][:60]))
+            return
+    print("the logs agree for %d lines (oracle %d, port %d)" % (min(len(o), len(n)), len(o), len(n)))
+
+
 def record(save, same, total, first):
     """merge one scenario's result into status/lockstep.json (a ledger: other scenarios stay)"""
     name, path = scenario(save)
     p = os.path.join(ROOT, "status", "lockstep.json")
+    import fcntl                                  # runs in parallel record into one ledger
+    lock = open(p + ".lock", "w")
+    fcntl.flock(lock, fcntl.LOCK_EX)
     doc = json.load(open(p)) if os.path.exists(p) else {"scenarios": {}}
     d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
     turns = sorted({cp["turn"] for cp in d["checkpoints"]})
@@ -400,6 +568,7 @@ def record(save, same, total, first):
     with open(p, "w") as f:
         json.dump(doc, f, indent=1, sort_keys=True)
         f.write("\n")
+    fcntl.flock(lock, fcntl.LOCK_UN)
 
 
 def unknown_bytes(save):
@@ -416,13 +585,25 @@ def main(argv):
     def opt(n, default=None):
         return argv[argv.index(n) + 1] if n in argv else default
     if argv[:1] == ["--oracle-run"]:
-        return oracle_main(argv[1], int(argv[2]), argv[3], argv[4])
+        return oracle_main(argv[1], int(argv[2]), argv[3], argv[4], int(argv[5]) if len(argv) > 5 else None)
     turns = int(opt("--turns", "1"))
+    calls = opt("--calls")
+    if argv[:1] == ["calls"]:
+        compare_calls(argv[1], calls or open(os.path.join(OUT, scenario(argv[1])[0] + ".calls.regex")).read().strip())
+        return 0
+    if calls:
+        open(os.path.join(OUT, scenario(argv[1])[0] + ".calls.regex"), "w").write(calls)
     if argv[:1] == ["oracle"]:
-        oracle(argv[1], turns)
+        oracle(argv[1], turns, calls)
+        return 0
+    if argv[:1] == ["newgame"]:
+        newgame(argv[1], int(opt("--seed", "0")))
+        return 0
+    if argv[:1] == ["makesave"]:
+        makesave(argv[1], int(argv[2]), argv[3])
         return 0
     if argv[:1] == ["native"]:
-        native(argv[1], turns, int(opt("--seconds", "1800")))
+        native(argv[1], turns, int(opt("--seconds", "1800")), calls)
         print("bytes the port's dump cannot speak for:", unknown_bytes(argv[1]))
         return 0
     if argv[:1] == ["compare"] and "--full" in argv:
@@ -434,8 +615,8 @@ def main(argv):
             record(argv[1], same, total, first)
         return 0 if total and same == total else 1
     if argv[:1] == ["run"]:
-        oracle(argv[1], turns)
-        native(argv[1], turns, int(opt("--seconds", "1800")))
+        oracle(argv[1], turns, calls)
+        native(argv[1], turns, int(opt("--seconds", "1800")), calls)
         same, total, first = compare(argv[1])
         if "--record" in argv:
             record(argv[1], same, total, first)

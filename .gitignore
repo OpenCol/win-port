@@ -13,3 +13,4 @@ build.win16/
 *.WAV
 *.MID
 tests/golden/runs/
+status/lockstep.json.lock

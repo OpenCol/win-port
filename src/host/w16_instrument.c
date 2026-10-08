@@ -80,6 +80,17 @@ __attribute__((no_instrument_function)) static void trace_init(void)
     trace_state = 1;
 }
 
+/* a line of its own in the trace (tests/lockstep.py --calls: a checkpoint marker) */
+__attribute__((no_instrument_function)) void w16_trace_mark(const char *text)
+{
+    if (trace_state < 0)
+        trace_init();
+    if (trace_state != 1)
+        return;
+    fprintf(trace_file, "# %s\n", text);
+    fflush(trace_file);
+}
+
 __attribute__((no_instrument_function)) void w16_trace_call(void *fn, uintptr_t *frame)
 {
     unsigned lo = 0, hi, k;
