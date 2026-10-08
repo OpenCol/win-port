@@ -24,9 +24,11 @@
 
 int MSPicDecompress(void *src, unsigned char base, int code_size, int stride, int w, int h, void *bits)
 {
-    unsigned *t0;
-    unsigned *t1;
-    unsigned *t2;
+    /* PORT: u16, Borland's unsigned: three tables of 0x1000 words in 0x6000 bytes, which the
+       assembly decoder reads as words (W4) */
+    u16 *t0;
+    u16 *t1;
+    u16 *t2;
     unsigned hnd;
     int i;
 
@@ -35,9 +37,9 @@ int MSPicDecompress(void *src, unsigned char base, int code_size, int stride, in
         stub_reporter(&g_error_log, "Error: Cannot allocate decompression tables in MSPicDecompress");
         return 0;
     }
-    t0 = (unsigned *)MSHLock(hnd);
-    t1 = (unsigned *)((char *)t0 + 0x2000);
-    t2 = (unsigned *)((char *)t0 + 0x4000);
+    t0 = (u16 *)MSHLock(hnd);
+    t1 = (u16 *)((char *)t0 + 0x2000);
+    t2 = (u16 *)((char *)t0 + 0x4000);
     for (i = 0; i < 0x1000; i++) {
         t0[i] = 0xffff;
         t1[i] = base + i;

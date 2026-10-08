@@ -216,6 +216,16 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
     } else if (msg == WM_NCCALCSIZE || msg == WM_WINDOWPOSCHANGING || msg == WM_WINDOWPOSCHANGED) {
         return DefWindowProcA(h, msg, wp, lp);   /* the game leaves these to Windows */
     }
+    if (depth >= 12) {
+        int i;
+        w16_trace("message nesting %d: %#x to %p (from %#x %#x %#x)", depth, msg, (void *)h,
+                  stack[depth - 1].msg, stack[depth - 2].msg, stack[depth - 3].msg);
+        if (depth >= 40) {
+            for (i = 0; i < depth; i++)
+                w16_trace("  [%d] %#x to %p", i, stack[i].msg, (void *)stack[i].hwnd);
+            ExitProcess(6);
+        }
+    }
     stack[depth].hwnd = h; stack[depth].msg = msg; stack[depth].wp = wp; stack[depth].lp = lp;
     stack[depth].m16 = m16; stack[depth].w16 = w16; stack[depth].l16 = l16;
     depth++;

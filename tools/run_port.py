@@ -69,6 +69,20 @@ def main(argv):
                                capture_output=True, text=True).stdout.split()
         print("  %s%s at %s: %s" % (m.group(1), " (%s %s)" % (m.group(2), m.group(3)) if m.group(2) else "",
                                    m.group(4), " ".join(where)))
+    for label, pat in (("crash", r"^crash (code|at|address) ([0-9a-f]+)"),):
+        got = dict(re.findall(pat, text, re.M))
+        if got:
+            where = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-s", "-e", EXE, got.get("at", "0")],
+                                   capture_output=True, text=True).stdout.split()
+            print("  fault %s at %s %s%s" % (got.get("code"), got.get("at"), " ".join(where),
+                                            " reading/writing %s" % got["address"] if "address" in got else ""))
+    entered = re.findall(r"^entered ([0-9a-f]+)", text, re.M)
+    if entered:
+        r = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-s", "-e", EXE] + entered,
+                           capture_output=True, text=True).stdout.splitlines()
+        print("  last game functions entered, newest first:")
+        for i in range(0, min(len(r) - 1, 40), 2):
+            print("    %-36s %s" % (r[i], r[i + 1]))
     frames = re.findall(r"^frame (?:0x)?([0-9a-fA-F]+)", text, re.M)
     if frames:
         r = subprocess.run(["i686-w64-mingw32-addr2line", "-f", "-C", "-s", "-e", EXE] + frames,
@@ -76,7 +90,7 @@ def main(argv):
         print("  called from:")
         for i in range(0, len(r) - 1, 2):
             print("    %-36s %s" % (r[i], r[i + 1]))
-    calls = [l for l in text.splitlines() if not l.startswith(("unported", "crash", "frame"))]
+    calls = [l for l in text.splitlines() if not l.startswith(("unported", "crash", "frame", "entered"))]
     if calls and ("--trace" in argv):
         print("  last platform calls:")
         for l in calls[-8:]:

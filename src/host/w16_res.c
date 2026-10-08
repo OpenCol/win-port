@@ -76,8 +76,12 @@ unsigned w16_FindResource(unsigned hinst, const char *name, const char *type)
     Module *m = module_of(hinst);
     Res *r;
     NeResource nr;
-    if (!m->ne || !ne_find(m->ne, rid(type), rid(name), &nr))
+    if (!m->ne || !ne_find(m->ne, rid(type), rid(name), &nr)) {
+        if (w16_tracing > 0)
+            w16_trace("FindResource(%s, %s/%s): not there", m->ne ? m->ne->path : "?",
+                      (uintptr_t)type < 0x10000 ? "#" : type, (uintptr_t)name < 0x10000 ? "#" : name);
         return 0;
+    }
     r = malloc(sizeof *r);
     r->magic = RES_MAGIC;
     r->r = nr;

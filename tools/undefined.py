@@ -31,7 +31,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 import compile_all as ca      # noqa: E402
 
-OBJ = os.path.join(ROOT, "build", "obj")
+# PORT_INSTRUMENT=1: the game compiled with -finstrument-functions (src/host/w16_instrument.c
+# watches the call depth), in its own object directory
+INSTRUMENT = bool(os.environ.get("PORT_INSTRUMENT"))
+OBJ = os.path.join(ROOT, "build", "obj-instrument" if INSTRUMENT else "obj")
 NM = "i686-w64-mingw32-nm"
 CC, CXX, _ = ca.TOOLCHAINS["mingw-i686"]
 
@@ -52,7 +55,9 @@ def build(src, hdr):
     os.makedirs(os.path.dirname(o), exist_ok=True)
     cpp = ca.is_cpp(src)
     cmd = ([CXX, "-x", "c++", "-std=gnu++03"] if cpp else [CC, "-x", "c", "-std=gnu99"]) + [
-        "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer", "-fno-asynchronous-unwind-tables",
+        "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer", "-fno-asynchronous-unwind-tables"] + (
+        ["-finstrument-functions"] if INSTRUMENT and "/src/host/" not in src else []) + [
+        "-fno-common",
         "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", o, src]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace", stdin=subprocess.DEVNULL, timeout=300)
     if r.returncode:
@@ -66,7 +71,7 @@ def build(src, hdr):
 # stdcall `_FreeLibrary@4`, which would unbalance the stack; the call stays undefined (W4)
 # -static: the C++ runtime (libstdc++, libgcc) goes into the executable, not beside it as DLLs
 # --disable-dynamicbase: a fixed image base, so a crash address names the same code each run
-LIBS = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+LIBS = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-Wl,--stack,67108864", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 

@@ -67,7 +67,46 @@ static int matches(const NeModule *m, uint16_t id, const char *want)
     }
 }
 
+static int find_ordinal(const NeModule *m, const char *type, const char *name, NeResource *out);
+
+/* RT_NAMETABLE (type 15): Win16's KERNEL resolved a string type -- the game's "CvPc", "SPRT" --
+   through each module's name table, entries of {size, type ordinal, id ordinal, type name,
+   id name}: a name, case-insensitive, stands for the ordinals. */
+static int by_name_table(const NeModule *m, const char *type, const char *name, NeResource *out)
+{
+    NeResource nt;
+    uint32_t q = 0;
+    uintptr_t w = (uintptr_t)name;
+    if (!find_ordinal(m, (const char *)(uintptr_t)15, 0, &nt))
+        return 0;
+    while (q + 6 <= nt.length) {
+        const unsigned char *e = nt.data + q;
+        uint16_t size = rd16(e), tord = rd16(e + 2), iord = rd16(e + 4);
+        const char *tname = (const char *)e + 6;
+        const char *iname = tname + strlen(tname) + 1;
+        if (!size)
+            break;
+        if (_stricmp(tname, type) == 0) {
+            int id_ok = w < 0x10000 ? (!*iname && (iord & 0x7fff) == (uint16_t)w)
+                                    : (*iname && _stricmp(iname, name) == 0);
+            if (id_ok)
+                return find_ordinal(m, (const char *)(uintptr_t)(tord & 0x7fff),
+                                    (const char *)(uintptr_t)(iord & 0x7fff), out);
+        }
+        q += size;
+    }
+    return 0;
+}
+
 int ne_find(const NeModule *m, const char *type, const char *name, NeResource *out)
+{
+    if ((uintptr_t)type >= 0x10000 && type[0] != '#' && by_name_table(m, type, name, out))
+        return 1;
+    return find_ordinal(m, type, name, out);
+}
+
+/* name 0: the first resource of the type */
+static int find_ordinal(const NeModule *m, const char *type, const char *name, NeResource *out)
 {
     const unsigned char *p = m->data + m->rsrc;
     unsigned shift = rd16(p);
@@ -78,7 +117,7 @@ int ne_find(const NeModule *m, const char *type, const char *name, NeResource *o
         int t_ok = matches(m, tid, type);
         unsigned i;
         for (i = 0; i < count; i++, e += 12) {
-            if (t_ok && matches(m, rd16(e + 6), name)) {
+            if (t_ok && (!name || matches(m, rd16(e + 6), name))) {
                 out->offset = (uint32_t)rd16(e) << shift;
                 out->length = (uint32_t)rd16(e + 2) << shift;
                 if (out->offset + out->length > m->size)

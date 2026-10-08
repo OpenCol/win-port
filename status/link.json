@@ -17,22 +17,14 @@
   "win16 API (W4: src/platform maps it to Win32)": [
    "CommDlgExtendedError",
    "GetOpenFileName",
-   "GetSaveFileName",
-   "WinGBitBlt",
-   "WinGCreateBitmap",
-   "WinGCreateDC",
-   "WinGGetDIBColorTable",
-   "WinGGetDIBPointer",
-   "WinGRecommendDIBFormat",
-   "WinGSetDIBColorTable",
-   "WinGStretchBlt"
+   "GetSaveFileName"
   ]
  },
  "gate": true,
  "links": true,
- "objects": 3260,
+ "objects": 3264,
  "outside_backlog": [],
- "sources": 3260,
+ "sources": 3264,
  "twice": 0,
- "undefined": 23
+ "undefined": 15
 }

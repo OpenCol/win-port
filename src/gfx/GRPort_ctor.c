@@ -14,5 +14,6 @@
 
 GRPort::GRPort()
 {
+    vptr = 0;   /* PORT: the class tag Borland's constructor set as its vtable pointer: a GRPort (W4, gen_headers DEVIRTUALIZE) */
     GRPort_InitStruct(this, 0);
 }

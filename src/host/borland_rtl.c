@@ -147,6 +147,12 @@ void __bdele_qnv_rtl(void *p) { ::operator delete(p); }
 
 void assert_fail(char *cond, char *file, char *msg, int line)
 {
+    const char *log = getenv("PORT_LOG");
+    FILE *f = log ? fopen(log, "a") : 0;
+    if (f) {
+        fprintf(f, "game: assertion failed: %s, %s (%s) line %d\n", cond, msg ? msg : "", file, line);
+        fclose(f);
+    }
     fprintf(stderr, "Assertion failed: %s, %s (%s) line %d\n", cond, msg ? msg : "", file, line);
     abort();
 }
@@ -155,8 +161,14 @@ void assert_fail(char *cond, char *file, char *msg, int line)
    stderr until the log window exists (W4). */
 void stub_reporter(void *ctx, char *msg)
 {
+    const char *log = getenv("PORT_LOG");
+    FILE *f = log ? fopen(log, "a") : 0;
     (void)ctx;
     fprintf(stderr, "%s\n", msg);
+    if (f) {
+        fprintf(f, "game: %s\n", msg);
+        fclose(f);
+    }
 }
 
 }  /* extern "C" */

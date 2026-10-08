@@ -22,7 +22,9 @@ This is col-win-re's tools/gen_port_globals.py, reworked for the port's header.
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
@@ -181,13 +183,130 @@ def generate():
         (c_decls if types <= known_c else cxx_decls)[name] = d
     c_body, c_prob = body_for(c_decls, defined, ext, records)
     x_body, x_prob = body_for(cxx_decls, defined, ext, records)
+    rows, _names, frows = init_table()
+    drop = set()
+    for _round in range(8):
+        text = render_init(rows, frows, drop)
+        with tempfile.TemporaryDirectory() as tmp:
+            src = os.path.join(tmp, "globals_init.c")
+            open(src, "w").write(text)
+            r = subprocess.run(["i686-w64-mingw32-g++", "-x", "c++", "-std=gnu++03", "-fsyntax-only", "-w",
+                                "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), src],
+                               capture_output=True, text=True)
+        if r.returncode == 0:
+            break
+        lines = text.splitlines()
+        bad = set()
+        for m in re.finditer(r"globals_init\.c:(\d+):\d+: error", r.stderr):
+            row = lines[int(m.group(1)) - 1]
+            n = re.search(r"/\* (\w+) \*/\s*$", row) or re.search(r"\(void \*\)&?(\w+)", row)
+            if n:
+                bad.add(n.group(1))
+        if not bad:
+            sys.exit("gen_globals: globals_init.c does not compile:\n" + r.stderr[-1500:])
+        drop |= bad
     files = {
+        OUT_INIT: render_init(rows, frows, drop),
         OUT: render(['#include "colonization.h"'], c_body, c_prob),
         OUT_CXX: render(['#include "colonization.h"', '#include "classes.h"', "", 'extern "C" {'],
                         x_body + ["", '}  /* extern "C" */'], x_prob,
                         "\n * flags: -P\n * The globals whose types only C++ files see (classes): compiled as C++, C linkage."),
     }
     return files, len(c_body) + len(x_body), c_prob + x_prob
+
+
+# ------------------------------------------------------------------ initial values
+
+OUT_INIT = os.path.join(ROOT, "src", "gen", "globals_init.c")
+INIT_KIND = {"bytes": 0, "int": 1, "uint": 2, "pointer": 3}
+
+
+def function_addresses():
+    """{name: (segment selector, offset)} for every function src/ defines at a known address
+    (its file's `candidate for SEG:OFF` header), C linkage only."""
+    out = {}
+    defined = set(gh.definition_heads())      # a C function src/ defines (not a member, not removed)
+    for p in gh.src_files():
+        if os.path.splitext(os.path.basename(p))[0] not in defined:
+            continue
+        t = open(p, errors="replace").read(4000)
+        m = re.search(r"candidate for (10[0-9a-f]{2}):([0-9a-f]{4})", t)
+        if not m:
+            continue
+        name = os.path.splitext(os.path.basename(p))[0]
+        out[name] = (int(m.group(1), 16), int(m.group(2), 16))
+    return out
+
+
+def init_table():
+    """The C++ text of src/gen/globals_init.c: each addressed global that has no initializer in
+    src/ -- where the game's image gives it its first value -- and each function's address."""
+    layout = json.load(open(os.path.join(ROOT, "import", "layout.json")))
+    decls = declarations(cpp="all")
+    for n, d in file_only().items():
+        decls.setdefault(n, d)
+    defs = gh.global_definitions()
+    initialised = set()
+    for p in gh.src_files():
+        for m in re.finditer(r"^[A-Za-z_][^;(){}]*?\b(g_\w+)\s*(?:\[[^\]]*\]\s*)*=", gh.file_scope(open(p, errors="replace").read()), re.M):
+            initialised.add(m.group(1))
+    ext = extents(layout)
+    rows, names = [], []
+    for name, (seg, off) in sorted(layout["globals"].items()):
+        d = decls.get(name)
+        if not d or name in initialised:
+            continue
+        m = VAR.match(d)
+        if not m:
+            continue
+        base = re.sub(r"\s+", " ", m.group(1).replace("const ", "")).strip()
+        stars = (m.group(2) or "").replace(" ", "")
+        dims = re.findall(r"\[([^\]]*)\]", m.group(4))
+        inner = 1
+        for x in dims[1:]:
+            inner *= int(x, 0)
+        w = game_width(base, stars, layout["records"])
+        if not w:
+            continue
+        w *= inner
+        if dims:
+            count = (ext.get(name, w) // w) if not dims[0].strip() else int(dims[0], 0)
+            elem = "sizeof(%s[0])" % name
+        else:
+            count, elem = 1, "sizeof(%s)" % name
+        count = max(1, count)
+        if stars and inner == 1:
+            kind = "pointer"
+        elif base in ("int", "unsigned", "unsigned int", "signed", "long", "unsigned long", "short", "unsigned short"):
+            kind = "uint" if base.startswith("unsigned") else "int"
+        else:
+            kind = "bytes"
+        rows.append('  { (void *)&%s, %d, 0x%04x, %d, %d, %s, %d },   /* %s */' % (name, seg, off, count, w, elem,
+                                                                        INIT_KIND[kind], name))
+        names.append(name)
+    fns = function_addresses()
+    frows = ['  { 0x%04x%04xu, (void *)%s },' % (sel, off, n) for n, (sel, off) in sorted(fns.items(), key=lambda kv: kv[1])]
+    return rows, names, frows
+
+
+def render_init(rows, frows, drop=()):
+    head = ["/* GENERATED by tools/gen_globals.py: where each global's first value is in the game's image,",
+            " * and where each function is. Addresses and sizes only -- the values themselves are read",
+            " * from the player's COLONIZE.EXE at startup (src/host/w16_globals_init.c).",
+            " * flags: -P",
+            " */",
+            '#include "colonization.h"', '#include "classes.h"', "", 'extern "C" {',
+            "struct PortInitGlobal { void *addr; unsigned short seg, off, count, w16, wn, kind; };",
+            "struct PortInitFunction { unsigned long addr16; void *fn; };",
+            "extern const struct PortInitGlobal port_init_globals[];", "extern const unsigned port_init_global_count;",
+            "extern const struct PortInitFunction port_init_functions[];", "extern const unsigned port_init_function_count;",
+            "const struct PortInitGlobal port_init_globals[] = {"]
+    rows = [r for r in rows if r.rsplit("/* ", 1)[1].rstrip(" */") not in drop]
+    frows = [r for r in frows if r.split("(void *)")[1].rstrip(" },") not in drop]
+    mid = ["};", "const unsigned port_init_global_count = %d;" % len(rows), "",
+           "const struct PortInitFunction port_init_functions[] = {"]
+    tail = ["};", "const unsigned port_init_function_count = %d;" % len(frows), "}", ""]
+    return "\n".join(head + rows + mid + frows + tail)
 
 
 def main(argv):
