@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* popup_done: candidate for 1050:2c32 (48 bytes, 3 callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -18,5 +19,5 @@ extern Popup *g_cur_dialog;   /* DGROUP:0x2500 */
 void popup_done(void)
 {
     g_cur_dialog->flags |= 0x400;
-    EventWin_EndModal((EventWin *)((char *)g_cur_dialog->win + 0x26));
+    EventWin_EndModal((EventWin *)((char *)g_cur_dialog->win + PORT_DIALOG_BASE));
 }

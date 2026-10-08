@@ -253,6 +253,7 @@ typedef struct {
 /* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */
 PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GRPort) == 0x26, "GRPort is not the game's 0x26 bytes");
 PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, "GameWin is not the game's 0xc4 bytes");
+PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_DIALOG_BASE, "a window's DialogWin base is not where the code puts it");
 #endif
 #pragma pack(pop)
 #endif

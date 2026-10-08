@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* EuropeWin_EuropeButtonClick: candidate for 1048:8901 (121 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: EuropeWin_EuropeButtonClick
@@ -40,7 +41,7 @@ void EuropeWin_EuropeButtonClick(int cmd)
     EuropeWin *cur;
 
     cur = (EuropeWin *)GetEventWindow();
-    w = (cur != 0) ? (EuropeWin *)((char *)cur - 0x26) : cur;
+    w = (cur != 0) ? (EuropeWin *)((char *)cur - PORT_DIALOG_BASE) : cur;
     set_europe(w->nation);
     switch (cmd) {
     case 0xc8:

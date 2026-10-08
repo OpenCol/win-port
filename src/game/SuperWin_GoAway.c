@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* SuperWin_GoAway: candidate for 1050:6ca0 (107 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -34,7 +35,7 @@ extern void dialog_dispose_window_1050_906a(DialogWin *sub);
 void SuperWin_GoAway(SuperWin *w)
 {
     MSShowMenuBar();
-    MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + 0x26));
+    MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + PORT_DIALOG_BASE));
     CTable_Fill(&g_game_palette, 0xa, 0xec, (char *)w + 0x150);
     MSDoAllTasks_1050_8be7();
     MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + 0xc4));

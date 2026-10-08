@@ -1,0 +1,14 @@
+{
+ "backlog": {
+  "assembly (W5: src/asm)": [],
+  "win16 API (W4: src/platform maps it to Win32)": []
+ },
+ "gate": true,
+ "links": true,
+ "objects": 3271,
+ "outside_backlog": [],
+ "sources": 3271,
+ "toolchain": "mingw-x64",
+ "twice": 0,
+ "undefined": 0
+}

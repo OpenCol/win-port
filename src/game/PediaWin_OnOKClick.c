@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PediaWin_OnOKClick: candidate for 1060:2b6b (88 bytes).  Verdict: RELOCATABLE.
  * symbol: PediaWin_OnOKClick
  * name-source: sibling-build
@@ -24,7 +25,7 @@ void PediaWin_OnOKClick(void)
     char *cw;
 
     cw = (char *)GetEventWindow();
-    w = cw != 0 ? cw - 0x26 : cw;
+    w = cw != 0 ? cw - PORT_DIALOG_BASE : cw;
     if (w == 0)
         return;
     PediaWin_Done((PediaWin *)w);

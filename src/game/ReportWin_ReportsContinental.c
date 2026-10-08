@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of GRPort_String, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of DrawIconRow, sprite_height_1058_c24c removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsContinental: candidate for 1058:7056 (2900 bytes).  Verdict: RELOCATABLE.
@@ -128,7 +129,7 @@ extern "C" void ReportWin_ReportsContinental(ReportWin *o, int nation)
         delete o->extra_btn;
     SetRect(&r, o->rect.left + 2, o->rect.bottom - 0x23, o->rect.right - 2, o->rect.bottom - 5);
     o->extra_btn = new SButton;
-    sbutton_init_1058_c11b(o->extra_btn, (char *)o + 0x26, 0xca, &r, "View Congress Floor");
+    sbutton_init_1058_c11b(o->extra_btn, (char *)o + PORT_DIALOG_BASE, 0xca, &r, "View Congress Floor");
     g_congress_nation = nation;
     set_button_action_1058_c17f(o->extra_btn, (void *)ShowFloor);
     set_europe(nation);

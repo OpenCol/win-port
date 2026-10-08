@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsEcon: candidate for 1058:3c8a (2216 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -98,13 +99,13 @@ extern "C" void ReportWin_ReportsEcon(ReportWin *o, int nation)
     SetRect(&r, o->rect.left + 5, o->rect.bottom - 0x23,
             port_width_1058_be8e((GRPort *)o) / 2 - 1, o->rect.bottom - 5);
     o->prev = new SButton;
-    sbutton_init_1058_c11b(o->prev, (char *)o + 0x26, 0xc8, &r, "Previous Page");
+    sbutton_init_1058_c11b(o->prev, (char *)o + PORT_DIALOG_BASE, 0xc8, &r, "Previous Page");
     set_button_action_1058_c17f(o->prev, (void *)ReportWin_OnEconPrevClick);
     ctl_flag_clear(o->prev);
     SetRect(&r, port_width_1058_be8e((GRPort *)o) / 2 + 1, o->rect.bottom - 0x23,
             o->rect.right - 5, o->rect.bottom - 5);
     o->next = new SButton;
-    sbutton_init_1058_c11b(o->next, (char *)o + 0x26, 0xc9, &r, "Next Page");
+    sbutton_init_1058_c11b(o->next, (char *)o + PORT_DIALOG_BASE, 0xc9, &r, "Next Page");
     set_button_action_1058_c17f(o->next, (void *)ReportWin_OnEconNextClick);
     TextColor(0xf9);
     GRPort_String(o, (unsigned *)&g_report_font, strings(g_misc_words[MISC_ECONOMIC_ADVISOR_REPORT]),

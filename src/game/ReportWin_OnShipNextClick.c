@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* ReportWin_OnShipNextClick: candidate for 1058:6350 (305 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: ReportWin_OnShipNextClick
@@ -44,7 +45,7 @@ extern "C" void ReportWin_OnShipNextClick(void)
     RECT r;
     char *w = (char *)GetEventWindow();
 
-    o = (ReportWin *)(w != 0 ? w - 0x26 : w);
+    o = (ReportWin *)(w != 0 ? w - PORT_DIALOG_BASE : w);
     if (o == 0)
         return;
     GRPort_LoadPicture(&port, 0x132, 0x8e, 0x40, (struct logpal *)&g_game_palette);

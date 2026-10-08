@@ -622,6 +622,11 @@ def gen_colonization():
              "#define PORT_SIZE_ASSERT(cond, msg) typedef char PORT_SA_CAT(port_size_assert_, __LINE__)[(cond) ? 1 : -1]\n"
              "#define PORT_SA_CAT(a, b) PORT_SA_CAT2(a, b)\n#define PORT_SA_CAT2(a, b) a##b\n"
              "#else\n#define PORT_SIZE_ASSERT(cond, msg) _Static_assert(cond, msg)\n#endif\n#endif\n\n")
+    # W9: a window's DialogWin part follows its GRPort (GameWin : GRPort, DialogWin), and the
+    # corpus converts between them by the game's 0x26 (`w ? w + 0x26 : w`); GRPort holds three
+    # pointers, so on a 64-bit target the base is 12 bytes further (classes.h checks the size)
+    macro += ("/* PORT: where a window's DialogWin base starts: sizeof(GRPort), 0x26 in the game (W9) */\n"
+              "#define PORT_DIALOG_BASE (0x26 + 3 * ((int)sizeof(void *) - 4))\n\n")
     first = out.index("#include <stdint.h>")
     out = out[:first] + macro + out[first:]
     # prototypes the corpus has moved on from: a function src/ defines gets its definition's head
@@ -779,7 +784,8 @@ def gen_classes():
     # the classes are the game's size now: say so where C++ sees them
     asserts = ("#ifdef __cplusplus\n/* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */\n"
                "PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GRPort) == 0x26, \"GRPort is not the game's 0x26 bytes\");\n"
-               "PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, \"GameWin is not the game's 0xc4 bytes\");\n#endif\n")
+               "PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, \"GameWin is not the game's 0xc4 bytes\");\n"
+               "PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_DIALOG_BASE, \"a window's DialogWin base is not where the code puts it\");\n#endif\n")
     i = text.rindex("#endif")
     text = text[:i] + asserts + text[i:]
     i = text.rindex("#endif")

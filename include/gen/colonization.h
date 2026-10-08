@@ -15,6 +15,9 @@
 #endif
 #endif
 
+/* PORT: where a window's DialogWin base starts: sizeof(GRPort), 0x26 in the game (W9) */
+#define PORT_DIALOG_BASE (0x26 + 3 * ((int)sizeof(void *) - 4))
+
 #include <stdint.h>
 
 /* The game's records are PACKED: a 16-bit compiler laid them out with no

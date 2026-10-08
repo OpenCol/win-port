@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of MiniWin_ChangeScale removed: the header declares it from the definition (W1 step 3). */
 /* MainWin_ResetWindows: candidate for 1048:a896 (195 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -66,7 +67,7 @@ void MainWin_ResetWindows(MainWin *o)
     GameWin_Redraw((GameWin *)&o->mini);
     PediaWin_Done(&o->pedia);
     ReportWin_Done(&o->report);
-    win_show_and_focus_1048_d8f7((DialogWin *)((char *)&o->map + 0x26));
+    win_show_and_focus_1048_d8f7((DialogWin *)((char *)&o->map + PORT_DIALOG_BASE));
     g_game.game_flags ^= GAMEFLAG_CHEAT_MENU;
     StartCheat();
 }

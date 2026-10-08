@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of CTable_Fill removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_GetWin_1068_968c, get_ctable_1068_966f, get_win_1068_96e8 removed: the header declares them from the definition (W1 step 3). */
 /* Flic_ShowFrame: candidate for 1068:2453 (315 bytes).  Verdict: RELOCATABLE.
@@ -58,7 +59,7 @@ char Flic_ShowFrame(Flic *anim)
     void *pal;
 
     if (anim->dirty != 0) {
-        pal = get_ctable_1068_966f((Screen *)((char *)anim->port + 0x26));
+        pal = get_ctable_1068_966f((Screen *)((char *)anim->port + PORT_DIALOG_BASE));
         CTable_Fill((CTable *)pal, anim->pal_first, anim->pal_count, anim->rgb);
         anim->dirty = 0;
         GRPort_ColorSync(anim, (CTable *)pal);
@@ -66,7 +67,7 @@ char Flic_ShowFrame(Flic *anim)
     SetRect(&r, 0, 0, anim->w, anim->h);
     wing_blit((GrafRec *)GRPort_GetWin_1068_968c(anim), r.left, r.top,
                         rect_width_1068_96a9(&r), rect_height_1068_96c8(&r),
-                        (MSWin *)get_win_1068_96e8((Screen *)((char *)anim->port + 0x26)), r.left, r.top);
+                        (MSWin *)get_win_1068_96e8((Screen *)((char *)anim->port + PORT_DIALOG_BASE)), r.left, r.top);
     anim->frame_no++;
     if (anim->frame_no < anim->frames) {
         Flic_NextFrame(anim);

@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of call_relayout_handler removed: the header declares it from the definition (W1 step 3). */
 /* GameWin_Redraw: candidate for 1060:a249 (56 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -19,7 +20,7 @@ extern int g_stub_a;
 
 void GameWin_Redraw(GameWin *w)
 {
-    g_current_window = (char *)w + 0x26;
+    g_current_window = (char *)w + PORT_DIALOG_BASE;
     call_relayout_handler(w);
     copy_all_to_screen_1060_ae72(w);
 }

@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 414 of the imported file. */
 /* PORT: this file's own declarations of FortDraw, GRPort_String, MSHideWindow_of_1020_ac40, TeepeeDraw, show_window_1020_ac0e, win_release_1020_ac61 removed: the header declares them from the definition (W1 step 3). */
 /* combat_analysis: candidate for 1020:68ba (5473 bytes).  Verdict: RELOCATABLE.
@@ -575,8 +576,8 @@ void combat_analysis(int u0, int u1, int unused_a, int unused_b, int x, int y,
     copy_all_to_screen_1020_abf0(&g_win);
     show_window_1020_ac0e(&g_win);
     MSDoAllTasks_1020_ac2d();
-    EventWin_Modal((EventWin *)((char *)&g_win + 0x26));
-    MSHideWindow_of_1020_ac40((DialogWin *)((char *)&g_win + 0x26));
+    EventWin_Modal((EventWin *)((char *)&g_win + PORT_DIALOG_BASE));
+    MSHideWindow_of_1020_ac40((DialogWin *)((char *)&g_win + PORT_DIALOG_BASE));
     win_release_1020_ac61(&g_win);
     MSDoAllTasks_1020_ac2d();
 }

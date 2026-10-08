@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 105, 107, 128, 130 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of CTable_Set, GameWin_Init, IsBackdrop, show_window_1040_a79d, win_center_1040_a778, win_show_and_focus_1040_ac70 removed: the header declares them from the definition (W1 step 3). */
@@ -124,12 +125,12 @@ extern "C" void show_ship(register int n)
         GRPort_FillColor_all((GRPort *)&g_opening_win, 0);
         GRPort_String(&port, (unsigned *)&g_font_small, buf, 0x140, 0x19, 0x10);
         copy_all_to_screen_1040_abe0(&g_opening_win);
-        win_center_1040_a778((DialogWin *)((char *)&g_opening_win + 0x26));
+        win_center_1040_a778((DialogWin *)((char *)&g_opening_win + PORT_DIALOG_BASE));
         set_on_keydown_1040_abfe((EventTable *)((char *)&g_opening_win + 0x33),
                                       (void*)(opening_dismiss_1040_7d80));
         set_on_lbutton_down_1040_ac37((EventTable *)((char *)&g_opening_win + 0x33),
                                      (void*)(opening_dismiss_1040_7d94));
-        win_show_and_focus_1040_ac70((DialogWin *)((char *)&g_opening_win + 0x26));
+        win_show_and_focus_1040_ac70((DialogWin *)((char *)&g_opening_win + PORT_DIALOG_BASE));
         show_window_1040_a79d(&g_opening_win);
         MSDoAllTasks_1040_ac99();
         DoFizzle(&port, &g_opening_win, &r, 0, 0, -1, 0x20);

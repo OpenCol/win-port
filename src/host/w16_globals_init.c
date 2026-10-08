@@ -166,6 +166,8 @@ void port_load_initial_data(void)
         w16_trace("initial data: COLONIZE.EXE not found in the working directory");
         return;
     }
+    /* $PORT_INIT_REPORT: each global whose layout this cannot convert, to $PORT_LOG (W9) */
+    int report = GetEnvironmentVariableA("PORT_INIT_REPORT", 0, 0) != 0;
     for (i = 0; i < port_init_global_count; i++) {
         const struct PortInitGlobal *g = &port_init_globals[i];
         const unsigned char *src;
@@ -193,7 +195,16 @@ void port_load_initial_data(void)
                 memcpy(dst, &v, g->wn < sizeof v ? g->wn : sizeof v);
             } else if (g->w16 == g->wn) {
                 memcpy(dst, src, g->wn);
+            } else if (g->w16 == 4 && g->wn == 8) {
+                /* a pointer on a 64-bit target (W9): the game's 4 bytes, zero-extended -- a null
+                   pointer, or a value kept in a pointer (g_picture_resource_type's 'CvPc');
+                   a far pointer the loader relocated is set below */
+                uint64_t v = (uint64_t)r16(src) | (uint64_t)r16(src + 2) << 16;
+                memcpy(dst, &v, 8);
             } else {
+                if (k == 0 && report)
+                    w16_report("initial data: %u:%#x not converted (%u x %u bytes, %u here)", g->seg, g->off, g->count,
+                               g->w16, g->wn);
                 continue;                                /* a layout the loader does not convert */
             }
         }
@@ -205,11 +216,14 @@ void port_load_initial_data(void)
         for (j = 0; j < port_init_global_count; j++) {
             const struct PortInitGlobal *g = &port_init_globals[j];
             unsigned span = (unsigned)g->count * g->w16;
-            if (g->seg == fix[i].seg && fix[i].off >= g->off && fix[i].off + 4 <= g->off + span && g->w16 == g->wn) {
+            if (g->seg == fix[i].seg && fix[i].off >= g->off && fix[i].off + 4 <= g->off + span &&
+                (g->w16 == g->wn || (g->w16 == 4 && g->wn == sizeof(void *)))) {
                 void *p = map_far(fix[i].tseg, fix[i].toff);
+                /* the same element here: at its offset, or a pointer element of its own width */
+                size_t at = g->w16 == g->wn ? fix[i].off - g->off : (size_t)(fix[i].off - g->off) / 4 * g->wn;
                 if (!p)
                     unmapped++;
-                memcpy((char *)g->addr + (fix[i].off - g->off), &p, sizeof p);
+                memcpy((char *)g->addr + at, &p, sizeof p);
                 break;
             }
         }

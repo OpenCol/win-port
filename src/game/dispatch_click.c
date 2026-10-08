@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* dispatch_click: candidate for 1050:69b6 (96 bytes).  Verdict: RELOCATABLE.
  * symbol: dispatch_click
  *
@@ -25,6 +26,6 @@ void dispatch_click(int x, int y)
     char *w;
 
     w = (char *)GetEventWindow();
-    c = w != 0 ? w - 0x26 : w;
+    c = w != 0 ? w - PORT_DIALOG_BASE : w;
     drag_sprite(c, &g_icon_sprites[0x65], x, y, &out_x, &out_y);
 }

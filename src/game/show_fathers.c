@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of show_window_1020_ac0e removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of Sprite_Init, win_center_1020_abcb removed: the header declares them from the definition (W1 step 3). */
 /* show_fathers: candidate for 1020:9a90 (770 bytes).  Verdict: RELOCATABLE.
@@ -87,7 +88,7 @@ void show_fathers(int nation, int father)
     SetRect(&full, 0, 0, 0x280, 0x1e0);
     GRPort_CopyToPort(&port, &dlg, &full, &full);
     copy_all_to_screen_1020_abf0(&dlg);
-    win_center_1020_abcb((DialogWin *)((char *)&dlg + 0x26));
+    win_center_1020_abcb((DialogWin *)((char *)&dlg + PORT_DIALOG_BASE));
     show_window_1020_ac0e(&dlg);
     MSDoAllTasks_1020_ac2d();
     if (father >= 0) {

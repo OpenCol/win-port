@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* drag_sprite: candidate for 1050:6782 (471 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: drag_sprite
@@ -61,8 +62,8 @@ void drag_sprite(char *win, void *sprite, int x0, int y0,
     mx = x0;
     my = y0;
     SetRect(&cur, 0, 0, 1, 1);
-    while (Screen_LButtonPressed((Screen *)(win + 0x26), 0, 1, 0) == 0) {
-        get_mouse_pos_for_1050_8f2b(win + 0x26, &mx, &my);
+    while (Screen_LButtonPressed((Screen *)(win + PORT_DIALOG_BASE), 0, 1, 0) == 0) {
+        get_mouse_pos_for_1050_8f2b(win + PORT_DIALOG_BASE, &mx, &my);
         if (mx <= w && mx >= 0 && my <= h && my >= 0) {
             UnionRect(&cur, &cur, &full);
             GRPort_CopyToPort(&port, (GRPort *)win, &cur, &cur);

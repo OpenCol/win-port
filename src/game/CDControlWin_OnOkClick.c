@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* CDControlWin_OnOkClick: candidate for 1040:9d9f (71 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -21,6 +22,6 @@ void CDControlWin_OnOkClick(void)
     CDControlWin *o;
     char *w = (char *)GetEventWindow();
 
-    o = (CDControlWin *)(w != 0 ? w - 0x26 : w);
+    o = (CDControlWin *)(w != 0 ? w - PORT_DIALOG_BASE : w);
     o->done = 1;
 }

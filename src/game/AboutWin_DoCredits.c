@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 47 of the imported file. */
 /* PORT: this file's own declarations of MSHideWindow_of_1060_87fe, show_window_1060_87b1 removed: the header declares them from the definition (W1 step 3). */
 /* AboutWin_DoCredits: candidate for 1060:784f (160 bytes).  Verdict: RELOCATABLE.
@@ -52,7 +53,7 @@ void AboutWin_DoCredits(AboutWin *w)
         AboutWin_UpdateCredits(w);
         MSDoTask_1060_87e7();
     }
-    MSHideWindow_of_1060_87fe((DialogWin *)((char *)w + 0x26));
+    MSHideWindow_of_1060_87fe((DialogWin *)((char *)w + PORT_DIALOG_BASE));
     CTable_Fill(&g_game_palette, 10, 0xec, w->palette);
     MSDoAllTasks_1060_86b6();
     MSHideWindow_of_1060_87fe((DialogWin *)&w->win);

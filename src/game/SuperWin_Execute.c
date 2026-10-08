@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 25 of the imported file. */
 /* PORT: this file's own declarations of show_window_1050_8bc8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 22 of the imported file. */
@@ -22,7 +23,7 @@ extern void win_center_1050_851f(DialogWin *port);
 void SuperWin_Execute(SuperWin *w)
 {
     copy_all_to_screen_1050_843b((GameWin *)(w));
-    win_center_1050_851f((DialogWin *)((char *)w + 0x26));
+    win_center_1050_851f((DialogWin *)((char *)w + PORT_DIALOG_BASE));
     show_window_1050_8bc8((GameWin *)(w));
     MSDoAllTasks_1050_8be7();
     while (g_modal_done == 0)

@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* hide_owner_window: candidate for 1050:6ec7 (90 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -31,7 +32,7 @@ int hide_owner_window(void)
     char *w;
 
     w = (char *)GetEventWindow();
-    o = w != 0 ? w - 0x26 : w;
+    o = w != 0 ? w - PORT_DIALOG_BASE : w;
     if (o != 0)
         win_hide_1050_6e73((BackdropWin *)o);
     return 0;

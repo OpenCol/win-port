@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of build_window_with_port, eventwin_set_menu removed: the header declares them from the definition (W1 step 3). */
 /* init_and_set_1060_a11e: candidate for 1060:a11e (77 bytes).  Verdict: RELOCATABLE.
  * symbol: init_and_set_1060_a11e
@@ -28,6 +29,6 @@ extern int g_stub_a;
 void init_and_set_1060_a11e(char *o, char *name, int style, int x, int y, int w, int h, void *pal, void *parent)
 {
     build_window_with_port((GameWin *)o, name, style, x, y, w, h, pal);
-    eventwin_set_menu((EventWin *)(o + 0x26), parent);
+    eventwin_set_menu((EventWin *)(o + PORT_DIALOG_BASE), parent);
 }
 

@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of DrawKingo, MSHideWindow_of_1050_8cd8, Popup_draw, ctl_get_text, ctl_sel_text, get_checked_1050_8d83, get_w_77a, listbox_get_text_1050_8d5d, win_disable_1050_8c93, win_enable_1050_82e1 removed: the header declares them from the definition (W1 step 3). */
 /* Popup_exec: candidate for 1050:50c4 (901 bytes).  Verdict: RELOCATABLE.
  * size-source: 901, not the census 892. The trailing 9 bytes are the dead second epilogue.
@@ -86,7 +87,7 @@ int Popup_exec(Popup *popup, char *text)
             DrawKingo(popup->win, frame++);
         }
     }
-    EventWin_Modal((EventWin *)((char *)popup->win + 0x26));
+    EventWin_Modal((EventWin *)((char *)popup->win + PORT_DIALOG_BASE));
     MSFlushInput_1050_8d10();
     while ((popup->flags & 0x400) == 0)
         MSDoTask_1050_8d23();

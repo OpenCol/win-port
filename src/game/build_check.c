@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of MSHideWindow_of_1040_a80c, show_ship, win_release_1040_acac removed: the header declares them from the definition (W1 step 3). */
 /* build_check: candidate for 1040:843c (173 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -43,7 +44,7 @@ skip:
     MSDoAllTasks_1040_ac99();
     if ((g_opening_dismissed == 1 && flag == 1) || g_tick_done == 1) {
         g_tick_done = 1;
-        MSHideWindow_of_1040_a80c((DialogWin *)((char *)&g_opening_win + 0x26));
+        MSHideWindow_of_1040_a80c((DialogWin *)((char *)&g_opening_win + PORT_DIALOG_BASE));
         MSDoAllTasks_1040_ac99();
         win_release_1040_acac(&g_opening_win);
     }

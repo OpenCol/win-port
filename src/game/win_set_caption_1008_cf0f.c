@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of MSSetWinTitle_of_1008_dbb3 removed: the header declares it from the definition (W1 step 3). */
 /* win_set_caption_1008_cf0f: candidate for 1008:cf0f (75 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -22,7 +23,7 @@ extern void ColChild_DrawTitleBar(ColChild *w);
 
 void win_set_caption_1008_cf0f(char *w, char *s)
 {
-    MSSetWinTitle_of_1008_dbb3((DialogWin *)(w + 0x26), s);
+    MSSetWinTitle_of_1008_dbb3((DialogWin *)(w + PORT_DIALOG_BASE), s);
     STRCPY(w + 0xc4, s);
     ColChild_DrawTitleBar((ColChild *)w);
 }

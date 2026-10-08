@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PediaWin_Close: candidate for 1060:2bc3 (71 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,6 +17,6 @@ int PediaWin_Close(void)
     char *o;
     char *w = (char *)GetEventWindow();
 
-    o = w != 0 ? w - 0x26 : w;
+    o = w != 0 ? w - PORT_DIALOG_BASE : w;
     return 1;
 }

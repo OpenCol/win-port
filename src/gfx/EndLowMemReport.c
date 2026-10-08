@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of MSHideWindow_of_1068_d995, win_enable_1068_d96a removed: the header declares them from the definition (W1 step 3). */
 /* EndLowMemReport: candidate for 1068:b85e (202 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -42,7 +43,7 @@ extern SButton *g_lowmem_ok;           /* DGROUP:0x56be */
 extern "C" void EndLowMemReport(void)
 {
     win_enable_1068_d96a((DialogWin *)g_lowmem_win);
-    MSHideWindow_of_1068_d995((DialogWin *)((char *)g_lowmem_box + 0x26));
+    MSHideWindow_of_1068_d995((DialogWin *)((char *)g_lowmem_box + PORT_DIALOG_BASE));
     MSDoAllTasks_1068_d9b6();
     delete g_lowmem_ok;
     delete g_lowmem_box;

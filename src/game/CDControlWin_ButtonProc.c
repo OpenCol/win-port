@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* CDControlWin_ButtonProc: candidate for 1040:9ffa (394 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -41,7 +42,7 @@ void CDControlWin_ButtonProc(int cmd)
 
     ntracks = MSGetCDTracks();
     cur = (CDControlWin *)GetEventWindow();
-    w = (cur != 0) ? (CDControlWin *)((char *)cur - 0x26) : cur;
+    w = (cur != 0) ? (CDControlWin *)((char *)cur - PORT_DIALOG_BASE) : cur;
     switch (cmd) {
     case 0x64:
         MSPlayCDTrack(w->track);

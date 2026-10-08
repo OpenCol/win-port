@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 98, 490 of the imported file. */
 /* PORT: this file's own declarations of MSHideWindow_of_1040_a80c removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, Sprite_Init, set_on_close_1040_a7bc, win_center_1040_a778 removed: the header declares them from the definition (W1 step 3). */
@@ -479,13 +480,13 @@ extern "C" void art_cheat(void)
             break;
         }
         if (unknown == 0) {
-            win_center_1040_a778((DialogWin *)((char *)&win + 0x26));
+            win_center_1040_a778((DialogWin *)((char *)&win + PORT_DIALOG_BASE));
             show_window_1040_a79d(&win);
             set_on_close_1040_a7bc((EventTable *)((char *)&win + 0x33), (void*)(viewer_dismiss_handler));
             g_viewer_dismissed = 0;
             while (g_viewer_dismissed == 0)
                 MSDoTask_1040_a7f5();
-            MSHideWindow_of_1040_a80c((DialogWin *)((char *)&win + 0x26));
+            MSHideWindow_of_1040_a80c((DialogWin *)((char *)&win + PORT_DIALOG_BASE));
         }
     }
     CTable_Fill(&g_game_palette, 0xa, 0xec, (unsigned char*)(pal));

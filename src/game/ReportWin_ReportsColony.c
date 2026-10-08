@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of FortDraw, GRPort_String, sprite_width_1058_c203 removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsColony: candidate for 1058:5ad6 (1788 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -108,7 +109,7 @@ extern "C" void ReportWin_ReportsColony(ReportWin *o, int nation)
         SetRect(&r, o->rect.left + 5, o->rect.bottom - 0x23,
                 port_width_1058_be8e((GRPort *)o) / 3 - 1, o->rect.bottom - 5);
         o->prev = new SButton;
-        sbutton_init_1058_c11b(o->prev, (char *)o + 0x26, 0xc8, &r, "Previous Page");
+        sbutton_init_1058_c11b(o->prev, (char *)o + PORT_DIALOG_BASE, 0xc8, &r, "Previous Page");
         set_button_action_1058_c17f(o->prev, (void *)ReportWin_OnColonyPrevClick);
     }
     if (o->page == 0)
@@ -119,7 +120,7 @@ extern "C" void ReportWin_ReportsColony(ReportWin *o, int nation)
         SetRect(&r, port_width_1058_be8e((GRPort *)o) / 3 * 2 + 1, o->rect.bottom - 0x23,
                 o->rect.right - 5, o->rect.bottom - 5);
         o->next = new SButton;
-        sbutton_init_1058_c11b(o->next, (char *)o + 0x26, 0xc9, &r, "Next Page");
+        sbutton_init_1058_c11b(o->next, (char *)o + PORT_DIALOG_BASE, 0xc9, &r, "Next Page");
         set_button_action_1058_c17f(o->next, (void *)ReportWin_OnColonyNextClick);
     }
     if (o->extra_btn != 0)
@@ -127,7 +128,7 @@ extern "C" void ReportWin_ReportsColony(ReportWin *o, int nation)
     SetRect(&r, port_width_1058_be8e((GRPort *)o) / 3 + 1, o->rect.bottom - 0x23,
             port_width_1058_be8e((GRPort *)o) / 3 * 2 - 1, o->rect.bottom - 5);
     o->extra_btn = new SButton;
-    sbutton_init_1058_c11b(o->extra_btn, (char *)o + 0x26, 0xca, &r, "Sons of Liberty");
+    sbutton_init_1058_c11b(o->extra_btn, (char *)o + PORT_DIALOG_BASE, 0xca, &r, "Sons of Liberty");
     set_button_action_1058_c17f(o->extra_btn, (void *)ReportWin_OnColonyExtraClick);
 
     n = 0;

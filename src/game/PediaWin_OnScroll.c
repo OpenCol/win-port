@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 47 of the imported file. */
 /* PediaWin_OnScroll: candidate for 1060:31fc (111 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -41,7 +42,7 @@ void PediaWin_OnScroll(int page)
     void *w;
 
     w = GetEventWindow();
-    p = (PediaWin *)(w != 0 ? (char *)w - 0x26 : (char *)w);
+    p = (PediaWin *)(w != 0 ? (char *)w - PORT_DIALOG_BASE : (char *)w);
     if (page != g_pedia_page) {
         p->page = g_pedia_page = page;
         PediaWin_DrawListArea(p);

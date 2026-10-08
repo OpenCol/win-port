@@ -66,7 +66,7 @@ void asm_fill_rect(uintptr_t buf, int color, int left, int top, int w, int h, in
    source row and column. Rows are walked forward until the source row reaches the map's;
    a row's pixels are those from its start, the key colour skipped. The mono version writes
    `ink` where the sprite has a pixel. */
-static void draw(long src_l, void *bits, long map_l, unsigned char key, int px, int py, int stride, int height,
+static void draw(intptr_t src_l, void *bits, intptr_t map_l, unsigned char key, int px, int py, int stride, int height,
                  int cols, int rows_i, int dx, int dy, int unused_w, int row0, int sx, int sy, int mono, unsigned char ink)
 {
     unsigned char *esi = (unsigned char *)(intptr_t)src_l + 4;

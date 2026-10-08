@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* bordered_win_dismiss_1020_665a: candidate for 1020:665a (34 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -29,5 +30,5 @@
 void bordered_win_dismiss_1020_665a(void)
 {
     g_4bec = 1;
-    EventWin_EndModal((EventWin *)((char *)&g_win + 0x26));
+    EventWin_EndModal((EventWin *)((char *)&g_win + PORT_DIALOG_BASE));
 }

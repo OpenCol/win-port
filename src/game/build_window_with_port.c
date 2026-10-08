@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of get_win_1060_ab6e, subclass_control_1070_a0e2 removed: the header declares them from the definition (W1 step 3). */
 /* build_window_with_port: candidate for 1060:a099 (133 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -37,8 +38,8 @@ extern void GRPort_ColorSync(GRPort *port, CTable *table);
 void build_window_with_port(GameWin *o, char *name, int style, int x, int y,
                                 register int w, register int h, void *pal)
 {
-    build_window_1060_983a(((char *)o + 0x26), name, style, x, y, w, h, pal);
+    build_window_1060_983a(((char *)o + PORT_DIALOG_BASE), name, style, x, y, w, h, pal);
     GRPort_Init_wh(o, w, h);
     GRPort_ColorSync((GRPort *)o, (CTable *)pal);
-    subclass_control_1070_a0e2(o, (MSWin *)(get_win_1060_ab6e((Screen *)(((char *)o + 0x26)))));
+    subclass_control_1070_a0e2(o, (MSWin *)(get_win_1060_ab6e((Screen *)(((char *)o + PORT_DIALOG_BASE)))));
 }

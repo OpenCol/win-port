@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of GameWin_Init, key_click removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 76, 77 of the imported file. */
 /* Popup_make_window: candidate for 1050:3364 (395 bytes).  Verdict: RELOCATABLE.
@@ -64,7 +65,7 @@ extern "C" int Popup_make_window(Popup *popup)
     GameWin_Init(popup->win, title, 0xc01, popup->win_x, popup->win_y, popup->win_w, popup->win_h,
                                      &g_game_palette, (Screen *)g_popup_owner);
     if (rect_width_1050_830c(&desk) > 0x280 || rect_height_1050_832b(&desk) > 0x1e0)
-        win_center_1050_851f((DialogWin *)((char *)popup->win + 0x26));
+        win_center_1050_851f((DialogWin *)((char *)popup->win + PORT_DIALOG_BASE));
     set_on_keydown_after_1050_8544((EventTable *)((char *)popup->win + 0x33), (void*)(key_click));
     set_relayout_handler_1050_857d(popup->win, (void*)(port_update));
     return 1;

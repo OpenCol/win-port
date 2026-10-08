@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of get_ctable_1068_d77f removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, show_window_1068_db76, win_center_1068_dad3, win_disable_1068_db95 removed: the header declares them from the definition (W1 step 3). */
 /* PostLowMemReport: candidate for 1068:b96a (745 bytes).  Verdict: RELOCATABLE.
@@ -99,7 +100,7 @@ extern "C" void PostLowMemReport(int res_id, EventWin *win, int flag)
     g_lowmem_ok = new SButton;
     GameWin_Init(g_lowmem_box, "", 0xc01, 0, 0, w, h, (CTable *)get_ctable_1068_d77f(win), win);
     GRPort_FillColor_all(g_lowmem_box, 7);
-    win_center_1068_dad3((DialogWin *)((char *)g_lowmem_box + 0x26));
+    win_center_1068_dad3((DialogWin *)((char *)g_lowmem_box + PORT_DIALOG_BASE));
     ctl_init_button_1068_daf8(g_lowmem_ok, g_lowmem_box, 0x65, &btn, "Okay");
     set_button_action_1068_db5c(g_lowmem_ok, (void *)EndLowMemReport);
     SetRect(&frame, 0, 0, w, h);

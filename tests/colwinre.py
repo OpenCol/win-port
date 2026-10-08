@@ -101,13 +101,13 @@ WINE11 = os.path.join("analysis", "dynamic", "runtime", "wine-11.18", "Wine Deve
 
 
 # $PORT_TARGET: which build the tests run -- win32 (build/colonize.exe, MinGW, under Wine on this
-# machine) or linux (build/linux/colonize.exe.so, Winelib, roadmap W8: under Wine in the
+# machine), x64 (build/x64/colonize.exe, 64-bit Windows, W9, the same Wine) or linux (build/linux/colonize.exe.so, Winelib, roadmap W8: under Wine in the
 # OrbStack Linux machine, tools/linux/wine). Each target has its own run directories and
 # status records (suffix "-linux").
 def target():
     t = os.environ.get("PORT_TARGET", "win32")
-    if t not in ("win32", "linux"):
-        sys.exit("PORT_TARGET: win32 or linux")
+    if t not in ("win32", "linux", "x64"):
+        sys.exit("PORT_TARGET: win32, linux or x64")
     return t
 
 
@@ -120,6 +120,8 @@ def port_exe():
         return os.path.abspath(os.environ["PORT_EXE"])
     if target() == "linux":
         return os.path.join(ROOT, "build", "linux", "colonize.exe.so")
+    if target() == "x64":
+        return os.path.join(ROOT, "build", "x64", "colonize.exe")
     return os.path.join(ROOT, "build", "colonize.exe")
 
 
@@ -128,6 +130,8 @@ def build_command():
     if target() == "linux":
         return ["orb", "-m", os.environ.get("PORT_LINUX_MACHINE", "colw8"), "-w", ROOT, "env", "PORT_TOOLCHAIN=winegcc",
                 "python3", os.path.join(ROOT, "tools", "undefined.py")]
+    if target() == "x64":
+        return ["env", "PORT_TOOLCHAIN=mingw-x64", sys.executable, os.path.join(ROOT, "tools", "undefined.py")]
     return [sys.executable, os.path.join(ROOT, "tools", "undefined.py")]
 
 

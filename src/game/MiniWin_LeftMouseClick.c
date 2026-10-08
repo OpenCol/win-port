@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* MiniWin_LeftMouseClick: candidate for 1060:076c (205 bytes, ? callers).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -22,9 +23,9 @@ void MiniWin_LeftMouseClick(int x, int y)
     int tx, ty;
     char *w = (char *)GetEventWindow();
 
-    c = (MiniWin *)(w != 0 ? w - 0x26 : w);
+    c = (MiniWin *)(w != 0 ? w - PORT_DIALOG_BASE : w);
     if (c->clip.left > x || c->clip.right < x || c->clip.top > y || c->clip.bottom < y) {
-        win_take_focus((DialogWin *)((char *)c + 0x26));
+        win_take_focus((DialogWin *)((char *)c + PORT_DIALOG_BASE));
         return;
     }
     x -= c->clip.left + g_view_org_x;

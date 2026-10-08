@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of EventWin_EndModal removed: the header declares it from the definition (W1 step 3). */
 /* fame_OnLMouseDown: candidate for 1050:780d (79 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -21,6 +22,6 @@ void fame_OnLMouseDown(void)
     char *o;
     char *w = (char *)GetEventWindow();
 
-    o = w != 0 ? w - 0x26 : w;
-    EventWin_EndModal((EventWin *)(o + 0x26));
+    o = w != 0 ? w - PORT_DIALOG_BASE : w;
+    EventWin_EndModal((EventWin *)(o + PORT_DIALOG_BASE));
 }

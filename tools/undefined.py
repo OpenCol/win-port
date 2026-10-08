@@ -100,7 +100,10 @@ def build(src, hdr):
     os.makedirs(os.path.dirname(o), exist_ok=True)
     cpp = ca.is_cpp(src)
     cmd = ([CXX, "-x", "c++", "-std=gnu++03"] if cpp else [CC, "-x", "c", "-std=gnu99"]) + M32 + [
-        "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer", "-fno-asynchronous-unwind-tables"] + (
+        "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer"] + (
+        # x86_64 MinGW unwinds C++ exceptions through these tables (SEH); without them GCC falls
+        # back to SJLJ, which its runtime does not provide
+        [] if X64 else ["-fno-asynchronous-unwind-tables"]) + (
         ["-finstrument-functions"] if INSTRUMENT and "/src/host/" not in src else []) + [
         "-fno-common",
         "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", o, src]
@@ -127,6 +130,10 @@ LIBS_MINGW = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disa
 LIBS = ["-m32", "-mno-cygwin", "-mwindows", "-Wl,--wrap=WinMain", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"] if WINELIB else LIBS_MINGW
 if X64:                                   # no stdcall on Win64: nothing to fix up
     LIBS = [l for l in LIBS_MINGW if "stdcall" not in l]
+    if not INSTRUMENT:
+        # the trace table's weak references (w16_instrument.c): the x64 PE linker does not leave
+        # an undefined weak symbol at 0, so say so (the code tests &port_trace_fn_count)
+        LIBS += ["-Wl,--defsym,port_trace_fns=0", "-Wl,--defsym,port_trace_fn_count=0"]
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 

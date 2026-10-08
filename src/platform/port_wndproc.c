@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of GRPort_GetWin_1070_dc44, GameWin_Resize removed: the header declares them from the definition (W1 step 3). */
@@ -71,12 +72,12 @@ long port_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
         } else if (IsWindowVisible(hwnd)) {
             BeginPaint(hwnd, &ps);
             rc = ps.rcPaint;
-            CopyToScreen(port, (Screen *)(port != 0 ? (char *)port + 0x26 : (char *)port), &rc, &rc);
+            CopyToScreen(port, (Screen *)(port != 0 ? (char *)port + PORT_DIALOG_BASE : (char *)port), &rc, &rc);
             EndPaint(hwnd, &ps);
         }
         break;
     case WM_SIZE:
-        g_current_window = port != 0 ? (char *)port + 0x26 : (char *)port;
+        g_current_window = port != 0 ? (char *)port + PORT_DIALOG_BASE : (char *)port;
         if (!IsIconic(hwnd))
             GameWin_Resize((GameWin *)port, (i16)lparam, (i16)(lparam >> 16));
         return dialog_wndproc(hwnd, msg, wparam, lparam);

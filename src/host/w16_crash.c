@@ -26,11 +26,11 @@ static void put(const char *s)
 
 static void line(const char *tag, uintptr_t v)
 {
-    char b[9];
+    char b[2 * sizeof v + 1];             /* 8 hex digits, 16 on a 64-bit target */
     int i;
-    for (i = 7; i >= 0; i--, v >>= 4)
+    for (i = 2 * sizeof v - 1; i >= 0; i--, v >>= 4)
         b[i] = "0123456789abcdef"[v & 15];
-    b[8] = 0;
+    b[2 * sizeof v] = 0;
     put(tag);
     put(b);
     put("\n");
@@ -64,7 +64,25 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
     lo = (uintptr_t)tib->StackLimit;
     hi = (uintptr_t)tib->StackBase;
 #ifdef _WIN64
-    bp = (uintptr_t *)e->ContextRecord->Rbp;
+    {   /* Win64: unwind by the tables (a frame pointer is not a chain here), from the fault */
+        CONTEXT ctx = *e->ContextRecord;
+        for (i = 0; i < 24 && ctx.Rip; i++) {
+            DWORD64 base = 0, frame = 0;
+            void *data = 0;
+            PRUNTIME_FUNCTION f = RtlLookupFunctionEntry(ctx.Rip, &base, 0);
+            if (i)
+                line("frame ", (uintptr_t)ctx.Rip);
+            if (f)
+                RtlVirtualUnwind(UNW_FLAG_NHANDLER, base, ctx.Rip, f, &ctx, &data, &frame, 0);
+            else {                        /* a leaf: its return address is on top of the stack */
+                if (ctx.Rsp < (uintptr_t)tib->StackLimit || ctx.Rsp + 8 > (uintptr_t)tib->StackBase)
+                    break;
+                ctx.Rip = *(DWORD64 *)ctx.Rsp;
+                ctx.Rsp += 8;
+            }
+        }
+        bp = 0;
+    }
 #else
     bp = (uintptr_t *)e->ContextRecord->Ebp;
 #endif

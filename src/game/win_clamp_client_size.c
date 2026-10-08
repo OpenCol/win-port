@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of get_max_track_size_1060_af79, get_min_track_size_1060_af51, win_set_client_size_1060_aecf removed: the header declares them from the definition (W1 step 3). */
 /* win_clamp_client_size: candidate for 1060:a395 (135 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -24,8 +25,8 @@ void win_clamp_client_size(GameWin *o, register int w, register int h)
     int minw, minh;
     int maxw, maxh;
 
-    get_min_track_size_1060_af51((EventWin *)(((char *)o + 0x26)), &minw, &minh);
-    get_max_track_size_1060_af79((EventWin *)(((char *)o + 0x26)), &maxw, &maxh);
+    get_min_track_size_1060_af51((EventWin *)(((char *)o + PORT_DIALOG_BASE)), &minw, &minh);
+    get_max_track_size_1060_af79((EventWin *)(((char *)o + PORT_DIALOG_BASE)), &maxw, &maxh);
     if (w < minw)
         w = minw;
     if (w > maxw)
@@ -34,5 +35,5 @@ void win_clamp_client_size(GameWin *o, register int w, register int h)
         h = minh;
     if (h > maxh)
         h = maxh;
-    win_set_client_size_1060_aecf((DialogWin *)(((char *)o + 0x26)), w, h);
+    win_set_client_size_1060_aecf((DialogWin *)(((char *)o + PORT_DIALOG_BASE)), w, h);
 }

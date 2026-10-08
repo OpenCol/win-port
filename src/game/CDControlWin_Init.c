@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 163 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 108, 113, 118, 123 of the imported file. */
@@ -99,27 +100,27 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     OffsetRect(&rc, w->rect.left, w->rect.top);
     SetRect(&rc, 0xa, 0x50, 0x5a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x7ee), (DialogWin *)((char *)w + 0x26), 0x64,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x7ee), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x64,
                                 rc.left, rc.top, 0x30c, 0x30c, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x7ee), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x5a, 0x50, 0xaa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x94a), (DialogWin *)((char *)w + 0x26), 0x65,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x94a), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x65,
                                 rc.left, rc.top, 0x30e, 0x30e, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x94a), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xaa, 0x50, 0xfa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x77a), (DialogWin *)((char *)w + 0x26), 0x66,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x77a), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x66,
                                 rc.left, rc.top, 0x30d, 0x30d, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x77a), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xfa, 0x50, 0x14a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x862), (DialogWin *)((char *)w + 0x26), 0x67,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x862), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x67,
                                 rc.left, rc.top, 0x30f, 0x30f, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x862), (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x14a, 0x50, 0x19a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x8d6), (DialogWin *)((char *)w + 0x26), 0x68,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x8d6), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x68,
                                 rc.left, rc.top, 0x310, 0x310, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x8d6), (void*)(CDControlWin_ButtonProc));
     w->paused = 0;
@@ -159,7 +160,7 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     TextColor(0xc);
     CDControlWin_DrawTime(w);
     GRPort_String(w, (unsigned *)&g_font_small, "Time", w->rect.left + 0x96, w->rect.top + 0x3c, 4);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x9e2), (DialogWin *)((char *)w + 0x26), 0xc8,
+    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x9e2), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0xc8,
                                 0, 0, 0xce, 0xce, 0x28, 0x60);
     set_control_action_1040_aecc((SImageButton *)((char *)w + 0x9e2), (void*)(CDControlWin_OnOkClick));
     w->done = 0;
@@ -167,10 +168,10 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     w->stopped = 0;
     show_window_1040_a79d(w);
     MSDoAllTasks_1040_ac99();
-    disable_parent((MSWin *)(get_win_1040_aee6((Screen *)((char *)w + 0x26))));
+    disable_parent((MSWin *)(get_win_1040_aee6((Screen *)((char *)w + PORT_DIALOG_BASE))));
     while (w->done == 0) {
         CDControlWin_DrawTime(w);
         MSDoTask_1040_a7f5();
     }
-    enable_parent((MSWin *)(get_win_1040_aee6((Screen *)((char *)w + 0x26))));
+    enable_parent((MSWin *)(get_win_1040_aee6((Screen *)((char *)w + PORT_DIALOG_BASE))));
 }

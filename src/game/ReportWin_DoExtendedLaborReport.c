@@ -1,3 +1,4 @@
+/* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: counts is Borland's 16-bit int (i16): the code sizes it in bytes for 2-byte ints (memset/MSCopyMem); as int, half stayed stack garbage or got packed values (W6). */
 /* PORT: this file's own declarations of GRPort_String, font_height_1058_be4f removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GRPort_DrawInsetRect, GameWin_Init, show_window_1058_bc28 removed: the header declares them from the definition (W1 step 3). */
@@ -137,7 +138,7 @@ extern "C" void ReportWin_DoExtendedLaborReport(ReportWin *o, int mx, int my)
     spec = u;
     SetGlobalSpriteScale(1, 1);
     GameWin_Init(&win, "", 0x202, 0, 0, 0x1c2, 0x180, &g_game_palette,
-                                     (Screen *)((char *)o + 0x26));
+                                     (Screen *)((char *)o + PORT_DIALOG_BASE));
     win_center_1058_c020(&win);
     for (row = 0; port_height_1058_c045(&win) / 0x2f + 1 > row; row++)
         for (col = 0; port_width_1058_be8e(&win) / 0x3e + 1 > col; col++)
