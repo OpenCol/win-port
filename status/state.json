@@ -1,0 +1,18 @@
+{
+ "address_only": [
+  "g_main_win"
+ ],
+ "converted": 670,
+ "globals": 671,
+ "kinds": {
+  "address": 1,
+  "bytes": 279,
+  "class": 24,
+  "int": 309,
+  "pointer": 58
+ },
+ "lost": 0,
+ "ok": true,
+ "unconvertible": [],
+ "unmapped_pointers": []
+}

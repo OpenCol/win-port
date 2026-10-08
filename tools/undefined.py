@@ -64,7 +64,8 @@ def build(src, hdr):
 
 # --disable-stdcall-fixup: an older ld links a cdecl call to `_FreeLibrary` against the
 # stdcall `_FreeLibrary@4`, which would unbalance the stack; the call stays undefined (W4)
-LIBS = ["-mwindows", "-Wl,--disable-stdcall-fixup", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+# -static: the C++ runtime (libstdc++, libgcc) goes into the executable, not beside it as DLLs
+LIBS = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 

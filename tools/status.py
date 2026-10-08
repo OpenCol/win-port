@@ -10,6 +10,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/ci.json       python3 tools/ci_record.py        (the latest CI run on GitHub)
     status/compile-<toolchain>.json   python3 tools/compile_all.py --record
     status/link.json     python3 tools/undefined.py --record
+    status/state.json    python3 tests/state.py --record          (needs $COL_GAME_DIR and wine)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -71,11 +72,39 @@ def w2():
     return ("DONE" if r["gate"] else "open"), "; ".join(parts)
 
 
+def w3():
+    parts, done = [], True
+    o = rec("oracle")
+    if o:
+        parts.append("oracle self-test %s (%d turns, %d checkpoints)" % ("identical" if o["ok"] else "DIFFERS",
+                                                                      o["turns"], o["checkpoints"]))
+        done &= o["ok"]
+    else:
+        parts.append("oracle: not measured")
+        done = False
+    st = rec("state")
+    if st:
+        parts.append("state round trip %s: %d/%d globals converted, %d lost, %d by address only" % (
+            "lossless" if st["ok"] else "LOSSY", st["converted"], st["globals"], st["lost"], len(st["address_only"])))
+        done &= st["ok"]
+    else:
+        parts.append("state: not measured")
+        done = False
+    d = rec("diff")
+    if d:
+        parts.append("differential %d/%d functions agree" % (d["agree"], d["total"]))
+        done &= d["agree"] >= 10 and d["agree"] == d["total"]
+    else:
+        parts.append("differential: not measured")
+        done = False
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 ROWS = [
     ("W0", "bootstrap", w0, "import/import.py --check, tools/ci_record.py"),
     ("W1", "compile", w1, "tools/compile_all.py --record [--toolchain winegcc]"),
     ("W2", "link", w2, "tools/undefined.py --record"),
-    ("W3", "oracle", None, "tests/oracle --selftest, state.py --roundtrip, differential (not written yet)"),
+    ("W3", "oracle", w3, "tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record"),
     ("W4", "platform", None, "checklist + MS* trace prefix (not written yet)"),
     ("W5", "asm", None, "differential on segments 17-19 (not written yet)"),
     ("W6", "lockstep", None, "tests/lockstep --corpus golden (not written yet)"),

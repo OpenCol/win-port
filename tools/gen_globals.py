@@ -45,8 +45,12 @@ def declarations(cpp=False):
     """{name: declaration} of the variables the header declares at file scope, to C files or
     (cpp) only to C++ files."""
     text = gh.strip_comments(open(HEADER).read())
-    blocks = re.findall(r"#ifdef __cplusplus\n(.*?)#(?:else|endif)", text, flags=re.S)
-    text = "\n".join(blocks) if cpp else re.sub(r"#ifdef __cplusplus\n.*?#(?:else|endif)", "", text, flags=re.S)
+    if cpp == "all":       # everything a C++ file sees: the shared text and the C++-only blocks
+        text = re.sub(r"#ifndef __cplusplus\n.*?#endif", "", text, flags=re.S)
+        text = re.sub(r"#ifdef __cplusplus\n(.*?)#else\n.*?#endif", r"\1", text, flags=re.S)
+    else:
+        blocks = re.findall(r"#ifdef __cplusplus\n(.*?)#(?:else|endif)", text, flags=re.S)
+        text = "\n".join(blocks) if cpp else re.sub(r"#ifdef __cplusplus\n.*?#(?:else|endif)", "", text, flags=re.S)
     out = {}
     for line in text.splitlines():
         line = line.strip()
@@ -153,7 +157,21 @@ def generate():
     records = layout["records"]
     defined = set(gh.global_definitions())
     c_decls = declarations()
-    cxx_decls = {n: d for n, d in declarations(cpp=True).items() if n not in c_decls}
+    cxx_all = declarations(cpp=True)
+    # a global whose type is a C++ class is the class's size, not its C view's (a byte view
+    # can be 1 byte -- `int8_t g_colony_window` -- or a 16-bit picture of it): the storage
+    # is defined where C++ sees the class
+    classes = set(gh.CORPUS_CLASSES) | set(re.findall(r"\bclass\s+(\w+)\s*(?::[^{;]*)?\{",
+                                                     gh.strip_comments(open(os.path.join(ROOT, "include", "classes.h")).read())))
+    moved = {}
+    for n, d in list(cxx_all.items()) + list(c_decls.items()):
+        m = VAR.match(d)
+        if m and m.group(1).strip() in classes and not (m.group(2) or "").strip():
+            moved.setdefault(n, cxx_all.get(n, d))
+    for n in moved:
+        c_decls.pop(n, None)
+    cxx_decls = {n: d for n, d in cxx_all.items() if n not in c_decls}
+    cxx_decls.update(moved)
     known_c, _known_cpp = gh.known_types(open(os.path.join(ROOT, "include", "colonization.h")).read())
     # globals no header declares: C when C knows the type, else C++ (a pointer to a class)
     for name, d in file_only().items():

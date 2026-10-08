@@ -20,6 +20,7 @@ What an import writes (everything else in the tree is this repository's own):
     import/layout.json     each modelled global's segment and offset, each segment's size,
                            each record's size (model.json, the NE table): globals' extents
     import/win16-imports.json  the Win16 functions the shipped executable imports, by module
+    import/addresses.json  the address the corpus's comments give each global, where they agree
 
 --check compares a fresh import with the tree, file by file:
     identical   the same bytes
@@ -93,9 +94,27 @@ def produce(cwr, source, tmp):
     files["import/globals.json"] = corpus_globals(os.path.join(tree, "matched")).encode()
     files["import/functions.json"] = corpus_functions(os.path.join(tree, "matched")).encode()
     files["import/layout.json"] = layout(tree).encode()
+    files["import/addresses.json"] = corpus_addresses(os.path.join(tree, "matched")).encode()
     imports = json.load(open(os.path.join(tree, "analysis", "colonize-imports-resolved.json")))
     files["import/win16-imports.json"] = (json.dumps(imports, indent=1, sort_keys=True) + "\n").encode()
     return files
+
+
+ADDRESS = re.compile(r"\b(g_\w+)\s*(?:\[[^\]]*\]\s*)*(?:\([^;()]*\))?\s*;\s*/\*\s*(DGROUP|SEG(\d+)):(0x[0-9a-fA-F]+)")
+
+
+def corpus_addresses(matched):
+    """{global: [segment, offset]} -- the address each file-scope declaration or definition
+    of a global names in its comment (`extern Font g_font12;  /* DGROUP:0x24ec */`), where
+    every file that names one agrees. The model does not address every global the code
+    points at; these let tests/state.py map a pointer to them."""
+    seen = {}
+    for p in sorted(glob.glob(os.path.join(matched, "*", "*.c"))):
+        for m in ADDRESS.finditer(open(p, errors="replace").read()):
+            seg = 34 if m.group(2) == "DGROUP" else int(m.group(3))
+            seen.setdefault(m.group(1), set()).add((seg, int(m.group(4), 16)))
+    out = {n: list(next(iter(a))) for n, a in sorted(seen.items()) if len(a) == 1}
+    return json.dumps(out, indent=1, sort_keys=True) + "\n"
 
 
 def layout(tree):
