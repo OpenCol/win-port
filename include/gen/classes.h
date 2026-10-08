@@ -251,8 +251,8 @@ typedef struct {
 
 #ifdef __cplusplus
 /* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */
-PORT_SIZE_ASSERT(sizeof(GRPort) == 0x26, "GRPort is not the game's 0x26 bytes");
-PORT_SIZE_ASSERT(sizeof(GameWin) == 0xc4, "GameWin is not the game's 0xc4 bytes");
+PORT_SIZE_ASSERT(sizeof(GRPort) == 0x26 + 3 * (sizeof(void *) - 4), "GRPort is not the game's 0x26 bytes");
+PORT_SIZE_ASSERT(sizeof(GameWin) == 0xc4 + 33 * (sizeof(void *) - 4), "GameWin is not the game's 0xc4 bytes");
 #endif
 #pragma pack(pop)
 #endif

@@ -33,6 +33,8 @@ TOOLCHAINS = {
     # -fsyntax-only never wrote ("is an empty file")
     "winegcc": ("winegcc", "wineg++", ["-m32", "-c"]),
     "host": ("cc", "c++", []),
+    # W9: 64-bit Windows; tools/cast_audit.py counts its pointer<->integer cast warnings
+    "mingw-x64": ("x86_64-w64-mingw32-gcc", "x86_64-w64-mingw32-g++", []),
 }
 FLAGS = re.compile(r"^\s*\*?\s*flags:\s*(.+?)\s*$", re.M)
 TIMEOUT = 120   # seconds per file

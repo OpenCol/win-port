@@ -20,6 +20,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/sessions.json python3 tests/sessions.py --record
     status/human_pass.json  by hand: the W7 checklist, ticked by the person who played
     status/saves.json    python3 tests/sessions.py --saves --record
+    status/casts.json    python3 tools/cast_audit.py --record   (W9: pointer<->integer casts on x86_64)
     status/link-winegcc.json, status/lockstep-linux.json, status/sessions-linux.json
                          the same three for the Linux build (W8: PORT_TOOLCHAIN=winegcc, PORT_TARGET=linux)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
@@ -188,6 +189,23 @@ def w8():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w9():
+    parts, done = [], True
+    c = rec("casts")
+    if c:
+        parts.append("pointer<->integer casts on %s: %d in %d files (%d of %d files compile)" % (
+            c["toolchain"], c["warnings"], len(c["files"]), c["compile"], c["sources"]))
+        done &= c["warnings"] == 0 and c["compile"] == c["sources"]
+    else:
+        parts.append("cast audit: not measured")
+        done = False
+    for t in ("x64", "linux64", "macos"):
+        d, p = same_as_windows(t)
+        parts.append("%s: %s" % (t, p[0] if not d else "the same as Windows"))
+        done &= d
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 def w6():
     a = rec("lockstep")
     if not a or not a.get("scenarios"):
@@ -238,7 +256,7 @@ ROWS = [
     ("W7", "playable", w7, "tests/sessions.py --record; saves both ways; status/human_pass.json"),
     ("W8", "linux", w8, "PORT_TOOLCHAIN=winegcc tools/undefined.py --record; PORT_TARGET=linux tests/lockstep.py "
                          "native+compare --record, tests/sessions.py --record"),
-    ("W9", "64-bit", None, "W6 and W7 on x64, x86_64, macOS"),
+    ("W9", "64-bit", w9, "tools/cast_audit.py --record; W6 and W7 on x64, x86_64, macOS"),
     ("W10", "release", None, "a clean machine per OS reaches the map"),
 ]
 
