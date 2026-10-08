@@ -272,6 +272,8 @@ MODEL_FIXES = [
 # declaration, why). Applied after every other rule.
 RAW16 = ("Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6)")
 
+SPAN16 = ("Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6)")
+
 GLOBAL_TYPES = [
     ("g_scale_map", "extern i16 *g_scale_map;",
      "it points at a ScaleSlot's map, i16[0x400] (SetGlobalSpriteScale)"),
@@ -296,6 +298,50 @@ GLOBAL_TYPES = [
      RAW16),
     ("g_zoom", "extern i16 g_zoom;",
      RAW16),
+    ("g_founding_word", "extern i16 g_founding_word[6];",
+     SPAN16),
+    ("g_goods_name_word", "extern i16 g_goods_name_word[20];",
+     SPAN16),
+    ("g_nation_name", "extern i16 g_nation_name[4];",
+     SPAN16),
+    ("g_nation_adjective", "extern i16 g_nation_adjective[4];",
+     SPAN16),
+    ("g_nation_abbrev", "extern i16 g_nation_abbrev[4];",
+     SPAN16),
+    ("g_nation_name_word", "extern i16 g_nation_name_word[4];",
+     SPAN16),
+    ("g_mission_word", "extern i16 g_mission_word[4];",
+     SPAN16),
+    ("g_order_word", "extern i16 g_order_word[13];",
+     SPAN16),
+    ("g_feature_words", "extern i16 g_feature_words[5];",
+     SPAN16),
+    ("g_resource_name", "extern i16 g_resource_name[14];",
+     SPAN16),
+    ("g_difficulty_words", "extern i16 g_difficulty_words[5];",
+     SPAN16),
+    ("g_action_word", "extern i16 g_action_word[10];",
+     SPAN16),
+    ("g_value_word", "extern i16 g_value_word[4];",
+     SPAN16),
+    ("g_attitude_word", "extern i16 g_attitude_word[5];",
+     SPAN16),
+    ("g_attitudinal_word", "extern i16 g_attitudinal_word[5];",
+     SPAN16),
+    ("g_pedia_word", "extern i16 g_pedia_word[30];",
+     SPAN16),
+    ("g_ctitle_word", "extern i16 g_ctitle_word[10];",
+     SPAN16),
+    ("g_colony_message_words", "extern i16 g_colony_message_words[19];",
+     SPAN16),
+    ("g_route_label", "extern i16 g_route_label[7];",
+     SPAN16),
+    ("g_info_label", "extern i16 g_info_label[4];",
+     "Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xda50 (gen_globals.SPANS): the "
+     "tribe tables are read past their end with a nation index (W6)"),
+    ("g_misc_words", "extern i16 g_misc_words[221];",
+     "Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xda50 (gen_globals.SPANS): the "
+     "tribe tables are read past their end with a nation index (W6)"),
 ]
 
 

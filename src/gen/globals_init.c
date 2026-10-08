@@ -7,7 +7,7 @@
 #include "classes.h"
 
 extern "C" {
-extern unsigned char g_seg20_da50[0x1b0];
+extern unsigned char g_seg20_d182[0xd00];
 extern unsigned char g_seg24_065e[0x10];
 struct PortInitGlobal { void *addr; unsigned short seg, off, count, w16, wn, kind; };
 struct PortInitFunction { unsigned long addr16; void *fn; };
@@ -32,7 +32,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_abandon_flag, 34, 0x0c1e, 1, 2, sizeof(g_abandon_flag), 1 },   /* g_abandon_flag */
   { (void *)&g_about_done, 34, 0x4e64, 1, 2, sizeof(g_about_done), 1 },   /* g_about_done */
   { (void *)&g_about_step, 34, 0x4e66, 1, 2, sizeof(g_about_step), 1 },   /* g_about_step */
-  { (void *)&g_action_word, 20, 0xd908, 10, 2, sizeof(g_action_word[0]), 1 },   /* g_action_word */
   { (void *)&g_adjacent_colony_nation, 34, 0x4c12, 1, 2, sizeof(g_adjacent_colony_nation), 1 },   /* g_adjacent_colony_nation */
   { (void *)&g_ai_managing_colony, 34, 0x0c28, 1, 2, sizeof(g_ai_managing_colony), 1 },   /* g_ai_managing_colony */
   { (void *)&g_ai_military_target, 34, 0x4b68, 4, 1, sizeof(g_ai_military_target[0]), 0 },   /* g_ai_military_target */
@@ -41,18 +40,13 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_anim, 34, 0x568c, 1, 4, sizeof(g_anim), 3 },   /* g_anim */
   { (void *)&g_anim_port, 34, 0x5690, 1, 4, sizeof(g_anim_port), 3 },   /* g_anim_port */
   { (void *)&g_area_map_str, 34, 0x1cac, 9, 1, sizeof(g_area_map_str[0]), 0 },   /* g_area_map_str */
-  { (void *)&g_attitude_word, 20, 0xd924, 5, 2, sizeof(g_attitude_word[0]), 1 },   /* g_attitude_word */
-  { (void *)&g_attitudinal_word, 20, 0xd92e, 5, 2, sizeof(g_attitudinal_word[0]), 1 },   /* g_attitudinal_word */
   { (void *)&g_autoplay, 34, 0x0088, 1, 2, sizeof(g_autoplay), 1 },   /* g_autoplay */
-  { (void *)&g_avg_colony_size, 20, 0xda48, 4, 2, sizeof(g_avg_colony_size[0]), 0 },   /* g_avg_colony_size */
   { (void *)&g_bells_extra, 34, 0x4ba5, 1, 1, sizeof(g_bells_extra), 0 },   /* g_bells_extra */
   { (void *)&g_best_job_amount, 34, 0x4bcc, 1, 2, sizeof(g_best_job_amount), 1 },   /* g_best_job_amount */
   { (void *)&g_best_job_score, 34, 0x4bce, 1, 2, sizeof(g_best_job_score), 1 },   /* g_best_job_score */
   { (void *)&g_blink, 34, 0x0078, 1, 2, sizeof(g_blink), 1 },   /* g_blink */
   { (void *)&g_boarding_in_progress, 34, 0x193e, 1, 2, sizeof(g_boarding_in_progress), 1 },   /* g_boarding_in_progress */
-  { (void *)&g_build_needs, 20, 0xdca8, 6, 4, sizeof(g_build_needs[0]), 0 },   /* g_build_needs */
   { (void *)&g_building_of_job, 21, 0x00f7, 19, 1, sizeof(g_building_of_job[0]), 0 },   /* g_building_of_job */
-  { (void *)&g_buildings, 20, 0xd422, 42, 12, sizeof(g_buildings[0]), 0 },   /* g_buildings */
   { (void *)&g_button_font, 34, 0x2aca, 1, 4, sizeof(g_button_font), 3 },   /* g_button_font */
   { (void *)&g_buy_busy, 34, 0x0a05, 1, 1, sizeof(g_buy_busy), 0 },   /* g_buy_busy */
   { (void *)&g_c12, 34, 0x0c12, 1, 1, sizeof(g_c12), 0 },   /* g_c12 */
@@ -99,7 +93,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_colony_drop_active, 34, 0x09e0, 1, 2, sizeof(g_colony_drop_active), 1 },   /* g_colony_drop_active */
   { (void *)&g_colony_key_busy, 34, 0x09fa, 1, 2, sizeof(g_colony_key_busy), 1 },   /* g_colony_key_busy */
   { (void *)&g_colony_lclick_busy, 34, 0x09f6, 1, 1, sizeof(g_colony_lclick_busy), 0 },   /* g_colony_lclick_busy */
-  { (void *)&g_colony_message_words, 20, 0xd996, 19, 2, sizeof(g_colony_message_words[0]), 1 },   /* g_colony_message_words */
   { (void *)&g_colony_mode, 34, 0x0c0f, 1, 1, sizeof(g_colony_mode), 0 },   /* g_colony_mode */
   { (void *)&g_colony_popup, 34, 0x09ec, 1, 4, sizeof(g_colony_popup), 3 },   /* g_colony_popup */
   { (void *)&g_colony_rclick_busy, 34, 0x09f7, 1, 1, sizeof(g_colony_rclick_busy), 0 },   /* g_colony_rclick_busy */
@@ -115,7 +108,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_congress_nation, 34, 0x4e06, 1, 2, sizeof(g_congress_nation), 1 },   /* g_congress_nation */
   { (void *)&g_consumption, 21, 0x0164, 20, 2, sizeof(g_consumption[0]), 1 },   /* g_consumption */
   { (void *)&g_control_font, 34, 0x2ace, 1, 4, sizeof(g_control_font), 3 },   /* g_control_font */
-  { (void *)&g_ctitle_word, 20, 0xd982, 10, 2, sizeof(g_ctitle_word[0]), 1 },   /* g_ctitle_word */
   { (void *)&g_cur_cell, 34, 0x4b94, 1, 4, sizeof(g_cur_cell), 3 },   /* g_cur_cell */
   { (void *)&g_cur_colony_idx, 34, 0x4ba2, 1, 2, sizeof(g_cur_colony_idx), 1 },   /* g_cur_colony_idx */
   { (void *)&g_cur_colony_is_players, 34, 0x4baa, 1, 1, sizeof(g_cur_colony_is_players), 0 },   /* g_cur_colony_is_players */
@@ -157,7 +149,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_dialog_help_used, 34, 0x4dfe, 1, 2, sizeof(g_dialog_help_used), 0 },   /* g_dialog_help_used */
   { (void *)&g_dialog_owner, 34, 0x56b6, 1, 4, sizeof(g_dialog_owner), 3 },   /* g_dialog_owner */
   { (void *)&g_dialog_result, 34, 0x56b4, 1, 2, sizeof(g_dialog_result), 1 },   /* g_dialog_result */
-  { (void *)&g_difficulty_words, 20, 0xd8fe, 5, 2, sizeof(g_difficulty_words[0]), 1 },   /* g_difficulty_words */
   { (void *)&g_dir_dx, 27, 0x0000, 9, 1, sizeof(g_dir_dx[0]), 0 },   /* g_dir_dx */
   { (void *)&g_dir_dy, 27, 0x0009, 9, 1, sizeof(g_dir_dy[0]), 0 },   /* g_dir_dy */
   { (void *)&g_display_name_buf, 34, 0x4e14, 80, 1, sizeof(g_display_name_buf[0]), 0 },   /* g_display_name_buf */
@@ -209,8 +200,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_father_order, 22, 0x00ce, 26, 1, sizeof(g_father_order[0]), 0 },   /* g_father_order */
   { (void *)&g_father_x, 22, 0x00e8, 25, 2, sizeof(g_father_x[0]), 1 },   /* g_father_x */
   { (void *)&g_father_y, 22, 0x011a, 25, 2, sizeof(g_father_y[0]), 1 },   /* g_father_y */
-  { (void *)&g_fathers, 20, 0xd6fa, 25, 6, sizeof(g_fathers[0]), 0 },   /* g_fathers */
-  { (void *)&g_feature_words, 20, 0xd8d8, 5, 2, sizeof(g_feature_words[0]), 1 },   /* g_feature_words */
   { (void *)&g_field, 29, 0x008c, 80, 1, sizeof(g_field[0]), 0 },   /* g_field */
   { (void *)&g_fish_food, 34, 0x4ba8, 1, 1, sizeof(g_fish_food), 0 },   /* g_fish_food */
   { (void *)&g_flat_step_cost, 34, 0x10a2, 1, 2, sizeof(g_flat_step_cost), 1 },   /* g_flat_step_cost */
@@ -220,7 +209,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_font_tiny, 34, 0x4b0e, 1, 4, sizeof(g_font_tiny), 0 },   /* g_font_tiny */
   { (void *)&g_foreign_owner, 34, 0x4c36, 1, 2, sizeof(g_foreign_owner), 1 },   /* g_foreign_owner */
   { (void *)&g_forest_pattern, 34, 0x28a8, 1, 9, sizeof(g_forest_pattern), 0 },   /* g_forest_pattern */
-  { (void *)&g_founding_word, 20, 0xd790, 6, 2, sizeof(g_founding_word[0]), 1 },   /* g_founding_word */
   { (void *)&g_frame_top_sel, 31, 0x0038, 48, 2, sizeof(g_frame_top_sel[0]), 1 },   /* g_frame_top_sel */
   { (void *)&g_frame_top_text, 31, 0x000c, 22, 2, sizeof(g_frame_top_text[0]), 1 },   /* g_frame_top_text */
   { (void *)&g_frr_resource_type, 34, 0x2afa, 1, 4, sizeof(g_frr_resource_type), 0 },   /* g_frr_resource_type */
@@ -231,12 +219,10 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_game_txt, 34, 0x009e, 6, 1, sizeof(g_game_txt[0]), 0 },   /* g_game_txt */
   { (void *)&g_garrisoned_regions, 34, 0x4c0a, 1, 1, sizeof(g_garrisoned_regions), 0 },   /* g_garrisoned_regions */
   { (void *)&g_gif_resource_type, 34, 0x2b06, 1, 4, sizeof(g_gif_resource_type), 0 },   /* g_gif_resource_type */
-  { (void *)&g_goods, 20, 0xd79c, 16, 10, sizeof(g_goods[0]), 0 },   /* g_goods */
   { (void *)&g_goods_drag_amount, 34, 0x4ce8, 1, 2, sizeof(g_goods_drag_amount), 1 },   /* g_goods_drag_amount */
   { (void *)&g_goods_drag_from_market, 34, 0x4ce4, 1, 2, sizeof(g_goods_drag_from_market), 1 },   /* g_goods_drag_from_market */
   { (void *)&g_goods_drag_slot, 34, 0x4ce0, 1, 2, sizeof(g_goods_drag_slot), 1 },   /* g_goods_drag_slot */
   { (void *)&g_goods_input, 21, 0x00a6, 20, 1, sizeof(g_goods_input[0]), 0 },   /* g_goods_input */
-  { (void *)&g_goods_name_word, 20, 0xd86e, 20, 2, sizeof(g_goods_name_word[0]), 1 },   /* g_goods_name_word */
   { (void *)&g_goods_value, 30, 0x0010, 4, 16, sizeof(g_goods_value[0]), 0 },   /* g_goods_value */
   { (void *)&g_goods_wanted_prev, 24, 0x064e, 16, 1, sizeof(g_goods_wanted_prev[0]), 0 },   /* g_goods_wanted_prev */
   { (void *)&g_gr_error, 34, 0x2b1a, 1, 2, sizeof(g_gr_error), 1 },   /* g_gr_error */
@@ -259,7 +245,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_icon_h, 34, 0x1c9c, 1, 2, sizeof(g_icon_h), 1 },   /* g_icon_h */
   { (void *)&g_info_font_large, 34, 0x4b16, 1, 4, sizeof(g_info_font_large), 0 },   /* g_info_font_large */
   { (void *)&g_info_font_small, 34, 0x4b12, 1, 4, sizeof(g_info_font_small), 0 },   /* g_info_font_small */
-  { (void *)&g_info_label, 20, 0xdcc0, 4, 2, sizeof(g_info_label[0]), 1 },   /* g_info_label */
   { (void *)&g_job_of_building, 21, 0x00cd, 42, 1, sizeof(g_job_of_building[0]), 0 },   /* g_job_of_building */
   { (void *)&g_job_popup_active, 34, 0x0a12, 1, 2, sizeof(g_job_popup_active), 1 },   /* g_job_popup_active */
   { (void *)&g_job_unit_type, 34, 0x0bf8, 9, 1, sizeof(g_job_unit_type[0]), 0 },   /* g_job_unit_type */
@@ -327,9 +312,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_menu_depth, 34, 0x56de, 1, 2, sizeof(g_menu_depth), 1 },   /* g_menu_depth */
   { (void *)&g_merc, 26, 0x0036, 4, 2, sizeof(g_merc[0]), 1 },   /* g_merc */
   { (void *)&g_message_buf, 34, 0x4e6c, 2048, 1, sizeof(g_message_buf[0]), 0 },   /* g_message_buf */
-  { (void *)&g_military_power, 20, 0xd9d6, 4, 2, sizeof(g_military_power[0]), 0 },   /* g_military_power */
-  { (void *)&g_misc_words, 20, 0xdcc8, 221, 2, sizeof(g_misc_words[0]), 1 },   /* g_misc_words */
-  { (void *)&g_mission_word, 20, 0xd8b6, 4, 2, sizeof(g_mission_word[0]), 1 },   /* g_mission_word */
   { (void *)&g_modal_active, 34, 0x4cd2, 1, 2, sizeof(g_modal_active), 1 },   /* g_modal_active */
   { (void *)&g_modal_done, 34, 0x2520, 1, 2, sizeof(g_modal_done), 1 },   /* g_modal_done */
   { (void *)&g_modal_win, 34, 0x2ae4, 1, 4, sizeof(g_modal_win), 3 },   /* g_modal_win */
@@ -345,16 +327,12 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_music_seed, 34, 0x4b8a, 1, 2, sizeof(g_music_seed), 1 },   /* g_music_seed */
   { (void *)&g_name_slots, 31, 0x00a4, 7, 80, sizeof(g_name_slots[0]), 0 },   /* g_name_slots */
   { (void *)&g_names_txt, 34, 0x00a4, 6, 1, sizeof(g_names_txt[0]), 0 },   /* g_names_txt */
-  { (void *)&g_nation_abbrev, 20, 0xd8a6, 4, 2, sizeof(g_nation_abbrev[0]), 1 },   /* g_nation_abbrev */
-  { (void *)&g_nation_adjective, 20, 0xd89e, 4, 2, sizeof(g_nation_adjective[0]), 1 },   /* g_nation_adjective */
   { (void *)&g_nation_armed_ships, 34, 0x4b64, 4, 1, sizeof(g_nation_armed_ships[0]), 0 },   /* g_nation_armed_ships */
   { (void *)&g_nation_cargo_capacity, 34, 0x4b5c, 4, 1, sizeof(g_nation_cargo_capacity[0]), 0 },   /* g_nation_cargo_capacity */
   { (void *)&g_nation_colony_count, 34, 0x4b48, 4, 1, sizeof(g_nation_colony_count[0]), 0 },   /* g_nation_colony_count */
   { (void *)&g_nation_colour, 34, 0x009a, 4, 1, sizeof(g_nation_colour[0]), 0 },   /* g_nation_colour */
   { (void *)&g_nation_free_colonists, 34, 0x4b4c, 4, 1, sizeof(g_nation_free_colonists[0]), 0 },   /* g_nation_free_colonists */
   { (void *)&g_nation_land_strength, 34, 0x4b58, 4, 1, sizeof(g_nation_land_strength[0]), 0 },   /* g_nation_land_strength */
-  { (void *)&g_nation_name, 20, 0xd896, 4, 2, sizeof(g_nation_name[0]), 1 },   /* g_nation_name */
-  { (void *)&g_nation_name_word, 20, 0xd8ae, 4, 2, sizeof(g_nation_name_word[0]), 1 },   /* g_nation_name_word */
   { (void *)&g_nation_population, 34, 0x4b54, 4, 1, sizeof(g_nation_population[0]), 0 },   /* g_nation_population */
   { (void *)&g_nation_ship_count, 34, 0x4b60, 4, 1, sizeof(g_nation_ship_count[0]), 0 },   /* g_nation_ship_count */
   { (void *)&g_nation_ships_in_transit, 34, 0x4b70, 4, 1, sizeof(g_nation_ships_in_transit[0]), 0 },   /* g_nation_ships_in_transit */
@@ -382,8 +360,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_opening_dismissed, 34, 0x1d04, 1, 2, sizeof(g_opening_dismissed), 1 },   /* g_opening_dismissed */
   { (void *)&g_opening_restypes, 34, 0x0968, 4, 4, sizeof(g_opening_restypes[0]), 0 },   /* g_opening_restypes */
   { (void *)&g_order_flags, 30, 0x0050, 17, 1, sizeof(g_order_flags[0]), 0 },   /* g_order_flags */
-  { (void *)&g_order_letter, 20, 0xd974, 14, 1, sizeof(g_order_letter[0]), 0 },   /* g_order_letter */
-  { (void *)&g_order_word, 20, 0xd8be, 13, 2, sizeof(g_order_word[0]), 1 },   /* g_order_word */
   { (void *)&g_ortho_dx, 34, 0x1c58, 5, 1, sizeof(g_ortho_dx[0]), 0 },   /* g_ortho_dx */
   { (void *)&g_ortho_dy, 34, 0x1c5d, 5, 1, sizeof(g_ortho_dy[0]), 0 },   /* g_ortho_dy */
   { (void *)&g_overlay_plane, 34, 0x4c64, 1, 4, sizeof(g_overlay_plane), 3 },   /* g_overlay_plane */
@@ -403,7 +379,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_pedia_count, 34, 0x0098, 1, 2, sizeof(g_pedia_count), 1 },   /* g_pedia_count */
   { (void *)&g_pedia_mode, 34, 0x09dc, 1, 2, sizeof(g_pedia_mode), 1 },   /* g_pedia_mode */
   { (void *)&g_pedia_page, 34, 0x28a6, 1, 2, sizeof(g_pedia_page), 1 },   /* g_pedia_page */
-  { (void *)&g_pedia_word, 20, 0xd938, 30, 2, sizeof(g_pedia_word[0]), 1 },   /* g_pedia_word */
   { (void *)&g_pending_col, 34, 0x4b9a, 1, 2, sizeof(g_pending_col), 1 },   /* g_pending_col */
   { (void *)&g_pending_flag, 34, 0x0a10, 1, 2, sizeof(g_pending_flag), 1 },   /* g_pending_flag */
   { (void *)&g_pending_row, 34, 0x4b9c, 1, 2, sizeof(g_pending_row), 1 },   /* g_pending_row */
@@ -453,7 +428,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_rank, 25, 0x0008, 4, 2, sizeof(g_rank[0]), 2 },   /* g_rank */
   { (void *)&g_rank_ids, 25, 0x0000, 4, 2, sizeof(g_rank_ids[0]), 1 },   /* g_rank_ids */
   { (void *)&g_rec6_78e0, 20, 0x78e0, 4, 6, sizeof(g_rec6_78e0[0]), 0 },   /* g_rec6_78e0 */
-  { (void *)&g_recruit, 20, 0xd83c, 6, 6, sizeof(g_recruit[0]), 0 },   /* g_recruit */
   { (void *)&g_redraw_mode, 34, 0x1ca0, 1, 2, sizeof(g_redraw_mode), 1 },   /* g_redraw_mode */
   { (void *)&g_region_pop, 24, 0x06e6, 16, 1, sizeof(g_region_pop[0]), 0 },   /* g_region_pop */
   { (void *)&g_region_size, 27, 0x008c, 16, 2, sizeof(g_region_size[0]), 0 },   /* g_region_size */
@@ -466,8 +440,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_reserved_count, 34, 0x56c2, 1, 2, sizeof(g_reserved_count), 1 },   /* g_reserved_count */
   { (void *)&g_resource_lib_count, 34, 0x3c76, 1, 2, sizeof(g_resource_lib_count), 2 },   /* g_resource_lib_count */
   { (void *)&g_resource_libs, 34, 0x56e6, 32, 2, sizeof(g_resource_libs[0]), 2 },   /* g_resource_libs */
-  { (void *)&g_resource_name, 20, 0xd8e2, 14, 2, sizeof(g_resource_name[0]), 1 },   /* g_resource_name */
-  { (void *)&g_resource_value, 20, 0xd860, 14, 1, sizeof(g_resource_value[0]), 0 },   /* g_resource_value */
   { (void *)&g_restype_crds, 34, 0x29c8, 1, 4, sizeof(g_restype_crds), 0 },   /* g_restype_crds */
   { (void *)&g_restype_cred, 34, 0x29c4, 1, 4, sizeof(g_restype_cred), 0 },   /* g_restype_cred */
   { (void *)&g_restype_strn, 34, 0x1cfb, 4, 1, sizeof(g_restype_strn[0]), 0 },   /* g_restype_strn */
@@ -478,7 +450,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_restype_text_popup, 34, 0x2510, 1, 4, sizeof(g_restype_text_popup), 3 },   /* g_restype_text_popup */
   { (void *)&g_ring_dx, 27, 0x0012, 21, 1, sizeof(g_ring_dx[0]), 0 },   /* g_ring_dx */
   { (void *)&g_ring_dy, 27, 0x0027, 21, 1, sizeof(g_ring_dy[0]), 0 },   /* g_ring_dy */
-  { (void *)&g_route_label, 20, 0xd9bc, 7, 2, sizeof(g_route_label[0]), 1 },   /* g_route_label */
   { (void *)&g_route_stop, 34, 0x4c22, 1, 2, sizeof(g_route_stop), 1 },   /* g_route_stop */
   { (void *)&g_route_unit, 34, 0x4c26, 1, 2, sizeof(g_route_unit), 1 },   /* g_route_unit */
   { (void *)&g_routes, 20, 0xc804, 12, 74, sizeof(g_routes[0]), 0 },   /* g_routes */
@@ -523,8 +494,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_sound_effects, 34, 0x00bc, 1, 2, sizeof(g_sound_effects), 1 },   /* g_sound_effects */
   { (void *)&g_sound_event_music, 34, 0x00b8, 1, 2, sizeof(g_sound_event_music), 1 },   /* g_sound_event_music */
   { (void *)&g_sound_music, 34, 0x00ba, 1, 2, sizeof(g_sound_music), 1 },   /* g_sound_music */
-  { (void *)&g_spec_recs, 20, 0xd61a, 28, 8, sizeof(g_spec_recs[0]), 0 },   /* g_spec_recs */
-  { (void *)&g_specialty_tally, 20, 0xda2a, 29, 1, sizeof(g_specialty_tally[0]), 0 },   /* g_specialty_tally */
   { (void *)&g_sprt_palette_type, 34, 0x2b16, 1, 4, sizeof(g_sprt_palette_type), 1 },   /* g_sprt_palette_type */
   { (void *)&g_sprt_type, 34, 0x2b12, 1, 4, sizeof(g_sprt_type), 1 },   /* g_sprt_type */
   { (void *)&g_sq_class, 34, 0x4c9d, 1, 1, sizeof(g_sq_class), 0 },   /* g_sq_class */
@@ -579,17 +548,8 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_trade_click_busy, 34, 0x2668, 1, 2, sizeof(g_trade_click_busy), 1 },   /* g_trade_click_busy */
   { (void *)&g_treasures_found, 34, 0x1943, 1, 1, sizeof(g_treasures_found), 0 },   /* g_treasures_found */
   { (void *)&g_trial_placement, 34, 0x0c23, 1, 1, sizeof(g_trial_placement), 0 },   /* g_trial_placement */
-  { (void *)&g_tribe, 20, 0xd3f2, 8, 6, sizeof(g_tribe[0]), 0 },   /* g_tribe */
-  { (void *)&g_tribe_colour, 20, 0xd9ce, 8, 1, sizeof(g_tribe_colour[0]), 0 },   /* g_tribe_colour */
-  { (void *)&g_tribe_colour_by_nation, 20, 0xd9ca, 4, 1, sizeof(g_tribe_colour_by_nation[0]), 0 },   /* g_tribe_colour_by_nation */
-  { (void *)&g_tribe_pop, 20, 0xdc08, 8, 1, sizeof(g_tribe_pop[0]), 0 },   /* g_tribe_pop */
-  { (void *)&g_tribe_region, 20, 0xdc18, 9, 16, sizeof(g_tribe_region[0]), 0 },   /* g_tribe_region */
-  { (void *)&g_tribe_settlement_count, 20, 0xdc10, 8, 1, sizeof(g_tribe_settlement_count[0]), 0 },   /* g_tribe_settlement_count */
-  { (void *)&g_tribe_strength, 20, 0xdc00, 8, 1, sizeof(g_tribe_strength[0]), 0 },   /* g_tribe_strength */
-  { (void *)&g_tribes, 20, 0xd182, 8, 78, sizeof(g_tribes[0]), 0 },   /* g_tribes */
   { (void *)&g_unclaimed_regions, 34, 0x4b78, 1, 2, sizeof(g_unclaimed_regions), 1 },   /* g_unclaimed_regions */
   { (void *)&g_unit_blinking, 34, 0x1ccc, 1, 2, sizeof(g_unit_blinking), 1 },   /* g_unit_blinking */
-  { (void *)&g_unit_tally, 20, 0xd9de, 4, 19, sizeof(g_unit_tally[0]), 0 },   /* g_unit_tally */
   { (void *)&g_unit_type_class, 21, 0x010a, 24, 1, sizeof(g_unit_type_class[0]), 0 },   /* g_unit_type_class */
   { (void *)&g_unit_types, 20, 0x7ac8, 24, 14, sizeof(g_unit_types[0]), 0 },   /* g_unit_types */
   { (void *)&g_units, 20, 0xa208, 301, 28, sizeof(g_units[0]), 0 },   /* g_units */
@@ -598,7 +558,6 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_val_a, 34, 0x0a0a, 1, 1, sizeof(g_val_a), 0 },   /* g_val_a */
   { (void *)&g_val_b, 34, 0x0a0c, 1, 1, sizeof(g_val_b), 0 },   /* g_val_b */
   { (void *)&g_val_c, 34, 0x0a0e, 1, 1, sizeof(g_val_c), 0 },   /* g_val_c */
-  { (void *)&g_value_word, 20, 0xd91c, 4, 2, sizeof(g_value_word[0]), 1 },   /* g_value_word */
   { (void *)&g_view_h, 34, 0x4c52, 1, 2, sizeof(g_view_h), 1 },   /* g_view_h */
   { (void *)&g_view_offset_tx, 34, 0x4c60, 1, 2, sizeof(g_view_offset_tx), 0 },   /* g_view_offset_tx */
   { (void *)&g_view_offset_ty, 34, 0x4c62, 1, 2, sizeof(g_view_offset_ty), 0 },   /* g_view_offset_ty */
@@ -627,10 +586,10 @@ const struct PortInitGlobal port_init_globals[] = {
   { (void *)&g_y_hi, 34, 0x4bd9, 1, 1, sizeof(g_y_hi), 0 },   /* g_y_hi */
   { (void *)&g_y_lo, 34, 0x4bd7, 1, 1, sizeof(g_y_lo), 0 },   /* g_y_lo */
   { (void *)&g_zoom, 34, 0x1c9a, 1, 2, sizeof(g_zoom), 0 },   /* g_zoom */
-  { (void *)&g_seg20_da50, 20, 0xda50, 432, 1, 1, 0 },   /* g_seg20_da50 */
+  { (void *)&g_seg20_d182, 20, 0xd182, 3328, 1, 1, 0 },   /* g_seg20_d182 */
   { (void *)&g_seg24_065e, 24, 0x065e, 16, 1, 1, 0 },   /* g_seg24_065e */
 };
-const unsigned port_init_global_count = 613;
+const unsigned port_init_global_count = 572;
 
 const struct PortInitFunction port_init_functions[] = {
   { 0x10080000u, (void *)autosave },

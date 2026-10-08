@@ -5,13 +5,13 @@ then `python3 tools/status.py`.
 
 | | Milestone | State | Measured | Gate |
 | --- | --- | --- | --- | --- |
-| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3284 files, 3245 sources; 1088 edited by PORT:); CI success at a8f4098 (run 37723780479) | `import/import.py --check, tools/ci_record.py` |
+| W0 | bootstrap | DONE | import reproducible at 508d4d0d0c (3284 files, 3245 sources; 1089 edited by PORT:); CI success at a8f4098 (run 37723780479) | `import/import.py --check, tools/ci_record.py` |
 | W1 | compile | DONE | mingw-i686 3245/3245; winegcc 3245/3245 | `tools/compile_all.py --record [--toolchain winegcc]` |
 | W2 | link | DONE | objects 3270/3270; executable links (backlog trapped); undefined 0: 0 assembly, 0 win16 API; twice defined 0 | `tools/undefined.py --record` |
 | W3 | oracle | DONE | oracle self-test identical (1 turns, 6 checkpoints); state round trip lossless: 670/671 globals converted, 0 lost, 1 by address only; differential 20/20 functions agree | `tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record` |
 | W4 | platform | DONE | Win16 functions not provided: 0 of 167; framework trace: 10000 of the first 10000 calls match the oracle | `tools/undefined.py --record, tests/trace.py --gate --record` |
 | W5 | asm | DONE | routines agreeing with the originals: 12/12; 915 SPRT sprites (837 drawn): 3264/3264 calls identical; 96 CvPc canvases: 96/96 calls identical; 1 FLIC (66 frames): 66/66 calls identical | `tests/asm.py --record` |
-| W6 | lockstep | open | 6 scenario(s): 493/690 checkpoints in lockstep, 54 of 114 turns whole; first divergence: AUTO01 checkpoint 87 (turn 18 step 3): colonies[3].jobs: 04, the port 00; nation_tallies+0x1: 02, the port 01; plane0+0x6fc: 0d, the port 05; golden corpus: 0 of 21 scenarios recorded | `tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)` |
+| W6 | lockstep | open | 6 scenario(s): 726/726 checkpoints in lockstep, 120 of 120 turns whole; golden corpus: 0 of 21 scenarios recorded | `tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)` |
 | W7 | playable | -- | not measured | `scripted sessions, saves both ways, human pass` |
 | W8 | linux | -- | not measured | `winegcc build through W3-W7` |
 | W9 | 64-bit | -- | not measured | `W6 and W7 on x64, x86_64, macOS` |

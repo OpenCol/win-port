@@ -6,9 +6,9 @@
  "globals": 671,
  "kinds": {
   "address": 1,
-  "bytes": 288,
+  "bytes": 309,
   "class": 24,
-  "int": 300,
+  "int": 279,
   "pointer": 58
  },
  "lost": 0,

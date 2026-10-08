@@ -124,9 +124,11 @@ OUT_ALIASES = os.path.join(ROOT, "src", "gen", "aliases.txt")
 # them laid out by the port as the game lays it (bytes, byte records). name: (segment, offset,
 # size, why)
 SPANS = {
-    "g_seg20_da50": (20, 0xda50, 0x1b0,
-                     "the region tables, g_region_farmland .. g_region_flags: save_game writes and "
-                     "load_game_file reads 0x20 bytes from g_region_farmland, which is farmland and then "
+    "g_seg20_d182": (20, 0xd182, 0xd00,
+                     "the game's tables, g_tribes .. g_misc_words, in its order: the code reads past their ends -- "
+                     "pissed() and preassign_colonist_to_field index g_tribes, g_tribe_region and "
+                     "g_tribe_strength with a nation index (4..11), past their eight tribes; save_game and "
+                     "load_game_file move 0x20 bytes from g_region_farmland, which is farmland and then "
                      "settlements (W6)"),
     "g_seg24_065e": (24, 0x065e, 0x10,
                      "the goods table, g_goods_wanted[16]: the model ends it at 14 and names entries 14 and "

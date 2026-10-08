@@ -1,3 +1,4 @@
+/* PORT: tribe_size is Borland's 16-bit int (i16): memset_rtl clears 0x100 bytes, 8 x 16 two-byte ints; as int its back half stayed stack garbage and the AI read tribes into regions they are not in (W6). */
 /* plan_strategy: candidate for 1028:0f9e (8865 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3
  * symbol: plan_strategy
@@ -166,7 +167,7 @@ void plan_strategy(int nation)
     long value;
     int t1;
     int t2;
-    int tribe_size[8][16];
+    i16 tribe_size[8][16];
     int weight[64];
 
     set_europe(nation);

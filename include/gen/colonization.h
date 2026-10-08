@@ -651,7 +651,7 @@ extern int g_9e2;   /* PORT: the corpus's type */
 extern int g_abandon_flag;   /* PORT: the corpus's type */
 extern int g_about_done;   /* PORT: the corpus's type */
 extern int g_about_step;   /* PORT: the corpus's type */
-extern int g_action_word[];   /* PORT: the corpus's type */
+extern i16 g_action_word[10];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int g_adjacent_colony_nation;   /* PORT: the corpus's type */
 extern int g_ai_managing_colony;   /* PORT: the corpus's type */
 extern unsigned char g_ai_military_target[4];   /* PORT: the corpus's type */
@@ -665,8 +665,8 @@ extern int8_t g_art_bonus[][32];
 extern int8_t g_art_hills[][32];
 extern int8_t g_art_forest[][32];
 extern int8_t g_art_mountains[][32];
-extern int g_attitude_word[];   /* PORT: the corpus's type */
-extern int g_attitudinal_word[];   /* PORT: the corpus's type */
+extern i16 g_attitude_word[5];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
+extern i16 g_attitudinal_word[5];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int g_autoplay;   /* PORT: the corpus's type */
 extern i16 g_avg_colony_size[4];   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
 extern Sprite g_background_tile;   /* PORT: the corpus's type */
@@ -742,7 +742,7 @@ extern int g_labelled_building;   /* PORT: the corpus's type */
 extern int g_labelled_goods;   /* PORT: the corpus's type */
 extern int g_labelled_cell;   /* PORT: the corpus's type */
 extern int g_colony_key_busy;   /* PORT: the corpus's type */
-extern int g_colony_message_words[];   /* PORT: the corpus's type */
+extern i16 g_colony_message_words[19];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern unsigned char g_colony_mode;   /* PORT: the corpus's type */
 extern unsigned char g_chosen_colony_mode;   /* PORT: the corpus's type */
 extern char g_colony_lclick_busy;   /* PORT: the corpus's type */
@@ -772,7 +772,7 @@ extern void * g_control_font;   /* PORT: the corpus's type */
 extern int8_t g_control_no_title;
 extern int8_t g_crlf[];
 extern int16_t g_crosses_this_turn;
-extern int g_ctitle_word[];   /* PORT: the corpus's type */
+extern i16 g_ctitle_word[10];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern unsigned char *g_cur_cell;   /* PORT: the corpus's type */
 extern int g_cur_colony_idx;   /* PORT: the corpus's type */
 extern char g_cur_colony_is_players;   /* PORT: the corpus's type */
@@ -815,7 +815,7 @@ extern int16_t g_dialog_help_used;
 extern char *g_dialog_owner;   /* PORT: the corpus's type */
 extern int g_dialog_result;   /* PORT: the corpus's type */
 extern uint8_t g_difficulty;
-extern int g_difficulty_words[];   /* PORT: the corpus's type */
+extern i16 g_difficulty_words[5];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern signed char g_dir_dx[];   /* PORT: the corpus's type */
 extern signed char g_dir_dy[];   /* PORT: the corpus's type */
 extern char g_display_name_buf[];   /* PORT: the corpus's type */
@@ -888,7 +888,7 @@ extern int8_t g_father_owner[];
 extern int g_father_x[];   /* PORT: the corpus's type */
 extern int g_father_y[];   /* PORT: the corpus's type */
 extern Father g_fathers[];
-extern int g_feature_words[];   /* PORT: the corpus's type */
+extern i16 g_feature_words[5];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern char g_field[];   /* PORT: the corpus's type */
 extern unsigned char g_fish_food;   /* PORT: the corpus's type */
 extern int16_t g_flag_1d04;
@@ -907,7 +907,7 @@ extern int g_foreign_owner;   /* PORT: the corpus's type */
 extern Pattern g_forest_pattern;
 extern int16_t g_fort_word_1;
 extern int16_t g_fort_word_2;
-extern int g_founding_word[];   /* PORT: the corpus's type */
+extern i16 g_founding_word[6];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int32_t g_frr_resource_type;
 extern int16_t g_game_flags;
 extern uint8_t g_game_flags_hi;
@@ -923,7 +923,7 @@ extern int g_goods_drag_amount;   /* PORT: the corpus's type */
 extern int g_goods_drag_from_market;   /* PORT: the corpus's type */
 extern int g_goods_drag_slot;   /* PORT: the corpus's type */
 extern signed char g_goods_input[];   /* PORT: the corpus's type */
-extern int g_goods_name_word[];   /* PORT: the corpus's type */
+extern i16 g_goods_name_word[20];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int8_t g_goods_sprites[][32];
 extern unsigned char g_goods_value[][16];   /* PORT: the corpus's type */
 extern signed char g_goods_wanted[];   /* PORT: the corpus's type */
@@ -953,7 +953,7 @@ extern Sprite g_icon_sprites[0x84];   /* PORT: the corpus's type */
 extern char g_in_accel;   /* PORT: the corpus's type */
 extern Font g_info_font_large;   /* PORT: the corpus's type */
 extern Font g_info_font_small;   /* PORT: the corpus's type */
-extern int g_info_label[];   /* PORT: the corpus's type */
+extern i16 g_info_label[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xda50 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int8_t g_info_win;
 extern char g_info_win_dlg;   /* PORT: the corpus's type */
 extern int16_t g_intervention_nation;
@@ -1047,8 +1047,8 @@ extern int16_t g_human_turn_active;
 extern int16_t g_end_of_turn_pending;
 extern void (*g_midi_done_cb)(void);   /* PORT: the files' type */
 extern u16 g_military_power[4];   /* PORT: Borland's 16-bit int: load_game_file reads it from the save as raw bytes (save_read_field), so a 4-byte int got the words packed or kept a stale upper half (W6) */
-extern int g_misc_words[];   /* PORT: the corpus's type */
-extern int g_mission_word[];   /* PORT: the corpus's type */
+extern i16 g_misc_words[221];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xda50 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
+extern i16 g_mission_word[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int g_modal_active;   /* PORT: the corpus's type */
 extern int g_modal_done;   /* PORT: the corpus's type */
 extern EventWin *g_modal_win;   /* PORT: the corpus's type */
@@ -1071,16 +1071,16 @@ extern int8_t g_version_number[];
 extern int8_t g_version_date[];
 extern char g_name_slots[][80];   /* PORT: the corpus's type */
 extern int16_t g_nation3_prefix_word;
-extern int g_nation_abbrev[];   /* PORT: the corpus's type */
-extern int g_nation_adjective[];   /* PORT: the corpus's type */
+extern i16 g_nation_abbrev[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
+extern i16 g_nation_adjective[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern unsigned char g_nation_armed_ships[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_cargo_capacity[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_colony_count[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_colour[];   /* PORT: the corpus's type */
 extern unsigned char g_nation_free_colonists[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_land_strength[4];   /* PORT: the corpus's type */
-extern int g_nation_name[];   /* PORT: the corpus's type */
-extern int g_nation_name_word[];   /* PORT: the corpus's type */
+extern i16 g_nation_name[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
+extern i16 g_nation_name_word[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern unsigned char g_nation_population[4];   /* PORT: the corpus's type */
 extern unsigned char g_nation_region[][16];   /* PORT: the corpus's type */
 extern unsigned char g_nation_region_strength[][16];   /* PORT: the corpus's type */
@@ -1112,7 +1112,7 @@ extern int32_t g_opening_restypes[4];
 extern GameWin g_opening_win;   /* PORT: the corpus's type */
 extern unsigned char g_order_flags[];   /* PORT: the corpus's type */
 extern char g_order_letter[];   /* PORT: the corpus's type */
-extern int g_order_word[];   /* PORT: the corpus's type */
+extern i16 g_order_word[13];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern signed char g_ortho_dx[];   /* PORT: the corpus's type */
 extern signed char g_ortho_dy[];   /* PORT: the corpus's type */
 extern int16_t g_over_band[];
@@ -1138,7 +1138,7 @@ extern int g_pedia_count;   /* PORT: the corpus's type */
 extern int8_t g_pedia_ctx;
 extern int g_pedia_mode;   /* PORT: the corpus's type */
 extern int g_pedia_page;   /* PORT: the corpus's type */
-extern int g_pedia_word[];   /* PORT: the corpus's type */
+extern i16 g_pedia_word[30];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int g_pending_col;   /* PORT: the corpus's type */
 extern int g_pending_row;   /* PORT: the corpus's type */
 extern int g_pending_flag;   /* PORT: the corpus's type */
@@ -1217,7 +1217,7 @@ extern char g_restype_strn[4];   /* PORT: the corpus's type */
 extern unsigned g_resource_lib_count;   /* PORT: the corpus's type */
 extern uint16_t g_resource_library;
 extern unsigned g_resource_libs[];   /* PORT: the corpus's type */
-extern int g_resource_name[];   /* PORT: the corpus's type */
+extern i16 g_resource_name[14];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern unsigned char g_resource_value[];   /* PORT: the corpus's type */
 extern int32_t g_restype_crds;
 extern int32_t g_restype_cred;
@@ -1226,7 +1226,7 @@ extern int16_t g_reveal_all;
 extern unsigned char g_ring_tile_count[];   /* PORT: the corpus's type */
 extern signed char g_ring_dx[];   /* PORT: the corpus's type */
 extern signed char g_ring_dy[];   /* PORT: the corpus's type */
-extern int g_route_label[];   /* PORT: the corpus's type */
+extern i16 g_route_label[7];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern Sprite g_route_panel_sprite;   /* PORT: the corpus's type */
 extern int g_route_stop;   /* PORT: the corpus's type */
 extern int g_route_unit;   /* PORT: the corpus's type */
@@ -1448,7 +1448,7 @@ extern unsigned char g_val_a;   /* PORT: the corpus's type */
 extern unsigned char g_val_b;   /* PORT: the corpus's type */
 extern unsigned char g_val_c;   /* PORT: the corpus's type */
 extern int16_t g_value[];
-extern int g_value_word[];   /* PORT: the corpus's type */
+extern i16 g_value_word[4];   /* PORT: Borland's 16-bit int (i16), so it can lie in the SEG20 span at 0xd182 (gen_globals.SPANS): the tribe tables are read past their end with a nation index (W6) */
 extern int g_view_h;   /* PORT: the corpus's type */
 extern int16_t g_view_mode;
 extern int16_t g_view_nation;

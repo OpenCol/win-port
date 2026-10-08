@@ -257,10 +257,12 @@ def native(save, turns, seconds=1800, calls=None):
     lines += ["srand %d" % x["seed"] for x in d["seeds"]]
     lines += ["l17 %d" % x["seed"] for x in d["l17_seeds"]]
     open(os.path.join(work, "lockstep.txt"), "w").write("\n".join(lines) + "\n")
-    benv = dict(os.environ, PORT_INSTRUMENT="1", PORT_TRACE_FNS=calls) if calls else os.environ
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "undefined.py")], capture_output=True, text=True, env=benv)
-    if "links" not in r.stdout:
-        sys.exit("the port does not link:\n" + r.stdout[-1500:])
+    # LOCKSTEP_NO_BUILD=1: runs in parallel share one build, made beforehand (a link each would race)
+    if not os.environ.get("LOCKSTEP_NO_BUILD"):
+        benv = dict(os.environ, PORT_INSTRUMENT="1", PORT_TRACE_FNS=calls) if calls else os.environ
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "undefined.py")], capture_output=True, text=True, env=benv)
+        if "links" not in r.stdout:
+            sys.exit("the port does not link:\n" + r.stdout[-1500:])
     t0 = time.time()
     # the oracle's display, 640 x 480: the screen metrics and WM_GETMINMAXINFO say so in a lockstep
     # run (src/host), which is what places a maximized window; the 640 x 480 Wine desktop does the
