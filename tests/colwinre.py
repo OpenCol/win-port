@@ -100,10 +100,43 @@ WINE11 = os.path.join("analysis", "dynamic", "runtime", "wine-11.18", "Wine Deve
                       "wine", "bin", "wine")
 
 
+# $PORT_TARGET: which build the tests run -- win32 (build/colonize.exe, MinGW, under Wine on this
+# machine) or linux (build/linux/colonize.exe.so, Winelib, roadmap W8: under Wine in the
+# OrbStack Linux machine, tools/linux/wine). Each target has its own run directories and
+# status records (suffix "-linux").
+def target():
+    t = os.environ.get("PORT_TARGET", "win32")
+    if t not in ("win32", "linux"):
+        sys.exit("PORT_TARGET: win32 or linux")
+    return t
+
+
+def suffix():
+    return "" if target() == "win32" else "-" + target()
+
+
+def port_exe():
+    if os.environ.get("PORT_EXE"):
+        return os.path.abspath(os.environ["PORT_EXE"])
+    if target() == "linux":
+        return os.path.join(ROOT, "build", "linux", "colonize.exe.so")
+    return os.path.join(ROOT, "build", "colonize.exe")
+
+
+def build_command():
+    """the command that builds the target's program (tools/undefined.py; for linux, in the machine)"""
+    if target() == "linux":
+        return ["orb", "-m", os.environ.get("PORT_LINUX_MACHINE", "colw8"), "-w", ROOT, "env", "PORT_TOOLCHAIN=winegcc",
+                "python3", os.path.join(ROOT, "tools", "undefined.py")]
+    return [sys.executable, os.path.join(ROOT, "tools", "undefined.py")]
+
+
 def wine():
     import shutil
     if os.environ.get("PORT_WINE"):
         return os.environ["PORT_WINE"]
+    if target() == "linux":
+        return os.path.join(ROOT, "tools", "linux", "wine")
     for p in (os.environ.get("COL_WIN_RE"), os.path.join(ROOT, "..", "..", "dderevjanik", "col-win-re")):
         if p and os.path.exists(os.path.join(p, WINE11)):
             return os.path.abspath(os.path.join(p, WINE11))

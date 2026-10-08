@@ -45,7 +45,11 @@ jobs:
           if [ "${{ matrix.toolchain }}" = mingw-i686 ]; then
             sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
           else
-            sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib
+            # i386: the link (W8) needs Wine's 32-bit import libraries and runtime
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -q
+            sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib \
+              libwine-dev:i386 wine32:i386
             # the package keeps winegcc off PATH and ships no wineg++: winegcc picks C or C++ by the
             # name it runs under, so both names link to it
             w=$(command -v winegcc || dpkg -L wine64-tools | grep -E '/winegcc$' | head -1)
@@ -80,6 +84,9 @@ jobs:
       - name: It links, only the W4/W5 backlog trapped (W2)
         if: matrix.toolchain == 'mingw-i686'
         run: python3 tools/undefined.py
+      - name: The Linux program links (W8, Winelib i386)
+        if: matrix.toolchain == 'winegcc'
+        run: PORT_TOOLCHAIN=winegcc python3 tools/undefined.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

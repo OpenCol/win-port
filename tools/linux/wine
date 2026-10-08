@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""$PORT_WINE for the Linux build (roadmap W8): Wine inside the OrbStack Linux machine
+$PORT_LINUX_MACHINE (default colw8, amd64 Ubuntu 24.04 with wine, wine32:i386, winegcc, xvfb).
+OrbStack shows the Mac's files at the same paths in the machine, so the Z:\\ paths the tests
+write (run_port, lockstep, sessions) name the same files on both sides. The harness stays on
+the Mac; only the program runs on Linux, under an X server of its own (Xvfb, 1024x768x24).
+
+    PORT_WINE=tools/linux/wine PORT_EXE=build/linux/colonize.exe.so python3 tools/run_port.py ...
+
+The environment the port reads ($PORT_*, $WINEDEBUG) is passed on; the prefix is the
+machine's own (build/wineprefix-linux)."""
+import os
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+machine = os.environ.get("PORT_LINUX_MACHINE", "colw8")
+# a $PORT_* value that is a Mac path (PORT_LOG=/Users/...) becomes the Z: path the program's
+# C runtime (Wine's msvcrt) opens; Z:\ paths and other values pass as they are
+env = ["%s=%s" % (k, "Z:" + v.replace("/", "\\") if k.startswith("PORT_") and k not in ("PORT_WINE", "PORT_EXE")
+                  and v.startswith("/") else v)
+       for k, v in sorted(os.environ.items()) if k.startswith("PORT_") or k == "WINEDEBUG"]
+env.append("WINEPREFIX=" + os.path.join(ROOT, "build", "wineprefix-linux"))
+tool = os.path.basename(sys.argv[0])            # wine, or wineserver (a link to this file)
+cmd = ["orb", "-m", machine, "-w", os.getcwd(), "env"] + env
+if tool == "wine":
+    cmd += ["xvfb-run", "-a", "-s", "-screen 0 1024x768x24", "wine"]
+else:
+    cmd += [tool]
+os.execvp("orb", cmd + sys.argv[1:])

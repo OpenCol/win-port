@@ -35,23 +35,29 @@ static unsigned nfix;
 
 static unsigned r16(const unsigned char *p) { return p[0] | p[1] << 8; }
 
+/* kernel32 and the process heap, not the C runtime: this runs as a constructor, and in the
+   Linux build (Winelib, W8) a constructor runs before Wine's msvcrt is set up -- fopen and
+   malloc are not ready yet, CreateFile and HeapAlloc are */
+static void *zalloc(size_t n)
+{
+    return HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, n ? n : 1);
+}
+
 static int read_image(const char *path)
 {
-    FILE *f = fopen(path, "rb");
+    HANDLE f = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
     unsigned char *exe;
-    long size;
+    DWORD size, got = 0;
     unsigned ne, segtab, shift, i;
-    if (!f)
+    if (f == INVALID_HANDLE_VALUE)
         return 0;
-    fseek(f, 0, SEEK_END);
-    size = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    exe = malloc((size_t)size);
-    if (fread(exe, 1, (size_t)size, f) != (size_t)size) {
-        fclose(f);
+    size = GetFileSize(f, 0);
+    exe = zalloc(size);
+    if (!ReadFile(f, exe, size, &got, 0) || got != size) {
+        CloseHandle(f);
         return 0;
     }
-    fclose(f);
+    CloseHandle(f);
     ne = r16(exe + 0x3c);
     nsegs = r16(exe + ne + 0x1c);
     segtab = ne + r16(exe + ne + 0x22);
@@ -66,7 +72,7 @@ static int read_image(const char *path)
         segs[i + 1].is_data = flags & 1;
         if (!segs[i + 1].is_data)
             continue;
-        segs[i + 1].data = calloc(1, alloc > n ? alloc : n);
+        segs[i + 1].data = zalloc(alloc > n ? alloc : n);
         segs[i + 1].length = alloc > n ? alloc : n;
         if (off)
             memcpy(segs[i + 1].data, exe + ((size_t)off << shift), n);
@@ -128,7 +134,7 @@ static void *map_far(unsigned tseg, unsigned toff)
     }
     /* no global: a literal; point into a private copy of its segment */
     if (!segs[tseg].shadow) {
-        segs[tseg].shadow = malloc(segs[tseg].length);
+        segs[tseg].shadow = zalloc(segs[tseg].length);
         memcpy(segs[tseg].shadow, segs[tseg].data, segs[tseg].length);
     }
     return segs[tseg].shadow + toff;
@@ -146,7 +152,14 @@ static int fixup_at(unsigned seg, unsigned off, unsigned *tseg, unsigned *toff)
     return 0;
 }
 
-__attribute__((constructor(101))) static void port_load_initial_data(void)
+/* how many globals the loader filled (-1: COLONIZE.EXE was not read): the Linux build's start
+   reports it, its trace from here being too early to write */
+int w16_initial_loaded = -1;
+
+#ifndef __WINE__
+__attribute__((constructor(101))) static
+#endif
+void port_load_initial_data(void)
 {
     unsigned i, k, loaded = 0, unmapped = 0;
     if (!read_image("COLONIZE.EXE")) {
@@ -202,5 +215,6 @@ __attribute__((constructor(101))) static void port_load_initial_data(void)
         }
     }
     w16_trace("initial data: %u globals from COLONIZE.EXE, %u relocations (%u to no function)", loaded, nfix, unmapped);
+    w16_initial_loaded = (int)loaded;
     (void)fixup_at;
 }

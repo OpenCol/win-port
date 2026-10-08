@@ -246,7 +246,7 @@ def wine_path(p):
 def native(save, turns, seconds=1800, calls=None):
     name, path = scenario(save)
     d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
-    work = os.path.join(OUT, name + ".native")
+    work = os.path.join(OUT, name + ".native" + colwinre.suffix())
     os.makedirs(work, exist_ok=True)
     for old in ("native.cp", "native.log"):
         if os.path.exists(os.path.join(work, old)):
@@ -260,7 +260,7 @@ def native(save, turns, seconds=1800, calls=None):
     # LOCKSTEP_NO_BUILD=1: runs in parallel share one build, made beforehand (a link each would race)
     if not os.environ.get("LOCKSTEP_NO_BUILD"):
         benv = dict(os.environ, PORT_INSTRUMENT="1", PORT_TRACE_FNS=calls) if calls else os.environ
-        r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "undefined.py")], capture_output=True, text=True, env=benv)
+        r = subprocess.run(colwinre.build_command(), capture_output=True, text=True, env=benv)
         if "links" not in r.stdout:
             sys.exit("the port does not link:\n" + r.stdout[-1500:])
     t0 = time.time()
@@ -366,7 +366,7 @@ def compare(save, quiet=False):
     d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
     raw = json.load(gzip.open(os.path.join(OUT, name + ".oracle.raw.gz"), "rt"))
     ora = [(cp["turn"], cp["step"], blocks) for cp, blocks in zip(d["checkpoints"], raw)]
-    nat = native_checkpoints(os.path.join(OUT, name + ".native", "native.cp"))
+    nat = native_checkpoints(os.path.join(OUT, name + ".native" + colwinre.suffix(), "native.cp"))
     # the oracle's machine also writes GameBrains.step before a game exists (its constructor's
     # stores): its run is compared from the checkpoint where the port's starts
     if nat:
@@ -420,7 +420,7 @@ def compare_full(save, limit=12):
     full = pickle.load(gzip.open(os.path.join(OUT, name + ".oracle.full.gz"), "rb"))
     d = json.load(open(os.path.join(OUT, name + ".oracle.json")))
     keys = [(c["turn"], c["step"]) for c in d["checkpoints"]]
-    nat = native_checkpoints(os.path.join(OUT, name + ".native", "native.cp"))
+    nat = native_checkpoints(os.path.join(OUT, name + ".native" + colwinre.suffix(), "native.cp"))
     k0 = next((k for k, key in enumerate(keys) if key == (nat[0]["turn"], nat[0]["step"])), 0) if nat else 0
     for k, n in enumerate(nat):
         if k0 + k >= len(full):
@@ -535,7 +535,7 @@ def compare_calls(save, regex, context=4):
     spec.loader.exec_module(tr)
     kinds_of = {n: k for n, _a, k in tr.framework(regex)}
     o = [l.rstrip("\n") for l in open(os.path.join(OUT, name + ".oracle.calls"))]
-    n = [l.rstrip("\n") for l in open(os.path.join(OUT, name + ".native", "native.calls"))]
+    n = [l.rstrip("\n") for l in open(os.path.join(OUT, name + ".native" + colwinre.suffix(), "native.calls"))]
     n = [re.sub(r"^checkpoint \d+ ", "", l[2:]) if l.startswith("# ") else native_call_line(l, kinds_of) for l in n]
     o = [l[2:] if l.startswith("# ") else l.rstrip() for l in o]
     first = next((l for l in n if l.startswith("turn ")), None)
@@ -556,7 +556,7 @@ def compare_calls(save, regex, context=4):
 def record(save, same, total, first):
     """merge one scenario's result into status/lockstep.json (a ledger: other scenarios stay)"""
     name, path = scenario(save)
-    p = os.path.join(ROOT, "status", "lockstep.json")
+    p = os.path.join(ROOT, "status", "lockstep%s.json" % colwinre.suffix())
     import fcntl                                  # runs in parallel record into one ledger
     lock = open(p + ".lock", "w")
     fcntl.flock(lock, fcntl.LOCK_EX)
@@ -577,7 +577,7 @@ def unknown_bytes(save):
     """how much of each field the port's dump cannot speak for (pointers, layouts not shared)"""
     name, _path = scenario(save)
     E = recorder_module()
-    nat = native_checkpoints(os.path.join(OUT, name + ".native", "native.cp"))
+    nat = native_checkpoints(os.path.join(OUT, name + ".native" + colwinre.suffix(), "native.cp"))
     if not nat:
         return {}
     return {f: m.count(0) for f, (_b, m) in native_blocks(nat[-1], E).items() if m.count(0)}

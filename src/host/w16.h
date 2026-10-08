@@ -15,7 +15,15 @@
 
 #define W16_STR2(x) #x
 #define W16_STR(x) W16_STR2(x)
+#ifdef __WINE__
+/* Winelib (W8): an ELF stdcall symbol is undecorated, so `GlobalAlloc` would be both this
+   function and the Win32 one it calls -- it would call itself. The function keeps its C name
+   here (w16_GlobalAlloc), and the game's objects have their references renamed to it
+   (tools/undefined.py: objcopy --redefine-syms, from these W16() lines). */
+#define W16(name)
+#else
 #define W16(name) __asm__(W16_STR(__USER_LABEL_PREFIX__) #name)
+#endif
 
 /* the game's geometry: 16-bit, as include/gen/w16types.h has them */
 typedef struct { int16_t left, top, right, bottom; } RECT16;

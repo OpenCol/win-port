@@ -32,7 +32,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tests"))
 import colwinre               # noqa: E402
 
-OUT = os.path.join(ROOT, "build", "sessions")
+OUT = os.path.join(ROOT, "build", "sessions" + colwinre.suffix())
 RETURN, ESCAPE, DOWN = 0x0D, 0x1B, 0x28
 LOAD = [("key", DOWN), ("key", DOWN), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "loaded")]
 OK = (112, 123)                          # the Ok of the difficulty and nation screens, in their window
@@ -135,7 +135,7 @@ def main(argv):
         ok = os.path.exists(os.path.join(OUT, "save", "SESSION.SAV"))
         print("save: SESSION.SAV %s" % ("written" if ok else "MISSING"))
     if "--record" in argv:
-        with open(os.path.join(ROOT, "status", "sessions.json"), "w") as f:
+        with open(os.path.join(ROOT, "status", "sessions%s.json" % colwinre.suffix()), "w") as f:
             json.dump({n: {"verdict": r["verdict"], "snapshots": len(r["snapshots"])} for n, r in res.items()}, f,
                       indent=1, sort_keys=True)
             f.write("\n")

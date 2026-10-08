@@ -36,6 +36,8 @@ static void line(const char *tag, uintptr_t v)
     put("\n");
 }
 
+void w16_crash_install(void);
+
 static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
 {
     static volatile LONG busy;
@@ -49,8 +51,16 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
         return EXCEPTION_CONTINUE_SEARCH;
     line("crash code ", code);
     line("crash at ", (uintptr_t)e->ExceptionRecord->ExceptionAddress);
+    line("crash anchor ", (uintptr_t)w16_crash_install);   /* where the program was loaded: a Winelib
+                                                             build's addresses less nm's for this */
     if (code == EXCEPTION_ACCESS_VIOLATION)
         line("crash address ", (uintptr_t)e->ExceptionRecord->ExceptionInformation[1]);
+#ifdef __i386__
+    line("crash eax ", e->ContextRecord->Eax);
+    line("crash ecx ", e->ContextRecord->Ecx);
+    line("crash edx ", e->ContextRecord->Edx);
+    line("crash esp ", e->ContextRecord->Esp);
+#endif
     lo = (uintptr_t)tib->StackLimit;
     hi = (uintptr_t)tib->StackBase;
     bp = (uintptr_t *)e->ContextRecord->Ebp;
@@ -73,7 +83,12 @@ static void on_exit_(void)
         put("exit: the program returned or called exit()\n");
 }
 
-__attribute__((constructor)) static void install(void)
+/* At startup (a constructor) on Windows; on Winelib an ELF constructor runs before Wine's C
+   runtime has the environment, so the Linux build's start calls it (w16_winelib.c) */
+#ifndef __WINE__
+__attribute__((constructor))
+#endif
+void w16_crash_install(void)
 {
     const char *log = getenv("PORT_LOG");
     if (log)

@@ -4,6 +4,9 @@
     python3 tools/undefined.py              # build objects, report what is undefined or twice defined
     python3 tools/undefined.py --list       # every undefined symbol, with the objects that want it
     python3 tools/undefined.py --record     # also write status/link.json (tools/status.py reads it)
+    PORT_TOOLCHAIN=winegcc python3 tools/undefined.py
+                                            # the Linux build (W8): Winelib, 32-bit, objects in
+                                            # build/obj-winegcc, the program build/linux/colonize.exe(.so)
 
 Every file in src/ is compiled to an object (MinGW i686, -O0; objects are cached in
 build/obj by modification time, and a header change rebuilds all). `nm` gives each object's
@@ -34,9 +37,18 @@ import compile_all as ca      # noqa: E402
 # PORT_INSTRUMENT=1: the game compiled with -finstrument-functions (src/host/w16_instrument.c
 # watches the call depth), in its own object directory
 INSTRUMENT = bool(os.environ.get("PORT_INSTRUMENT"))
-OBJ = os.path.join(ROOT, "build", "obj-instrument" if INSTRUMENT else "obj")
-NM = "i686-w64-mingw32-nm"
-CC, CXX, _ = ca.TOOLCHAINS["mingw-i686"]
+# PORT_TOOLCHAIN=winegcc: Winelib (W8) -- ELF objects, no leading underscore on C names, the
+# program a Winelib executable (colonize.exe.so, run with wine)
+TOOLCHAIN = os.environ.get("PORT_TOOLCHAIN", "mingw-i686")
+WINELIB = TOOLCHAIN == "winegcc"
+OBJ = os.path.join(ROOT, "build", ("obj-instrument" if INSTRUMENT else "obj") + ("-winegcc" if WINELIB else ""))
+NM = "nm" if WINELIB else "i686-w64-mingw32-nm"
+CC, CXX, _ = ca.TOOLCHAINS[TOOLCHAIN]
+# -mno-cygwin: Wine's msvcrt, as MinGW's -- io.h, _stricmp, and fopen of a Z:\ path (the tests
+# name files that way), not glibc's
+M32 = ["-m32", "-mno-cygwin"] if WINELIB else []
+PREFIX = "" if WINELIB else "_"            # __USER_LABEL_PREFIX__
+EXE = os.path.join(ROOT, "build", "linux", "colonize.exe") if WINELIB else os.path.join(ROOT, "build", "colonize.exe")
 
 
 def headers_mtime():
@@ -50,18 +62,45 @@ def obj_path(src):
     return os.path.join(OBJ, os.path.splitext(rel)[0] + ".o")
 
 
+def w16_syms():
+    """Winelib: OBJ/w16.syms, `Name w16_Name` for each W16(Name) the platform layer defines
+    (src/host/w16.h) -- objcopy --redefine-syms points the game's calls at them."""
+    pairs = {}
+    for f in sorted(glob.glob(os.path.join(ROOT, "src", "host", "*.c"))):
+        lines = open(f).read().splitlines()
+        for i, line in enumerate(lines):
+            m = re.search(r"W16\((\w+)\)\s*;", line)
+            if m:      # `unsigned w16_GetDC(unsigned h) W16(GetDC);`, its parameters perhaps on more lines
+                text = "\n".join(lines[max(0, i - 3):i + 1])
+                fns = [n for n in re.findall(r"(\w+)\s*\(", text) if n != "W16"]
+                pairs[m.group(1)] = next((n for n in reversed(fns) if n.startswith("w16_")), fns[-1])
+    path = os.path.join(OBJ, "w16.syms")
+    text = "".join("%s %s\n" % kv for kv in sorted(pairs.items()))
+    os.makedirs(OBJ, exist_ok=True)
+    if not os.path.exists(path) or open(path).read() != text:
+        open(path, "w").write(text)
+    return path
+
+
 def build(src, hdr):
     o = obj_path(src)
+    if WINELIB:
+        hdr = max(hdr, os.path.getmtime(build.syms))
     if os.path.exists(o) and os.path.getmtime(o) > max(os.path.getmtime(src), hdr):
         return o, None
     os.makedirs(os.path.dirname(o), exist_ok=True)
     cpp = ca.is_cpp(src)
-    cmd = ([CXX, "-x", "c++", "-std=gnu++03"] if cpp else [CC, "-x", "c", "-std=gnu99"]) + [
+    cmd = ([CXX, "-x", "c++", "-std=gnu++03"] if cpp else [CC, "-x", "c", "-std=gnu99"]) + M32 + [
         "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer", "-fno-asynchronous-unwind-tables"] + (
         ["-finstrument-functions"] if INSTRUMENT and "/src/host/" not in src else []) + [
         "-fno-common",
         "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", o, src]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace", stdin=subprocess.DEVNULL, timeout=300)
+    if not r.returncode and WINELIB and "/src/host/" not in src:
+        # and its static constructors out of .init_array: on Winelib the dynamic loader would run
+        # them before Wine is up, before the initial data; w16_winelib.c runs port_ctors after it
+        r = subprocess.run(["objcopy", "--redefine-syms=" + build.syms, "--rename-section",
+                            ".init_array=port_ctors", o], capture_output=True, text=True)
     if r.returncode:
         if os.path.exists(o):
             os.remove(o)
@@ -73,7 +112,10 @@ def build(src, hdr):
 # stdcall `_FreeLibrary@4`, which would unbalance the stack; the call stays undefined (W4)
 # -static: the C++ runtime (libstdc++, libgcc) goes into the executable, not beside it as DLLs
 # --disable-dynamicbase: a fixed image base, so a crash address names the same code each run
-LIBS = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-Wl,--stack,67108864", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+LIBS_MINGW = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-Wl,--stack,67108864", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+# Winelib: the import libraries are Wine's; libstdc++ is the host's (a shared ELF library);
+# --wrap=WinMain: the game runs on a thread with the 64 MB stack (src/host/w16_winelib.c)
+LIBS = ["-m32", "-mno-cygwin", "-mwindows", "-Wl,--wrap=WinMain", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"] if WINELIB else LIBS_MINGW
 UNDEF = re.compile(r"undefined reference to `([^']+)'")
 TWICE = re.compile(r"multiple definition of `([^']+)'")
 
@@ -95,16 +137,17 @@ def alias_flags():
         for line in open(p):
             if line.strip() and not line.startswith("#"):
                 n, c, off = line.split()
-                out.append("-Wl,--defsym,_%s=_%s+%s" % (n, c, off))
+                out.append("-Wl,--defsym,%s%s=%s%s+%s" % (PREFIX, n, PREFIX, c, off))
     return out
 
 
 def link(objs):
     """{symbol: [objects that want it]}, {symbol: [objects that define it]} from the linker."""
-    lst = os.path.join(ROOT, "build", "link.rsp")
+    lst = os.path.join(OBJ, "link.rsp")
     with open(lst, "w") as f:
         f.write("\n".join(objs) + "\n")
-    exe = os.path.join(ROOT, "build", "colonize.exe")
+    exe = EXE
+    os.makedirs(os.path.dirname(exe), exist_ok=True)
     r = subprocess.run([CXX, "-o", exe, "@" + lst, "-Wl,--no-demangle"] + alias_flags() + LIBS,
                        capture_output=True, text=True, errors="replace")
     undefined, twice = collections.defaultdict(set), collections.defaultdict(set)
@@ -125,7 +168,7 @@ def demangle(names):
     names = list(names)
     if not names:
         return {}
-    r = subprocess.run(["i686-w64-mingw32-c++filt", "-_"], input="\n".join(names), capture_output=True, text=True)
+    r = subprocess.run(["c++filt"] if WINELIB else ["i686-w64-mingw32-c++filt", "-_"], input="\n".join(names), capture_output=True, text=True)
     return dict(zip(names, r.stdout.splitlines()))
 
 
@@ -136,7 +179,7 @@ def win16_names():
 
 def classify(sym, demangled, api):
     """The backlog an undefined symbol belongs to."""
-    plain = sym[1:] if sym.startswith("_") else sym
+    plain = sym[len(PREFIX):] if PREFIX and sym.startswith(PREFIX) else sym
     if plain.upper() in api or plain.upper().lstrip("_") in api:
         return "win16 API (W4: src/platform maps it to Win32)"
     if plain.startswith("asm_") or re.match(r"L1[789]_[0-9a-f]{4}$", plain):
@@ -154,7 +197,7 @@ BACKLOGS = ("win16 API (W4: src/platform maps it to Win32)", "assembly (W5: src/
 def trap_link(objs, names):
     """Link again with a trap for each backlog symbol (build/backlog.c, not committed): the
     executable exists, and calling a function not yet ported says which and stops."""
-    src = os.path.join(ROOT, "build", "backlog.c")
+    src = os.path.join(OBJ, "backlog.c")
     # a GUI program has no stderr, and abort() opens a dialog that waits: the trap writes the
     # name to $PORT_LOG (tools/run_port.py reads it) and leaves with exit code 3
     lines = ["/* GENERATED by tools/undefined.py: the W4/W5 backlog, trapped. Not committed. */",
@@ -165,12 +208,12 @@ def trap_link(objs, names):
              "  if (f) { fprintf(f, \"unported %s\\n\", name); fclose(f); }",
              "  fprintf(stderr, \"not ported yet: %s\\n\", name); ExitProcess(3); }"]
     for sym in sorted(names):
-        c = sym[1:] if sym.startswith("_") else sym
+        c = sym[len(PREFIX):] if sym.startswith(PREFIX) else sym
         lines.append("void %s(void) { unported(\"%s\"); }" % (c, c))
     with open(src, "w") as f:
         f.write("\n".join(lines) + "\n")
-    obj = os.path.join(ROOT, "build", "backlog.o")
-    r = subprocess.run([CC, "-c", "-w", "-o", obj, src], capture_output=True, text=True)
+    obj = os.path.join(OBJ, "backlog.o")
+    r = subprocess.run([CC] + M32 + ["-c", "-w", "-o", obj, src], capture_output=True, text=True)
     if r.returncode:
         return False, r.stderr
     undefined, twice, ok = link(objs + [obj])
@@ -208,6 +251,8 @@ def measure():
     if INSTRUMENT:
         srcs = srcs + [trace_table()]
     hdr = headers_mtime()
+    if WINELIB:
+        build.syms = w16_syms()
     with concurrent.futures.ThreadPoolExecutor(os.cpu_count() or 4) as ex:
         built = list(ex.map(lambda s: build(s, hdr), srcs))
     failed = [(s, err) for s, (o, err) in zip(srcs, built) if o is None]
@@ -248,7 +293,7 @@ def main(argv):
     linked = False
     if gate:
         linked, err = trap_link(measure.objs, [n for g in BACKLOGS for n in groups.get(g, [])])
-        print("with the backlog trapped: %s" % ("build/colonize.exe links" if linked else "still fails: " + err))
+        print("with the backlog trapped: %s" % ("%s links" % os.path.relpath(EXE, ROOT) if linked else "still fails: " + err))
     ok = gate and linked
     if "--record" in argv:
         out = {"objects": len(srcs) - len(failed), "sources": len(srcs), "links": linked, "gate": ok,
@@ -256,7 +301,8 @@ def main(argv):
                "outside_backlog": sorted(n for ns in outside.values() for n in ns),
                "backlog": {g: sorted(n[1:] if n.startswith("_") else n for n in groups.get(g, []))
                            for g in BACKLOGS}}
-        with open(os.path.join(ROOT, "status", "link.json"), "w") as fh:
+        out["toolchain"] = TOOLCHAIN
+        with open(os.path.join(ROOT, "status", "link-winegcc.json" if WINELIB else "link.json"), "w") as fh:
             json.dump(out, fh, indent=1, sort_keys=True)
             fh.write("\n")
     return 0 if ok else 1

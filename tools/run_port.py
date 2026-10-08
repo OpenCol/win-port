@@ -29,7 +29,10 @@ sys.path.insert(0, os.path.join(ROOT, "tests"))
 import colwinre               # noqa: E402
 
 EXE = os.path.join(ROOT, "build", "colonize.exe")
-RUN = os.path.join(ROOT, "build", "run")
+# $PORT_EXE: another build of the port, e.g. the Linux one (W8: build/linux/colonize.exe.so, run
+# with PORT_WINE=tools/linux/wine); a Winelib build's addresses are not resolved here
+EXE = colwinre.port_exe()          # $PORT_TARGET=linux: build/linux/colonize.exe.so
+RUN = os.path.join(ROOT, "build", "run" + colwinre.suffix())
 RUN = os.environ.get("PORT_RUN_DIR") or RUN   # a run of its own (tests/lockstep.py: one per scenario)
 
 
