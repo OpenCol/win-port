@@ -20,6 +20,8 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/sessions.json python3 tests/sessions.py --record
     status/human_pass.json  by hand: the W7 checklist, ticked by the person who played
     status/saves.json    python3 tests/sessions.py --saves --record
+    status/link-winegcc.json, status/lockstep-linux.json, status/sessions-linux.json
+                         the same three for the Linux build (W8: PORT_TOOLCHAIN=winegcc, PORT_TARGET=linux)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -153,6 +155,39 @@ def w7():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def same_as_windows(target):
+    """W8/W9's gate for one target: its lockstep and session records against the Windows build's
+    -- every scenario with the same checkpoints in lockstep, every session the same verdict.
+    Returns (done, parts)."""
+    parts, done = [], True
+    lk = rec("link-%s" % {"linux": "winegcc"}.get(target, target))
+    if lk:
+        parts.append("%s program %s (%d/%d objects)" % (target, "links" if lk["links"] else "does NOT link",
+                                                        lk["objects"], lk["sources"]))
+        done &= bool(lk["gate"])
+    else:
+        parts.append("%s link: not recorded" % target)
+        done = False
+    win, mine = (rec("lockstep") or {}).get("scenarios", {}), (rec("lockstep-" + target) or {}).get("scenarios", {})
+    match = [k for k, v in win.items() if k in mine and mine[k]["checkpoints"] == v["checkpoints"]
+             and mine[k]["in_lockstep"] == v["in_lockstep"] == v["checkpoints"]]
+    parts.append("lockstep: %d of the Windows build's %d scenarios the same (%d/%d checkpoints)" % (
+        len(match), len(win), sum(mine[k]["in_lockstep"] for k in mine), sum(mine[k]["checkpoints"] for k in mine)))
+    done &= bool(win) and len(match) == len(win)
+    ws, ms = rec("sessions") or {}, rec("sessions-" + target) or {}
+    smatch = [k for k, v in ws.items() if k in ms and ms[k]["verdict"] == v["verdict"]]
+    parts.append("UI sessions: %d of %d the same verdict as Windows (%d pass)" % (
+        len(smatch), len(ws), sum(1 for v in ms.values() if v["verdict"] == "pass")))
+    done &= bool(ws) and len(smatch) == len(ws)
+    return done, parts
+
+
+def w8():
+    done, parts = same_as_windows("linux")
+    parts.append("W3-W5 harnesses run on Windows only (the lockstep compares every modelled global)")
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 def w6():
     a = rec("lockstep")
     if not a or not a.get("scenarios"):
@@ -201,7 +236,8 @@ ROWS = [
     ("W5", "asm", w5, "tests/asm.py --record"),
     ("W6", "lockstep", w6, "tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)"),
     ("W7", "playable", w7, "tests/sessions.py --record; saves both ways; status/human_pass.json"),
-    ("W8", "linux", None, "winegcc build through W3-W7"),
+    ("W8", "linux", w8, "PORT_TOOLCHAIN=winegcc tools/undefined.py --record; PORT_TARGET=linux tests/lockstep.py "
+                         "native+compare --record, tests/sessions.py --record"),
     ("W9", "64-bit", None, "W6 and W7 on x64, x86_64, macOS"),
     ("W10", "release", None, "a clean machine per OS reaches the map"),
 ]
