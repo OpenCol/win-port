@@ -3,9 +3,10 @@
 
     python3 tools/run_port.py [--seconds N] [--trace]
 
-Runs build/colonize.exe (tools/undefined.py links it) with the game directory
-($COL_GAME_DIR, the patched install, hash-checked) as its working directory, so it finds
-its data files where the original does. Nothing is written into the game directory:
+Runs build/colonize.exe (tools/undefined.py links it) in a fresh copy of the game directory
+($COL_GAME_DIR, the patched install, hash-checked; copied to build/run/game every run), so it
+finds its data files where the original does and whatever it writes -- the game autosaves
+(AUTO01.SAV, auto02.sav) -- lands in the copy. Nothing is written into the game directory:
 the run's log is build/run/port.log ($PORT_LOG), where a backlog trap writes the Win16
 function the game reached that the platform layer does not provide yet, and the
 platform layer writes its trace (--trace sets $PORT_TRACE).
@@ -37,8 +38,11 @@ def wine():
 
 def main(argv):
     secs = int(argv[argv.index("--seconds") + 1]) if "--seconds" in argv else 20
-    game = colwinre.game_dir()
     os.makedirs(RUN, exist_ok=True)
+    game = os.path.join(RUN, "game")
+    if os.path.isdir(game):
+        shutil.rmtree(game)
+    shutil.copytree(colwinre.game_dir(), game)
     log = os.path.join(RUN, "port.log")
     if os.path.exists(log):
         os.remove(log)

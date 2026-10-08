@@ -1,3 +1,4 @@
+/* PORT: after the write of GameBrains.step, w16_lockstep_step: the autoplay lockstep's checkpoint (W6); it does nothing outside a lockstep run. */
 /* GameBrains_Init: candidate for 1008:2927 (141 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -35,6 +36,8 @@ extern void set_europe(int n);
 
 /* same object: 4-byte `push cs; call ` */
 
+extern void w16_lockstep_step(void *brains);
+
 void GameBrains_Init(GameBrains *p)
 {
     int nation;
@@ -51,5 +54,6 @@ void GameBrains_Init(GameBrains *p)
     }
     p->awaiting_human = 0;
     p->step = 0;
+    w16_lockstep_step(p);
     p->f0 = -1;
 }

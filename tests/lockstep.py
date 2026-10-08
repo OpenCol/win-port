@@ -108,7 +108,14 @@ def oracle_main(save, turns, out, raw):
     r.game_key = lambda: r.key
     lin = r.base[E.SEG20] + E.BRAINS + 2
 
+    loaded = r.base[E.DGROUP] + 0x8B             # g_loaded_flag
+
     def on_step(uc, _access, address, size, value, _ud):
+        # the end of a human turn's store, with the recorder's all-AI ones: GameBrains_DoHuman
+        # clears g_loaded_flag and no one else does, so a loaded game left with it set never
+        # lets the viceroys before its turn_nation play again (GameBrains_DoViceroy)
+        if struct.unpack("<h", bytes(uc.mem_read(r.base[E.SEG20] + E.GAME + 66, 2)))[0]:
+            uc.mem_write(loaded, b"\0")
         new = bytearray(uc.mem_read(lin, 2))
         at = address - lin
         data = (value & ((1 << (8 * size)) - 1)).to_bytes(size, "little")

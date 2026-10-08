@@ -280,7 +280,7 @@ static void dump(int turn, int step)
 /* after each write of GameBrains.step */
 void w16_lockstep_step(void *brains)
 {
-    unsigned char *game, *nation_text;
+    unsigned char *game, *nation_text, *loaded;
     int16_t *autoplay;
     int turn, step, i;
     if (!w16_lockstep())
@@ -288,7 +288,8 @@ void w16_lockstep_step(void *brains)
     game = global_at(SEG20, 0x7782);
     nation_text = global_at(SEG20, 0x7810);
     autoplay = global_at(DGROUP, 0x88);
-    if (!game || !nation_text || !autoplay)
+    loaded = global_at(DGROUP, 0x8b);
+    if (!game || !nation_text || !autoplay || !loaded)
         return;
     /* the recorder's stores (e2e_turns._on_step_write), once a game is in progress */
     if (*(int16_t *)(game + 66)) {
@@ -296,6 +297,10 @@ void w16_lockstep_step(void *brains)
             if (nation_text[0x34 * i + 0x31] == 0)
                 nation_text[0x34 * i + 0x31] = 1;
         *autoplay = 1;
+        /* and the end of a human turn's: GameBrains_DoHuman clears g_loaded_flag, which no
+           one else does -- left set, a loaded game's viceroys before turn_nation never play
+           again (tests/lockstep.py, oracle_main) */
+        *loaded = 0;
     }
     turn = *(int16_t *)(game + 14);
     step = *(int16_t *)((unsigned char *)brains + 2);
