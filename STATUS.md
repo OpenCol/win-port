@@ -12,7 +12,7 @@ then `python3 tools/status.py`.
 | W4 | platform | DONE | Win16 functions not provided: 0 of 167; framework trace: 10000 of the first 10000 calls match the oracle | `tools/undefined.py --record, tests/trace.py --gate --record` |
 | W5 | asm | DONE | routines agreeing with the originals: 12/12; 915 SPRT sprites (837 drawn): 3264/3264 calls identical; 96 CvPc canvases: 96/96 calls identical; 1 FLIC (66 frames): 66/66 calls identical | `tests/asm.py --record` |
 | W6 | lockstep | DEFERRED | 7 scenario(s): 757/757 checkpoints in lockstep, 125 of 125 turns whole; golden corpus: 0 of 21 scenarios recorded; deferred 2026-10-08 by Daniel Derevjanik: the full golden corpus (21 scenarios x 150 turns) is deferred: 6 scenarios x 20 turns are in lockstep (726/726 checkpoints), the rest is tested later from a playable build (W7) | `tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)` |
-| W7 | playable | open | UI sessions on the port: 9/9 pass (45 snapshots; the oracle's side not compared yet); saves both ways: the port's save in the original 31/31 checkpoints, the original's in the port 121/121; human pass: 0/12 ticked | `tests/sessions.py --record; saves both ways; status/human_pass.json` |
+| W7 | playable | DEFERRED | UI sessions on the port: 9/9 pass (45 snapshots; the oracle's side not compared yet); saves both ways: the port's save in the original 31/31 checkpoints, the original's in the port 121/121; human pass: 0/12 ticked; deferred 2026-10-09 by Daniel Derevjanik: the human pass (status/human_pass.json, 0 of 12 ticked) and the oracle side of the UI sessions are deferred: Daniel played a new game and a loaded game under Wine 11 (sessions 9/9, saves both ways), and asked for W8, W9 and W10 next, in that order | `tests/sessions.py --record; saves both ways; status/human_pass.json` |
 | W8 | linux | -- | not measured | `winegcc build through W3-W7` |
 | W9 | 64-bit | -- | not measured | `W6 and W7 on x64, x86_64, macOS` |
 | W10 | release | -- | not measured | `a clean machine per OS reaches the map` |
@@ -34,4 +34,4 @@ Tick each line in `status/human_pass.json` (its number in `ticked`, and `by` and
 - [ ] 11. Music and sound play, and their options switch them off and on
 - [ ] 12. Options (game, colony, sound, music) and the window menu items behave
 
-Current milestone: **W7** (roadmap rule 1: one at a time, in order; DEFERRED by the owner, status/decisions.json).
+Current milestone: **W8** (roadmap rule 1: one at a time, in order; DEFERRED by the owner, status/decisions.json).
