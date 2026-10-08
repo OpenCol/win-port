@@ -13,6 +13,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/state.json    python3 tests/state.py --record          (needs $COL_GAME_DIR and wine)
     status/diff.json     python3 tests/diff.py --record           (needs $COL_GAME_DIR and wine)
     status/oracle.json   python3 tests/oracle.py --selftest --record   (needs $COL_GAME_DIR)
+    status/trace.json    python3 tests/trace.py --gate --record    (needs $COL_GAME_DIR and wine)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -102,12 +103,28 @@ def w3():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w4():
+    link, tr = rec("link"), rec("trace")
+    parts, done = [], True
+    if link:
+        left = len(link["backlog"].get("win16 API (W4: src/platform maps it to Win32)", []))
+        parts.append("Win16 functions not provided: %d of 167" % left)
+        done &= left == 0
+    if tr:
+        parts.append("framework trace: %d of the first %d calls match the oracle" % (tr["matching"], tr["n"]))
+        done &= tr["matching"] >= tr["n"]
+    else:
+        parts.append("framework trace: not measured")
+        done = False
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 ROWS = [
     ("W0", "bootstrap", w0, "import/import.py --check, tools/ci_record.py"),
     ("W1", "compile", w1, "tools/compile_all.py --record [--toolchain winegcc]"),
     ("W2", "link", w2, "tools/undefined.py --record"),
     ("W3", "oracle", w3, "tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record"),
-    ("W4", "platform", None, "checklist + MS* trace prefix (not written yet)"),
+    ("W4", "platform", w4, "tools/undefined.py --record, tests/trace.py --gate --record"),
     ("W5", "asm", None, "differential on segments 17-19 (not written yet)"),
     ("W6", "lockstep", None, "tests/lockstep --corpus golden (not written yet)"),
     ("W7", "playable", None, "scripted sessions, saves both ways, human pass"),

@@ -113,3 +113,14 @@ The header declares `extern int8_t g_colony_window;` for C (and `ColonyWin` for 
 likewise `g_europe_win`; storage generated from the C declaration was 1 byte for a
 2,606-byte object, which the state round trip caught. Here: tools/gen_globals.py defines
 every class-typed global in C++, from the class.
+
+## 12. The emulator's MoveWindow sends no messages (W4, 2026-10-08)
+
+`tools/re_agent/winsim.py` has no `api_MOVEWINDOW`: the call reaches the generic stub, returns 0
+and sends nothing. Windows sends WM_WINDOWPOSCHANGING/CHANGED, and from them WM_MOVE and WM_SIZE.
+The game reacts: `GameWin::ResizePort` -> `win_set_client_size` -> `MoveWindow`, and its move
+handler (`object_message_handler` -> `call_on_move` -> `port_wndproc` -> `GameWin_Resize`)
+re-initialises the port's surface. So the oracle's framework trace (tests/trace.py) and the
+port's part at call 132, the opening's first picture: the port, under Windows' rules, makes
+the extra resize; the oracle cannot. Measured: 132 of the first 10,000 framework calls match,
+and the next one is that resize. W4's trace gate needs the oracle to send these messages.

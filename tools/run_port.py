@@ -52,7 +52,10 @@ def main(argv):
                 os.remove(os.path.join(RUN, old))
         env["PORT_SNAPSHOT"] = "Z:" + RUN.replace("/", "\\")
     t0 = time.time()
-    p = subprocess.Popen([wine(), EXE], cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # a Wine virtual desktop: windows go where the program puts them, as on Windows 3.1, with no
+    # host window manager moving them (the macOS menu bar would push one created at y=0 down)
+    cmd = [wine(), "explorer", "/desktop=colonization,1024x768", EXE] if "--no-desktop" not in argv else [wine(), EXE]
+    p = subprocess.Popen(cmd, cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     try:
         out, _ = p.communicate(timeout=secs)
         code = p.returncode

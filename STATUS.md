@@ -9,7 +9,7 @@ then `python3 tools/status.py`.
 | W1 | compile | DONE | mingw-i686 3245/3245; winegcc 3245/3245 | `tools/compile_all.py --record [--toolchain winegcc]` |
 | W2 | link | DONE | objects 3268/3268; executable links (backlog trapped); undefined 0: 0 assembly, 0 win16 API; twice defined 0 | `tools/undefined.py --record` |
 | W3 | oracle | DONE | oracle self-test identical (1 turns, 6 checkpoints); state round trip lossless: 670/671 globals converted, 0 lost, 1 by address only; differential 20/20 functions agree | `tests/oracle.py --selftest, tests/state.py --record, tests/diff.py --record` |
-| W4 | platform | -- | not measured | `checklist + MS* trace prefix (not written yet)` |
+| W4 | platform | open | Win16 functions not provided: 0 of 167; framework trace: 132 of the first 10000 calls match the oracle | `tools/undefined.py --record, tests/trace.py --gate --record` |
 | W5 | asm | -- | not measured | `differential on segments 17-19 (not written yet)` |
 | W6 | lockstep | -- | not measured | `tests/lockstep --corpus golden (not written yet)` |
 | W7 | playable | -- | not measured | `scripted sessions, saves both ways, human pass` |
