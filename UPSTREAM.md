@@ -83,3 +83,33 @@ the byte-matched call shape; a link would have two definitions of each. `colony_
 spells two loop exits as `asm db 0x0b,0xc0,0x74,0x58` and `asm db 0x83,0x7e,0xd0,0x00,0x7c,0x48`
 (both jump to 1010:d57b, after the `for (;;)`): the C around them does not say they exit.
 Here: the stubs are removed and the exits are `break`s, each with a `PORT:` note.
+
+## 8. tools/e2e_turns.py is not committed (W3, 2026-10-08)
+
+The autoplay recorder the W3 oracle needs exists in col-win-re's working tree (last changed
+2026-10-03, sha256 9f759c52...) but in no commit, so nothing pinned can use it. Here:
+`tests/oracle/e2e_turns.py` is a copy, unchanged but for a header saying so, run from the
+col-win-re tree unpacked at SOURCE. Once col-win-re commits it, the copy goes and SOURCE moves.
+
+## 9. Resource-type tags declared as far pointers (W3, 2026-10-08)
+
+`g_color_resource_type`, `g_flic_resource_type`, `g_picture_resource_type` and
+`g_restype_text_popup` are declared `void far *`, but they hold four characters ("CTAB",
+"FLIC", "PICT"/"cPic", "TEXT": the MS framework's Mac-style resource types), which the code
+copies into a local and passes by address (`CTable_Init`). A pointer type is wrong for them
+the moment a pointer is not 4 bytes (W9). Here: tests/state.py converts them as 4 bytes
+(`NOT_POINTERS`).
+
+## 10. No C++ class for MainWin (W3, 2026-10-08)
+
+`include/classes.h` has a C view of MainWin but no class; `create_game_globals.c` defines the
+real one for itself (with MapWin, MiniWin, StatWin, ReportWin, ColonyWin, EuropeWin and
+PediaWin members), and C++ files view it opaquely. So the port cannot say how big
+`g_main_win` is outside that file, and tests/state.py knows it only by address.
+
+## 11. Class-typed globals declared through a 1-byte view (W3, 2026-10-08)
+
+The header declares `extern int8_t g_colony_window;` for C (and `ColonyWin` for C++), and
+likewise `g_europe_win`; storage generated from the C declaration was 1 byte for a
+2,606-byte object, which the state round trip caught. Here: tools/gen_globals.py defines
+every class-typed global in C++, from the class.

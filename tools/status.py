@@ -11,6 +11,8 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/compile-<toolchain>.json   python3 tools/compile_all.py --record
     status/link.json     python3 tools/undefined.py --record
     status/state.json    python3 tests/state.py --record          (needs $COL_GAME_DIR and wine)
+    status/diff.json     python3 tests/diff.py --record           (needs $COL_GAME_DIR and wine)
+    status/oracle.json   python3 tests/oracle.py --selftest --record   (needs $COL_GAME_DIR)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
