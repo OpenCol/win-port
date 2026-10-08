@@ -46,7 +46,7 @@ void asm_copy_bits(void *src, void *dst, int sx, int sy, int dx, int dy, int w, 
 
 /* 1090:01b4: fill w x h at (left, top) with colour; the step after a row is the stride less w
    computed in 16 bits over a sign-extended stride (`movsx ebx; sub bx, w`) */
-void asm_fill_rect(unsigned long buf, int color, int left, int top, int w, int h, int pitch, int planes)
+void asm_fill_rect(uintptr_t buf, int color, int left, int top, int w, int h, int pitch, int planes)
 {
     unsigned char *p = (unsigned char *)(uintptr_t)buf + row_at((int16_t)pitch, (uint16_t)planes, (uint16_t)top, (uint16_t)left);
     uint32_t ext = (uint32_t)(int32_t)(int16_t)pitch;
@@ -115,13 +115,13 @@ static void draw(long src_l, void *bits, long map_l, unsigned char key, int px, 
     } while ((int16_t)--rows > 0);
 }
 
-void asm_draw_sprite(long src, void *bits, long a, unsigned char col, int px, int py, int bot, int rt, int l, int t,
+void asm_draw_sprite(intptr_t src, void *bits, intptr_t a, unsigned char col, int px, int py, int bot, int rt, int l, int t,
                      int dx, int dy, int w, int h, int sx, int sy)
 {
     draw(src, bits, a, col, px, py, bot, rt, l, t, dx, dy, w, h, sx, sy, 0, 0);
 }
 
-void asm_draw_mono_sprite(long src, void *bits, long a, unsigned char col, int px, int py, int bot, int rt, int l,
+void asm_draw_mono_sprite(intptr_t src, void *bits, intptr_t a, unsigned char col, int px, int py, int bot, int rt, int l,
                           int t, int dx, int dy, int w, int h, int sx, int sy, unsigned char mode)
 {
     draw(src, bits, a, col, px, py, bot, rt, l, t, dx, dy, w, h, sx, sy, 1, mode);
@@ -132,7 +132,7 @@ void asm_draw_mono_sprite(long src, void *bits, long a, unsigned char col, int p
    of the destination, unless it is the key (key >= 0). The column offsets are read at tbl plus
    h BYTES -- the original never reads its `cols` argument, and h bytes is not where wipe_rows
    put them (tbl + h words); kept. Row tables are 32-bit offsets. */
-void asm_wipe_rows(long src_l, long dst_l, long cols_l, long tbl_l, long src_rows_l, long dst_rows_l,
+void asm_wipe_rows(intptr_t src_l, intptr_t dst_l, intptr_t cols_l, intptr_t tbl_l, intptr_t src_rows_l, intptr_t dst_rows_l,
                    int i, int w, int h, int step, int left, int top, int x, int y, int key)
 {
     unsigned char *src = (unsigned char *)(intptr_t)src_l, *dst = (unsigned char *)(intptr_t)dst_l;

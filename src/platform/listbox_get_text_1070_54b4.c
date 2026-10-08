@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* listbox_get_text_1070_54b4: candidate for 1070:54b4 (32 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -14,5 +15,5 @@
 
 void listbox_get_text_1070_54b4(unsigned hwnd, int i, char *buf)
 {
-    SendMessage(hwnd, 0x40a, i, (long)buf);
+    SendMessage(hwnd, 0x40a, i, (intptr_t)buf);
 }

@@ -1,3 +1,4 @@
+/* PORT: integer <-> pointer through uintptr_t/intptr_t: a resource id, a 16-bit handle token or a parameter block, the same bits on i386 and on 64-bit Windows (W9). */
 /* MSSetCursor_id: candidate for 1078:29b6 (122 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -20,6 +21,6 @@ void MSSetCursor_id(MSWin *win, int id)
         else if (id == -2)
             win->hcursor = LoadCursor(0, (const char *)0x7f02L);
     } else {
-        win->hcursor = LoadCursor(g_hinstance, (const char *)(unsigned long)(unsigned)id);
+        win->hcursor = LoadCursor(g_hinstance, (const char *)(uintptr_t)(unsigned)id);
     }
 }

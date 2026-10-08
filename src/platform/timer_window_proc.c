@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* timer_window_proc: candidate for 1078:1968 (134 bytes).  Verdict: RELOCATABLE.
  *
  * Window procedure of the timer daemon window: WM_TIMER goes to timer_tick_slot with the
@@ -13,7 +14,7 @@
 #include "records.h"
 #include "classes.h"
 extern void timer_tick_slot(MrTimer *timer, int i);
-long timer_window_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam)
+long timer_window_proc(unsigned hwnd, unsigned msg, unsigned wparam, intptr_t lparam)
 {
     void *o = (void *)GetWindowLong(hwnd, 0);
 

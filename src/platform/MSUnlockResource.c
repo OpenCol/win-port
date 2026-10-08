@@ -1,3 +1,4 @@
+/* PORT: integer <-> pointer through uintptr_t/intptr_t: a resource id, a 16-bit handle token or a parameter block, the same bits on i386 and on 64-bit Windows (W9). */
 /* MSUnlockResource: candidate for 1078:03a0 (22 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -17,5 +18,5 @@
 
 void MSUnlockResource(void *p)
 {
-    GlobalUnlock((int)p);
+    GlobalUnlock((int)(intptr_t)p);
 }

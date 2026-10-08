@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of call_edit_changed, ctl_hwnd_1070_9681, dialog_mnemonic, get_win_1070_95f0 removed: the header declares them from the definition (W1 step 3). */
 /* dialog_wndproc: candidate for 1070:9331 (699 bytes).  Verdict: RELOCATABLE.
@@ -44,7 +45,7 @@ extern "C" void MSPushButton(unsigned hwnd);
 
 
 extern "C" long dialog_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
-                                         unsigned long lparam)
+                                         uintptr_t lparam)
 {
     DialogWin *d;
     unsigned hi;

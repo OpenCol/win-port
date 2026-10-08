@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 57 of the imported file. */
 /* PORT: this file's own declarations of port_blit_or_copy removed: the header declares it from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 55 of the imported file. */
@@ -38,7 +39,7 @@
 /* same object: 4-byte `push cs; call ` */
 
 long port_paint_wndproc(unsigned hwnd, unsigned msg, unsigned wp,
-                                             long lp)
+                                             intptr_t lp)
 {
     Port *p;
     RECT r;

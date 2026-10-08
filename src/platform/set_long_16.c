@@ -1,3 +1,4 @@
+/* PORT: a pointer passed as an integer is intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* set_long_16: candidate for 1078:1f5b (26 bytes).  Verdict: EXACT.
  * name-source: descriptive
  *
@@ -13,7 +14,7 @@
 
 #include "records.h"
 
-void set_long_16(MSWin *win, long v)
+void set_long_16(MSWin *win, intptr_t v)
 {
     win->icon = (void *)v;
 }

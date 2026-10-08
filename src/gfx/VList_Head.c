@@ -1,3 +1,4 @@
+/* PORT: the node's value pointer read as a pointer (deref_long read it as a long: 4 bytes, the same on i386; 8 on 64-bit Windows) (W9). */
 /* VList_Head: candidate for 1068:9dde (64 bytes, 4 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: VList_Head
@@ -18,7 +19,7 @@ void * VList_Head(VList *list)
 {
     if (list->first != 0) {
         list->cur = list->first;
-        return (void *)deref_long((long *)list->first);
+        return *(void **)list->first;
     } else
         return 0;
 }

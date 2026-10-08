@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* editbox_subclass_proc: candidate for 1070:57ce (681 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: editbox_subclass_proc
@@ -23,12 +24,12 @@ typedef struct { char pad[1]; } EditHandlers;
 #include "classes.h"
 #pragma option -a-
 class DlgControl;
-typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);
+typedef long (*WNDPROC)(unsigned, unsigned, unsigned, intptr_t);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int edit_key_allowed(SEditBox *table, int key);
 
-extern "C" long editbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam)
+extern "C" long editbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, intptr_t lparam)
 {
     WNDPROC oldproc;
     SEditBox *edit;

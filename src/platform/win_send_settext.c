@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* win_send_settext: candidate for 1070:5abe (30 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -17,5 +18,5 @@
 
 void win_send_settext(unsigned hwnd, void *text)
 {
-    SendMessage(hwnd, WM_SETTEXT, 0, (long)text);
+    SendMessage(hwnd, WM_SETTEXT, 0, (intptr_t)text);
 }

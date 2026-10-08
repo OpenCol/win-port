@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* Sprite_DrawSprite: candidate for 1068:84e8 (709 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Sprite_DrawSprite
@@ -104,7 +105,7 @@ RECT *Sprite_DrawSprite(RECT *out, Sprite *sprite, GRPort *port,
             dy = r.top - ay_;
             ay_ = r.top;
         }
-        asm_draw_sprite((long)sprite->bits, port_surface_1068_989f(port), (long)g_scale_map, col, ax_, ay_,
+        asm_draw_sprite((intptr_t)sprite->bits, port_surface_1068_989f(port), (intptr_t)g_scale_map, col, ax_, ay_,
                       port_stride_1068_986d(port)
                         * (MSGrafOrient((GrafRec *)GRPort_GetWin_1068_968c(port)) ? 1 : -1),
                       port_height_1068_9886(port),

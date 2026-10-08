@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
 /* object_message_handler: candidate for 1070:69ba (2587 bytes).  Verdict: RELOCATABLE.
@@ -100,7 +101,7 @@ extern "C" void call_on_hthumb(EventTable *handlers, int pos);
 extern "C" void call_on_vscroll(EventTable *table, int pos);
 extern "C" void call_on_vthumb(EventTable *table, int pos);
 
-extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp, unsigned long lp)
+extern "C" long object_message_handler(unsigned hwnd, unsigned msg, unsigned wp, uintptr_t lp)
 {
     register int pos;
     register unsigned w_;

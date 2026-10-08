@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of GRPort_GetWin_1068_968c removed: the header declares it from the definition (W1 step 3). */
 /* GRPort_FillColor: candidate for 1068:505c (248 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -40,6 +41,6 @@ void GRPort_FillColor(GRPort *p, RECT *r, int color)
     IntersectRect(&clip, r, &p->rect);
     if ((w = rect_width_1068_96a9(&clip)) == 0 || (h = rect_height_1068_96c8(&clip)) == 0)
         return;
-    asm_fill_rect((unsigned long)p->bits, color, clip.left, clip.top, w, h,
+    asm_fill_rect((uintptr_t)p->bits, color, clip.left, clip.top, w, h,
                   port_stride_1068_986d(p) * (MSGrafOrient((GrafRec *)GRPort_GetWin_1068_968c(p)) ? 1 : -1), port_height_1068_9886(p));
 }

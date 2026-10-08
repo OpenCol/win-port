@@ -1,3 +1,4 @@
+/* PORT: the node's value pointer read as a pointer (deref_long read it as a long: 4 bytes, the same on i386; 8 on 64-bit Windows) (W9). */
 /* list_prev: candidate for 1068:9f11 (107 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: list_prev
@@ -23,7 +24,7 @@ void * list_prev(VList *list)
         if (list->cur == 0)
             return 0;
         else
-            return (void *)deref_long((long *)list->cur);
+            return *(void **)list->cur;
     } else
         return 0;
 }

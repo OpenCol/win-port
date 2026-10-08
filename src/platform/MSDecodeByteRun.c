@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* MSDecodeByteRun: candidate for 1070:8990 (42 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -20,5 +21,5 @@
 
 void MSDecodeByteRun(unsigned char *body, unsigned char *bits, int x, int y, int stride, unsigned char add)
 {
-    asm_decode_byte_run((long)body, (long)bits, x, y, stride, add);
+    asm_decode_byte_run((intptr_t)body, (intptr_t)bits, x, y, stride, add);
 }

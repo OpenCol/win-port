@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ctl_window_1070_96a8 removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of get_win_1070_95f0 removed: the header declares it from the definition (W1 step 3). */
@@ -17,13 +18,13 @@
 #include "w16types.h"
 #include "classes.h"
 #include "records.h"
-typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);
+typedef long (*WNDPROC)(unsigned, unsigned, unsigned, intptr_t);
 typedef struct { unsigned style; WNDPROC lpfnWndProc; int cbClsExtra, cbWndExtra; unsigned hInstance, hIcon, hCursor, hbrBackground; const char *lpszMenuName; const char *lpszClassName; } WNDCLASS;
 
 extern unsigned RegisterClass(WNDCLASS *wc);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-extern long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam);
+extern long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wparam, intptr_t lparam);
 
 unsigned create_MSStaticClass_window(RECT *r, void *ctl, const char *text, long param)
 {

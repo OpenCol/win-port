@@ -1,3 +1,4 @@
+/* PORT: the node's value pointer read as a pointer (deref_long read it as a long: 4 bytes, the same on i386; 8 on 64-bit Windows) (W9). */
 /* VList_Next: candidate for 1068:9ea6 (107 bytes, 3 callers).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: VList_Next
@@ -26,7 +27,7 @@ void * VList_Next(VList *list)
         if (list->cur == 0)
             return 0;
         else
-            return (void *)deref_long((long *)list->cur);
+            return *(void **)list->cur;
     } else
         return 0;
 }

@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* wipe_rows: candidate for 1068:c21f (512 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: wipe_rows
@@ -72,8 +73,8 @@ void wipe_rows(GameWin *win_a, GameWin *win_b, RECT *src_rect, int x, int y,
         tbl[b] = t;
     }
     for (i = 0; i < h; i += step) {
-        asm_wipe_rows((long)port_surface_1068_dd01((GRPort *)win_a), (long)port_surface_1068_dd01((GRPort *)win_b), (long)cols,
-                      (long)tbl, (long)src_rows, (long)dst_rows,
+        asm_wipe_rows((intptr_t)port_surface_1068_dd01((GRPort *)win_a), (intptr_t)port_surface_1068_dd01((GRPort *)win_b), (intptr_t)cols,
+                      (intptr_t)tbl, (intptr_t)src_rows, (intptr_t)dst_rows,
                       i, w, h, step, r.left, r.top, x, y, mode);
         copy_rect_to_screen_1068_d86d(win_b, &area);
         if (delay != 0)

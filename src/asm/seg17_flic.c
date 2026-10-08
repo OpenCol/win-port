@@ -13,7 +13,7 @@ static uint16_t rd16(const unsigned char *p) { return (uint16_t)(p[0] | p[1] << 
 /* 1080:0000, DELTA_FLC (chunk 7): a line count, then per line an opcode word -- negative: skip
    that many lines; else that many packets of {skip byte, signed count byte, data}: a positive
    count copies 2*count bytes, a negative one repeats a pixel pair -count times. */
-void asm_decode_delta_flc(long src_l, long dst_l, int c, int d, int stride, unsigned char add)
+void asm_decode_delta_flc(intptr_t src_l, intptr_t dst_l, int c, int d, int stride, unsigned char add)
 {
     const unsigned char *s = (const unsigned char *)(intptr_t)src_l;
     unsigned char *o = (unsigned char *)(intptr_t)dst_l;
@@ -73,7 +73,7 @@ void asm_decode_delta_flc(long src_l, long dst_l, int c, int d, int stride, unsi
 
 /* 1080:00e4, BYTE_RUN (chunk 15): h rows of w pixels, each row a packet count byte (ignored)
    then signed counts: positive repeats the next byte, negative copies that many bytes. */
-void asm_decode_byte_run(long src_l, long dst_l, int w, int h, int stride, unsigned char add)
+void asm_decode_byte_run(intptr_t src_l, intptr_t dst_l, int w, int h, int stride, unsigned char add)
 {
     const unsigned char *s = (const unsigned char *)(intptr_t)src_l;
     unsigned char *o = (unsigned char *)(intptr_t)dst_l;
@@ -110,7 +110,7 @@ void asm_decode_byte_run(long src_l, long dst_l, int w, int h, int stride, unsig
    by EDX after a row, a register it never sets (its caller's leftovers); the C moves it by
    stride - w, the same gap as the source, which is what a copy means. W5's differential
    decides. */
-void asm_decode_literal(long src_l, long dst_l, int w, int h, int stride, unsigned char add)
+void asm_decode_literal(intptr_t src_l, intptr_t dst_l, int w, int h, int stride, unsigned char add)
 {
     const unsigned char *s = (const unsigned char *)(intptr_t)src_l;
     unsigned char *o = (unsigned char *)(intptr_t)dst_l;

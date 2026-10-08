@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* control_message_handler: candidate for 1070:07c5 (187 bytes).  Verdict: RELOCATABLE.
  *
  * Window procedure of MSControlClass windows: key messages (0x100..0x102) are forwarded to
@@ -12,7 +13,7 @@
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
-long control_message_handler(unsigned hwnd, unsigned msg, unsigned wparam, long lparam)
+long control_message_handler(unsigned hwnd, unsigned msg, unsigned wparam, intptr_t lparam)
 {
     PAINTSTRUCT ps;
 

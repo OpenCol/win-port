@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 188, 196 of the imported file. */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, get_keyboard_nav, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
 /* radio_wndproc: candidate for 1070:447d (2849 bytes).  Verdict: RELOCATABLE.
@@ -85,7 +86,7 @@ extern "C" void call_radio_changed(SRadioSet *ctl, int id, int item);
 extern "C" void call_radio_dblclk(SRadioSet *ctl, int id, int index);
 extern "C" void call_radio_rbutton_down(SRadioSet *ctl, int id, int index);
 
-extern "C" long radio_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+extern "C" long radio_wndproc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     register int idx;
     register unsigned w;

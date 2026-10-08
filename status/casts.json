@@ -1,44 +1,8 @@
 {
- "compile": 3266,
- "files": {
-  "src/game/Popup_item_x_size.c": 1,
-  "src/game/init_record.c": 1,
-  "src/gfx/GRPort_FillColor.c": 1,
-  "src/gfx/Sprite_DrawMonoSprite.c": 2,
-  "src/gfx/Sprite_DrawSprite.c": 2,
-  "src/gfx/VList_Head.c": 1,
-  "src/gfx/VList_Next.c": 1,
-  "src/gfx/list_prev.c": 1,
-  "src/gfx/wipe_rows.c": 6,
-  "src/platform/MSDecodeByteRun.c": 2,
-  "src/platform/MSDecodeDeltaFlc.c": 2,
-  "src/platform/MSDecodeLiteral.c": 2,
-  "src/platform/MSGetNamedResource.c": 1,
-  "src/platform/MSGetResource.c": 3,
-  "src/platform/MSInitMenu.c": 1,
-  "src/platform/MSLoadCursor.c": 1,
-  "src/platform/MSLockResource.c": 1,
-  "src/platform/MSPicDecompress.c": 3,
-  "src/platform/MSReleaseResource.c": 1,
-  "src/platform/MSSetCursor_id.c": 1,
-  "src/platform/MSUnlockResource.c": 1,
-  "src/platform/block_size.c": 1,
-  "src/platform/enum_font_family_proc.c": 1,
-  "src/platform/get_window_text.c": 1,
-  "src/platform/listbox_add_string.c": 1,
-  "src/platform/listbox_get_text_1070_54b4.c": 1,
-  "src/platform/mci_message_handler.c": 2,
-  "src/platform/object_message_handler.c": 1,
-  "src/platform/set_long_0e.c": 1,
-  "src/platform/set_long_16.c": 1,
-  "src/platform/win_send_settext.c": 1,
-  "src/platform/win_set_icon_1078_2832.c": 1
- },
- "kinds": {
-  "int-to-pointer-cast": 17,
-  "pointer-to-int-cast": 30
- },
+ "compile": 3271,
+ "files": {},
+ "kinds": {},
  "sources": 3271,
  "toolchain": "mingw-x64",
- "warnings": 47
+ "warnings": 0
 }

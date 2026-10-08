@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* mci_notify_wndproc: candidate for 1078:04b7 (127 bytes).  Verdict: RELOCATABLE.
  * symbol: mci_notify_wndproc
@@ -29,7 +30,7 @@
 
 #include "w16const.h"
 
-long mci_notify_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long mci_notify_wndproc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     switch (msg) {
     case MM_MCINOTIFY:

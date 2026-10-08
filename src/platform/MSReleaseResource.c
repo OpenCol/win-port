@@ -1,3 +1,4 @@
+/* PORT: integer <-> pointer through uintptr_t/intptr_t: a resource id, a 16-bit handle token or a parameter block, the same bits on i386 and on 64-bit Windows (W9). */
 /* MSReleaseResource: candidate for 1078:0186 (22 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,5 +17,5 @@
 
 void MSReleaseResource(void *p)
 {
-    FreeResource((int)p);
+    FreeResource((int)(intptr_t)p);
 }

@@ -1,3 +1,4 @@
+/* PORT: a pointer passed as an integer is intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* Popup_item_x_size: candidate for 1050:0aac (42 bytes).  Verdict: EXACT.
  * name-source: sibling-build
  *
@@ -15,7 +16,7 @@ int Popup_item_x_size(Popup *popup)
 {
     int w;
 
-    switch ((int)popup->win) {
+    switch ((int)(intptr_t)popup->win) {
     default:
         w = 0x20;
         break;

@@ -53,6 +53,9 @@ POINTER_PROTOTYPES = {
     "GetWindowLong": (True, None),
     "SetWindowLong": (True, 2),
     "mciSendCommand": (False, 3),
+    "SendMessage": (False, 3),
+    "DefWindowProc": (False, 3),
+    "CallWindowProc": (False, 4),
 }
 
 

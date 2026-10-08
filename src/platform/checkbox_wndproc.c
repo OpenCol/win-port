@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 169, 177 of the imported file. */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, font_handle_1070_9806, get_ctable_1070_97b7, get_keyboard_nav, palette_get_entry_rgb removed: the header declares them from the definition (W1 step 3). */
 /* checkbox_wndproc: candidate for 1070:31e1 (1694 bytes).  Verdict: RELOCATABLE.
@@ -90,7 +91,7 @@ extern "C" int get_check_enabled_1070_997b(SCheckBox *check);
 
 extern "C" void call_checkbox_changed(SCheckBox *ctl, int id, int checked);
 
-extern "C" long checkbox_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+extern "C" long checkbox_wndproc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     register unsigned hdc;
     register unsigned w;

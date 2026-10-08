@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of GRPort_GetWin_1070_dc44, GameWin_Resize removed: the header declares them from the definition (W1 step 3). */
 /* port_wndproc: candidate for 1070:a156 (770 bytes).  Verdict: RELOCATABLE.
@@ -37,7 +38,7 @@ extern int rect_width(RECT *r);
 extern int rect_height(RECT *r);
 
 long port_wndproc(unsigned hwnd, unsigned msg, unsigned wparam,
-                                       unsigned long lparam)
+                                       uintptr_t lparam)
 {
     GRPort *port;
     RECT rc;

@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of call_region_click, call_region_dblclk, call_region_enter, call_region_leave, call_region_press removed: the header declares them from the definition (W1 step 3). */
@@ -51,7 +52,7 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 
 
-long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long region_wndproc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     RECT r;
     POINT pt;

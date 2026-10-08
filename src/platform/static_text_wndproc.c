@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of font_handle_1070_9806 removed: the header declares it from the definition (W1 step 3). */
 /* static_text_wndproc: candidate for 1070:6426 (315 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
@@ -46,7 +47,7 @@
 /* same object: 4-byte `push cs; call ` */
 
 
-long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long static_text_wndproc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     register unsigned w;
     register unsigned hdc;

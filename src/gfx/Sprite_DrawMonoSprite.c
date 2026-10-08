@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of GRPort_GetWin_1068_968c removed: the header declares it from the definition (W1 step 3). */
 /* Sprite_DrawMonoSprite: candidate for 1068:87ad (712 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -89,7 +90,7 @@ RECT *Sprite_DrawMonoSprite(RECT *out, Sprite *sprite, GRPort *port,
             dy = r.top - ay_;
             ay_ = r.top;
         }
-        asm_draw_mono_sprite((long)sprite->bits, port_surface_1068_989f(port), (long)g_scale_map, col, ax_, ay_,
+        asm_draw_mono_sprite((intptr_t)sprite->bits, port_surface_1068_989f(port), (intptr_t)g_scale_map, col, ax_, ay_,
                       port_stride_1068_986d(port)
                         * (MSGrafOrient((GrafRec *)GRPort_GetWin_1068_968c(port)) ? 1 : -1),
                       port_height_1068_9886(port),

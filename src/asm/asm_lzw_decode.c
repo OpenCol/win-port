@@ -15,7 +15,7 @@
  */
 #include <stdint.h>
 
-int asm_lzw_decode(long src_l, long bits_l, long tables_l, int w_i, int h_i, int stride_i, int code_size_i)
+int asm_lzw_decode(intptr_t src_l, intptr_t bits_l, intptr_t tables_l, int w_i, int h_i, int stride_i, int code_size_i)
 {
     unsigned char *src = (unsigned char *)(intptr_t)src_l;
     unsigned char *bits = (unsigned char *)(intptr_t)bits_l;

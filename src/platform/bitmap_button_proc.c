@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 93, 94, 127, 136, 137, 143 of the imported file. */
 /* PORT: this file's own declarations of SetEventWindow, ctl_id_1070_96c5, ctl_rect, ctl_window_1070_96a8, get_keyboard_nav removed: the header declares them from the definition (W1 step 3). */
@@ -35,7 +36,7 @@
 
 
 
-long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long bitmap_button_proc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     unsigned memdc;
     unsigned old;

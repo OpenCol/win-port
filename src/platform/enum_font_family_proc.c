@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* enum_font_family_proc: candidate for 1078:15b1 (136 bytes).  Verdict: RELOCATABLE.
  *
  * The EnumFontFamilies callback: when the first three letters of the face name match the
@@ -9,7 +10,7 @@
 
 #include "w16types.h"
 
-int enum_font_family_proc(LOGFONT *lf, void *ntm, int type, long lparam)
+int enum_font_family_proc(LOGFONT *lf, void *ntm, int type, intptr_t lparam)
 {
     FontTable *tbl = (FontTable *)lparam;
 

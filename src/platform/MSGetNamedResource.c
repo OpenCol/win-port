@@ -1,3 +1,4 @@
+/* PORT: integer <-> pointer through uintptr_t/intptr_t: a resource id, a 16-bit handle token or a parameter block, the same bits on i386 and on 64-bit Windows (W9). */
 /* MSGetNamedResource: candidate for 1078:0277 (271 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -36,7 +37,7 @@ void *MSGetNamedResource(unsigned char *type4, unsigned char *name)
         }
     }
     if (h != 0)
-        return (void *)(unsigned long)LoadResource(i == -1 ? g_hinstance : g_resource_libs[i], h);
+        return (void *)(uintptr_t)LoadResource(i == -1 ? g_hinstance : g_resource_libs[i], h);
     else
         return 0;
 }

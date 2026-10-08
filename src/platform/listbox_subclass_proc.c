@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of call_listbox_destroyed removed: the header declares it from the definition (W1 step 3). */
 /* listbox_subclass_proc: candidate for 1070:530e (237 bytes).  Verdict: RELOCATABLE.
  *
@@ -15,10 +16,10 @@
 #include "w16const.h"
 #include "w16types.h"
 #include "records.h"
-typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);
+typedef long (*WNDPROC)(unsigned, unsigned, unsigned, intptr_t);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
-long listbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, long lparam)
+long listbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wparam, intptr_t lparam)
 {
     WNDPROC oldproc;
     void *t;

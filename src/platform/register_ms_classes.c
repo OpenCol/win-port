@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* register_ms_classes: candidate for 1070:b16f (319 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -28,7 +29,7 @@
 
 #include "colonization.h"
 
-typedef long (*WNDPROC)(unsigned, unsigned, unsigned, long);
+typedef long (*WNDPROC)(unsigned, unsigned, unsigned, intptr_t);
 typedef struct { unsigned style; WNDPROC lpfnWndProc; int cbClsExtra, cbWndExtra; unsigned hInstance, hIcon, hCursor, hbrBackground; const char *lpszMenuName; const char *lpszClassName; } WNDCLASS;
 
 extern unsigned RegisterClass(WNDCLASS *wc);

@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* listbox_add_string: candidate for 1070:5414 (31 bytes).  Verdict: RELOCATABLE.
  * name-source: descriptive
  *
@@ -15,5 +16,5 @@
 
 void listbox_add_string(unsigned hwnd, const char *s)
 {
-    SendMessage(hwnd, 0x401, 0, (long)s);
+    SendMessage(hwnd, 0x401, 0, (intptr_t)s);
 }

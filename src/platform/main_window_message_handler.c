@@ -1,3 +1,4 @@
+/* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: this file's own declarations of port_height_1070_dd75, port_width_1070_dd5c, win_client_height_1070_ddb3, win_client_width_1070_dd8e removed: the header declares them from the definition (W1 step 3). */
 /* main_window_message_handler: candidate for 1070:b344 (2066 bytes).  Verdict: RELOCATABLE.
@@ -55,7 +56,7 @@ extern "C" int rect_width(RECT *r);
 extern "C" int rect_height(RECT *r);
 
 extern "C" long main_window_message_handler(unsigned hwnd, unsigned msg, unsigned wp,
-                                            unsigned long lp)
+                                            uintptr_t lp)
 {
     register int col;
     register int tw;

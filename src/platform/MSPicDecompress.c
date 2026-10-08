@@ -1,3 +1,4 @@
+/* PORT: the assembly routines take their pointers as intptr_t, not long: 8 bytes on 64-bit Windows (W9). */
 /* MSPicDecompress: candidate for 1078:0000 (239 bytes).  Verdict: RELOCATABLE.
  *
  * Decompresses a picture through the assembly decoder asm_lzw_decode with a 0x6000-byte
@@ -45,7 +46,7 @@ int MSPicDecompress(void *src, unsigned char base, int code_size, int stride, in
         t1[i] = base + i;
         t2[i] = 1;
     }
-    asm_lzw_decode((long)src, (long)bits, (long)t0, w, h, stride, code_size);
+    asm_lzw_decode((intptr_t)src, (intptr_t)bits, (intptr_t)t0, w, h, stride, code_size);
     MSHUnlock(hnd);
     MSDisposeHandle(hnd);
     return 1;

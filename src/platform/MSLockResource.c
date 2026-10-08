@@ -1,3 +1,4 @@
+/* PORT: integer <-> pointer through uintptr_t/intptr_t: a resource id, a 16-bit handle token or a parameter block, the same bits on i386 and on 64-bit Windows (W9). */
 /* MSLockResource: candidate for 1078:0386 (26 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -16,5 +17,5 @@
 
 void *MSLockResource(void *p)
 {
-    return LockResource((int)p);
+    return LockResource((int)(intptr_t)p);
 }

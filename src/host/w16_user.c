@@ -18,7 +18,8 @@
 #include <string.h>
 #include "w16.h"
 
-typedef long (*GAMEPROC)(unsigned, unsigned, unsigned, long);
+/* the game's lParam is intptr_t: a pointer on 64-bit Windows (W9), the same 4 bytes on i386 */
+typedef long (*GAMEPROC)(unsigned, unsigned, unsigned, intptr_t);
 
 /* The game's own structures, as its files declare them (the port's layout, not Win16's). */
 typedef struct {
@@ -79,11 +80,11 @@ static GAMEPROC game_proc(HWND h)
 
 /* Win32 -> Win16, for the game's procedure. Returns 0 when the message has no Win16 form
    the game could use; it then goes to the Win32 default. */
-static int to16(UINT msg, WPARAM wp, LPARAM lp, unsigned *m16, unsigned *w16, long *l16)
+static int to16(UINT msg, WPARAM wp, LPARAM lp, unsigned *m16, unsigned *w16, intptr_t *l16)
 {
     *m16 = msg;
     *w16 = (unsigned)wp;
-    *l16 = (long)lp;
+    *l16 = (intptr_t)lp;
     switch (msg) {
     case WM_COMMAND:
         *w16 = LOWORD(wp);
@@ -134,7 +135,7 @@ static int to16(UINT msg, WPARAM wp, LPARAM lp, unsigned *m16, unsigned *w16, lo
 }
 
 /* Win16 -> Win32, for SendMessage and DefWindowProc called by the game */
-static void to32(unsigned m16, unsigned w16, long l16, UINT *msg, WPARAM *wp, LPARAM *lp)
+static void to32(unsigned m16, unsigned w16, intptr_t l16, UINT *msg, WPARAM *wp, LPARAM *lp)
 {
     *msg = m16;
     *wp = w16;
@@ -174,7 +175,7 @@ static void to32(unsigned m16, unsigned w16, long l16, UINT *msg, WPARAM *wp, LP
 /* ------------------------------------------------------------------ the thunk */
 
 /* the Win32 message being handled, innermost first: DefWindowProc answers from it */
-static struct { HWND hwnd; UINT msg; WPARAM wp; LPARAM lp; unsigned m16, w16; long l16; } stack[64];
+static struct { HWND hwnd; UINT msg; WPARAM wp; LPARAM lp; unsigned m16, w16; intptr_t l16; } stack[64];
 static int depth;
 
 typedef struct {                         /* Win16 CREATESTRUCT, as the game reads it */
@@ -188,7 +189,8 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
 {
     GAMEPROC proc = game_proc(h);
     unsigned m16, w16;
-    long l16, r;
+    intptr_t l16;
+    long r;
     CREATESTRUCT16 cs16;
     MINMAXINFO16 mm16;
     if (!proc || depth == 64)
@@ -206,7 +208,7 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
         cs16.cy = (int16_t)cs->cy; cs16.cx = (int16_t)cs->cx; cs16.y = (int16_t)cs->y; cs16.x = (int16_t)cs->x;
         cs16.style = cs->style; cs16.lpszName = cs->lpszName; cs16.lpszClass = cs->lpszClass;
         cs16.dwExStyle = cs->dwExStyle;
-        l16 = (long)(intptr_t)&cs16;
+        l16 = (intptr_t)&cs16;
     } else if (msg == WM_GETMINMAXINFO) {
         MINMAXINFO *mm = (MINMAXINFO *)lp;
         POINT *src = &mm->ptReserved;
@@ -230,7 +232,7 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
             dst[i].x = (int16_t)src[i].x;
             dst[i].y = (int16_t)src[i].y;
         }
-        l16 = (long)(intptr_t)&mm16;
+        l16 = (intptr_t)&mm16;
     } else if (msg == WM_NCCALCSIZE || msg == WM_WINDOWPOSCHANGING || msg == WM_WINDOWPOSCHANGED) {
         return DefWindowProcA(h, msg, wp, lp);   /* the game leaves these to Windows */
     }
@@ -274,7 +276,7 @@ LRESULT CALLBACK w16_wndproc(HWND h, UINT msg, WPARAM wp, LPARAM lp)
     return r;
 }
 
-static LRESULT call_win32(HWND h, unsigned m16, unsigned w16, long l16, WNDPROC wp32, int def)
+static LRESULT call_win32(HWND h, unsigned m16, unsigned w16, intptr_t l16, WNDPROC wp32, int def)
 {
     UINT msg;
     WPARAM wp;
@@ -293,8 +295,8 @@ send:
     return CallWindowProcA(wp32, h, msg, wp, lp);
 }
 
-long w16_DefWindowProc(unsigned hwnd, unsigned msg, unsigned wp, long lp) W16(DefWindowProc);
-long w16_DefWindowProc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long w16_DefWindowProc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp) W16(DefWindowProc);
+long w16_DefWindowProc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     LRESULT r = call_win32(W16_HWND(hwnd), msg, wp, lp, 0, 1);
     if (msg == 0x0019)
@@ -302,8 +304,8 @@ long w16_DefWindowProc(unsigned hwnd, unsigned msg, unsigned wp, long lp)
     return (long)r;
 }
 
-long w16_CallWindowProc(GAMEPROC proc, unsigned hwnd, unsigned msg, unsigned wp, long lp) W16(CallWindowProc);
-long w16_CallWindowProc(GAMEPROC proc, unsigned hwnd, unsigned msg, unsigned wp, long lp)
+long w16_CallWindowProc(GAMEPROC proc, unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp) W16(CallWindowProc);
+long w16_CallWindowProc(GAMEPROC proc, unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
 {
     WNDPROC p32 = win32_of(proc);
     if (!p32)
@@ -311,8 +313,8 @@ long w16_CallWindowProc(GAMEPROC proc, unsigned hwnd, unsigned msg, unsigned wp,
     return (long)call_win32(W16_HWND(hwnd), msg, wp, lp, p32, 0);
 }
 
-long w16_SendMessage(unsigned hwnd, unsigned m16, unsigned w16, long l16) W16(SendMessage);
-long w16_SendMessage(unsigned hwnd, unsigned m16, unsigned w16, long l16)
+long w16_SendMessage(unsigned hwnd, unsigned m16, unsigned w16, intptr_t l16) W16(SendMessage);
+long w16_SendMessage(unsigned hwnd, unsigned m16, unsigned w16, intptr_t l16)
 {
     UINT msg;
     WPARAM wp;
@@ -492,7 +494,7 @@ static MSG last;                         /* the Win32 message PeekMessage last r
 static void msg_out(MSG_G *g, const MSG *m)
 {
     unsigned m16, w16;
-    long l16;
+    intptr_t l16;
     to16(m->message, m->wParam, m->lParam, &m16, &w16, &l16);
     g->hwnd = TOK(m->hwnd);
     g->message = m16;
@@ -530,7 +532,7 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
 static const MSG *msg_in(MSG_G *g, MSG *tmp)
 {
     unsigned m16, w16;
-    long l16;
+    intptr_t l16;
     to16(last.message, last.wParam, last.lParam, &m16, &w16, &l16);
     if (g->hwnd == TOK(last.hwnd) && g->message == m16 && g->wParam == w16 && g->lParam == l16)
         return &last;
