@@ -41,16 +41,22 @@ recorded and never written by hand.
 The roadmap, with every decision and gate, is col-win-re's
 [docs/reconstruction/win-port-roadmap.md](https://github.com/dderevjanik/col-win-re/blob/508d4d0d0c12b856a7f33534ae79c5af48c14939/docs/reconstruction/win-port-roadmap.md).
 
-## Building
+## Building and playing
 
-Right now (W0) there is one target: `port_selftest`, which checks that the toolchain matches the
-roadmap's decisions (32-bit x86, 16-bit game integers).
+The port needs the patched 1995 game files (`$COL_GAME_DIR`, hash-checked: see Game files), a
+MinGW i686 toolchain and Wine.
 
 ```sh
-cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=toolchains/mingw-i686.cmake
-cmake --build build
-wine build/port_selftest.exe
+export COL_GAME_DIR=/path/to/the/patched/game
+python3 tools/undefined.py              # build: compile and link build/colonize.exe
+python3 tools/run_port.py --play        # play it, under Wine
 ```
+
+`--play` runs the game in a copy of the game directory kept at `build/play/game`, so your saves
+stay between runs and the original directory is never written. Without `--play`, `run_port.py`
+is the test runner: a fresh copy each run, a time limit, a log in `build/run/`.
+
+The gates that measure the port are listed in `STATUS.md` (generated: `python3 tools/status.py`).
 
 `toolchains/` also holds `clang-cl-x86` (the MSVC-compatible check), and `winegcc-i386` and
 `winegcc-x86_64` for Linux and macOS (W8, W9).

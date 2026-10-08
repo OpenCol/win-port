@@ -41,6 +41,13 @@
    "in_lockstep": 121,
    "save_sha256": "0422d4a5ad7634f7222a7e8b74d68f891d0d02757a9ca4a4e97107728f30abf1",
    "turns": 20
+  },
+  "PORTSAVE": {
+   "checkpoints": 31,
+   "first_divergence": null,
+   "in_lockstep": 31,
+   "save_sha256": "d0a9d7204c93a3a8ef2dbc23fbf798ce5f7c3cb3262d8e02ec3932ce70c73005",
+   "turns": 5
   }
  }
 }

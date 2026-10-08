@@ -4,6 +4,11 @@ player opens it, from a saved game, and looked at.
 
     python3 tests/sessions.py [NAME ...]           run the sessions (all, or those named)
     python3 tests/sessions.py --record             also write status/sessions.json
+    python3 tests/sessions.py --saves [--record]   saves both ways: the port's save (the `save` session)
+                                                   loaded by the original and played on in lockstep
+                                                   (tests/lockstep.py, 5 turns); the original's saves
+                                                   loaded by the port are every lockstep scenario's
+                                                   (AUTO01.SAV) -> status/saves.json
 
 A session is the lockstep's script (src/host/w16_lockstep.c) with the player left human
 (`noautoplay`): the game loads SAVE through its own menu, then each step runs once the game sits
@@ -85,7 +90,31 @@ def run(name, steps, save="AUTO01.SAV", seconds=180):
     return {"verdict": verdict, "snapshots": snaps, "seconds": round(time.time() - t0)}
 
 
+def saves(record):
+    r = run("save", SESSIONS["save"])
+    src = os.path.join(OUT, "save", "SESSION.SAV")
+    if r["verdict"] != "pass" or not os.path.exists(src):
+        sys.exit("the save session did not save: %s" % r["verdict"])
+    dst = os.path.join(ROOT, "build", "lockstep", "scenarios", "PORTSAVE.SAV")
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copyfile(src, dst)
+    p = subprocess.run([sys.executable, os.path.join(ROOT, "tests", "lockstep.py"), "run", dst, "--turns", "5", "--record"],
+                       capture_output=True, text=True)
+    print(p.stdout.strip().splitlines()[-1] if p.stdout.strip() else p.stderr[-500:])
+    led = json.load(open(os.path.join(ROOT, "status", "lockstep.json")))["scenarios"]
+    doc = {"port_to_original": led.get("PORTSAVE"), "original_to_port": led.get("AUTO01")}
+    ok = all(v and v["in_lockstep"] == v["checkpoints"] and v["checkpoints"] for v in doc.values())
+    doc["ok"] = ok
+    if record:
+        with open(os.path.join(ROOT, "status", "saves.json"), "w") as f:
+            json.dump(doc, f, indent=1, sort_keys=True)
+            f.write("\n")
+    return 0 if ok else 1
+
+
 def main(argv):
+    if "--saves" in argv:
+        return saves("--record" in argv)
     names = [a for a in argv if not a.startswith("--")] or list(SESSIONS)
     res = {}
     for n in names:

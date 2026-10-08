@@ -1,0 +1,17 @@
+{
+ "ok": true,
+ "original_to_port": {
+  "checkpoints": 121,
+  "first_divergence": null,
+  "in_lockstep": 121,
+  "save_sha256": "86cd21209301506e5dd00239251c70815c8712e15034c49c2c90f08390bbc365",
+  "turns": 20
+ },
+ "port_to_original": {
+  "checkpoints": 31,
+  "first_divergence": null,
+  "in_lockstep": 31,
+  "save_sha256": "d0a9d7204c93a3a8ef2dbc23fbf798ce5f7c3cb3262d8e02ec3932ce70c73005",
+  "turns": 5
+ }
+}

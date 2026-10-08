@@ -19,6 +19,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/decisions.json   by hand: a milestone the owner deferred (who, when, why)
     status/sessions.json python3 tests/sessions.py --record
     status/human_pass.json  by hand: the W7 checklist, ticked by the person who played
+    status/saves.json    python3 tests/sessions.py --saves --record
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -138,7 +139,14 @@ def w7():
     else:
         parts.append("UI sessions: not measured")
         done = False
-    parts.append("saves both ways: not measured")
+    sv = rec("saves")
+    if sv:
+        po, op = sv.get("port_to_original") or {}, sv.get("original_to_port") or {}
+        parts.append("saves both ways: the port's save in the original %d/%d checkpoints, the original's in "
+                     "the port %d/%d" % (po.get("in_lockstep", 0), po.get("checkpoints", 0),
+                                          op.get("in_lockstep", 0), op.get("checkpoints", 0)))
+    else:
+        parts.append("saves both ways: not measured")
     hp = rec("human_pass") or {}
     parts.append("human pass: %d/%d ticked%s" % (len(hp.get("ticked", [])), len(hp.get("items", [])),
                                                  " by %s %s" % (hp["by"], hp["date"]) if hp.get("by") else ""))

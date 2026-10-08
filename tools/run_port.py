@@ -2,6 +2,9 @@
 """Run the port under Wine and say how it ended (roadmap W4).
 
     python3 tools/run_port.py [--seconds N] [--trace] [--desktop WxH]
+    python3 tools/run_port.py --play             to play it: no time limit, and a game directory of
+                                                 its own that is kept (build/play/game: your saves
+                                                 stay there between runs; made once from $COL_GAME_DIR)
 
 Runs build/colonize.exe (tools/undefined.py links it) in a fresh copy of the game directory
 ($COL_GAME_DIR, the patched install, hash-checked; copied to build/run/game every run), so it
@@ -38,12 +41,19 @@ def wine():
 
 
 def main(argv):
-    secs = int(argv[argv.index("--seconds") + 1]) if "--seconds" in argv else 20
+    play = "--play" in argv
+    secs = int(argv[argv.index("--seconds") + 1]) if "--seconds" in argv else (10 ** 7 if play else 20)
     os.makedirs(RUN, exist_ok=True)
-    game = os.path.join(RUN, "game")
-    if os.path.isdir(game):
-        shutil.rmtree(game)
-    shutil.copytree(colwinre.game_dir(), game)
+    if play:
+        # the player's own copy, kept: saves and autosaves carry over from one run to the next
+        game = os.path.join(ROOT, "build", "play", "game")
+        if not os.path.isdir(game):
+            shutil.copytree(colwinre.game_dir(), game)
+    else:
+        game = os.path.join(RUN, "game")
+        if os.path.isdir(game):
+            shutil.rmtree(game)
+        shutil.copytree(colwinre.game_dir(), game)
     log = os.path.join(RUN, "port.log")
     if os.path.exists(log):
         os.remove(log)
