@@ -484,7 +484,7 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
             PeekMessageA(&m, m.hwnd, m.message, m.message, PM_REMOVE);
     }
     if (w16_lockstep())
-        w16_lockstep_message();
+        w16_lockstep_message(&m);
     last = m;
     msg_out(g, &m);
     return 1;

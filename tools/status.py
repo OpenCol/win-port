@@ -17,6 +17,8 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/asm.json      python3 tests/asm.py --record             (needs $COL_GAME_DIR and wine)
     status/lockstep.json python3 tests/lockstep.py run SAVE --record  (a ledger, per scenario)
     status/decisions.json   by hand: a milestone the owner deferred (who, when, why)
+    status/sessions.json python3 tests/sessions.py --record
+    status/human_pass.json  by hand: the W7 checklist, ticked by the person who played
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
 """
 import json
@@ -125,6 +127,24 @@ def w4():
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
+def w7():
+    parts, done = [], True
+    ses = rec("sessions")
+    if ses:
+        ok = sum(1 for v in ses.values() if v["verdict"] == "pass")
+        parts.append("UI sessions on the port: %d/%d pass (%d snapshots; the oracle's side not compared yet)"
+                     % (ok, len(ses), sum(v["snapshots"] for v in ses.values())))
+        done = False                          # the comparison with the original is part of the gate
+    else:
+        parts.append("UI sessions: not measured")
+        done = False
+    parts.append("saves both ways: not measured")
+    hp = rec("human_pass") or {}
+    parts.append("human pass: %d/%d ticked%s" % (len(hp.get("ticked", [])), len(hp.get("items", [])),
+                                                 " by %s %s" % (hp["by"], hp["date"]) if hp.get("by") else ""))
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
 def w6():
     a = rec("lockstep")
     if not a or not a.get("scenarios"):
@@ -172,7 +192,7 @@ ROWS = [
     ("W4", "platform", w4, "tools/undefined.py --record, tests/trace.py --gate --record"),
     ("W5", "asm", w5, "tests/asm.py --record"),
     ("W6", "lockstep", w6, "tests/lockstep.py run SAVE --turns N --record (golden: tests/golden/MANIFEST)"),
-    ("W7", "playable", None, "scripted sessions, saves both ways, human pass"),
+    ("W7", "playable", w7, "tests/sessions.py --record; saves both ways; status/human_pass.json"),
     ("W8", "linux", None, "winegcc build through W3-W7"),
     ("W9", "64-bit", None, "W6 and W7 on x64, x86_64, macOS"),
     ("W10", "release", None, "a clean machine per OS reaches the map"),
@@ -195,6 +215,11 @@ def render():
         if current is None and state not in ("DONE", "DEFERRED"):
             current = key
         lines.append("| %s | %s | %s | %s | `%s` |" % (key, name, state, what, gate))
+    hp = rec("human_pass") or {}
+    if hp.get("items"):
+        lines += ["", "## W7 human pass", "", "Tick each line in `status/human_pass.json` (its number in `ticked`, and "
+                  "`by` and `date` when done):", ""]
+        lines += ["- [%s] %d. %s" % ("x" if i + 1 in hp.get("ticked", []) else " ", i + 1, it) for i, it in enumerate(hp["items"])]
     lines += ["", "Current milestone: **%s** (roadmap rule 1: one at a time, in order; DEFERRED by the owner, status/decisions.json)." % (current or "none"), ""]
     return "\n".join(lines)
 

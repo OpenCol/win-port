@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""Scripted UI sessions on the port (roadmap W7): every screen the game has, opened the way a
+player opens it, from a saved game, and looked at.
+
+    python3 tests/sessions.py [NAME ...]           run the sessions (all, or those named)
+    python3 tests/sessions.py --record             also write status/sessions.json
+
+A session is the lockstep's script (src/host/w16_lockstep.c) with the player left human
+(`noautoplay`): the game loads SAVE through its own menu, then each step runs once the game sits
+idle -- a menu command (WM_COMMAND, the main window's own: MainWin_MainMenuProc), a key, a
+snapshot of the screen (`snap`, a .bmp in build/sessions/NAME/), a wait -- and `exit` ends it.
+A session passes when it reaches `exit`: no crash, no Win16 function the platform layer lacks
+(an `unported` trap), no stall (still running at --seconds). The snapshots are for a person to
+look at, and for the comparison with the original (to come: the oracle runs the same scripts).
+"""
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "tests"))
+import colwinre               # noqa: E402
+
+OUT = os.path.join(ROOT, "build", "sessions")
+RETURN, ESCAPE, DOWN = 0x0D, 0x1B, 0x28
+LOAD = [("key", DOWN), ("key", DOWN), ("key", DOWN), ("key", RETURN), ("wait", 4), ("snap", "loaded")]
+
+
+def show(cmd, name, close=ESCAPE):
+    """a menu command's screen: opened, looked at, closed"""
+    return [("cmd", cmd), ("wait", 3), ("snap", name), ("key", close), ("wait", 2)]
+
+
+SESSIONS = {
+    # the map and its views
+    "map": [("cmd", 306), ("wait", 2), ("snap", "zoom_in"), ("cmd", 308), ("wait", 2), ("snap", "zoom_out"),
+            ("cmd", 307), ("wait", 2), ("cmd", 310), ("wait", 2), ("snap", "reveal"), ("cmd", 311), ("wait", 2),
+            ("cmd", 312), ("wait", 2), ("snap", "default_desktop")],
+    "europe": show(302, "europe"),
+    "reports": sum((show(c, "report_%d" % c, RETURN) for c in range(501, 510)), []),
+    "colonopedia": sum((show(c, "pedia_%d" % c) for c in range(700, 706)), []) + show(500, "pedia_terrain"),
+    "about": show(706, "about", RETURN),
+    "options": show(100, "game_options", RETURN) + show(101, "colony_options", RETURN) + show(55, "control_panel"),
+    "find_colony": show(303, "find_city"),
+    "save": [("saveas", "SESSION.SAV"), ("cmd", 104), ("wait", 4), ("snap", "saved")],
+}
+
+
+def run(name, steps, save="AUTO01.SAV", seconds=180):
+    work = os.path.join(OUT, name)
+    if os.path.isdir(work):
+        shutil.rmtree(work)
+    os.makedirs(work)
+    path = save if os.path.isabs(save) else os.path.join(colwinre.game_dir(), save)
+    wine = lambda p: "Z:" + os.path.abspath(p).replace("/", "\\")
+    lines = ["save " + wine(path), "noautoplay"]
+    for kind, v in LOAD + steps + [("exit", "")]:
+        if kind == "saveas":
+            lines.append("saveas " + wine(os.path.join(work, v)))
+        elif kind == "key":
+            lines.append("key %#x" % v)
+        else:
+            lines.append("%s %s" % (kind, v))
+    open(os.path.join(work, "lockstep.txt"), "w").write("\n".join(lines) + "\n")
+    t0 = time.time()
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "run_port.py"), "--seconds", str(seconds),
+                        "--snapshot"], env=dict(os.environ, PORT_LOCKSTEP=wine(work), PORT_RUN_DIR=os.path.join(work, "run")),
+                       capture_output=True, text=True)
+    log = open(os.path.join(work, "native.log")).read() if os.path.exists(os.path.join(work, "native.log")) else ""
+    plog = os.path.join(work, "run", "port.log")
+    port_log = open(plog, errors="replace").read() if os.path.exists(plog) else ""
+    snaps = sorted(f[:-4] for f in os.listdir(work) if f.endswith(".bmp"))
+    if "session done" in log:
+        verdict = "pass"
+    elif "unported" in port_log:
+        verdict = "unported: " + next(l for l in port_log.splitlines() if "unported" in l)[:120]
+    elif "crash" in port_log or r.returncode not in (0, 124):
+        verdict = "crash (exit %d): %s" % (r.returncode, (next((l for l in port_log.splitlines() if "crash" in l or "fault" in l), "")[:120]))
+    else:
+        done = log.count("\ncmd ") + log.count("\nkey ") + log.count("\nsnap ")
+        verdict = "stalled after %d steps" % done
+    return {"verdict": verdict, "snapshots": snaps, "seconds": round(time.time() - t0)}
+
+
+def main(argv):
+    names = [a for a in argv if not a.startswith("--")] or list(SESSIONS)
+    res = {}
+    for n in names:
+        res[n] = run(n, SESSIONS[n])
+        print("%-12s %-8s %3ds  %d snapshots" % (n, res[n]["verdict"][:60], res[n]["seconds"], len(res[n]["snapshots"])))
+    if "save" in res and res["save"]["verdict"] == "pass":
+        ok = os.path.exists(os.path.join(OUT, "save", "SESSION.SAV"))
+        print("save: SESSION.SAV %s" % ("written" if ok else "MISSING"))
+    if "--record" in argv:
+        with open(os.path.join(ROOT, "status", "sessions.json"), "w") as f:
+            json.dump({n: {"verdict": r["verdict"], "snapshots": len(r["snapshots"])} for n, r in res.items()}, f,
+                      indent=1, sort_keys=True)
+            f.write("\n")
+    return 0 if all(r["verdict"] == "pass" for r in res.values()) else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

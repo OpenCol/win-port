@@ -1,0 +1,19 @@
+{
+ "by": null,
+ "date": null,
+ "items": [
+  "Start a new game from the title (each difficulty dialog, nation, leader name) and reach the map",
+  "Move units by keyboard and mouse; the map scrolls and zooms (Zoom In/Out, Default Desktop)",
+  "Found a colony; the colony screen opens; move colonists between fields and buildings; change production",
+  "Europe: buy and sell goods, recruit and train units, load and sail a ship both ways",
+  "Trade with a native village; a scout speaks with the chief; a missionary founds a mission",
+  "Every report (Religion, Congress, Labor, Colony, Trade, Military, Fathers, Indian, Foreign) and the Colonopedia (every section)",
+  "A Founding Father joins; the Continental Congress screen; a tax raise from the King, accepted and refused (tea party)",
+  "Combat on land and at sea; a colony is captured; a native village is destroyed",
+  "Save, quit, load the save, and play on; the autosave loads",
+  "Declare independence and fight the Royal Expeditionary Force to the end of the war",
+  "Music and sound play, and their options switch them off and on",
+  "Options (game, colony, sound, music) and the window menu items behave"
+ ],
+ "ticked": []
+}

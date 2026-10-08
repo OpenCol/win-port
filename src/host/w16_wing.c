@@ -87,6 +87,38 @@ static void *shadow_bits;
 #define SHADOW_W 1024
 #define SHADOW_H 768
 
+/* the shadow screen to a .bmp file (0 when $PORT_SNAPSHOT is not set): a lockstep session's
+   `snap` (w16_lockstep.c) and the frames above */
+int w16_snapshot_write(const char *path)
+{
+    BITMAPFILEHEADER fh;
+    BITMAPINFOHEADER bh;
+    DWORD size = SHADOW_W * SHADOW_H * 4, wr;
+    HANDLE f;
+    if (!shadow_dc)
+        return 0;
+    GdiFlush();
+    f = CreateFileA(path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+    if (f == INVALID_HANDLE_VALUE)
+        return 0;
+    memset(&bh, 0, sizeof bh);
+    bh.biSize = sizeof bh;
+    bh.biWidth = SHADOW_W;
+    bh.biHeight = -SHADOW_H;
+    bh.biPlanes = 1;
+    bh.biBitCount = 32;
+    bh.biSizeImage = size;
+    fh.bfType = 0x4d42;
+    fh.bfOffBits = sizeof fh + sizeof bh;
+    fh.bfSize = fh.bfOffBits + size;
+    fh.bfReserved1 = fh.bfReserved2 = 0;
+    WriteFile(f, &fh, sizeof fh, &wr, 0);
+    WriteFile(f, &bh, sizeof bh, &wr, 0);
+    WriteFile(f, shadow_bits, size, &wr, 0);
+    CloseHandle(f);
+    return 1;
+}
+
 static void shadow_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh)
 {
     static const char *dir;
@@ -94,7 +126,6 @@ static void shadow_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, in
     static DWORD last;
     static unsigned n;
     char path[MAX_PATH];
-    int k;
     if (!checked) {
         dir = getenv("PORT_SNAPSHOT");
         checked = 1;
@@ -135,36 +166,12 @@ static void shadow_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, in
     GdiFlush();
     {
         DWORD now = GetTickCount();
-        for (k = 0; k < 2; k++) {
-            BITMAPFILEHEADER fh;
-            BITMAPINFOHEADER bh;
-            DWORD size = SHADOW_W * SHADOW_H * 4, wr;
-            HANDLE f;
-            if (k == 0)
-                snprintf(path, sizeof path, "%s/frame.bmp", dir);
-            else if (now - last >= 3000) {
-                snprintf(path, sizeof path, "%s/frame-%03u.bmp", dir, n++);
-                last = now;
-            } else
-                break;
-            f = CreateFileA(path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-            if (f == INVALID_HANDLE_VALUE)
-                continue;
-            memset(&bh, 0, sizeof bh);
-            bh.biSize = sizeof bh;
-            bh.biWidth = SHADOW_W;
-            bh.biHeight = -SHADOW_H;
-            bh.biPlanes = 1;
-            bh.biBitCount = 32;
-            bh.biSizeImage = size;
-            fh.bfType = 0x4d42;
-            fh.bfOffBits = sizeof fh + sizeof bh;
-            fh.bfSize = fh.bfOffBits + size;
-            fh.bfReserved1 = fh.bfReserved2 = 0;
-            WriteFile(f, &fh, sizeof fh, &wr, 0);
-            WriteFile(f, &bh, sizeof bh, &wr, 0);
-            WriteFile(f, shadow_bits, size, &wr, 0);
-            CloseHandle(f);
+        snprintf(path, sizeof path, "%s/frame.bmp", dir);
+        w16_snapshot_write(path);
+        if (now - last >= 3000) {
+            snprintf(path, sizeof path, "%s/frame-%03u.bmp", dir, n++);
+            last = now;
+            w16_snapshot_write(path);
         }
     }
 }

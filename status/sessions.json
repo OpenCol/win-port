@@ -1,0 +1,34 @@
+{
+ "about": {
+  "snapshots": 2,
+  "verdict": "pass"
+ },
+ "colonopedia": {
+  "snapshots": 8,
+  "verdict": "pass"
+ },
+ "europe": {
+  "snapshots": 2,
+  "verdict": "pass"
+ },
+ "find_colony": {
+  "snapshots": 2,
+  "verdict": "pass"
+ },
+ "map": {
+  "snapshots": 5,
+  "verdict": "pass"
+ },
+ "options": {
+  "snapshots": 4,
+  "verdict": "pass"
+ },
+ "reports": {
+  "snapshots": 10,
+  "verdict": "pass"
+ },
+ "save": {
+  "snapshots": 2,
+  "verdict": "pass"
+ }
+}

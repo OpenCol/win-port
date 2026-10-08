@@ -34,11 +34,13 @@ void w16_trace(const char *fmt, ...);
 /* the autoplay lockstep (w16_lockstep.c, roadmap W6): all 0 / no-ops unless $PORT_LOCKSTEP is set */
 int w16_lockstep(void);
 const char *w16_lockstep_save(void);
+const char *w16_lockstep_saveas(void);
+int w16_snapshot_write(const char *path);
 unsigned long w16_lockstep_ticks(void);
 unsigned w16_lockstep_set_timer(HWND h, unsigned id, unsigned ms);
 int w16_lockstep_kill_timer(HWND h, unsigned id);
 void w16_lockstep_idle(void);
-void w16_lockstep_message(void);
+void w16_lockstep_message(const MSG *m);
 int w16_lockstep_input(const MSG *m);
 unsigned w16_lockstep_srand(unsigned seed);
 extern int w16_tracing;

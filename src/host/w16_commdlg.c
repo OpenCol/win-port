@@ -63,6 +63,10 @@ char w16_GetSaveFileName(OPENFILENAME_G *g)
 {
     OPENFILENAMEA o;
     BOOL r;
+    if (w16_lockstep_saveas()) {        /* a session's save, no dialog (W7) */
+        snprintf(g->lpstrFile, g->nMaxFile, "%s", w16_lockstep_saveas());
+        return 1;
+    }
     in(&o, g);
     r = GetSaveFileNameA(&o);
     out(g, &o);

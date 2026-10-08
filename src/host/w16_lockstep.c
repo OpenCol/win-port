@@ -5,7 +5,14 @@
  * Off unless $PORT_LOCKSTEP names a directory holding lockstep.txt (written by tests/lockstep.py
  * from the oracle's recording):
  *     save PATH       the file the Load dialog is answered with
- *     key VK          the menu keys, in order, each posted once the game sits idle
+ *     key VK          a key, posted once the game sits idle (the menu keys to Load; a session's)
+ *     cmd N           a menu command (WM_COMMAND N to the main window), once the game sits idle
+ *     snap NAME       the screen as it is, to NAME.bmp in this directory ($PORT_SNAPSHOT set)
+ *     wait N          N more idle rounds before the next
+ *     exit            the end of a session: the program stops
+ *                     (key, cmd, snap, wait and exit are one script, run in order)
+ *     noautoplay      the player stays human: no all-AI stores (a UI session, roadmap W7)
+ *     saveas PATH     the file the Save dialog is answered with
  *     nudge N         a Return the oracle posted at its checkpoint N (a modal message)
  *     srand N         the seeds the original's srand got, in order
  *     l17 N           the seeds its assembly generator (L17_01f0) got, in order
@@ -35,6 +42,7 @@ extern unsigned long w16_borland_seed(void);
 extern uint32_t g_dgroup_3f00_seed;
 extern long (*port_l17_seed_filter)(long);
 void w16_trace_mark(const char *text);
+int w16_snapshot_write(const char *path);
 
 #define SEG20 20
 #define DGROUP 34
@@ -44,7 +52,10 @@ static int active = -1;
 static char dir[MAX_PATH], save[MAX_PATH];
 static FILE *log_f, *cp_f;
 static unsigned long ticks;
-static unsigned keys[64], nkeys, ikey;
+static struct { char kind; unsigned long v; char text[64]; } script[512];
+static unsigned nscript, iscript, waitn;
+static int noautoplay;
+static char saveas[MAX_PATH];
 static unsigned nudges[256], nnudges, inudge;
 static unsigned long srands[4096], nsrand, isrand;
 static uint32_t l17s[4096];
@@ -79,14 +90,25 @@ static void init(void)
         return;
     while (fgets(line, sizeof line, f)) {
         char *v = strchr(line, ' ');
-        if (!v)
-            continue;
-        *v++ = 0;
+        if (!v) {
+            line[strcspn(line, "\r\n")] = 0;
+            v = line + strlen(line);         /* a bare word: noautoplay, exit */
+        } else
+            *v++ = 0;
         v[strcspn(v, "\r\n")] = 0;
         if (!strcmp(line, "save"))
             snprintf(save, sizeof save, "%s", v);
-        else if (!strcmp(line, "key") && nkeys < 64)
-            keys[nkeys++] = (unsigned)strtoul(v, 0, 0);
+        else if (!strcmp(line, "noautoplay"))
+            noautoplay = 1;
+        else if (!strcmp(line, "saveas"))
+            snprintf(saveas, sizeof saveas, "%s", v);
+        else if ((!strcmp(line, "key") || !strcmp(line, "cmd") || !strcmp(line, "snap") || !strcmp(line, "wait")
+                  || !strcmp(line, "exit")) && nscript < 512) {
+            script[nscript].kind = line[0];
+            script[nscript].v = strtoul(v, 0, 0);
+            snprintf(script[nscript].text, sizeof script[nscript].text, "%s", v);
+            nscript++;
+        }
         else if (!strcmp(line, "nudge") && nnudges < 256)
             nudges[nnudges++] = (unsigned)strtoul(v, 0, 0);
         else if (!strcmp(line, "srand") && nsrand < 4096)
@@ -103,8 +125,8 @@ static void init(void)
     cp_f = fopen(path, "wb");
     port_l17_seed_filter = l17_filter;
     active = 1;
-    fprintf(log_f, "lockstep: save %s, %u keys, %u nudges, %lu srand and %lu l17 seeds\n", save, nkeys, nnudges,
-            nsrand, nl17);
+    fprintf(log_f, "lockstep: save %s, %u script items, %u nudges, %lu srand and %lu l17 seeds%s\n", save, nscript,
+            nnudges, nsrand, nl17, noautoplay ? ", no autoplay" : "");
     fflush(log_f);
 }
 
@@ -118,6 +140,11 @@ int w16_lockstep(void)
 const char *w16_lockstep_save(void)
 {
     return w16_lockstep() && *save ? save : 0;
+}
+
+const char *w16_lockstep_saveas(void)
+{
+    return w16_lockstep() && *saveas ? saveas : 0;
 }
 
 /* ------------------------------------------------------------------ time */
@@ -186,9 +213,42 @@ void w16_lockstep_idle(void)
     if (++idle < IDLE_POLLS)
         return;
     idle = 0;
-    if (ikey < nkeys)
-        post_key(keys[ikey++]);
-    else if (inudge < nnudges && checkpoints >= nudges[inudge]) {
+    if (waitn) {
+        waitn--;
+        return;
+    }
+    if (iscript < nscript) {
+        unsigned k = iscript++;
+        switch (script[k].kind) {
+        case 'k':
+            post_key((unsigned)script[k].v);
+            break;
+        case 'c': {
+            HWND h = FindWindowA(0, "Colonization for Windows");
+            if (!h)
+                h = GetActiveWindow();
+            PostMessageA(h, WM_COMMAND, (WPARAM)script[k].v, 0);
+            fprintf(log_f, "cmd %lu to %p at tick %lu\n", script[k].v, (void *)h, ticks);
+            break;
+        }
+        case 's': {
+            char path[MAX_PATH + 80];
+            snprintf(path, sizeof path, "%s\\%s.bmp", dir, script[k].text);
+            fprintf(log_f, "snap %s: %s\n", script[k].text, w16_snapshot_write(path) ? "written" : "no shadow screen");
+            break;
+        }
+        case 'w':
+            waitn = (unsigned)script[k].v;
+            break;
+        case 'e':
+            fprintf(log_f, "session done\n");
+            fclose(log_f);
+            if (cp_f)
+                fclose(cp_f);
+            ExitProcess(0);
+        }
+        fflush(log_f);
+    } else if (inudge < nnudges && checkpoints >= nudges[inudge]) {
         inudge++;
         post_key(VK_RETURN);
     }
@@ -207,10 +267,17 @@ int w16_lockstep_input(const MSG *m)
     return 1;
 }
 
-void w16_lockstep_message(void)
+void w16_lockstep_message(const MSG *m)
 {
     ticks += 1;
-    idle = 0;
+    /* in a game, a timer or a paint is the game waiting still, not input it is busy with: a human
+       turn's cursor blinks on a timer, and that must not hold a session's next step back. Before
+       one (the intro, the menus) they count as busy, as they always did: the intro runs on its
+       timers, and a key then would skip it instead of reaching the menu */
+    unsigned char *game = global_at(SEG20, 0x7782);
+    int in_game = game && *(int16_t *)(game + 66);
+    if (!in_game || (m->message != WM_TIMER && m->message != WM_PAINT))
+        idle = 0;
 }
 
 /* ------------------------------------------------------------------ the generators' seeds */
@@ -292,8 +359,9 @@ void w16_lockstep_step(void *brains)
     loaded = global_at(DGROUP, 0x8b);
     if (!game || !nation_text || !autoplay || !loaded)
         return;
-    /* the recorder's stores (e2e_turns._on_step_write), once a game is in progress */
-    if (*(int16_t *)(game + 66)) {
+    /* the recorder's stores (e2e_turns._on_step_write), once a game is in progress -- not in a
+       UI session, where the player stays human */
+    if (*(int16_t *)(game + 66) && !noautoplay) {
         for (i = 0; i < 4; i++)
             if (nation_text[0x34 * i + 0x31] == 0)
                 nation_text[0x34 * i + 0x31] = 1;
