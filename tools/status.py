@@ -21,6 +21,7 @@ command. A milestone with no record shows "not measured": nothing is estimated. 
     status/human_pass.json  by hand: the W7 checklist, ticked by the person who played
     status/saves.json    python3 tests/sessions.py --saves --record
     status/casts.json    python3 tools/cast_audit.py --record   (W9: pointer<->integer casts on x86_64)
+    status/kit.json      python3 tools/kit.py --record   (W10; its clean_machine entries by hand)
     status/link-winegcc.json, status/lockstep-linux.json, status/sessions-linux.json
                          the same three for the Linux build (W8: PORT_TOOLCHAIN=winegcc, PORT_TARGET=linux)
 Later milestones add theirs (compile.json, link.json, ...) as their gates are written.
@@ -161,7 +162,7 @@ def same_as_windows(target):
     -- every scenario with the same checkpoints in lockstep, every session the same verdict.
     Returns (done, parts)."""
     parts, done = [], True
-    lk = rec("link-%s" % {"linux": "winegcc"}.get(target, target))
+    lk = rec("link-%s" % {"linux": "winegcc", "linux64": "x64"}.get(target, target))
     if lk:
         parts.append("%s program %s (%d/%d objects)" % (target, "links" if lk["links"] else "does NOT link",
                                                         lk["objects"], lk["sources"]))
@@ -199,10 +200,26 @@ def w9():
     else:
         parts.append("cast audit: not measured")
         done = False
-    for t in ("x64", "linux64", "macos"):
+    # x64: the 64-bit Windows program, run under Wine 11 on macOS -- macOS's 64-bit target;
+    # linux64: the same program under the Linux machine's 64-bit Wine (Linux x86_64)
+    for t, label in (("x64", "x64 (Windows x64 program, on macOS under Wine)"), ("linux64", "Linux x86_64 (the same, Wine)")):
         d, p = same_as_windows(t)
-        parts.append("%s: %s" % (t, p[0] if not d else "the same as Windows"))
+        parts.append("%s: %s" % (label, "; ".join(p[1:])))
         done &= d
+    return ("DONE" if done else "open"), "; ".join(parts)
+
+
+def w10():
+    k = rec("kit")
+    if not k:
+        return "open", "not measured"
+    t = k.get("targets", {})
+    built = sorted(n for n, v in t.items() if v["built"])
+    cm = k.get("clean_machine", {})
+    parts = ["kits built: %d of 4 (%s)" % (len(built), ", ".join(built) or "none"),
+             "clean machine reaches the map: %s" % (", ".join("%s (%s %s)" % (o, v["by"], v["date"]) for o, v in
+                                                            sorted(cm.items())) or "none yet -- a person (BLOCKED.md)")]
+    done = len(built) == 4 and all(o in cm for o in ("windows", "linux", "macos"))
     return ("DONE" if done else "open"), "; ".join(parts)
 
 
@@ -257,7 +274,8 @@ ROWS = [
     ("W8", "linux", w8, "PORT_TOOLCHAIN=winegcc tools/undefined.py --record; PORT_TARGET=linux tests/lockstep.py "
                          "native+compare --record, tests/sessions.py --record"),
     ("W9", "64-bit", w9, "tools/cast_audit.py --record; W6 and W7 on x64, x86_64, macOS"),
-    ("W10", "release", None, "a clean machine per OS reaches the map"),
+    ("W10", "release", w10, "tools/kit.py --record (CI builds the kits); a clean machine per OS reaches the map "
+                             "(status/kit.json clean_machine, by hand)"),
 ]
 
 

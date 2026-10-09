@@ -92,3 +92,102 @@ jobs:
         with:
           name: compile-${{ matrix.toolchain }}
           path: status/compile-${{ matrix.toolchain }}.json
+
+  programs-windows:
+    # Roadmap W10: the Windows programs the kits carry -- 32-bit (MinGW i686) and 64-bit
+    # (MinGW x86_64, W9). tools/undefined.py compiles and links build/colonize.exe and
+    # build/x64/colonize.exe.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchains
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686 \
+            gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
+      - name: Windows x86 program
+        run: python3 tools/undefined.py
+      - name: Windows x64 program
+        run: PORT_TOOLCHAIN=mingw-x64 python3 tools/undefined.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: programs-windows
+          path: |
+            build/colonize.exe
+            build/x64/colonize.exe
+          if-no-files-found: error
+
+  programs-linux:
+    # Roadmap W8/W10: the Linux program, Winelib i386 (build/linux/colonize.exe.so).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib \
+            libwine-dev:i386 wine32:i386
+          w=$(command -v winegcc || dpkg -L wine64-tools | grep -E '/winegcc$' | head -1)
+          sudo ln -sf "$w" /usr/local/bin/winegcc
+          sudo ln -sf "$w" /usr/local/bin/wineg++
+      - name: Linux program
+        run: PORT_TOOLCHAIN=winegcc python3 tools/undefined.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: programs-linux
+          path: |
+            build/linux/colonize.exe.so
+            build/linux/colonize.exe
+          if-no-files-found: error
+
+  kits:
+    # Roadmap W10: the release kits, one zip per platform -- the port and its launcher, no game
+    # files (tools/kit.py). Each is a downloadable artifact of the run (the kit's own zip inside:
+    # an artifact keeps no file modes, and the Linux/macOS launcher must stay executable); a v*
+    # tag also publishes them as a GitHub release.
+    needs: [programs-windows, programs-linux]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchains (the launchers)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 gcc-mingw-w64-x86-64
+      - uses: actions/download-artifact@v4
+        with:
+          name: programs-windows
+          path: build
+      - uses: actions/download-artifact@v4
+        with:
+          name: programs-linux
+          path: build/linux
+      - name: Kits
+        run: |
+          ls -lR build | head -20
+          python3 tools/kit.py --version "${GITHUB_REF_NAME}-${GITHUB_SHA::7}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: colonization-port-windows-x86
+          path: dist/colonization-port-windows-x86.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: colonization-port-windows-x64
+          path: dist/colonization-port-windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: colonization-port-linux-i386
+          path: dist/colonization-port-linux-i386.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: colonization-port-macos
+          path: dist/colonization-port-macos.zip
+      - name: Release (a v* tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Colonization port $GITHUB_REF_NAME" \
+            --notes "The port and a launcher per platform; no game files -- you need your own copy of Colonization for Windows (the updated 1995 release). See README.txt in each zip."

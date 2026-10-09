@@ -15,3 +15,4 @@ build.win16/
 tests/golden/runs/
 status/lockstep.json.lock
 status/*.lock
+dist/

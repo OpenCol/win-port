@@ -1,0 +1,21 @@
+{
+ "clean_machine": {},
+ "targets": {
+  "linux-i386": {
+   "built": true,
+   "kb": 2192
+  },
+  "macos": {
+   "built": true,
+   "kb": 578
+  },
+  "windows-x64": {
+   "built": true,
+   "kb": 725
+  },
+  "windows-x86": {
+   "built": true,
+   "kb": 623
+  }
+ }
+}
