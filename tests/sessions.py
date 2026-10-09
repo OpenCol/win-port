@@ -63,7 +63,7 @@ SESSIONS = {
 FROM_MENU = {"new_game"}
 
 
-def run(name, steps, save="AUTO01.SAV", seconds=180):
+def run(name, steps, save="AUTO01.SAV", seconds=int(os.environ.get("PORT_SESSION_SECONDS", "180"))):
     work = os.path.join(OUT, name)
     if os.path.isdir(work):
         shutil.rmtree(work)

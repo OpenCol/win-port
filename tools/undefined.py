@@ -98,6 +98,10 @@ def build(src, hdr):
     if os.path.exists(o) and os.path.getmtime(o) > max(os.path.getmtime(src), hdr):
         return o, None
     os.makedirs(os.path.dirname(o), exist_ok=True)
+    # built under a temporary name and renamed when every step is done: an interrupted build
+    # (on Linux and x64, between the compile and objcopy's renaming) must not leave an object
+    # that looks current
+    tmp = o + ".part"
     cpp = ca.is_cpp(src)
     cmd = ([CXX, "-x", "c++", "-std=gnu++03"] if cpp else [CC, "-x", "c", "-std=gnu99"]) + M32 + [
         "-c", "-O0", "-g", "-w", "-fno-omit-frame-pointer"] + (
@@ -106,17 +110,19 @@ def build(src, hdr):
         [] if X64 else ["-fno-asynchronous-unwind-tables"]) + (
         ["-finstrument-functions"] if INSTRUMENT and "/src/host/" not in src else []) + [
         "-fno-common",
-        "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", o, src]
+        "-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"), "-o", tmp, src]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace", stdin=subprocess.DEVNULL, timeout=300)
     if not r.returncode and RENAME and "/src/host/" not in src:
         # and its static constructors out of .init_array: on Winelib the dynamic loader would run
         # them before Wine is up, before the initial data; w16_winelib.c runs port_ctors after it
         r = subprocess.run([OBJCOPY, "--redefine-syms=" + build.syms] + (
-            ["--rename-section", ".init_array=port_ctors"] if WINELIB else []) + [o], capture_output=True, text=True)
+            ["--rename-section", ".init_array=port_ctors"] if WINELIB else []) + [tmp], capture_output=True, text=True)
     if r.returncode:
-        if os.path.exists(o):
-            os.remove(o)
+        for f in (o, tmp):
+            if os.path.exists(f):
+                os.remove(f)
         return None, r.stderr
+    os.replace(tmp, o)
     return o, None
 
 

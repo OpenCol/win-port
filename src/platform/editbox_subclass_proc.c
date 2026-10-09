@@ -1,3 +1,4 @@
+/* PORT: the edit box's record read at the procedure's slot + 4, as listbox_subclass_proc does, not at a fixed 10 (W9). */
 /* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* editbox_subclass_proc: candidate for 1070:57ce (681 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -35,8 +36,8 @@ extern "C" long editbox_subclass_proc(unsigned hwnd, unsigned msg, unsigned wpar
     SEditBox *edit;
     int off;
 
-    edit = (SEditBox *)GetWindowLong(hwnd, 10);
     off = GetClassWord(hwnd, -18) - 8;
+    edit = (SEditBox *)GetWindowLong(hwnd, off + 4);   /* PORT: the game's 10 is EDIT's 6 extra bytes + 4; 64-bit EDIT has 10 (W9) */
     oldproc = (WNDPROC)GetWindowLong(hwnd, off);
     switch (msg) {
     case WM_KEYUP:
