@@ -1,3 +1,4 @@
+/* PORT: a record holding pointers is allocated by its sizeof (the game's size on i386, larger on 64-bit Windows) (W9). */
 /* PORT: SetWindowLong's value is intptr_t, not long: the game stores pointers there, 8 bytes on 64-bit Windows (W9). */
 /* InitCtrlBlock: candidate for 1070:08e5 (201 bytes).  Verdict: RELOCATABLE.
  *
@@ -19,7 +20,7 @@ CtrlBlock *InitCtrlBlock(unsigned hwnd, void *obj)
     unsigned h;
 
     if (hwnd != 0) {
-        h = MSAllocateHandle(0x1eL);
+        h = MSAllocateHandle((long)sizeof(CtrlBlock));
         c = (CtrlBlock *)MSHLock(h);
         c->shared_bitmaps = 0;
         c->bmp0 = c->bmp1 = c->bmp2 = 0;

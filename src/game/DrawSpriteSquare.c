@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* DrawSpriteSquare: candidate for 1050:306b (370 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -37,7 +38,7 @@ void DrawSpriteSquare(void)
     InflateRect(&r, 1, 1);
     r2 = r;
     OffsetRect(&r2, -r2.left, -r2.top);
-    GRPort_CopyToPort(g_cur_dialog->win, (GRPort *)((char *)g_cur_dialog + 8), &r, &r2);
+    GRPort_CopyToPort(g_cur_dialog->win, &g_cur_dialog->port, &r, &r2);
     TextColor(g_text_colour);
     GRPort_DrawRect(g_cur_dialog->win, &g_cur_dialog->cur_sprite->rect);
     MSShowControl_1050_8459((DlgControl *)(&g_cur_dialog->regions[g_cur_dialog->result - 1]));

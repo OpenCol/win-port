@@ -1,3 +1,4 @@
+/* PORT: the popup's arena is twice as large on 64-bit Windows, where its records' pointers are 8 bytes (heap_get does not stop at its end) (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 27, 28 of the imported file. */
 /* Popup_set_heap: candidate for 1050:00fa (55 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -27,5 +28,5 @@ extern int heap_create(MemBlock *heap, int kind, unsigned size);
 void Popup_set_heap(Popup *popup, unsigned size)
 {
     heap_destroy((MemBlock *)(&popup->arena));
-    heap_create((MemBlock *)(&popup->arena), 9, size);
+    heap_create((MemBlock *)(&popup->arena), 9, size + size * ((int)sizeof(void *) - 4) / 4);   /* PORT: twice as large on 64-bit, as Popup::Popup (W9) */
 }

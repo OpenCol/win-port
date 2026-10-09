@@ -18,6 +18,19 @@
 
 #include "records.h"
 #include "port/types.h"
+/* PORT: the classes' sizes: the game's where a pointer is 4 bytes (W9, gen_headers CLASS_SIZES) */
+#define PORT_SIZEOF_COLCHILD (0x77a + 48 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_DIALOGWIN (0x9a + 31 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_EVENTWIN (0x8c + 28 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_FLIC (0x578 + 11 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_GRPORT (0x26 + 3 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_GAMEWIN (0xc4 + 35 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_SBUTTON (0x22 + 3 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_SIMAGEBUTTON (0x74 + 11 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_SSCROLLBAR (0x28 + 4 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_SCREEN (0xe + 2 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_SPRITE (0x20 + 1 * ((int)sizeof(void *) - 4))
+#define PORT_SIZEOF_VLIST (0xc + 3 * ((int)sizeof(void *) - 4))
 #pragma pack(push, 1)
 
 
@@ -164,39 +177,39 @@ public:
 };
 #else
 
-typedef struct { char pad0[0xc4]; char win[0x8c]; char table[0x41e]; char pic[0x26]; char page[0x26]; char overlay[0x26]; unsigned char palette[0x8a4 - 0x5e0]; RECT full; RECT top_strip; RECT bottom_strip; char logo[0x20]; char letters[0x15][0x20]; char tile[0x20]; long start; long last; i16 shown[0x19]; } AboutWin;
-typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; char pad_77a[0x9e0 - 0x77a]; i16 done; char pad_9e2[0xa56 - 0x9e2]; i16 paused, track, stopped, tray_open; } CDControlWin;
+typedef struct { char pad0[PORT_SIZEOF_GAMEWIN]; char win[PORT_SIZEOF_EVENTWIN]; char table[0x41e]; char pic[PORT_SIZEOF_GRPORT]; char page[PORT_SIZEOF_GRPORT]; char overlay[PORT_SIZEOF_GRPORT]; unsigned char palette[0x8a4 - 0x5e0]; RECT full; RECT top_strip; RECT bottom_strip; char logo[PORT_SIZEOF_SPRITE]; char letters[0x15][0x20]; char tile[PORT_SIZEOF_SPRITE]; long start; long last; i16 shown[0x19]; } AboutWin;
+typedef struct { char gamewin[PORT_SIZEOF_GAMEWIN]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[PORT_SIZEOF_SIMAGEBUTTON]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; char pad_77a[5 * PORT_SIZEOF_SIMAGEBUTTON + PORT_SIZEOF_SBUTTON]; i16 done; char pad_9e2[PORT_SIZEOF_SIMAGEBUTTON]; i16 paused, track, stopped, tray_open; } CDControlWin;
 typedef struct { char pal[0x404]; u16 hpal; short seed; short steps, first, count; short steps2, first2, count2; unsigned char r, g, b; char f417; short hsrc_a, hsrc_b, hsrc; } CTable;
-typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; } ColChild;
+typedef struct { char gamewin[PORT_SIZEOF_GAMEWIN]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[PORT_SIZEOF_SIMAGEBUTTON]; unsigned char active; unsigned char kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; } ColChild;
 typedef struct { u16 hcursor; i16 id; } CursorClass;
 typedef struct DlgControl { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; } DlgControl;
 typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; intptr_t menu_handler; intptr_t command_handler; short ldown, rdown; short hpos, vpos; struct DlgControl far *first_ctl; struct DlgControl far *ok_btn; struct DlgControl far *cancel_btn; char keyboard_nav; char f99; } DialogWin;
 typedef struct { void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; } EventTable;
 typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; void far *on_mousemove, far *on_lbutton_down, far *on_lbutton_up, far *on_lclick, far *on_rbutton_down, far *on_rbutton_up, far *on_rclick, far *on_ldblclk, far *on_keydown, far *on_keyup, far *on_keydown_after, far *on_char, far *on_close, far *on_minimize, far *on_restore, far *on_setfocus, far *on_size, far *on_move, far *on_commnotify, far *on_hscroll, far *on_hthumb, far *on_vscroll, far *on_vthumb; char f69; void far *menu; short min_track_w, min_track_h, max_track_w, max_track_h, running, hpage, vpage; intptr_t menu_handler; intptr_t command_handler; short ldown, rdown; short hpos, vpos; } EventWin;
-typedef struct { char pad[0x574]; void far *loop_hook; } Flic;
+typedef struct { char pad[PORT_SIZEOF_FLIC - (int)sizeof(void *)]; void far *loop_hook; } Flic;
 typedef struct { short hfont, height; } Font;
 typedef struct { short vptr; i16 w; i16 h; i16 stride; RECT rect; RECT bounds; unsigned char huge *bits; long far *rows; i16 current; void far *win; } GRPort;
 typedef struct { long f0; short w; short h; short count; short use_default_layout; PlacementRec windows[32]; short slots[8]; } GamePrefs;
-typedef struct { char port[0x26]; char dialog[0x9a]; void far *relayout; } GameWin;
+typedef struct { char port[PORT_SIZEOF_GRPORT]; char dialog[PORT_SIZEOF_DIALOGWIN]; void far *relayout; } GameWin;
 typedef struct { short hmenu; } MenuClass;
-typedef struct { char pad[0x8c]; MenuClass menu; } MainWin;
-typedef struct { char colchild[0x77a]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;
-typedef struct { char pad[0x76a]; RECT rect; char pad_772[8]; short f77a; short menu; RECT clip; } MiniWin;
+typedef struct { char pad[PORT_SIZEOF_EVENTWIN]; MenuClass menu; } MainWin;
+typedef struct { char colchild[PORT_SIZEOF_COLCHILD]; short cx; short cy; char pad_77e[4]; short zoom; short drag; short lbutton_held; } MapWin;
+typedef struct { char pad[PORT_SIZEOF_COLCHILD - 0x10]; RECT rect; char pad_772[8]; short f77a; short menu; RECT clip; } MiniWin;
 typedef struct { short hwnd; TimerFn slots[17]; i16 counts[17]; } MrTimer;
-typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short category; char button[0x74]; char bar[0x28]; char port[0x26]; char list[0xc]; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; } PediaWin;
+typedef struct { char gamewin[PORT_SIZEOF_GAMEWIN]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[PORT_SIZEOF_SIMAGEBUTTON]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short category; char button[PORT_SIZEOF_SIMAGEBUTTON]; char bar[PORT_SIZEOF_SSCROLLBAR]; char port[PORT_SIZEOF_GRPORT]; char list[PORT_SIZEOF_VLIST]; short kind, sel, count, pages, page, wanted; char scrollbar_built, modal, initialised, f859; } PediaWin;
 typedef struct { short handle; RGBTreeNode far *nodes; short nil; short count; short base; short stack[(0x606 - 0xc) / 2]; short sp; short built; short visited; } RGBTree;
-typedef struct { char gamewin[0xc4]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[0x74]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short kind; char image[0x74]; short nation; short page; short view; short score; unsigned char modal; char pad_7f9; void far *rec; i16 cell_x[29]; i16 cell_y[29]; i16 counts[29]; void far *prev; void far *next; void far *extra_btn; } ReportWin;
+typedef struct { char gamewin[PORT_SIZEOF_GAMEWIN]; char title[0x80]; i16 tile_w, tile_h; char save_flag; char own_msg[0xa0]; char queue[0x10][0x50]; char pad_6e9; char btn[PORT_SIZEOF_SIMAGEBUTTON]; unsigned char active; unsigned char colchild_kind; i16 dropped; void far *repaint; void far *resize; RECT rect; i16 which; char noclose; char pad_775; i16 msg_timer; i16 queued; short kind; char image[PORT_SIZEOF_SIMAGEBUTTON]; short nation; short page; short view; short score; unsigned char modal; char pad_7f9; void far *rec; i16 cell_x[29]; i16 cell_y[29]; i16 counts[29]; void far *prev; void far *next; void far *extra_btn; } ReportWin;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; short enabled; intptr_t action; short colour; } SButton;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; short checked; short enabled; } SCheckBox;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t key_filter; char multiline; char pad_23; long f24; } SEditBox;
-typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_click; intptr_t on_rclick; char up[0x26]; char down[0x26]; void far *ctable; char reinit_faces; char pad_73; } SImageButton;
+typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_click; intptr_t on_rclick; char up[PORT_SIZEOF_GRPORT]; char down[PORT_SIZEOF_GRPORT]; void far *ctable; char reinit_faces; char pad_73; } SImageButton;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; short count; long f1c; } SListBox;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; void far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t on_dblclk; intptr_t on_rbutton_down; short count; short cols; short cur_item; short hmem; void far *items; } SRadioSet;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_enter; intptr_t on_leave; intptr_t on_click; intptr_t on_press; intptr_t on_dblclk; } SRegion;
 typedef struct { short kind; short id; void far *win; RECT rect; short hwnd; struct DlgControl far *next; char initial_focus; char hotkey; short hotkey_pos; intptr_t on_change; intptr_t on_track; short page; short f24; short pos; } SScrollBar;
 typedef struct { short style; void far *ctable; void far *win; short fa; char disabled; } Screen;
 typedef struct { RECT bounds; RECT area; i16 hx, hy; i16 scale_x, scale_y; unsigned char key; char pad_19; short handle; unsigned char huge *bits; } Sprite;
-typedef struct { char gamewin[0xc4]; char win[0x8c]; char palette[0x414 - 0x150]; } SuperWin;
+typedef struct { char gamewin[PORT_SIZEOF_GAMEWIN]; char win[PORT_SIZEOF_EVENTWIN]; char palette[0x414 - 0x150]; } SuperWin;
 typedef struct { long first; long last; long cur; } VList;
 
 /* PORT: Popup, MagicWin from include/port/corpus_classes.h: the corpus defined these in each file (W1) */
@@ -254,6 +267,18 @@ typedef struct {
 PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GRPort) == 0x26, "GRPort is not the game's 0x26 bytes");
 PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, "GameWin is not the game's 0xc4 bytes");
 PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_DIALOG_BASE, "a window's DialogWin base is not where the code puts it");
+PORT_SIZE_ASSERT(sizeof(ColChild) == PORT_SIZEOF_COLCHILD, "ColChild is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(DialogWin) == PORT_SIZEOF_DIALOGWIN, "DialogWin is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(EventWin) == PORT_SIZEOF_EVENTWIN, "EventWin is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(Flic) == PORT_SIZEOF_FLIC, "Flic is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_SIZEOF_GRPORT, "GRPort is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(GameWin) == PORT_SIZEOF_GAMEWIN, "GameWin is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(SButton) == PORT_SIZEOF_SBUTTON, "SButton is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(SImageButton) == PORT_SIZEOF_SIMAGEBUTTON, "SImageButton is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(SScrollBar) == PORT_SIZEOF_SSCROLLBAR, "SScrollBar is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(Screen) == PORT_SIZEOF_SCREEN, "Screen is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(Sprite) == PORT_SIZEOF_SPRITE, "Sprite is not the size its C view pads say");
+PORT_SIZE_ASSERT(sizeof(VList) == PORT_SIZEOF_VLIST, "VList is not the size its C view pads say");
 #endif
 #pragma pack(pop)
 #endif

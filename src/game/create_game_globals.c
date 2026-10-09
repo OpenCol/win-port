@@ -83,18 +83,22 @@ MainWin g_main_win;             /* SEG20:0x5ca */
  * the two windows), and is spelled as an anonymous block like the gap below. */
 static char gap_40d6[0x40e2 - 0x40d6];
 DebugWin g_debug_win;              /* SEG20:0x40e2 */
-Sprite g_art_base[0x1b];   /* SEG20:0x41a6, the first art sprites. Its readers once
+/* PORT: the sprite tables are one run, as in the game: g_art_base is indexed across all eight
+   (g_art_base[217] ...). A 64-bit compiler aligns a large array to 32 bytes, which would put gaps
+   between them; a declared alignment -- Sprite's own -- is kept as given (W9). */
+#define PORT_SPRITE_RUN __attribute__((aligned(2)))
+Sprite g_art_base[0x1b] PORT_SPRITE_RUN;   /* SEG20:0x41a6, the first art sprites. Its readers once
    indexed it past its end ([411], [412] for the background tile and the route panel); the
    shipped fixups name those sprites' own symbols, so they read g_background_tile and
    g_route_panel_sprite now, and every remaining reference is to this array (2026-10-02). */
-Sprite g_terrain_sprites[0xbe];       /* SEG20:0x4506 */
-Sprite g_overlay_sprites[0x2c];       /* SEG20:0x5cc6 */
-Sprite g_icon_sprites[0x84];       /* SEG20:0x6246 */
-Sprite g_flag_art[0x12];       /* SEG20:0x72c6 */
+Sprite g_terrain_sprites[0xbe] PORT_SPRITE_RUN;       /* SEG20:0x4506 */
+Sprite g_overlay_sprites[0x2c] PORT_SPRITE_RUN;       /* SEG20:0x5cc6 */
+Sprite g_icon_sprites[0x84] PORT_SPRITE_RUN;       /* SEG20:0x6246 */
+Sprite g_flag_art[0x12] PORT_SPRITE_RUN;       /* SEG20:0x72c6 */
 /* PORT: one Sprite, as every user of g_background_tile takes it; the shipped data held an array of one (W1). */
-Sprite g_background_tile;            /* SEG20:0x7506 */
-Sprite g_route_panel_sprite;              /* SEG20:0x7526 */
-Sprite g_edge_sprites[0x10];       /* SEG20:0x7546 */
+Sprite g_background_tile PORT_SPRITE_RUN;            /* SEG20:0x7506 */
+Sprite g_route_panel_sprite PORT_SPRITE_RUN;              /* SEG20:0x7526 */
+Sprite g_edge_sprites[0x10] PORT_SPRITE_RUN;       /* SEG20:0x7546 */
 CursorClass g_cursors[0xf];        /* SEG20:0x7746 */
 Font g_title_font;                     /* DGROUP:0x4b06 */
 Font g_report_font_small;              /* DGROUP:0x4b0a */

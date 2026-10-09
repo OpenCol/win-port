@@ -17,6 +17,10 @@
 
 /* PORT: where a window's DialogWin base starts: sizeof(GRPort), 0x26 in the game (W9) */
 #define PORT_DIALOG_BASE (0x26 + 3 * ((int)sizeof(void *) - 4))
+/* PORT: where a dialog's EventTable starts (after its Screen: 0xd, two pointers), and so a
+   window's: 0x33 in the game (W9) */
+#define PORT_SCREEN_DSIZE (0xd + 2 * ((int)sizeof(void *) - 4))
+#define PORT_EVENT_TABLE (PORT_DIALOG_BASE + PORT_SCREEN_DSIZE)
 
 #include <stdint.h>
 

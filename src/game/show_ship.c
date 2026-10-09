@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 103, 105, 107, 128, 130 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
@@ -101,11 +102,11 @@ extern "C" void show_ship(register int n)
         if (parent != 0) {
             GameWin_Init(&g_opening_win, "", 0x801, 0, 0, 0x280,
                                              0x1e0, &g_game_palette, (Screen *)parent);
-            set_on_lclick_1040_ab03((EventTable *)((char *)g_backdrop_win + 0xd),
+            set_on_lclick_1040_ab03((EventTable *)((char *)g_backdrop_win + PORT_SCREEN_DSIZE),
                                           (void*)(opening_dismiss_1040_7d94));
-            set_on_rclick_1040_ab3c((EventTable *)((char *)g_backdrop_win + 0xd),
+            set_on_rclick_1040_ab3c((EventTable *)((char *)g_backdrop_win + PORT_SCREEN_DSIZE),
                                           (void*)(opening_dismiss_1040_7d94));
-            set_on_keydown_after_1040_ab75((EventTable *)((char *)g_backdrop_win + 0xd),
+            set_on_keydown_after_1040_ab75((EventTable *)((char *)g_backdrop_win + PORT_SCREEN_DSIZE),
                                           (void*)(opening_dismiss_1040_7d80));
         } else
             GameWin_Init(&g_opening_win, "", 0x801, 0, 0, 0x280,
@@ -126,9 +127,9 @@ extern "C" void show_ship(register int n)
         GRPort_String(&port, (unsigned *)&g_font_small, buf, 0x140, 0x19, 0x10);
         copy_all_to_screen_1040_abe0(&g_opening_win);
         win_center_1040_a778((DialogWin *)((char *)&g_opening_win + PORT_DIALOG_BASE));
-        set_on_keydown_1040_abfe((EventTable *)((char *)&g_opening_win + 0x33),
+        set_on_keydown_1040_abfe((EventTable *)((char *)&g_opening_win + PORT_EVENT_TABLE),
                                       (void*)(opening_dismiss_1040_7d80));
-        set_on_lbutton_down_1040_ac37((EventTable *)((char *)&g_opening_win + 0x33),
+        set_on_lbutton_down_1040_ac37((EventTable *)((char *)&g_opening_win + PORT_EVENT_TABLE),
                                      (void*)(opening_dismiss_1040_7d94));
         win_show_and_focus_1040_ac70((DialogWin *)((char *)&g_opening_win + PORT_DIALOG_BASE));
         show_window_1040_a79d(&g_opening_win);

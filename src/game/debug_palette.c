@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of build_window_with_port removed: the header declares it from the definition (W1 step 3). */
 /* debug_palette: candidate for 1050:65e0 (389 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -47,9 +48,9 @@ void debug_palette(char *w)
     register int x;
 
     build_window_with_port((GameWin *)w, "Debug Info", 0x69, 0, 0, 0x200, 0x100, &g_game_palette);
-    set_on_lbutton_down_1050_8eb9((EventTable *)(w + 0x33), (void *)dispatch_click);
+    set_on_lbutton_down_1050_8eb9((EventTable *)(w + PORT_EVENT_TABLE), (void *)dispatch_click);
     GRPort_FillColor_all((GRPort *)w, g_text_colour);
-    set_on_close_1050_8ef2((EventTable *)(w + 0x33), (void *)set_quit_flag);
+    set_on_close_1050_8ef2((EventTable *)(w + PORT_EVENT_TABLE), (void *)set_quit_flag);
     SetRect(&r, 0, 0, 0x100, 0x100);
     MSLockGraf((GRPort *)w);
     for (x = 0; x < 0x100; x++)

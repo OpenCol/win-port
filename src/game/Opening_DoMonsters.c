@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* Opening_DoMonsters: candidate for 1010:1ed5 (1417 bytes, 1 caller).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Opening_DoMonsters
@@ -120,7 +121,7 @@ void Opening_DoMonsters(Opening *w)
         w->monster_slots[5].count--;
     }
     if ((int)w->monster_slots[6].active == 1) {
-        Sprite_Draw((RECT *)b7, (Sprite *)((char *)w + 0x1a0c + w->monster_slots[6].frame * 32), &w->port1, 0x4ab, 0x118);
+        Sprite_Draw((RECT *)b7, (Sprite *)&w->monster6[w->monster_slots[6].frame], &w->port1, 0x4ab, 0x118);
         w->monster_slots[6].frame++;
         if (w->monster_slots[6].frame >= 13) w->monster_slots[6].frame = 0;
         w->monster_slots[6].count--;

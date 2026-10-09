@@ -1,3 +1,4 @@
+/* PORT: the Customize view as the class lays it out: i16 fields, objects sized by class (W9; also the i386 build's `family`). */
 /* Customize_DrawBoxText: candidate for 1030:181d (405 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -24,12 +25,17 @@
 
 #include "w16types.h"
 #include "classes.h"
-typedef struct {
-    char pad[0xc4];
-    RECT boxes[(0x12c - 0xc4) / 8];       /* +0xc4  */
-    int choice[(0x178 - 0x12c) / 2];      /* +0x12c */
-    char port[0x1a2 - 0x178];             /* +0x178 */
-    int family;                           /* +0x1a2 */
+typedef struct {                      /* PORT: classes.h's Customize, member for member: i16, and the
+                                         objects sized by their classes -- the old view's 4-byte ints put
+                                         `family` at +0x1ee, not the game's +0x1a2 (W9) */
+    char gamewin[PORT_SIZEOF_GAMEWIN];
+    RECT boxes[12];                       /* +0xc4  */
+    i16 hit[4];                           /* +0x124 */
+    i16 choice[4];                        /* +0x12c */
+    char ok[PORT_SIZEOF_SBUTTON];         /* +0x134 */
+    char cancel[PORT_SIZEOF_SBUTTON];     /* +0x156 */
+    char port[PORT_SIZEOF_GRPORT];        /* +0x178 */
+    i16 done, cancelled, family;          /* +0x19e, +0x1a0, +0x1a2 */
 } Customize;
 
 extern void GRPort_String(GRPort *port, unsigned *font, const char *s,

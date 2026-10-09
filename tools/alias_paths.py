@@ -122,4 +122,5 @@ def main():
         print("\n".join(lines[3:]))
 
 
-main()
+if __name__ == "__main__":
+    main()

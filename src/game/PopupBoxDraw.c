@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of GameWin_Init, win_center_1020_abcb removed: the header declares them from the definition (W1 step 3). */
 /* PopupBoxDraw: candidate for 1020:669e (540 bytes).  Verdict: RELOCATABLE.
@@ -86,8 +87,8 @@ void PopupBoxDraw(char *win, int x, int y, int w, int h)
     GRPort_DrawRect((GRPort *)win, &r);
     r.left++; r.right--; r.top++; r.bottom--;
     GRPort_DrawRect((GRPort *)win, &r);
-    set_on_lbutton_down_1020_ab20((EventTable *)(win + 0x33), bordered_win_dismiss_1020_667c);
-    set_on_rbutton_down_1020_ab59((EventTable *)(win + 0x33), bordered_win_dismiss_1020_667c);
-    set_on_keydown_1020_ab92((EventTable *)(win + 0x33), bordered_win_dismiss_1020_665a);
+    set_on_lbutton_down_1020_ab20((EventTable *)(win + PORT_EVENT_TABLE), bordered_win_dismiss_1020_667c);
+    set_on_rbutton_down_1020_ab59((EventTable *)(win + PORT_EVENT_TABLE), bordered_win_dismiss_1020_667c);
+    set_on_keydown_1020_ab92((EventTable *)(win + PORT_EVENT_TABLE), bordered_win_dismiss_1020_665a);
     win_center_1020_abcb((DialogWin *)(win + PORT_DIALOG_BASE));
 }

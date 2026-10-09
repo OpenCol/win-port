@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* RedrawSpriteSquare: candidate for 1050:2f30 (315 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -42,7 +43,7 @@ void RedrawSpriteSquare(void)
     InflateRect(&r, 1, 1);
     r2 = r;
     OffsetRect(&r2, -r2.left, -r2.top);
-    GRPort_CopyToPort((GRPort *)((char *)g_cur_dialog + 8), g_cur_dialog->win, &r2, &r);
+    GRPort_CopyToPort(&g_cur_dialog->port, g_cur_dialog->win, &r2, &r);
     MSShowControl_1050_8459((DlgControl *)(&g_cur_dialog->regions[g_cur_dialog->result - 1]));
     if (g_cur_dialog->result > 1 && g_cur_dialog->cur_sprite->prev != 0)
         MSShowControl_1050_8459((DlgControl *)(&g_cur_dialog->regions[g_cur_dialog->result - 2]));

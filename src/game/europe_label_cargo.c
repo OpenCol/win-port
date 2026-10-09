@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
 /* PORT: this file's own declarations of GameWin_Init, MSGetTextLength_1048_dc4e, set_on_keydown_1048_dceb removed: the header declares them from the definition (W1 step 3). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 112 of the imported file. */
@@ -106,7 +107,7 @@ extern "C" void europe_label_cargo(register int goods)
                                      &g_game_palette, (Screen *)&g_europe_win_dlg);
     GRPort_ColorSync(g_europe_popup, &g_game_palette);
     GRPort_FillColor_all(g_europe_popup, 0);
-    set_on_keydown_1048_dceb((EventTable *)((char *)g_europe_popup + 0x33), (void*)(LabelKeyProc));
+    set_on_keydown_1048_dceb((EventTable *)((char *)g_europe_popup + PORT_EVENT_TABLE), (void*)(LabelKeyProc));
     TextColor(0xff);
     GRPort_String(g_europe_popup, (unsigned *)&g_number_font, buf, port_width_1048_d4f6(g_europe_popup) / 2,
                          port_height_1048_d7c5(g_europe_popup) / 2, 0);

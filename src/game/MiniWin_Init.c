@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: `(int *)&g_cursors[10]` takes the address: the corpus's char g_cursors[][4] row decayed to its address; the header's element is a CursorClass (W1). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 53, 55 of the imported file. */
@@ -55,9 +56,9 @@ void MiniWin_Init(MiniWin *w)
     set_max_track_size_1060_6197((EventWin *)((char *)w + PORT_DIALOG_BASE), 0x180, 0x1a0);
     win_set_icon_1060_61b9((char *)((DialogWin *)((char *)w + PORT_DIALOG_BASE)), 0x83);
     get_window_rect_1060_61dd((ColChild *)((MiniWin *)((ColChild *)w)), &w->clip);
-    set_on_lbutton_down_1060_6203((char *)((EventTable *)((char *)w + 0x33)), (void *)MiniWin_LeftMouseClick);
-    set_on_rbutton_down_1060_623c((EventTable *)((char *)w + 0x33), (void *)MiniWin_RightMouseClick);
+    set_on_lbutton_down_1060_6203((char *)((EventTable *)((char *)w + PORT_EVENT_TABLE)), (void *)MiniWin_LeftMouseClick);
+    set_on_rbutton_down_1060_623c((EventTable *)((char *)w + PORT_EVENT_TABLE), (void *)MiniWin_RightMouseClick);
     win_set_cursor_1060_6275((DialogWin *)((char *)w + PORT_DIALOG_BASE), (int *)&g_cursors[10], 0);
-    set_on_keydown_1060_629f((EventTable *)((char *)w + 0x33), (void *)KeyEvents);
+    set_on_keydown_1060_629f((EventTable *)((char *)w + PORT_EVENT_TABLE), (void *)KeyEvents);
     set_repaint_handler_1060_62d8((ColChild *)((MiniWin *)((ColChild *)w)), (void *)MiniWin_MiniUpdate);
 }

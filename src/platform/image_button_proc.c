@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window procedure's lParam is intptr_t, not long: it carries pointers, 8 bytes on 64-bit Windows (W9). */
 /* PORT: lParam's words as Borland's 16-bit casts took them -- i16 for coordinates, sizes and positions, u16 for handles, ids and codes; (unsigned)/(int) keep 32 bits here (W4). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 95, 96, 112, 113, 128, 131, 139, 152, 160, 161, 167 of the imported file. */
@@ -130,20 +131,20 @@ long image_button_proc(unsigned hwnd, unsigned msg, unsigned wp, intptr_t lp)
         ValidateRect(hwnd, &r);
         SelectPalette(hdc, ctable_hpal((CTable *)(get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))))), 0);
         if (o->hot == 0) {
-            MSLockGraf((GRPort *)(ctl + 0x22));
-            GRPort_ColorSync((GRPort *)(ctl + 0x22), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
+            MSLockGraf((GRPort *)&((SImageButton *)ctl)->up);
+            GRPort_ColorSync((GRPort *)&((SImageButton *)ctl)->up, (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
             RealizePalette(hdc);
-            WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)(ctl + 0x22)), port_height_1070_98bc((GRPort *)(ctl + 0x22)),
-                       GRPort_GetWin_1070_960d((GRPort *)(ctl + 0x22))->hdc, 0, 0);
-            MSUnlockGraf((GRPort *)(ctl + 0x22));
+            WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)&((SImageButton *)ctl)->up), port_height_1070_98bc((GRPort *)&((SImageButton *)ctl)->up),
+                       GRPort_GetWin_1070_960d((GRPort *)&((SImageButton *)ctl)->up)->hdc, 0, 0);
+            MSUnlockGraf((GRPort *)&((SImageButton *)ctl)->up);
         }
         if (o->hot == 1) {
-            MSLockGraf((GRPort *)(ctl + 0x48));
-            GRPort_ColorSync((GRPort *)(ctl + 0x48), (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
+            MSLockGraf((GRPort *)&((SImageButton *)ctl)->down);
+            GRPort_ColorSync((GRPort *)&((SImageButton *)ctl)->down, (CTable *)get_ctable_1070_97b7((Screen *)(ctl_window_1070_96a8((DlgControl *)((char *)((DlgControl *)ctl))))));
             RealizePalette(hdc);
-            WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)(ctl + 0x48)), port_width_1070_98a3((GRPort *)(ctl + 0x48)),
-                       GRPort_GetWin_1070_960d((GRPort *)(ctl + 0x48))->hdc, 0, 0);
-            MSUnlockGraf((GRPort *)(ctl + 0x48));
+            WinGBitBlt(hdc, 0, 0, port_width_1070_98a3((GRPort *)&((SImageButton *)ctl)->down), port_width_1070_98a3((GRPort *)&((SImageButton *)ctl)->down),
+                       GRPort_GetWin_1070_960d((GRPort *)&((SImageButton *)ctl)->down)->hdc, 0, 0);
+            MSUnlockGraf((GRPort *)&((SImageButton *)ctl)->down);
         }
         EndPaint(hwnd, &ps);
         if (GetFocus() == hwnd)

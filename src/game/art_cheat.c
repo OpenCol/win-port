@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 98, 490 of the imported file. */
 /* PORT: this file's own declarations of MSHideWindow_of_1040_a80c removed: the header declares it from the definition (W1 step 3). */
@@ -482,7 +483,7 @@ extern "C" void art_cheat(void)
         if (unknown == 0) {
             win_center_1040_a778((DialogWin *)((char *)&win + PORT_DIALOG_BASE));
             show_window_1040_a79d(&win);
-            set_on_close_1040_a7bc((EventTable *)((char *)&win + 0x33), (void*)(viewer_dismiss_handler));
+            set_on_close_1040_a7bc((EventTable *)((char *)&win + PORT_EVENT_TABLE), (void*)(viewer_dismiss_handler));
             g_viewer_dismissed = 0;
             while (g_viewer_dismissed == 0)
                 MSDoTask_1040_a7f5();

@@ -1,3 +1,4 @@
+/* PORT: a record holding pointers is allocated by its sizeof (the game's size on i386, larger on 64-bit Windows) (W9). */
 /* create_MSMovieClass_window: candidate for 1078:3010 (774 bytes).  Verdict: RELOCATABLE.
  * size-source: 775, not the census 766. The trailing 9 bytes are the dead second epilogue.
  *
@@ -50,7 +51,7 @@ MSWin *create_MSMovieClass_window(char *title, unsigned flag_word, int x, int y,
     int eh;
 
     style = 0L;
-    hnd = MSAllocateHandle(0x26L);
+    hnd = MSAllocateHandle((long)sizeof(MSWin));
     rec = (MSWin *)MSHLock(hnd);
     rec->handle = hnd;
     caption = GetSystemMetrics(4);

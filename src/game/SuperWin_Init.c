@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of GameWin_Init removed: the header declares it from the definition (W1 step 3). */
 /* SuperWin_Init: candidate for 1050:6a16 (359 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -58,12 +59,12 @@ void SuperWin_Init(SuperWin *o)
     win_set_back_color_1050_8f5c((DialogWin *)&o->win, 0);
     GameWin_Init((GameWin *)o, "", 0x801, 0, 0, 0x280, 0x1e0,
                                      &g_game_palette, (Screen *)&o->win);
-    set_on_lclick_1050_8f80((EventTable *)((char *)o + 0x33), SuperWin_LeftMouseDown);
-    set_on_rclick_1050_8fb9((EventTable *)((char *)o + 0x33), SuperWin_RightMouseDown);
-    set_on_keydown_after_1050_8544((EventTable *)((char *)o + 0x33), SuperWin_KeyDown);
-    set_on_lclick_1050_8f80((EventTable *)((char *)o + 0xd1), SuperWin_LeftMouseDown);
-    set_on_rclick_1050_8fb9((EventTable *)((char *)o + 0xd1), SuperWin_RightMouseDown);
-    set_on_keydown_after_1050_8544((EventTable *)((char *)o + 0xd1), SuperWin_KeyDown);
+    set_on_lclick_1050_8f80((EventTable *)((char *)o + PORT_EVENT_TABLE), SuperWin_LeftMouseDown);
+    set_on_rclick_1050_8fb9((EventTable *)((char *)o + PORT_EVENT_TABLE), SuperWin_RightMouseDown);
+    set_on_keydown_after_1050_8544((EventTable *)((char *)o + PORT_EVENT_TABLE), SuperWin_KeyDown);
+    set_on_lclick_1050_8f80((EventTable *)((char *)o + PORT_SIZEOF_GAMEWIN + PORT_SCREEN_DSIZE), SuperWin_LeftMouseDown);
+    set_on_rclick_1050_8fb9((EventTable *)((char *)o + PORT_SIZEOF_GAMEWIN + PORT_SCREEN_DSIZE), SuperWin_RightMouseDown);
+    set_on_keydown_after_1050_8544((EventTable *)((char *)o + PORT_SIZEOF_GAMEWIN + PORT_SCREEN_DSIZE), SuperWin_KeyDown);
     MSShowWindow_of_1050_8ff2((DialogWin *)&o->win);
     MSDoAllTasks_1050_8be7();
 }

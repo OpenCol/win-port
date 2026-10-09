@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* SuperWin_GoAway: candidate for 1050:6ca0 (107 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
@@ -36,9 +37,9 @@ void SuperWin_GoAway(SuperWin *w)
 {
     MSShowMenuBar();
     MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + PORT_DIALOG_BASE));
-    CTable_Fill(&g_game_palette, 0xa, 0xec, (char *)w + 0x150);
+    CTable_Fill(&g_game_palette, 0xa, 0xec, (char *)w + PORT_SIZEOF_GAMEWIN + PORT_SIZEOF_EVENTWIN);
     MSDoAllTasks_1050_8be7();
-    MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + 0xc4));
-    dialog_dispose_window_1050_906a((DialogWin *)((char *)w + 0xc4));
+    MSHideWindow_of_1050_8cd8((DialogWin *)((char *)w + PORT_SIZEOF_GAMEWIN));
+    dialog_dispose_window_1050_906a((DialogWin *)((char *)w + PORT_SIZEOF_GAMEWIN));
     MSDoAllTasks_1050_8be7();
 }

@@ -1,3 +1,4 @@
+/* PORT: the popup's arena is twice as large on 64-bit Windows, where its records' pointers are 8 bytes (heap_get does not stop at its end) (W9). */
 /* Popup_ctor: candidate for 1050:03c2 (179 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: Popup::Popup(int)
@@ -25,7 +26,7 @@ extern "C" extern "C" void Popup_clear(Popup *popup);
 Popup::Popup(int n)
 {
     Popup_clear(this);
-    heap_create(&arena, 9, n);
+    heap_create(&arena, 9, n + n * ((int)sizeof(void *) - 4) / 4);   /* PORT: twice as large on 64-bit: the records it holds carry pointers (W9) */
     Popup_clear(this);
     GRPort_Init_wh(&port, 0x28, 0x28);
 }

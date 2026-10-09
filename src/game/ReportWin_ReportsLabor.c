@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of GRPort_String, MSGetTextLength_1058_be29 removed: the header declares them from the definition (W1 step 3). */
 /* PORT: this file's own declarations of MSGetTextLength, ReportWin_OnLaborClick removed: the header declares them from the definition (W1 step 3). */
 /* ReportWin_ReportsLabor: candidate for 1058:2dcd (1072 bytes).  Verdict: RELOCATABLE.
@@ -139,6 +140,6 @@ void ReportWin_ReportsLabor(ReportWin *o, int nation)
             x += colw;
         }
     }
-    set_on_mousemove_1058_bf13((EventTable *)((char *)o + 0x33), (void *)ReportWin_OnLaborMouseMove);
-    set_on_lclick_1058_bdb7((EventTable *)((char *)o + 0x33), (void *)ReportWin_OnLaborClick);
+    set_on_mousemove_1058_bf13((EventTable *)((char *)o + PORT_EVENT_TABLE), (void *)ReportWin_OnLaborMouseMove);
+    set_on_lclick_1058_bdb7((EventTable *)((char *)o + PORT_EVENT_TABLE), (void *)ReportWin_OnLaborClick);
 }

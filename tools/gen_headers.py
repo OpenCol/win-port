@@ -626,7 +626,11 @@ def gen_colonization():
     # corpus converts between them by the game's 0x26 (`w ? w + 0x26 : w`); GRPort holds three
     # pointers, so on a 64-bit target the base is 12 bytes further (classes.h checks the size)
     macro += ("/* PORT: where a window's DialogWin base starts: sizeof(GRPort), 0x26 in the game (W9) */\n"
-              "#define PORT_DIALOG_BASE (0x26 + 3 * ((int)sizeof(void *) - 4))\n\n")
+              "#define PORT_DIALOG_BASE (0x26 + 3 * ((int)sizeof(void *) - 4))\n"
+              "/* PORT: where a dialog's EventTable starts (after its Screen: 0xd, two pointers), and so a\n"
+              "   window's: 0x33 in the game (W9) */\n"
+              "#define PORT_SCREEN_DSIZE (0xd + 2 * ((int)sizeof(void *) - 4))\n"
+              "#define PORT_EVENT_TABLE (PORT_DIALOG_BASE + PORT_SCREEN_DSIZE)\n\n")
     first = out.index("#include <stdint.h>")
     out = out[:first] + macro + out[first:]
     # prototypes the corpus has moved on from: a function src/ defines gets its definition's head
@@ -770,6 +774,65 @@ def devirtualize(text):
     return text
 
 
+# W9: the C views spell a base class or a member object as a byte pad of the game's size
+# (`char gamewin[0xc4];`). Where the object holds pointers it is larger on a 64-bit target, and
+# every view member after the pad would be read at the game's offset. Each such pad is sized by
+# its class: the game's size plus 4 bytes per pointer-sized field (counted from the x86_64
+# build: its sizeof less the game's, over 4), which classes.h checks against sizeof in C++.
+CLASS_SIZES = {          # class: (the game's size, pointer-sized fields)
+    "GameWin": (0xc4, 35), "GRPort": (0x26, 3), "SImageButton": (0x74, 11), "EventWin": (0x8c, 28),
+    "ColChild": (0x77a, 48), "DialogWin": (0x9a, 31), "Sprite": (0x20, 1), "SScrollBar": (0x28, 4),
+    "VList": (0xc, 3), "SButton": (0x22, 3), "Flic": (0x578, 11), "Screen": (0xe, 2),   # sizeof; a derived class reuses its tail byte (EventTable at 0xd)
+}
+VIEW_PADS = {            # (view, pad): its size, in the macros below
+    ("AboutWin", "pad0"): "PORT_SIZEOF_GAMEWIN", ("AboutWin", "win"): "PORT_SIZEOF_EVENTWIN",
+    ("AboutWin", "pic"): "PORT_SIZEOF_GRPORT", ("AboutWin", "page"): "PORT_SIZEOF_GRPORT",
+    ("AboutWin", "overlay"): "PORT_SIZEOF_GRPORT", ("AboutWin", "logo"): "PORT_SIZEOF_SPRITE",
+    ("AboutWin", "tile"): "PORT_SIZEOF_SPRITE",
+    ("CDControlWin", "gamewin"): "PORT_SIZEOF_GAMEWIN", ("CDControlWin", "btn"): "PORT_SIZEOF_SIMAGEBUTTON",
+    ("CDControlWin", "pad_77a"): "5 * PORT_SIZEOF_SIMAGEBUTTON + PORT_SIZEOF_SBUTTON",   # ib1..ib5, b
+    ("CDControlWin", "pad_9e2"): "PORT_SIZEOF_SIMAGEBUTTON",                            # ib6
+    ("ColChild", "gamewin"): "PORT_SIZEOF_GAMEWIN", ("ColChild", "btn"): "PORT_SIZEOF_SIMAGEBUTTON",
+    ("Flic", "pad"): "PORT_SIZEOF_FLIC - (int)sizeof(void *)",                         # all but loop_hook
+    ("GameWin", "port"): "PORT_SIZEOF_GRPORT", ("GameWin", "dialog"): "PORT_SIZEOF_DIALOGWIN",
+    ("MainWin", "pad"): "PORT_SIZEOF_EVENTWIN",
+    ("MapWin", "colchild"): "PORT_SIZEOF_COLCHILD",
+    ("MiniWin", "pad"): "PORT_SIZEOF_COLCHILD - 0x10",                                 # ColChild up to rect
+    ("PediaWin", "gamewin"): "PORT_SIZEOF_GAMEWIN", ("PediaWin", "btn"): "PORT_SIZEOF_SIMAGEBUTTON",
+    ("PediaWin", "button"): "PORT_SIZEOF_SIMAGEBUTTON", ("PediaWin", "bar"): "PORT_SIZEOF_SSCROLLBAR",
+    ("PediaWin", "port"): "PORT_SIZEOF_GRPORT", ("PediaWin", "list"): "PORT_SIZEOF_VLIST",
+    ("ReportWin", "gamewin"): "PORT_SIZEOF_GAMEWIN", ("ReportWin", "btn"): "PORT_SIZEOF_SIMAGEBUTTON",
+    ("ReportWin", "image"): "PORT_SIZEOF_SIMAGEBUTTON",
+    ("SImageButton", "up"): "PORT_SIZEOF_GRPORT", ("SImageButton", "down"): "PORT_SIZEOF_GRPORT",
+    ("SuperWin", "gamewin"): "PORT_SIZEOF_GAMEWIN", ("SuperWin", "win"): "PORT_SIZEOF_EVENTWIN",
+}
+
+
+def size_macros():
+    return "".join("#define PORT_SIZEOF_%s (0x%x + %d * ((int)sizeof(void *) - 4))\n" % (c.upper(), n, k)
+                   for c, (n, k) in sorted(CLASS_SIZES.items()))
+
+
+def view_pads(text):
+    """the C views' object pads sized by their classes (VIEW_PADS)"""
+    done = set()
+
+    def view(m):
+        body, name = m.group(1), m.group(2)
+        for (v, pad), size in VIEW_PADS.items():
+            if v != name:
+                continue
+            body, n = re.subn(r"\bchar %s\[[^\]]+\](?!\[)" % re.escape(pad), "char %s[%s]" % (pad, size), body)
+            if n:
+                done.add((v, pad))
+        return "typedef struct {%s} %s;" % (body, name)
+    text = re.sub(r"typedef struct \{(.*?)\} (\w+);", view, text, flags=re.S)
+    missing = set(VIEW_PADS) - done
+    if missing:
+        sys.exit("gen_headers: view pads not found: %s" % sorted(missing))
+    return text
+
+
 def gen_classes():
     src = open(os.path.join(INC, "classes.h")).read()
     cpp, c, names, views = corpus_classes()
@@ -780,12 +843,17 @@ def gen_classes():
     src = src[:j] + note % (", ".join(views), "these") + c + src[j:]
     text = borland_pragmas(widen_records(devirtualize(src)))
     text = callback_fields(text)
-    text = text.replace('#include "records.h"', '#include "records.h"\n#include "port/types.h"\n' + PACK_OPEN, 1)
+    text = view_pads(text)
+    text = text.replace('#include "records.h"', '#include "records.h"\n#include "port/types.h"\n'
+                        "/* PORT: the classes' sizes: the game's where a pointer is 4 bytes (W9, gen_headers CLASS_SIZES) */\n"
+                        + size_macros() + PACK_OPEN, 1)
     # the classes are the game's size now: say so where C++ sees them
     asserts = ("#ifdef __cplusplus\n/* PORT: no vtable pointer of GCC's -- the game's layout (gen_headers DEVIRTUALIZE) */\n"
                "PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GRPort) == 0x26, \"GRPort is not the game's 0x26 bytes\");\n"
                "PORT_SIZE_ASSERT(sizeof(void *) != 4 || sizeof(GameWin) == 0xc4, \"GameWin is not the game's 0xc4 bytes\");\n"
-               "PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_DIALOG_BASE, \"a window's DialogWin base is not where the code puts it\");\n#endif\n")
+               "PORT_SIZE_ASSERT(sizeof(GRPort) == PORT_DIALOG_BASE, \"a window's DialogWin base is not where the code puts it\");\n"
+               + "".join("PORT_SIZE_ASSERT(sizeof(%s) == PORT_SIZEOF_%s, \"%s is not the size its C view pads say\");\n"
+                         % (c, c.upper(), c) for c in sorted(CLASS_SIZES)) + "#endif\n")
     i = text.rindex("#endif")
     text = text[:i] + asserts + text[i:]
     i = text.rindex("#endif")

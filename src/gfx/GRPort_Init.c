@@ -1,3 +1,4 @@
+/* PORT: the surface's stride read as GrafRec.stride, not through the DlgControl accessor at its offset (W9). */
 /* PORT: this file's own declarations of GRPort_InitStruct, MSInitGraf, control_hwnd, dispose_wing_surface removed: the header declares them from the definition (W1 step 3). */
 /* GRPort_Init: candidate for 1068:352f (272 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
@@ -40,7 +41,7 @@ int GRPort_Init(GRPort *p, void *r)
         GRPort_InitStruct(p, (RECT *)r);
         p->win = MSInitGraf(&p->bounds);
         if (p->win != 0) {
-            p->stride = control_hwnd((DlgControl *)p->win);
+            p->stride = ((GrafRec *)p->win)->stride;   /* PORT: the game read it through control_hwnd -- a DlgControl's hwnd is at GrafRec.stride's offset 0x10 on 16 and 32 bits, not on 64 (W9) */
             MSLockGraf(p);
         } else {
             error_code_set(GRERR_NO_SURFACE);

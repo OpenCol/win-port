@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 163 of the imported file. */
 /* PORT: this file's own declarations of GRPort_String removed: the header declares it from the definition (W1 step 3). */
@@ -54,12 +55,13 @@
 
 
 
-class CDControlWin : public ColChild {
+class CDControlWin : public ColChild {      /* PORT: its members by name, as CDControlWin_ctor.c has them (W9) */
 public:
-    char pad_77a[0x9e0 - 0x77a];
-    int done;
-    char pad_9e2[0xa56 - 0x9e2];
-    int paused, track, stopped, tray_open;
+    SImageButton ib1, ib2, ib3, ib4, ib5;
+    SButton b;
+    i16 done;
+    SImageButton ib6;
+    i16 paused, track, stopped, tray_open;
 };
 
    /* 0x20 bytes: the class, word-aligned (-a), with its pad byte */
@@ -100,31 +102,31 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     OffsetRect(&rc, w->rect.left, w->rect.top);
     SetRect(&rc, 0xa, 0x50, 0x5a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x7ee), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x64,
+    image_button_init_1040_ada4(&w->ib2, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x64,
                                 rc.left, rc.top, 0x30c, 0x30c, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x7ee), (void*)(CDControlWin_ButtonProc));
+    set_control_action_1040_aecc(&w->ib2, (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x5a, 0x50, 0xaa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x94a), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x65,
+    image_button_init_1040_ada4(&w->ib5, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x65,
                                 rc.left, rc.top, 0x30e, 0x30e, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x94a), (void*)(CDControlWin_ButtonProc));
+    set_control_action_1040_aecc(&w->ib5, (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xaa, 0x50, 0xfa, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x77a), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x66,
+    image_button_init_1040_ada4(&w->ib1, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x66,
                                 rc.left, rc.top, 0x30d, 0x30d, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x77a), (void*)(CDControlWin_ButtonProc));
+    set_control_action_1040_aecc(&w->ib1, (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0xfa, 0x50, 0x14a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x862), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x67,
+    image_button_init_1040_ada4(&w->ib3, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x67,
                                 rc.left, rc.top, 0x30f, 0x30f, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x862), (void*)(CDControlWin_ButtonProc));
+    set_control_action_1040_aecc(&w->ib3, (void*)(CDControlWin_ButtonProc));
     SetRect(&rc, 0x14a, 0x50, 0x19a, 0x82);
     OffsetRect(&rc, w->rect.left, w->rect.top);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x8d6), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x68,
+    image_button_init_1040_ada4(&w->ib4, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0x68,
                                 rc.left, rc.top, 0x310, 0x310, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x8d6), (void*)(CDControlWin_ButtonProc));
+    set_control_action_1040_aecc(&w->ib4, (void*)(CDControlWin_ButtonProc));
     w->paused = 0;
-    if (MSGetCDInfo(0, 0, (int *)((char *)w + 0xa58)) == 0)
+    if (MSGetCDInfo(0, 0, (int *)&w->track) == 0)
         w->track = 0;
     SetRect(&rc, 3, 3, wd - 3, ht - 3);
     OffsetRect(&rc, w->rect.left, w->rect.top);
@@ -160,9 +162,9 @@ extern "C" void CDControlWin_Init(CDControlWin *w)
     TextColor(0xc);
     CDControlWin_DrawTime(w);
     GRPort_String(w, (unsigned *)&g_font_small, "Time", w->rect.left + 0x96, w->rect.top + 0x3c, 4);
-    image_button_init_1040_ada4((SImageButton *)((char *)w + 0x9e2), (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0xc8,
+    image_button_init_1040_ada4(&w->ib6, (DialogWin *)((char *)w + PORT_DIALOG_BASE), 0xc8,
                                 0, 0, 0xce, 0xce, 0x28, 0x60);
-    set_control_action_1040_aecc((SImageButton *)((char *)w + 0x9e2), (void*)(CDControlWin_OnOkClick));
+    set_control_action_1040_aecc(&w->ib6, (void*)(CDControlWin_OnOkClick));
     w->done = 0;
     w->tray_open = 1;
     w->stopped = 0;

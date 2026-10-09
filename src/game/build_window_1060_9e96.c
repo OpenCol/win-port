@@ -1,3 +1,4 @@
+/* PORT: a member reached by the game's byte offset is reached by name or by its class sizes (PORT_EVENT_TABLE, PORT_SIZEOF_*): the offsets move on 64-bit Windows (W9). */
 /* PORT: this file's own declarations of ClearEventTable_1060_acb2, build_window_owned, get_win_1060_ab6e, subclass_control_1070_67dd removed: the header declares them from the definition (W1 step 3). */
 /* build_window_1060_9e96: candidate for 1060:9e96 (107 bytes).  Verdict: RELOCATABLE.
  * symbol: build_window_1060_9e96
@@ -27,6 +28,6 @@ void build_window_1060_9e96(char *o, char *name, int style, int x, int y, int w,
 {
     build_window_owned((Screen *)o, name, style, x, y, w, h, pal, parent);
     subclass_control_1070_67dd(o, (MSWin *)(get_win_1060_ab6e((Screen *)o)));
-    ClearEventTable_1060_acb2((EventTable *)(o + 0xd));
+    ClearEventTable_1060_acb2((EventTable *)(o + PORT_SCREEN_DSIZE));
 }
 

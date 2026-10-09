@@ -1,3 +1,4 @@
+/* PORT: a record holding pointers is allocated by its sizeof (the game's size on i386, larger on 64-bit Windows) (W9). */
 /* PORT: explicit pointer casts where Borland C++ converted implicitly (W1), lines 31, 43 of the imported file. */
 /* PORT: this file's own declarations of heap_get removed: the header declares it from the definition (W1 step 3). */
 /* Popup_item: candidate for 1050:122c (427 bytes).  Verdict: RELOCATABLE.
@@ -29,7 +30,7 @@ PopupItem *Popup_item(Popup *popup, char *s, int id)
         tail = it;
         it = it->next;
     }
-    it = (PopupItem *)heap_get((MemBlock *)(&popup->arena), 0x12);
+    it = (PopupItem *)heap_get((MemBlock *)(&popup->arena), sizeof(PopupItem));
     if (tail != 0) {
         tail->next = it;
         it->prev = tail;
