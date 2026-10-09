@@ -69,6 +69,7 @@ def build(target, version):
     os.makedirs(os.path.join(stage, "bin"))
     dst = os.path.join(stage, "bin", name)
     shutil.copyfile(src, dst)
+    os.chmod(dst, 0o755)
     strip = (prefix + "-strip") if prefix else "strip"
     if shutil.which(strip):                       # the debug information stays in build/; best effort
         subprocess.run([strip, "--strip-debug", dst], capture_output=True)   # (macOS's strip has no ELF)
@@ -87,6 +88,7 @@ def build(target, version):
             wrapper = os.path.join(os.path.dirname(src), "colonize.exe")
             if os.path.exists(wrapper):           # winegcc's loader stub beside the .so
                 shutil.copyfile(wrapper, os.path.join(stage, "bin", "colonize.exe"))
+                os.chmod(os.path.join(stage, "bin", "colonize.exe"), 0o755)
     with open(os.path.join(stage, "README.txt"), "w", newline="\r\n" if kind == "exe" else "\n") as f:
         f.write(README.format(target=target, version=version, patched=PATCHED, how=how))
     zpath = os.path.join(DIST, top + ".zip")

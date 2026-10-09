@@ -7,7 +7,7 @@
 # the one used last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR.
 # COLONIZE.EXE must be the updated 1995 release (its SHA-256 is checked).
 #
-# Wine: $PORT_WINE, else `wine` on PATH. On macOS use a current Wine (e.g. Gcenx's wine-devel
+# Wine: $PORT_WINE, else `wine` on PATH. $PORT_DESKTOP sets the game's desktop window size. On macOS use a current Wine (e.g. Gcenx's wine-devel
 # 11 from github.com/Gcenx/macOS_Wine_builds): Apple's Game Porting Toolkit Wine 7.7 stops the
 # game the first time it plays a sound.
 set -e
@@ -59,4 +59,6 @@ case "$("$wine" --version 2>/dev/null)" in
 esac
 prog=$(ls "$here"/bin/colonize.exe.so "$here"/bin/colonize.exe 2>/dev/null | head -1)
 cd "$game"
-exec "$wine" "$prog"
+# through Wine's explorer, in a desktop window of its own ($PORT_DESKTOP, default 1024x768): a
+# Winelib program given to `wine` directly goes to start.exe, which cannot open a .so
+exec "$wine" explorer "/desktop=Colonization,${PORT_DESKTOP:-1024x768}" "$prog"
