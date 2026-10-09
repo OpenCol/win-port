@@ -1,3 +1,5 @@
+![A sailor in the crow's nest points toward land](assets/sailor-call-accross-sea.png)
+
 # win-port
 
 A native port of **Sid Meier's Colonization for Windows** (MicroProse, 1995) is the goal here:
