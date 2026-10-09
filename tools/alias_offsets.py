@@ -46,9 +46,10 @@ def offsets(toolchain, extra=()):
         open(cpp, "w").write("\n".join(src) + "\n")
         r = subprocess.run([cxx, "-x", "c++", "-std=gnu++03", "-fsyntax-only", "-w", "-fmax-errors=0"] + list(flags)
                            + list(extra) + ["-I", os.path.join(ROOT, "include", "gen"), "-I", os.path.join(ROOT, "include"),
-                                            "-I", os.path.join(ROOT, "src", "game"), cpp], capture_output=True, text=True)
+                                            "-I", os.path.join(ROOT, "src", "game"), cpp], capture_output=True, text=True,
+                           env=dict(os.environ, LC_ALL="C", LANG="C"))   # plain quotes in the messages
     got = {}
-    for m in re.finditer(r"alias_offsets\.cpp:(\d+):\d+: error: invalid operands of types 'char \(\*\)\[(\d+)\]'", r.stderr):
+    for m in re.finditer(r"alias_offsets\.cpp:(\d+):\d+: error: invalid operands of types ['\u2018]char \(\*\)\[(\d+)\]['\u2019]", r.stderr):
         got[int(m.group(1))] = int(m.group(2)) - 1
     if len(got) != len(ps):
         sys.exit("alias offsets: %d of %d expressions evaluated:\n%s" % (len(got), len(ps), r.stderr[-2000:]))

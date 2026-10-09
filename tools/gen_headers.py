@@ -159,10 +159,10 @@ def borland_pragmas(text):
 # ---------------------------------------------------------------- the four headers
 
 def src_files():
-    """The imported sources (src/<layer>/*.c), not src/gen: what is generated from them is
-    not evidence about them."""
+    """The imported sources (src/<layer>/*.c), not src/gen -- what is generated from them is
+    not evidence about them -- nor src/launcher, the release kit's own programs (W10)."""
     return sorted(p for p in glob.glob(os.path.join(ROOT, "src", "*", "*.c"))
-                  if os.path.basename(os.path.dirname(p)) != "gen")
+                  if os.path.basename(os.path.dirname(p)) not in ("gen", "launcher"))
 
 
 def defined_types(text):
