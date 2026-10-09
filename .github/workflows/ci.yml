@@ -3,6 +3,17 @@ name: ci
 on:
   push:
   pull_request:
+  # a release by hand (Actions -> ci -> Run workflow), or tools/release.sh, which pushes a v* tag
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version, e.g. v0.1.0 (empty: build the kits, publish nothing)"
+        required: false
+        default: ""
+      prerelease:
+        description: "Mark it a pre-release"
+        type: boolean
+        default: true
 
 jobs:
   build:
@@ -164,10 +175,21 @@ jobs:
         with:
           name: programs-linux
           path: build/linux
+      - name: Version
+        id: version
+        run: |
+          # a v* tag or a version given by hand is a release; anything else a build
+          if [ -n "${{ inputs.version }}" ]; then v="${{ inputs.version }}"; rel=1
+          elif [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="$GITHUB_REF_NAME"; rel=1
+          else v="${GITHUB_REF_NAME}-${GITHUB_SHA::7}"; rel=0; fi
+          case "$v" in v[0-9]*) ;; *) [ "$rel" = 0 ] || { echo "a release version is v<digits>...: $v"; exit 1; } ;; esac
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "release=$rel" >> "$GITHUB_OUTPUT"
       - name: Kits
         run: |
           ls -lR build | head -20
-          python3 tools/kit.py --version "${GITHUB_REF_NAME}-${GITHUB_SHA::7}"
+          python3 tools/kit.py --version "${{ steps.version.outputs.version }}"
+          python3 tools/release_notes.py "${{ steps.version.outputs.version }}"
       - uses: actions/upload-artifact@v4
         with:
           name: colonization-port-windows-x86
@@ -184,10 +206,15 @@ jobs:
         with:
           name: colonization-port-macos
           path: dist/colonization-port-macos.zip
-      - name: Release (a v* tag)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Release
+        if: steps.version.outputs.release == '1'
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+          PRE: ${{ (inputs.prerelease == false && 'false') || 'true' }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Colonization port $GITHUB_REF_NAME" \
-            --notes "The port and a launcher per platform; no game files -- you need your own copy of Colonization for Windows (the updated 1995 release). See README.txt in each zip."
+          # the tag is made at this commit when the release was asked for by hand
+          flags=""
+          [ "$PRE" = true ] && flags="--prerelease"
+          gh release create "$VERSION" dist/colonization-port-*.zip dist/SHA256SUMS.txt \
+            --target "$GITHUB_SHA" --title "Colonization port $VERSION" --notes-file dist/RELEASE_NOTES.md $flags

@@ -46,7 +46,9 @@ The roadmap, with every decision and gate, is col-win-re's
 Every CI run builds the release kits (roadmap W10), one per platform, as downloadable
 artifacts of the run (GitHub -> Actions -> a run of `ci` -> Artifacts): `colonization-port-
 windows-x86`, `-windows-x64`, `-linux-i386` and `-macos`. A `v*` tag publishes them as a
-release. Each holds the port and a launcher, and no game files: you need your own copy of
+release (`tools/release.sh v0.1.0 [--final]`, or Actions -> ci -> Run workflow with a version:
+CI builds the kits from that commit, writes the notes and the checksums, and publishes them).
+Each kit holds the port and a launcher, and no game files: you need your own copy of
 Colonization for Windows, the updated 1995 release. The launcher finds it, checks
 `COLONIZE.EXE`'s SHA-256, and starts the port in that folder (`tools/kit.py`,
 `src/launcher`). Linux and macOS run it under Wine (on macOS a current one, not Apple's
