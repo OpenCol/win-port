@@ -1,10 +1,10 @@
-/* The game's initialised data, from the player's COLONIZE.EXE (roadmap W4).
+/* The game's initialised data (roadmap W4, W10).
  *
  * In the shipped program every global starts with what its data segment holds in the file:
  * the direction tables, _ctype, the key map, the resource type tags, the default fonts. The
- * port defines those globals (src/gen) but the values are the game's own bytes, which are
- * never committed; so at startup, before any game constructor, this reads them from
- * COLONIZE.EXE in the working directory (the game's) and converts each global as
+ * port defines those globals (src/gen) and, at startup, before any game constructor, fills
+ * them from src/gen/exe_data.c -- the bytes tools/gen_exe_data.py took from the patched
+ * COLONIZE.EXE (until 2026-10-10 this read the player's file) -- converting each global as
  * tests/state.py does:
  *   - the bytes, where the port lays the global out as the game does (records, classes);
  *   - Borland's 2-byte int widened where the port still declares `int`;
@@ -25,6 +25,13 @@ extern const struct PortInitGlobal port_init_globals[];
 extern const unsigned port_init_global_count;
 extern const struct PortInitFunction port_init_functions[];
 extern const unsigned port_init_function_count;
+struct PortExeSeg { unsigned char is_data; unsigned length; };
+struct PortExeBytes { unsigned short seg, off, len; const unsigned char *bytes; };
+struct PortExeFix { unsigned short seg, off, tseg, toff; };
+extern const unsigned port_exe_seg_count, port_exe_byte_count, port_exe_fix_count;
+extern const struct PortExeSeg port_exe_segs[];
+extern const struct PortExeBytes port_exe_bytes[];
+extern const struct PortExeFix port_exe_fixes[];
 
 #define MAX_SEGS 64
 static struct { unsigned char *data; unsigned length; int is_data; unsigned char *shadow; } segs[MAX_SEGS + 1];
@@ -35,70 +42,37 @@ static unsigned nfix;
 
 static unsigned r16(const unsigned char *p) { return p[0] | p[1] << 8; }
 
-/* kernel32 and the process heap, not the C runtime: this runs as a constructor, and in the
-   Linux build (Winelib, W8) a constructor runs before Wine's msvcrt is set up -- fopen and
-   malloc are not ready yet, CreateFile and HeapAlloc are */
+/* the process heap, not the C runtime: this runs as a constructor, and in the Linux build
+   (Winelib, W8) a constructor runs before Wine's msvcrt is set up -- malloc is not ready yet,
+   HeapAlloc is */
 static void *zalloc(size_t n)
 {
     return HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, n ? n : 1);
 }
 
-static int read_image(const char *path)
+/* the image as the Win16 loader left it, from src/gen/exe_data.c (tools/gen_exe_data.py): each
+   data segment zeroed to its loaded size, then the bytes of the globals that start non-zero,
+   and the relocations inside them */
+static int load_compiled(void)
 {
-    HANDLE f = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-    unsigned char *exe;
-    DWORD size, got = 0;
-    unsigned ne, segtab, shift, i;
-    if (f == INVALID_HANDLE_VALUE)
-        return 0;
-    size = GetFileSize(f, 0);
-    exe = zalloc(size);
-    if (!ReadFile(f, exe, size, &got, 0) || got != size) {
-        CloseHandle(f);
-        return 0;
+    unsigned i;
+    nsegs = port_exe_seg_count > MAX_SEGS ? MAX_SEGS : port_exe_seg_count;
+    for (i = 1; i <= nsegs; i++) {
+        segs[i].is_data = port_exe_segs[i].is_data;
+        segs[i].length = port_exe_segs[i].length;
+        if (segs[i].is_data)
+            segs[i].data = zalloc(segs[i].length);
     }
-    CloseHandle(f);
-    ne = r16(exe + 0x3c);
-    nsegs = r16(exe + ne + 0x1c);
-    segtab = ne + r16(exe + ne + 0x22);
-    shift = r16(exe + ne + 0x32);
-    if (nsegs > MAX_SEGS)
-        nsegs = MAX_SEGS;
-    for (i = 0; i < nsegs; i++) {
-        const unsigned char *e = exe + segtab + i * 8;
-        unsigned off = r16(e), len = r16(e + 2), flags = r16(e + 4), minalloc = r16(e + 6);
-        unsigned alloc = minalloc ? minalloc : 0x10000;
-        unsigned n = len ? len : (off ? 0x10000 : 0);
-        segs[i + 1].is_data = flags & 1;
-        if (!segs[i + 1].is_data)
-            continue;
-        segs[i + 1].data = zalloc(alloc > n ? alloc : n);
-        segs[i + 1].length = alloc > n ? alloc : n;
-        if (off)
-            memcpy(segs[i + 1].data, exe + ((size_t)off << shift), n);
-        if (off && (flags & 0x100)) {
-            const unsigned char *rel = exe + ((size_t)off << shift) + n;
-            unsigned k, count = r16(rel);
-            for (k = 0; k < count && nfix < 1024; k++) {
-                const unsigned char *rr = rel + 2 + k * 8;
-                if (rr[0] == 3 && (rr[1] & 3) == 0 && rr[4] != 0xff) {   /* far address, internal, fixed seg */
-                    unsigned src = r16(rr + 2);
-                    /* a chain: each slot's offset field holds the next slot, 0xffff ends it */
-                    while (src != 0xffff && src + 4 <= n && nfix < 1024) {
-                        unsigned next = r16(segs[i + 1].data + src);
-                        fix[nfix].seg = (unsigned short)(i + 1); fix[nfix].off = (unsigned short)src;
-                        fix[nfix].tseg = rr[4]; fix[nfix].toff = (unsigned short)r16(rr + 6);
-                        nfix++;
-                        if (rr[1] & 4)            /* additive: no chain */
-                            break;
-                        src = next;
-                    }
-                }
-            }
-        }
+    for (i = 0; i < port_exe_byte_count; i++) {
+        const struct PortExeBytes *b = &port_exe_bytes[i];
+        if (b->seg <= nsegs && segs[b->seg].data && b->off + (unsigned)b->len <= segs[b->seg].length)
+            memcpy(segs[b->seg].data + b->off, b->bytes, b->len);
     }
-    free(exe);
-    return 1;
+    for (i = 0; i < port_exe_fix_count && nfix < 1024; i++, nfix++) {
+        fix[nfix].seg = port_exe_fixes[i].seg; fix[nfix].off = port_exe_fixes[i].off;
+        fix[nfix].tseg = port_exe_fixes[i].tseg; fix[nfix].toff = port_exe_fixes[i].toff;
+    }
+    return nsegs != 0;
 }
 
 static void *function_at(unsigned seg, unsigned off)
@@ -152,7 +126,7 @@ static int fixup_at(unsigned seg, unsigned off, unsigned *tseg, unsigned *toff)
     return 0;
 }
 
-/* how many globals the loader filled (-1: COLONIZE.EXE was not read): the Linux build's start
+/* how many globals the loader filled (-1: not loaded): the Linux build's start
    reports it, its trace from here being too early to write */
 int w16_initial_loaded = -1;
 
@@ -162,8 +136,8 @@ __attribute__((constructor(101))) static
 void port_load_initial_data(void)
 {
     unsigned i, k, loaded = 0, unmapped = 0;
-    if (!read_image("COLONIZE.EXE")) {
-        w16_report("initial data: COLONIZE.EXE not found in the working directory");
+    if (!load_compiled()) {
+        w16_report("initial data: src/gen/exe_data.c is empty");
         return;
     }
     /* $PORT_INIT_REPORT: each global whose layout this cannot convert, to $PORT_LOG (W9) */
@@ -228,7 +202,7 @@ void port_load_initial_data(void)
             }
         }
     }
-    w16_trace("initial data: %u globals from COLONIZE.EXE, %u relocations (%u to no function)", loaded, nfix, unmapped);
+    w16_trace("initial data: %u globals (src/gen/exe_data.c), %u relocations (%u to no function)", loaded, nfix, unmapped);
     w16_initial_loaded = (int)loaded;
     (void)fixup_at;
 }

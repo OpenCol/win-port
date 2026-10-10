@@ -3,8 +3,9 @@
  * the NE files' bytes.
  *
  * A module handle is a token for one of ours; any other instance handle -- g_hinstance,
- * which a 32-bit HINSTANCE did not fit -- means COLONIZE.EXE itself, read from the working
- * directory (the game's). WinG.dll, which the game also loads, is emulated (w16_wing.c) and
+ * which a 32-bit HINSTANCE did not fit -- means COLONIZE.EXE itself: its menus and dialog are
+ * compiled in (src/gen/exe_data.c), its cursors, icons and bitmaps read from the file in the
+ * working directory (the game's) until they have replacements (docs/replacement-art.md). WinG.dll, which the game also loads, is emulated (w16_wing.c) and
  * gets a module with no file.
  */
 #include <stdlib.h>
@@ -33,6 +34,26 @@ static Module *module_of(unsigned hinst)
     if (hinst && m && m->magic == MOD_MAGIC)
         return m;
     return self_module();
+}
+
+/* COLONIZE.EXE's menus and dialog, compiled in (src/gen/exe_data.c, tools/gen_exe_data.py) */
+struct PortExeResource { unsigned short type, id; unsigned length; const unsigned char *bytes; };
+extern const unsigned port_exe_resource_count;
+extern const struct PortExeResource port_exe_resources[];
+
+/* a resource of module m: COLONIZE.EXE's compiled-in ones first, then the file's */
+static int res_find(const Module *m, const char *type, const char *name, NeResource *out)
+{
+    unsigned i;
+    if (m == self_module() && (uintptr_t)type < 0x10000 && (uintptr_t)name < 0x10000)
+        for (i = 0; i < port_exe_resource_count; i++)
+            if (port_exe_resources[i].type == (uintptr_t)type && port_exe_resources[i].id == (uintptr_t)name) {
+                out->offset = 0;
+                out->length = port_exe_resources[i].length;
+                out->data = port_exe_resources[i].bytes;
+                return 1;
+            }
+    return m->ne && ne_find(m->ne, type, name, out);
 }
 
 static const char *rid(const char *p)
@@ -76,7 +97,7 @@ unsigned w16_FindResource(unsigned hinst, const char *name, const char *type)
     Module *m = module_of(hinst);
     Res *r;
     NeResource nr;
-    if (!m->ne || !ne_find(m->ne, rid(type), rid(name), &nr)) {
+    if (!res_find(m, rid(type), rid(name), &nr)) {
         if (w16_tracing > 0)
             w16_trace("FindResource(%s, %s/%u): not there", m->ne ? m->ne->path : "?",
                       (uintptr_t)type < 0x10000 ? "#" : type, (unsigned)(uintptr_t)name);
@@ -120,10 +141,10 @@ static HANDLE group_resource(unsigned hinst, const char *name, int cursor)
     Module *m = module_of(hinst);
     NeResource dir, one;
     int id;
-    if (!m->ne || !ne_find(m->ne, MAKEINTRESOURCEA(cursor ? 12 : 14), name, &dir))
+    if (!res_find(m, MAKEINTRESOURCEA(cursor ? 12 : 14), name, &dir))
         return 0;
     id = LookupIconIdFromDirectoryEx((PBYTE)dir.data, !cursor, 0, 0, LR_DEFAULTCOLOR);
-    if (!id || !ne_find(m->ne, MAKEINTRESOURCEA(cursor ? 1 : 3), MAKEINTRESOURCEA(id), &one))
+    if (!id || !res_find(m, MAKEINTRESOURCEA(cursor ? 1 : 3), MAKEINTRESOURCEA(id), &one))
         return 0;
     return CreateIconFromResourceEx((PBYTE)one.data, one.length, !cursor, 0x00030000, 0, 0, LR_DEFAULTCOLOR);
 }
@@ -153,7 +174,7 @@ unsigned w16_LoadBitmap(unsigned hinst, const char *name)
     unsigned colors;
     HDC dc;
     HBITMAP b;
-    if (!m->ne || !ne_find(m->ne, MAKEINTRESOURCEA(2), name, &r))
+    if (!res_find(m, MAKEINTRESOURCEA(2), name, &r))
         return 0;
     bh = (const BITMAPINFOHEADER *)r.data;
     if (bh->biSize != sizeof(BITMAPINFOHEADER))
@@ -204,7 +225,7 @@ unsigned w16_LoadMenu(unsigned hinst, const char *name)
     Module *m = module_of(hinst);
     NeResource r;
     HMENU menu;
-    if (!m->ne || !ne_find(m->ne, MAKEINTRESOURCEA(4), name, &r))
+    if (!res_find(m, MAKEINTRESOURCEA(4), name, &r))
         return 0;
     menu = CreateMenu();
     build_menu(menu, r.data + 4, r.data + r.length);

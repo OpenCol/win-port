@@ -102,9 +102,15 @@ repository's own.
 
 ## Game files
 
-None are in this repository, and none ever will be. The tests read your own patched install from
-`$COL_GAME_DIR`, check its hashes, and refuse anything else. The Windows edition is not sold on
-Steam or GOG, which sell the DOS version.
+No game file is in this repository. What the port used to read from `COLONIZE.EXE` at startup
+is compiled in since 2026-10-10 (Daniel's decision): the starting values of the game's tables
+(about 6 KB) and its three menus and one dialog, in `src/gen/exe_data.c`, which
+`tools/gen_exe_data.py` writes from the patched `COLONIZE.EXE`. The port still reads the 22
+cursors, icons and bitmaps from that file until they have replacements
+([docs/replacement-art.md](docs/replacement-art.md)); everything else -- pictures, text,
+sounds -- comes from the game's data files, as the original's did. The tests read your own
+patched install from `$COL_GAME_DIR`, check its hashes, and refuse anything else. The Windows
+edition is not sold on Steam or GOG, which sell the DOS version.
 
 *Sid Meier's Colonization* is © 1994–1995 MicroProse Software, Inc. This project is not
 affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.

@@ -2,8 +2,10 @@
 
 The port reads everything the game draws from the game's data files (`COLDATA*.DLL`,
 `COLTEXT0.DLL`, the WAVs), except 22 small pictures that are resources of `COLONIZE.EXE`
-itself: 12 cursors, 4 icons and 6 bitmaps. With new versions of these, plus the tables and
-menus that can be written as source, the port would no longer need `COLONIZE.EXE`.
+itself: 12 cursors, 4 icons and 6 bitmaps. Its tables, menus and dialog are compiled in
+(`src/gen/exe_data.c`); with new versions of these pictures the port would no longer need
+`COLONIZE.EXE`. Until then, a run without the file plays, without these pictures
+(`PORT_NO_EXE=1 python3 tests/sessions.py`).
 
 `python3 tools/exe_resources.py /path/to/COLONIZE.EXE OUT` extracts the originals from your
 own copy, as `.cur`, `.ico`, `.bmp` and `.png`, with `sheet.png` showing all of them at 4x.
