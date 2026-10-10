@@ -5945,6 +5945,8 @@ extern int w16_lockstep_silent(void);
 extern unsigned w16_lockstep_srand(unsigned seed);
 extern void w16_lockstep_step(void *brains);
 extern unsigned long w16_lockstep_ticks(void);
+extern const char *w16_log_path(void);
+extern int w16_message_at(int i, unsigned *msg, void **hwnd);
 extern int w16_palette_device(void);
 extern void w16_report(const char *fmt, ...);
 extern int w16_script(void);
