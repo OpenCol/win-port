@@ -178,6 +178,16 @@ static void to32(unsigned m16, unsigned w16, intptr_t l16, UINT *msg, WPARAM *wp
 static struct { HWND hwnd; UINT msg; WPARAM wp; LPARAM lp; unsigned m16, w16; intptr_t l16; } stack[64];
 static int depth;
 
+/* the window messages in progress, outermost first: a crash report's (w16_crash.c) */
+int w16_message_at(int i, unsigned *msg, void **hwnd)
+{
+    if (i < 0 || i >= depth || i >= 64)
+        return 0;
+    *msg = stack[i].msg;
+    *hwnd = (void *)stack[i].hwnd;
+    return 1;
+}
+
 typedef struct {                         /* Win16 CREATESTRUCT, as the game reads it */
     void *lpCreateParams; uint16_t hInstance, hMenu, hwndParent; int16_t cy, cx, y, x;
     int32_t style; const char *lpszName; const char *lpszClass; uint32_t dwExStyle;

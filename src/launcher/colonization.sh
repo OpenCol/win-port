@@ -58,6 +58,10 @@ case "$("$wine" --version 2>/dev/null)" in
         echo "current Wine (PORT_WINE=/path/to/wine to choose one)." >&2 ;;
 esac
 prog=$(ls "$here"/bin/colonize.exe.so "$here"/bin/colonize.exe 2>/dev/null | head -1)
+# the port's log (and a crash's report and minidump) beside this script, as Wine names it (Z: is /)
+PORT_LOG="Z:$(printf %s "$here/colonization-port.log" | tr / '\\')"
+export PORT_LOG
+echo "Colonization: the log is $here/colonization-port.log" >&2
 cd "$game"
 # through Wine's explorer, in a desktop window of its own ($PORT_DESKTOP, default 1024x768): a
 # Winelib program given to `wine` directly goes to start.exe, which cannot open a .so

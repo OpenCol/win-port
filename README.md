@@ -54,7 +54,10 @@ Each kit holds the port and a launcher, and no game files: you need your own cop
 Colonization for Windows, the updated 1995 release. The launcher finds it, checks
 `COLONIZE.EXE`'s SHA-256, and starts the port in that folder (`tools/kit.py`,
 `src/launcher`). Linux and macOS run it under Wine (on macOS a current one, not Apple's
-Game Porting Toolkit).
+Game Porting Toolkit). Every run writes `colonization-port.log` beside the launcher: the
+launcher's steps, the system, the port's start and, if it crashes, its report, with
+`colonization-port.dmp` (a minidump) beside it. `python3 tools/crash_log.py LOG EXE` names
+the addresses in a player's log, given that release's `bin/colonize.exe`.
 
 ## Building and playing
 

@@ -90,7 +90,7 @@ void w16_trace(const char *fmt, ...)
 /* a line in $PORT_LOG whether or not the run traces: what a player's run that stops must say */
 void w16_report(const char *fmt, ...)
 {
-    const char *log = getenv("PORT_LOG");
+    const char *log = w16_log_path();
     FILE *f = log ? fopen(log, "a") : 0;
     va_list ap;
     if (!f)

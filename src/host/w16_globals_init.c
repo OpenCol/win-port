@@ -163,7 +163,7 @@ void port_load_initial_data(void)
 {
     unsigned i, k, loaded = 0, unmapped = 0;
     if (!read_image("COLONIZE.EXE")) {
-        w16_trace("initial data: COLONIZE.EXE not found in the working directory");
+        w16_report("initial data: COLONIZE.EXE not found in the working directory");
         return;
     }
     /* $PORT_INIT_REPORT: each global whose layout this cannot convert, to $PORT_LOG (W9) */

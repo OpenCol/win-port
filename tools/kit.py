@@ -42,6 +42,10 @@ official patch produces; its COLONIZE.EXE has SHA-256 {patched}).
 
 The game runs in your game folder, reads its pictures, sounds and data there, and saves
 there, as the original did.
+
+If it does not start or stops: every run writes colonization-port.log in this folder (the
+launcher's steps, your system, and a crash's report), and a crash also leaves
+colonization-port.dmp beside it. Please send both files with your report.
 """
 HOW = {
     "exe": "Start Colonization.exe. The first time, it asks for the folder your copy is installed\n"
@@ -74,7 +78,8 @@ def build(target, version):
     if shutil.which(strip):                       # the debug information stays in build/; best effort
         subprocess.run([strip, "--strip-debug", dst], capture_output=True)   # (macOS's strip has no ELF)
     if kind == "exe":
-        run([prefix + "-gcc", "-O2", "-mwindows", "-o", os.path.join(stage, "Colonization.exe"), LAUNCHER_C,
+        run([prefix + "-gcc", "-O2", "-mwindows", "-DKIT_VERSION=\"%s\"" % version,
+             "-o", os.path.join(stage, "Colonization.exe"), LAUNCHER_C,
              "-ladvapi32", "-lshell32", "-lole32"])
         how = HOW["exe"]
     else:
