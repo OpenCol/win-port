@@ -35,6 +35,7 @@ unsigned w16_token(HANDLE h);          /* the token for h, made on first sight *
 HANDLE w16_handle(unsigned token);     /* the Win32 handle behind a token */
 void w16_report(const char *fmt, ...);  /* a line in $PORT_LOG, traced or not */
 const char *w16_log_path(void);        /* $PORT_LOG, or the player's default (w16_crash.c) */
+void w16_crash_install(void);          /* the log and crash report: first thing at startup */
 void w16_forget(unsigned token);       /* the handle is gone (DeleteObject, DestroyWindow) */
 #define W16_HWND(t) ((HWND)w16_handle(t))
 #define W16_HDC(t) ((HDC)w16_handle(t))

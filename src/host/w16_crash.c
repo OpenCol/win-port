@@ -420,19 +420,30 @@ static void header(void)
             (unsigned long)(mem.ullTotalPhys >> 20));
 }
 
-/* At startup (a constructor) on Windows; on Winelib an ELF constructor runs before Wine's C
-   runtime has the environment, so the Linux build's start calls it (w16_winelib.c) */
+/* At startup, before anything else of the port's runs: the initial data's constructor calls it
+   first (w16_globals_init.c) -- v0.1.1's x64 program died in the initial data on Windows 7
+   (0xC0000374) before this ran, and its log said nothing; MinGW does not order constructor
+   priorities between objects, so this is a call, not a priority. It is also a constructor of its
+   own, and runs once. On Winelib an ELF constructor runs before Wine's C runtime has the
+   environment, so the Linux build's start calls it (w16_winelib.c) */
 #ifndef __WINE__
 __attribute__((constructor))
 #endif
 void w16_crash_install(void)
 {
+    static int done;
+    if (done)
+        return;
+    done = 1;
     const char *log = w16_log_path();
     if (log)
         log_file = CreateFileA(log, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_ALWAYS,
                                FILE_ATTRIBUTE_NORMAL, 0);
-    if (log_file != INVALID_HANDLE_VALUE)
+    if (log_file != INVALID_HANDLE_VALUE) {
         header();
+        if (w16_initial_loaded >= 0)   /* the order above went wrong: say so */
+            say("note: the initial data was loaded before this report was set up\n");
+    }
     AddVectoredExceptionHandler(1, on_fault);
     prev_filter = SetUnhandledExceptionFilter(on_unhandled);
     atexit(on_exit_);

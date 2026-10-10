@@ -36,7 +36,7 @@ int __stdcall __wrap_WinMain(unsigned hinst, unsigned hprev, char *cmdline, int 
     HANDLE t;
     ctor_fn *c;
     w16_crash_install();                 /* not from a constructor here (w16_crash.c) */
-    /* the Windows build's order: the initial data (constructor 101), then the game's constructors */
+    /* the Windows build's order: the crash report, the initial data (constructor 101), then the game's constructors */
     port_load_initial_data();
     for (c = __start_port_ctors; c && c < __stop_port_ctors; c++)
         (*c)();

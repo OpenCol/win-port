@@ -136,6 +136,9 @@ __attribute__((constructor(101))) static
 void port_load_initial_data(void)
 {
     unsigned i, k, loaded = 0, unmapped = 0;
+#ifndef __WINE__
+    w16_crash_install();   /* the crash report first: a fault here must be reported (w16_crash.c) */
+#endif
     if (!load_compiled()) {
         w16_report("initial data: src/gen/exe_data.c is empty");
         return;
