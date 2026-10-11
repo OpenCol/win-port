@@ -13,8 +13,8 @@
 # ~/.local/share/colonization-port/game on Linux -- by bin/colonization-import.exe (the Windows
 # launcher's --import, src/launcher/isoimport.c) under Wine, and that folder is used.
 # COLONIZE.EXE must be the 1995 release, patched or the original (its SHA-256 is checked); the
-# original lacks the patch's COLDATA9.DLL and COCKGUN.WAV (the Jukebox's Control Panel, the
-# Cheat menu's dialogs).
+# original lacks the patch's COLDATA9.DLL (the Jukebox's Control Panel, the Cheat menu's dialogs)
+# and COCKGUN.WAV (GUNCOCK.WAV renamed, which the unpacking writes).
 #
 # Wine: $PORT_WINE, else `wine` on PATH, else Gcenx's Wine app in (~)/Applications, else wine64.
 # $PORT_DESKTOP sets the game's desktop window size. On macOS use a current Wine (e.g. Gcenx's
@@ -99,8 +99,10 @@ exe=$(find_exe "$game")
 if command -v sha256sum >/dev/null 2>&1; then sum=$(sha256sum "$exe" | cut -d' ' -f1)
 else sum=$(shasum -a 256 "$exe" | cut -d' ' -f1); fi
 if [ "$sum" = "$PREPATCH" ]; then
-    echo "Colonization: $exe is the original 1995 release: without the patch's COLDATA9.DLL and" >&2
-    echo "COCKGUN.WAV, the Jukebox's Control Panel and the Cheat menu's dialogs are missing." >&2
+    echo "Colonization: $exe is the original 1995 release: without the patch's COLDATA9.DLL, the" >&2
+    echo "Jukebox's Control Panel and the Cheat menu's dialogs are missing." >&2
+    [ -f "$game/COCKGUN.WAV" ] || [ -f "$game/cockgun.wav" ] ||
+        echo "Colonization: COCKGUN.WAV is missing too: it is GUNCOCK.WAV renamed; a copy restores it." >&2
 elif [ "$sum" != "$PATCHED" ]; then
     echo "Colonization: $exe is not a build this port knows (SHA-256 $sum)." >&2
     echo "It needs the 1995 release of Colonization for Windows (SHA-256 $PATCHED, or the original's)." >&2

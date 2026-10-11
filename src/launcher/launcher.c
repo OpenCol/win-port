@@ -15,8 +15,8 @@
  * is used -- once: it is remembered like any other.
  * COLONIZE.EXE's SHA-256 must be the patched 1995 release's or the original's (before the patch,
  * as on the disc): the port reads only its pictures, which the two share. The original lacks
- * the patch's COLDATA9.DLL and COCKGUN.WAV, so the Jukebox's Control Panel and the Cheat menu's
- * dialogs are missing (README.md).
+ * the patch's COLDATA9.DLL, so the Jukebox's Control Panel and the Cheat menu's dialogs are
+ * missing (README.md); its COCKGUN.WAV is GUNCOCK.WAV renamed, which the unpacking writes.
  *
  * `Colonization.exe --import ISO DEST` only unpacks (the Linux and macOS kits' script runs it
  * under Wine): exit code 0 when done, the outcome on stdout and in the log.
@@ -353,9 +353,13 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
     }
     say("COLONIZE.EXE SHA-256 %s: %s", sha, !strcmp(sha, PATCHED) ? "the patched 1995 release" :
         !strcmp(sha, PREPATCH) ? "the original 1995 release, before the patch" : "not a known build");
-    if (!strcmp(sha, PREPATCH))                          /* the port reads only its pictures: the same */
-        say("the original release: without the patch's COLDATA9.DLL and COCKGUN.WAV the Jukebox's Control "
-            "Panel and the Cheat menu's dialogs are missing");
+    if (!strcmp(sha, PREPATCH)) {                        /* the port reads only its pictures: the same */
+        char wav[MAX_PATH + 32];
+        snprintf(wav, sizeof wav, "%s\\COCKGUN.WAV", dir);
+        say("the original release: without the patch's COLDATA9.DLL the Jukebox's Control Panel and the Cheat "
+            "menu's dialogs are missing%s", GetFileAttributesA(wav) == INVALID_FILE_ATTRIBUTES ?
+            "; COCKGUN.WAV is missing too (it is GUNCOCK.WAV renamed: a copy under that name restores it)" : "");
+    }
     if (strcmp(sha, PATCHED) && strcmp(sha, PREPATCH)) {
         snprintf(msg, sizeof msg, "%s\\COLONIZE.EXE is not a build this port knows.\n\nSHA-256 %s\n\nThe port "
                  "needs the 1995 release of Colonization for Windows (SHA-256 %.16s..., or the original's). A "

@@ -12,10 +12,12 @@
  * position tables are Okumura's (LZHUF.C, 1988), built here from their definition, so SETUP.EXE
  * is not needed. The ring starts at 0xdc3, not LZHUF.C's N - F: the installer's own choice.
  *
- * Two files of the patched release are not on the disc -- COLDATA9.DLL and COCKGUN.WAV, which
- * the 1995 patch added -- so a folder made from the ISO plays without the Jukebox's Control
- * Panel and the Cheat menu's dialogs (README.md). Nothing here is game data: only names and
- * hashes.
+ * Of the patched release's files, the disc lacks COLDATA9.DLL, which the 1995 patch added: a
+ * folder made from the ISO plays without the Jukebox's Control Panel and the Cheat menu's dialogs
+ * (README.md). COCKGUN.WAV, the patch's other new file, is the disc's GUNCOCK.WAV renamed (the
+ * same bytes; the patched program plays cockgun.wav, the original guncock.wav), so it is written
+ * as a copy: without it Windows would play its default sound in its place (sndPlaySound flag 1,
+ * no SND_NODEFAULT). Nothing here is game data: only names and hashes.
  */
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -435,6 +437,17 @@ int iso_import(const char *iso_path, const char *dest, char *msg, size_t msglen)
         }
         free(data);
     }
+    /* the patch's COCKGUN.WAV: GUNCOCK.WAV under the name the patched program plays */
+    if (!(e = find(inst, ninst, "GUNCOCK.WAV")) || !(data = iso_read(f, e->lba, e->size))) {
+        snprintf(msg, msglen, "INSTALL\\GUNCOCK.WAV could not be read");
+        goto out;
+    }
+    if (!write_file(dest, "COCKGUN.WAV", data, e->size)) {
+        snprintf(msg, msglen, "%s\\COCKGUN.WAV could not be written", dest);
+        free(data);
+        goto out;
+    }
+    free(data);
     if (!(e = find(inst, ninst, "COLONIZE._00")) || !(data = iso_read(f, e->lba, e->size))) {
         snprintf(msg, msglen, "the disc has no INSTALL\\COLONIZE._00");
         goto out;
@@ -456,7 +469,8 @@ int iso_import(const char *iso_path, const char *dest, char *msg, size_t msglen)
         }
         free(exe);
     }
-    snprintf(msg, msglen, "%u files and COLONIZE.EXE (decompressed, the original 1995 release) written to %s",
+    snprintf(msg, msglen, "%u files, COCKGUN.WAV (GUNCOCK.WAV's copy) and COLONIZE.EXE (decompressed, the original "
+             "1995 release) written to %s",
              (unsigned)NFILES, dest);
     rc = 0;
 out:

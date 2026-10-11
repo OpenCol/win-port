@@ -142,8 +142,8 @@ sounds -- comes from the game's data files, as the original's did. The tests rea
 patched install from `$COL_GAME_DIR`, check its hashes, and refuse anything else. Steam's
 release carries the Windows edition too (`COLONIZE.ISO`, its `INSTALL` folder), but the
 original, unpatched one: its data files are the patched install's byte for byte, except that
-`COLDATA9.DLL` and `COCKGUN.WAV` -- which the 1995 patch added -- are missing, and its
-`COLONIZE.EXE` is the pre-patch build. Without those two files the port plays, but the
+`COLDATA9.DLL` and `COCKGUN.WAV` -- which the 1995 patch added -- are missing (the second is
+only the disc's `GUNCOCK.WAV` renamed), and its `COLONIZE.EXE` is the pre-patch build. Without those two files the port plays, but the
 Jukebox's Control Panel and the Cheat menu's dialogs crash (`PORT_DROP=COLDATA9.DLL,COCKGUN.WAV
 python3 tests/sessions.py`).
 
@@ -160,8 +160,11 @@ a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows
 - `COLONIZE.EXE` is decompressed from `COLONIZE._00` (an ARCV archive: LZHUF, after col-win-re's
   `tools/arcv_extract.py`, with Okumura's tables -- the disc's `SETUP.EXE` is not needed) and must
   hash to the original 1995 release;
+- `COCKGUN.WAV`, which the patch added, is the disc's `GUNCOCK.WAV` renamed -- the same bytes;
+  the patched program plays `cockgun.wav`, the original `guncock.wav` -- so it is written as a
+  copy (without it, Windows would play its default sound for Fortify);
 - the launchers accept that original release (the port reads only its pictures, which the two
-  releases share), and say what it lacks: `COLDATA9.DLL` and `COCKGUN.WAV`.
+  releases share), and say what it lacks: `COLDATA9.DLL`.
 
 `Colonization.exe --import ISO DEST` does only the unpacking; the Linux and macOS kits carry the
 same program as `bin/colonization-import.exe` and run it under Wine. Tests run on such a folder
