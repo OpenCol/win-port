@@ -3,7 +3,8 @@
 #
 # Runs the port (bin/) under Wine in the folder of your copy of Colonization for Windows: the
 # port reads the game's own files there and saves there, as the original did. No game file is
-# in the kit. The folder is: the argument; this folder, if the kit was unpacked into the game;
+# in the kit. The folder is: the argument; this folder or the one above it, if the kit was
+# unzipped into the game folder (or Steam's Colonization folder);
 # the one used last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR; Steam's
 # Colonization folder.
 #
@@ -73,13 +74,15 @@ find_iso() {    # Steam's COLONIZE.ISO in $1 or one folder down
 }
 
 game=""
-for d in "$1" "$here" "$(cat "$conf/gamedir" 2>/dev/null)" "$COLONIZATION_DIR" \
+for d in "$1" "$here" "$(dirname "$here")" "$(cat "$conf/gamedir" 2>/dev/null)" "$COLONIZATION_DIR" \
          "$steam/Sid Meier's Colonization" "$steam/Colonization"; do
     [ -n "$d" ] && [ -d "$d" ] || continue
     if find_exe "$d" >/dev/null; then game=$(cd "$d" && pwd); break; fi
     if iso=$(find_iso "$d"); then
         if find_exe "$unpacked" >/dev/null; then
             echo "Colonization: using $unpacked, unpacked from $iso before" >&2
+            # a folder an older kit unpacked: the patch's COCKGUN.WAV is the disc's GUNCOCK.WAV
+            [ -f "$unpacked/COCKGUN.WAV" ] || cp "$unpacked/GUNCOCK.WAV" "$unpacked/COCKGUN.WAV" 2>/dev/null || true
         else
             echo "Colonization: no COLONIZE.EXE in $d, but $iso: unpacking it into $unpacked" >&2
             mkdir -p "$unpacked"

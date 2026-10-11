@@ -14,15 +14,11 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
 KITS = [
-    ("windows-x86", "Windows (32-bit program; runs on 32- and 64-bit Windows)",
-     "Unzip, start `Colonization.exe`; the first time it asks for your game folder."),
-    ("windows-x64", "Windows (64-bit program)",
-     "Unzip, start `Colonization.exe`; the first time it asks for your game folder."),
-    ("linux-i386", "Linux (native Winelib program; needs Wine with its 32-bit part)",
-     "Unzip, run `./colonization /path/to/your/game/folder`."),
-    ("macos", "macOS (the Windows program under Wine)",
-     "Unzip, run `./colonization /path/to/your/game/folder`; needs a current Wine "
-     "(Gcenx's wine-devel 11, not Apple's Game Porting Toolkit)."),
+    ("windows-x86", "Windows (32-bit program; runs on 32- and 64-bit Windows)", "`Colonization.exe`"),
+    ("windows-x64", "Windows (64-bit program)", "`Colonization.exe`"),
+    ("linux-i386", "Linux (a Winelib program: needs Wine with its 32-bit part)", "`./colonization`"),
+    ("macos", "macOS (the 32-bit Windows program under Wine: needs Gcenx's Wine, not Apple's Game "
+              "Porting Toolkit)", "`./colonization`"),
 ]
 PATCHED = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
 
@@ -59,31 +55,57 @@ def main(argv):
     tested = [l for l in (lockstep_line("win32", "Windows x86 program"), lockstep_line("x64", "Windows x64 program"),
                           lockstep_line("linux", "Linux program"), lockstep_line("linux64", "Linux x86_64"))
               if l]
+    sessions = rec("sessions")
+    windows = rec("kit").get("clean_machine", {}).get("windows")
     notes = """Sid Meier's Colonization for Windows (1995), ported to modern systems from its byte-matched
-reconstruction. **No game files are included**: you need your own copy of Colonization for
-Windows, the updated 1995 release (its `COLONIZE.EXE` has SHA-256 `{patched}`). The
-launcher checks this; the original 1995 release (before the official patch) is recognised and
-refused.
+reconstruction. **No game files are included**: you need your own copy of the game -- either
+**Colonization for Windows** (1995, patched or not), or **Steam's Colonization**, whose disc
+image `COLONIZE.ISO` carries the Windows edition.
 
-| Download | Platform | How |
+| Download | Platform | Start |
 | --- | --- | --- |
 {rows}
 
-The game runs in your game folder: it reads its pictures, sounds and data there and saves
-there, as the original did. Do not copy `bin/colonize.exe` into the game folder: Windows does
-not tell its name from the game's own `COLONIZE.EXE`.
+### How to run
+
+1. Unzip the kit **into the folder of your game**:
+   - Colonization for Windows: the folder with `COLONIZE.EXE` (for example `C:\\MPS\\COLONIZE`);
+   - Steam's Colonization: its install folder, the one with `COLONIZE.ISO`
+     (Steam: right-click the game > Manage > Browse local files).
+2. Start the launcher from the kit's folder: `Colonization.exe` on Windows, `./colonization` in a
+   terminal on macOS and Linux (install Wine first: on macOS `brew install --cask wine@devel`; on
+   Debian/Ubuntu `sudo dpkg --add-architecture i386 && sudo apt install wine wine32`).
+
+The launcher finds the game in the folder it was unzipped into (or one it is given: `Colonization.exe
+"D:\\Games\\Colonization"`, `./colonization /path/to/game`), checks `COLONIZE.EXE`'s SHA-256, and
+remembers the folder. Unzipped elsewhere, it looks in the usual places and then asks once.
+
+- **Colonization for Windows**: the game runs in its own folder, reads its pictures, sounds and
+  data there and saves there, as the original did.
+- **Steam**: the launcher unpacks the Windows edition from `COLONIZE.ISO` once (a few seconds) into
+  a folder of its own -- `%LOCALAPPDATA%\\colonization-port\\game` on Windows,
+  `~/Library/Application Support/colonization-port/game` on macOS,
+  `~/.local/share/colonization-port/game` on Linux -- and the game runs and saves there.
+
+If it does not start or stops: `colonization-port.log` beside the launcher says why, and a crash
+leaves `colonization-port.dmp` there too; please send both.
 
 ### How it was tested (status/*.json at this release)
 {tested}
 - The rules: the port plays the same saved games turn for turn with the original, compared
-  at every step of every turn; the screens: 9 scripted UI sessions on every target.
-
+  at every step of every turn; the screens: {nsessions} scripted UI sessions.
+{windows}
 ### Known limits
-- The programs have run on macOS and Linux (under Wine), but not yet on a real Windows machine.
-- The kit does not carry the 1995 patch for an unpatched copy.
+- A Steam copy (the original 1995 release) lacks the patch's `COLDATA9.DLL`: the Jukebox's
+  Control Panel and the Cheat menu's dialogs crash. Everything else plays.
+- The Windows game plays its music from the CD's audio tracks; a disc image has none.
+- The macOS and Linux kits run through Wine; they are not native programs.
 
 Version {version}. Checksums: `SHA256SUMS.txt`.
-""".format(patched=PATCHED, rows="\n".join(rows), tested="\n".join(tested) or "- (no records)", version=version)
+""".format(rows="\n".join(rows), tested="\n".join(tested) or "- (no records)", version=version,
+           nsessions=len(sessions) or "the",
+           windows=("- On a real Windows machine: %s, %s (%s).\n" % (windows.get("machine", "Windows").split(" (")[0],
+                    windows.get("kit", ""), windows.get("date", "")) if windows else ""))
     open(os.path.join(DIST, "RELEASE_NOTES.md"), "w").write(notes)
     open(os.path.join(DIST, "SHA256SUMS.txt"), "w").write("\n".join(sums) + "\n")
     print(notes)

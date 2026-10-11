@@ -5,7 +5,8 @@
  * did. No game file is in the kit. This finds the player's copy, checks it is the build the
  * port was made from, and starts the port in it:
  *   1. the folder given on the command line;
- *   2. this launcher's own folder (the kit unpacked into the game folder);
+ *   2. this launcher's own folder, or the folder it was unzipped into (the kit put in the game
+ *      folder, or in Steam's Colonization folder);
  *   3. the folder chosen last time (%APPDATA%\colonization-port\gamedir.txt);
  *   4. the usual install places (GOG, the 1995 CD's default);
  *   5. otherwise it asks, with the folder picker, and remembers the answer.
@@ -175,6 +176,15 @@ static int resolve(char *dir)
     if (!SUCCEEDED(SHGetFolderPathA(0, CSIDL_LOCAL_APPDATA, 0, 0, base)))
         return 0;
     snprintf(dest, sizeof dest, "%s\\colonization-port\\game", base);
+    if (has_game(dest)) {                                /* unpacked before: COLONIZE.EXE is written last */
+        char from[MAX_PATH + 16], to[MAX_PATH + 16];
+        say("%s: no COLONIZE.EXE, but %s: using %s, unpacked from it before", dir, iso, dest);
+        snprintf(from, sizeof from, "%s\\GUNCOCK.WAV", dest);   /* a folder an older kit unpacked */
+        snprintf(to, sizeof to, "%s\\COCKGUN.WAV", dest);
+        CopyFileA(from, to, TRUE);
+        snprintf(dir, MAX_PATH, "%s", dest);
+        return 1;
+    }
     say("%s: no COLONIZE.EXE, but %s: unpacking it into %s", dir, iso, dest);
     if (iso_import(iso, dest, msg, sizeof msg)) {
         say("unpacking failed: %s", msg);
@@ -317,8 +327,13 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
     }
     if (dir[0])
         resolve(dir);
-    if (!dir[0]) {                                       /* 2. this folder */
-        snprintf(store, sizeof store, "%s", self);
+    for (i = 0; !dir[0] && i < 2; i++) {                 /* 2. this folder, or the one the kit was */
+        snprintf(store, sizeof store, "%s", self);       /*    unzipped into (the zip has a top folder) */
+        if (i == 1) {
+            if (!(slash = strrchr(store, '\\')))
+                break;
+            *slash = 0;
+        }
         if (resolve(store))
             snprintf(dir, sizeof dir, "%s", store);
     }
