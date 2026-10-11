@@ -57,6 +57,18 @@ SESSIONS = {
     # the Jukebox's song list: a Popup in g_popup_font_small (g_font12), which v0.1.1 pointed at a
     # copy of the file's bytes -- it crashed on Windows 7 (src/host/w16_globals_init.c, map_far)
     "jukebox": show(103, "by_song"),
+    # every other menu command once (MainWin_MainMenuProc's ids, src/gen/exe_data.c's menus): a
+    # player meets each, and a tester found the crashes one by one; Load Game is the save session's
+    # dialog, Quit and Retire ask first (Escape answers no)
+    "file_menu": show(102, "sound_options", RETURN) + show(106, "declare", ESCAPE) + show(107, "retire", ESCAPE)
+                 + show(108, "quit", ESCAPE),
+    "view_menu": sum((show(c, "view_%d" % c) for c in (300, 301, 304, 305)), []),
+    # orders that end the unit's moves (402 Fortify, 404 Sentry, 413 Return to Europe, 414 No Orders)
+    # are left out: with the only unit done the game plays its turns on by itself, and the session
+    # never gets an idle moment for its next key
+    "orders_menu": sum((show(c, "order_%d" % c) for c in (400, 405, 406, 407, 408, 409, 411, 412, 415, 416, 401)), []),
+    "trade_routes": sum((show(c, "route_%d" % c) for c in (600, 601, 602)), []),
+    "cheat_menu": sum((show(c, "cheat_%d" % c) for c in (801, 802, 803, 806, 807, 808, 809, 800, 805, 804, 810)), []),
     "save": [("saveas", "SESSION.SAV"), ("cmd", 104), ("wait", 4), ("grab", "saved")],
     "new_game": [("wait", 3), ("grab", "main_menu"), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "difficulty"),
                  ("click", OK), ("wait", 4), ("grab", "nation"), ("click", OK), ("wait", 4), ("grab", "name")]
