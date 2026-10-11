@@ -23,6 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
 LAUNCHER_C = os.path.join(ROOT, "src", "launcher", "launcher.c")
 LAUNCHER_SH = os.path.join(ROOT, "src", "launcher", "colonization.sh")
+ISOIMPORT_C = os.path.join(ROOT, "src", "launcher", "isoimport.c")
 
 TARGETS = {
     # target: (program, its name in bin/, launcher kind, mingw prefix for the launcher/strip)
@@ -49,12 +50,18 @@ colonization-port.dmp beside it. Please send both files with your report.
 """
 HOW = {
     "exe": "Start Colonization.exe. The first time, it asks for the folder your copy is installed\n"
-           "in (the one with COLONIZE.EXE), or unpack this kit into that folder.",
+           "in (the one with COLONIZE.EXE), or unpack this kit into that folder.\n\n"
+           "Steam's Colonization works too: choose its folder (the one with COLONIZE.ISO), and the\n"
+           "launcher unpacks the Windows edition from the disc image once, into\n"
+           "%LOCALAPPDATA%\\colonization-port\\game, and plays from there.",
     "sh": "This is not a native {system} program: it runs through Wine, which must be installed\n"
           "first{extra}\n\n"
           "Start it from a terminal, the first time with the folder your copy is installed in (the\n"
           "one with COLONIZE.EXE):\n\n    ./colonization /path/to/your/Colonization/folder\n\n"
-          "The folder is remembered; later just ./colonization. The script uses $PORT_WINE if set,\n"
+          "The folder is remembered; later just ./colonization. Steam's Colonization works too: give\n"
+          "its folder (the one with COLONIZE.ISO), and the script unpacks the Windows edition from the\n"
+          "disc image once (into {unpacked}) and plays from there.\n\n"
+          "The script uses $PORT_WINE if set,\n"
           "else `wine` on PATH, else Gcenx's Wine app in /Applications, else wine64.\n"
           "$PORT_DESKTOP sets the game's window size (default 1024x768).",
 }
@@ -83,13 +90,18 @@ def build(target, version):
     strip = (prefix + "-strip") if prefix else "strip"
     if shutil.which(strip):                       # the debug information stays in build/; best effort
         subprocess.run([strip, "--strip-debug", dst], capture_output=True)   # (macOS's strip has no ELF)
+    def launcher(cc_prefix, out):
+        run([cc_prefix + "-gcc", "-O2", "-mwindows", "-DKIT_VERSION=\"%s\"" % version, "-o", out,
+             LAUNCHER_C, ISOIMPORT_C, "-ladvapi32", "-lshell32", "-lole32"])
+
     if kind == "exe":
-        run([prefix + "-gcc", "-O2", "-mwindows", "-DKIT_VERSION=\"%s\"" % version,
-             "-o", os.path.join(stage, "Colonization.exe"), LAUNCHER_C,
-             "-ladvapi32", "-lshell32", "-lole32"])
+        launcher(prefix, os.path.join(stage, "Colonization.exe"))
         how = HOW["exe"]
     else:
         shutil.copyfile(LAUNCHER_SH, os.path.join(stage, "colonization"))
+        # the Windows launcher, for its --import only: the script unpacks Steam's COLONIZE.ISO
+        # with it under Wine (i686, which every Wine runs)
+        launcher("i686-w64-mingw32", os.path.join(stage, "bin", "colonization-import.exe"))
         os.chmod(os.path.join(stage, "colonization"), 0o755)
         if target == "linux-i386":
             system, extra = "Linux", (
@@ -107,7 +119,9 @@ def build(target, version):
                 "it stops the game the first time a sound plays.\n\n"
                 "The port here is the 32-bit Windows program, run by Wine as any Windows program is;\n"
                 "on Apple silicon, Rosetta 2 translates its x86 code.")
-        how = HOW["sh"].format(system=system, extra=extra)
+        unpacked = ("~/.local/share/colonization-port/game" if target == "linux-i386"
+                    else "~/Library/Application Support/colonization-port/game")
+        how = HOW["sh"].format(system=system, extra=extra, unpacked=unpacked)
         if target == "linux-i386":
             wrapper = os.path.join(os.path.dirname(src), "colonize.exe")
             if os.path.exists(wrapper):           # winegcc's loader stub beside the .so

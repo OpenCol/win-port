@@ -23,6 +23,7 @@ import io
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATCHED_EXE = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
+PREPATCH_EXE = "ae7d9149f056766a534fe8f0006c9512aac1e1004e9776ab3cca818e4833b650"
 UNICORN = "unicorn==2.1.4"
 # what the tools read from col-win-re itself (no game bytes: those come from $COL_GAME_DIR)
 # Without the ordinal tables the machine has no handler for KERNEL.ORD_18 and crawls, one
@@ -48,7 +49,9 @@ def game_dir():
     if not os.path.exists(exe):
         sys.exit("$COL_GAME_DIR has no COLONIZE.EXE")
     h = hashlib.sha256(open(exe, "rb").read()).hexdigest()
-    if h != PATCHED_EXE:
+    # $PORT_ALLOW_PREPATCH: the original 1995 release too -- a folder the launcher unpacked from
+    # Steam's COLONIZE.ISO (src/launcher/isoimport.c); the port reads only its pictures, the same
+    if h != PATCHED_EXE and not (os.environ.get("PORT_ALLOW_PREPATCH") and h == PREPATCH_EXE):
         sys.exit("$COL_GAME_DIR/COLONIZE.EXE is not the patched 1995 build (sha256 %s)" % h)
     return os.path.abspath(d)
 

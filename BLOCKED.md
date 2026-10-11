@@ -39,6 +39,11 @@ by its hash and says what is needed; it does not carry the delta.
 
 To decide: may the kit carry the delta (or fetch the official patch from a stated place)?
 
+Since 2026-10-12 the delta is needed for less: the port's tables and menus are compiled in, and
+the launchers accept the original release (and unpack it from Steam's COLONIZE.ISO). What a
+pre-patch copy still lacks is the patch's two new files, COLDATA9.DLL and COCKGUN.WAV -- for
+which Daniel plans open (MIT) replacements -- not the patched program.
+
 ### W10: a clean machine per OS
 
 The gate -- a clean machine of each OS, given only the kit and a game copy, reaches the map --

@@ -147,5 +147,26 @@ original, unpatched one: its data files are the patched install's byte for byte,
 Jukebox's Control Panel and the Cheat menu's dialogs crash (`PORT_DROP=COLDATA9.DLL,COCKGUN.WAV
 python3 tests/sessions.py`).
 
+### Steam's COLONIZE.ISO
+
+The launchers take Steam's copy as it is installed. Given a folder with no `COLONIZE.EXE` but a
+`COLONIZE.ISO` in it (or one folder down), they unpack the disc image's Windows edition once into
+a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows,
+`~/Library/Application Support/colonization-port/game` on macOS,
+`~/.local/share/colonization-port/game` on Linux -- and play there (`src/launcher/isoimport.c`):
+
+- the ISO 9660 image is read directly; its `INSTALL` folder's 54 data files are copied, each
+  checked by SHA-256;
+- `COLONIZE.EXE` is decompressed from `COLONIZE._00` (an ARCV archive: LZHUF, after col-win-re's
+  `tools/arcv_extract.py`, with Okumura's tables -- the disc's `SETUP.EXE` is not needed) and must
+  hash to the original 1995 release;
+- the launchers accept that original release (the port reads only its pictures, which the two
+  releases share), and say what it lacks: `COLDATA9.DLL` and `COCKGUN.WAV`.
+
+`Colonization.exe --import ISO DEST` does only the unpacking; the Linux and macOS kits carry the
+same program as `bin/colonization-import.exe` and run it under Wine. Tests run on such a folder
+with `PORT_ALLOW_PREPATCH=1 COL_GAME_DIR=...` (a save's full path must stay under 128 characters,
+the Win16 `OpenFile` limit).
+
 *Sid Meier's Colonization* is © 1994–1995 MicroProse Software, Inc. This project is not
 affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.
