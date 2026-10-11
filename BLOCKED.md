@@ -43,3 +43,10 @@ To decide: may the kit carry the delta (or fetch the official patch from a state
 
 The gate -- a clean machine of each OS, given only the kit and a game copy, reaches the map --
 needs those machines.
+
+- Windows: done with the x86 kit (a tester's Windows 7 SP1 64-bit, v0.1.1, 2026-10-11;
+  status/kit.json). Still to run there: the **v0.1.2 windows-x64** kit -- v0.1.1's x64 program
+  ended at start with 0xC0000374 (a HeapAlloc block freed with msvcrt's free; 3c65684). If it
+  fails again, `colonization-port.log` beside the launcher now has the port's own report.
+- Linux: the linux-i386 kit on a machine with only Wine (wine32) installed.
+- macOS: the macos kit on a Mac with only Gcenx's Wine 11 installed (not the development Mac).
