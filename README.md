@@ -2,10 +2,10 @@
 
 # win-port
 
-A native port of **Sid Meier's Colonization for Windows** (MicroProse, 1995) is the goal here:
-the same game, compiled with modern tools and running without an emulator, natively on Windows
-and on Linux and macOS through Winelib. It is at the start. [STATUS.md](STATUS.md) says how far
-it has got; nothing playable exists yet.
+A port of **Sid Meier's Colonization for Windows** (MicroProse, 1995): the same game, compiled
+with modern tools and running without an emulator. On Windows it is a native 32-bit or 64-bit
+program; on Linux and macOS it runs through Wine (see Mac and Linux below). It is playable, and
+in pre-release: [STATUS.md](STATUS.md) says how far each milestone has got.
 
 It is built from the byte-matched reconstruction of the original program
 ([col-win-re](https://github.com/dderevjanik/col-win-re), published as
@@ -53,11 +53,41 @@ CI builds the kits from that commit, writes the notes and the checksums, and pub
 Each kit holds the port and a launcher, and no game files: you need your own copy of
 Colonization for Windows, the updated 1995 release. The launcher finds it, checks
 `COLONIZE.EXE`'s SHA-256, and starts the port in that folder (`tools/kit.py`,
-`src/launcher`). Linux and macOS run it under Wine (on macOS a current one, not Apple's
-Game Porting Toolkit). Every run writes `colonization-port.log` beside the launcher: the
+`src/launcher`). Every run writes `colonization-port.log` beside the launcher: the
 launcher's steps, the system, the port's start and, if it crashes, its report, with
 `colonization-port.dmp` (a minidump) beside it. `python3 tools/crash_log.py LOG EXE` names
 the addresses in a player's log, given that release's `bin/colonize.exe`.
+
+## Mac and Linux
+
+Neither runs the game natively: both need **Wine** installed, and the kit's `colonization` script
+starts the port through it. The game itself is the same code on every system; Wine provides the
+Windows calls it makes (windows, drawing, sound, files).
+
+- **macOS** (`colonization-port-macos`): the kit holds the 32-bit Windows program, the same as
+  `windows-x86`, and Wine runs it as it runs any Windows program; on Apple silicon, Rosetta 2
+  translates its x86 code. It needs a current Wine: Gcenx's builds (`brew install --cask
+  wine@devel`, or github.com/Gcenx/macOS_Wine_builds), which install `Wine Devel.app` in
+  /Applications, where the script finds it. **Not Apple's Game Porting Toolkit** (Wine 7.7, often
+  Homebrew's `wine64`): it stops the game the first time a sound plays.
+- **Linux** (`colonization-port-linux-i386`): a Winelib program -- the port compiled on Linux
+  against Wine's own headers and libraries, an ELF `.so` with Wine's loader beside it -- so it
+  still needs Wine at run time, with its 32-bit part (Debian/Ubuntu: `sudo dpkg
+  --add-architecture i386 && sudo apt install wine wine32`). 64-bit Linux can also run the
+  `windows-x64` program under its Wine.
+
+Start it from a terminal, the first time with your game folder:
+
+```sh
+./colonization /path/to/your/Colonization       # the folder with COLONIZE.EXE; remembered
+./colonization                                   # later runs
+```
+
+The script looks for the game in: the folder given; its own folder (the kit unpacked into the
+game folder); the one used last time (`~/.config/colonization-port/gamedir`); `$COLONIZATION_DIR`.
+It checks `COLONIZE.EXE`'s SHA-256, then runs the port in that folder, in a Wine desktop window of
+its own (`$PORT_DESKTOP`, default 1024x768). Wine is `$PORT_WINE` if set, else `wine` on PATH,
+else Gcenx's Wine app, else `wine64`. Its log is `colonization-port.log` beside the script.
 
 ## Building and playing
 

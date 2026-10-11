@@ -32,7 +32,7 @@ TARGETS = {
     "macos": ("build/colonize.exe", "colonize.exe", "sh", "i686-w64-mingw32"),
 }
 
-README = """Sid Meier's Colonization for Windows -- the native port ({target}, {version})
+README = """Sid Meier's Colonization for Windows -- the port ({target}, {version})
 
 This is a port of the 1995 game's code to modern systems. It contains no game files:
 you need your own copy of Colonization for Windows, the updated 1995 release (the one the
@@ -50,8 +50,13 @@ colonization-port.dmp beside it. Please send both files with your report.
 HOW = {
     "exe": "Start Colonization.exe. The first time, it asks for the folder your copy is installed\n"
            "in (the one with COLONIZE.EXE), or unpack this kit into that folder.",
-    "sh": "Needs Wine{extra}. Start it from a terminal:\n\n    ./colonization /path/to/your/Colonization/folder\n\n"
-          "The folder is remembered; later just ./colonization.",
+    "sh": "This is not a native {system} program: it runs through Wine, which must be installed\n"
+          "first{extra}\n\n"
+          "Start it from a terminal, the first time with the folder your copy is installed in (the\n"
+          "one with COLONIZE.EXE):\n\n    ./colonization /path/to/your/Colonization/folder\n\n"
+          "The folder is remembered; later just ./colonization. The script uses $PORT_WINE if set,\n"
+          "else `wine` on PATH, else Gcenx's Wine app in /Applications, else wine64.\n"
+          "$PORT_DESKTOP sets the game's window size (default 1024x768).",
 }
 PATCHED = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
 README_NAME = "README-colonization-port.txt"
@@ -86,10 +91,23 @@ def build(target, version):
     else:
         shutil.copyfile(LAUNCHER_SH, os.path.join(stage, "colonization"))
         os.chmod(os.path.join(stage, "colonization"), 0o755)
-        extra = (" with its 32-bit part (Debian/Ubuntu: dpkg --add-architecture i386; apt install wine wine32)"
-                 if target == "linux-i386" else
-                 " (Gcenx's wine-devel 11 from github.com/Gcenx/macOS_Wine_builds; not Apple's Game Porting Toolkit)")
-        how = HOW["sh"].format(extra=extra)
+        if target == "linux-i386":
+            system, extra = "Linux", (
+                ", with its 32-bit part. On Debian or Ubuntu:\n\n"
+                "    sudo dpkg --add-architecture i386 && sudo apt update\n"
+                "    sudo apt install wine wine32\n\n"
+                "The port here is a Winelib program: compiled on Linux against Wine's libraries,\n"
+                "and started by Wine's loader (bin/colonize.exe beside bin/colonize.exe.so).")
+        else:
+            system, extra = "macOS", (
+                ". Use a current Wine -- Gcenx's builds:\n\n"
+                "    brew install --cask wine@devel\n\n"
+                "(or from github.com/Gcenx/macOS_Wine_builds), which puts Wine Devel.app in\n"
+                "/Applications. Not Apple's Game Porting Toolkit (Wine 7.7, often Homebrew's wine64):\n"
+                "it stops the game the first time a sound plays.\n\n"
+                "The port here is the 32-bit Windows program, run by Wine as any Windows program is;\n"
+                "on Apple silicon, Rosetta 2 translates its x86 code.")
+        how = HOW["sh"].format(system=system, extra=extra)
         if target == "linux-i386":
             wrapper = os.path.join(os.path.dirname(src), "colonize.exe")
             if os.path.exists(wrapper):           # winegcc's loader stub beside the .so
