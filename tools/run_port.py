@@ -13,7 +13,8 @@ finds its data files where the original does and whatever it writes -- the game 
 the run's log is build/run/port.log ($PORT_LOG), where a backlog trap writes the Win16
 function the game reached that the platform layer does not provide yet, and the
 platform layer writes its trace (--trace sets $PORT_TRACE).
-$PORT_NO_EXE=1 runs it in a copy without COLONIZE.EXE (tests/sessions.py passes it through).
+$PORT_NO_EXE=1 runs it in a copy without COLONIZE.EXE, $PORT_DROP=A,B without those files
+(tests/sessions.py passes both through).
 
 Exit status: 0 the game exited by itself, 3 it reached a trap (the log names it),
 124 it was still running after --seconds (then stopped), other: it crashed.
@@ -56,6 +57,10 @@ def main(argv):
             # game's data files are there (its tables and menus are compiled in; the 22 pictures
             # still come from the file, docs/replacement-art.md)
             os.remove(os.path.join(game, "COLONIZE.EXE"))
+        for name in filter(None, os.environ.get("PORT_DROP", "").split(",")):
+            # $PORT_DROP=A,B: the copy without those files -- e.g. COLDATA9.DLL,COCKGUN.WAV, the
+            # two the 1995 patch added, which a Steam or GOG copy (the unpatched release) lacks
+            os.remove(os.path.join(game, name))
     log = os.path.join(RUN, "port.log")
     if os.path.exists(log):
         os.remove(log)
