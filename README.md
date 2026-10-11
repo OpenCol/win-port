@@ -109,8 +109,13 @@ is compiled in since 2026-10-10 (Daniel's decision): the starting values of the 
 cursors, icons and bitmaps from that file until they have replacements
 ([docs/replacement-art.md](docs/replacement-art.md)); everything else -- pictures, text,
 sounds -- comes from the game's data files, as the original's did. The tests read your own
-patched install from `$COL_GAME_DIR`, check its hashes, and refuse anything else. The Windows
-edition is not sold on Steam or GOG, which sell the DOS version.
+patched install from `$COL_GAME_DIR`, check its hashes, and refuse anything else. Steam's
+release carries the Windows edition too (`COLONIZE.ISO`, its `INSTALL` folder), but the
+original, unpatched one: its data files are the patched install's byte for byte, except that
+`COLDATA9.DLL` and `COCKGUN.WAV` -- which the 1995 patch added -- are missing, and its
+`COLONIZE.EXE` is the pre-patch build. Without those two files the port plays, but the
+Jukebox's Control Panel and the Cheat menu's dialogs crash (`PORT_DROP=COLDATA9.DLL,COCKGUN.WAV
+python3 tests/sessions.py`).
 
 *Sid Meier's Colonization* is © 1994–1995 MicroProse Software, Inc. This project is not
 affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.
