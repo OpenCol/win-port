@@ -127,3 +127,19 @@ here -- as WM_SIZE's width, so the game resized a port that already had that siz
 casts fixed (src/platform, 73 sites), the strict trace matches 10,000 of 10,000 calls (12,449
 of 12,449 recorded) against the pinned emulator and against 0ad06e0da alike. The import stays
 pinned at 508d4d0d0c; the next pin brings 0ad06e0da in.
+
+## 13. `g_font12` (DGROUP:0x24ec) is not in the layout model (W10, 2026-10-11)
+
+`src/game/create_game_fonts.c` defines `Font g_font12(1, 0xc); /* DGROUP:0x24ec */`, and the
+shipped `g_popup_font_small` (34:0x24f4) is a far pointer the Win16 loader relocates to 34:0x24ec.
+`analysis/model.json`'s globals (the import's `import/layout.json`) have no global at that
+address, so a pointer resolver keyed by the model sends the pointer to data no global models.
+In the port that was a copy of the file's bytes, whose font handle was 0: the Jukebox's song list
+(`game_menu_music` -> `Popup_start` -> `Popup_set_font(g_popup_font_small)` ->
+`MSGetLineHeight`) read address 0 -- a tester's Windows 7 crash in v0.1.1, reproduced here under
+Wine by `tests/sessions.py jukebox`.
+
+Here: `tools/gen_exe_data.py` also takes addresses from definitions in `src/` that carry them in a
+comment, and `src/host/w16_globals_init.c` resolves a relocated pointer to such an object
+(`port_exe_addresses`: g_font12, and g_main_win for g_popup_owner, which the model has but
+`globals_init.c` does not list). Asked: add g_font12 at 34:0x24ec to the model.

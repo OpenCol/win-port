@@ -54,6 +54,9 @@ SESSIONS = {
     "about": show(706, "about", RETURN),
     "options": show(100, "game_options", RETURN) + show(101, "colony_options", RETURN) + show(55, "control_panel"),
     "find_colony": show(303, "find_city"),
+    # the Jukebox's song list: a Popup in g_popup_font_small (g_font12), which v0.1.1 pointed at a
+    # copy of the file's bytes -- it crashed on Windows 7 (src/host/w16_globals_init.c, map_far)
+    "jukebox": show(103, "by_song"),
     "save": [("saveas", "SESSION.SAV"), ("cmd", 104), ("wait", 4), ("grab", "saved")],
     "new_game": [("wait", 3), ("grab", "main_menu"), ("key", DOWN), ("key", RETURN), ("wait", 4), ("grab", "difficulty"),
                  ("click", OK), ("wait", 4), ("grab", "nation"), ("click", OK), ("wait", 4), ("grab", "name")]

@@ -21,6 +21,7 @@ Daniel's decision (2026-10-10): these tables and menus go into the port's source
 keeps every other game file out.
 """
 import hashlib
+import json
 import os
 import re
 import struct
@@ -37,6 +38,26 @@ def globals_list():
     out = []
     for m in re.finditer(r"\{ \(void \*\)&?\(?([^,]+?)\)?, (\d+), 0x([0-9a-f]+), (\d+), (\d+), [^,]+, (\d+) \},\s+/\* (\S+)", src):
         out.append((m.group(7), int(m.group(2)), int(m.group(3), 16), int(m.group(4)) * int(m.group(5))))
+    return out
+
+
+def addressed():
+    """{(seg, off): name} of every global the port defines at a game address: import/layout.json's,
+    and a definition in src/ with its address in a comment (`Font g_font12(1, 0xc); /* DGROUP:0x24ec */`)
+    -- objects with constructors, which globals_init.c does not list (it fills values, and these are
+    constructed). A relocated pointer to one of these points at the port's object."""
+    out = {}
+    lay = json.load(open(os.path.join(ROOT, "import", "layout.json")))["globals"]
+    for name, (seg, off) in lay.items():
+        out.setdefault((seg, off), name)
+    pat = re.compile(r"^(?!extern)[A-Za-z_][A-Za-z0-9_ \*:]*\b(g_[A-Za-z0-9_]+)\b[^;]*;\s*/\*\s*(DGROUP|SEG(\d+)):(0x[0-9a-fA-F]+)", re.M)
+    for d in ("game", "platform", "gen"):
+        for base, _dirs, files in os.walk(os.path.join(ROOT, "src", d)):
+            for f in files:
+                if f.endswith(".c"):
+                    for m in pat.finditer(open(os.path.join(base, f), errors="replace").read()):
+                        seg = 34 if m.group(2) == "DGROUP" else int(m.group(3))
+                        out.setdefault((seg, int(m.group(4), 16)), m.group(1))
     return out
 
 
@@ -130,8 +151,10 @@ def generate(exe_path):
         if any(b):
             runs.append((seg, off, b, name))
     used = [f for f in fixes if owner(f[0], f[1])]
+    named = addressed()
+    objects = sorted({(t, o) for _s, _o, t, o in used if segs[t][0] and not owner(t, o) and (t, o) in named})
     for seg, off, tseg, toff in used:
-        if segs[tseg][0] and not owner(tseg, toff):  # a pointer into data no global models
+        if segs[tseg][0] and not owner(tseg, toff) and (tseg, toff) not in named:   # data no global models
             b = segs[tseg][2][toff:toff + LITERAL_WINDOW]
             lo = next((i for i, x in enumerate(b) if x), None)
             if lo is not None:
@@ -168,13 +191,21 @@ def generate(exe_path):
           "const struct PortExeBytes port_exe_bytes[%d] = {" % len(runs)]
     for k, (seg, off, b, name) in enumerate(runs):
         L.append("    { %d, %#06x, %d, b%d },   /* %s */" % (seg, off, len(b), k, name))
+    L += ["};", "",
+          "/* the port's objects at the addresses those pointers name, which globals_init.c does not",
+          "   list (constructed, not filled): a pointer to one points at the port's object */",
+          "struct PortExeAddress { unsigned short seg, off; void *addr; };"]
+    L += ["extern char %s;" % named[k] for k in objects]
+    L += ["const unsigned port_exe_address_count = %d;" % len(objects),
+          "const struct PortExeAddress port_exe_addresses[%d] = {" % max(1, len(objects))]
+    L += ["    { %d, %#06x, &%s }," % (t, o, named[(t, o)]) for t, o in objects] or ["    { 0, 0, 0 },"]
     L += ["};", "", "/* far pointers the Win16 loader patched inside those globals: slot -> target */",
           "const unsigned port_exe_fix_count = %d;" % len(used),
           "const struct PortExeFix port_exe_fixes[%d] = {" % len(used)]
     for seg, off, tseg, toff in used:
         t = owner(tseg, toff)
         L.append("    { %d, %#06x, %d, %#06x },   /* %s -> %s */" % (seg, off, tseg, toff, owner(seg, off)[0],
-                                                               t[0] if t else "data no global models"))
+                                                               t[0] if t else named.get((tseg, toff), "data no global models")))
     L += ["};", ""]
     entries = []
     for (t, rid) in sorted(k for k in res if k[0] in (4, 5)):

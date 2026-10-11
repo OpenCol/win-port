@@ -32,6 +32,9 @@ extern const unsigned port_exe_seg_count, port_exe_byte_count, port_exe_fix_coun
 extern const struct PortExeSeg port_exe_segs[];
 extern const struct PortExeBytes port_exe_bytes[];
 extern const struct PortExeFix port_exe_fixes[];
+struct PortExeAddress { unsigned short seg, off; void *addr; };
+extern const unsigned port_exe_address_count;
+extern const struct PortExeAddress port_exe_addresses[];
 
 #define MAX_SEGS 64
 static struct { unsigned char *data; unsigned length; int is_data; unsigned char *shadow; } segs[MAX_SEGS + 1];
@@ -106,6 +109,13 @@ static void *map_far(unsigned tseg, unsigned toff)
             return (char *)g->addr + (rel / g->w16) * g->wn;
         }
     }
+    /* one of the port's constructed objects (g_font12, g_main_win): globals_init.c does not list
+       them, src/gen/exe_data.c does -- without this, a pointer to one pointed at a copy of the
+       file's bytes, and Popup_start's g_popup_font_small (g_font12) read a NULL font there:
+       Jukebox > By Song crashed on Windows 7 */
+    for (i = 0; i < port_exe_address_count; i++)
+        if (port_exe_addresses[i].seg == tseg && port_exe_addresses[i].off == toff && port_exe_addresses[i].addr)
+            return port_exe_addresses[i].addr;
     /* no global: a literal; point into a private copy of its segment */
     if (!segs[tseg].shadow) {
         segs[tseg].shadow = zalloc(segs[tseg].length);

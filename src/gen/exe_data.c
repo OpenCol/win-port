@@ -648,174 +648,155 @@ static const unsigned char b86[12] = {
 static const unsigned char b87[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
-/* what g_popup_font_small points to (34:0x24ec, no global): 34:0x24f0, 252 bytes */
-static const unsigned char b88[252] = {
-    0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x0c, 0xfa, 0xf7, 0xf8, 0xff, 0xff, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x54, 0x45, 0x58, 0x54, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00,
-    0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x7e, 0x4f, 0x4b, 0x00, 0x7e, 0x48,
-    0x65, 0x6c, 0x70, 0x00, 0x7e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x00, 0x4c, 0x41, 0x42, 0x45,
-    0x4c, 0x53, 0x00, 0x50, 0x4f, 0x50, 0x55, 0x50, 0x53, 0x00, 0x20, 0x00, 0x20, 0x00, 0x57, 0x00,
-    0x20, 0x00, 0x7b, 0x00, 0x21, 0x00, 0x57, 0x00, 0x4f, 0x50, 0x54, 0x49, 0x4f, 0x4e, 0x53, 0x00,
-    0x50, 0x52, 0x4f, 0x4d, 0x50, 0x54, 0x00, 0x54, 0x45, 0x58, 0x54, 0x00, 0x54, 0x49, 0x54, 0x4c,
-    0x45, 0x00, 0x42, 0x55, 0x54, 0x54, 0x4f, 0x4e, 0x00, 0x43, 0x4f, 0x4c, 0x55, 0x4d, 0x4e, 0x53,
-    0x00, 0x48, 0x45, 0x49, 0x47, 0x48, 0x54, 0x00, 0x53, 0x4d, 0x41, 0x4c, 0x4c, 0x46, 0x4f, 0x4e,
-    0x54, 0x00, 0x59, 0x00, 0x58, 0x00, 0x57, 0x49, 0x44, 0x54, 0x48, 0x00, 0x4c, 0x45, 0x4e, 0x47,
-    0x54, 0x48, 0x00, 0x43, 0x48, 0x45, 0x43, 0x4b, 0x42, 0x4f, 0x58, 0x00, 0x4c, 0x49, 0x53, 0x54,
-    0x42, 0x4f, 0x58, 0x00, 0x44, 0x45, 0x46, 0x41, 0x55, 0x4c, 0x54, 0x00, 0x53, 0x54, 0x52, 0x49,
-    0x4e, 0x47, 0x00, 0x4e, 0x55, 0x4d, 0x42, 0x45, 0x52, 0x00, 0x48, 0x45, 0x58, 0x00, 0x30, 0x00,
-    0x43, 0x4f, 0x55, 0x4e, 0x54, 0x52, 0x59, 0x00, 0x59, 0x45, 0x41, 0x52,
-};
 /* g_popup_font_small: 34:0x24f4, 4 bytes */
-static const unsigned char b89[4] = {
+static const unsigned char b88[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_popup_hilite_color: 34:0x24f8, 1 bytes */
-static const unsigned char b90[1] = {
+static const unsigned char b89[1] = {
     0x0c,
 };
 /* g_popup_text_color: 34:0x24f9, 1 bytes */
-static const unsigned char b91[1] = {
+static const unsigned char b90[1] = {
     0xfa,
 };
 /* g_popup_m2: 34:0x24fa, 1 bytes */
-static const unsigned char b92[1] = {
+static const unsigned char b91[1] = {
     0xf7,
 };
 /* g_popup_m3: 34:0x24fb, 1 bytes */
-static const unsigned char b93[1] = {
+static const unsigned char b92[1] = {
     0xf8,
 };
 /* g_popup_owner: 34:0x24fc, 4 bytes */
-static const unsigned char b94[4] = {
+static const unsigned char b93[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_restype_text_popup: 34:0x2510, 4 bytes */
-static const unsigned char b95[4] = {
+static const unsigned char b94[4] = {
     0x54, 0x45, 0x58, 0x54,
 };
 /* g_popup_tribe: 34:0x2518, 2 bytes */
-static const unsigned char b96[2] = {
+static const unsigned char b95[2] = {
     0xff, 0xff,
 };
 /* g_popup_dude: 34:0x251a, 2 bytes */
-static const unsigned char b97[2] = {
+static const unsigned char b96[2] = {
     0xff, 0xff,
 };
 /* g_popup_nation: 34:0x251c, 2 bytes */
-static const unsigned char b98[2] = {
+static const unsigned char b97[2] = {
     0xff, 0xff,
 };
 /* g_forest_pattern: 34:0x28a8, 9 bytes */
-static const unsigned char b99[9] = {
+static const unsigned char b98[9] = {
     0x05, 0x07, 0x06, 0x0d, 0x0f, 0x0e, 0x09, 0x0b, 0x0a,
 };
 /* g_restype_cred: 34:0x29c4, 4 bytes */
-static const unsigned char b100[4] = {
+static const unsigned char b99[4] = {
     0x43, 0x52, 0x45, 0x44,
 };
 /* g_restype_crds: 34:0x29c8, 4 bytes */
-static const unsigned char b101[4] = {
+static const unsigned char b100[4] = {
     0x43, 0x52, 0x44, 0x53,
 };
 /* g_current_font: 34:0x2ac6, 4 bytes */
-static const unsigned char b102[4] = {
+static const unsigned char b101[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_button_font: 34:0x2aca, 4 bytes */
-static const unsigned char b103[4] = {
+static const unsigned char b102[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_control_font: 34:0x2ace, 4 bytes */
-static const unsigned char b104[4] = {
+static const unsigned char b103[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_default_font_ref: 34:0x2ad2, 4 bytes */
-static const unsigned char b105[4] = {
+static const unsigned char b104[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_editbox_font: 34:0x2ad6, 4 bytes */
-static const unsigned char b106[4] = {
+static const unsigned char b105[4] = {
     0xff, 0xff, 0x00, 0x00,
 };
 /* g_log_name: 34:0x2aec, 6 bytes */
-static const unsigned char b107[6] = {
+static const unsigned char b106[6] = {
     0x53, 0x4d, 0x45, 0x44, 0x53, 0x00,
 };
 /* g_color_resource_type: 34:0x2af2, 4 bytes */
-static const unsigned char b108[4] = {
+static const unsigned char b107[4] = {
     0x43, 0x54, 0x41, 0x42,
 };
 /* g_flic_resource_type: 34:0x2af6, 4 bytes */
-static const unsigned char b109[4] = {
+static const unsigned char b108[4] = {
     0x46, 0x4c, 0x49, 0x43,
 };
 /* g_frr_resource_type: 34:0x2afa, 4 bytes */
-static const unsigned char b110[4] = {
+static const unsigned char b109[4] = {
     0x46, 0x52, 0x52, 0x53,
 };
 /* g_lbm_resource_type: 34:0x2afe, 4 bytes */
-static const unsigned char b111[4] = {
+static const unsigned char b110[4] = {
     0x4c, 0x42, 0x4d, 0x53,
 };
 /* g_pcx_resource_type: 34:0x2b02, 4 bytes */
-static const unsigned char b112[4] = {
+static const unsigned char b111[4] = {
     0x50, 0x43, 0x58, 0x53,
 };
 /* g_gif_resource_type: 34:0x2b06, 4 bytes */
-static const unsigned char b113[4] = {
+static const unsigned char b112[4] = {
     0x47, 0x49, 0x46, 0x53,
 };
 /* g_picture_resource_type: 34:0x2b0a, 4 bytes */
-static const unsigned char b114[4] = {
+static const unsigned char b113[4] = {
     0x43, 0x76, 0x50, 0x63,
 };
 /* g_scale_num: 34:0x2b0e, 2 bytes */
-static const unsigned char b115[2] = {
+static const unsigned char b114[2] = {
     0x01, 0x00,
 };
 /* g_scale_den: 34:0x2b10, 2 bytes */
-static const unsigned char b116[2] = {
+static const unsigned char b115[2] = {
     0x01, 0x00,
 };
 /* g_sprt_type: 34:0x2b12, 4 bytes */
-static const unsigned char b117[4] = {
+static const unsigned char b116[4] = {
     0x53, 0x50, 0x52, 0x54,
 };
 /* g_sprt_palette_type: 34:0x2b16, 4 bytes */
-static const unsigned char b118[4] = {
+static const unsigned char b117[4] = {
     0x53, 0x50, 0x52, 0x54,
 };
 /* g_current_slot: 34:0x3246, 2 bytes */
-static const unsigned char b119[2] = {
+static const unsigned char b118[2] = {
     0xff, 0xff,
 };
 /* g_restype_text: 34:0x325c, 4 bytes */
-static const unsigned char b120[4] = {
+static const unsigned char b119[4] = {
     0x54, 0x45, 0x58, 0x54,
 };
 /* g_text_colour: 34:0x337f, 1 bytes */
-static const unsigned char b121[1] = {
+static const unsigned char b120[1] = {
     0xff,
 };
 /* g_palette_mode: 34:0x3380, 2 bytes */
-static const unsigned char b122[2] = {
+static const unsigned char b121[2] = {
     0x01, 0x00,
 };
 /* g_palette_template: 34:0x3382, 62 bytes */
-static const unsigned char b123[62] = {
+static const unsigned char b122[62] = {
     0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80, 0x00, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80,
     0x00, 0x80, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xdc, 0xc0, 0xa4, 0xc8, 0xf0, 0xff, 0xfb,
     0xf0, 0xa0, 0xa0, 0xa4, 0x80, 0x80, 0x80, 0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0xff, 0xff, 0x00,
     0x00, 0x00, 0xff, 0xff, 0x00, 0xff, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00,
 };
 /* g_key_accepted: 34:0x33ce, 1 bytes */
-static const unsigned char b124[1] = {
+static const unsigned char b123[1] = {
     0x01,
 };
 /* g_keymap: 34:0x33d2, 1506 bytes */
-static const unsigned char b125[1506] = {
+static const unsigned char b124[1506] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0xd6, 0x00, 0xd3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xd0, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x01, 0x00, 0x02, 0x00, 0x04, 0xd7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -913,11 +894,11 @@ static const unsigned char b125[1506] = {
     0x0a, 0x00,
 };
 /* g_next_menu_id: 34:0x39b8, 2 bytes */
-static const unsigned char b126[2] = {
+static const unsigned char b125[2] = {
     0x64, 0x00,
 };
 /* _ctype: 34:0x46c0, 257 bytes */
-static const unsigned char b127[257] = {
+static const unsigned char b126[257] = {
     0x00, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x21, 0x21, 0x21, 0x21, 0x21, 0x20,
     0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
     0x20, 0x81, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
@@ -937,8 +918,8 @@ static const unsigned char b127[257] = {
     0x00,
 };
 
-const unsigned port_exe_byte_count = 128;
-const struct PortExeBytes port_exe_bytes[128] = {
+const unsigned port_exe_byte_count = 127;
+const struct PortExeBytes port_exe_bytes[127] = {
     { 20, 0x0000, 16, b0 },   /* g_palette_head_rgb */
     { 20, 0xd182, 3328, b1 },   /* g_seg20_d182 */
     { 20, 0xdec6, 14, b2 },   /* g_default_map_file */
@@ -1027,54 +1008,64 @@ const struct PortExeBytes port_exe_bytes[128] = {
     { 34, 0x1fd4, 2, b85 },   /* g_europe_popup_id */
     { 34, 0x24dc, 12, b86 },   /* g_popup_game_txt */
     { 34, 0x24f0, 4, b87 },   /* g_popup_font */
-    { 34, 0x24f0, 252, b88 },   /* what g_popup_font_small points to (34:0x24ec, no global) */
-    { 34, 0x24f4, 4, b89 },   /* g_popup_font_small */
-    { 34, 0x24f8, 1, b90 },   /* g_popup_hilite_color */
-    { 34, 0x24f9, 1, b91 },   /* g_popup_text_color */
-    { 34, 0x24fa, 1, b92 },   /* g_popup_m2 */
-    { 34, 0x24fb, 1, b93 },   /* g_popup_m3 */
-    { 34, 0x24fc, 4, b94 },   /* g_popup_owner */
-    { 34, 0x2510, 4, b95 },   /* g_restype_text_popup */
-    { 34, 0x2518, 2, b96 },   /* g_popup_tribe */
-    { 34, 0x251a, 2, b97 },   /* g_popup_dude */
-    { 34, 0x251c, 2, b98 },   /* g_popup_nation */
-    { 34, 0x28a8, 9, b99 },   /* g_forest_pattern */
-    { 34, 0x29c4, 4, b100 },   /* g_restype_cred */
-    { 34, 0x29c8, 4, b101 },   /* g_restype_crds */
-    { 34, 0x2ac6, 4, b102 },   /* g_current_font */
-    { 34, 0x2aca, 4, b103 },   /* g_button_font */
-    { 34, 0x2ace, 4, b104 },   /* g_control_font */
-    { 34, 0x2ad2, 4, b105 },   /* g_default_font_ref */
-    { 34, 0x2ad6, 4, b106 },   /* g_editbox_font */
-    { 34, 0x2aec, 6, b107 },   /* g_log_name */
-    { 34, 0x2af2, 4, b108 },   /* g_color_resource_type */
-    { 34, 0x2af6, 4, b109 },   /* g_flic_resource_type */
-    { 34, 0x2afa, 4, b110 },   /* g_frr_resource_type */
-    { 34, 0x2afe, 4, b111 },   /* g_lbm_resource_type */
-    { 34, 0x2b02, 4, b112 },   /* g_pcx_resource_type */
-    { 34, 0x2b06, 4, b113 },   /* g_gif_resource_type */
-    { 34, 0x2b0a, 4, b114 },   /* g_picture_resource_type */
-    { 34, 0x2b0e, 2, b115 },   /* g_scale_num */
-    { 34, 0x2b10, 2, b116 },   /* g_scale_den */
-    { 34, 0x2b12, 4, b117 },   /* g_sprt_type */
-    { 34, 0x2b16, 4, b118 },   /* g_sprt_palette_type */
-    { 34, 0x3246, 2, b119 },   /* g_current_slot */
-    { 34, 0x325c, 4, b120 },   /* g_restype_text */
-    { 34, 0x337f, 1, b121 },   /* g_text_colour */
-    { 34, 0x3380, 2, b122 },   /* g_palette_mode */
-    { 34, 0x3382, 62, b123 },   /* g_palette_template */
-    { 34, 0x33ce, 1, b124 },   /* g_key_accepted */
-    { 34, 0x33d2, 1506, b125 },   /* g_keymap */
-    { 34, 0x39b8, 2, b126 },   /* g_next_menu_id */
-    { 34, 0x46c0, 257, b127 },   /* _ctype */
+    { 34, 0x24f4, 4, b88 },   /* g_popup_font_small */
+    { 34, 0x24f8, 1, b89 },   /* g_popup_hilite_color */
+    { 34, 0x24f9, 1, b90 },   /* g_popup_text_color */
+    { 34, 0x24fa, 1, b91 },   /* g_popup_m2 */
+    { 34, 0x24fb, 1, b92 },   /* g_popup_m3 */
+    { 34, 0x24fc, 4, b93 },   /* g_popup_owner */
+    { 34, 0x2510, 4, b94 },   /* g_restype_text_popup */
+    { 34, 0x2518, 2, b95 },   /* g_popup_tribe */
+    { 34, 0x251a, 2, b96 },   /* g_popup_dude */
+    { 34, 0x251c, 2, b97 },   /* g_popup_nation */
+    { 34, 0x28a8, 9, b98 },   /* g_forest_pattern */
+    { 34, 0x29c4, 4, b99 },   /* g_restype_cred */
+    { 34, 0x29c8, 4, b100 },   /* g_restype_crds */
+    { 34, 0x2ac6, 4, b101 },   /* g_current_font */
+    { 34, 0x2aca, 4, b102 },   /* g_button_font */
+    { 34, 0x2ace, 4, b103 },   /* g_control_font */
+    { 34, 0x2ad2, 4, b104 },   /* g_default_font_ref */
+    { 34, 0x2ad6, 4, b105 },   /* g_editbox_font */
+    { 34, 0x2aec, 6, b106 },   /* g_log_name */
+    { 34, 0x2af2, 4, b107 },   /* g_color_resource_type */
+    { 34, 0x2af6, 4, b108 },   /* g_flic_resource_type */
+    { 34, 0x2afa, 4, b109 },   /* g_frr_resource_type */
+    { 34, 0x2afe, 4, b110 },   /* g_lbm_resource_type */
+    { 34, 0x2b02, 4, b111 },   /* g_pcx_resource_type */
+    { 34, 0x2b06, 4, b112 },   /* g_gif_resource_type */
+    { 34, 0x2b0a, 4, b113 },   /* g_picture_resource_type */
+    { 34, 0x2b0e, 2, b114 },   /* g_scale_num */
+    { 34, 0x2b10, 2, b115 },   /* g_scale_den */
+    { 34, 0x2b12, 4, b116 },   /* g_sprt_type */
+    { 34, 0x2b16, 4, b117 },   /* g_sprt_palette_type */
+    { 34, 0x3246, 2, b118 },   /* g_current_slot */
+    { 34, 0x325c, 4, b119 },   /* g_restype_text */
+    { 34, 0x337f, 1, b120 },   /* g_text_colour */
+    { 34, 0x3380, 2, b121 },   /* g_palette_mode */
+    { 34, 0x3382, 62, b122 },   /* g_palette_template */
+    { 34, 0x33ce, 1, b123 },   /* g_key_accepted */
+    { 34, 0x33d2, 1506, b124 },   /* g_keymap */
+    { 34, 0x39b8, 2, b125 },   /* g_next_menu_id */
+    { 34, 0x46c0, 257, b126 },   /* _ctype */
+};
+
+/* the port's objects at the addresses those pointers name, which globals_init.c does not
+   list (constructed, not filled): a pointer to one points at the port's object */
+struct PortExeAddress { unsigned short seg, off; void *addr; };
+extern char g_main_win;
+extern char g_font12;
+const unsigned port_exe_address_count = 2;
+const struct PortExeAddress port_exe_addresses[2] = {
+    { 20, 0x05ca, &g_main_win },
+    { 34, 0x24ec, &g_font12 },
 };
 
 /* far pointers the Win16 loader patched inside those globals: slot -> target */
 const unsigned port_exe_fix_count = 9;
 const struct PortExeFix port_exe_fixes[9] = {
     { 34, 0x1ce4, 34, 0x4b22 },   /* g_wrap_font -> g_heading_font */
-    { 34, 0x24fc, 20, 0x05ca },   /* g_popup_owner -> data no global models */
-    { 34, 0x24f4, 34, 0x24ec },   /* g_popup_font_small -> data no global models */
+    { 34, 0x24fc, 20, 0x05ca },   /* g_popup_owner -> g_main_win */
+    { 34, 0x24f4, 34, 0x24ec },   /* g_popup_font_small -> g_font12 */
     { 34, 0x24f0, 34, 0x24e8 },   /* g_popup_font -> g_font16 */
     { 34, 0x2ad6, 34, 0x4e68 },   /* g_editbox_font -> g_log_font */
     { 34, 0x2ad2, 34, 0x4e68 },   /* g_default_font_ref -> g_log_font */
