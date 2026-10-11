@@ -54,6 +54,7 @@ HOW = {
           "The folder is remembered; later just ./colonization.",
 }
 PATCHED = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
+README_NAME = "README-colonization-port.txt"
 
 
 def run(cmd):
@@ -94,7 +95,9 @@ def build(target, version):
             if os.path.exists(wrapper):           # winegcc's loader stub beside the .so
                 shutil.copyfile(wrapper, os.path.join(stage, "bin", "colonize.exe"))
                 os.chmod(os.path.join(stage, "bin", "colonize.exe"), 0o755)
-    with open(os.path.join(stage, "README.txt"), "w", newline="\r\n" if kind == "exe" else "\n") as f:
+    # not README.txt: the kit is meant to be unpacked into the game folder, whose own README.TXT
+    # (MicroProse's, or the 1995 patch's) it would replace -- Windows names ignore case
+    with open(os.path.join(stage, README_NAME), "w", newline="\r\n" if kind == "exe" else "\n") as f:
         f.write(README.format(target=target, version=version, patched=PATCHED, how=how))
     zpath = os.path.join(DIST, top + ".zip")
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:

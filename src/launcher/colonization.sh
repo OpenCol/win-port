@@ -7,7 +7,7 @@
 # the one used last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR.
 # COLONIZE.EXE must be the updated 1995 release (its SHA-256 is checked).
 #
-# Wine: $PORT_WINE, else `wine` on PATH. $PORT_DESKTOP sets the game's desktop window size. On macOS use a current Wine (e.g. Gcenx's wine-devel
+# Wine: $PORT_WINE, else `wine` on PATH, else Gcenx's Wine app in (~)/Applications, else wine64. $PORT_DESKTOP sets the game's desktop window size. On macOS use a current Wine (e.g. Gcenx's wine-devel
 # 11 from github.com/Gcenx/macOS_Wine_builds): Apple's Game Porting Toolkit Wine 7.7 stops the
 # game the first time it plays a sound.
 set -e
@@ -46,11 +46,21 @@ if [ "$sum" != "$PATCHED" ]; then
 fi
 mkdir -p "$conf" && echo "$game" > "$conf/gamedir"
 
-wine="${PORT_WINE:-wine}"
-if ! command -v "$wine" >/dev/null 2>&1; then
-    command -v wine64 >/dev/null 2>&1 && wine=wine64 || {
-        echo "Colonization: Wine is needed (https://www.winehq.org; on macOS Gcenx's wine-devel builds)." >&2
-        exit 5; }
+# Wine: $PORT_WINE; else `wine` on PATH; else a Gcenx Wine app in /Applications or ~/Applications
+# (Homebrew's wine@devel / wine-stable casks put them there); else wine64 -- on a Mac often Apple's
+# Game Porting Toolkit, the last resort
+wine=""
+for w in "$PORT_WINE" wine \
+         "/Applications/Wine Devel.app/Contents/Resources/wine/bin/wine" \
+         "/Applications/Wine Stable.app/Contents/Resources/wine/bin/wine" \
+         "/Applications/Wine Staging.app/Contents/Resources/wine/bin/wine" \
+         "$HOME/Applications/Wine Devel.app/Contents/Resources/wine/bin/wine" \
+         "$HOME/Applications/Wine Stable.app/Contents/Resources/wine/bin/wine" wine64; do
+    if [ -n "$w" ] && command -v "$w" >/dev/null 2>&1; then wine=$w; break; fi
+done
+if [ -z "$wine" ]; then
+    echo "Colonization: Wine is needed (https://www.winehq.org; on macOS Gcenx's wine-devel builds)." >&2
+    exit 5
 fi
 case "$("$wine" --version 2>/dev/null)" in
     *"Game Porting Toolkit"*|wine-7.7*)
