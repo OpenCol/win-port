@@ -80,7 +80,7 @@ def main(argv):
     cmd = [colwinre.wine(), "explorer", "/desktop=colonization," + size, EXE] if "--no-desktop" not in argv else [colwinre.wine(), EXE]
     p = subprocess.Popen(cmd, cwd=game, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     try:
-        out, _ = p.communicate(timeout=secs)
+        out, _ = p.communicate(timeout=None if play else secs)   # --play: no limit (Python 3.14 refuses 10**7 s)
         code = p.returncode
     except subprocess.TimeoutExpired:
         # the whole Wine session: in a virtual desktop the game is not p's own process, and

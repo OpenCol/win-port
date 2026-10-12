@@ -39,6 +39,22 @@ def lockstep_line(target, label):
         label, same, total, len(sc))
 
 
+def news(version):
+    """NEWS.md's section for this version, as the notes' What's new ("" when there is none)"""
+    p = os.path.join(ROOT, "NEWS.md")
+    if not os.path.exists(p):
+        return ""
+    text, out, on = open(p).read().splitlines(), [], False
+    for l in text:
+        if l.startswith("## "):
+            on = l[3:].strip() == version
+            continue
+        if on:
+            out.append(l)
+    body = "\n".join(out).strip()
+    return "\n### What's new in %s\n\n%s\n" % (version, body) if body else ""
+
+
 def main(argv):
     if not argv:
         sys.exit(__doc__)
@@ -68,7 +84,7 @@ Sid Meier's Colonization for Windows (1995), ported to modern systems from its b
 reconstruction. **No game files are included**: you need your own copy of the game -- either
 **Colonization for Windows** (1995, patched or not), or **Steam's Colonization**, whose disc
 image `COLONIZE.ISO` carries the Windows edition.
-
+{news}
 | Download | Platform | Start |
 | --- | --- | --- |
 {rows}
@@ -109,7 +125,7 @@ leaves `colonization-port.dmp` there too; please send both.
 - The macOS and Linux kits run through Wine; they are not native programs.
 
 Version {version}. Checksums: `SHA256SUMS.txt`.
-""".format(rows="\n".join(rows), tested="\n".join(tested) or "- (no records)", version=version,
+""".format(news=news(version), rows="\n".join(rows), tested="\n".join(tested) or "- (no records)", version=version,
            nsessions=len(sessions) or "the",
            windows=("- On a real Windows machine: %s, %s (%s).\n" % (windows.get("machine", "Windows").split(" (")[0],
                     windows.get("kit", ""), windows.get("date", "")) if windows else ""))

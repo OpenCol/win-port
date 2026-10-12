@@ -122,6 +122,25 @@ void w16_realize(HPALETTE pal)
     sys_changed();
 }
 
+/* entries of the system palette set without re-blitting every window: the water colour cycling's
+   (GameBrains_DoHuman), which re-blits only the map, where those entries are drawn. A re-blit of
+   every window per blink cost a session's virtual clock -- some 77 blinks a script step -- three
+   to five times its run. The entries count as shown, so a later realize of the same colours
+   re-blits nothing. */
+void w16_palette_quiet(unsigned start, unsigned n, const void *entries)
+{
+    const unsigned char *e = entries;       /* r, g, b, flags: a PALETTEENTRY, as the game's Palette */
+    unsigned i;
+    sys_init();
+    for (i = 0; i < n && start + i < 256; i++, e += 4) {
+        if (start + i < 10 || start + i >= 246)
+            continue;
+        sys[start + i].rgbRed = shown[start + i].rgbRed = e[0];
+        sys[start + i].rgbGreen = shown[start + i].rgbGreen = e[1];
+        sys[start + i].rgbBlue = shown[start + i].rgbBlue = e[2];
+    }
+}
+
 void w16_animate(unsigned start, unsigned n, const PALETTEENTRY *e)
 {
     unsigned i;

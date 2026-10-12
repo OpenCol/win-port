@@ -1,0 +1,16 @@
+# What's new
+
+Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
+section for the version being released).
+
+## v0.1.6
+
+- **Water colour cycling.** River currents and beach surf shimmer while the map waits for your
+  orders, as in the DOS version. The 1995 Windows game reserved the colours for it and kept the
+  Game Options item "Water Color Cycling", but never animated them; this is win-patches'
+  water-cycling, brought to the port. On by default; Game Options > Water Color Cycling turns
+  it off (the setting is saved with the game). The game's rules are unchanged.
+- For developers: `tools/coverage.py` (which game functions the tests run), a colony screen
+  session, every UI session's screens checked against a baseline pixel for pixel, and
+  `tools/gate.py`, one command for all of it; `tools/run_port.py --play` no longer stops on
+  Python 3.14.

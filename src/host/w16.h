@@ -65,6 +65,7 @@ int w16_device_caps(HDC dc, int i);
 unsigned w16_system_palette(unsigned start, unsigned n, PALETTEENTRY *out);
 void w16_realize(HPALETTE pal);
 void w16_animate(unsigned start, unsigned n, const PALETTEENTRY *e);
+void w16_palette_quiet(unsigned start, unsigned n, const void *entries);  /* no re-blit */
 int w16_display_blit(HDC dst, int x, int y, int w, int h, HDC src, int sx, int sy, int sw, int sh);
 
 static inline void w16_rect_in(RECT *d, const RECT16 *s)

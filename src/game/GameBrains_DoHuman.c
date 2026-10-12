@@ -1,4 +1,5 @@
 /* PORT: this file's own declarations of MiniWin_HighlightActiveUnit removed: the header declares it from the definition (W1 step 3). */
+/* PORT: water colour cycling, win-patches' water-cycling in C: water_cycle_tick before each cursor-blink call of MiniWin_HighlightActiveUnit (lines marked PORT: below). */
 /* GameBrains_DoHuman: candidate for 1008:3145 (796 bytes).  Verdict: RELOCATABLE.
  * name-source: sibling-build
  *
@@ -61,6 +62,63 @@ extern int GameBrains_EndUnitTurn(GameBrains *rec, int force);
 extern void GameBrains_CursorUpdate(GameBrains *c);
 extern void MSFlushInput_1008_cefc(void);
 
+/* PORT: water colour cycling (colonization-re/win-patches, patches/water-cycling: the same
+   tick, there written over the dead palette_cross_fade and hooked onto this function's two calls
+   of MiniWin_HighlightActiveUnit). The DOS build rotates 8 palette entries from the timer, and
+   only river centre lines, beach surf and sea sparkles use them; the Windows water sheet
+   (picture 0xcc, installed at palette 40 with 102 colours) reserved entries 136..141 for the same
+   pixels, and Game Options kept "Water Color Cycling" with its saved bit
+   (GAMEFLAG_NO_WATER_CYCLING, set = off) -- but nothing ever rotated them. On each cursor blink
+   (25 ticks, 0.42 s) while the player is on the map, unless the option is off: rotate them up by
+   one through the game's own palette_rotate, as DOS does; and re-blit the map view. The new
+   colours have to reach the screen, two ways:
+   - on a palette display (g_palette_mode 1; the port's display is one, in software:
+     src/host/w16_display.c) the six entries go into the logical palette (MSUpdatePalette) and the
+     system palette. Not palette_rotate's AnimatePalette: the game's entries are PC_NOCOLLAPSE,
+     not PC_RESERVED, so the logical palette would keep the old colours and the next
+     RealizePalette put them back; and the port's AnimatePalette re-blits every window, which a
+     session's fast virtual clock (some 77 blinks a script step) paid for three to five times its
+     run. w16_palette_quiet sets the system entries and the map alone is re-blitted;
+   - on a display without one (g_palette_mode 0, $PORT_TRUECOLOR), the patch's way: palette_rotate
+     (its AnimatePalette does nothing in mode 0) and the palette's seed bumped, so GRPort_ColorSync
+     re-sends the WinG colour table. Incremented, not re-rolled with CTable_Reseed: that draws
+     from the C runtime's rand(), which the rules use.
+   Then the map view is re-blitted.
+   A change from the 1995 program, which never moved its water: Daniel's choice (2026-10-12), on
+   by default as the option's default says. */
+extern void w16_palette_quiet(unsigned start, unsigned n, const void *entries);   /* PORT: src/host/w16_display.c */
+extern int w16_script(void);   /* PORT: a lockstep or session run (src/host/w16_lockstep.c) */
+
+static void water_cycle_tick(void)
+{
+    Palette *pal = (Palette *)&g_game_palette;
+    if (g_game.game_flags & GAMEFLAG_NO_WATER_CYCLING)
+        return;
+    /* not in a scripted run: a session's screens are compared pixel for pixel with a baseline, and
+       the water's phase follows the blink count, which a redraw's asynchronous window messages
+       (the host's window system) shift by a blink now and then -- a third of the runs differed.
+       The rules never see the water either way; a person checks it in play (2026-10-12). */
+    if (w16_script())
+        return;
+    if (g_palette_mode == 1) {
+        /* up by one, as palette_rotate(pal, 136, 6, +1) does, without its AnimatePalette */
+        int k;
+        unsigned char r = pal->e[141].r, g = pal->e[141].g, b = pal->e[141].b;
+        for (k = 141; k > 136; k--)
+            pal->e[k] = pal->e[k - 1];
+        pal->e[136].r = r;
+        pal->e[136].g = g;
+        pal->e[136].b = b;
+        MSUpdatePalette(pal, g_game_palette.hpal, 136, 6);
+        w16_palette_quiet(136, 6, &pal->e[136]);
+    } else {
+        palette_rotate(pal, 136, 6, 1);
+        if (++g_game_palette.seed == 0)        /* 0 would read as "never set" */
+            ++g_game_palette.seed;
+    }
+    ShowMapRegion(g_view_x0, g_view_y0, g_view_w, g_view_h);
+}
+
 void GameBrains_DoHuman(GameBrains *brains)
 {
     switch (brains->phase) {
@@ -114,9 +172,11 @@ void GameBrains_DoHuman(GameBrains *brains)
                 if (on_screen(g_cursor_x, g_cursor_y)) {
                     UpdateTerrainRegion(g_cursor_x, g_cursor_y, 1, 1);
                     GameBrains_CursorUpdate(brains);
+                    water_cycle_tick();   /* PORT: water colour cycling, the blink's tick (see above) */
                     MiniWin_HighlightActiveUnit((MiniWin *)&g_mini_win, g_blink = !g_blink);
                     ShowMapRegion(g_cursor_x, g_cursor_y, 1, 1);
                 } else {
+                    water_cycle_tick();   /* PORT: water colour cycling, the blink's tick (see above) */
                     MiniWin_HighlightActiveUnit((MiniWin *)&g_mini_win, g_blink = !g_blink);
                 }
             }
