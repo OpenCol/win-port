@@ -1,7 +1,9 @@
 /* Function-entry hooks for an instrumented build (PORT_INSTRUMENT=1 tools/undefined.py, which
    compiles the game with -finstrument-functions): the call depth, and the last 64 functions
    entered. Past MAX_DEPTH -- a recursion that would overflow the stack -- the ring goes to
-   $PORT_LOG as `frame` lines (tools/run_port.py resolves them) and the program stops. */
+   $PORT_LOG as `frame` lines (tools/run_port.py resolves them) and the program stops.
+   With $PORT_COVERAGE, each function's address goes to that file the first time it is entered:
+   which game functions a run executes (tools/coverage.py). */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,9 +15,45 @@ static unsigned head, depth;
 
 void w16_trace_call(void *fn, uintptr_t *frame);
 
+/* the functions entered so far: an open-addressed set of their addresses (a few thousand of
+   them), each new one appended to $PORT_COVERAGE at once -- the lockstep leaves by ExitProcess,
+   which runs no atexit, and a crash leaves no time either */
+#define COV_SLOTS 32768
+static void *cov_seen[COV_SLOTS];
+static HANDLE cov_file = INVALID_HANDLE_VALUE;
+static int cov_state = -1;                     /* -1 not yet looked, 0 off, 1 on */
+
+__attribute__((no_instrument_function)) static void coverage(void *fn)
+{
+    uintptr_t h = ((uintptr_t)fn >> 2) * 2654435761u;
+    unsigned i = (unsigned)(h & (COV_SLOTS - 1)), n;
+    DWORD written;
+    char line[24];
+    if (cov_state < 0) {
+        char path[MAX_PATH];
+        DWORD k = GetEnvironmentVariableA("PORT_COVERAGE", path, sizeof path);
+        cov_state = k > 0 && k < sizeof path;
+        if (cov_state)
+            cov_file = CreateFileA(path, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_ALWAYS,
+                                   FILE_ATTRIBUTE_NORMAL, 0);
+        cov_state = cov_file != INVALID_HANDLE_VALUE;
+    }
+    if (!cov_state)
+        return;
+    while (cov_seen[i]) {
+        if (cov_seen[i] == fn)
+            return;
+        i = (i + 1) & (COV_SLOTS - 1);
+    }
+    cov_seen[i] = fn;
+    n = (unsigned)snprintf(line, sizeof line, "%lx\n", (unsigned long)(uintptr_t)fn);
+    WriteFile(cov_file, line, n, &written, 0);
+}
+
 __attribute__((no_instrument_function)) void __cyg_profile_func_enter(void *fn, void *site)
 {
     (void)site;
+    coverage(fn);
     w16_trace_call(fn, (uintptr_t *)__builtin_frame_address(1));
     ring[head++ & 63] = fn;
     if (++depth == MAX_DEPTH) {

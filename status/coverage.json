@@ -1,0 +1,100 @@
+{
+ "by_dir": {
+  "asm": {
+   "entered": 6,
+   "functions": 12
+  },
+  "game": {
+   "entered": 1274,
+   "functions": 2353
+  },
+  "gfx": {
+   "entered": 132,
+   "functions": 391
+  },
+  "platform": {
+   "entered": 238,
+   "functions": 451
+  }
+ },
+ "by_segment": {
+  "?": {
+   "entered": 6,
+   "functions": 12
+  },
+  "seg10": {
+   "entered": 169,
+   "functions": 279
+  },
+  "seg11": {
+   "entered": 101,
+   "functions": 216
+  },
+  "seg12": {
+   "entered": 72,
+   "functions": 109
+  },
+  "seg13": {
+   "entered": 149,
+   "functions": 245
+  },
+  "seg14": {
+   "entered": 131,
+   "functions": 390
+  },
+  "seg15": {
+   "entered": 166,
+   "functions": 323
+  },
+  "seg16": {
+   "entered": 72,
+   "functions": 128
+  },
+  "seg2": {
+   "entered": 146,
+   "functions": 245
+  },
+  "seg3": {
+   "entered": 41,
+   "functions": 257
+  },
+  "seg4": {
+   "entered": 95,
+   "functions": 146
+  },
+  "seg5": {
+   "entered": 40,
+   "functions": 113
+  },
+  "seg6": {
+   "entered": 53,
+   "functions": 87
+  },
+  "seg7": {
+   "entered": 76,
+   "functions": 130
+  },
+  "seg8": {
+   "entered": 165,
+   "functions": 270
+  },
+  "seg9": {
+   "entered": 168,
+   "functions": 257
+  }
+ },
+ "entered": 1650,
+ "functions": 3207,
+ "lockstep": 1196,
+ "runs": [
+  "lockstep-AUTO01",
+  "lockstep-NEW001",
+  "lockstep-NEW002",
+  "lockstep-NEW003",
+  "lockstep-NEW004",
+  "lockstep-NEW005",
+  "lockstep-PORTSAVE",
+  "sessions"
+ ],
+ "sessions": 1436
+}
