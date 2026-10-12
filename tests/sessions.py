@@ -4,6 +4,8 @@ player opens it, from a saved game, and looked at.
 
     python3 tests/sessions.py [NAME ...]           run the sessions (all, or those named)
     python3 tests/sessions.py --record             also write status/sessions.json
+    python3 tests/sessions.py --baseline           take this run's screens as the baseline (those named,
+                                                   or all): status/sessions-screens.json, their hashes
     python3 tests/sessions.py --saves [--record]   saves both ways: the port's save (the `save` session)
                                                    loaded by the original and played on in lockstep
                                                    (tests/lockstep.py, 5 turns); the original's saves
@@ -18,9 +20,16 @@ NAME.txt listing the windows), a wait -- and `exit` ends it. `new_game` starts f
 menu instead of a save: America, the first leader, the first nation, the King's audience --
 with sound on (`sound`): the first WAV plays there, and a Wine that cannot play one stops.
 A session passes when it reaches `exit`: no crash, no Win16 function the platform layer lacks
-(an `unported` trap), no stall (still running at --seconds). The snapshots are for a person to
-look at, and for the comparison with the original (to come: the oracle runs the same scripts).
+(an `unported` trap), no stall (still running at --seconds) -- and, once a baseline is taken, when
+every screen it grabs is the baseline's, pixel for pixel. The grabs are deterministic (the script's
+time is virtual: two runs of all the sessions gave the same 89 files, 2026-10-12), so a screen that
+changes is a change in the port: what the refactoring must not do without saying so. The
+baseline is status/sessions-screens.json (a SHA-256 per grab; one file per target) and the images
+in build/sessions-baseline/; a screen that differs gets NAME.diff.bmp beside it, its changed
+pixels in magenta. The snapshots are also for a person to look at, and for the comparison with
+the original (to come: the oracle runs the same scripts).
 """
+import hashlib
 import json
 import os
 import shutil
@@ -157,6 +166,92 @@ def saves(record):
     return 0 if ok else 1
 
 
+SCREENS = os.path.join(ROOT, "status", "sessions-screens%s.json" % colwinre.suffix())
+BASELINE = os.path.join(ROOT, "build", "sessions-baseline" + colwinre.suffix())
+
+
+def screen_hash(path):
+    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+
+
+def bmp(path):
+    """(width, height, 4-byte pixels top-down) of an uncompressed 32-bit grab"""
+    import struct
+    b = open(path, "rb").read()
+    off = struct.unpack_from("<I", b, 10)[0]
+    w, h, bpp = struct.unpack_from("<iiH", b, 18)[0], struct.unpack_from("<i", b, 22)[0], struct.unpack_from("<H", b, 28)[0]
+    if bpp != 32:
+        return None
+    rows = [b[off + 4 * w * y:off + 4 * w * (y + 1)] for y in range(abs(h))]
+    if h > 0:
+        rows.reverse()
+    return w, abs(h), b[:off], rows, h
+
+
+def screen_diff(base, new, out):
+    """how many pixels differ, and NAME.diff.bmp: the new screen with those pixels magenta"""
+    a, b = bmp(base), bmp(new)
+    if not a or not b or a[:2] != b[:2]:
+        return -1
+    head, rows, n, out_rows = b[2], b[3], 0, []
+    for ra, rb in zip(a[3], rows):
+        if ra == rb:
+            out_rows.append(rb)
+            continue
+        row = bytearray(rb)
+        for x in range(0, len(rb), 4):
+            if ra[x:x + 3] != rb[x:x + 3]:
+                row[x:x + 3] = b"\xff\x00\xff"
+                n += 1
+        out_rows.append(bytes(row))
+    if b[4] > 0:
+        out_rows.reverse()
+    open(out, "wb").write(head + b"".join(out_rows))
+    return n
+
+
+def check_screens(name, r):
+    """the session's grabs against the baseline: the verdict says which screens changed"""
+    if not os.path.exists(SCREENS):
+        return
+    want = json.load(open(SCREENS)).get(name)
+    if want is None:
+        r["screens"] = "no baseline"
+        return
+    got = {g: screen_hash(os.path.join(OUT, name, g + ".bmp")) for g in r["snapshots"]}
+    differ = sorted(g for g, h in want.items() if got.get(g) != h)
+    r["screens"] = "%d of %d as the baseline" % (len(want) - len(differ), len(want))
+    if differ and r["verdict"] == "pass":
+        what = []
+        for g in differ:
+            new, base = os.path.join(OUT, name, g + ".bmp"), os.path.join(BASELINE, name, g + ".bmp")
+            if not os.path.exists(new):
+                what.append("%s missing" % g)
+            elif os.path.exists(base):
+                what.append("%s (%d pixels)" % (g, screen_diff(base, new, os.path.join(OUT, name, g + ".diff.bmp"))))
+            else:
+                what.append(g)
+        r["verdict"] = "screens differ: " + ", ".join(what)
+
+
+def take_baseline(res):
+    doc = json.load(open(SCREENS)) if os.path.exists(SCREENS) else {}
+    for n, r in res.items():
+        if r["verdict"] != "pass":
+            print("%s: not a baseline (%s)" % (n, r["verdict"][:60]))
+            continue
+        doc[n] = {g: screen_hash(os.path.join(OUT, n, g + ".bmp")) for g in r["snapshots"]}
+        shutil.rmtree(os.path.join(BASELINE, n), ignore_errors=True)
+        os.makedirs(os.path.join(BASELINE, n))
+        for g in r["snapshots"]:
+            shutil.copyfile(os.path.join(OUT, n, g + ".bmp"), os.path.join(BASELINE, n, g + ".bmp"))
+    with open(SCREENS, "w") as f:
+        json.dump(doc, f, indent=1, sort_keys=True)
+        f.write("\n")
+    print("baseline: %d sessions, %d screens -> %s" % (len(doc), sum(len(v) for v in doc.values()),
+                                                     os.path.relpath(SCREENS, ROOT)))
+
+
 def main(argv):
     if "--saves" in argv:
         return saves("--record" in argv)
@@ -164,7 +259,12 @@ def main(argv):
     res = {}
     for n in names:
         res[n] = run(n, SESSIONS[n], save=save_for(n))
-        print("%-12s %-8s %3ds  %d snapshots" % (n, res[n]["verdict"][:60], res[n]["seconds"], len(res[n]["snapshots"])))
+        if "--baseline" not in argv:
+            check_screens(n, res[n])
+        print("%-12s %-8s %3ds  %d snapshots%s" % (n, res[n]["verdict"][:90], res[n]["seconds"], len(res[n]["snapshots"]),
+                                                  "; screens: " + res[n]["screens"] if "screens" in res[n] else ""))
+    if "--baseline" in argv:
+        take_baseline(res)
     if "save" in res and res["save"]["verdict"] == "pass":
         ok = os.path.exists(os.path.join(OUT, "save", "SESSION.SAV"))
         print("save: SESSION.SAV %s" % ("written" if ok else "MISSING"))
