@@ -21,6 +21,7 @@ KITS = [
               "Porting Toolkit)", "`./colonization`"),
 ]
 PATCHED = "59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291"
+IMAGE = "assets/sailor-call-accross-sea.png"
 
 
 def rec(name):
@@ -57,7 +58,13 @@ def main(argv):
               if l]
     sessions = rec("sessions")
     windows = rec("kit").get("clean_machine", {}).get("windows")
-    notes = """Sid Meier's Colonization for Windows (1995), ported to modern systems from its byte-matched
+    # the README's picture, at this release's tag: a release page resolves no relative path (in a
+    # private repository it shows to those who can see the repository)
+    repo = os.environ.get("GITHUB_REPOSITORY", "OpenCol/win-port")
+    picture = "![A sailor in the crow's nest points toward land](https://github.com/%s/raw/%s/%s)" % (repo, version, IMAGE)
+    notes = picture + """
+
+Sid Meier's Colonization for Windows (1995), ported to modern systems from its byte-matched
 reconstruction. **No game files are included**: you need your own copy of the game -- either
 **Colonization for Windows** (1995, patched or not), or **Steam's Colonization**, whose disc
 image `COLONIZE.ISO` carries the Windows edition.
