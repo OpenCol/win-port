@@ -5,7 +5,7 @@
    "functions": 12
   },
   "game": {
-   "entered": 1274,
+   "entered": 1356,
    "functions": 2353
   },
   "gfx": {
@@ -55,11 +55,11 @@
    "functions": 245
   },
   "seg3": {
-   "entered": 41,
+   "entered": 103,
    "functions": 257
   },
   "seg4": {
-   "entered": 95,
+   "entered": 103,
    "functions": 146
   },
   "seg5": {
@@ -75,15 +75,15 @@
    "functions": 130
   },
   "seg8": {
-   "entered": 165,
+   "entered": 175,
    "functions": 270
   },
   "seg9": {
-   "entered": 168,
+   "entered": 170,
    "functions": 257
   }
  },
- "entered": 1650,
+ "entered": 1732,
  "functions": 3207,
  "lockstep": 1196,
  "runs": [
@@ -96,5 +96,5 @@
   "lockstep-PORTSAVE",
   "sessions"
  ],
- "sessions": 1436
+ "sessions": 1562
 }

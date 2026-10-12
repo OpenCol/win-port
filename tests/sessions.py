@@ -54,6 +54,13 @@ SESSIONS = {
     "about": show(706, "about", RETURN),
     "options": show(100, "game_options", RETURN) + show(101, "colony_options", RETURN) + show(55, "control_panel"),
     "find_colony": show(303, "find_city"),
+    # a colony's screen. AUTO01's only colony is the Dutch New Amsterdam, which the game opens for the
+    # English player once the map is revealed: Cheat > Reveal Map (802), Complete Map (the fifth
+    # choice); then Find Colony (303) takes the name and puts the map cursor on it, and Return opens
+    # it (GameBrains_KeyboardEvent, key 0xd0); its own Escape closes it
+    "colony": [("cmd", 802), ("wait", 2)] + [("key", DOWN)] * 4 + [("key", RETURN), ("wait", 3), ("cmd", 303),
+              ("wait", 2), ("type", "New Amsterdam"), ("key", RETURN), ("wait", 3), ("grab", "found"),
+              ("key", RETURN), ("wait", 4), ("grab", "colony"), ("key", ESCAPE), ("wait", 3), ("grab", "closed")],
     # the Jukebox's song list: a Popup in g_popup_font_small (g_font12), which v0.1.1 pointed at a
     # copy of the file's bytes -- it crashed on Windows 7 (src/host/w16_globals_init.c, map_far)
     "jukebox": show(103, "by_song"),
@@ -77,6 +84,16 @@ SESSIONS = {
 }
 FROM_MENU = {"new_game"}
 
+# sessions that start from another save than AUTO01.SAV (none yet). A save made from a
+# lockstep checkpoint (tests/lockstep.py makesave) is no good for a session: written mid-turn
+# with every nation the computer's, it plays its turns on by itself to 1800 even with England
+# made human again and a unit left without orders (tried 2026-10-12).
+SAVES = {}
+
+
+def save_for(name):
+    return SAVES.get(name, "AUTO01.SAV")
+
 
 def run(name, steps, save="AUTO01.SAV", seconds=int(os.environ.get("PORT_SESSION_SECONDS", "180"))):
     work = os.path.join(OUT, name)
@@ -91,6 +108,8 @@ def run(name, steps, save="AUTO01.SAV", seconds=int(os.environ.get("PORT_SESSION
             lines.append("saveas " + wine(os.path.join(work, v)))
         elif kind == "key":
             lines.append("key %#x" % v)
+        elif kind == "type":
+            lines.append("type " + v)
         elif kind == "click":
             lines.append("click %d %d" % v)
         else:
@@ -144,15 +163,21 @@ def main(argv):
     names = [a for a in argv if not a.startswith("--")] or list(SESSIONS)
     res = {}
     for n in names:
-        res[n] = run(n, SESSIONS[n])
+        res[n] = run(n, SESSIONS[n], save=save_for(n))
         print("%-12s %-8s %3ds  %d snapshots" % (n, res[n]["verdict"][:60], res[n]["seconds"], len(res[n]["snapshots"])))
     if "save" in res and res["save"]["verdict"] == "pass":
         ok = os.path.exists(os.path.join(OUT, "save", "SESSION.SAV"))
         print("save: SESSION.SAV %s" % ("written" if ok else "MISSING"))
     if "--record" in argv:
-        with open(os.path.join(ROOT, "status", "sessions%s.json" % colwinre.suffix()), "w") as f:
-            json.dump({n: {"verdict": r["verdict"], "snapshots": len(r["snapshots"])} for n, r in res.items()}, f,
-                      indent=1, sort_keys=True)
+        # all sessions: the record is this run's; named ones: merged into the record, so a session
+        # re-run alone (one that ran out of time on a loaded machine) replaces only its own line
+        path = os.path.join(ROOT, "status", "sessions%s.json" % colwinre.suffix())
+        doc = {}
+        if names != list(SESSIONS) and os.path.exists(path):
+            doc = json.load(open(path))
+        doc.update({n: {"verdict": r["verdict"], "snapshots": len(r["snapshots"])} for n, r in res.items()})
+        with open(path, "w") as f:
+            json.dump(doc, f, indent=1, sort_keys=True)
             f.write("\n")
     return 0 if all(r["verdict"] == "pass" for r in res.values()) else 1
 

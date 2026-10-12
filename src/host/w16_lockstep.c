@@ -6,6 +6,8 @@
  * from the oracle's recording):
  *     save PATH       the file the Load dialog is answered with
  *     key VK          a key, posted once the game sits idle (the menu keys to Load; a session's)
+ *     type TEXT       characters only (WM_CHAR), for a text box: `key` posts a WM_CHAR of its own
+ *                     besides the WM_KEYDOWN the game translates, so a letter typed with it arrives twice
  *     cmd N           a menu command (WM_COMMAND N to the main window), once the game sits idle
  *     snap NAME       the screen as it is, to NAME.bmp in this directory ($PORT_SNAPSHOT set)
  *     grab NAME       the windows as Wine shows them (after the palette, GDI text, menus), to NAME.bmp
@@ -123,7 +125,7 @@ static void init(void)
             realtime = noautoplay = 1;
         else if (!strcmp(line, "saveas"))
             snprintf(saveas, sizeof saveas, "%s", v);
-        else if ((!strcmp(line, "key") || !strcmp(line, "cmd") || !strcmp(line, "snap") || !strcmp(line, "wait")
+        else if ((!strcmp(line, "key") || !strcmp(line, "type") || !strcmp(line, "cmd") || !strcmp(line, "snap") || !strcmp(line, "wait")
                   || !strcmp(line, "grab") || !strcmp(line, "click")
                   || !strcmp(line, "exit")) && nscript < 512) {
             script[nscript].kind = strcmp(line, "click") ? line[0] : 'm';
@@ -267,6 +269,16 @@ void w16_lockstep_idle(void)
         case 'k':
             post_key((unsigned)script[k].v);
             break;
+        case 't': {
+            HWND h = GetFocus();
+            const char *c;
+            if (!h)
+                h = GetActiveWindow();
+            for (c = script[k].text; *c; c++)
+                PostMessageA(h, WM_CHAR, (unsigned char)*c, 1);
+            fprintf(log_f, "type \"%s\" to %p at tick %lu\n", script[k].text, (void *)h, ticks);
+            break;
+        }
         case 'c': {
             HWND h = FindWindowA(0, "Colonization for Windows");
             if (!h)
