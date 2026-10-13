@@ -3,7 +3,7 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
-## Unreleased
+## v0.1.8
 
 - **The Save Game dialog** opens in the game's folder (where Win16's did, and where the game
   keeps its saves), and each open or save dialog writes a line to `colonize-port.log`: its
