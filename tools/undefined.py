@@ -130,10 +130,10 @@ def build(src, hdr):
 # stdcall `_FreeLibrary@4`, which would unbalance the stack; the call stays undefined (W4)
 # -static: the C++ runtime (libstdc++, libgcc) goes into the executable, not beside it as DLLs
 # --disable-dynamicbase: a fixed image base, so a crash address names the same code each run
-LIBS_MINGW = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-Wl,--stack,67108864", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"]
+LIBS_MINGW = ["-mwindows", "-static", "-Wl,--disable-stdcall-fixup", "-Wl,--disable-dynamicbase", "-Wl,--stack,67108864", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32", "-lole32"]
 # Winelib: the import libraries are Wine's; libstdc++ is the host's (a shared ELF library);
 # --wrap=WinMain: the game runs on a thread with the 64 MB stack (src/host/w16_winelib.c)
-LIBS = ["-m32", "-mno-cygwin", "-mwindows", "-Wl,--wrap=WinMain", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32"] if WINELIB else LIBS_MINGW
+LIBS = ["-m32", "-mno-cygwin", "-mwindows", "-Wl,--wrap=WinMain", "-lgdi32", "-luser32", "-lwinmm", "-lkernel32", "-lcomdlg32", "-lole32"] if WINELIB else LIBS_MINGW
 if X64:                                   # no stdcall on Win64: nothing to fix up
     LIBS = [l for l in LIBS_MINGW if "stdcall" not in l]
     if not INSTRUMENT:

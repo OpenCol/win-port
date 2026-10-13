@@ -3,6 +3,16 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## Unreleased
+
+- **The Save Game dialog** opens in the game's folder (where Win16's did, and where the game
+  keeps its saves), and each open or save dialog writes a line to `colonize-port.log`: its
+  folder, the name chosen or that it was closed, and any error. A tester's 32-bit Save button
+  did nothing on Windows while the 64-bit one worked; should the program's thread be in a
+  multithreaded COM apartment, which the shell's dialog does not support, the dialog now runs on
+  a thread of its own. Not reproduced here (Wine's dialog is not Windows'): the log line says
+  which case a player hit.
+
 ## v0.1.7
 
 - **GOG's Colonization works too.** GOG's DOS release keeps the same disc as Steam's, as
