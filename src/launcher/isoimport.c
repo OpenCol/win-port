@@ -1,7 +1,9 @@
 /* Steam's COLONIZE.ISO into a game folder (roadmap W10): the launchers' import.
  *
- * Steam sells Colonization's DOS edition, and its disc image COLONIZE.ISO carries the Windows
- * edition too -- the original 1995 release, before the patch -- in its INSTALL folder. This
+ * Steam and GOG sell Colonization's DOS edition, and its disc image carries the Windows edition
+ * too -- the original 1995 release, before the patch -- in its INSTALL folder: Steam's
+ * COLONIZE.ISO (2048-byte sectors), GOG's COLONIZE.GOG (raw 2352-byte Mode 1 sectors, where the
+ * compressed program is named COLONIZE.$00, not ._00; the same bytes). This
  * reads that folder straight out of the ISO 9660 image and writes a game folder the port can run
  * in: the 54 data files as they are, each checked by SHA-256 (they are the patched install's,
  * byte for byte), and COLONIZE.EXE decompressed from COLONIZE._00 and checked too.
@@ -118,11 +120,42 @@ static int sha256_buf(const unsigned char *data, unsigned long n, char out[65])
 
 typedef struct { unsigned long lba, size; int dir; char name[40]; } Entry;
 
+/* the image's sectors: 2048 bytes of data each (an .ISO), or raw CD sectors of 2352 bytes with the
+   data at 16 (Mode 1) or 24 (Mode 2 Form 1) -- GOG's COLONIZE.GOG is Mode 1 */
+static unsigned long raw_size = SECTOR, raw_data = 0;
+
+static int detect_sectors(FILE *f)
+{
+    static const struct { unsigned long size, data; } kinds[] = { { 2048, 0 }, { 2352, 16 }, { 2352, 24 } };
+    unsigned char id[6];
+    unsigned i;
+    for (i = 0; i < 3; i++)
+        if (!fseek(f, (long)(16 * kinds[i].size + kinds[i].data), SEEK_SET) && fread(id, 1, 6, f) == 6 &&
+            id[0] == 1 && !memcmp(id + 1, "CD001", 5)) {
+            raw_size = kinds[i].size;
+            raw_data = kinds[i].data;
+            return 1;
+        }
+    return 0;
+}
+
 static unsigned char *iso_read(FILE *f, unsigned long lba, unsigned long size)
 {
     unsigned char *b = malloc(size ? size : 1);
+    unsigned long done = 0;
     if (!b)
         return 0;
+    if (raw_size != SECTOR) {                    /* raw sectors: the data part of each */
+        while (done < size) {
+            unsigned long n = size - done < SECTOR ? size - done : SECTOR;
+            if (fseek(f, (long)((lba + done / SECTOR) * raw_size + raw_data), SEEK_SET) || fread(b + done, 1, n, f) != n) {
+                free(b);
+                return 0;
+            }
+            done += n;
+        }
+        return b;
+    }
     if (fseek(f, (long)(lba * SECTOR), SEEK_SET) || fread(b, 1, size, f) != size) {
         free(b);
         return 0;
@@ -405,7 +438,7 @@ int iso_import(const char *iso_path, const char *dest, char *msg, size_t msglen)
         snprintf(msg, msglen, "%s could not be opened", iso_path);
         return 1;
     }
-    if (!(pvd = iso_read(f, 16, SECTOR)) || pvd[0] != 1 || memcmp(pvd + 1, "CD001", 5)) {
+    if (!detect_sectors(f) || !(pvd = iso_read(f, 16, SECTOR)) || pvd[0] != 1 || memcmp(pvd + 1, "CD001", 5)) {
         snprintf(msg, msglen, "%s is not an ISO 9660 disc image", iso_path);
         goto out;
     }
@@ -448,7 +481,10 @@ int iso_import(const char *iso_path, const char *dest, char *msg, size_t msglen)
         goto out;
     }
     free(data);
-    if (!(e = find(inst, ninst, "COLONIZE._00")) || !(data = iso_read(f, e->lba, e->size))) {
+    /* the compressed program: COLONIZE._00 on Steam's image, COLONIZE.$00 on GOG's -- the same archive */
+    if (!(e = find(inst, ninst, "COLONIZE._00")))
+        e = find(inst, ninst, "COLONIZE.$00");
+    if (!e || !(data = iso_read(f, e->lba, e->size))) {
         snprintf(msg, msglen, "the disc has no INSTALL\\COLONIZE._00");
         goto out;
     }

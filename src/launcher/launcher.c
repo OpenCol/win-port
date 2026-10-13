@@ -5,15 +5,15 @@
  * did. No game file is in the kit. This finds the player's copy, checks it is the build the
  * port was made from, and starts the port in it:
  *   1. the folder given on the command line;
- *   2. this launcher's own folder, or the folder it was unzipped into (the kit put in the game
- *      folder, or in Steam's Colonization folder);
- *   3. the folder chosen last time (%APPDATA%\colonization-port\gamedir.txt);
- *   4. the usual install places (GOG, the 1995 CD's default);
- *   5. otherwise it asks, with the folder picker, and remembers the answer.
- * A folder with no COLONIZE.EXE but Steam's COLONIZE.ISO (the DOS release's disc image, which
- * carries the Windows edition too), in it or in a folder one level down, is unpacked into a game
- * folder of the port's own, %LOCALAPPDATA%\colonization-port\game (isoimport.c), and that one
- * is used -- once: it is remembered like any other.
+ *   2. the current folder;
+ *   3. this launcher's own folder, or the folder it was unzipped into (the kit put in the game
+ *      folder, or in Steam's or GOG's Colonization folder);
+ *   4. the folder used last time (%APPDATA%\colonization-port\gamedir.txt);
+ *   5. otherwise it asks, with the folder picker, until a folder holds the game.
+ * In each folder: the installed Windows edition (COLONIZE.EXE and its data DLLs); else Steam's
+ * COLONIZE.ISO or GOG's COLONIZE.GOG -- the DOS release's disc image, which carries the Windows
+ * edition too -- in it or one folder down, unpacked once into a game folder of the port's own,
+ * %LOCALAPPDATA%\colonization-port\game (isoimport.c), which is then used.
  * COLONIZE.EXE's SHA-256 must be the patched 1995 release's or the original's (before the patch,
  * as on the disc): the port reads only its pictures, which the two share. The original lacks
  * the patch's COLDATA9.DLL, so the Jukebox's Control Panel and the Cheat menu's dialogs are
@@ -131,31 +131,45 @@ static const char *exit_meaning(DWORD c)
     return (c & 0xF0000000u) == 0xC0000000u ? "a crash" : "an unexpected exit code";
 }
 
+/* the Windows edition's files the port reads: COLONIZE.EXE (its pictures), the COLDATA DLLs
+   0..8 and COLTEXT0.DLL. COLDATA9.DLL, the patch's, is not required (README.md) */
 static int has_game(const char *dir)
 {
+    static const char *need[] = { "COLONIZE.EXE", "COLTEXT0.DLL", "COLDATA0.DLL", "COLDATA1.DLL", "COLDATA2.DLL",
+                                  "COLDATA3.DLL", "COLDATA4.DLL", "COLDATA5.DLL", "COLDATA6.DLL", "COLDATA7.DLL",
+                                  "COLDATA8.DLL", 0 };
     char p[MAX_PATH + 16];
-    snprintf(p, sizeof p, "%s\\COLONIZE.EXE", dir);
-    return dir[0] && GetFileAttributesA(p) != INVALID_FILE_ATTRIBUTES;
+    int i;
+    if (!dir[0])
+        return 0;
+    for (i = 0; need[i]; i++) {
+        snprintf(p, sizeof p, "%s\\%s", dir, need[i]);
+        if (GetFileAttributesA(p) == INVALID_FILE_ATTRIBUTES)
+            return 0;
+    }
+    return 1;
 }
 
-/* COLONIZE.ISO in dir, or in a folder one level down (Steam's install folder holds it) */
-static int find_iso(const char *dir, char *iso)
+/* a disc image with the Windows edition in dir, or in a folder one level down: Steam's
+   COLONIZE.ISO first, then GOG's COLONIZE.GOG (raw 2352-byte sectors; the same disc). GOG's
+   COLDIG.BIN is a DOS game file, not a disc */
+static const char *images[] = { "COLONIZE.ISO", "COLONIZE.GOG", 0 };
+
+static int image_in(const char *dir, const char *name, char *out)
 {
     char pat[MAX_PATH + 16];
     WIN32_FIND_DATAA fd;
     HANDLE h;
-    if (!dir[0])
-        return 0;
-    snprintf(iso, MAX_PATH, "%s\\COLONIZE.ISO", dir);
-    if (GetFileAttributesA(iso) != INVALID_FILE_ATTRIBUTES)
+    snprintf(out, MAX_PATH, "%s\\%s", dir, name);
+    if (GetFileAttributesA(out) != INVALID_FILE_ATTRIBUTES)
         return 1;
     snprintf(pat, sizeof pat, "%s\\*", dir);
     if ((h = FindFirstFileA(pat, &fd)) == INVALID_HANDLE_VALUE)
         return 0;
     do
         if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && fd.cFileName[0] != '.') {
-            snprintf(iso, MAX_PATH, "%s\\%s\\COLONIZE.ISO", dir, fd.cFileName);
-            if (GetFileAttributesA(iso) != INVALID_FILE_ATTRIBUTES) {
+            snprintf(out, MAX_PATH, "%s\\%s\\%s", dir, fd.cFileName, name);
+            if (GetFileAttributesA(out) != INVALID_FILE_ATTRIBUTES) {
                 FindClose(h);
                 return 1;
             }
@@ -165,30 +179,37 @@ static int find_iso(const char *dir, char *iso)
     return 0;
 }
 
-/* dir holds the game, or holds COLONIZE.ISO and is replaced by the folder it is unpacked into */
+/* dir holds the game -- the installed Windows edition, or a disc image (Steam, GOG), which is
+   unpacked into a folder of the port's own and dir replaced by it. 0: none of them there */
 static int resolve(char *dir)
 {
-    char iso[MAX_PATH], dest[MAX_PATH], base[MAX_PATH], msg[1024], box[MAX_PATH + 1100];
+    char img[MAX_PATH], dest[MAX_PATH], base[MAX_PATH], msg[1024], box[MAX_PATH + 1100];
+    int k;
+    if (!dir[0])
+        return 0;
     if (has_game(dir))
         return 1;
-    if (!find_iso(dir, iso))
+    for (k = 0; images[k]; k++)
+        if (image_in(dir, images[k], img))
+            break;
+    if (!images[k])
         return 0;
     if (!SUCCEEDED(SHGetFolderPathA(0, CSIDL_LOCAL_APPDATA, 0, 0, base)))
         return 0;
     snprintf(dest, sizeof dest, "%s\\colonization-port\\game", base);
     if (has_game(dest)) {                                /* unpacked before: COLONIZE.EXE is written last */
         char from[MAX_PATH + 16], to[MAX_PATH + 16];
-        say("%s: no COLONIZE.EXE, but %s: using %s, unpacked from it before", dir, iso, dest);
+        say("%s: %s: using %s, unpacked from it before", dir, img, dest);
         snprintf(from, sizeof from, "%s\\GUNCOCK.WAV", dest);   /* a folder an older kit unpacked */
         snprintf(to, sizeof to, "%s\\COCKGUN.WAV", dest);
         CopyFileA(from, to, TRUE);
         snprintf(dir, MAX_PATH, "%s", dest);
         return 1;
     }
-    say("%s: no COLONIZE.EXE, but %s: unpacking it into %s", dir, iso, dest);
-    if (iso_import(iso, dest, msg, sizeof msg)) {
+    say("%s: %s: unpacking it into %s", dir, img, dest);
+    if (iso_import(img, dest, msg, sizeof msg)) {
         say("unpacking failed: %s", msg);
-        snprintf(box, sizeof box, "%s could not be unpacked:\n\n%s", iso, msg);
+        snprintf(box, sizeof box, "%s could not be unpacked:\n\n%s", img, msg);
         MessageBoxA(0, box, TITLE, MB_OK | MB_ICONEXCLAMATION);
         return 0;
     }
@@ -279,7 +300,8 @@ static int pick_folder(char *dir)
     BROWSEINFOA bi;
     LPITEMIDLIST id;
     memset(&bi, 0, sizeof bi);
-    bi.lpszTitle = "Where is Colonization installed? (the folder with COLONIZE.EXE)";
+    bi.lpszTitle = "Where is Colonization? Choose the folder of Colonization for Windows (with COLONIZE.EXE), "
+                   "or of Steam's or GOG's Colonization (with COLONIZE.ISO or COLONIZE.GOG).";
     bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
     CoInitialize(0);
     id = SHBrowseForFolderA(&bi);
@@ -292,14 +314,8 @@ static int pick_folder(char *dir)
 
 int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
 {
-    static const char *usual[] = {
-        "C:\\GOG Games\\Colonization", "C:\\GOG Games\\Sid Meier's Colonization",
-        "C:\\Program Files (x86)\\GOG Galaxy\\Games\\Colonization", "C:\\COLONIZE", "C:\\MPS\\COLONIZE",
-        /* Steam's DOS release, whose COLONIZE.ISO is unpacked (resolve) */
-        "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Sid Meier's Colonization",
-        "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Colonization", 0 };
     char self[MAX_PATH], dir[MAX_PATH] = "", store[MAX_PATH], exe[MAX_PATH + 32], sha[65], msg[1024], *slash;
-    int i, from_store = 0;
+    int i;
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
     (void)inst; (void)prev; (void)show;
@@ -321,14 +337,28 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
         fflush(stdout);
         return rc;
     }
-    if (cmd && *cmd) {                                   /* 1. the command line */
+    /* where the game is, in this order -- in each folder the installed Windows edition first,
+       then Steam's COLONIZE.ISO, then GOG's COLONIZE.GOG (resolve):
+         1. the folder given on the command line;
+         2. the current folder;
+         3. this launcher's folder and the one above it (the kit unzipped into the game's folder:
+            the zip has a top folder of its own);
+         4. the folder used last time (so a kit unzipped elsewhere does not ask again);
+         5. a folder the player picks, asked until one holds the game or the player cancels */
+    if (cmd && *cmd) {                                   /* 1 */
         snprintf(dir, sizeof dir, "%s", cmd[0] == '"' ? cmd + 1 : cmd);
         dir[strcspn(dir, "\"")] = 0;
+        say("the command line's folder %s: %s", dir, resolve(dir) ? "found" : "nothing there");
+        if (!has_game(dir))
+            dir[0] = 0;
     }
-    if (dir[0])
-        resolve(dir);
-    for (i = 0; !dir[0] && i < 2; i++) {                 /* 2. this folder, or the one the kit was */
-        snprintf(store, sizeof store, "%s", self);       /*    unzipped into (the zip has a top folder) */
+    if (!dir[0] && GetCurrentDirectoryA(sizeof store, store)) {   /* 2 */
+        say("the current folder %s", store);
+        if (resolve(store))
+            snprintf(dir, sizeof dir, "%s", store);
+    }
+    for (i = 0; !dir[0] && i < 2; i++) {                 /* 3 */
+        snprintf(store, sizeof store, "%s", self);
         if (i == 1) {
             if (!(slash = strrchr(store, '\\')))
                 break;
@@ -337,28 +367,28 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
         if (resolve(store))
             snprintf(dir, sizeof dir, "%s", store);
     }
-    if (!dir[0]) {                                       /* 3. last time */
-        remembered(store, 0, dir);
-        from_store = dir[0] != 0;
+    if (!dir[0]) {                                       /* 4 */
+        char last[MAX_PATH] = "";
+        remembered(store, 0, last);
+        if (last[0] && resolve(last))
+            snprintf(dir, sizeof dir, "%s", last);
     }
-    for (i = 0; !dir[0] && usual[i]; i++) {              /* 4. the usual places */
-        snprintf(store, sizeof store, "%s", usual[i]);
-        if (resolve(store))
-            snprintf(dir, sizeof dir, "%s", store);
-    }
-    say("game folder %s: %s", dir[0] ? dir : "(none found)", dir[0] && has_game(dir) ? "has COLONIZE.EXE" : "no COLONIZE.EXE");
-    while (!resolve(dir)) {                              /* 5. ask */
-        if (dir[0] && !from_store) {
-            snprintf(msg, sizeof msg, "There is no COLONIZE.EXE (nor Steam's COLONIZE.ISO) in\n%s\n\nChoose "
-                     "the folder Colonization for Windows is installed in, or Steam's Colonization folder.", dir);
-            MessageBoxA(0, msg, TITLE, MB_OK | MB_ICONINFORMATION);
-        }
-        from_store = 0;
-        if (!pick_folder(dir)) {
+    say("game folder %s", dir[0] ? dir : "(none found: asking)");
+    while (!dir[0]) {                                    /* 5 */
+        char picked[MAX_PATH] = "";
+        if (!pick_folder(picked)) {
             say("no folder chosen: stopped");
             return 1;
         }
-        say("chosen folder %s", dir);
+        say("chosen folder %s", picked);
+        if (resolve(picked)) {
+            snprintf(dir, sizeof dir, "%s", picked);
+            break;
+        }
+        snprintf(msg, sizeof msg, "Colonization was not found in\n%s\n\nChoose the folder of Colonization for "
+                 "Windows (the one with COLONIZE.EXE and the COLDATA files), or of Steam's or GOG's "
+                 "Colonization (the one with COLONIZE.ISO or COLONIZE.GOG).", picked);
+        MessageBoxA(0, msg, TITLE, MB_OK | MB_ICONINFORMATION);
     }
     snprintf(exe, sizeof exe, "%s\\COLONIZE.EXE", dir);
     if (!sha256_file(exe, sha)) {

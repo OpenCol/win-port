@@ -82,8 +82,8 @@ def main(argv):
 
 Sid Meier's Colonization for Windows (1995), ported to modern systems from its byte-matched
 reconstruction. **No game files are included**: you need your own copy of the game -- either
-**Colonization for Windows** (1995, patched or not), or **Steam's Colonization**, whose disc
-image `COLONIZE.ISO` carries the Windows edition.
+**Colonization for Windows** (1995, patched or not), or **Steam's or GOG's Colonization**, whose
+disc image (`COLONIZE.ISO`, `COLONIZE.GOG`) carries the Windows edition.
 {news}
 | Download | Platform | Start |
 | --- | --- | --- |
@@ -94,18 +94,21 @@ image `COLONIZE.ISO` carries the Windows edition.
 1. Unzip the kit **into the folder of your game**:
    - Colonization for Windows: the folder with `COLONIZE.EXE` (for example `C:\\MPS\\COLONIZE`);
    - Steam's Colonization: its install folder, the one with `COLONIZE.ISO`
-     (Steam: right-click the game > Manage > Browse local files).
+     (Steam: right-click the game > Manage > Browse local files);
+   - GOG's Colonization: its install folder, the one with `COLONIZE.GOG`.
 2. Start the launcher from the kit's folder: `Colonization.exe` on Windows, `./colonization` in a
    terminal on macOS and Linux (install Wine first: on macOS `brew install --cask wine@devel`; on
    Debian/Ubuntu `sudo dpkg --add-architecture i386 && sudo apt install wine wine32`).
 
 The launcher finds the game in the folder it was unzipped into (or one it is given: `Colonization.exe
 "D:\\Games\\Colonization"`, `./colonization /path/to/game`), checks `COLONIZE.EXE`'s SHA-256, and
-remembers the folder. Unzipped elsewhere, it looks in the usual places and then asks once.
+remembers the folder. It looks in the current folder, its own folder and the one above it, and
+the folder used last time; failing those it asks, with a folder dialog, until one holds the game.
 
 - **Colonization for Windows**: the game runs in its own folder, reads its pictures, sounds and
   data there and saves there, as the original did.
-- **Steam**: the launcher unpacks the Windows edition from `COLONIZE.ISO` once (a few seconds) into
+- **Steam or GOG**: the launcher unpacks the Windows edition from `COLONIZE.ISO` or `COLONIZE.GOG`
+  once (a few seconds) into
   a folder of its own -- `%LOCALAPPDATA%\\colonization-port\\game` on Windows,
   `~/Library/Application Support/colonization-port/game` on macOS,
   `~/.local/share/colonization-port/game` on Linux -- and the game runs and saves there.
@@ -119,7 +122,7 @@ leaves `colonization-port.dmp` there too; please send both.
   at every step of every turn; the screens: {nsessions} scripted UI sessions.
 {windows}
 ### Known limits
-- A Steam copy (the original 1995 release) lacks the patch's `COLDATA9.DLL`: the Jukebox's
+- A Steam or GOG copy (the original 1995 release) lacks the patch's `COLDATA9.DLL`: the Jukebox's
   Control Panel and the Cheat menu's dialogs crash. Everything else plays.
 - The Windows game plays its music from the CD's audio tracks; a disc image has none.
 - The macOS and Linux kits run through Wine; they are not native programs.

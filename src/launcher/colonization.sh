@@ -3,14 +3,15 @@
 #
 # Runs the port (bin/) under Wine in the folder of your copy of Colonization for Windows: the
 # port reads the game's own files there and saves there, as the original did. No game file is
-# in the kit. The folder is: the argument; this folder or the one above it, if the kit was
-# unzipped into the game folder (or Steam's Colonization folder);
-# the one used last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR; Steam's
-# Colonization folder.
+# in the kit. The folder is: the argument; the current folder; this folder or the one above it, if
+# the kit was unzipped into the game folder (or Steam's or GOG's Colonization folder); the one used
+# last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR; else one the player picks
+# (the system's folder dialog: AppleScript on macOS, zenity or kdialog on Linux; else a question).
 #
-# A folder with no COLONIZE.EXE but Steam's COLONIZE.ISO (the DOS release's disc image, which
-# carries the Windows edition too), in it or one folder down, is unpacked once into a game folder
-# of the kit's own -- ~/Library/Application Support/colonization-port/game on macOS,
+# In each folder: the installed Windows edition (COLONIZE.EXE and its data DLLs); else a disc image
+# with the Windows edition -- Steam's COLONIZE.ISO or GOG's COLONIZE.GOG, the DOS release's disc --
+# in it or one folder down, unpacked once into a game folder of the kit's own --
+# ~/Library/Application Support/colonization-port/game on macOS,
 # ~/.local/share/colonization-port/game on Linux -- by bin/colonization-import.exe (the Windows
 # launcher's --import, src/launcher/isoimport.c) under Wine, and that folder is used.
 # COLONIZE.EXE must be the 1995 release, patched or the original (its SHA-256 is checked); the
@@ -28,11 +29,8 @@ here=$(cd "$(dirname "$0")" && pwd)
 conf="${XDG_CONFIG_HOME:-$HOME/.config}/colonization-port"
 if [ "$(uname)" = Darwin ]; then
     unpacked="$HOME/Library/Application Support/colonization-port/game"
-    steam="$HOME/Library/Application Support/Steam/steamapps/common"
 else
     unpacked="${XDG_DATA_HOME:-$HOME/.local/share}/colonization-port/game"
-    steam="$HOME/.local/share/Steam/steamapps/common"
-    [ -d "$steam" ] || steam="$HOME/.steam/steam/steamapps/common"
 fi
 
 winpath() { printf 'Z:%s' "$(printf %s "$1" | tr / '\\')"; }   # Wine's name for a Unix path (Z: is /)
@@ -66,38 +64,73 @@ find_exe() {    # the game's COLONIZE.EXE in $1, whatever its case
     return 1
 }
 
-find_iso() {    # Steam's COLONIZE.ISO in $1 or one folder down
-    for f in "$1"/COLONIZE.ISO "$1"/colonize.iso "$1"/*/COLONIZE.ISO "$1"/*/colonize.iso; do
-        [ -f "$f" ] && { echo "$f"; return 0; }
+has_game() {    # the Windows edition's files the port reads: COLONIZE.EXE, COLTEXT0, COLDATA0..8
+    find_exe "$1" >/dev/null || return 1
+    for n in COLTEXT0 COLDATA0 COLDATA1 COLDATA2 COLDATA3 COLDATA4 COLDATA5 COLDATA6 COLDATA7 COLDATA8; do
+        [ -f "$1/$n.DLL" ] || [ -f "$1/$(printf %s "$n" | tr A-Z a-z).dll" ] || return 1
+    done
+}
+
+find_image() {  # a disc image with the Windows edition, in $1 or one folder down: Steam's
+                # COLONIZE.ISO first, then GOG's COLONIZE.GOG (GOG's COLDIG.BIN is a DOS file)
+    for n in COLONIZE.ISO colonize.iso COLONIZE.GOG colonize.gog; do
+        for f in "$1/$n" "$1"/*/"$n"; do
+            [ -f "$f" ] && { echo "$f"; return 0; }
+        done
     done
     return 1
 }
 
-game=""
-for d in "$1" "$here" "$(dirname "$here")" "$(cat "$conf/gamedir" 2>/dev/null)" "$COLONIZATION_DIR" \
-         "$steam/Sid Meier's Colonization" "$steam/Colonization"; do
-    [ -n "$d" ] && [ -d "$d" ] || continue
-    if find_exe "$d" >/dev/null; then game=$(cd "$d" && pwd); break; fi
-    if iso=$(find_iso "$d"); then
-        if find_exe "$unpacked" >/dev/null; then
-            echo "Colonization: using $unpacked, unpacked from $iso before" >&2
-            # a folder an older kit unpacked: the patch's COCKGUN.WAV is the disc's GUNCOCK.WAV
-            [ -f "$unpacked/COCKGUN.WAV" ] || cp "$unpacked/GUNCOCK.WAV" "$unpacked/COCKGUN.WAV" 2>/dev/null || true
-        else
-            echo "Colonization: no COLONIZE.EXE in $d, but $iso: unpacking it into $unpacked" >&2
-            mkdir -p "$unpacked"
-            "$wine" "$here/bin/colonization-import.exe" --import "$(winpath "$iso")" "$(winpath "$unpacked")" ||
-                { echo "Colonization: $iso could not be unpacked (see above)." >&2; exit 6; }
-        fi
-        game=$unpacked
-        break
+resolve() {     # $1 holds the game: the installed Windows edition, or a disc image unpacked once
+    [ -n "$1" ] && [ -d "$1" ] || return 1
+    if has_game "$1"; then game=$(cd "$1" && pwd); return 0; fi
+    img=$(find_image "$1") || return 1
+    if has_game "$unpacked"; then
+        echo "Colonization: using $unpacked, unpacked from $img before" >&2
+        # a folder an older kit unpacked: the patch's COCKGUN.WAV is the disc's GUNCOCK.WAV
+        [ -f "$unpacked/COCKGUN.WAV" ] || cp "$unpacked/GUNCOCK.WAV" "$unpacked/COCKGUN.WAV" 2>/dev/null || true
+    else
+        echo "Colonization: $img: unpacking the Windows edition into $unpacked" >&2
+        mkdir -p "$unpacked"
+        "$wine" "$here/bin/colonization-import.exe" --import "$(winpath "$img")" "$(winpath "$unpacked")" ||
+            { echo "Colonization: $img could not be unpacked (see above)." >&2; exit 6; }
     fi
+    game=$unpacked
+}
+
+pick_folder() { # the system's folder dialog; a question in the terminal where there is none
+    prompt="Where is Colonization? Choose the folder of Colonization for Windows (with COLONIZE.EXE), or of Steam's or GOG's Colonization (with COLONIZE.ISO or COLONIZE.GOG)."
+    if [ "$(uname)" = Darwin ]; then
+        osascript -e "POSIX path of (choose folder with prompt \"$prompt\")" 2>/dev/null
+    elif command -v zenity >/dev/null 2>&1; then
+        zenity --file-selection --directory --title="$prompt" 2>/dev/null
+    elif command -v kdialog >/dev/null 2>&1; then
+        kdialog --getexistingdirectory "$HOME" --title "$prompt" 2>/dev/null
+    else
+        printf '%s\nFolder (empty to stop): ' "$prompt" >&2
+        read -r answer && printf '%s\n' "$answer"
+    fi
+}
+
+# where the game is, in this order -- in each folder the installed Windows edition first, then
+# Steam's COLONIZE.ISO, then GOG's COLONIZE.GOG (resolve): the folder given; the current folder;
+# this script's folder and the one above it (the kit unzipped into the game's folder: the zip has
+# a top folder of its own); the folder used last time; $COLONIZATION_DIR; then a folder the player
+# picks, asked until one holds the game or the player cancels
+game=""
+for d in "$1" "$PWD" "$here" "$(dirname "$here")" "$(cat "$conf/gamedir" 2>/dev/null)" "$COLONIZATION_DIR"; do
+    resolve "$d" && break
 done
-if [ -z "$game" ]; then
-    echo "Colonization: where is your copy? Run: $0 /path/to/the/folder/with/COLONIZE.EXE" >&2
-    echo "(or Steam's Colonization folder, the one with COLONIZE.ISO)" >&2
-    exit 1
-fi
+while [ -z "$game" ]; do
+    picked=$(pick_folder) || picked=""
+    picked=${picked%/}
+    if [ -z "$picked" ]; then
+        echo "Colonization: no folder chosen. Run: $0 /path/to/your/Colonization" >&2
+        exit 1
+    fi
+    resolve "$picked" && break
+    echo "Colonization: no COLONIZE.EXE with its COLDATA files, COLONIZE.ISO or COLONIZE.GOG in $picked." >&2
+done
 exe=$(find_exe "$game")
 if command -v sha256sum >/dev/null 2>&1; then sum=$(sha256sum "$exe" | cut -d' ' -f1)
 else sum=$(shasum -a 256 "$exe" | cut -d' ' -f1); fi

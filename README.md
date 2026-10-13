@@ -147,17 +147,20 @@ only the disc's `GUNCOCK.WAV` renamed), and its `COLONIZE.EXE` is the pre-patch 
 Jukebox's Control Panel and the Cheat menu's dialogs crash (`PORT_DROP=COLDATA9.DLL,COCKGUN.WAV
 python3 tests/sessions.py`).
 
-### Steam's COLONIZE.ISO
+### Steam's COLONIZE.ISO and GOG's COLONIZE.GOG
 
-The launchers take Steam's copy as it is installed. Given a folder with no `COLONIZE.EXE` but a
-`COLONIZE.ISO` in it (or one folder down), they unpack the disc image's Windows edition once into
+The launchers take Steam's and GOG's copies as they are installed: the DOS release's disc image
+carries the Windows edition, as Steam's `COLONIZE.ISO` (2048-byte sectors) and GOG's
+`COLONIZE.GOG` (raw 2352-byte CD sectors, Mode 1 -- the same disc; GOG's `COLDIG.BIN` is a DOS
+game file, not a disc). Given a folder with no installed Windows edition but one of those in it
+(or one folder down), they unpack the disc image's Windows edition once into
 a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows,
 `~/Library/Application Support/colonization-port/game` on macOS,
 `~/.local/share/colonization-port/game` on Linux -- and play there (`src/launcher/isoimport.c`):
 
 - the ISO 9660 image is read directly; its `INSTALL` folder's 54 data files are copied, each
   checked by SHA-256;
-- `COLONIZE.EXE` is decompressed from `COLONIZE._00` (an ARCV archive: LZHUF, after col-win-re's
+- `COLONIZE.EXE` is decompressed from `COLONIZE._00` (`COLONIZE.$00` on GOG's image; an ARCV archive: LZHUF, after col-win-re's
   `tools/arcv_extract.py`, with Okumura's tables -- the disc's `SETUP.EXE` is not needed) and must
   hash to the original 1995 release;
 - `COCKGUN.WAV`, which the patch added, is the disc's `GUNCOCK.WAV` renamed -- the same bytes;
@@ -166,7 +169,14 @@ a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows
 - the launchers accept that original release (the port reads only its pictures, which the two
   releases share), and say what it lacks: `COLDATA9.DLL`.
 
-`Colonization.exe --import ISO DEST` does only the unpacking; the Linux and macOS kits carry the
+The launchers look in this order, and in each folder for the installed Windows edition
+(`COLONIZE.EXE` with `COLTEXT0.DLL` and `COLDATA0`-`8.DLL`), then `COLONIZE.ISO`, then
+`COLONIZE.GOG`: the folder given on the command line; the current folder; the launcher's folder
+and the one above it (the kit unzipped into the game's folder); the folder used last time; else a
+folder the player picks (Windows' folder dialog; on macOS AppleScript's, on Linux zenity's or
+kdialog's, else a question in the terminal), asked again until one holds the game.
+
+`Colonization.exe --import IMAGE DEST` does only the unpacking; the Linux and macOS kits carry the
 same program as `bin/colonization-import.exe` and run it under Wine. Tests run on such a folder
 with `PORT_ALLOW_PREPATCH=1 COL_GAME_DIR=...` (a save's full path must stay under 128 characters,
 the Win16 `OpenFile` limit).
