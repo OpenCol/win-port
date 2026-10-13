@@ -23,10 +23,11 @@ To decide: is "64-bit Linux" satisfied by the x64 program under Wine, or must it
 LP64 Winelib build (then every game `long` would have to become `int32_t` -- a corpus-wide
 retype of the imported files' spellings)?
 
-### W9 / W10: a real Windows x64 machine
+### W9 / W10: a real Windows x64 machine -- settled: no x64 release
 
-The x64 program has only run under Wine (macOS, Linux). It needs one run on 64-bit Windows:
-`build/x64/colonize.exe` in a copy of the game directory, start a new game, load a save.
+Since v0.1.9 (Daniel, 2026-10-14) there is no 64-bit Windows kit: the 32-bit program runs on
+64-bit Windows, and the x64 one had problems of its own there (v0.1.1's heap crash). The x64
+program still builds (`PORT_TOOLCHAIN=mingw-x64`) and its lockstep records stand.
 
 ### W10: the pre-patch -> patched delta
 
@@ -50,8 +51,6 @@ The gate -- a clean machine of each OS, given only the kit and a game copy, reac
 needs those machines.
 
 - Windows: done with the x86 kit (a tester's Windows 7 SP1 64-bit, v0.1.1, 2026-10-11;
-  status/kit.json). Still to run there: the **v0.1.2 windows-x64** kit -- v0.1.1's x64 program
-  ended at start with 0xC0000374 (a HeapAlloc block freed with msvcrt's free; 3c65684). If it
-  fails again, `colonization-port.log` beside the launcher now has the port's own report.
+  status/kit.json). The x64 kit is no longer released (v0.1.9).
 - Linux: the linux-i386 kit on a machine with only Wine (wine32) installed.
 - macOS: the macos kit on a Mac with only Gcenx's Wine 11 installed (not the development Mac).

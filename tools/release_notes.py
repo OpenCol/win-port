@@ -15,7 +15,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
 KITS = [
     ("windows-x86", "Windows (32-bit program; runs on 32- and 64-bit Windows)", "`Colonization.exe`"),
-    ("windows-x64", "Windows (64-bit program)", "`Colonization.exe`"),
     ("linux-i386", "Linux (a Winelib program: needs Wine with its 32-bit part)", "`./colonization`"),
     ("macos", "macOS (the 32-bit Windows program under Wine: needs Gcenx's Wine, not Apple's Game "
               "Porting Toolkit)", "`./colonization`"),
@@ -69,8 +68,7 @@ def main(argv):
         rows.append("| `%s` | %s | %s |" % (os.path.basename(z), what, how))
     if not rows:
         sys.exit("no kits in dist/: run tools/kit.py first")
-    tested = [l for l in (lockstep_line("win32", "Windows x86 program"), lockstep_line("x64", "Windows x64 program"),
-                          lockstep_line("linux", "Linux program"), lockstep_line("linux64", "Linux x86_64"))
+    tested = [l for l in (lockstep_line("win32", "Windows x86 program"), lockstep_line("linux", "Linux program"))
               if l]
     sessions = rec("sessions")
     windows = rec("kit").get("clean_machine", {}).get("windows")

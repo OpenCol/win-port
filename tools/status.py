@@ -216,10 +216,10 @@ def w10():
     t = k.get("targets", {})
     built = sorted(n for n, v in t.items() if v["built"])
     cm = k.get("clean_machine", {})
-    parts = ["kits built: %d of 4 (%s)" % (len(built), ", ".join(built) or "none"),
+    parts = ["kits built: %d of 3 (%s)" % (len(built), ", ".join(built) or "none"),
              "clean machine reaches the map: %s" % (", ".join("%s (%s %s)" % (o, v["by"], v["date"]) for o, v in
                                                             sorted(cm.items())) or "none yet -- a person (BLOCKED.md)")]
-    done = len(built) == 4 and all(o in cm for o in ("windows", "linux", "macos"))
+    done = len(built) == 3 and all(o in cm for o in ("windows", "linux", "macos"))
     return ("DONE" if done else "open"), "; ".join(parts)
 
 

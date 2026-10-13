@@ -105,27 +105,23 @@ jobs:
           path: status/compile-${{ matrix.toolchain }}.json
 
   programs-windows:
-    # Roadmap W10: the Windows programs the kits carry -- 32-bit (MinGW i686) and 64-bit
-    # (MinGW x86_64, W9). tools/undefined.py compiles and links build/colonize.exe and
-    # build/x64/colonize.exe.
+    # Roadmap W10: the Windows program the kits carry -- 32-bit (MinGW i686), which runs on 32-
+    # and 64-bit Windows; tools/undefined.py compiles and links build/colonize.exe. The 64-bit
+    # program (W9) is no longer released (2026-10-14): one Windows program, the one that works.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Toolchains
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686 \
-            gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
+          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
       - name: Windows x86 program
         run: python3 tools/undefined.py
-      - name: Windows x64 program
-        run: PORT_TOOLCHAIN=mingw-x64 python3 tools/undefined.py
       - uses: actions/upload-artifact@v4
         with:
           name: programs-windows
           path: |
             build/colonize.exe
-            build/x64/colonize.exe
           if-no-files-found: error
 
   programs-linux:
@@ -166,7 +162,7 @@ jobs:
       - name: Toolchains (the launchers)
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 gcc-mingw-w64-x86-64
+          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686
       - uses: actions/download-artifact@v4
         with:
           name: programs-windows
@@ -194,10 +190,6 @@ jobs:
         with:
           name: colonization-port-windows-x86
           path: dist/colonization-port-windows-x86.zip
-      - uses: actions/upload-artifact@v4
-        with:
-          name: colonization-port-windows-x64
-          path: dist/colonization-port-windows-x64.zip
       - uses: actions/upload-artifact@v4
         with:
           name: colonization-port-linux-i386

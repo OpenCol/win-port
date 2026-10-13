@@ -6,7 +6,7 @@
    "kit": "v0.1.1 windows-x86",
    "machine": "Windows 6.1 build 7601 SP1, 64-bit (from the kit's colonization-port.log)",
    "result": "\"x86 version works properly\" (Daniel, 2026-10-11)",
-   "x64": "v0.1.1 windows-x64 ended at start, 0xC0000374 (fixed in v0.1.2, 3c65684); v0.1.2 x64 not yet run there"
+   "x64": "v0.1.1 windows-x64 ended at start, 0xC0000374 (fixed in v0.1.2, 3c65684); v0.1.2 x64 not yet run there; the x64 kit is no longer released (v0.1.9, Daniel 2026-10-14)"
   }
  },
  "targets": {
@@ -17,10 +17,6 @@
   "macos": {
    "built": true,
    "kb": 578
-  },
-  "windows-x64": {
-   "built": true,
-   "kb": 725
   },
   "windows-x86": {
    "built": true,

@@ -3,8 +3,8 @@
 # win-port
 
 A port of **Sid Meier's Colonization for Windows** (MicroProse, 1995): the same game, compiled
-with modern tools and running without an emulator. On Windows it is a native 32-bit or 64-bit
-program; on Linux and macOS it runs through Wine (see Mac and Linux below). It is playable, and
+with modern tools and running without an emulator. On Windows it is a native 32-bit program
+(it runs on 32- and 64-bit Windows); on Linux and macOS it runs through Wine (see Mac and Linux below). It is playable, and
 in pre-release: [STATUS.md](STATUS.md) says how far each milestone has got.
 
 It is built from the byte-matched reconstruction of the original program
@@ -47,7 +47,8 @@ The roadmap, with every decision and gate, is col-win-re's
 
 Every CI run builds the release kits (roadmap W10), one per platform, as downloadable
 artifacts of the run (GitHub -> Actions -> a run of `ci` -> Artifacts): `colonization-port-
-windows-x86`, `-windows-x64`, `-linux-i386` and `-macos`. A `v*` tag publishes them as a
+windows-x86`, `-linux-i386` and `-macos`. There is no 64-bit Windows kit since v0.1.9: the 32-bit
+program runs on 64-bit Windows too. A `v*` tag publishes them as a
 release (`tools/release.sh v0.1.0 [--final]`, or Actions -> ci -> Run workflow with a version:
 CI builds the kits from that commit, writes the notes and the checksums, and publishes them).
 Each kit holds the port and a launcher, and no game files: you need your own copy of
@@ -73,8 +74,7 @@ Windows calls it makes (windows, drawing, sound, files).
 - **Linux** (`colonization-port-linux-i386`): a Winelib program -- the port compiled on Linux
   against Wine's own headers and libraries, an ELF `.so` with Wine's loader beside it -- so it
   still needs Wine at run time, with its 32-bit part (Debian/Ubuntu: `sudo dpkg
-  --add-architecture i386 && sudo apt install wine wine32`). 64-bit Linux can also run the
-  `windows-x64` program under its Wine.
+  --add-architecture i386 && sudo apt install wine wine32`).
 
 Start it from a terminal, the first time with your game folder:
 

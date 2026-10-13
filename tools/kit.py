@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """The release kit (roadmap W10): one zip per platform, the port and a launcher, no game files.
 
-    python3 tools/kit.py [TARGET ...] [--version V] [--record]     targets: windows-x86 windows-x64 linux-i386 macos
+    python3 tools/kit.py [TARGET ...] [--version V] [--record]     targets: windows-x86 linux-i386 macos
                                                           (default: every target whose program is built)
 
     windows-x86   Colonization.exe (the launcher) + bin/colonize.exe       (tools/undefined.py)
-    windows-x64   the same, 64-bit                                          (PORT_TOOLCHAIN=mingw-x64)
     linux-i386    colonization (the launcher script) + bin/colonize.exe.so  (PORT_TOOLCHAIN=winegcc, Winelib)
     macos         colonization + bin/colonize.exe, run under Wine           (the Windows x86 program)
 
 The launchers (src/launcher) find the player's copy of the game, check COLONIZE.EXE's SHA-256
 against the updated 1995 release, and start the port in that folder. Writes dist/*.zip.
+
+No 64-bit Windows kit since v0.1.9 (Daniel, 2026-10-14): the 32-bit program runs on 32- and
+64-bit Windows, and the 64-bit one had problems of its own on real Windows the 32-bit did not.
+PORT_TOOLCHAIN=mingw-x64 still builds build/x64/colonize.exe for testing.
 """
 import os
 import shutil
@@ -28,7 +31,6 @@ ISOIMPORT_C = os.path.join(ROOT, "src", "launcher", "isoimport.c")
 TARGETS = {
     # target: (program, its name in bin/, launcher kind, mingw prefix for the launcher/strip)
     "windows-x86": ("build/colonize.exe", "colonize.exe", "exe", "i686-w64-mingw32"),
-    "windows-x64": ("build/x64/colonize.exe", "colonize.exe", "exe", "x86_64-w64-mingw32"),
     "linux-i386": ("build/linux/colonize.exe.so", "colonize.exe.so", "sh", None),
     "macos": ("build/colonize.exe", "colonize.exe", "sh", "i686-w64-mingw32"),
 }

@@ -3,6 +3,12 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## v0.1.9
+
+- **One Windows kit: `colonization-port-windows-x86`.** The 64-bit Windows kit is no longer
+  released. The 32-bit program runs on both 32- and 64-bit Windows, and is the one testers found
+  working; players of the x64 kit should switch to it -- saved games carry over unchanged.
+
 ## v0.1.8
 
 - **The Save Game dialog** opens in the game's folder (where Win16's did, and where the game
