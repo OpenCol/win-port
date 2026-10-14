@@ -3,6 +3,15 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## Unreleased
+
+- **Saving works in the Windows program** (a tester's Windows 7: the Save dialog's Save button
+  did nothing). The port linked its game's 64 MB stack as the program's, and Windows gives every
+  new thread the program's stack size: the shell's save dialog starts many threads, and a 32-bit
+  program has room for only about 29 of 64 MB each, so the dialog could not do its work. The
+  game now runs on a thread of its own with the 64 MB, and every other thread gets Windows'
+  default. The dialog's line in `colonize-port.log` now also says how much room the program had.
+
 ## v0.1.9
 
 - **One Windows kit: `colonization-port-windows-x86`.** The 64-bit Windows kit is no longer

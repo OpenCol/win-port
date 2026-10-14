@@ -13,6 +13,7 @@
 #include <commdlg.h>
 #include <cderr.h>
 #include <objbase.h>
+#include <tlhelp32.h>
 
 typedef struct {
     unsigned long lStructSize; unsigned hwndOwner; unsigned hInstance;
@@ -23,6 +24,7 @@ typedef struct {
     const char *lpstrDefExt; unsigned long lCustData; void *lpfnHook; const char *lpTemplateName;
 } OPENFILENAME_G;
 
+int w16_dialog_open;                    /* 1 + the messages the game took meanwhile (w16_user.c) */
 static char cwd[MAX_PATH];
 static DWORD last_error;                /* CommDlgExtendedError's, of whichever thread ran it */
 
@@ -85,15 +87,48 @@ static void pairs(char *b, size_t n, const char *f)
     }
 }
 
+/* the process's room: free address space, its largest block, and its threads -- a dialog that
+   cannot make its threads does nothing (w16_entry.c) */
+static void room(char *b, size_t n)
+{
+    MEMORY_BASIC_INFORMATION mb;
+    char *p = 0;
+    unsigned long long total = 0, big = 0;
+    int threads = 0;
+    DWORD pid = GetCurrentProcessId();
+    HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+    while (VirtualQuery(p, &mb, sizeof mb) && (char *)mb.BaseAddress + mb.RegionSize > p) {
+        if (mb.State == MEM_FREE) {
+            total += mb.RegionSize;
+            if (mb.RegionSize > big)
+                big = mb.RegionSize;
+        }
+        p = (char *)mb.BaseAddress + mb.RegionSize;
+    }
+    if (snap != INVALID_HANDLE_VALUE) {
+        THREADENTRY32 te;
+        te.dwSize = sizeof te;
+        if (Thread32First(snap, &te))
+            do
+                threads += te.th32OwnerProcessID == pid;
+            while (Thread32Next(snap, &te));
+        CloseHandle(snap);
+    }
+    _snprintf(b, n - 1, "%llu MB free, largest %llu MB, %d threads", total >> 20, big >> 20, threads);
+    b[n - 1] = 0;
+}
+
 static char run(OPENFILENAME_G *g, int save)
 {
     OPENFILENAMEA o;
     RUN x;
-    char filter[160];
+    char filter[160], before[80], after[80];
     HRESULT h = CoInitializeEx(0, COINIT_APARTMENTTHREADED);
     in(&o, g);
     x.o = &o;
     x.save = save;
+    w16_dialog_open = 1;
+    room(before, sizeof before);
     if (h == RPC_E_CHANGED_MODE) {      /* a multithreaded apartment: a thread of the dialog's own */
         HANDLE t = CreateThread(0, 0, dialog_thread, &x, 0, 0);
         int quit = 0;
@@ -125,12 +160,17 @@ static char run(OPENFILENAME_G *g, int save)
             CoUninitialize();
     }
     last_error = x.err;
+    room(after, sizeof after);
+    if (w16_dialog_open > 1)
+        w16_report("  the game took %d messages from the queue during the dialog", w16_dialog_open - 1);
+    w16_dialog_open = 0;
     pairs(filter, sizeof filter, g->lpstrFilter);
     w16_report("%s dialog: filter \"%s\" index %lu, folder \"%s\", flags 0x%lx, apartment %s: %s \"%s\"",
                save ? "save" : "open", filter, (unsigned long)g->nFilterIndex,
                o.lpstrInitialDir ? o.lpstrInitialDir : "", (unsigned long)o.Flags,
                h == RPC_E_CHANGED_MODE ? "multithreaded (dialog on its own thread)" : h == S_FALSE ? "single" : "none",
                x.r ? "chose" : "closed", x.r ? o.lpstrFile : "");
+    w16_report("  before: %s; after: %s", before, after);
     if (x.err)
         w16_report("  CommDlgExtendedError 0x%lx", (unsigned long)x.err);
     out(g, &o);

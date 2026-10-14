@@ -531,6 +531,12 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
         if (!(remove & PM_REMOVE))
             PeekMessageA(&m, m.hwnd, m.message, m.message, PM_REMOVE);
     }
+    if (w16_dialog_open && w16_dialog_open++ <= 20) {
+        char c[64] = "";
+        GetClassNameA(m.hwnd, c, sizeof c);
+        w16_report("  the game took message %#x (window %s) from the queue during the dialog, filter %#x-%#x, from %p",
+                   m.message, c, lo, hi, __builtin_return_address(0));
+    }
     if (w16_script())
         w16_lockstep_message(&m);
     last = m;

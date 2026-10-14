@@ -5455,6 +5455,7 @@ extern void port_curtain_open_h(MagicWin *s, int step, RECT *r);
 extern void port_curtain_open_v(MagicWin *s, int step, RECT *r);
 extern void port_draw_at(MagicWin *o);
 extern void port_draw_sprite(MagicWin *o, void *rec, int x, int y);
+extern void port_entry(void);
 extern void port_fade_through_black(MagicWin *s, short first, short count, register short steps);
 extern void port_grab_from_window(MagicWin *p);
 extern int port_height_1008_d720(GRPort *port);
