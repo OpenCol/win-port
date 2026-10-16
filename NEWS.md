@@ -3,7 +3,7 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
-## Unreleased
+## v0.1.10
 
 - **Saving works on Windows 7** (testers: the 32-bit Save button did nothing there, while the
   64-bit program, and the 32-bit one on Windows 10 and 11, saved). Three changes:
