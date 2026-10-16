@@ -5,12 +5,17 @@ section for the version being released).
 
 ## Unreleased
 
-- **Saving works in the Windows program** (a tester's Windows 7: the Save dialog's Save button
-  did nothing). The port linked its game's 64 MB stack as the program's, and Windows gives every
-  new thread the program's stack size: the shell's save dialog starts many threads, and a 32-bit
-  program has room for only about 29 of 64 MB each, so the dialog could not do its work. The
-  game now runs on a thread of its own with the 64 MB, and every other thread gets Windows'
-  default. The dialog's line in `colonize-port.log` now also says how much room the program had.
+- **Saving works on Windows 7** (testers: the 32-bit Save button did nothing there, while the
+  64-bit program, and the 32-bit one on Windows 10 and 11, saved). Three changes:
+  - Windows 7 and 8 get the open/save dialog of Windows XP instead of Vista's shell dialog,
+    the one that failed (`PORT_XP_DIALOG=1` or `0` in the environment overrides the choice).
+  - The game's 64 MB stack is now its own thread's, not every thread's. Windows gives each new
+    thread the program's stack size, and a 32-bit program has room for only about 29 threads of
+    64 MB: too few for the shell dialog's own.
+  - As in 1995 on Windows 3.1, the dialog suggests the save's name (`eng1492.sav`) in its name
+    box and lists the `*.sav` files, and the name keeps the game's folder.
+- `colonize-port.log` says more about each dialog: which kind it was, the room the program had
+  (address space, threads), and what it returned.
 
 ## v0.1.9
 

@@ -26,6 +26,68 @@ typedef struct {
 
 int w16_dialog_open;                    /* 1 + the messages the game took meanwhile (w16_user.c) */
 static char cwd[MAX_PATH];
+static char filter_buf[512];            /* the game's filter, as Win16's dialog read it */
+static const char *style;               /* the dialog's kind, for the log */
+
+/* Win16's dialog put a pattern without wildcards -- the game's "eng1492.sav", its suggested
+   name -- in the file name box when the game gave none, and listed what the pattern's
+   extension matched. Win32's shell dialog takes it as a file type of its own; here it is
+   what it was: the name in the box, and the type "*.sav". */
+static const char *win16_filter(const char *f, unsigned long index, char *file, unsigned long nfile,
+                                const char *dir)
+{
+    size_t k = 0;
+    unsigned long i;
+    for (i = 1; f && *f; i++) {
+        const char *pat = f + strlen(f) + 1, *dot;
+        size_t nd = strlen(f) + 1, np = strlen(pat) + 1;
+        char star[64];
+        if (!*pat || k + nd + np + 4 >= sizeof filter_buf)
+            return f == filter_buf ? f : 0;
+        memcpy(filter_buf + k, f, nd);
+        k += nd;
+        if (!strpbrk(pat, "*?;") && np < sizeof star - 2) {
+            /* the name with the folder the dialog opens in: Win32 hands back a bare name as given */
+            if (i == index && file && !file[0] && nfile > np + (dir ? strlen(dir) + 1 : 0))
+                _snprintf(file, nfile - 1, "%s%s%s", dir ? dir : "",
+                          dir && *dir && dir[strlen(dir) - 1] != '\\' ? "\\" : "", pat);
+            dot = strrchr(pat, '.');
+            _snprintf(star, sizeof star - 1, "*%s", dot ? dot : ".*");
+            star[sizeof star - 1] = 0;
+            pat = star;
+            np = strlen(star) + 1;
+        }
+        memcpy(filter_buf + k, pat, np);
+        k += np;
+        f += nd + strlen(f + nd) + 1;
+    }
+    filter_buf[k] = 0;
+    return filter_buf;
+}
+
+/* Windows 7 and 8 (NT 6.x): the dialog of Windows XP, which a hook asks for, not Vista's shell
+   dialog -- a tester's Windows 7 Save button did nothing in it (v0.1.9) while Windows 11's
+   worked. $PORT_XP_DIALOG=1 or 0 says otherwise. GetVersionEx answers 6.2 to a program without
+   a manifest on every later Windows: ntdll's RtlGetVersion does not. */
+static UINT_PTR CALLBACK xp_hook(HWND h, UINT m, WPARAM w, LPARAM l)
+{
+    (void)h; (void)m; (void)w; (void)l;
+    return 0;
+}
+
+static int xp_dialog(void)
+{
+    typedef LONG (WINAPI *rtl_version)(OSVERSIONINFOW *);
+    const char *e = getenv("PORT_XP_DIALOG");
+    HMODULE ntdll = GetModuleHandleA("ntdll.dll");
+    rtl_version rv = ntdll ? (rtl_version)(void (*)(void))GetProcAddress(ntdll, "RtlGetVersion") : 0;
+    OSVERSIONINFOW v;
+    if (e && *e)
+        return *e == '1';
+    memset(&v, 0, sizeof v);
+    v.dwOSVersionInfoSize = sizeof v;
+    return rv && rv(&v) == 0 && v.dwMajorVersion == 6;
+}
 static DWORD last_error;                /* CommDlgExtendedError's, of whichever thread ran it */
 
 static void in(OPENFILENAMEA *o, const OPENFILENAME_G *g)
@@ -33,7 +95,6 @@ static void in(OPENFILENAMEA *o, const OPENFILENAME_G *g)
     memset(o, 0, sizeof *o);
     o->lStructSize = sizeof *o;
     o->hwndOwner = W16_HWND(g->hwndOwner);
-    o->lpstrFilter = g->lpstrFilter;
     o->lpstrCustomFilter = g->lpstrCustomFilter;
     o->nMaxCustFilter = g->nMaxCustFilter;
     o->nFilterIndex = g->nFilterIndex;
@@ -46,10 +107,19 @@ static void in(OPENFILENAMEA *o, const OPENFILENAME_G *g)
        Windows' own choice is the folder used last or the user's documents */
     if (!o->lpstrInitialDir && GetCurrentDirectoryA(sizeof cwd, cwd) - 1 < sizeof cwd - 1)
         o->lpstrInitialDir = cwd;
+    o->lpstrFilter = win16_filter(g->lpstrFilter, g->nFilterIndex, g->lpstrFile, g->nMaxFile, o->lpstrInitialDir);
+    if (!o->lpstrFilter)
+        o->lpstrFilter = g->lpstrFilter;
     o->lpstrTitle = g->lpstrTitle;
     /* no hook or template from the game's module: Win32 cannot use them */
     o->Flags = g->Flags & ~(OFN_ENABLEHOOK | OFN_ENABLETEMPLATE | OFN_ENABLETEMPLATEHANDLE);
     o->lpstrDefExt = g->lpstrDefExt;
+    style = "Vista's";
+    if (xp_dialog()) {
+        o->Flags |= OFN_EXPLORER | OFN_ENABLEHOOK;
+        o->lpfnHook = xp_hook;
+        style = "XP's";
+    }
 }
 
 static void out(OPENFILENAME_G *g, const OPENFILENAMEA *o)
@@ -57,7 +127,8 @@ static void out(OPENFILENAME_G *g, const OPENFILENAMEA *o)
     g->nFilterIndex = o->nFilterIndex;
     g->nFileOffset = o->nFileOffset;
     g->nFileExtension = o->nFileExtension;
-    g->Flags = (g->Flags & (OFN_ENABLEHOOK | OFN_ENABLETEMPLATE | OFN_ENABLETEMPLATEHANDLE)) | o->Flags;
+    g->Flags = (g->Flags & (OFN_ENABLEHOOK | OFN_ENABLETEMPLATE | OFN_ENABLETEMPLATEHANDLE | OFN_EXPLORER)) |
+               (o->Flags & ~(OFN_ENABLEHOOK | OFN_EXPLORER));
 }
 
 typedef struct { OPENFILENAMEA *o; int save; BOOL r; DWORD err; } RUN;
@@ -164,9 +235,9 @@ static char run(OPENFILENAME_G *g, int save)
     if (w16_dialog_open > 1)
         w16_report("  the game took %d messages from the queue during the dialog", w16_dialog_open - 1);
     w16_dialog_open = 0;
-    pairs(filter, sizeof filter, g->lpstrFilter);
-    w16_report("%s dialog: filter \"%s\" index %lu, folder \"%s\", flags 0x%lx, apartment %s: %s \"%s\"",
-               save ? "save" : "open", filter, (unsigned long)g->nFilterIndex,
+    pairs(filter, sizeof filter, o.lpstrFilter);
+    w16_report("%s dialog (%s): filter \"%s\" index %lu, folder \"%s\", flags 0x%lx, apartment %s: %s \"%s\"",
+               save ? "save" : "open", style, filter, (unsigned long)g->nFilterIndex,
                o.lpstrInitialDir ? o.lpstrInitialDir : "", (unsigned long)o.Flags,
                h == RPC_E_CHANGED_MODE ? "multithreaded (dialog on its own thread)" : h == S_FALSE ? "single" : "none",
                x.r ? "chose" : "closed", x.r ? o.lpstrFile : "");
