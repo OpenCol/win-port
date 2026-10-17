@@ -8,8 +8,7 @@ runs on macOS and Linux. It is the same game: the same rules, the same pictures 
 the same saved games.
 
 It is made from the original program's code, reconstructed function by function and checked
-against it, so it plays exactly as the 1995 game does. The port is in pre-release: playable,
-with testers reporting what is left to fix.
+against it, so it plays exactly as the 1995 game does. 
 
 ## What is different
 
@@ -17,7 +16,7 @@ Nothing in the game itself. The rules, the computer players, the screens and the
 1995 game's; recorded games played by the original and by the port agree turn by turn, and saved
 games move freely between the two. What the port adds:
 
-- **It runs on modern systems**: Windows 7, 8, 10 and 11 (32- or 64-bit), and macOS and Linux
+- **It runs on modern systems**: Windows 7, 8, 10 and 11 (32-bit), and macOS and Linux
   through Wine. The 1995 program is a 16-bit Windows 3.1 program that 64-bit Windows cannot
   start at all.
 - **Water colour cycling**: river currents and beach surf shimmer while the map waits for your
