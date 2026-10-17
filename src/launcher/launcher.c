@@ -17,7 +17,7 @@
  * COLONIZE.EXE's SHA-256 must be the patched 1995 release's or the original's (before the patch,
  * as on the disc): the port reads only its pictures, which the two share. The original lacks
  * the patch's COLDATA9.DLL, so the Jukebox's Control Panel and the Cheat menu's dialogs are
- * missing (README.md); its COCKGUN.WAV is GUNCOCK.WAV renamed, which the unpacking writes.
+ * missing (docs/DEVELOPING.md); its COCKGUN.WAV is GUNCOCK.WAV renamed, which the unpacking writes.
  *
  * `Colonization.exe --import ISO DEST` only unpacks (the Linux and macOS kits' script runs it
  * under Wine): exit code 0 when done, the outcome on stdout and in the log.
@@ -132,7 +132,7 @@ static const char *exit_meaning(DWORD c)
 }
 
 /* the Windows edition's files the port reads: COLONIZE.EXE (its pictures), the COLDATA DLLs
-   0..8 and COLTEXT0.DLL. COLDATA9.DLL, the patch's, is not required (README.md) */
+   0..8 and COLTEXT0.DLL. COLDATA9.DLL, the patch's, is not required (docs/DEVELOPING.md) */
 static int has_game(const char *dir)
 {
     static const char *need[] = { "COLONIZE.EXE", "COLTEXT0.DLL", "COLDATA0.DLL", "COLDATA1.DLL", "COLDATA2.DLL",

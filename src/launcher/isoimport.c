@@ -16,7 +16,7 @@
  *
  * Of the patched release's files, the disc lacks COLDATA9.DLL, which the 1995 patch added: a
  * folder made from the ISO plays without the Jukebox's Control Panel and the Cheat menu's dialogs
- * (README.md). COCKGUN.WAV, the patch's other new file, is the disc's GUNCOCK.WAV renamed (the
+ * (docs/DEVELOPING.md). COCKGUN.WAV, the patch's other new file, is the disc's GUNCOCK.WAV renamed (the
  * same bytes; the patched program plays cockgun.wav, the original guncock.wav), so it is written
  * as a copy: without it Windows would play its default sound in its place (sndPlaySound flag 1,
  * no SND_NODEFAULT). Nothing here is game data: only names and hashes.
