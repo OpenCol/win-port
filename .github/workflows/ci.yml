@@ -15,34 +15,21 @@ on:
         type: boolean
         default: true
 
-jobs:
-  build:
-    # Roadmap W0: a Linux runner, the i686 MinGW build, tests under Wine (used only as a test
-    # host for the Win32 build). `import/import.py --check` needs col-win-re, which CI cannot
-    # reach; it runs locally and records its result in status/import.json.
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: STATUS.md is what status/*.json says
-        run: python3 tools/status.py --check
-      - name: include/gen is what tools/gen_headers.py writes
-        run: python3 tools/gen_headers.py --check
-      - name: Toolchains
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends \
-            gcc-mingw-w64-i686 g++-mingw-w64-i686 cmake xvfb wine wine32:i386
-      - name: Build (MinGW, 32-bit x86)
-        run: |
-          cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=toolchains/mingw-i686.cmake
-          cmake --build build
-      - name: Self-test under Wine
-        run: WINEDEBUG=-all xvfb-run -a wine build/port_selftest.exe
+# a newer push to a branch supersedes the run still going on it (pushes come in bursts; each
+# run is ~10 runner minutes, and the org's private-repo minutes are a monthly budget); a release
+# -- by hand or a v* tag -- is never cancelled
+concurrency:
+  group: ci-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' && !startsWith(github.ref, 'refs/tags/') }}
 
+jobs:
   compile:
     # Roadmap W1: every file in src/ compiles, with each toolchain. The record each run writes
     # is uploaded; tools/ci_record.py downloads it into status/ (winegcc runs only here).
+    # Each leg's link step builds the program the kits carry (W10) and uploads it: the
+    # mingw-i686 leg build/colonize.exe (32-bit, runs on 32- and 64-bit Windows), the winegcc
+    # leg the Linux program, Winelib i386 (W8). The 64-bit program (W9) is no longer released
+    # (2026-10-14). The mingw-i686 leg also runs W0 (status checks, the self-test under Wine).
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -50,15 +37,22 @@ jobs:
         toolchain: [mingw-i686, winegcc]
     steps:
       - uses: actions/checkout@v4
+      - name: STATUS.md is what status/*.json says (W0)
+        if: matrix.toolchain == 'mingw-i686'
+        run: python3 tools/status.py --check
+      - name: include/gen is what tools/gen_headers.py writes (W0)
+        if: matrix.toolchain == 'mingw-i686'
+        run: python3 tools/gen_headers.py --check
       - name: Toolchain
         run: |
+          sudo dpkg --add-architecture i386
           sudo apt-get update -q
           if [ "${{ matrix.toolchain }}" = mingw-i686 ]; then
-            sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
+            # cmake, xvfb, wine: W0's self-test (Wine is only its test host)
+            sudo apt-get install -y -q --no-install-recommends \
+              gcc-mingw-w64-i686 g++-mingw-w64-i686 cmake xvfb wine wine32:i386
           else
             # i386: the link (W8) needs Wine's 32-bit import libraries and runtime
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -q
             sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib \
               libwine-dev:i386 wine32:i386
             # the package keeps winegcc off PATH and ships no wineg++: winegcc picks C or C++ by the
@@ -69,6 +63,12 @@ jobs:
             sudo ln -sf "$w" /usr/local/bin/wineg++
             winegcc --version | head -1; wineg++ --version | head -1
           fi
+      - name: Build (MinGW, 32-bit x86) and self-test under Wine (W0)
+        if: matrix.toolchain == 'mingw-i686'
+        run: |
+          cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=toolchains/mingw-i686.cmake
+          cmake --build build
+          WINEDEBUG=-all xvfb-run -a wine build/port_selftest.exe
       - name: One file, with the commands the driver runs
         run: |
           python3 - <<'PY'
@@ -92,7 +92,7 @@ jobs:
       - name: Every file compiles (W1)
         timeout-minutes: 30
         run: python3 tools/compile_all.py --toolchain ${{ matrix.toolchain }} --record
-      - name: It links, only the W4/W5 backlog trapped (W2)
+      - name: It links, only the W4/W5 backlog trapped (W2); the Windows x86 program (W10)
         if: matrix.toolchain == 'mingw-i686'
         run: python3 tools/undefined.py
       - name: The Linux program links (W8, Winelib i386)
@@ -103,44 +103,15 @@ jobs:
         with:
           name: compile-${{ matrix.toolchain }}
           path: status/compile-${{ matrix.toolchain }}.json
-
-  programs-windows:
-    # Roadmap W10: the Windows program the kits carry -- 32-bit (MinGW i686), which runs on 32-
-    # and 64-bit Windows; tools/undefined.py compiles and links build/colonize.exe. The 64-bit
-    # program (W9) is no longer released (2026-10-14): one Windows program, the one that works.
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Toolchains
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends gcc-mingw-w64-i686 g++-mingw-w64-i686
-      - name: Windows x86 program
-        run: python3 tools/undefined.py
       - uses: actions/upload-artifact@v4
+        if: matrix.toolchain == 'mingw-i686'
         with:
           name: programs-windows
           path: |
             build/colonize.exe
           if-no-files-found: error
-
-  programs-linux:
-    # Roadmap W8/W10: the Linux program, Winelib i386 (build/linux/colonize.exe.so).
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Toolchain
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends wine64-tools gcc-multilib g++-multilib \
-            libwine-dev:i386 wine32:i386
-          w=$(command -v winegcc || dpkg -L wine64-tools | grep -E '/winegcc$' | head -1)
-          sudo ln -sf "$w" /usr/local/bin/winegcc
-          sudo ln -sf "$w" /usr/local/bin/wineg++
-      - name: Linux program
-        run: PORT_TOOLCHAIN=winegcc python3 tools/undefined.py
       - uses: actions/upload-artifact@v4
+        if: matrix.toolchain == 'winegcc'
         with:
           name: programs-linux
           path: |
@@ -153,7 +124,7 @@ jobs:
     # files (tools/kit.py). Each is a downloadable artifact of the run (the kit's own zip inside:
     # an artifact keeps no file modes, and the Linux/macOS launcher must stay executable); a v*
     # tag also publishes them as a GitHub release.
-    needs: [programs-windows, programs-linux]
+    needs: [compile]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
