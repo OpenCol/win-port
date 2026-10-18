@@ -96,11 +96,35 @@ The Linux kit is the port built against Wine's libraries, so it also needs **Win
 wine32`). Unzip it and run `./colonization "/path/to/your/Colonization"` as on macOS. Steam and
 GOG copies are unpacked into `~/.local/share/colonization-port/game`.
 
-## If something goes wrong
+## Reporting a bug
 
-Every run writes `colonization-port.log` next to `Colonization.exe` (or the `colonization`
-script): what the launcher found, your system, and, if the game stops, a report of what it was
-doing, with `colonization-port.dmp` beside it. Please send both files with your report.
+Something that does not work, works differently from the 1995 game, or stops the game: please
+[open an issue](https://github.com/OpenCol/win-port/issues/new) on GitHub (you need a free
+GitHub account). Check the [open issues](https://github.com/OpenCol/win-port/issues) first: it
+may be known already, and a comment there helps too.
+
+Every run writes a log, `colonization-port.log`, next to `Colonization.exe` (on macOS and
+Linux, next to the `colonization` script). It says what the launcher found, your system, and,
+if the game stopped, what it was doing; a crash also leaves `colonization-port.dmp` beside it.
+The log keeps every run, the newest at the end; the `.dmp` file is replaced by the next crash's,
+so take it before playing again. (If the kit's folder cannot be written to, the log is in your
+`%TEMP%` folder instead.)
+
+In the issue, please give:
+
+- **what happened**, and what you expected instead;
+- **how to make it happen again**, step by step, if you can;
+- **the port's version** (the release you downloaded, e.g. v0.1.10) and **your system**
+  (Windows 7, 10 or 11; macOS or Linux, and which Wine);
+- **your copy of the game**: Steam, GOG, or the 1995 CD (updated or not);
+- **the files**, dragged into the issue's text box:
+  - `colonization-port.log` as it is;
+  - `colonization-port.dmp`, if there is one, zipped first (GitHub takes `.zip`, not `.dmp`);
+  - a saved game just before the problem, zipped, if it happens in a game. Your saves are
+    the `.SAV` files in your game folder (see *How to run it* for where that is).
+
+The log shows the folder paths on your computer, which may include your user name; edit it out
+if you prefer.
 
 ## For developers
 
