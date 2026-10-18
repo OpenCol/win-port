@@ -3,7 +3,7 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
-## Unreleased
+## v0.1.11
 
 - **Wide screens and zooming out** (#7): a map window larger than the map -- a 2560- or
   3440-pixel-wide screen, or zoomed out on a smaller one -- showed a black band on the left and
