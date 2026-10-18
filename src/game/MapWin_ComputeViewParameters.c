@@ -1,3 +1,10 @@
+/* PORT: the view is at most the map's size, map size - 1 tiles each way, the most the clamp
+   below keeps inside the map. A window wider or taller than the map (a 2560- or 3440-pixel
+   screen, or zoomed out on a smaller one) made the view larger, and the clamp then pulled its
+   origin below column 1: the terrain was drawn shifted from the units (GenerateTerrainMapRegion
+   starts its pointers at column 1 but its pixels at the origin), discovered land showed as
+   ocean, and a click there named a square off the map (OpenCol/win-port#7). The 1995 screens
+   never had such a window. What the window shows beyond the map is black (MapWin_RedrawMap). */
 /* MapWin_ComputeViewParameters: candidate for 1038:9e82 (477 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_ComputeViewParameters
@@ -43,6 +50,11 @@ void MapWin_ComputeViewParameters(MapWin *w)
              + (rect_height_1038_dfdc(&w->rect) % tile != 0);
     g_tile_w = tile;
     g_tile_h = tile;
+    /* PORT: never more tiles than the map has (OpenCol/win-port#7) */
+    if (g_view_w > g_map_size.w - 1)
+        g_view_w = g_map_size.w - 1;
+    if (g_view_h > g_map_size.h - 1)
+        g_view_h = g_map_size.h - 1;
     g_view_x0 = g_map_center_x - (g_view_w >> 1);
     g_view_y0 = g_map_center_y - (g_view_h >> 1);
     if (g_view_x0 < 1)

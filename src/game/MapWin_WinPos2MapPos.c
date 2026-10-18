@@ -1,3 +1,6 @@
+/* PORT: a click beyond the map's last square, in a window larger than the map, is that last
+   square: the view stops at the map's size (MapWin_ComputeViewParameters), and the square
+   under the click would be off the map (OpenCol/win-port#7). */
 /* MapWin_WinPos2MapPos: candidate for 1038:a0f2 (303 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_WinPos2MapPos
@@ -28,6 +31,11 @@ int MapWin_WinPos2MapPos(MapWin *o, int x, int y, int *mx, int *my)
     tile = MapWin_TileSize(o);
     cx = x / tile;
     cy = y / tile;
+    /* PORT: a click beyond the map, in a window larger than it, is its nearest square (OpenCol/win-port#7) */
+    if (cx > g_view_w - 1)
+        cx = g_view_w - 1;
+    if (cy > g_view_h - 1)
+        cy = g_view_h - 1;
     *mx = g_view_x0 + cx;
     *my = g_view_y0 + cy;
     third = tile / 3;

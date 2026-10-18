@@ -3,6 +3,14 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## Unreleased
+
+- **Wide screens and zooming out** (#7): a map window larger than the map -- a 2560- or
+  3440-pixel-wide screen, or zoomed out on a smaller one -- showed a black band on the left and
+  drew discovered land as ocean next to its units. The map now starts at the window's left and
+  top edge, with black beyond its east and south edges, and every square is drawn where it is.
+  The 1995 game had the same flaw, but no screen of its day was large enough to show it.
+
 ## v0.1.10
 
 - **Saving works on Windows 7** (testers: the 32-bit Save button did nothing there, while the

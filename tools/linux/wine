@@ -3,7 +3,7 @@
 $PORT_LINUX_MACHINE (default colw8, amd64 Ubuntu 24.04 with wine, wine32:i386, winegcc, xvfb).
 OrbStack shows the Mac's files at the same paths in the machine, so the Z:\\ paths the tests
 write (run_port, lockstep, sessions) name the same files on both sides. The harness stays on
-the Mac; only the program runs on Linux, under an X server of its own (Xvfb, 1024x768x24).
+the Mac; only the program runs on Linux, under an X server of its own (Xvfb, 1024x768x24, or $PORT_XVFB_SCREEN).
 
     PORT_WINE=tools/linux/wine PORT_EXE=build/linux/colonize.exe.so python3 tools/run_port.py ...
 
@@ -23,7 +23,8 @@ env.append("WINEPREFIX=" + os.path.join(ROOT, "build", "wineprefix-linux"))
 tool = os.path.basename(sys.argv[0])            # wine, or wineserver (a link to this file)
 cmd = ["orb", "-m", machine, "-w", os.getcwd(), "env"] + env
 if tool == "wine":
-    cmd += ["xvfb-run", "-a", "-s", "-screen 0 1024x768x24", "wine"]
+    # $PORT_XVFB_SCREEN: another X screen, e.g. 3440x1440x24 for a player's wide screen
+    cmd += ["xvfb-run", "-a", "-s", "-screen 0 " + os.environ.get("PORT_XVFB_SCREEN", "1024x768x24"), "wine"]
 else:
     cmd += [tool]
 os.execvp("orb", cmd + sys.argv[1:])

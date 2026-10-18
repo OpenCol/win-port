@@ -1,3 +1,6 @@
+/* PORT: a window larger than the map at the current zoom is filled black before the map is
+   drawn: the view stops at the map's size (MapWin_ComputeViewParameters), and what lies beyond
+   it would otherwise keep another zoom's picture (OpenCol/win-port#7). */
 /* MapWin_RedrawMap: candidate for 1038:a76e (219 bytes).  Verdict: RELOCATABLE.
  * flags: -ml -WS -Od -Ot -3 -P
  * symbol: MapWin_RedrawMap
@@ -56,6 +59,10 @@ void MapWin_RedrawMap(void)
     SetRect(&rc, 0, 0, rect_width_1038_dfbd(&o->rect), rect_height_1038_dfdc(&o->rect));
     GRPort_ResizePort(&g_map_port, &rc);
     GRPort_ColorSync(&g_map_port, &g_game_palette);
+    /* PORT: a window larger than the map at this zoom: black beyond it (OpenCol/win-port#7) */
+    if (rect_width_1038_dfbd(&o->rect) > (g_map_size.w - 1) * MapWin_TileSize(o)
+        || rect_height_1038_dfdc(&o->rect) > (g_map_size.h - 1) * MapWin_TileSize(o))
+        GRPort_FillColor_all(&g_map_port, 0);
     SetGlobalSpriteScale(zoom, eight);
     DrawMap(1);
     GameWin_Redraw((GameWin *)&g_mini_win);
