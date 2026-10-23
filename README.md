@@ -4,51 +4,38 @@
   <a href="assets/screenshots/colony.png"><img src="assets/screenshots/preview/colony.jpg" width="32%" alt="A colony screen: buildings, fields, docks and warehouse"></a>
 </p>
 
-# Sid Meier's Colonization — the Windows port
+# Sid Meier's Colonization - Windows port
 
-**Sid Meier's Colonization for Windows** (MicroProse, 1995), rebuilt to run on today's
-computers: a native Windows program, with no emulator and no compatibility tricks, that also
-runs on macOS and Linux. It is the same game: the same rules, the same pictures and music, and
-the same saved games.
+Sid Meier's Colonization for Windows (MicroProse, 1995), rebuilt so it runs on today's computers. It's a native Windows program with no emulator and no compatibility mode, and it also runs on macOS and Linux through Wine.
 
-It is made from the original program's code, reconstructed function by function and checked
-against it, so it plays exactly as the 1995 game does. 
+It's the same game. The code was reconstructed from the original program function by function and checked against it, so the rules, the AI, the graphics, the music and the save files are all the 1995 ones.
 
-## What is different
+## What's different
 
-Nothing in the game itself. The rules, the computer players, the screens and the files are the
-1995 game's; recorded games played by the original and by the port agree turn by turn, and saved
-games move freely between the two. What the port adds:
+Not much, on purpose:
 
-- **It runs on modern systems**: Windows 7, 8, 10 and 11 (32-bit), and macOS and Linux
-  through Wine. The 1995 program is a 16-bit Windows 3.1 program that 64-bit Windows cannot
-  start at all.
-- **Water colour cycling**: river currents and beach surf shimmer while the map waits for your
-  orders, as in the DOS version. The Windows game kept the option but never animated it. It is
-  on by default; *Game Options > Water Color Cycling* turns it off.
+- It runs on modern systems. The 1995 game is a 16-bit Windows 3.1 program and 64-bit Windows won't start it at all. The port runs on Windows 7, 8, 10 and 11 (it's a 32-bit program), and on macOS and Linux with Wine.
+- Water colour cycling. Rivers and coastlines shimmer while the map waits for your orders, like in the DOS version. The Windows version had the option in its menu but never actually animated anything. It's on by default, and you can turn it off in *Game Options > Water Color Cycling*.
+
+Saved games work both ways: the port loads your old saves, and the original loads the port's.
 
 ## What you need
 
-The port contains no game files: you need your own copy of *Sid Meier's Colonization*. Any of
-these will do:
+The port doesn't include any game files, so you need your own copy of Colonization. Any of these works:
 
 | Your copy | Where to get it |
 | --- | --- |
-| **Steam**: *Sid Meier's Colonization (Classic)* | [store.steampowered.com/app/327400](https://store.steampowered.com/app/327400/) |
-| **GOG**: *Sid Meier's Colonization* | [gog.com/en/game/sid_meiers_colonization](https://www.gog.com/en/game/sid_meiers_colonization) |
-| **Colonization for Windows** (1995), installed from the CD-ROM, with or without MicroProse's update | — |
+| Steam: *Sid Meier's Colonization (Classic)* | [store.steampowered.com/app/327400](https://store.steampowered.com/app/327400/) |
+| GOG: *Sid Meier's Colonization* | [gog.com/en/game/sid_meiers_colonization](https://www.gog.com/en/game/sid_meiers_colonization) |
+| Colonization for Windows (1995) installed from the CD-ROM, patched or not | - |
 
-Steam and GOG sell the DOS release, but its CD image (`COLONIZE.ISO` on Steam, `COLONIZE.GOG` on
-GOG) also carries the Windows edition; the port takes it from there by itself. Make sure you buy
-the 1994 *Classic* game, not *Civilization IV: Colonization* (2008).
+Steam and GOG sell the DOS version, but its CD image (`COLONIZE.ISO` on Steam, `COLONIZE.GOG` on GOG) has the Windows version on it too, and the port unpacks it by itself. Just make sure you get the 1994 *Classic* game and not *Civilization IV: Colonization* (2008).
 
-Steam's and GOG's copies are the original 1995 release, before MicroProse's update. The update
-added the Jukebox's Control Panel and the Cheat menu's dialogs, which therefore do not work with
-those copies; everything else does.
+One catch: Steam and GOG have the original 1995 release, without MicroProse's later update. The update added the Jukebox's Control Panel and the Cheat menu's dialogs, so those don't work with Steam or GOG copies. Everything else does.
 
 ## Download
 
-Get the latest kit from the [releases page](https://github.com/OpenCol/win-port/releases):
+Grab the latest kit from the [releases page](https://github.com/OpenCol/win-port/releases):
 
 | Kit | For |
 | --- | --- |
@@ -60,85 +47,55 @@ Get the latest kit from the [releases page](https://github.com/OpenCol/win-port/
 
 ### Windows
 
-1. Unzip the kit. The easiest place is inside your game's folder: the Steam or GOG
-   Colonization folder (in Steam: right-click the game > *Manage* > *Browse local files*), or the
-   folder of your installed Colonization for Windows.
-2. Start `Colonization.exe`.
+1. Unzip the kit, ideally right into your game folder: the Steam or GOG Colonization folder (in Steam: right-click the game > *Manage* > *Browse local files*), or wherever your Colonization for Windows is installed.
+2. Run `Colonization.exe`.
 
-It looks for the game in the folder you started it from, in its own folder and the one above
-it, and in the folder it used last time. If it finds none there, it asks you to choose your game
-folder, and remembers your choice.
+The launcher looks for the game in the current folder, in its own folder and the one above it, and in the folder you used last time. If it can't find it, it asks you where it is and remembers the answer.
 
-With a Steam or GOG copy, the first start unpacks the Windows edition from the CD image, once,
-into `%LOCALAPPDATA%\colonization-port\game`, and plays from there: your saved games are kept in
-that folder. With an installed Colonization for Windows, they are kept in its own folder, as
-the original kept them.
+With a Steam or GOG copy, the first start unpacks the Windows version from the CD image into `%LOCALAPPDATA%\colonization-port\game` (just once), and your saves go there too. With an installed Colonization for Windows, saves stay in the game folder like they always did.
 
 ### macOS
 
-The Mac kit runs the Windows program through **Wine**, which you install first: Gcenx's builds,
-`brew install --cask wine@devel` (or from
-[github.com/Gcenx/macOS_Wine_builds](https://github.com/Gcenx/macOS_Wine_builds)). Apple's Game
-Porting Toolkit (Wine 7.7, often Homebrew's `wine64`) does not work: the game stops at its first
-sound. On Apple silicon, Rosetta 2 runs it.
+You need Wine first. Use Gcenx's build: `brew install --cask wine@devel`, or download it from [github.com/Gcenx/macOS_Wine_builds](https://github.com/Gcenx/macOS_Wine_builds). Don't use Apple's Game Porting Toolkit (Wine 7.7, often installed as Homebrew's `wine64`), because the game stops the first time it plays a sound. On Apple Silicon it runs through Rosetta 2.
 
-Unzip the kit and start it from Terminal, the first time with your game folder:
+Then unzip the kit and run it from Terminal. The first time, give it your game folder:
 
 ```sh
 ./colonization "/path/to/your/Colonization"
-./colonization                              # later: the folder is remembered
+./colonization                              # after that, it remembers the folder
 ```
 
-Without a folder it looks in the same places as on Windows, then asks. Steam and GOG copies are
-unpacked into `~/Library/Application Support/colonization-port/game`, where the saved games are
-kept.
+Without a folder it searches the same places as on Windows, and asks if it finds nothing. Steam and GOG copies get unpacked into `~/Library/Application Support/colonization-port/game`, which is also where your saves end up.
 
 ### Linux
 
-The Linux kit is the port built against Wine's libraries, so it also needs **Wine**, with its
-32-bit part (Debian or Ubuntu: `sudo dpkg --add-architecture i386 && sudo apt install wine
-wine32`). Unzip it and run `./colonization "/path/to/your/Colonization"` as on macOS. Steam and
-GOG copies are unpacked into `~/.local/share/colonization-port/game`.
+The Linux kit is built against Wine's libraries, so you need Wine with its 32-bit part (Debian or Ubuntu: `sudo dpkg --add-architecture i386 && sudo apt install wine wine32`). Unzip it and run `./colonization "/path/to/your/Colonization"`, same as on macOS. Steam and GOG copies get unpacked into `~/.local/share/colonization-port/game`.
 
-## Reporting a bug
+## Found a bug?
 
-Something that does not work, works differently from the 1995 game, or stops the game: please
-[open an issue](https://github.com/OpenCol/win-port/issues/new) on GitHub (you need a free
-GitHub account). Check the [open issues](https://github.com/OpenCol/win-port/issues) first: it
-may be known already, and a comment there helps too.
+Please [open an issue](https://github.com/OpenCol/win-port/issues/new) on GitHub (you'll need a free account). Have a quick look at the [open issues](https://github.com/OpenCol/win-port/issues) first. It might already be reported, and a comment there helps too.
 
-Every run writes a log, `colonization-port.log`, next to `Colonization.exe` (on macOS and
-Linux, next to the `colonization` script). It says what the launcher found, your system, and,
-if the game stopped, what it was doing; a crash also leaves `colonization-port.dmp` beside it.
-The log keeps every run, the newest at the end; the `.dmp` file is replaced by the next crash's,
-so take it before playing again. (If the kit's folder cannot be written to, the log is in your
-`%TEMP%` folder instead.)
+Every run writes `colonization-port.log` next to `Colonization.exe` (or next to the `colonization` script on macOS and Linux). It records what the launcher found, your system and, if the game crashed, what it was doing. A crash also leaves `colonization-port.dmp` next to it. The log keeps every run with the newest at the end, but the `.dmp` gets overwritten by the next crash, so grab it before you play again. If the kit's folder isn't writable, the log goes to your `%TEMP%` folder instead.
 
-In the issue, please give:
+It helps a lot if the issue has:
 
-- **what happened**, and what you expected instead;
-- **how to make it happen again**, step by step, if you can;
-- **the port's version** (the release you downloaded, e.g. v0.1.10) and **your system**
-  (Windows 7, 10 or 11; macOS or Linux, and which Wine);
-- **your copy of the game**: Steam, GOG, or the 1995 CD (updated or not);
-- **the files**, dragged into the issue's text box:
-  - `colonization-port.log` as it is;
-  - `colonization-port.dmp`, if there is one, zipped first (GitHub takes `.zip`, not `.dmp`);
-  - a saved game just before the problem, zipped, if it happens in a game. Your saves are
-    the `.SAV` files in your game folder (see *How to run it* for where that is).
+- what happened, and what you expected to happen
+- the steps to make it happen again, if you can
+- the port's version (e.g. v0.1.10) and your system (Windows 7, 10 or 11, or macOS or Linux and which Wine)
+- your copy of the game: Steam, GOG or the 1995 CD (patched or not)
+- the files, dragged into the issue:
+  - `colonization-port.log`
+  - `colonization-port.dmp` if there is one, zipped first (GitHub doesn't take `.dmp` files)
+  - a save from just before the problem, zipped, if it happens in a game. Saves are the `.SAV` files in your game folder (see *How to run it* above for where that is).
 
-The log shows the folder paths on your computer, which may include your user name; edit it out
-if you prefer.
+The log contains folder paths from your computer, which may include your user name. Feel free to edit that out.
 
 ## For developers
 
-How the port is built, tested and released, and where its code comes from:
-[docs/DEVELOPING.md](docs/DEVELOPING.md). Milestones and test results: [STATUS.md](STATUS.md).
-What changed in each release: [NEWS.md](NEWS.md).
+How the port is built, tested and released, and where the code comes from: [docs/DEVELOPING.md](docs/DEVELOPING.md). Milestones and test results are in [STATUS.md](STATUS.md), and what changed in each release is in [NEWS.md](NEWS.md).
 
 ---
 
 ![A sailor in the crow's nest points toward land](assets/sailor-call-accross-sea.png)
 
-*Sid Meier's Colonization* is © 1994–1995 MicroProse Software, Inc. This project is not
-affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.
+*Sid Meier's Colonization* is © 1994-1995 MicroProse Software, Inc. This project isn't affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.
