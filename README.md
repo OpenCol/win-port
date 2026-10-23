@@ -1,7 +1,7 @@
 <p align="center">
-  <a href="assets/screenshots/map-revealed.png"><img src="assets/screenshots/map-revealed.png" width="32%" alt="The map of a late game, revealed: the southern continent, roads and colonies"></a>
-  <a href="assets/screenshots/map-colonies.png"><img src="assets/screenshots/map-colonies.png" width="32%" alt="English colonies joined by roads, with plowed fields around them"></a>
-  <a href="assets/screenshots/colony.png"><img src="assets/screenshots/colony.png" width="32%" alt="A colony screen: buildings, fields, docks and warehouse"></a>
+  <a href="assets/screenshots/map-revealed.png"><img src="assets/screenshots/preview/map-revealed.jpg" width="32%" alt="The map of a late game, revealed: the southern continent, roads and colonies"></a>
+  <a href="assets/screenshots/map-colonies.png"><img src="assets/screenshots/preview/map-colonies.jpg" width="32%" alt="English colonies joined by roads, with plowed fields around them"></a>
+  <a href="assets/screenshots/colony.png"><img src="assets/screenshots/preview/colony.jpg" width="32%" alt="A colony screen: buildings, fields, docks and warehouse"></a>
 </p>
 
 # Sid Meier's Colonization — the Windows port
