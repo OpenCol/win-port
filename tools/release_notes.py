@@ -106,10 +106,9 @@ the folder used last time; failing those it asks, with a folder dialog, until on
 - **Colonization for Windows**: the game runs in its own folder, reads its pictures, sounds and
   data there and saves there, as the original did.
 - **Steam or GOG**: the launcher unpacks the Windows edition from `COLONIZE.ISO` or `COLONIZE.GOG`
-  once (a few seconds) into
-  a folder of its own -- `%LOCALAPPDATA%\\colonization-port\\game` on Windows,
-  `~/Library/Application Support/colonization-port/game` on macOS,
-  `~/.local/share/colonization-port/game` on Linux -- and the game runs and saves there.
+  once (a few seconds) into a `game` folder inside the kit's folder, and the game runs and saves
+  there. Nothing goes into your user profile. To update, unzip the new kit over the old one: the
+  `game` folder and your saves stay.
 
 If it does not start or stops: `colonization-port.log` beside the launcher says why, and a crash
 leaves `colonization-port.dmp` there too; please send both.

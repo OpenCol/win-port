@@ -8,12 +8,16 @@
  *   2. the current folder;
  *   3. this launcher's own folder, or the folder it was unzipped into (the kit put in the game
  *      folder, or in Steam's or GOG's Colonization folder);
- *   4. the folder used last time (%APPDATA%\colonization-port\gamedir.txt);
- *   5. otherwise it asks, with the folder picker, until a folder holds the game.
+ *   4. the kit's own game folder (game\ beside this launcher: a disc image unpacked before);
+ *   5. the folder used last time (gamedir.txt beside this launcher);
+ *   6. otherwise it asks, with the folder picker, until a folder holds the game.
  * In each folder: the installed Windows edition (COLONIZE.EXE and its data DLLs); else Steam's
  * COLONIZE.ISO or GOG's COLONIZE.GOG -- the DOS release's disc image, which carries the Windows
- * edition too -- in it or one folder down, unpacked once into a game folder of the port's own,
- * %LOCALAPPDATA%\colonization-port\game (isoimport.c), which is then used.
+ * edition too -- in it or one folder down, unpacked once into the kit's game folder (isoimport.c),
+ * which is then used. Nothing is kept in the user's profile: the kit is a folder of its own, and
+ * everything it writes -- the unpacked game and its saves, the folder used last time, the log --
+ * is in that folder. (Kits before v0.1.12 unpacked into %LOCALAPPDATA%\colonization-port\game
+ * and remembered the folder in %APPDATA%: a first unpacking copies the saves found there.)
  * COLONIZE.EXE's SHA-256 must be the patched 1995 release's or the original's (before the patch,
  * as on the disc): the port reads only its pictures, which the two share. The original lacks
  * the patch's COLDATA9.DLL, so the Jukebox's Control Panel and the Cheat menu's dialogs are
@@ -179,11 +183,42 @@ static int image_in(const char *dir, const char *name, char *out)
     return 0;
 }
 
+static char kit[MAX_PATH];               /* this launcher's folder: everything the kit writes is here */
+
+/* the files an older kit's unpacked folder (%LOCALAPPDATA%\colonization-port\game) has and the new
+   one does not -- the saved games -- copied over once, after the first unpacking; nothing deleted */
+static void carry_over(const char *dest)
+{
+    char base[MAX_PATH], old[MAX_PATH], pat[MAX_PATH + 4], from[2 * MAX_PATH], to[2 * MAX_PATH];
+    WIN32_FIND_DATAA fd;
+    HANDLE h;
+    int n = 0;
+    if (!SUCCEEDED(SHGetFolderPathA(0, CSIDL_LOCAL_APPDATA, 0, 0, base)))
+        return;
+    snprintf(old, sizeof old, "%s\\colonization-port\\game", base);
+    snprintf(pat, sizeof pat, "%s\\*", old);
+    if ((h = FindFirstFileA(pat, &fd)) == INVALID_HANDLE_VALUE)
+        return;
+    do {
+        if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+            continue;
+        snprintf(from, sizeof from, "%s\\%s", old, fd.cFileName);
+        snprintf(to, sizeof to, "%s\\%s", dest, fd.cFileName);
+        if (CopyFileA(from, to, TRUE)) {             /* TRUE: never over a file already there */
+            say("carried over %s from %s", fd.cFileName, old);
+            n++;
+        }
+    } while (FindNextFileA(h, &fd));
+    FindClose(h);
+    if (n)
+        say("%d file(s) carried over from the folder an older kit unpacked into (%s)", n, old);
+}
+
 /* dir holds the game -- the installed Windows edition, or a disc image (Steam, GOG), which is
-   unpacked into a folder of the port's own and dir replaced by it. 0: none of them there */
+   unpacked into the kit's game folder and dir replaced by it. 0: none of them there */
 static int resolve(char *dir)
 {
-    char img[MAX_PATH], dest[MAX_PATH], base[MAX_PATH], msg[1024], box[MAX_PATH + 1100];
+    char img[MAX_PATH], dest[MAX_PATH], msg[1024], box[MAX_PATH + 1200];
     int k;
     if (!dir[0])
         return 0;
@@ -194,9 +229,7 @@ static int resolve(char *dir)
             break;
     if (!images[k])
         return 0;
-    if (!SUCCEEDED(SHGetFolderPathA(0, CSIDL_LOCAL_APPDATA, 0, 0, base)))
-        return 0;
-    snprintf(dest, sizeof dest, "%s\\colonization-port\\game", base);
+    snprintf(dest, sizeof dest, "%s\\game", kit);
     if (has_game(dest)) {                                /* unpacked before: COLONIZE.EXE is written last */
         char from[MAX_PATH + 16], to[MAX_PATH + 16];
         say("%s: %s: using %s, unpacked from it before", dir, img, dest);
@@ -209,11 +242,14 @@ static int resolve(char *dir)
     say("%s: %s: unpacking it into %s", dir, img, dest);
     if (iso_import(img, dest, msg, sizeof msg)) {
         say("unpacking failed: %s", msg);
-        snprintf(box, sizeof box, "%s could not be unpacked:\n\n%s", img, msg);
+        snprintf(box, sizeof box, "%s could not be unpacked into\n%s:\n\n%s\n\nThe port keeps the game it "
+                 "unpacks in its own folder. If that folder cannot be written to (for example under Program "
+                 "Files), move the port's folder somewhere you can write to and start it again.", img, dest, msg);
         MessageBoxA(0, box, TITLE, MB_OK | MB_ICONEXCLAMATION);
         return 0;
     }
     say("unpacked: %s", msg);
+    carry_over(dest);
     snprintf(dir, MAX_PATH, "%s", dest);
     return 1;
 }
@@ -272,16 +308,12 @@ static int sha256_file(const char *path, char out[65])
     return ok;
 }
 
+/* the folder used last time: gamedir.txt beside this launcher (not in the user's profile); a kit
+   in a folder that cannot be written to just does not remember */
 static void remembered(char *path, int write, char *dir)
 {
-    char base[MAX_PATH];
     FILE *f;
-    if (!SUCCEEDED(SHGetFolderPathA(0, CSIDL_APPDATA, 0, 0, base)))
-        return;
-    snprintf(path, MAX_PATH, "%s\\colonization-port", base);
-    if (write)
-        CreateDirectoryA(path, 0);
-    strncat(path, "\\gamedir.txt", MAX_PATH - strlen(path) - 1);
+    snprintf(path, MAX_PATH, "%s\\gamedir.txt", kit);
     if (write) {
         if ((f = fopen(path, "w"))) {
             fputs(dir, f);
@@ -323,6 +355,7 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
     GetModuleFileNameA(0, self, sizeof self);
     if ((slash = strrchr(self, '\\')))
         *slash = 0;
+    snprintf(kit, sizeof kit, "%s", self);
     open_log(self);
     say("==== launcher %s (%s) started, %s", KIT_VERSION, sizeof(void *) == 8 ? "x64" : "x86", self);
     windows_version();
@@ -343,8 +376,9 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
          2. the current folder;
          3. this launcher's folder and the one above it (the kit unzipped into the game's folder:
             the zip has a top folder of its own);
-         4. the folder used last time (so a kit unzipped elsewhere does not ask again);
-         5. a folder the player picks, asked until one holds the game or the player cancels */
+         4. the kit's own game folder (a disc image unpacked before);
+         5. the folder used last time (so a kit unzipped elsewhere does not ask again);
+         6. a folder the player picks, asked until one holds the game or the player cancels */
     if (cmd && *cmd) {                                   /* 1 */
         snprintf(dir, sizeof dir, "%s", cmd[0] == '"' ? cmd + 1 : cmd);
         dir[strcspn(dir, "\"")] = 0;
@@ -368,13 +402,20 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
             snprintf(dir, sizeof dir, "%s", store);
     }
     if (!dir[0]) {                                       /* 4 */
+        snprintf(store, sizeof store, "%s\\game", kit);
+        if (has_game(store)) {
+            say("the kit's game folder %s, unpacked before", store);
+            snprintf(dir, sizeof dir, "%s", store);
+        }
+    }
+    if (!dir[0]) {                                       /* 5 */
         char last[MAX_PATH] = "";
         remembered(store, 0, last);
         if (last[0] && resolve(last))
             snprintf(dir, sizeof dir, "%s", last);
     }
     say("game folder %s", dir[0] ? dir : "(none found: asking)");
-    while (!dir[0]) {                                    /* 5 */
+    while (!dir[0]) {                                    /* 6 */
         char picked[MAX_PATH] = "";
         if (!pick_folder(picked)) {
             say("no folder chosen: stopped");

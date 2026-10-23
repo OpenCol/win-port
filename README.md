@@ -50,9 +50,11 @@ Grab the latest kit from the [releases page](https://github.com/OpenCol/win-port
 1. Unzip the kit, ideally right into your game folder: the Steam or GOG Colonization folder (in Steam: right-click the game > *Manage* > *Browse local files*), or wherever your Colonization for Windows is installed.
 2. Run `Colonization.exe`.
 
-The launcher looks for the game in the current folder, in its own folder and the one above it, and in the folder you used last time. If it can't find it, it asks you where it is and remembers the answer.
+The launcher looks for the game in the current folder, in its own folder and the one above it, and in the folder you used last time. If it can't find it, it asks you where it is and remembers the answer (in `gamedir.txt`, next to `Colonization.exe`).
 
-With a Steam or GOG copy, the first start unpacks the Windows version from the CD image into `%LOCALAPPDATA%\colonization-port\game` (just once), and your saves go there too. With an installed Colonization for Windows, saves stay in the game folder like they always did.
+With a Steam or GOG copy, the first start unpacks the Windows version from the CD image into a `game` folder inside the kit's folder (just once), and your saves go there too. With an installed Colonization for Windows, saves stay in the game folder like they always did.
+
+Everything the port writes stays in the kit's folder: the unpacked game, your saves, the remembered folder and the log. Nothing goes into your user profile, so you can keep the whole thing on a USB stick. To update, unzip the new kit over the old one and your `game` folder and saves stay. (Kits before v0.1.12 unpacked into your user profile instead. The first start of a newer kit copies the saves from there.)
 
 ### macOS
 
@@ -65,11 +67,11 @@ Then unzip the kit and run it from Terminal. The first time, give it your game f
 ./colonization                              # after that, it remembers the folder
 ```
 
-Without a folder it searches the same places as on Windows, and asks if it finds nothing. Steam and GOG copies get unpacked into `~/Library/Application Support/colonization-port/game`, which is also where your saves end up.
+Without a folder it searches the same places as on Windows, and asks if it finds nothing. Like on Windows, Steam and GOG copies get unpacked into a `game` folder inside the kit's folder, which is also where your saves end up.
 
 ### Linux
 
-The Linux kit is built against Wine's libraries, so you need Wine with its 32-bit part (Debian or Ubuntu: `sudo dpkg --add-architecture i386 && sudo apt install wine wine32`). Unzip it and run `./colonization "/path/to/your/Colonization"`, same as on macOS. Steam and GOG copies get unpacked into `~/.local/share/colonization-port/game`.
+The Linux kit is built against Wine's libraries, so you need Wine with its 32-bit part (Debian or Ubuntu: `sudo dpkg --add-architecture i386 && sudo apt install wine wine32`). Unzip it and run `./colonization "/path/to/your/Colonization"`, same as on macOS. Steam and GOG copies get unpacked into the kit's `game` folder.
 
 ## Found a bug?
 

@@ -38,13 +38,16 @@ TARGETS = {
 README = """Sid Meier's Colonization for Windows -- the port ({target}, {version})
 
 This is a port of the 1995 game's code to modern systems. It contains no game files:
-you need your own copy of Colonization for Windows, the updated 1995 release (the one the
-official patch produces; its COLONIZE.EXE has SHA-256 {patched}).
+you need your own copy -- Colonization for Windows (1995, patched or not; the patched
+COLONIZE.EXE has SHA-256 {patched}), or Steam's or GOG's Colonization.
 
 {how}
 
-The game runs in your game folder, reads its pictures, sounds and data there, and saves
-there, as the original did.
+Everything this kit writes stays in this folder: a Steam or GOG game it unpacked (the game
+folder) with your saves in it, the folder it remembers (gamedir), and the log. Nothing goes
+into your user profile. To update, unzip the new kit over this one: the game folder and your
+saves stay. With an installed Colonization for Windows the game runs in its own folder and
+saves there, as the original did.
 
 If it does not start or stops: every run writes colonization-port.log in this folder (the
 launcher's steps, your system, and a crash's report), and a crash also leaves
@@ -55,8 +58,8 @@ HOW = {
            "in (the one with COLONIZE.EXE), or unpack this kit into that folder.\n\n"
            "Steam's or GOG's Colonization works too: choose its folder (the one with COLONIZE.ISO or\n"
            "COLONIZE.GOG), and the "
-           "launcher unpacks the Windows edition from the disc image once, into\n"
-           "%LOCALAPPDATA%\\colonization-port\\game, and plays from there.",
+           "launcher unpacks the Windows edition from the disc image once, into the game\n"
+           "folder beside Colonization.exe, and plays from there.",
     "sh": "This is not a native {system} program: it runs through Wine, which must be installed\n"
           "first{extra}\n\n"
           "Start it from a terminal, the first time with the folder your copy is installed in (the\n"
@@ -64,7 +67,7 @@ HOW = {
           "The folder is remembered; later just ./colonization. Steam's or GOG's Colonization works\n"
           "too: give its folder (the one with COLONIZE.ISO or COLONIZE.GOG), and the script unpacks\n"
           "the Windows edition from the "
-          "disc image once (into {unpacked}) and plays from there.\n\n"
+          "disc image once (into the game folder beside this script) and plays from there.\n\n"
           "The script uses $PORT_WINE if set,\n"
           "else `wine` on PATH, else Gcenx's Wine app in /Applications, else wine64.\n"
           "$PORT_DESKTOP sets the game's window size (default 1024x768).",
@@ -123,9 +126,7 @@ def build(target, version):
                 "it stops the game the first time a sound plays.\n\n"
                 "The port here is the 32-bit Windows program, run by Wine as any Windows program is;\n"
                 "on Apple silicon, Rosetta 2 translates its x86 code.")
-        unpacked = ("~/.local/share/colonization-port/game" if target == "linux-i386"
-                    else "~/Library/Application Support/colonization-port/game")
-        how = HOW["sh"].format(system=system, extra=extra, unpacked=unpacked)
+        how = HOW["sh"].format(system=system, extra=extra)
         if target == "linux-i386":
             wrapper = os.path.join(os.path.dirname(src), "colonize.exe")
             if os.path.exists(wrapper):           # winegcc's loader stub beside the .so

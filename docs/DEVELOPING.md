@@ -79,7 +79,8 @@ Start it from a terminal, the first time with your game folder:
 ```
 
 The script looks for the game in: the folder given; its own folder (the kit unpacked into the
-game folder); the one used last time (`~/.config/colonization-port/gamedir`); `$COLONIZATION_DIR`.
+game folder); the kit's own `game` folder; the one used last time (`gamedir` beside the script);
+`$COLONIZATION_DIR`.
 It checks `COLONIZE.EXE`'s SHA-256, then runs the port in that folder, in a Wine desktop window of
 its own (`$PORT_DESKTOP`, default 1024x768). Wine is `$PORT_WINE` if set, else `wine` on PATH,
 else Gcenx's Wine app, else `wine64`. Its log is `colonization-port.log` beside the script.
@@ -148,10 +149,8 @@ The launchers take Steam's and GOG's copies as they are installed: the DOS relea
 carries the Windows edition, as Steam's `COLONIZE.ISO` (2048-byte sectors) and GOG's
 `COLONIZE.GOG` (raw 2352-byte CD sectors, Mode 1 -- the same disc; GOG's `COLDIG.BIN` is a DOS
 game file, not a disc). Given a folder with no installed Windows edition but one of those in it
-(or one folder down), they unpack the disc image's Windows edition once into
-a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows,
-`~/Library/Application Support/colonization-port/game` on macOS,
-`~/.local/share/colonization-port/game` on Linux -- and play there (`src/launcher/isoimport.c`):
+(or one folder down), they unpack the disc image's Windows edition once into the kit's own
+`game` folder, beside the launcher, and play there (`src/launcher/isoimport.c`):
 
 - the ISO 9660 image is read directly; its `INSTALL` folder's 54 data files are copied, each
   checked by SHA-256;
@@ -167,11 +166,22 @@ a game folder of their own -- `%LOCALAPPDATA%\colonization-port\game` on Windows
 The launchers look in this order, and in each folder for the installed Windows edition
 (`COLONIZE.EXE` with `COLTEXT0.DLL` and `COLDATA0`-`8.DLL`), then `COLONIZE.ISO`, then
 `COLONIZE.GOG`: the folder given on the command line; the current folder; the launcher's folder
-and the one above it (the kit unzipped into the game's folder); the folder used last time; else a
-folder the player picks (Windows' folder dialog; on macOS AppleScript's, on Linux zenity's or
-kdialog's, else a question in the terminal), asked again until one holds the game.
+and the one above it (the kit unzipped into the game's folder); the kit's own `game` folder (a disc
+image unpacked before); the folder used last time; else a folder the player picks (Windows' folder
+dialog; on macOS AppleScript's, on Linux zenity's or kdialog's, else a question in the terminal),
+asked again until one holds the game.
+
+The kit keeps nothing in the user's profile (since v0.1.12): the unpacked game and its saves, the
+folder used last time (`gamedir.txt` on Windows, `gamedir` on macOS and Linux) and the log are all
+in the kit's folder, so it can live on a USB stick and an update is a new kit unzipped over the
+old one. A kit whose folder cannot be written to cannot unpack (it says so) and does not
+remember. Kits before v0.1.12 unpacked into `%LOCALAPPDATA%\colonization-port\game`,
+`~/Library/Application Support/colonization-port/game` or `~/.local/share/colonization-port/game`;
+the first unpacking of a newer kit copies over the files found there that it does not have (the
+saves), and nothing else reads those folders. The kit's folder can be deep -- inside Steam's
+folder a save's full path is about 127 characters -- so the port's `OpenFile` opens a path of 128
+characters or more itself (`src/host/w16_file.c`), where Win32's, like Win16's, refuses it.
 
 `Colonization.exe --import IMAGE DEST` does only the unpacking; the Linux and macOS kits carry the
 same program as `bin/colonization-import.exe` and run it under Wine. Tests run on such a folder
-with `PORT_ALLOW_PREPATCH=1 COL_GAME_DIR=...` (a save's full path must stay under 128 characters,
-the Win16 `OpenFile` limit).
+with `PORT_ALLOW_PREPATCH=1 COL_GAME_DIR=...`.

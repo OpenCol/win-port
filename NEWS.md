@@ -3,6 +3,19 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## v0.1.12
+
+- The port now keeps everything in its own folder. A Steam or GOG game it unpacks goes into a
+  `game` folder next to `Colonization.exe` (or the `colonization` script), together with your
+  saves, the folder it remembers and the log. Nothing is written to your user profile any more
+  (`%LOCALAPPDATA%`, `%APPDATA%`, `~/Library/Application Support`, `~/.local/share`,
+  `~/.config`), so the whole thing can live on a USB stick. To update, unzip the new kit over
+  the old one and your `game` folder and saves stay.
+- Coming from an older kit: the first start unpacks the game again into the new place and copies
+  your saves over from the old one.
+- Saving and loading work in deep folders too. Windows' old file functions refuse a path of 128
+  characters or more, and a game inside Steam's own folder gets close to that.
+
 ## v0.1.11
 
 - **Wide screens and zooming out** (#7): a map window larger than the map -- a 2560- or

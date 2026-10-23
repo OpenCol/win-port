@@ -4,16 +4,19 @@
 # Runs the port (bin/) under Wine in the folder of your copy of Colonization for Windows: the
 # port reads the game's own files there and saves there, as the original did. No game file is
 # in the kit. The folder is: the argument; the current folder; this folder or the one above it, if
-# the kit was unzipped into the game folder (or Steam's or GOG's Colonization folder); the one used
-# last time (~/.config/colonization-port/gamedir); $COLONIZATION_DIR; else one the player picks
-# (the system's folder dialog: AppleScript on macOS, zenity or kdialog on Linux; else a question).
+# the kit was unzipped into the game folder (or Steam's or GOG's Colonization folder); the kit's
+# own game folder (game/ beside this script: a disc image unpacked before); the one used last time
+# (gamedir beside this script); $COLONIZATION_DIR; else one the player picks (the system's folder
+# dialog: AppleScript on macOS, zenity or kdialog on Linux; else a question).
 #
 # In each folder: the installed Windows edition (COLONIZE.EXE and its data DLLs); else a disc image
 # with the Windows edition -- Steam's COLONIZE.ISO or GOG's COLONIZE.GOG, the DOS release's disc --
-# in it or one folder down, unpacked once into a game folder of the kit's own --
-# ~/Library/Application Support/colonization-port/game on macOS,
-# ~/.local/share/colonization-port/game on Linux -- by bin/colonization-import.exe (the Windows
-# launcher's --import, src/launcher/isoimport.c) under Wine, and that folder is used.
+# in it or one folder down, unpacked once into the kit's game folder by bin/colonization-import.exe
+# (the Windows launcher's --import, src/launcher/isoimport.c) under Wine, and that folder is used.
+# Nothing is kept in the user's home: everything the kit writes -- the unpacked game and its saves,
+# the folder used last time, the log -- is in the kit's folder. (Kits before v0.1.12 unpacked into
+# ~/Library/Application Support/colonization-port/game or ~/.local/share/colonization-port/game and
+# remembered the folder in ~/.config: a first unpacking copies the saves found there.)
 # COLONIZE.EXE must be the 1995 release, patched or the original (its SHA-256 is checked); the
 # original lacks the patch's COLDATA9.DLL (the Jukebox's Control Panel, the Cheat menu's dialogs)
 # and COCKGUN.WAV (GUNCOCK.WAV renamed, which the unpacking writes).
@@ -26,11 +29,12 @@ set -e
 PATCHED=59a0e173452924603112cf410483021c02ef0cd3512e310d8966b21e0c176291
 PREPATCH=ae7d9149f056766a534fe8f0006c9512aac1e1004e9776ab3cca818e4833b650
 here=$(cd "$(dirname "$0")" && pwd)
-conf="${XDG_CONFIG_HOME:-$HOME/.config}/colonization-port"
-if [ "$(uname)" = Darwin ]; then
-    unpacked="$HOME/Library/Application Support/colonization-port/game"
+unpacked="$here/game"            # a disc image's Windows edition, unpacked once
+remembered="$here/gamedir"       # the folder used last time
+if [ "$(uname)" = Darwin ]; then # where kits before v0.1.12 unpacked to: its saves are carried over
+    old_unpacked="$HOME/Library/Application Support/colonization-port/game"
 else
-    unpacked="${XDG_DATA_HOME:-$HOME/.local/share}/colonization-port/game"
+    old_unpacked="${XDG_DATA_HOME:-$HOME/.local/share}/colonization-port/game"
 fi
 
 winpath() { printf 'Z:%s' "$(printf %s "$1" | tr / '\\')"; }   # Wine's name for a Unix path (Z: is /)
@@ -91,9 +95,16 @@ resolve() {     # $1 holds the game: the installed Windows edition, or a disc im
         [ -f "$unpacked/COCKGUN.WAV" ] || cp "$unpacked/GUNCOCK.WAV" "$unpacked/COCKGUN.WAV" 2>/dev/null || true
     else
         echo "Colonization: $img: unpacking the Windows edition into $unpacked" >&2
-        mkdir -p "$unpacked"
+        mkdir -p "$unpacked" 2>/dev/null ||
+            { echo "Colonization: $unpacked cannot be created: put the kit in a folder you can write to." >&2; exit 6; }
         "$wine" "$here/bin/colonization-import.exe" --import "$(winpath "$img")" "$(winpath "$unpacked")" ||
-            { echo "Colonization: $img could not be unpacked (see above)." >&2; exit 6; }
+            { echo "Colonization: $img could not be unpacked into $unpacked (see above)." >&2; exit 6; }
+        # the files an older kit's unpacked folder has and this one does not -- the saved games
+        for f in "$old_unpacked"/*; do
+            if [ -f "$f" ] && [ ! -e "$unpacked/$(basename "$f")" ]; then
+                cp "$f" "$unpacked/" && echo "Colonization: carried over $(basename "$f") from $old_unpacked" >&2
+            fi
+        done
     fi
     game=$unpacked
 }
@@ -115,10 +126,11 @@ pick_folder() { # the system's folder dialog; a question in the terminal where t
 # where the game is, in this order -- in each folder the installed Windows edition first, then
 # Steam's COLONIZE.ISO, then GOG's COLONIZE.GOG (resolve): the folder given; the current folder;
 # this script's folder and the one above it (the kit unzipped into the game's folder: the zip has
-# a top folder of its own); the folder used last time; $COLONIZATION_DIR; then a folder the player
-# picks, asked until one holds the game or the player cancels
+# a top folder of its own); the kit's own game folder; the folder used last time;
+# $COLONIZATION_DIR; then a folder the player picks, asked until one holds the game or the player
+# cancels
 game=""
-for d in "$1" "$PWD" "$here" "$(dirname "$here")" "$(cat "$conf/gamedir" 2>/dev/null)" "$COLONIZATION_DIR"; do
+for d in "$1" "$PWD" "$here" "$(dirname "$here")" "$unpacked" "$(cat "$remembered" 2>/dev/null)" "$COLONIZATION_DIR"; do
     resolve "$d" && break
 done
 while [ -z "$game" ]; do
@@ -144,7 +156,7 @@ elif [ "$sum" != "$PATCHED" ]; then
     echo "It needs the 1995 release of Colonization for Windows (SHA-256 $PATCHED, or the original's)." >&2
     exit 4
 fi
-mkdir -p "$conf" && echo "$game" > "$conf/gamedir"
+echo "$game" > "$remembered" 2>/dev/null || true   # a kit in a read-only folder just does not remember
 
 prog=$(ls "$here"/bin/colonize.exe.so "$here"/bin/colonize.exe 2>/dev/null | head -1)
 # the port's log (and a crash's report and minidump) beside this script, as Wine names it
