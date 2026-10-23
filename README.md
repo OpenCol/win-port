@@ -1,4 +1,8 @@
-![A sailor in the crow's nest points toward land](assets/sailor-call-accross-sea.png)
+<p align="center">
+  <a href="assets/screenshots/map-revealed.png"><img src="assets/screenshots/map-revealed.png" width="32%" alt="The map of a late game, revealed: the southern continent, roads and colonies"></a>
+  <a href="assets/screenshots/map-colonies.png"><img src="assets/screenshots/map-colonies.png" width="32%" alt="English colonies joined by roads, with plowed fields around them"></a>
+  <a href="assets/screenshots/colony.png"><img src="assets/screenshots/colony.png" width="32%" alt="A colony screen: buildings, fields, docks and warehouse"></a>
+</p>
 
 # Sid Meier's Colonization — the Windows port
 
@@ -133,6 +137,8 @@ How the port is built, tested and released, and where its code comes from:
 What changed in each release: [NEWS.md](NEWS.md).
 
 ---
+
+![A sailor in the crow's nest points toward land](assets/sailor-call-accross-sea.png)
 
 *Sid Meier's Colonization* is © 1994–1995 MicroProse Software, Inc. This project is not
 affiliated with or endorsed by MicroProse, Take-Two Interactive, Firaxis Games or Sid Meier.
