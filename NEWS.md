@@ -5,6 +5,11 @@ section for the version being released).
 
 ## v0.1.12
 
+- **New World maps** (#5): a generated map put mountains on nearly every square next to the
+  sea. One step of the generator reads the memory just past the four world options. The
+  original always finds 0 there, so the step runs 800 times. The port read a
+  different value from that spot and ran the step millions of times. It now runs 800 times,
+  like the original, and the land is mostly flat again. America's map was never affected.
 - The port now keeps everything in its own folder. A Steam or GOG game it unpacks goes into a
   `game` folder next to `Colonization.exe` (or the `colonization` script), together with your
   saves, the folder it remembers and the log. Nothing is written to your user profile any more

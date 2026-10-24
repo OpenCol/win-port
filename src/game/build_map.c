@@ -328,7 +328,10 @@ void build_map(int loaded)
         }
         build_check(0);
     }
-    for (n = 0; g_world_opt[4] * 0x320 + 0x320 > n; n++) {
+    /* PORT: g_world_opt[4] is SEG22:0x0008, the word past the four options: 0 in the EXE and
+     * never written, so the original always scatters 0x320 points. The port's array has four,
+     * and [4] read g_wrap_font: millions of points, a mountain on every coast (OpenCol/win-port#5) */
+    for (n = 0; 0x320 > n; n++) {
         if ((n & 1) != 0) {
             r = rand_range(0, 8);
             x += g_dir_dx[r];
