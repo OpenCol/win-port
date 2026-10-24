@@ -15,6 +15,12 @@ section for the version being released).
   your saves over from the old one.
 - Saving and loading work in deep folders too. Windows' old file functions refuse a path of 128
   characters or more, and a game inside Steam's own folder gets close to that.
+- When the game stops responding, the log now says where it stopped. Windows marks a window
+  "Not Responding" after five seconds without a message, and closing it then ended the game with
+  0xCFFFFFFF and nothing in the log, which the launcher called "a crash". Now the stalled code's
+  stack goes into the log as `hang` lines, a `colonize-port-hang.dmp` is saved next to it, and
+  the launcher calls that exit a hang. The log's header also lists the CD drives: the music is
+  CD audio, and the game waits on the drive.
 
 ## v0.1.11
 

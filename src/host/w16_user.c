@@ -519,6 +519,7 @@ int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned 
 int w16_PeekMessage(MSG_G *g, unsigned hwnd, unsigned lo, unsigned hi, unsigned remove)
 {
     MSG m;
+    w16_hang_test();                      /* $PORT_HANG_TEST's stall (w16_crash.c) */
     for (;;) {
         if (!PeekMessageA(&m, W16_HWND(hwnd), lo, hi, remove)) {
             if (w16_script())

@@ -34,6 +34,7 @@ typedef struct { int16_t x, y; } POINT16;
 unsigned w16_token(HANDLE h);          /* the token for h, made on first sight */
 HANDLE w16_handle(unsigned token);     /* the Win32 handle behind a token */
 void w16_report(const char *fmt, ...);  /* a line in $PORT_LOG, traced or not */
+void w16_hang_test(void);                /* $PORT_HANG_TEST: the game stops once, for the hang report (w16_crash.c) */
 extern int w16_dialog_open;              /* a common dialog runs its own message loop (w16_commdlg.c) */
 const char *w16_log_path(void);        /* $PORT_LOG, or the player's default (w16_crash.c) */
 void w16_crash_install(void);          /* the log and crash report: first thing at startup */

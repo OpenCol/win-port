@@ -129,6 +129,7 @@ static const char *exit_meaning(DWORD c)
     case 0xC000007B: return "bad image format (a 64-bit program on 32-bit Windows, or a broken DLL)";
     case 0xC0000142: return "a DLL failed to initialise";
     case 0xC000013A: return "stopped with Ctrl+C or by closing the console";
+    case 0xCFFFFFFF: return "not responding: Windows closed it (a hang, not a crash; the log's \"hang\" lines say where)";
     case 0x40010004: return "ended by the debugger or Task Manager";
     case 1: return "ended with code 1 (killed, or the game quit with an error)";
     }

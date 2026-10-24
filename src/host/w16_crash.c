@@ -13,6 +13,14 @@
  * ("ntdll.dll+0x2e3be"). A fault no handler takes is reported again if it differs, and a
  * minidump goes beside the log (colonize-port.dmp), for a debugger.
  *
+ * A hang is not a fault: Windows marks the window "Not Responding" after five seconds without a
+ * message taken, and a player who then closes it ends the program with 0xCFFFFFFF
+ * (STATUS_APPLICATION_HANG) and no report. So a watch thread asks IsHungAppWindow of the
+ * program's windows each second; on a hang, the stalled thread's registers and stack go to the
+ * log as `hang` lines, as a crash's do, and a minidump beside it (colonize-port-hang.dmp). Not
+ * under Wine (its IsHungAppWindow never says a window is hung) nor in a lockstep run, unless
+ * $PORT_HANG_TEST (milliseconds) asks: then the game also stops that long in one PeekMessage.
+ *
  * The handler allocates nothing: the log is opened at startup and written with WriteFile from
  * buffers on the stack, because the fault may be a corrupt heap (a bad free reaching ntdll).
  * The full report runs once (a fault while reporting is not reported); later faults a handler
@@ -27,7 +35,7 @@
 #include <dbghelp.h>
 
 static HANDLE log_file = INVALID_HANDLE_VALUE;
-static char log_path[MAX_PATH + 32], dump_path[MAX_PATH + 32];
+static char log_path[MAX_PATH + 32], dump_path[MAX_PATH + 32], hang_dump_path[MAX_PATH + 32];
 static LPTOP_LEVEL_EXCEPTION_FILTER prev_filter;
 static DWORD first_code;
 static PVOID first_at;
@@ -121,26 +129,28 @@ static const char *code_name(DWORD c)
     case 0xC0000096: return "privileged instruction";
     case 0xC0000006: return "in-page error (the file went away?)";
     case 0xC000008E: case 0xC0000090: case 0xC0000091: case 0xC0000093: return "floating point";
+    case 0xCFFFFFFF: return "not responding";
     }
     return "fault";
 }
 
 void w16_crash_install(void);
 
-/* the whole report: `tag` names its first lines ("crash", "unhandled") */
-static void report(EXCEPTION_POINTERS *e, const char *tag, const char *frame_tag)
+/* the whole report: `tag` names its first lines ("crash", "unhandled", "hang"); the stack is
+   `thread`'s, lo..hi */
+static void report(EXCEPTION_POINTERS *e, const char *tag, const char *frame_tag, DWORD thread, uintptr_t lo,
+                   uintptr_t hi)
 {
     DWORD code = e->ExceptionRecord->ExceptionCode;
     uintptr_t at = (uintptr_t)e->ExceptionRecord->ExceptionAddress;
-    NT_TIB *tib = (NT_TIB *)NtCurrentTeb();
-    uintptr_t *bp, *sp, lo, hi;
+    uintptr_t *bp, *sp;
     char t[64];
     unsigned msg;
     void *hwnd;
     int i, n;
     SYSTEMTIME now;
     GetLocalTime(&now);
-    say("%s: %s, thread %lu, %02u:%02u:%02u\n", tag, code_name(code), GetCurrentThreadId(), now.wHour,
+    say("%s: %s, thread %lu, %02u:%02u:%02u\n", tag, code_name(code), thread, now.wHour,
         now.wMinute, now.wSecond);
     _snprintf(t, sizeof t, "%s code ", tag);
     line(t, code);
@@ -184,8 +194,6 @@ static void report(EXCEPTION_POINTERS *e, const char *tag, const char *frame_tag
 #else
     sp = 0;
 #endif
-    lo = (uintptr_t)tib->StackLimit;
-    hi = (uintptr_t)tib->StackBase;
 #ifdef _WIN64
     {   /* Win64: unwind by the tables (a frame pointer is not a chain here), from the fault */
         CONTEXT ctx = *e->ContextRecord;
@@ -252,8 +260,34 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
     }
     first_code = code;
     first_at = e->ExceptionRecord->ExceptionAddress;
-    report(e, "crash", "frame ");
+    report(e, "crash", "frame ", GetCurrentThreadId(), (uintptr_t)((NT_TIB *)NtCurrentTeb())->StackLimit,
+           (uintptr_t)((NT_TIB *)NtCurrentTeb())->StackBase);
     return EXCEPTION_CONTINUE_SEARCH;
+}
+
+/* a minidump at `path`, for a debugger: the fault's, or (e null) the whole process's */
+static void minidump(const char *path, const char *tag, EXCEPTION_POINTERS *e)
+{
+    typedef BOOL (WINAPI *dump_fn)(HANDLE, DWORD, HANDLE, MINIDUMP_TYPE, PMINIDUMP_EXCEPTION_INFORMATION,
+                                   PMINIDUMP_USER_STREAM_INFORMATION, PMINIDUMP_CALLBACK_INFORMATION);
+    HMODULE dbg;
+    dump_fn dump;
+    if (path[0] && (dbg = LoadLibraryA("dbghelp.dll")) &&
+        (dump = (dump_fn)(void (*)(void))GetProcAddress(dbg, "MiniDumpWriteDump"))) {
+        HANDLE f = CreateFileA(path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+        MINIDUMP_EXCEPTION_INFORMATION x;
+        x.ThreadId = GetCurrentThreadId();
+        x.ExceptionPointers = e;
+        x.ClientPointers = FALSE;
+        if (f != INVALID_HANDLE_VALUE) {
+            BOOL ok = dump(GetCurrentProcess(), GetCurrentProcessId(), f,
+                           (MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory |
+                                           MiniDumpWithUnloadedModules), e ? &x : 0, 0, 0);
+            CloseHandle(f);
+            say("%s: minidump %s %s\n", tag, path, ok ? "written" : "failed");
+        } else
+            say("%s: minidump %s could not be created (%lu)\n", tag, path, GetLastError());
+    }
 }
 
 /* a fault nothing handled: the process ends here. Said (again, if it is not the first one),
@@ -261,31 +295,13 @@ static LONG CALLBACK on_fault(EXCEPTION_POINTERS *e)
 static LONG WINAPI on_unhandled(EXCEPTION_POINTERS *e)
 {
     static volatile LONG once;
-    typedef BOOL (WINAPI *dump_fn)(HANDLE, DWORD, HANDLE, MINIDUMP_TYPE, PMINIDUMP_EXCEPTION_INFORMATION,
-                                   PMINIDUMP_USER_STREAM_INFORMATION, PMINIDUMP_CALLBACK_INFORMATION);
     if (log_file != INVALID_HANDLE_VALUE && !InterlockedExchange(&once, 1)) {
-        HMODULE dbg;
-        dump_fn dump;
         if (e->ExceptionRecord->ExceptionCode == first_code && e->ExceptionRecord->ExceptionAddress == first_at)
             say("unhandled: the crash above ends the program\n");
         else
-            report(e, "unhandled", "unhandled frame ");
-        if (dump_path[0] && (dbg = LoadLibraryA("dbghelp.dll")) &&
-            (dump = (dump_fn)(void (*)(void))GetProcAddress(dbg, "MiniDumpWriteDump"))) {
-            HANDLE f = CreateFileA(dump_path, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-            MINIDUMP_EXCEPTION_INFORMATION x;
-            x.ThreadId = GetCurrentThreadId();
-            x.ExceptionPointers = e;
-            x.ClientPointers = FALSE;
-            if (f != INVALID_HANDLE_VALUE) {
-                BOOL ok = dump(GetCurrentProcess(), GetCurrentProcessId(), f,
-                               (MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory |
-                                               MiniDumpWithUnloadedModules), &x, 0, 0);
-                CloseHandle(f);
-                say("unhandled: minidump %s %s\n", dump_path, ok ? "written" : "failed");
-            } else
-                say("unhandled: minidump %s could not be created (%lu)\n", dump_path, GetLastError());
-        }
+            report(e, "unhandled", "unhandled frame ", GetCurrentThreadId(),
+                   (uintptr_t)((NT_TIB *)NtCurrentTeb())->StackLimit, (uintptr_t)((NT_TIB *)NtCurrentTeb())->StackBase);
+        minidump(dump_path, "unhandled", e);
     }
     return prev_filter ? prev_filter(e) : EXCEPTION_CONTINUE_SEARCH;
 }
@@ -343,6 +359,7 @@ const char *w16_log_path(void)
         s = strrchr(dump_path, '.');
         if (s && !strchr(s, '\\') && !strchr(s, '/'))
             *s = 0;
+        _snprintf(hang_dump_path, sizeof hang_dump_path - 1, "%s-hang.dmp", dump_path);
         strcat(dump_path, ".dmp");
     }
     return log_path[0] ? log_path : 0;
@@ -407,6 +424,17 @@ static void header(void)
         FindClose(h);
     }
     say("game files: %d .DLL, %d .WAV\n", dlls, waves);
+    {   /* the music is CD audio, and the game asks the drive while it waits: which drives there are
+           (only their letters: asking for the disc could spin one up) */
+        char drives[128] = "", *d, list[64] = "";
+        if (GetLogicalDriveStringsA(sizeof drives - 1, drives) < sizeof drives)
+            for (d = drives; *d; d += strlen(d) + 1)
+                if (GetDriveTypeA(d) == DRIVE_CDROM && strlen(list) + 4 < sizeof list) {
+                    strncat(list, d, 2);
+                    strcat(list, " ");
+                }
+        say("cd drives: %s\n", list[0] ? list : "none");
+    }
     if ((dc = GetDC(0)) != 0) {
         say("screen %dx%d, %d bits per pixel, %d planes, %s, %d dpi\n", GetDeviceCaps(dc, HORZRES),
             GetDeviceCaps(dc, VERTRES), GetDeviceCaps(dc, BITSPIXEL), GetDeviceCaps(dc, PLANES),
@@ -418,6 +446,133 @@ static void header(void)
     if (GlobalMemoryStatusEx(&mem))
         say("memory %lu MB free of %lu MB\n", (unsigned long)(mem.ullAvailPhys >> 20),
             (unsigned long)(mem.ullTotalPhys >> 20));
+}
+
+/* ------------------------------------------------------------------ hangs */
+
+static int hang_test_ms;
+
+/* $PORT_HANG_TEST's stall: the game stops in one PeekMessage, once, two seconds in (w16_user.c) */
+void w16_hang_test(void)
+{
+    static DWORD start;
+    if (!hang_test_ms)
+        return;
+    if (!start)
+        start = GetTickCount();
+    else if (GetTickCount() - start > 2000) {
+        int ms = hang_test_ms;
+        hang_test_ms = 0;
+        say("hang test: the game stops %d ms\n", ms);
+        Sleep(ms);
+    }
+}
+
+typedef struct { HWND hwnd; DWORD thread; } HUNG;
+
+/* Windows' own test, the one behind "Not Responding". Wine's never says so: under it, the test
+   run asks the window instead (a WM_NULL that is not answered in 2 seconds) */
+static int hung(HWND h)
+{
+    DWORD_PTR r;
+    if (!getenv("PORT_HANG_TEST"))
+        return IsHungAppWindow(h);
+    return !SendMessageTimeoutA(h, WM_NULL, 0, 0, SMTO_ABORTIFHUNG | SMTO_BLOCK, 2000, &r) &&
+           GetLastError() == ERROR_TIMEOUT;
+}
+
+static BOOL CALLBACK find_hung(HWND h, LPARAM lp)
+{
+    HUNG *x = (HUNG *)lp;
+    DWORD pid = 0, tid = GetWindowThreadProcessId(h, &pid);
+    if (pid != GetCurrentProcessId() || !IsWindowVisible(h) || !hung(h))
+        return TRUE;
+    x->hwnd = h;
+    x->thread = tid;
+    return FALSE;
+}
+
+/* the stalled thread's registers and stack, read while it is suspended: a crash's report */
+static void report_hang(DWORD tid)
+{
+    HANDLE t = OpenThread(THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT | THREAD_QUERY_INFORMATION, FALSE, tid);
+    CONTEXT c;
+    EXCEPTION_RECORD r;
+    EXCEPTION_POINTERS e;
+    MEMORY_BASIC_INFORMATION m;
+    uintptr_t sp;
+    if (!t) {
+        say("hang: thread %lu could not be opened (%lu)\n", tid, GetLastError());
+        return;
+    }
+    if (SuspendThread(t) == (DWORD)-1) {
+        say("hang: thread %lu could not be suspended (%lu)\n", tid, GetLastError());
+        CloseHandle(t);
+        return;
+    }
+    memset(&c, 0, sizeof c);
+    c.ContextFlags = CONTEXT_FULL;
+    if (GetThreadContext(t, &c)) {
+        memset(&r, 0, sizeof r);
+        r.ExceptionCode = 0xCFFFFFFF;
+#ifdef _WIN64
+        sp = (uintptr_t)c.Rsp;
+        r.ExceptionAddress = (PVOID)(uintptr_t)c.Rip;
+#else
+        sp = (uintptr_t)c.Esp;
+        r.ExceptionAddress = (PVOID)(uintptr_t)c.Eip;
+#endif
+        e.ExceptionRecord = &r;
+        e.ContextRecord = &c;
+        /* the committed stack from the stack pointer up is one region: its top is the stack's base */
+        if (VirtualQuery((void *)sp, &m, sizeof m))
+            report(&e, "hang", "hang frame ", tid, sp, (uintptr_t)m.BaseAddress + m.RegionSize);
+    } else
+        say("hang: thread %lu's registers could not be read (%lu)\n", tid, GetLastError());
+    ResumeThread(t);
+    CloseHandle(t);
+}
+
+/* each second: is a window of the program "Not Responding"? Said once a hang, with the stalled
+   thread's stack (the first three) and a minidump (the first) */
+static DWORD WINAPI watch_hangs(void *unused)
+{
+    DWORD since = 0;
+    int hangs = 0;
+    (void)unused;
+    for (;;) {
+        HUNG x = {0, 0};
+        Sleep(1000);
+        EnumWindows(find_hung, (LPARAM)&x);
+        if (x.hwnd && !since) {
+            since = GetTickCount();
+            if (++hangs <= 3) {
+                say("hang: window %p (thread %lu) is not responding: no message taken for 5 seconds\n",
+                    (void *)x.hwnd, x.thread);
+                report_hang(x.thread);
+                if (hangs == 1)
+                    minidump(hang_dump_path, "hang", 0);
+            }
+        } else if (!x.hwnd && since) {
+            if (hangs <= 3)
+                say("hang: responding again after %lu s more\n", (GetTickCount() - since) / 1000);
+            since = 0;
+        }
+    }
+    return 0;
+}
+
+static void start_hang_watch(void)
+{
+    HMODULE ntdll = GetModuleHandleA("ntdll.dll");
+    const char *test = getenv("PORT_HANG_TEST");
+    HANDLE t;
+    if (test)
+        hang_test_ms = atoi(test);
+    else if ((ntdll && GetProcAddress(ntdll, "wine_get_version")) || getenv("PORT_LOCKSTEP"))
+        return;
+    if ((t = CreateThread(0, 0, watch_hangs, 0, 0, 0)) != 0)
+        CloseHandle(t);
 }
 
 /* At startup, before anything else of the port's runs: the initial data's constructor calls it
@@ -445,6 +600,8 @@ void w16_crash_install(void)
             say("note: the initial data was loaded before this report was set up\n");
     }
     AddVectoredExceptionHandler(1, on_fault);
+    if (log_file != INVALID_HANDLE_VALUE)
+        start_hang_watch();
     prev_filter = SetUnhandledExceptionFilter(on_unhandled);
     atexit(on_exit_);
     if (getenv("PORT_CRASH_TEST"))   /* the report's own test: a write to that address */

@@ -5935,6 +5935,7 @@ extern void w16_forget(unsigned token);
 extern HWND w16_grab_click(int x, int y, POINT *client);
 extern int w16_grab_write(const char *path);
 extern HANDLE w16_handle(unsigned token);
+extern void w16_hang_test(void);
 extern int w16_lockstep(void);
 extern void w16_lockstep_idle(void);
 extern int w16_lockstep_kill_timer(HWND h, unsigned id);
