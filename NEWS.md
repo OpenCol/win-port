@@ -3,13 +3,22 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
-## v0.1.12
+## v0.1.13
 
 - **New World maps** (#5): a generated map put mountains on nearly every square next to the
   sea. One step of the generator reads the memory just past the four world options. The
-  original always finds 0 there, so the step runs 800 times. The port read a
-  different value from that spot and ran the step millions of times. It now runs 800 times,
-  like the original, and the land is mostly flat again. America's map was never affected.
+  original always finds 0 there, so the step runs 800 times. The port read a different value
+  from that spot and ran the step millions of times. It now runs 800 times, like the original,
+  and the land is mostly flat again. America's map was never affected.
+- When the game stops responding, the log now says where it stopped. Windows marks a window
+  "Not Responding" after five seconds without a message, and closing it then ended the game with
+  0xCFFFFFFF and nothing in the log, which the launcher called "a crash". Now the stalled code's
+  stack goes into the log as `hang` lines, a `colonize-port-hang.dmp` is saved next to it, and
+  the launcher calls that exit a hang. The log's header also lists the CD drives: the music is
+  CD audio, and the game waits on the drive.
+
+## v0.1.12
+
 - The port now keeps everything in its own folder. A Steam or GOG game it unpacks goes into a
   `game` folder next to `Colonization.exe` (or the `colonization` script), together with your
   saves, the folder it remembers and the log. Nothing is written to your user profile any more
@@ -20,12 +29,6 @@ section for the version being released).
   your saves over from the old one.
 - Saving and loading work in deep folders too. Windows' old file functions refuse a path of 128
   characters or more, and a game inside Steam's own folder gets close to that.
-- When the game stops responding, the log now says where it stopped. Windows marks a window
-  "Not Responding" after five seconds without a message, and closing it then ended the game with
-  0xCFFFFFFF and nothing in the log, which the launcher called "a crash". Now the stalled code's
-  stack goes into the log as `hang` lines, a `colonize-port-hang.dmp` is saved next to it, and
-  the launcher calls that exit a hang. The log's header also lists the CD drives: the music is
-  CD audio, and the game waits on the drive.
 
 ## v0.1.11
 
