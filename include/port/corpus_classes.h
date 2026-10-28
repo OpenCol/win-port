@@ -127,11 +127,11 @@ typedef struct {
     long on_click, draw_sprite;
     MemBlock arena;
     void *radios;
-    void *checks;
-    void *edit_boxes;
-    void *buttons;
+    SCheckBox *checks;
+    SEditBox *edit_boxes;
+    SButton *buttons;
     void *listbox;
-    void *regions;
+    SRegion *regions;
     char *extra_labels[3];
     ButtonSlot btn[6];
 } Popup;

@@ -42,6 +42,7 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int MapWin_TileSize(MapWin *w);
+extern "C" void port_slide_step(void);   /* PORT: src/host/slide_delay.c (issue #6) */
 
 
 void MapWin_SlideIcon(MapWin *w, int u, int flags, int other, register int x1,
@@ -109,6 +110,7 @@ void MapWin_SlideIcon(MapWin *w, int u, int flags, int other, register int x1,
         GRPort_CopyToPort(&port, w, &r1, &r2);
         PieceDraw_noport(u, flags, ux + half, uy, g_tile_w, g_icon_h);
         copy_rect_to_screen_1038_e38f(w, &r2);
+        port_slide_step(); /* PORT: pace each step; the 1995 loop ran at the machine's speed, instant today (src/host/slide_delay.c, issue #6) */
         ux += dxs;
         uy += dys;
     }
