@@ -134,7 +134,7 @@ extern "C" void win_enable_1010_e4d4(void *p);   /* PORT: C linkage, as defined 
 typedef struct {
     char text[0x50];                  /* BP-166 */
     unsigned char input_amount[16];  /* BP-116 */
-    int stock_delta[16];             /* BP-106 */
+    i16 stock_delta[16];             /* BP-106 */  /* PORT: i16, Issue #10 - i16 rather than int, required in order to properly memset colony stock */
     int job_good[25];                /* BP-e6 */
     int job_amount[19];              /* BP-b4 */
     char pad_d8[0x0c];
