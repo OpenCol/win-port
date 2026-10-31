@@ -3,6 +3,22 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## v0.1.14
+
+- **Check boxes keep what you set** (#9): unticking a box in the Custom House, or Fast Piece
+  Slide in the options, looked fine until the window closed, and then nothing had changed. The
+  port read every box after the first one from the wrong place in memory. It now reads each box
+  from its own. Thanks to Ross Drew.
+- **Units slide at a speed you can watch** (#6): the 1995 game moved a unit across a square as
+  fast as the computer could draw it. That was slow enough to follow on a 1995 PC but looks like
+  teleporting today. Each step of the slide now waits 12 ms, so a normal move takes about a fifth
+  of a second, and Fast Piece Slide is still twice as fast. Set `PORT_SLIDE_MS` to change the
+  wait, or to 0 to turn it off. Thanks to Ross Drew.
+- **No more free horses and muskets** (#10): the colonist profession menu could hand out horses,
+  muskets and other goods the colony didn't have. Part of the list of goods a job needs wasn't
+  cleared first, and leftover values were added to the colony's stock. It's now cleared in full,
+  as in the original. Thanks to Ross Drew.
+
 ## v0.1.13
 
 - **New World maps** (#5): a generated map put mountains on nearly every square next to the
