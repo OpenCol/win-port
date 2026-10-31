@@ -42,7 +42,6 @@ extern void GRPort_CopyToPort(GRPort *src, GRPort *dst, RECT *sr, RECT *dr);
 
 /* same object: 4-byte `push cs; call ` (rule 47) */
 extern "C" int MapWin_TileSize(MapWin *w);
-extern "C" void port_slide_step(void);   /* PORT: src/host/slide_delay.c (issue #6) */
 
 
 void MapWin_SlideIcon(MapWin *w, int u, int flags, int other, register int x1,
