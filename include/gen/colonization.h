@@ -5482,6 +5482,7 @@ extern void port_scroll_left(MagicWin *s, int step, RECT *r);
 extern void port_scroll_right(MagicWin *s, int step, RECT *r);
 extern void port_scroll_up(MagicWin *s, int step, RECT *r);
 extern void port_set_capture(Screen *w);
+extern void port_slide_step(void);
 extern int port_stride(GRPort *port);
 extern int port_stride_1068_986d(GRPort *p);
 extern void *port_surface_1068_989f(GRPort *port);

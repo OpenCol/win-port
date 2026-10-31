@@ -1,5 +1,6 @@
 /* PORT: a window's DialogWin base is PORT_DIALOG_BASE (sizeof(GRPort)), not the game's 0x26: 12 bytes further on 64-bit (W9). */
 /* PORT: this file's own declarations of DrawKingo, MSHideWindow_of_1050_8cd8, Popup_draw, ctl_get_text, ctl_sel_text, get_checked_1050_8d83, get_w_77a, listbox_get_text_1050_8d5d, win_disable_1050_8c93, win_enable_1050_82e1 removed: the header declares them from the definition (W1 step 3). */
+/* PORT: explicit DlgControl * casts for ctl_get_text: the C view of Popup now types its control arrays (include/port/corpus_classes.h), where void * converted implicitly. */
 /* Popup_exec: candidate for 1050:50c4 (901 bytes).  Verdict: RELOCATABLE.
  * size-source: 901, not the census 892. The trailing 9 bytes are the dead second epilogue.
  * name-source: sibling-build
@@ -92,10 +93,10 @@ int Popup_exec(Popup *popup, char *text)
     while ((popup->flags & 0x400) == 0)
         MSDoTask_1050_8d23();
     if (text != 0 && popup->edit_boxes != 0)
-        ctl_get_text(popup->edit_boxes, text);
+        ctl_get_text((DlgControl *)popup->edit_boxes, text);
     if (popup->n_edits > 1) {
         for (i = 0; popup->n_edits > i; i++)
-            ctl_get_text(&popup->edit_boxes[i], g_name_slots[i]);
+            ctl_get_text((DlgControl *)&popup->edit_boxes[i], g_name_slots[i]);
     }
     if (popup->flags & 0x1000) {
         if (popup->result == 0) {

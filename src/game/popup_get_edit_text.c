@@ -1,4 +1,5 @@
 /* PORT: this file's own declarations of ctl_get_text removed: the header declares it from the definition (W1 step 3). */
+/* PORT: explicit DlgControl * casts for ctl_get_text: the C view of Popup now types its control arrays (include/port/corpus_classes.h), where void * converted implicitly. */
 /* popup_get_edit_text: candidate for 1050:0fd8 (49 bytes, 1 caller).  Verdict: RELOCATABLE.
  *
  * Reads the text of edit box i of the popup's 40-byte edit-box array (pointer at +0x3a8) into the buffer p, through ctl_get_text.
@@ -14,5 +15,5 @@
 /* same object: 4-byte `push cs; call ` (rule 47) */
 void popup_get_edit_text(Popup *control, int i, void *p)
 {
-    ctl_get_text(&control->edit_boxes[i], p);
+    ctl_get_text((DlgControl *)&control->edit_boxes[i], p);
 }
