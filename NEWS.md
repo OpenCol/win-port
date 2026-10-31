@@ -3,6 +3,12 @@
 Each release's entry here heads its release notes on GitHub (tools/release_notes.py takes the
 section for the version being released).
 
+## v1.0.0
+
+- The first full release: earlier versions were all marked pre-releases. The game is the same
+  as v0.1.14, so see that entry below for the latest fixes. Coming from an older kit, unzip this
+  one over it and your `game` folder and saves stay.
+
 ## v0.1.14
 
 - **Check boxes keep what you set** (#9): unticking a box in the Custom House, or Fast Piece
